@@ -1,14 +1,12 @@
 package com.procialize.singleevent.Activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -16,24 +14,19 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.procialize.singleevent.Adapter.EventAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
-import com.procialize.singleevent.GetterSetter.EventList;
 import com.procialize.singleevent.GetterSetter.EventListing;
 import com.procialize.singleevent.GetterSetter.Login;
 import com.procialize.singleevent.GetterSetter.UserEventList;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
-
-import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
