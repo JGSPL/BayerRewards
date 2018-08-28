@@ -1,0 +1,198 @@
+package com.procialize.singleevent.Adapter;
+
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
+import com.procialize.singleevent.Activity.SpeakerDetailsActivity;
+import com.procialize.singleevent.ApiConstant.ApiConstant;
+import com.procialize.singleevent.GetterSetter.AttendeeList;
+import com.procialize.singleevent.GetterSetter.SpeakerList;
+import com.procialize.singleevent.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+/**
+ * Created by Naushad on 10/31/2017.
+ */
+
+public class SpeakerAdapter extends RecyclerView.Adapter<SpeakerAdapter.MyViewHolder> implements Filterable {
+
+    private List<SpeakerList> speakerLists;
+    private Context context;
+
+    private List<SpeakerList> speakerListFiltered;
+    private SpeakerAdapterListner listener;
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public TextView nameTv, locationTv,designtionTv;
+        public ImageView profileIv;
+        public ProgressBar progressView;
+        private LinearLayout mainLL;
+
+        public MyViewHolder(View view) {
+            super(view);
+            nameTv =  view.findViewById(R.id.nameTv);
+            locationTv =  view.findViewById(R.id.locationTv);
+            designtionTv = view.findViewById(R.id.designtionTv);
+
+            profileIv =  view.findViewById(R.id.profileIV);
+
+            progressView = view.findViewById(R.id.progressView);
+
+            mainLL =  view.findViewById(R.id.mainLL);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // send selected contact in callback
+                    listener.onContactSelected(speakerListFiltered.get(getAdapterPosition()));
+                }
+            });
+
+        }
+    }
+
+
+    public SpeakerAdapter(Context context,List<SpeakerList> speakerLists,SpeakerAdapterListner listener) {
+        this.speakerLists = speakerLists;
+        this.speakerListFiltered = speakerLists;
+        this.listener = listener;
+        this.context=context;
+    }
+
+    @Override
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.speakerlistingrow, parent, false);
+
+        return new MyViewHolder(itemView);
+    }
+
+    @Override
+    public void onBindViewHolder(final MyViewHolder holder, int position) {
+        final SpeakerList speaker = speakerListFiltered.get(position);
+
+        if(speaker.getFirstName().equalsIgnoreCase("N A")){
+            holder.nameTv.setText("");
+        }else {
+
+            holder.nameTv.setText(speaker.getFirstName()+" "+speaker.getLastName());
+        }
+
+        if(speaker.getCity().equalsIgnoreCase("N A")){
+            holder.locationTv.setText("");
+        }else {
+            holder.locationTv.setText(speaker.getCity());
+        }
+
+        if(speaker.getDesignation().equalsIgnoreCase("N A")) {
+            holder.designtionTv.setText("");
+        }else {
+            holder.designtionTv.setText(speaker.getDesignation());
+        }
+
+
+
+        if(speaker.getProfilePic()!=null) {
+
+
+            Glide.with(context).load(ApiConstant.speaker + speaker.getProfilePic())
+                    .apply(RequestOptions.skipMemoryCacheOf(true))
+                    .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE)).listener(new RequestListener<Drawable>() {
+                @Override
+                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                    holder.progressView.setVisibility(View.GONE);
+                    holder.profileIv.setImageResource(R.drawable.profilepic_placeholder);
+                    return true;
+                }
+
+                @Override
+                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                    holder.progressView.setVisibility(View.GONE);
+                    return false;
+                }
+            }).into(holder.profileIv).onLoadStarted(context.getDrawable(R.drawable.profilepic_placeholder));
+        }else
+        {
+            holder.progressView.setVisibility(View.GONE);
+
+        }
+//        ImageSize targetSize = new ImageSize(10, 10);
+    }
+
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    speakerListFiltered = speakerLists;
+                } else {
+                    List<SpeakerList> filteredList = new ArrayList<>();
+                    for (SpeakerList row : speakerLists) {
+
+                        // name match condition. this might differ depending on your requirement
+                        // here we are looking for name or phone number match
+                        String name = row.getFirstName().toLowerCase() + " " + row.getLastName().toLowerCase();
+
+                        if (name.contains(charString.toLowerCase())) {
+                            filteredList.add(row);
+                        }
+                    }
+
+                    speakerListFiltered = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = speakerListFiltered;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                speakerListFiltered = (ArrayList<SpeakerList>) filterResults.values;
+
+                if (speakerListFiltered.size() == 0) {
+//                    Toast.makeText(context, "No Speaker Found", Toast.LENGTH_SHORT).show();
+                }
+                // refresh the list with filtered data
+                notifyDataSetChanged();
+            }
+        };
+    }
+
+    @Override
+    public int getItemCount() {
+        return speakerListFiltered.size();
+    }
+
+    public interface SpeakerAdapterListner {
+        void onContactSelected(SpeakerList attendee);
+    }
+}

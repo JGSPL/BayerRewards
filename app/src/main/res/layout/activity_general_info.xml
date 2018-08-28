@@ -1,0 +1,154 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical"
+    tools:context="com.procialize.singleevent.Fragments.FeedFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colortoolbar"
+                android:contentInsetEnd="0dp"
+                android:contentInsetLeft="0dp"
+                android:contentInsetRight="0dp"
+                android:contentInsetStart="0dp"
+                android:elevation="@dimen/elevation"
+                android:minHeight="?attr/actionBarSize"
+                app:contentInsetEnd="0dp"
+                app:contentInsetLeft="0dp"
+                app:contentInsetRight="0dp"
+                app:contentInsetStart="0dp">
+
+
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_back" />
+
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="-10dp"
+                    android:contentDescription=" "
+                    android:src="@drawable/splashlogo" />
+
+            </android.support.v7.widget.Toolbar>
+
+
+        </android.support.design.widget.AppBarLayout>
+
+
+        <com.procialize.singleevent.Fonts.RobotoTextview
+            android:id="@+id/pullrefresh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/appBarLayout"
+            android:gravity="center"
+            android:padding="@dimen/padding"
+            android:text="@string/refresh"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textsizesmall" />
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/generalInforefresh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pullrefresh">
+
+            <LinearLayout
+                android:id="@+id/linearlayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/genHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="10dp"
+                    android:elevation="10dp"
+                    android:text="General Info"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:visibility="invisible" />
+
+
+                <TextView
+                    android:id="@+id/weather_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/agendabg"
+                    android:drawableRight="@drawable/ic_rightarrow"
+                    android:elevation="10dp"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="TIME &amp; WEATHER"
+                    android:textColor="@color/black"
+                    android:visibility="gone" />
+
+
+                <TextView
+                    android:id="@+id/abtcurency_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/agendabg"
+                    android:drawableRight="@drawable/ic_rightarrow"
+                    android:elevation="10dp"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Currency Converter"
+                    android:textColor="@color/black"
+                    android:visibility="gone"
+                    android:textAllCaps="true"/>
+
+
+
+                <TextView
+                    android:id="@+id/about_hotel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/agendabg"
+                    android:drawableRight="@drawable/ic_rightarrow"
+                    android:elevation="10dp"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="About Hotel"
+                    android:textColor="@color/black"
+                    android:visibility="gone" />
+
+
+            </LinearLayout>
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </RelativeLayout>
+
+
+</LinearLayout>

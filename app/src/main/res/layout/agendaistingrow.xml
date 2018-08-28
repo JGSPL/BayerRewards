@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@android:color/transparent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+     <com.procialize.singleevent.Fonts.RobotoTextview
+         android:gravity="center_vertical"
+         android:id="@+id/tvheading"
+         android:text="gfd"
+         android:textColor="@color/black"
+         android:layout_marginLeft="10dp"
+         android:layout_marginRight="10dp"
+         android:padding="5dp"
+         android:textSize="@dimen/textsizenormal"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content" />
+
+     <LinearLayout
+         android:id="@+id/mainLL"
+         android:elevation="@dimen/elevation"
+         android:padding="5dp"
+         android:translationZ="@dimen/elevation"
+         android:background="@drawable/agendabg"
+         android:layout_margin="@dimen/margin"
+         android:orientation="horizontal"
+         android:weightSum="10"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_weight="9"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <com.procialize.singleevent.Fonts.RobotoTextview
+                android:paddingLeft="5dp"
+                android:textSize="@dimen/textsizesmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/designationTv"
+                android:layout_alignTop="@+id/imageView"
+                android:text="Abheejit Saxena"
+                android:textColor="@color/black"
+                android:id="@+id/nameTv" />
+            <com.procialize.singleevent.Fonts.RobotoTextview
+                android:paddingLeft="5dp"
+                android:id="@+id/dateTv"
+                android:textSize="@dimen/textsizesmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/nameTv"
+                android:layout_toEndOf="@+id/imageView"
+                android:text="Simens LTD"
+                android:textColor="@color/colorAccent" />
+            <com.procialize.singleevent.Fonts.RobotoTextview
+                android:paddingLeft="5dp"
+                android:textSize="@dimen/textsizesmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/designationTv"
+                android:layout_toEndOf="@+id/imageView"
+                android:text="Delhi"
+                android:textColor="@color/colorAccent"
+                android:id="@+id/descriptionTv" />
+        </LinearLayout>
+
+         <LinearLayout
+             android:gravity="center"
+             android:layout_weight="1"
+             android:layout_width="0dp"
+             android:layout_height="match_parent">
+
+             <ImageView
+                 android:src="@drawable/ic_rightarrow"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content" />
+
+         </LinearLayout>
+
+
+     </LinearLayout>
+
+
+
+    </LinearLayout>

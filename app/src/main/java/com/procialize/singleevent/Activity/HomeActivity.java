@@ -1,0 +1,819 @@
+package com.procialize.singleevent.Activity;
+
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
+import com.procialize.singleevent.Adapter.CustomMenuAdapter;
+import com.procialize.singleevent.ApiConstant.ApiConstant;
+import com.procialize.singleevent.CustomTools.CustomViewPager;
+import com.procialize.singleevent.Fragments.AgendaFragment;
+import com.procialize.singleevent.Fragments.AttendeeFragment;
+import com.procialize.singleevent.Fragments.FeedFragment;
+import com.procialize.singleevent.Fragments.GeneralInfo;
+import com.procialize.singleevent.Fragments.WallFragment_POST;
+import com.procialize.singleevent.GetterSetter.EventMenuSettingList;
+import com.procialize.singleevent.GetterSetter.EventSettingList;
+import com.procialize.singleevent.InnerDrawerActivity.AgendaActivity;
+import com.procialize.singleevent.InnerDrawerActivity.AttendeeActivity;
+import com.procialize.singleevent.InnerDrawerActivity.DocumentsActivity;
+import com.procialize.singleevent.InnerDrawerActivity.EngagementActivity;
+import com.procialize.singleevent.InnerDrawerActivity.EventInfoActivity;
+
+import com.procialize.singleevent.InnerDrawerActivity.FeedBackActivity;
+import com.procialize.singleevent.InnerDrawerActivity.GalleryActivity;
+import com.procialize.singleevent.InnerDrawerActivity.GeneralInfoActivity;
+import com.procialize.singleevent.InnerDrawerActivity.LivePollActivity;
+import com.procialize.singleevent.InnerDrawerActivity.MyTravelActivity;
+import com.procialize.singleevent.InnerDrawerActivity.NotificationActivity;
+import com.procialize.singleevent.InnerDrawerActivity.QAAttendeeActivity;
+import com.procialize.singleevent.InnerDrawerActivity.QASpeakerActivity;
+import com.procialize.singleevent.InnerDrawerActivity.QRGeneratorActivity;
+import com.procialize.singleevent.InnerDrawerActivity.QRScanActivity;
+import com.procialize.singleevent.InnerDrawerActivity.QuizActivity;
+import com.procialize.singleevent.InnerDrawerActivity.SpeakerActivity;
+import com.procialize.singleevent.InnerDrawerActivity.VideoActivity;
+import com.procialize.singleevent.R;
+import com.procialize.singleevent.Session.SessionManager;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import cn.jzvd.JZVideoPlayerStandard;
+
+import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.READ_CONTACTS;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.VIBRATE;
+import static android.Manifest.permission.WRITE_CONTACTS;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
+
+public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter.CustomMenuAdapterListner {
+
+    RecyclerView menurecycler;
+    private Toolbar toolbar;
+    private TabLayout tabLayout;
+    private CustomViewPager viewPager;
+    private NavigationView navigationView;
+    private DrawerLayout drawerLayout;
+    SessionManager session;
+    List<EventSettingList> eventSettingLists;
+    List<EventMenuSettingList> eventMenuSettingLists;
+    String side_menu = "0", side_menu_my_travel = "0", side_menu_notification = "0", side_menu_display_qr = "0", side_menu_qr_scanner = "0",
+            side_menu_quiz = "0", side_menu_live_poll = "0", side_menu_survey = "0",
+            side_menu_feedback = "0", side_menu_gallery_video = "0", gallery_video_native = "0", gallery_video_youtube = "0",
+            side_menu_image_gallery = "0", selfie_contest = "0", video_contest = "0",
+            side_menu_event_info = "0", side_menu_document = "0", side_menu_engagement = "0",
+            engagement_selfie_contest = "0", engagement_video_contest = "0",
+            news_feed_video = "0", QA_speaker = "0", QA_session = "0", side_menu_attendee = "0", side_menu_speaker = "0", side_menu_agenda = "0";
+    String news_feed = "0", attendee = "0", speaker = "0", agenda = "0", edit_profile = "0";
+
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String MY_PREFS_LOGIN = "ProcializeLogin";
+    String MY_EVENT = "EventId";
+    String eventid;
+    String email, password;
+    CustomMenuAdapter customMenuAdapter;
+    TextView logout, home, contactus, eventname, switchbt;
+    String eventnamestr;
+    public static final int RequestPermissionCode = 8;
+
+    private int[] tabIcons = {
+            R.drawable.ic_newsfeed,
+            R.drawable.ic_agenda,
+            R.drawable.ic_attendee,
+            R.drawable.general_info
+    };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+
+        if (CheckingPermissionIsEnabledOrNot()) {
+//            Toast.makeText(MainActivity.this, "All Permissions Granted Successfully", Toast.LENGTH_LONG).show();
+        }
+
+        // If, If permission is not enabled then else condition will execute.
+        else {
+            //Calling method to enable permission.
+            RequestMultiplePermission();
+        }
+
+        initializeView();
+    }
+
+    private void initializeView() {
+
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        eventid = prefs.getString("eventid", "");
+        eventnamestr = prefs.getString("eventnamestr", "");
+
+//        SharedPreferences.Editor editor = getSharedPreferences(MY_EVENT, MODE_PRIVATE).edit();
+//        editor.putString("eventid",eventid);
+//        editor.apply();
+
+        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_LOGIN, MODE_PRIVATE).edit();
+        editor.putString("loginfirst", "1");
+        editor.apply();
+
+//        Intent intent = getIntent();
+//        eventid = intent.getStringExtra("eventId");
+//        eventnamestr = intent.getStringExtra("eventnamestr");
+
+
+//        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+//        editor.putString("eventid", eventid);
+//        editor.putString("eventnamestr", eventnamestr);
+//        editor.putString("loginfirst", "1");
+//        editor.apply();
+
+        session = new SessionManager(getApplicationContext());
+        eventSettingLists = new ArrayList<>();
+        eventMenuSettingLists = new ArrayList<>();
+
+        // get user data from session
+        HashMap<String, String> user = session.getUserDetails();
+
+        // name
+        email = user.get(SessionManager.KEY_EMAIL);
+        password = user.get(SessionManager.KEY_PASSWORD);
+
+
+        if (session != null) {
+            eventSettingLists = session.loadEventList();
+            eventMenuSettingLists = session.loadMenuEventList();
+            Setting(eventSettingLists);
+        }
+
+    }
+
+    private void afterSettingView() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+
+        viewPager = (CustomViewPager) findViewById(R.id.viewpager);
+        viewPager.setPagingEnabled(false);
+        setupViewPager(viewPager);
+
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+        setupTabIcons();
+
+
+        //Initializing NavigationView
+        navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        menurecycler = navigationView.findViewById(R.id.menurecycler);
+        logout = navigationView.findViewById(R.id.logout);
+        home = navigationView.findViewById(R.id.home);
+        contactus = navigationView.findViewById(R.id.contactus);
+        switchbt = navigationView.findViewById(R.id.switchbt);
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                JZVideoPlayerStandard.releaseAllVideos();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                session.logoutUser();
+//                SharedPreferences settings = getSharedPreferences(MY_PREFS_LOGIN, 0);
+//                if (settings.contains("loginfirst")) {
+//                    SharedPreferences.Editor editor = settings.edit();
+//                    editor.remove("loginfirst");
+//                    editor.apply();
+//                }
+                Intent main = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(main);
+                finish();
+            }
+        });
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent main = new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(main);
+                finish();
+            }
+        });
+
+
+        contactus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent main = new Intent(getApplicationContext(), WebViewActivity.class);
+                startActivity(main);
+
+            }
+        });
+
+        switchbt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+                if (prefs.contains("eventnamestr")) {
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.remove("eventnamestr");
+                    editor.commit();
+                }
+                if (prefs.contains("eventid")) {
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.remove("eventid");
+                    editor.commit();
+                }
+
+                Intent main = new Intent(getApplicationContext(), EventChooserActivity.class);
+                main.putExtra("email", email);
+                main.putExtra("password", password);
+                startActivity(main);
+                finish();
+            }
+        });
+
+        int resId = R.anim.layout_animation_slide_right;
+        LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
+        menurecycler.setLayoutAnimation(animation);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        menurecycler.setLayoutManager(mLayoutManager);
+
+
+        if (eventMenuSettingLists != null) {
+            customMenuAdapter = new CustomMenuAdapter(this, eventMenuSettingLists, this);
+            menurecycler.setAdapter(customMenuAdapter);
+            customMenuAdapter.notifyDataSetChanged();
+        }
+
+
+        profiledetails();
+
+
+        // Initializing Drawer Layout and ActionBarToggle
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.openDrawer, R.string.closeDrawer) {
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                // Code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
+                super.onDrawerClosed(drawerView);
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
+//                profiledetails();
+                super.onDrawerOpened(drawerView);
+            }
+        };
+
+        //Setting the actionbarToggle to drawer layout
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+
+        //calling sync state is necessay or else your hamburger icon wont show up
+        actionBarDrawerToggle.syncState();
+
+        if (side_menu.equalsIgnoreCase("0")) {
+            navigationView.setVisibility(View.GONE);
+        } else {
+            navigationView.setVisibility(View.VISIBLE);
+
+        }
+
+    }
+
+
+    public void profiledetails() {
+
+        View header = navigationView.getHeaderView(0);
+        RelativeLayout outer = (RelativeLayout) findViewById(R.id.my);
+
+
+        TextView nameTv = (TextView) outer.findViewById(R.id.nameTv);
+        TextView lastNameTv = (TextView) outer.findViewById(R.id.lastNameTv);
+        TextView designationTv = (TextView) outer.findViewById(R.id.designationTv);
+        TextView compantyTv = (TextView) outer.findViewById(R.id.compantyTv);
+        final ImageView profileIV = (ImageView) outer.findViewById(R.id.profileIV);
+        final ProgressBar progressView = (ProgressBar) outer.findViewById(R.id.progressView);
+
+        eventname = outer.findViewById(R.id.eventname);
+
+        eventname.setText(eventnamestr);
+
+
+        ImageView editIv = outer.findViewById(R.id.editIv);
+
+
+        if (edit_profile.equalsIgnoreCase("1")) {
+            editIv.setVisibility(View.VISIBLE);
+
+        } else {
+
+            editIv.setVisibility(View.GONE);
+
+        }
+
+
+        editIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SharedPreferences mypref = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+                String event_id = mypref.getString("eventid", "");
+                String eventnamestr = mypref.getString("eventnamestr", "");
+
+                Intent Profile = new Intent(getApplicationContext(), ProfileActivity.class);
+//                Profile.putExtra("eventId", event_id);
+//                Profile.putExtra("eventnamestr", eventnamestr);
+                startActivity(Profile);
+                finish();
+            }
+        });
+
+
+        // get user data from session
+        HashMap<String, String> user = session.getUserDetails();
+
+        // name
+        String name = user.get(SessionManager.KEY_NAME);
+        String lname = user.get(SessionManager.KEY_LNAME);
+
+        // designation
+        String designation = user.get(SessionManager.KEY_DESIGNATION);
+
+        // company
+        String company = user.get(SessionManager.KEY_COMPANY);
+
+        //profilepic
+        String profilepic = user.get(SessionManager.KEY_PIC);
+
+
+        nameTv.setText(name);//+"  "+lname);
+        lastNameTv.setText(lname);
+        designationTv.setText(designation);
+        compantyTv.setText(company);
+
+        if (profilepic != null) {
+            Glide.with(this).load(ApiConstant.profilepic + profilepic).listener(new RequestListener<Drawable>() {
+                @Override
+                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                    progressView.setVisibility(View.GONE);
+                    profileIV.setImageResource(R.drawable.profilepic_placeholder);
+                    return true;
+                }
+
+                @Override
+                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                    progressView.setVisibility(View.GONE);
+                    return false;
+                }
+            }).into(profileIV).onLoadStarted(getDrawable(R.drawable.profilepic_placeholder));
+        } else {
+            progressView.setVisibility(View.GONE);
+        }
+
+    }
+
+    private void setupTabIcons() {
+
+        if (tabLayout.getTabAt(0) != null) {
+            if (tabLayout.getTabAt(0).getText().equals("News Feed")) {
+                tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+            } else if (tabLayout.getTabAt(0).getText().equals("Agenda")) {
+                tabLayout.getTabAt(0).setIcon(tabIcons[1]);
+            } else if (tabLayout.getTabAt(0).getText().equals("Attendees")) {
+                tabLayout.getTabAt(0).setIcon(tabIcons[2]);
+            } else if (tabLayout.getTabAt(0).getText().equals("General Info")) {
+                tabLayout.getTabAt(0).setIcon(tabIcons[3]);
+            }
+        }
+
+
+        if (tabLayout.getTabAt(1) != null) {
+            if (tabLayout.getTabAt(1).getText().equals("News Feed")) {
+                tabLayout.getTabAt(1).setIcon(tabIcons[0]);
+            } else if (tabLayout.getTabAt(1).getText().equals("Agenda")) {
+                tabLayout.getTabAt(1).setIcon(tabIcons[1]);
+            } else if (tabLayout.getTabAt(1).getText().equals("Attendees")) {
+                tabLayout.getTabAt(1).setIcon(tabIcons[2]);
+            } else if (tabLayout.getTabAt(1).getText().equals("General Info")) {
+                tabLayout.getTabAt(1).setIcon(tabIcons[3]);
+            }
+        }
+
+
+        if (tabLayout.getTabAt(2) != null) {
+            if (tabLayout.getTabAt(2).getText().equals("News Feed")) {
+                tabLayout.getTabAt(2).setIcon(tabIcons[0]);
+            } else if (tabLayout.getTabAt(2).getText().equals("Agenda")) {
+                tabLayout.getTabAt(2).setIcon(tabIcons[1]);
+            } else if (tabLayout.getTabAt(2).getText().equals("Attendees")) {
+                tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+            } else if (tabLayout.getTabAt(2).getText().equals("General Info")) {
+                tabLayout.getTabAt(2).setIcon(tabIcons[3]);
+            }
+        }
+
+
+        if (tabLayout.getTabAt(3) != null) {
+            if (tabLayout.getTabAt(3).getText().equals("News Feed")) {
+                tabLayout.getTabAt(3).setIcon(tabIcons[0]);
+            } else if (tabLayout.getTabAt(3).getText().equals("Agenda")) {
+                tabLayout.getTabAt(3).setIcon(tabIcons[1]);
+            } else if (tabLayout.getTabAt(3).getText().equals("Attendees")) {
+                tabLayout.getTabAt(3).setIcon(tabIcons[2]);
+            } else if (tabLayout.getTabAt(3).getText().equals("General Info")) {
+                tabLayout.getTabAt(3).setIcon(tabIcons[3]);
+            }
+        }
+
+//
+//        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+//            //noinspection ConstantConditions
+//            TextView tv=(TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab,null);
+//            ImageView imageView= (ImageView) LayoutInflater.from(this).inflate(R.layout.custom_tab,null);
+//            if (i==0)
+//            {
+//                tv.setText("News Feed");
+//                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_newsfeed) );
+//            }else if (i==1)
+//            {
+//                tv.setText("Agenda");
+//                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_newsfeed) );
+//            }else if (i==2)
+//            {
+//                tv.setText("Attendees");
+//
+//            }else if (i==3)
+//            {
+//                tv.setText("Speakers");
+//            }
+//            tabLayout.getTabAt(i).setCustomView(tv);
+//
+//        }
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        if (news_feed.equalsIgnoreCase("1")) {
+            adapter.addFragment(new WallFragment_POST(), "News Feed");
+        }
+        if (agenda.equalsIgnoreCase("1")) {
+            adapter.addFragment(new AgendaFragment(), "Agenda");
+        }
+        if (attendee.equalsIgnoreCase("1")) {
+            adapter.addFragment(new AttendeeFragment(), "Attendees");
+        }
+        if (speaker.equalsIgnoreCase("1")) {
+            adapter.addFragment(new GeneralInfo(), "General Info");
+        }
+        viewPager.setAdapter(adapter);
+    }
+
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        super.onResume();
+    }
+
+    private void Setting(List<EventSettingList> eventSettingLists) {
+
+        if (eventSettingLists.size() != 0) {
+            for (int i = 0; i < eventSettingLists.size(); i++) {
+                if (eventSettingLists.get(i).getFieldName().equals("side_menu")) {
+                    side_menu = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_my_travel")) {
+                    side_menu_my_travel = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_notification")) {
+                    side_menu_notification = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_display_qr")) {
+                    side_menu_display_qr = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_qr_scanner")) {
+                    side_menu_qr_scanner = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_quiz")) {
+                    side_menu_quiz = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_live_poll")) {
+                    side_menu_live_poll = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_survey")) {
+                    side_menu_survey = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_feedback")) {
+                    side_menu_feedback = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_gallery_video")) {
+                    side_menu_gallery_video = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("gallery_video_native")) {
+                    gallery_video_native = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("gallery_video_youtube")) {
+                    gallery_video_youtube = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_image_gallery")) {
+                    side_menu_image_gallery = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("selfie_contest")) {
+                    selfie_contest = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("video_contest")) {
+                    video_contest = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_document")) {
+                    side_menu_document = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("news_feed_video")) {
+                    news_feed_video = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("news_feed")) {
+                    news_feed = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("attendee")) {
+                    attendee = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("speaker")) {
+                    speaker = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("agenda")) {
+                    agenda = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("edit_profile")) {
+                    edit_profile = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("Q&A_session")) {
+                    QA_session = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("Q&A_speaker")) {
+                    QA_speaker = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("side_menu_engagement")) {
+                    side_menu_engagement = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("engagement_selfie_contest")) {
+                    engagement_selfie_contest = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("engagement_video_contest")) {
+                    engagement_video_contest = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_event_info")) {
+                    side_menu_event_info = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_agenda")) {
+                    side_menu_agenda = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_attendee")) {
+                    side_menu_attendee = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_speaker")) {
+                    side_menu_speaker = eventSettingLists.get(i).getFieldValue();
+                }
+
+            }
+        }
+
+        afterSettingView();
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+        builder.setTitle("Exit");
+        builder.setMessage("Are you sure you want to exit?");
+        builder.setNegativeButton("NO",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        dialog.dismiss();
+                    }
+                });
+        builder.setPositiveButton("YES",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        finish();
+                    }
+                });
+        builder.show();
+    }
+
+
+    @Override
+    public void onContactSelected(EventMenuSettingList menuSettingList) {
+
+        if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_my_travel")) {
+            Intent selfie = new Intent(this, MyTravelActivity.class);
+            startActivity(selfie);
+
+        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_notification")) {
+            Intent notify = new Intent(this, NotificationActivity.class);
+            startActivity(notify);
+
+        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_display_qr")) {
+            Intent qrgenerate = new Intent(this, QRGeneratorActivity.class);
+            startActivity(qrgenerate);
+
+        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_qr_scanner")) {
+            Intent scanqr = new Intent(this, QRScanActivity.class);
+            startActivity(scanqr);
+
+        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_quiz")) {
+            Intent quiz = new Intent(this, QuizActivity.class);
+            startActivity(quiz);
+
+        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_live_poll")) {
+            Intent livepol = new Intent(this, LivePollActivity.class);
+            startActivity(livepol);
+
+        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_survey")) {
+            Intent feedback = new Intent(this, FeedBackActivity.class);
+            startActivity(feedback);
+
+        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_feedback")) {
+//            Intent feedback = new Intent(this, FeedBackActivity.class);
+////            startActivity(feedback);
+            Toast.makeText(HomeActivity.this, "Comming Soon...", Toast.LENGTH_SHORT).show();
+
+        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_gallery_video")) {
+            Intent video = new Intent(this, VideoActivity.class);
+            startActivity(video);
+
+        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_image_gallery")) {
+            Intent gallery = new Intent(this, GalleryActivity.class);
+            startActivity(gallery);
+
+        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_document")) {
+
+            Intent doc = new Intent(this, DocumentsActivity.class);
+            startActivity(doc);
+
+        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_event_info")) {
+            Intent event = new Intent(this, EventInfoActivity.class);
+            startActivity(event);
+
+        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_q&a")) {
+            if (QA_session.equalsIgnoreCase("1")) {
+                Intent event = new Intent(this, QAAttendeeActivity.class);
+                startActivity(event);
+            } else if (QA_speaker.equalsIgnoreCase("1")) {
+                Intent event = new Intent(this, QASpeakerActivity.class);
+                startActivity(event);
+            }
+
+        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_engagement")) {
+            Intent engagement = new Intent(this, EngagementActivity.class);
+            startActivity(engagement);
+
+        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_attendee")) {
+            Intent attendee = new Intent(this, AttendeeActivity.class);
+            startActivity(attendee);
+
+        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_speaker")) {
+            Intent speaker = new Intent(this, SpeakerActivity.class);
+            startActivity(speaker);
+
+        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_agenda")) {
+            Intent agenda = new Intent(this, AgendaActivity.class);
+            startActivity(agenda);
+
+        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_gen_info")) {
+            Intent generalinfo = new Intent(this, GeneralInfoActivity.class);
+            startActivity(generalinfo);
+        }
+
+
+    }
+
+
+    public boolean CheckingPermissionIsEnabledOrNot() {
+
+        int FirstPermissionResult = ContextCompat.checkSelfPermission(getApplicationContext(), CAMERA);
+        int SecondPermissionResult = ContextCompat.checkSelfPermission(getApplicationContext(), WRITE_CONTACTS);
+        int ThirdPermissionResult = ContextCompat.checkSelfPermission(getApplicationContext(), READ_CONTACTS);
+        int ForthPermissionResult = ContextCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE);
+        int FifthPermissionResult = ContextCompat.checkSelfPermission(getApplicationContext(), READ_EXTERNAL_STORAGE);
+        int SixthPermissionResult = ContextCompat.checkSelfPermission(getApplicationContext(), VIBRATE);
+
+        return FirstPermissionResult == PackageManager.PERMISSION_GRANTED &&
+                SecondPermissionResult == PackageManager.PERMISSION_GRANTED &&
+                ThirdPermissionResult == PackageManager.PERMISSION_GRANTED &&
+                ForthPermissionResult == PackageManager.PERMISSION_GRANTED &&
+                FifthPermissionResult == PackageManager.PERMISSION_GRANTED &&
+                SixthPermissionResult == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void RequestMultiplePermission() {
+
+        // Creating String Array with Permissions.
+        ActivityCompat.requestPermissions(HomeActivity.this, new String[]
+                {
+                        CAMERA,
+                        WRITE_CONTACTS,
+                        READ_CONTACTS,
+                        WRITE_EXTERNAL_STORAGE,
+                        READ_EXTERNAL_STORAGE,
+                        VIBRATE
+                }, RequestPermissionCode);
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+
+            case RequestPermissionCode:
+
+                if (grantResults.length > 0) {
+
+                    boolean CameraPermission = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    boolean readcontactpermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                    boolean writecontactpermission = grantResults[2] == PackageManager.PERMISSION_GRANTED;
+                    boolean readstoragepermjission = grantResults[3] == PackageManager.PERMISSION_GRANTED;
+                    boolean writestoragepermission = grantResults[4] == PackageManager.PERMISSION_GRANTED;
+                    boolean vibratepermission = grantResults[5] == PackageManager.PERMISSION_GRANTED;
+
+                    if (CameraPermission && readcontactpermission && writecontactpermission && readstoragepermjission && writestoragepermission && vibratepermission) {
+
+//                        Toast.makeText(MainActivity.this, "Permission Granted", Toast.LENGTH_LONG).show();
+                    } else {
+
+                        Toast.makeText(HomeActivity.this, "We need your permission so you can enjoy full features of app", Toast.LENGTH_LONG).show();
+                        RequestMultiplePermission();
+
+                    }
+                }
+
+                break;
+        }
+    }
+
+
+}

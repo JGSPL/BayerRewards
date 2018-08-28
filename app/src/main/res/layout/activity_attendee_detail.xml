@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background"
+    tools:context="com.procialize.singleevent.Activity.SpeakerDetailsActivity">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/appBarLayout"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colortoolbar"
+            android:elevation="@dimen/elevation"
+            android:contentInsetLeft="0dp"
+            android:contentInsetStart="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            android:contentInsetRight="0dp"
+            android:contentInsetEnd="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetEnd="0dp"
+            android:minHeight="?attr/actionBarSize">
+
+            <ImageView
+                android:layout_marginLeft="-10dp"
+                android:layout_width="150dp"
+                android:contentDescription=" "
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/splashlogo"/>
+
+        </android.support.v7.widget.Toolbar>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <com.procialize.singleevent.Fonts.RobotoTextview
+        android:gravity="center"
+        android:layout_margin="@dimen/margin"
+        android:textSize="@dimen/textsizebigger"
+        android:text="@string/attenddedetail"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_margin="@dimen/margin"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profileIV"
+            android:layout_centerInParent="true"
+            android:src="@drawable/profilepic_placeholder"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"/>
+
+        <ProgressBar
+            android:layout_centerInParent="true"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/progressBar"
+            android:layout_width="96dp"
+            android:layout_height="96dp"/>
+
+    </RelativeLayout>
+
+
+    <com.procialize.singleevent.Fonts.RobotoButton
+        android:id="@+id/sendbtn"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/margin"
+        android:elevation="@dimen/elevation"
+        android:textColor="@color/colorwhite"
+        android:text="@string/sendmsg"
+        android:padding="5dp"
+        android:background="@drawable/speakerbtnbg"
+        android:textSize="@dimen/textsizesmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+
+
+    <LinearLayout
+        android:gravity="center"
+        android:elevation="@dimen/elevation"
+        android:layout_margin="10dp"
+        android:background="@drawable/speakerdatabg"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.procialize.singleevent.Fonts.RobotoTextview
+            android:id="@+id/tvname"
+            android:layout_margin="@dimen/margin"
+            android:textSize="@dimen/textsizesmall"
+            android:textColor="@color/orange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <com.procialize.singleevent.Fonts.RobotoTextview
+            android:id="@+id/tvdesignation"
+            android:layout_margin="@dimen/margin"
+            android:textSize="@dimen/textsizesmall"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <com.procialize.singleevent.Fonts.RobotoTextview
+            android:id="@+id/tvcompany"
+            android:layout_margin="@dimen/margin"
+            android:textSize="@dimen/textsizesmall"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <com.procialize.singleevent.Fonts.RobotoTextview
+            android:id="@+id/tvcity"
+            android:layout_margin="@dimen/margin"
+            android:textSize="@dimen/textsizesmall"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

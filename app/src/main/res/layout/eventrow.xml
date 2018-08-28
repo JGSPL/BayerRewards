@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/elevation"
+        android:orientation="vertical"
+        android:layout_margin="5dp"
+        android:translationZ="@dimen/elevation"
+        android:background="#7898a9">
+
+        <TextView
+            android:id="@+id/eventnaem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorselectedtab"
+            android:textColor="@color/colorwhite"
+            android:gravity="center"
+            android:padding="5dp"/>
+
+        <LinearLayout
+            android:id="@+id/mainLL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:orientation="horizontal">
+
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:layout_margin="5dp">
+
+                <ImageView
+                    android:id="@+id/profileIV"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/profilepic_placeholder" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:visibility="visible" />
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:layout_marginLeft="5dp">
+
+
+                <com.procialize.singleevent.Fonts.RobotoTextview
+                    android:id="@+id/nameTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:text="Abheejit Saxena"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textsizenormal"
+                    android:visibility="gone"/>
+
+                <com.procialize.singleevent.Fonts.RobotoTextview
+                    android:id="@+id/designationTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:text="Simens LTD"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/textsizesmall" />
+
+
+                <com.procialize.singleevent.Fonts.RobotoTextview
+                    android:id="@+id/locationTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:text="Delhi"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/textsizesmall" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_rightarrow" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

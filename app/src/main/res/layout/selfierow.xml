@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_margin="5dp"
+    android:background="@drawable/galleryitembg"
+    android:layout_width="match_parent"
+    android:layout_height="150dp">
+
+    <RelativeLayout
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/imageIv"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+
+        <ProgressBar
+            android:layout_centerInParent="true"
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@color/trans"
+            android:padding="5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <com.procialize.singleevent.Fonts.RobotoTextview
+                android:id="@+id/countTv"
+                android:gravity="center"
+                android:padding="2dp"
+                android:textSize="@dimen/textsizesmaller"
+                android:textColor="@color/colorwhite"
+                android:layout_alignParentBottom="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:gravity="center"
+                android:id="@+id/likeIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.procialize.singleevent.Fonts.RobotoTextview
+                android:id="@+id/dataTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:maxLines="1"
+                android:padding="2dp"
+                android:textColor="@color/colorwhite"
+                android:textSize="@dimen/textsizesmaller" />
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/moreIV"
+            android:padding="5dp"
+            android:src="@drawable/ic_more"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+</LinearLayout>
