@@ -110,7 +110,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                     holder.progressBar.setVisibility(View.GONE);
                     holder.profileIv.setImageResource(R.drawable.profilepic_placeholder);
-                    return false;
+                    return true;
                 }
 
                 @Override

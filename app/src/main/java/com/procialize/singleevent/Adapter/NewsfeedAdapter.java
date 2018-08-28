@@ -70,12 +70,8 @@ public class NewsfeedAdapter extends BaseAdapter {
         this.feedLists = feedLists;
         this.listener = listener;
         this.context = con;
-
         SessionManager sessionManager = new SessionManager(con);
-
         user = sessionManager.getUserDetails();
-
-
         profilepic = user.get(SessionManager.KEY_PIC);
         topMgmtFlag = sessionManager.getSkipFlag();
 
@@ -279,23 +275,7 @@ public class NewsfeedAdapter extends BaseAdapter {
 //            blockuserTv.setVisibility(View.VISIBLE);
         }
 
-        if (news_feed_post.equalsIgnoreCase("0")) {
-            holder.txtfeedRv.setVisibility(View.GONE);
-        } else {
-            holder.txtfeedRv.setVisibility(View.VISIBLE);
-        }
 
-        if (news_feed_images.equalsIgnoreCase("0")) {
-            holder.imagefeedRv.setVisibility(View.GONE);
-        } else {
-            holder.imagefeedRv.setVisibility(View.VISIBLE);
-        }
-
-        if (news_feed_video.equalsIgnoreCase("0")) {
-            holder.videofeedRv.setVisibility(View.GONE);
-        } else {
-            holder.videofeedRv.setVisibility(View.VISIBLE);
-        }
 //        weightapply(holder.likeTv, holder.commentTv, holder.shareTv, holder.viewone, holder.viewtwo);
 
 //        try {
@@ -309,7 +289,16 @@ public class NewsfeedAdapter extends BaseAdapter {
 //            e.printStackTrace();
 //        }
 
+        if (feed.getLikeFlag().equals("1")) {
 
+
+            holder.img_like.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_afterlike, 0);
+//            holder.img_like.setBackgroundResource(R.drawable.ic_afterlike);
+
+        } else {
+            holder.img_like.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_like, 0);
+//            holder.img_like.setBackgroundResource(R.drawable.ic_like);
+        }
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             Date date1 = formatter.parse(feed.getPostDate());
@@ -446,17 +435,6 @@ public class NewsfeedAdapter extends BaseAdapter {
         }
 
 
-        if (feed.getLikeFlag().equals("1")) {
-
-
-            holder.img_like.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_afterlike, 0);
-//            holder.img_like.setBackgroundResource(R.drawable.ic_afterlike);
-
-        } else {
-            holder.img_like.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_like, 0);
-//            holder.img_like.setBackgroundResource(R.drawable.ic_like);
-        }
-
 //
 //        holder.likeTv.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -470,6 +448,31 @@ public class NewsfeedAdapter extends BaseAdapter {
             applysetting(eventSettingLists);
         }
 
+        if (news_feed_post.equalsIgnoreCase("0")) {
+            holder.txtfeedRv.setVisibility(View.GONE);
+        } else {
+            holder.txtfeedRv.setVisibility(View.VISIBLE);
+        }
+
+        if (news_feed_images.equalsIgnoreCase("0")) {
+            holder.imagefeedRv.setVisibility(View.GONE);
+        } else {
+            holder.imagefeedRv.setVisibility(View.VISIBLE);
+        }
+
+        if (news_feed_video.equalsIgnoreCase("0")) {
+            holder.videofeedRv.setVisibility(View.GONE);
+        } else {
+            holder.videofeedRv.setVisibility(View.VISIBLE);
+        }
+
+        if (news_feed_images.equalsIgnoreCase("0") && news_feed_post.equalsIgnoreCase("0") && news_feed_video.equalsIgnoreCase("0")) {
+            holder.mainLLpost.setVisibility(View.GONE);
+            holder.mindTv.setVisibility(View.GONE);
+        } else {
+            holder.mainLLpost.setVisibility(View.VISIBLE);
+            holder.mindTv.setVisibility(View.VISIBLE);
+        }
 
         holder.feedimageIv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -491,6 +494,7 @@ public class NewsfeedAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 listener.commentTvViewOnClick(v, feedLists.get(position));
+
             }
         });
 
@@ -544,14 +548,18 @@ public class NewsfeedAdapter extends BaseAdapter {
 
         if (news_feed_comment.equalsIgnoreCase("0")) {
             holder.commentTv.setVisibility(View.GONE);
+
         } else {
             holder.commentTv.setVisibility(View.VISIBLE);
+
         }
 
         if (news_feed_share.equalsIgnoreCase("0")) {
             holder.shareTv.setVisibility(View.GONE);
+            holder.viewtwo.setVisibility(View.GONE);
         } else {
             holder.shareTv.setVisibility(View.VISIBLE);
+            holder.viewtwo.setVisibility(View.VISIBLE);
         }
 
 
@@ -559,7 +567,7 @@ public class NewsfeedAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
-        public TextView nameTv, designationTv, companyTv, dateTv, headingTv, liketext, commenttext, sharetext,img_like;
+        public TextView nameTv, designationTv, companyTv, dateTv, headingTv, liketext, commenttext, sharetext, img_like;
         private LinearLayout likeTv, commentTv, shareTv, mindTv, mainLLpost, post_layout;
         public ImageView img_vol, img_playback;
         public ProgressBar progressView, feedprogress;
@@ -568,7 +576,6 @@ public class NewsfeedAdapter extends BaseAdapter {
         public View viewone, viewtwo, viewteo, view;
         private MyJZVideoPlayerStandard VideoView;
         RelativeLayout txtfeedRv, imagefeedRv, videofeedRv;
-
 
     }
 

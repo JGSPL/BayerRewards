@@ -57,7 +57,7 @@
     </style>
 
     <style name="Base.Widget.Design.TabLayout" parent="android:Widget">
-        <item name="tabIndicatorColor">?attr/colorAccent</item>
+
         <item name="tabIndicatorHeight">2dp</item>
         <item name="tabPaddingStart">12dp</item>
         <item name="tabPaddingEnd">12dp</item>
