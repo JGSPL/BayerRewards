@@ -43,6 +43,7 @@ import com.procialize.singleevent.Fragments.AgendaFragment;
 import com.procialize.singleevent.Fragments.AttendeeFragment;
 import com.procialize.singleevent.Fragments.FeedFragment;
 import com.procialize.singleevent.Fragments.GeneralInfo;
+import com.procialize.singleevent.Fragments.SpeakerFragment;
 import com.procialize.singleevent.Fragments.WallFragment_POST;
 import com.procialize.singleevent.GetterSetter.EventMenuSettingList;
 import com.procialize.singleevent.GetterSetter.EventSettingList;
@@ -99,8 +100,10 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
             side_menu_image_gallery = "0", selfie_contest = "0", video_contest = "0",
             side_menu_event_info = "0", side_menu_document = "0", side_menu_engagement = "0",
             engagement_selfie_contest = "0", engagement_video_contest = "0",
-            news_feed_video = "0", QA_speaker = "0", QA_session = "0", side_menu_attendee = "0", side_menu_speaker = "0", side_menu_agenda = "0";
-    String news_feed = "0", attendee = "0", speaker = "0", agenda = "0", edit_profile = "0";
+            news_feed_video = "0", QA_speaker = "0", QA_session = "0", side_menu_attendee = "0", side_menu_speaker = "0", side_menu_agenda = "0",
+            side_menu_general_info = "0";
+    String news_feed = "0", attendee = "0", speaker = "0", agenda = "0", edit_profile = "0", general_ifo = "0";
+
 
     String MY_PREFS_NAME = "ProcializeInfo";
     String MY_PREFS_LOGIN = "ProcializeLogin";
@@ -116,6 +119,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
             R.drawable.ic_newsfeed,
             R.drawable.ic_agenda,
             R.drawable.ic_attendee,
+            R.drawable.ic_speaker,
             R.drawable.general_info
     };
 
@@ -440,8 +444,10 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                 tabLayout.getTabAt(0).setIcon(tabIcons[1]);
             } else if (tabLayout.getTabAt(0).getText().equals("Attendees")) {
                 tabLayout.getTabAt(0).setIcon(tabIcons[2]);
-            } else if (tabLayout.getTabAt(0).getText().equals("General Info")) {
+            } else if (tabLayout.getTabAt(0).getText().equals("Speakers")) {
                 tabLayout.getTabAt(0).setIcon(tabIcons[3]);
+            } else if (tabLayout.getTabAt(0).getText().equals("General Info")) {
+                tabLayout.getTabAt(0).setIcon(tabIcons[4]);
             }
         }
 
@@ -453,8 +459,10 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                 tabLayout.getTabAt(1).setIcon(tabIcons[1]);
             } else if (tabLayout.getTabAt(1).getText().equals("Attendees")) {
                 tabLayout.getTabAt(1).setIcon(tabIcons[2]);
-            } else if (tabLayout.getTabAt(1).getText().equals("General Info")) {
+            } else if (tabLayout.getTabAt(1).getText().equals("Speakers")) {
                 tabLayout.getTabAt(1).setIcon(tabIcons[3]);
+            } else if (tabLayout.getTabAt(1).getText().equals("General Info")) {
+                tabLayout.getTabAt(1).setIcon(tabIcons[4]);
             }
         }
 
@@ -466,8 +474,10 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                 tabLayout.getTabAt(2).setIcon(tabIcons[1]);
             } else if (tabLayout.getTabAt(2).getText().equals("Attendees")) {
                 tabLayout.getTabAt(2).setIcon(tabIcons[2]);
-            } else if (tabLayout.getTabAt(2).getText().equals("General Info")) {
+            } else if (tabLayout.getTabAt(2).getText().equals("Speakers")) {
                 tabLayout.getTabAt(2).setIcon(tabIcons[3]);
+            } else if (tabLayout.getTabAt(2).getText().equals("General Info")) {
+                tabLayout.getTabAt(2).setIcon(tabIcons[4]);
             }
         }
 
@@ -479,8 +489,10 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                 tabLayout.getTabAt(3).setIcon(tabIcons[1]);
             } else if (tabLayout.getTabAt(3).getText().equals("Attendees")) {
                 tabLayout.getTabAt(3).setIcon(tabIcons[2]);
-            } else if (tabLayout.getTabAt(3).getText().equals("General Info")) {
+            } else if (tabLayout.getTabAt(3).getText().equals("Speakers")) {
                 tabLayout.getTabAt(3).setIcon(tabIcons[3]);
+            } else if (tabLayout.getTabAt(3).getText().equals("General Info")) {
+                tabLayout.getTabAt(3).setIcon(tabIcons[4]);
             }
         }
 
@@ -511,6 +523,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
     }
 
     private void setupViewPager(ViewPager viewPager) {
+
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         if (news_feed.equalsIgnoreCase("1")) {
             adapter.addFragment(new WallFragment_POST(), "News Feed");
@@ -522,6 +535,9 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
             adapter.addFragment(new AttendeeFragment(), "Attendees");
         }
         if (speaker.equalsIgnoreCase("1")) {
+            adapter.addFragment(new SpeakerFragment(), "Speakers");
+        }
+        if (general_ifo.equalsIgnoreCase("1")) {
             adapter.addFragment(new GeneralInfo(), "General Info");
         }
         viewPager.setAdapter(adapter);
@@ -608,14 +624,16 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                     news_feed_video = eventSettingLists.get(i).getFieldValue();
                 } else if (eventSettingLists.get(i).getFieldName().equals("news_feed")) {
                     news_feed = eventSettingLists.get(i).getFieldValue();
-                } else if (eventSettingLists.get(i).getFieldName().equals("attendee")) {
+                } else if (eventSettingLists.get(i).getFieldName().equals("main_tab_attendee")) {
                     attendee = eventSettingLists.get(i).getFieldValue();
-                } else if (eventSettingLists.get(i).getFieldName().equals("speaker")) {
+                } else if (eventSettingLists.get(i).getFieldName().equals("main_tab_speaker")) {
                     speaker = eventSettingLists.get(i).getFieldValue();
-                } else if (eventSettingLists.get(i).getFieldName().equals("agenda")) {
+                } else if (eventSettingLists.get(i).getFieldName().equals("main_tab_agenda")) {
                     agenda = eventSettingLists.get(i).getFieldValue();
                 } else if (eventSettingLists.get(i).getFieldName().equals("edit_profile")) {
                     edit_profile = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("main_tab_gen_info")) {
+                    general_ifo = eventSettingLists.get(i).getFieldValue();
                 } else if (eventSettingLists.get(i).getFieldName().equals("Q&A_session")) {
                     QA_session = eventSettingLists.get(i).getFieldValue();
                 } else if (eventSettingLists.get(i).getFieldName().equals("Q&A_speaker")) {
@@ -641,6 +659,8 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
         afterSettingView();
     }
+
+
 
 
     @Override

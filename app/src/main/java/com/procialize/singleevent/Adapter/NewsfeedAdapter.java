@@ -108,7 +108,7 @@ public class NewsfeedAdapter extends BaseAdapter {
             holder = new ViewHolder();
 
             holder.nameTv = convertView.findViewById(R.id.nameTv);
-            holder.companyTv = convertView.findViewById(R.id.companyTv);
+             holder.companyTv = convertView.findViewById(R.id.companyTv);
             holder.designationTv = convertView.findViewById(R.id.designationTv);
             holder.dateTv = convertView.findViewById(R.id.dateTv);
             holder.headingTv = convertView.findViewById(R.id.headingTv);

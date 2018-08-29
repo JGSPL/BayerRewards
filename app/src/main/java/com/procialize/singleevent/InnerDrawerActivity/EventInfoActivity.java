@@ -46,7 +46,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
 
 
     ImageView logoIv;
-    TextView nameTv,dateTv,cityTv,eventvenu,event_desc;
+    TextView nameTv, dateTv, cityTv, eventvenu, event_desc;
     private APIService mAPIService;
     private GoogleMap map;
     LatLng position;
@@ -55,7 +55,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
     SessionManager sessionManager;
     String token;
     ProgressBar progressbar;
-    String event_info_display_map,event_info_description;
+    String event_info_display_map, event_info_description;
     List<EventSettingList> eventSettingLists;
     SupportMapFragment fm;
     ImageView back;
@@ -91,14 +91,13 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
 
         eventSettingLists = sessionManager.loadEventList();
 
-        if (eventSettingLists.size()!=0)
-        {
+        if (eventSettingLists.size() != 0) {
             applysetting(eventSettingLists);
         }
 
         mAPIService = ApiUtils.getAPIService();
 
-        fm = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map);
+        fm = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         fm.getMapAsync(this);
 
         logoIv = findViewById(R.id.logoIv);
@@ -121,15 +120,11 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
 
     private void applysetting(List<EventSettingList> eventSettingLists) {
 
-        for (int i=0;i<eventSettingLists.size();i++)
-        {
+        for (int i = 0; i < eventSettingLists.size(); i++) {
 
-            if (eventSettingLists.get(i).getFieldName().equals("event_info_display_map"))
-            {
+            if (eventSettingLists.get(i).getFieldName().equals("event_info_display_map")) {
                 event_info_display_map = eventSettingLists.get(i).getFieldValue();
-            }
-            else if (eventSettingLists.get(i).getFieldName().equals("event_info_description"))
-            {
+            } else if (eventSettingLists.get(i).getFieldName().equals("event_info_description")) {
                 event_info_description = eventSettingLists.get(i).getFieldValue();
             }
 
@@ -139,27 +134,25 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
 
     public void fetchEventInfo(String token, String eventid) {
         showProgress();
-        mAPIService.EventInfoFetch(token,eventid).enqueue(new Callback<EventInfoFetch>() {
+        mAPIService.EventInfoFetch(token, eventid).enqueue(new Callback<EventInfoFetch>() {
             @Override
             public void onResponse(Call<EventInfoFetch> call, Response<EventInfoFetch> response) {
 
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     Log.i("hit", "post submitted to API." + response.body().toString());
 
                     dismissProgress();
                     showResponse(response);
-                }
-                else
-                {
+                } else {
                     dismissProgress();
-                    Toast.makeText(getApplicationContext(),"Unable to process",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<EventInfoFetch> call, Throwable t) {
                 dismissProgress();
-                Toast.makeText(getApplicationContext(),"Unable to process",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -168,9 +161,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
 
         // specify an adapter (see also next example)
 
-        if (response.body().getStatus().equalsIgnoreCase("success"))
-        {
-
+        if (response.body().getStatus().equalsIgnoreCase("success")) {
             String startTime = response.body().getEventList().get(0).getEventStart();
             String endTime = response.body().getEventList().get(0).getEventEnd();
             // SimpleDateFormat df = new SimpleDateFormat("hh:mm a");
@@ -199,27 +190,24 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
             String finalEndTime = formatter.format(new Date(millisecondsEnd));
 
             nameTv.setText(response.body().getEventList().get(0).getEventName());
-            dateTv.setText(finalStartTime+" - "+finalEndTime);
+            dateTv.setText(finalStartTime + " - " + finalEndTime);
             cityTv.setText(response.body().getEventList().get(0).getEventCity());
 
-            if (event_info_description.equalsIgnoreCase("1") && response.body().getEventList().get(0).getEventDescription()!=null) {
+            if (event_info_description.equalsIgnoreCase("1") && response.body().getEventList().get(0).getEventDescription() != null) {
                 event_desc.setText(response.body().getEventList().get(0).getEventDescription());
-            }else
-            {
+            } else {
                 event_desc.setVisibility(View.GONE);
             }
-            eventvenu.setText("Venue:- "+response.body().getEventList().get(0).getEventLocation());
+            eventvenu.setText("Venue:- " + response.body().getEventList().get(0).getEventLocation());
 
-            String image_final_url = ApiConstant.baseUrl+response.body().getEventList().get(0).getLogo();
+            String image_final_url = ApiConstant.baseUrl + response.body().getEventList().get(0).getLogo();
 
 //            Glide.with(getApplicationContext()).load(image_final_url).into(logoIv).onLoadStarted(getDrawable(R.drawable.logo));
 
 
+            if (map != null && event_info_display_map.equalsIgnoreCase("1")) {
 
-            if (map!=null && event_info_display_map.equalsIgnoreCase("1"))
-            {
-
-                position = new LatLng(Double.parseDouble(response.body().getEventList().get(0).getEventLatitude()),Double.parseDouble(response.body().getEventList().get(0).getEventLongitude()));
+                position = new LatLng(Double.parseDouble(response.body().getEventList().get(0).getEventLatitude()), Double.parseDouble(response.body().getEventList().get(0).getEventLongitude()));
 
                 CameraUpdate updatePosition1 = CameraUpdateFactory.newLatLng(position);
 
@@ -235,8 +223,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
                 options.title("Venue");
 
                 // Setting snippet for the MarkerOptions
-                options.snippet("Venue:- "+response.body().getEventList().get(0).getEventLocation());
-
+                options.snippet("Venue:- " + response.body().getEventList().get(0).getEventLocation());
 
 
                 // Adding Marker on the Google Map
@@ -245,17 +232,15 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
 
                 moveToCurrentLocation(position);
             }
-        }else
-        {
+        } else {
             fm.getView().setVisibility(View.GONE);
         }
 
     }
 
 
-    private void moveToCurrentLocation(LatLng currentLocation)
-    {
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation,15));
+    private void moveToCurrentLocation(LatLng currentLocation) {
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15));
         // Zoom in, animating the camera.
         map.animateCamera(CameraUpdateFactory.zoomIn());
         // Zoom out to zoom level 10, animating with a duration of 2 seconds.
@@ -268,19 +253,16 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
     public void onMapReady(GoogleMap googleMap) {
 
         map = googleMap;
-        fetchEventInfo(token,eventid);
+        fetchEventInfo(token, eventid);
 
     }
 
-    public void showProgress()
-    {
+    public void showProgress() {
         progressbar.setVisibility(View.VISIBLE);
     }
 
-    public void dismissProgress()
-    {
-        if (progressbar.getVisibility()==View.VISIBLE)
-        {
+    public void dismissProgress() {
+        if (progressbar.getVisibility() == View.VISIBLE) {
             progressbar.setVisibility(View.GONE);
         }
     }
