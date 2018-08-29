@@ -1,66 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/mainLL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:elevation="@dimen/elevation"
+        android:orientation="horizontal"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:translationZ="@dimen/elevation"
-        android:layout_margin="10dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:visibility="gone">
 
 
         <RelativeLayout
-            android:gravity="center"
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
 
-            <ImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/profileIV"
-                android:layout_centerInParent="true"
-                android:src="@drawable/profilepic_placeholder"
                 android:layout_width="30dp"
-                android:layout_height="30dp"/>
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
 
         </RelativeLayout>
 
         <RelativeLayout
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_weight="8"
             android:layout_width="0dp"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_weight="8"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <com.procialize.singleevent.Fonts.RobotoTextview
-                android:paddingLeft="5dp"
-                android:textSize="@dimen/textsizesmall"
+                android:id="@+id/nameTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Abheejit Saxena"
-                android:layout_centerInParent="true"
                 android:layout_alignParentLeft="true"
+                android:layout_centerInParent="true"
+                android:paddingLeft="5dp"
+                android:text=""
                 android:textColor="@color/colorwhite"
-                android:id="@+id/nameTv" />
+                android:textSize="@dimen/textsizesmall"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <LinearLayout
-            android:gravity="center"
-            android:visibility="gone"
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:visibility="gone">
 
             <ImageView
-                android:src="@drawable/ic_rightarrow"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_rightarrow" />
 
         </LinearLayout>
     </LinearLayout>

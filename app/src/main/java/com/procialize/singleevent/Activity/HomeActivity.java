@@ -94,6 +94,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
     SessionManager session;
     List<EventSettingList> eventSettingLists;
     List<EventMenuSettingList> eventMenuSettingLists;
+    ArrayList<EventSettingList> eventList=new ArrayList<EventSettingList>();
     String side_menu = "0", side_menu_my_travel = "0", side_menu_notification = "0", side_menu_display_qr = "0", side_menu_qr_scanner = "0",
             side_menu_quiz = "0", side_menu_live_poll = "0", side_menu_survey = "0",
             side_menu_feedback = "0", side_menu_gallery_video = "0", gallery_video_native = "0", gallery_video_youtube = "0",
@@ -338,7 +339,6 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
             navigationView.setVisibility(View.GONE);
         } else {
             navigationView.setVisibility(View.VISIBLE);
-
         }
 
     }
@@ -592,6 +592,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                     side_menu = eventSettingLists.get(i).getFieldValue();
                 } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_my_travel")) {
                     side_menu_my_travel = eventSettingLists.get(i).getFieldValue();
+
                 } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_notification")) {
                     side_menu_notification = eventSettingLists.get(i).getFieldValue();
                 } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_display_qr")) {
@@ -659,8 +660,6 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
         afterSettingView();
     }
-
-
 
 
     @Override
