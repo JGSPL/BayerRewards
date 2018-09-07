@@ -48,12 +48,12 @@
                 android:id="@+id/tabs"
                 android:layout_width="fill_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:layout_marginLeft="-10dp"
                 android:elevation="@dimen/elevation"
-                app:tabBackground="@drawable/tabselector"
                 app:tabGravity="fill"
                 app:tabMode="fixed"
                 app:tabTextAppearance="@style/MyCustomTabText"
-                android:layout_marginLeft="-10dp"/>
+                android:background="#7898a9"/>
 
         </android.support.design.widget.AppBarLayout>
 
@@ -62,8 +62,7 @@
             style="@style/Widget.Design.TabLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </LinearLayout>
 
 
@@ -81,7 +80,8 @@
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -101,7 +101,7 @@
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
-                    android:drawableLeft="@drawable/ic_home"
+                    android:drawableLeft="@drawable/home_icon"
                     android:drawablePadding="10dp"
                     android:gravity="left"
                     android:text="Home"
@@ -116,18 +116,48 @@
                     android:scrollbars="vertical" />
 
                 <com.procialize.singleevent.Fonts.RobotoTextview
-                    android:id="@+id/contactus"
+                    android:id="@+id/eula"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/menurecycler"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
-                    android:drawableLeft="@drawable/ic_contact"
+                    android:drawableLeft="@drawable/eula"
+                    android:gravity="left|center"
+                    android:text="  @string/eula"
+                    android:textColor="@color/colorwhite"
+                    android:textSize="@dimen/textsizesmall" />
+
+                <com.procialize.singleevent.Fonts.RobotoTextview
+                    android:id="@+id/privacy_policy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/eula"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:drawablePadding="10dp"
+                    android:drawableLeft="@drawable/privacy_policy"
+                    android:gravity="left|center"
+                    android:text="@string/privacy_policy"
+                    android:textColor="@color/colorwhite"
+                    android:textSize="@dimen/textsizesmall" />
+
+                <com.procialize.singleevent.Fonts.RobotoTextview
+                    android:id="@+id/contactus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/privacy_policy"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/contact_us"
                     android:gravity="left|center"
                     android:text="@string/contactus"
                     android:textColor="@color/colorwhite"
-                    android:textSize="@dimen/textsizesmall" />
+                    android:textSize="@dimen/textsizesmall"
+                    android:drawablePadding="10dp"/>
 
                 <com.procialize.singleevent.Fonts.RobotoTextview
                     android:id="@+id/switchbt"

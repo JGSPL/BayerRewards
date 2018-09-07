@@ -84,6 +84,7 @@
                 android:hint="@string/whatsmind"
                 android:imeOptions="actionSend|flagNoEnterAction"
                 android:inputType="textShortMessage|textAutoCorrect|textCapSentences|textMultiLine"
+                android:maxLength="500"
                 android:maxLines="5"
                 android:minLines="2"
                 android:padding="10dp"
@@ -100,6 +101,7 @@
         android:layout_below="@+id/ll"
         android:gravity="center">
 
+
         <ImageView
             android:id="@+id/Uploadiv"
             android:layout_width="300dp"
@@ -109,11 +111,31 @@
             android:scaleType="centerCrop"
             android:visibility="gone" />
 
-        <VideoView
-            android:id="@+id/Upvideov"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:visibility="gone" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <VideoView
+                android:id="@+id/Upvideov"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:visibility="gone"
+                android:layout_centerHorizontal="true"
+
+                android:layout_centerInParent="true"/>
+
+            <ImageView
+                android:id="@+id/imgPlay"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_media_play"
+                android:visibility="gone"/>
+        </RelativeLayout>
+
     </LinearLayout>
 
     <com.procialize.singleevent.Fonts.RobotoButton

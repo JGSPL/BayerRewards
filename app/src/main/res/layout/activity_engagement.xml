@@ -87,7 +87,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:text="Selfie"
+                    android:text="Selfie Engagement"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
             </LinearLayout>
@@ -119,7 +119,7 @@
                     android:gravity="center"
                     android:textColor="@color/colorwhite"
                     android:background="@color/colorPrimary"
-                    android:text="Video"
+                    android:text="Video Engagement"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
             </LinearLayout>

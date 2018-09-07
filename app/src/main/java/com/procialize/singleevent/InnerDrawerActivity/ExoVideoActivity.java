@@ -2,10 +2,14 @@ package com.procialize.singleevent.InnerDrawerActivity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -19,14 +23,14 @@ import com.procialize.singleevent.R;
 /**
  * Created by HP-PC on 11-08-2016.
  */
-public class ExoVideoActivity extends Activity  implements OnPreparedListener {
+public class ExoVideoActivity extends AppCompatActivity implements OnPreparedListener {
 
     EMVideoView emVideoView;
 
     String videoUrl = "";
+    String title = "";
     String tripId = "";
-
-
+    Button btn_share;
     RelativeLayout llTop;
 
 
@@ -35,10 +39,25 @@ public class ExoVideoActivity extends Activity  implements OnPreparedListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.videoview);
         videoUrl = getIntent().getExtras().getString("videoUrl");
+        title = getIntent().getExtras().getString("title");
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         TextView txtIcon = (TextView) findViewById(R.id.txtIcon);
-        llTop = (RelativeLayout) findViewById(R.id.rlData);
+        btn_share = (Button) findViewById(R.id.btn_share);
+//        llTop = (RelativeLayout) findViewById(R.id.rlData);
 
 
         txtIcon.setOnClickListener(new View.OnClickListener() {
@@ -48,10 +67,15 @@ public class ExoVideoActivity extends Activity  implements OnPreparedListener {
             }
         });
 
+        btn_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareTextUrl(title, ApiConstant.selfievideo + videoUrl);
+            }
+        });
 
 
-
-        setupVideoView(ApiConstant.selfievideo+videoUrl);
+        setupVideoView(ApiConstant.selfievideo + videoUrl);
 
 
     }
@@ -89,9 +113,19 @@ public class ExoVideoActivity extends Activity  implements OnPreparedListener {
         });
 
 
+    }
 
+    private void shareTextUrl(String data, String url) {
+        Intent share = new Intent(Intent.ACTION_SEND);
+        share.setType("text/plain");
+        share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
 
+        // Add data to the intent, the receiving app will decide
+        // what to do with it.
+        share.putExtra(Intent.EXTRA_SUBJECT, data);
+        share.putExtra(Intent.EXTRA_TEXT, url);
 
+        startActivity(Intent.createChooser(share, "Share link!"));
     }
 
    /* @Override
@@ -145,7 +179,7 @@ public class ExoVideoActivity extends Activity  implements OnPreparedListener {
         pDialog.dismiss();
         emVideoView.start();
 
-        llTop.setVisibility(View.GONE);
+//        llTop.setVisibility(View.GONE);
         emVideoView.setVisibility(View.VISIBLE);
     }
 

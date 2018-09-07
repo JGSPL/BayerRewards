@@ -17,7 +17,7 @@
             android:id="@+id/eventnaem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorselectedtab"
+            android:background="@color/red"
             android:textColor="@color/colorwhite"
             android:gravity="center"
             android:padding="5dp"/>
@@ -58,39 +58,42 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="7"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:orientation="vertical"
                 android:layout_marginLeft="5dp">
 
 
                 <com.procialize.singleevent.Fonts.RobotoTextview
                     android:id="@+id/nameTv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
                     android:text="Abheejit Saxena"
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorwhite"
                     android:textSize="@dimen/textsizenormal"
-                    android:visibility="gone"/>
+                    android:visibility="gone"
+                    android:gravity="center"/>
 
                 <com.procialize.singleevent.Fonts.RobotoTextview
                     android:id="@+id/designationTv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
                     android:text="Simens LTD"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="@dimen/textsizesmall" />
+                    android:textColor="@color/colorwhite"
+                    android:textSize="@dimen/textsizesmall"
+                    android:gravity="center"/>
 
 
                 <com.procialize.singleevent.Fonts.RobotoTextview
                     android:id="@+id/locationTv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
                     android:text="Delhi"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="@dimen/textsizesmall" />
+                    android:textColor="@color/colorwhite"
+                    android:textSize="@dimen/textsizesmall"
+                    android:gravity="center"/>
 
             </LinearLayout>
 

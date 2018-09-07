@@ -162,8 +162,27 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
         // specify an adapter (see also next example)
 
         if (response.body().getStatus().equalsIgnoreCase("success")) {
-            String startTime = response.body().getEventList().get(0).getEventStart();
-            String endTime = response.body().getEventList().get(0).getEventEnd();
+            String startTime = "", endTime = "";
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            String currentDateandTime = sdf.format(new Date());
+            try {
+                if (response.body().getEventList().get(0).getEventStart().equals("null") && response.body().getEventList().get(0).getEventStart() != null && !response.body().getEventList().get(0).getEventStart().isEmpty()) {
+                    startTime = currentDateandTime;
+                } else {
+                    startTime = response.body().getEventList().get(0).getEventStart();
+                }
+
+                if (response.body().getEventList().get(0).getEventEnd().equals("null") && response.body().getEventList().get(0).getEventEnd() != null && response.body().getEventList().get(0).getEventEnd().isEmpty()) {
+                    endTime = currentDateandTime;
+                } else {
+                    endTime = response.body().getEventList().get(0).getEventEnd();
+                }
+            } catch (Exception e) {
+                startTime = currentDateandTime;
+                endTime = currentDateandTime;
+            }
+
+
             // SimpleDateFormat df = new SimpleDateFormat("hh:mm a");
 
             SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
@@ -189,52 +208,65 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
             String finalStartTime = formatter.format(new Date(millisecondsStart));
             String finalEndTime = formatter.format(new Date(millisecondsEnd));
 
-            nameTv.setText(response.body().getEventList().get(0).getEventName());
-            dateTv.setText(finalStartTime + " - " + finalEndTime);
-            cityTv.setText(response.body().getEventList().get(0).getEventCity());
-
-            if (event_info_description.equalsIgnoreCase("1") && response.body().getEventList().get(0).getEventDescription() != null) {
-                event_desc.setText(response.body().getEventList().get(0).getEventDescription());
-            } else {
-                event_desc.setVisibility(View.GONE);
+            try {
+                nameTv.setText(response.body().getEventList().get(0).getEventName());
+                dateTv.setText(finalStartTime + " - " + finalEndTime);
+                cityTv.setText(response.body().getEventList().get(0).getEventCity());
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            eventvenu.setText("Venue:- " + response.body().getEventList().get(0).getEventLocation());
-
-            String image_final_url = ApiConstant.baseUrl + response.body().getEventList().get(0).getLogo();
-
-//            Glide.with(getApplicationContext()).load(image_final_url).into(logoIv).onLoadStarted(getDrawable(R.drawable.logo));
 
 
-            if (map != null && event_info_display_map.equalsIgnoreCase("1")) {
+            try {
+                if (event_info_description.equalsIgnoreCase("1") && response.body().getEventList().get(0).getEventDescription() != null) {
+                    event_desc.setText(response.body().getEventList().get(0).getEventDescription());
+                } else {
+                    event_desc.setVisibility(View.GONE);
+                }
+                eventvenu.setText("Venue:- " + response.body().getEventList().get(0).getEventLocation());
 
-                position = new LatLng(Double.parseDouble(response.body().getEventList().get(0).getEventLatitude()), Double.parseDouble(response.body().getEventList().get(0).getEventLongitude()));
+                String image_final_url = ApiConstant.baseUrl + response.body().getEventList().get(0).getLogo();
 
-                CameraUpdate updatePosition1 = CameraUpdateFactory.newLatLng(position);
-
-                map.moveCamera(updatePosition1);
-
-                // Instantiating MarkerOptions class
-                options = new MarkerOptions();
-
-                // Setting position for the MarkerOptions
-                options.position(position);
-
-                // Setting title for the MarkerOptions
-                options.title("Venue");
-
-                // Setting snippet for the MarkerOptions
-                options.snippet("Venue:- " + response.body().getEventList().get(0).getEventLocation());
-
-
-                // Adding Marker on the Google Map
-                map.addMarker(options);
-
-
-                moveToCurrentLocation(position);
+                Glide.with(getApplicationContext()).load(image_final_url).into(logoIv).onLoadStarted(getDrawable(R.drawable.logo));
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } else {
-            fm.getView().setVisibility(View.GONE);
+
+
+            try {
+                if (map != null && event_info_display_map.equalsIgnoreCase("1")) {
+
+                    position = new LatLng(Double.parseDouble(response.body().getEventList().get(0).getEventLatitude()), Double.parseDouble(response.body().getEventList().get(0).getEventLongitude()));
+
+                    CameraUpdate updatePosition1 = CameraUpdateFactory.newLatLng(position);
+
+                    map.moveCamera(updatePosition1);
+
+                    // Instantiating MarkerOptions class
+                    options = new MarkerOptions();
+
+                    // Setting position for the MarkerOptions
+                    options.position(position);
+
+                    // Setting title for the MarkerOptions
+                    options.title("Venue");
+
+                    // Setting snippet for the MarkerOptions
+                    options.snippet("Venue:- " + response.body().getEventList().get(0).getEventLocation());
+
+
+                    // Adding Marker on the Google Map
+                    map.addMarker(options);
+
+
+                    moveToCurrentLocation(position);
+                } else {
+                    fm.getView().setVisibility(View.GONE);
+                }
+            } catch (Exception e) {
+            }
         }
+
 
     }
 

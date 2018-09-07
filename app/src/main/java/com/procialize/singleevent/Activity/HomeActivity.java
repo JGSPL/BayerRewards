@@ -4,6 +4,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -41,7 +43,7 @@ import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.CustomTools.CustomViewPager;
 import com.procialize.singleevent.Fragments.AgendaFragment;
 import com.procialize.singleevent.Fragments.AttendeeFragment;
-import com.procialize.singleevent.Fragments.FeedFragment;
+
 import com.procialize.singleevent.Fragments.GeneralInfo;
 import com.procialize.singleevent.Fragments.SpeakerFragment;
 import com.procialize.singleevent.Fragments.WallFragment_POST;
@@ -94,7 +96,9 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
     SessionManager session;
     List<EventSettingList> eventSettingLists;
     List<EventMenuSettingList> eventMenuSettingLists;
-    ArrayList<EventSettingList> eventList=new ArrayList<EventSettingList>();
+    HashMap<String, String> eventlist;
+
+
     String side_menu = "0", side_menu_my_travel = "0", side_menu_notification = "0", side_menu_display_qr = "0", side_menu_qr_scanner = "0",
             side_menu_quiz = "0", side_menu_live_poll = "0", side_menu_survey = "0",
             side_menu_feedback = "0", side_menu_gallery_video = "0", gallery_video_native = "0", gallery_video_youtube = "0",
@@ -112,7 +116,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
     String eventid;
     String email, password;
     CustomMenuAdapter customMenuAdapter;
-    TextView logout, home, contactus, eventname, switchbt;
+    TextView logout, home, contactus, eventname, switchbt, eula, privacy_policy;
     String eventnamestr;
     public static final int RequestPermissionCode = 8;
 
@@ -206,6 +210,155 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         setupTabIcons();
 
 
+        try {
+
+           int i= tabLayout.getTabCount();
+
+           if(i==4) {
+//               tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+//               tabLayout.getTabAt(1).setIcon(tabIcons[1]);
+//               tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+//               tabLayout.getTabAt(3).setIcon(tabIcons[3]);
+
+
+               tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
+               tabLayout.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#f15a2b"), PorterDuff.Mode.SRC_IN);
+               tabLayout.getTabAt(2).getIcon().setColorFilter(Color.parseColor("#f15a2b"), PorterDuff.Mode.SRC_IN);
+               tabLayout.getTabAt(3).getIcon().setColorFilter(Color.parseColor("#f15a2b"), PorterDuff.Mode.SRC_IN);
+
+               tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                   @Override
+                   public void onTabSelected(TabLayout.Tab tab) {
+                       JZVideoPlayerStandard.releaseAllVideos();
+                       String string = "#ffffff";
+                       int color = Color.parseColor(string);
+
+// int tabIconColor = ContextCompat.getColor(HomeActivity.this, color); //tabselected color
+                       tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+                   }
+
+                   @Override
+                   public void onTabUnselected(TabLayout.Tab tab) {
+
+                       String string1 = "#f15a2b";
+                       int color1 = Color.parseColor(string1);
+
+// int tabIconColor = ContextCompat.getColor(HomeActivity.this,color1);//tabunselected color
+                       tab.getIcon().setColorFilter(color1, PorterDuff.Mode.SRC_IN);
+                   }
+
+                   @Override
+                   public void onTabReselected(TabLayout.Tab tab) {
+
+                   }
+               });
+           }else if(i==3){
+//               tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+//               tabLayout.getTabAt(1).setIcon(tabIcons[1]);
+//               tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+
+
+               tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
+               tabLayout.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#f15a2b"), PorterDuff.Mode.SRC_IN);
+               tabLayout.getTabAt(2).getIcon().setColorFilter(Color.parseColor("#f15a2b"), PorterDuff.Mode.SRC_IN);
+
+               tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                   @Override
+                   public void onTabSelected(TabLayout.Tab tab) {
+                       JZVideoPlayerStandard.releaseAllVideos();
+                       String string = "#ffffff";
+                       int color = Color.parseColor(string);
+
+// int tabIconColor = ContextCompat.getColor(HomeActivity.this, color); //tabselected color
+                       tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+                   }
+
+                   @Override
+                   public void onTabUnselected(TabLayout.Tab tab) {
+
+                       String string1 = "#f15a2b";
+                       int color1 = Color.parseColor(string1);
+
+// int tabIconColor = ContextCompat.getColor(HomeActivity.this,color1);//tabunselected color
+                       tab.getIcon().setColorFilter(color1, PorterDuff.Mode.SRC_IN);
+                   }
+
+                   @Override
+                   public void onTabReselected(TabLayout.Tab tab) {
+
+                   }
+               });
+           }else if(i==2){
+//               tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+//               tabLayout.getTabAt(1).setIcon(tabIcons[1]);
+
+
+               tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
+               tabLayout.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#f15a2b"), PorterDuff.Mode.SRC_IN);
+
+
+               tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                   @Override
+                   public void onTabSelected(TabLayout.Tab tab) {
+                       JZVideoPlayerStandard.releaseAllVideos();
+                       String string = "#ffffff";
+                       int color = Color.parseColor(string);
+
+// int tabIconColor = ContextCompat.getColor(HomeActivity.this, color); //tabselected color
+                       tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+                   }
+
+                   @Override
+                   public void onTabUnselected(TabLayout.Tab tab) {
+
+                       String string1 = "#f15a2b";
+                       int color1 = Color.parseColor(string1);
+
+// int tabIconColor = ContextCompat.getColor(HomeActivity.this,color1);//tabunselected color
+                       tab.getIcon().setColorFilter(color1, PorterDuff.Mode.SRC_IN);
+                   }
+
+                   @Override
+                   public void onTabReselected(TabLayout.Tab tab) {
+
+                   }
+               });
+           }else if(i==1){
+//               tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+
+
+               tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
+
+               tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                   @Override
+                   public void onTabSelected(TabLayout.Tab tab) {
+                       JZVideoPlayerStandard.releaseAllVideos();
+                       String string = "#ffffff";
+                       int color = Color.parseColor(string);
+
+// int tabIconColor = ContextCompat.getColor(HomeActivity.this, color); //tabselected color
+                       tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+                   }
+
+                   @Override
+                   public void onTabUnselected(TabLayout.Tab tab) {
+
+//                       String string1 = "#7898a9";
+//                       int color1 = Color.parseColor(string1);
+//
+//// int tabIconColor = ContextCompat.getColor(HomeActivity.this,color1);//tabunselected color
+//                       tab.getIcon().setColorFilter(color1, PorterDuff.Mode.SRC_IN);
+                   }
+
+                   @Override
+                   public void onTabReselected(TabLayout.Tab tab) {
+
+                   }
+               });
+           }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         //Initializing NavigationView
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         menurecycler = navigationView.findViewById(R.id.menurecycler);
@@ -213,23 +366,25 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         home = navigationView.findViewById(R.id.home);
         contactus = navigationView.findViewById(R.id.contactus);
         switchbt = navigationView.findViewById(R.id.switchbt);
+        privacy_policy = navigationView.findViewById(R.id.privacy_policy);
+        eula = navigationView.findViewById(R.id.eula);
 
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                JZVideoPlayerStandard.releaseAllVideos();
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+//        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                JZVideoPlayerStandard.releaseAllVideos();
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//
+//            }
+//        });
 
 
         logout.setOnClickListener(new View.OnClickListener() {
@@ -270,6 +425,28 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
             }
         });
 
+        eula.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                Intent main = new Intent(getApplicationContext(), EULAActivity.class);
+                startActivity(main);
+
+
+            }
+        });
+
+        privacy_policy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent main = new Intent(getApplicationContext(), PrivacyPolicy.class);
+                startActivity(main);
+
+            }
+        });
+
         switchbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -299,6 +476,10 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         menurecycler.setLayoutAnimation(animation);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         menurecycler.setLayoutManager(mLayoutManager);
+
+
+        List<EventMenuSettingList> anotherList = new ArrayList<EventMenuSettingList>();
+        anotherList.addAll(eventMenuSettingLists);
 
 
         if (eventMenuSettingLists != null) {
@@ -365,23 +546,23 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         ImageView editIv = outer.findViewById(R.id.editIv);
 
 
-        if (edit_profile.equalsIgnoreCase("1")) {
-            editIv.setVisibility(View.VISIBLE);
-
-        } else {
-
-            editIv.setVisibility(View.GONE);
-
-        }
+//        if (edit_profile.equalsIgnoreCase("1")) {
+//            editIv.setVisibility(View.VISIBLE);
+//
+//        } else {
+//
+//            editIv.setVisibility(View.GONE);
+//
+//        }
 
 
         editIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                SharedPreferences mypref = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-                String event_id = mypref.getString("eventid", "");
-                String eventnamestr = mypref.getString("eventnamestr", "");
+//                SharedPreferences mypref = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+//                String event_id = mypref.getString("eventid", "");
+//                String eventnamestr = mypref.getString("eventnamestr", "");
 
                 Intent Profile = new Intent(getApplicationContext(), ProfileActivity.class);
 //                Profile.putExtra("eventId", event_id);
@@ -409,8 +590,8 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         String profilepic = user.get(SessionManager.KEY_PIC);
 
 
-        nameTv.setText(name);//+"  "+lname);
-        lastNameTv.setText(lname);
+        nameTv.setText(name + " " + lname);
+//        lastNameTv.setText(lname);
         designationTv.setText(designation);
         compantyTv.setText(company);
 
@@ -436,6 +617,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
     }
 
     private void setupTabIcons() {
+
 
         if (tabLayout.getTabAt(0) != null) {
             if (tabLayout.getTabAt(0).getText().equals("News Feed")) {
@@ -590,21 +772,28 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
             for (int i = 0; i < eventSettingLists.size(); i++) {
                 if (eventSettingLists.get(i).getFieldName().equals("side_menu")) {
                     side_menu = eventSettingLists.get(i).getFieldValue();
+
                 } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_my_travel")) {
                     side_menu_my_travel = eventSettingLists.get(i).getFieldValue();
 
                 } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_notification")) {
                     side_menu_notification = eventSettingLists.get(i).getFieldValue();
+
                 } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_display_qr")) {
                     side_menu_display_qr = eventSettingLists.get(i).getFieldValue();
+
                 } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_qr_scanner")) {
                     side_menu_qr_scanner = eventSettingLists.get(i).getFieldValue();
+
                 } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_quiz")) {
                     side_menu_quiz = eventSettingLists.get(i).getFieldValue();
+
                 } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_live_poll")) {
                     side_menu_live_poll = eventSettingLists.get(i).getFieldValue();
+
                 } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_survey")) {
                     side_menu_survey = eventSettingLists.get(i).getFieldValue();
+
                 } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_feedback")) {
                     side_menu_feedback = eventSettingLists.get(i).getFieldValue();
                 } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_gallery_video")) {
@@ -691,6 +880,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_my_travel")) {
             Intent selfie = new Intent(this, MyTravelActivity.class);
             startActivity(selfie);
+
 
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_notification")) {
             Intent notify = new Intent(this, NotificationActivity.class);

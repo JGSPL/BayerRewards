@@ -16,7 +16,9 @@ import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.procialize.singleevent.Activity.SpeakerDetailsActivity;
@@ -46,6 +48,7 @@ public class SpeakerActivity extends AppCompatActivity implements SpeakerAdapter
     private ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,11 +78,11 @@ public class SpeakerActivity extends AppCompatActivity implements SpeakerAdapter
 
         speakerrecycler = findViewById(R.id.speakerrecycler);
 
-        speakerfeedrefresh =  findViewById(R.id.speakerfeedrefresh);
+        speakerfeedrefresh = findViewById(R.id.speakerfeedrefresh);
 
-        searchEt =  findViewById(R.id.searchEt);
+        searchEt = findViewById(R.id.searchEt);
 
-        progressBar =  findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar);
 
 //        speakerrecycler.setHasFixedSize(true);
 
@@ -94,7 +97,6 @@ public class SpeakerActivity extends AppCompatActivity implements SpeakerAdapter
         final String token = user.get(SessionManager.KEY_TOKEN);
 
 
-
         // use a linear layout manager
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         speakerrecycler.setLayoutManager(mLayoutManager);
@@ -104,13 +106,12 @@ public class SpeakerActivity extends AppCompatActivity implements SpeakerAdapter
         speakerrecycler.setLayoutAnimation(animation);
 
 
-
-        fetchSpeaker(token,eventid);
+        fetchSpeaker(token, eventid);
 
         speakerfeedrefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                fetchSpeaker(token,eventid);
+                fetchSpeaker(token, eventid);
             }
         });
 
@@ -139,11 +140,11 @@ public class SpeakerActivity extends AppCompatActivity implements SpeakerAdapter
     public void fetchSpeaker(String token, String eventid) {
 
         showProgress();
-        mAPIService.SpeakerFetchPost(token,eventid).enqueue(new Callback<FetchSpeaker>() {
+        mAPIService.SpeakerFetchPost(token, eventid).enqueue(new Callback<FetchSpeaker>() {
             @Override
             public void onResponse(Call<FetchSpeaker> call, Response<FetchSpeaker> response) {
 
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     Log.i("hit", "post submitted to API." + response.body().toString());
 
                     hideProgress();
@@ -151,21 +152,20 @@ public class SpeakerActivity extends AppCompatActivity implements SpeakerAdapter
                         speakerfeedrefresh.setRefreshing(false);
                     }
                     showResponse(response);
-                }else
-                {
+                } else {
 
                     hideProgress();
                     if (speakerfeedrefresh.isRefreshing()) {
                         speakerfeedrefresh.setRefreshing(false);
                     }
-                    Toast.makeText(SpeakerActivity.this,"Unable to process",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SpeakerActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<FetchSpeaker> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
-                Toast.makeText(SpeakerActivity.this,"Unable to process",Toast.LENGTH_SHORT).show();
+                Toast.makeText(SpeakerActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
 
                 hideProgress();
                 if (speakerfeedrefresh.isRefreshing()) {
@@ -178,25 +178,34 @@ public class SpeakerActivity extends AppCompatActivity implements SpeakerAdapter
     public void showResponse(Response<FetchSpeaker> response) {
 
         // specify an adapter (see also next example)
-        speakerAdapter = new SpeakerAdapter(SpeakerActivity.this,response.body().getSpeakerList(),this);
-        speakerAdapter.notifyDataSetChanged();
-        speakerrecycler.setAdapter(speakerAdapter);
-        speakerrecycler.scheduleLayoutAnimation();
+        if (!(response.body().getSpeakerList().isEmpty())) {
+            speakerAdapter = new SpeakerAdapter(SpeakerActivity.this, response.body().getSpeakerList(), this);
+            speakerAdapter.notifyDataSetChanged();
+            speakerrecycler.setAdapter(speakerAdapter);
+            speakerrecycler.scheduleLayoutAnimation();
+        } else {
+            setContentView(R.layout.activity_empty_view);
+            ImageView imageView = findViewById(R.id.back);
+            TextView text_empty = findViewById(R.id.text_empty);
+            text_empty.setText("Speakers not available");
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+        }
     }
 
-    private void showProgress()
-    {
-        if (progressBar.getVisibility()== View.GONE)
-        {
+    private void showProgress() {
+        if (progressBar.getVisibility() == View.GONE) {
             progressBar.setVisibility(View.VISIBLE);
         }
     }
 
 
-    private void hideProgress()
-    {
-        if (progressBar.getVisibility()==View.VISIBLE)
-        {
+    private void hideProgress() {
+        if (progressBar.getVisibility() == View.VISIBLE) {
             progressBar.setVisibility(View.GONE);
         }
     }
@@ -204,15 +213,15 @@ public class SpeakerActivity extends AppCompatActivity implements SpeakerAdapter
     @Override
     public void onContactSelected(SpeakerList speaker) {
         Intent speakeretail = new Intent(this, SpeakerDetailsActivity.class);
-        speakeretail.putExtra("id",speaker.getAttendeeId());
-        speakeretail.putExtra("name",speaker.getFirstName()+" "+speaker.getLastName());
-        speakeretail.putExtra("city",speaker.getCity());
-        speakeretail.putExtra("country",speaker.getCountry());
-        speakeretail.putExtra("company",speaker.getCompany());
-        speakeretail.putExtra("designation",speaker.getDesignation());
-        speakeretail.putExtra("description",speaker.getDescription());
-        speakeretail.putExtra("totalrate",speaker.getTotalRating());
-        speakeretail.putExtra("profile",speaker.getProfilePic());
+        speakeretail.putExtra("id", speaker.getAttendeeId());
+        speakeretail.putExtra("name", speaker.getFirstName() + " " + speaker.getLastName());
+        speakeretail.putExtra("city", speaker.getCity());
+        speakeretail.putExtra("country", speaker.getCountry());
+        speakeretail.putExtra("company", speaker.getCompany());
+        speakeretail.putExtra("designation", speaker.getDesignation());
+        speakeretail.putExtra("description", speaker.getDescription());
+        speakeretail.putExtra("totalrate", speaker.getTotalRating());
+        speakeretail.putExtra("profile", speaker.getProfilePic());
         startActivity(speakeretail);
     }
 

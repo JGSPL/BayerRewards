@@ -2,6 +2,8 @@ package com.procialize.singleevent.Activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -19,14 +21,20 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.procialize.singleevent.Adapter.EventAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
+import com.procialize.singleevent.BuildConfig;
 import com.procialize.singleevent.GetterSetter.EventListing;
 import com.procialize.singleevent.GetterSetter.Login;
 import com.procialize.singleevent.GetterSetter.UserEventList;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.gcm.GCMHelper;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,6 +54,14 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
     EditText searchEt;
     ImageView img_logout;
     SessionManager session;
+    String platform, device, os_version, app_version;
+    GoogleCloudMessaging gcm;
+    public static final String EXTRA_MESSAGE = "message";
+    public static final String PROPERTY_REG_ID = "registration_id";
+    private static final String PROPERTY_APP_VERSION = "appVersion";
+    private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    static final String TAG = "GCMDemo";
+    String gcmRegID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,23 +71,12 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
         emailid = getIntent().getExtras().getString("email");
         password = getIntent().getExtras().getString("password");
         session = new SessionManager(getApplicationContext());
-//
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
 
 
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
-//        getSupportActionBar().setDisplayShowTitleEnabled(false);
-//
-//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onBackPressed();
-//            }
-//        });
-
-
+        platform = "android";
+        device = Build.MODEL;
+        os_version = Build.VERSION.RELEASE;
+        app_version = "Version" + BuildConfig.VERSION_NAME;
         eventrecycler = findViewById(R.id.eventrecycler);
         eventrefresh = findViewById(R.id.eventrefresh);
         progressBar = findViewById(R.id.progressBar);
@@ -130,6 +135,22 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
                 eventAdapter.getFilter().filter(s.toString());
             }
         });
+
+        if (checkPlayServices()) {
+            gcm = GoogleCloudMessaging.getInstance(this);
+            // gcmRegID = getRegistrationId(this);
+
+            gcmRegID = session.getGcmID();
+
+            if (gcmRegID.isEmpty()) {
+                // storeRegistrationId(this, gcmRegID);
+                new getGCMRegId().execute();
+            }
+
+        } else {
+            Log.i(TAG, "No valid Google Play Services APK found.");
+        }
+
 
     }
 
@@ -200,12 +221,14 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
     public void onContactSelected(UserEventList eventList) {
         String eventid = eventList.getEventId();
         eventnamestr = eventList.getName();
-        sendLogin(emailid, password, eventid);
+
+
+        sendLogin(emailid, password, eventid, gcmRegID, platform, device, os_version, app_version);
     }
 
 
-    public void sendLogin(String email, String password, final String eventid) {
-        mAPIService.LoginPost(email, password, eventid).enqueue(new Callback<Login>() {
+    public void sendLogin(String email, String password, final String eventid, String registration_id, String platform, String device, String os_version, String app_version) {
+        mAPIService.LoginPost(email, password, eventid, registration_id, platform, device, os_version, app_version).enqueue(new Callback<Login>() {
             @Override
             public void onResponse(Call<Login> call, Response<Login> response) {
 
@@ -248,7 +271,7 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
             String pic = response.body().getUserData().getProfilePic();
             String id = response.body().getUserData().getAttendeeId();
 
-            sessionManager.createLoginSession(firstname, lastname, email, mobile, company, designation, token, desc, city, country, pic, id, emailid, password,"1");
+            sessionManager.createLoginSession(firstname, lastname, email, mobile, company, designation, token, desc, city, country, pic, id, emailid, password, "1");
             sessionManager.saveSharedPreferencesEventList(response.body().getEventSettingList());
             sessionManager.saveSharedPreferencesMenuEventList(response.body().getEventMenuSettingList());
 
@@ -263,7 +286,7 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
                 editor.putString("eventnamestr", eventnamestr).commit();
 //                editor.putString("loginfirst","1");
                 editor.apply();
-                Intent home = new Intent(getApplicationContext(), HomeActivity.class);
+                Intent home = new Intent(getApplicationContext(), ProfileActivity.class);
 //                home.putExtra("eventId", eventid);
 //                home.putExtra("eventnamestr", eventnamestr);
                 startActivity(home);
@@ -287,4 +310,62 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
         }
     }
 
+    private boolean checkPlayServices() {
+        int resultCode = GooglePlayServicesUtil
+                .isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+                GooglePlayServicesUtil.getErrorDialog(resultCode, this,
+                        PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            } else {
+                Log.i(TAG, "This device is not supported.");
+                finish();
+            }
+            return false;
+        }
+        return true;
+    }
+
+    private class getGCMRegId extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+
+            GCMHelper gcmRegistrationHelper = new GCMHelper(
+                    getApplicationContext());
+            try {
+                //gcmRegID = gcmRegistrationHelper.GCMRegister(REG_ID);
+                String token = FirebaseInstanceId.getInstance().getToken();
+                Log.d("MYTAG", "This is your Firebase token" + token);
+
+                gcmRegID = token;
+
+                session.storeGcmID(gcmRegID);
+
+                // storeRegistrationId(getApplicationContext(), gcmRegID);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            // session = new SessionManagement(getApplicationContext());
+            // if (session.isLoggedIn()) {
+            // Update GCM ID to Server
+            // new updateGCMRegId().execute();
+            // }
+
+        }
+    }
 }

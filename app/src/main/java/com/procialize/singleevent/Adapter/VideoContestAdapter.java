@@ -36,26 +36,26 @@ import cn.jzvd.JZVideoPlayerStandard;
 public class VideoContestAdapter extends RecyclerView.Adapter<VideoContestAdapter.MyViewHolder> {
 
 
-
     public List<VideoContest> videoContestList;
     private Context context;
     private VideoContestAdapterListner listener;
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView dataTv,countTv;
+        public TextView dataTv, countTv;
         public LinearLayout mainLL;
-        public ImageView likeIv,moreIV;
+        public ImageView likeIv, moreIV, shareIV;
         public ImageView videoPlayerStandard;
         private ProgressBar progressBar;
 
         public MyViewHolder(View view) {
             super(view);
-            dataTv =  view.findViewById(R.id.dataTv);
-            countTv =  view.findViewById(R.id.countTv);
+            dataTv = view.findViewById(R.id.dataTv);
+            countTv = view.findViewById(R.id.countTv);
             videoPlayerStandard = view.findViewById(R.id.videoPlayerStandard);
             likeIv = view.findViewById(R.id.likeIv);
             moreIV = view.findViewById(R.id.moreIV);
+            shareIV = view.findViewById(R.id.shareIV);
             mainLL = view.findViewById(R.id.mainLL);
 
             progressBar = view.findViewById(R.id.progressBar);
@@ -71,14 +71,22 @@ public class VideoContestAdapter extends RecyclerView.Adapter<VideoContestAdapte
             likeIv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onLikeListener(v,videoContestList.get(getAdapterPosition()),getAdapterPosition(),countTv,likeIv);
+                    listener.onLikeListener(v, videoContestList.get(getAdapterPosition()), getAdapterPosition(), countTv, likeIv);
                 }
             });
 
             moreIV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onMoreListner(v,videoContestList.get(getAdapterPosition()),getAdapterPosition());
+                    listener.onMoreListner(v, videoContestList.get(getAdapterPosition()), getAdapterPosition());
+
+                }
+            });
+
+            shareIV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onShareListner(v, videoContestList.get(getAdapterPosition()), getAdapterPosition());
 
                 }
             });
@@ -89,8 +97,8 @@ public class VideoContestAdapter extends RecyclerView.Adapter<VideoContestAdapte
     public VideoContestAdapter(Context context, List<VideoContest> videoContestList, VideoContestAdapterListner listener) {
 
         this.videoContestList = videoContestList;
-        this.listener=listener;
-        this.context=context;
+        this.listener = listener;
+        this.context = context;
     }
 
     @Override
@@ -111,12 +119,10 @@ public class VideoContestAdapter extends RecyclerView.Adapter<VideoContestAdapte
 //        holder.videoPlayerStandard.setUp(ApiConstant.selfievideo+galleryList.getFileName()
 //                , JZVideoPlayerStandard.SCREEN_WINDOW_LIST, "");
 
-        Glide.with(holder.videoPlayerStandard.getContext()).load(ApiConstant.selfievideo+galleryList.getFileName()).into(holder.videoPlayerStandard);
-
+        Glide.with(holder.videoPlayerStandard.getContext()).load(ApiConstant.selfievideo + galleryList.getThumbName()).into(holder.videoPlayerStandard);
 
 
         if (galleryList.getLikeFlag().equals("1")) {
-
 
             holder.likeIv.setImageResource(R.drawable.ic_afterlike);
 
@@ -138,6 +144,7 @@ public class VideoContestAdapter extends RecyclerView.Adapter<VideoContestAdapte
 
         void onMoreListner(View v, VideoContest videoContest, int position);
 
+        void onShareListner(View v, VideoContest videoContest, int position);
 
     }
 }

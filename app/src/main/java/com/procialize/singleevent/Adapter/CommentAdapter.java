@@ -108,17 +108,28 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
         CommentDataList comment = commentLists.get(position);
 
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
         holder.nameTv.setText(comment.getFirstName() + " " + comment.getLastName());
 
         try {
-            Date date1 = formatter.parse(comment.getCreated());
+//            Date date1 = formatter.parse(comment.getCreated());
+//
+//            DateFormat originalFormat = new SimpleDateFormat("MMMM dd, yyyy HH:mm:ss", Locale.ENGLISH);
+//
+//            String date = originalFormat.format(date1);
+//
+//            holder.dateTv.setText(date);
 
-            DateFormat originalFormat = new SimpleDateFormat("MMMM dd, yyyy HH:mm:ss", Locale.ENGLISH);
 
-            String date = originalFormat.format(date1);
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-            holder.dateTv.setText(date);
+                Date date1 = formatter.parse(comment.getCreated());
+
+                DateFormat originalFormat = new SimpleDateFormat("dd MMM , yyyy KK:mm", Locale.ENGLISH);
+
+                String date = originalFormat.format(date1);
+
+                holder.dateTv.setText(date);
 
 
             Log.e("date", commentLists.size() + "");

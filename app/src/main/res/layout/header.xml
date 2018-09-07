@@ -104,7 +104,8 @@
                     android:paddingLeft="5dp"
                     android:text="@string/app_name"
                     android:textColor="@color/colorwhite"
-                    android:textSize="@dimen/textsizesmall" />
+                    android:textSize="@dimen/textsizesmall"
+                    android:visibility="gone"/>
 
                 <com.procialize.singleevent.Fonts.RobotoTextview
                     android:id="@+id/designationTv"

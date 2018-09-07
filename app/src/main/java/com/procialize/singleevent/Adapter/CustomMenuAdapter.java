@@ -88,23 +88,6 @@ public class CustomMenuAdapter extends RecyclerView.Adapter<CustomMenuAdapter.My
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         EventMenuSettingList menuSettingList = eventMenuSettingLists.get(position);
 
-//        if (menuSettingList.getFieldValue().equalsIgnoreCase("0")) {
-//            holder.nameTv.setVisibility(View.GONE);
-//            holder.profileIv.setVisibility(View.GONE);
-//            holder.mainLL.setVisibility(View.GONE);
-//        } else {
-//
-//            holder.nameTv.setVisibility(View.VISIBLE);
-//            holder.profileIv.setVisibility(View.VISIBLE);
-//            holder.mainLL.setVisibility(View.VISIBLE);
-//        }
-
-
-//        if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu")) {
-//            holder.mainLL.setVisibility(View.GONE);
-//        } else {
-//            holder.mainLL.setVisibility(View.VISIBLE);
-//        }
 
         if (menuSettingList.getFieldValue().equalsIgnoreCase("0")) {
 
@@ -128,16 +111,16 @@ public class CustomMenuAdapter extends RecyclerView.Adapter<CustomMenuAdapter.My
             holder.profileIv.setImageResource(R.drawable.ic_travel);
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_notification")) {
             holder.nameTv.setText("Notification");
-            holder.profileIv.setImageResource(R.drawable.ic_notification);
+            holder.profileIv.setImageResource(R.drawable.notification_icon);
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_display_qr")) {
             holder.nameTv.setText("Qr Badge");
             holder.profileIv.setImageResource(R.drawable.qr_badge);
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_qr_scanner")) {
-            holder.nameTv.setText("Qr Scanner");
+            holder.nameTv.setText("Scan ID Card");
             holder.profileIv.setImageResource(R.drawable.ic_scan);
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_quiz")) {
             holder.nameTv.setText("Quiz");
-            holder.profileIv.setImageResource(R.drawable.ic_agenda);
+            holder.profileIv.setImageResource(R.drawable.quiz);
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_live_poll")) {
             holder.nameTv.setText("Live Poll");
             holder.profileIv.setImageResource(R.drawable.live_poll);
@@ -167,16 +150,16 @@ public class CustomMenuAdapter extends RecyclerView.Adapter<CustomMenuAdapter.My
             holder.profileIv.setImageResource(R.drawable.engagement);
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_attendee")) {
             holder.nameTv.setText("Attendee");
-            holder.profileIv.setImageResource(R.drawable.ic_attendee);
+            holder.profileIv.setImageResource(R.drawable.attendees);
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_speaker")) {
             holder.nameTv.setText("Speaker");
-            holder.profileIv.setImageResource(R.drawable.ic_speaker);
+            holder.profileIv.setImageResource(R.drawable.speaker);
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_agenda")) {
             holder.nameTv.setText("Agenda");
-            holder.profileIv.setImageResource(R.drawable.ic_agenda);
+            holder.profileIv.setImageResource(R.drawable.agenda);
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_gen_info")) {
             holder.nameTv.setText("General Info");
-            holder.profileIv.setImageResource(R.drawable.general_info);
+            holder.profileIv.setImageResource(R.drawable.general);
         }
 
 

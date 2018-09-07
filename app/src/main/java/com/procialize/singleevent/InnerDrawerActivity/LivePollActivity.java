@@ -15,7 +15,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.procialize.singleevent.Activity.PollDetailActivity;
@@ -157,7 +159,16 @@ public class LivePollActivity extends AppCompatActivity implements PollAdapter.P
 
             optionLists = response.body().getLivePollOptionList();
         } else {
-            Toast.makeText(getApplicationContext(), "No Poll Available", Toast.LENGTH_SHORT).show();
+            setContentView(R.layout.activity_empty_view);
+            ImageView imageView = findViewById(R.id.back);
+            TextView text_empty = findViewById(R.id.text_empty);
+            text_empty.setText("LivePoll not available");
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
 
         }
     }

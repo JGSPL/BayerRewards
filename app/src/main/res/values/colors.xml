@@ -24,4 +24,9 @@
     <color name="drawerbackground">#37474F</color>
     <color name="colorwhite">#ffffff</color>
 
+
+    <color name="green">#32CD32</color>
+    <color name="red">#ff0000</color>
+
+
 </resources>

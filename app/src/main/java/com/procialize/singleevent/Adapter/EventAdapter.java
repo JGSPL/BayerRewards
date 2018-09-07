@@ -29,8 +29,13 @@ import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.GetterSetter.UserEventList;
 import com.procialize.singleevent.R;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -97,9 +102,23 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 
         holder.nameTv.setText(evnt.getName());
         holder.locationTv.setText(evnt.getLocation());
-        holder.designationTv.setText(evnt.getEventStart());
+//        holder.designationTv.setText(evnt.getEventStart() + "-" + evnt.getEvent_end());
         holder.eventnaem.setText(evnt.getName());
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date date1 = formatter.parse(evnt.getEventStart());
+            Date date2 = formatter.parse(evnt.getEvent_end());
 
+            DateFormat originalFormat = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
+
+            String date = originalFormat.format(date1);
+            String date3 = originalFormat.format(date2);
+
+            holder.designationTv.setText(date + " - " + date3);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         if (evnt.getLogo() != null) {
 

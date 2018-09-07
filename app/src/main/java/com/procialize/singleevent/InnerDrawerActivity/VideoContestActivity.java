@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.procialize.singleevent.Adapter.VideoContestAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
+import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.GetterSetter.ReportVideoContest;
 import com.procialize.singleevent.GetterSetter.ReportVideoContestHide;
@@ -129,6 +130,8 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
         });
 
         SelfieListFetch(token, eventid);
+
+
     }
 
     public void SelfieListFetch(String token, String eventid) {
@@ -198,9 +201,9 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
     @Override
     public void onContactSelected(VideoContest videoContest) {
 
-
         Intent intent = new Intent(VideoContestActivity.this, ExoVideoActivity.class);
         intent.putExtra("videoUrl", videoContest.getFileName());
+        intent.putExtra("title", videoContest.getTitle());
         startActivity(intent);
     }
 
@@ -293,6 +296,11 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
 
     }
 
+    @Override
+    public void onShareListner(View v, VideoContest videoContest, int position) {
+        shareTextUrl(videoContest.getTitle(), ApiConstant.selfievideo + videoContest.getFileName());
+    }
+
 
     public void VideoContestLike(String token, String eventid, String id) {
         mAPIService.VideoContestLikes(token, eventid, id).enqueue(new Callback<VideoContestLikes>() {
@@ -333,7 +341,7 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
     @Override
     protected void onResume() {
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-        SelfieListFetch(token, "1");
+        SelfieListFetch(token, eventid);
 
         super.onResume();
     }
@@ -516,6 +524,20 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
             }
         });
     }
+
+    private void shareTextUrl(String data, String url) {
+        Intent share = new Intent(Intent.ACTION_SEND);
+        share.setType("text/plain");
+        share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+
+        // Add data to the intent, the receiving app will decide
+        // what to do with it.
+        share.putExtra(Intent.EXTRA_SUBJECT, data);
+        share.putExtra(Intent.EXTRA_TEXT, url);
+
+        startActivity(Intent.createChooser(share, "Share link!"));
+    }
+
 
     @Override
     public void onPause() {

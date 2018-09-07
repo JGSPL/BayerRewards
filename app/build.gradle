@@ -7,9 +7,10 @@ android {
         minSdkVersion 19
         targetSdkVersion 26
         versionCode 2
-        versionName "1.0.0"
+        versionName "1.0.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
         android {
             lintOptions {
                 checkReleaseBuilds false // Add this
@@ -69,7 +70,6 @@ dependencies {
     //Emoji
     implementation 'org.apache.commons:commons-lang3:3.4'
     //play services
-    implementation 'com.google.android.gms:play-services:11.6.2'
     //QR Scanner
     implementation 'com.dlazaro66.qrcodereaderview:qrcodereaderview:2.0.3'
     //  implementation 'com.googlecode.ez-vcard:ez-vcard:0.10.3'
@@ -91,5 +91,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 //    implementation project(':autoplay-video-library-release')
     compile 'com.google.android.exoplayer:exoplayer:r1.5.0'
-
+    compile 'com.google.firebase:firebase-messaging:11.8.0'
+    compile 'com.google.android.gms:play-services:11.8.0'
 }
+apply plugin: 'com.google.gms.google-services'

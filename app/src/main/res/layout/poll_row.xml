@@ -33,7 +33,8 @@
                 android:layout_alignTop="@+id/imageView"
                 android:text="Abheejit Saxena"
                 android:textColor="@color/colorwhite"
-                android:id="@+id/nameTv" />
+                android:id="@+id/nameTv"
+                android:textAlignment="center"/>
 
         </LinearLayout>
 

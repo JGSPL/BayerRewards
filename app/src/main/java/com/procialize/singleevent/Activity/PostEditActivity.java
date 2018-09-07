@@ -106,6 +106,7 @@ public class PostEditActivity extends AppCompatActivity implements ProgressReque
     ImageView profileIV;
     String status;
     String mCurrentPhotoPath;
+    ImageView imgPlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,6 +140,7 @@ public class PostEditActivity extends AppCompatActivity implements ProgressReque
         Uploadiv = findViewById(R.id.Uploadiv);
         profileIV = findViewById(R.id.profileIV);
         displayRecordedVideo = findViewById(R.id.Upvideov);
+        imgPlay = findViewById(R.id.imgPlay);
         progressbar = findViewById(R.id.progressbar);
         mAPIService = ApiUtils.getAPIService();
         sessionManager = new SessionManager(getApplicationContext());
@@ -187,7 +189,6 @@ public class PostEditActivity extends AppCompatActivity implements ProgressReque
 
 
         if (to.equalsIgnoreCase("status"))
-
         {
             typepost = "status";
             Uploadiv.setVisibility(View.GONE);
@@ -290,6 +291,51 @@ public class PostEditActivity extends AppCompatActivity implements ProgressReque
 
                 postEditFeed(type, token, eventid, status, body, feedidstr);
 //                }
+            }
+        });
+
+        displayRecordedVideo.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                imgPlay.setImageResource(R.drawable.ic_media_play);
+                imgPlay.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        imgPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                displayRecordedVideo.setVisibility(View.VISIBLE);
+
+                if (!displayRecordedVideo.isPlaying()) {
+
+                    try {
+                        // Start the MediaController
+
+                        imgPlay.setImageResource(R.drawable.ic_media_pause);
+
+                        //  mediacontrolle.setAnchorView(videoview);
+                        // Get the URL from String VideoURL
+
+                        displayRecordedVideo.start();
+                        imgPlay.setVisibility(View.GONE);
+
+
+                    } catch (Exception e) {
+                        Log.e("Error", e.getMessage());
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    displayRecordedVideo.pause();
+
+                    imgPlay.setImageResource(R.drawable.ic_media_play);
+                    imgPlay.setVisibility(View.VISIBLE);
+                }
+
             }
         });
 

@@ -224,12 +224,63 @@ public class VideoFirstLevelActivity extends AppCompatActivity implements VideoF
 //            startActivity(view);
         } else {
 
+            if (firstLevelFilter.getFileName().contains("youtu")) {
+                String videoUrl = firstLevelFilter.getFileName();
 
-            Intent intent = new Intent(getApplicationContext(), VideoFirstLevelActivity.class);
-            intent.putExtra("foldername", firstLevelFilter.getFolderName());
-            intent.putExtra("videolist", (Serializable) videoLists);
-            intent.putExtra("folderlist", (Serializable) folderLists);
-            startActivity(intent);
+//                    String videoId = videoUrl.substring(videoUrl
+//                            .lastIndexOf("=") + 1);
+
+//                    String url =videoUrl.substring(videoUrl
+//                            .lastIndexOf("&index") + 0);
+
+                String[] parts = videoUrl.split("=");
+                String part1 = parts[0]; // 004
+                String videoId = parts[0]; // 034556
+
+
+                String[] parts1 = videoId.split("&index");
+
+                String url = parts1[0];
+
+
+                String[] parts2 = videoId.split("&list");
+
+
+                String url2 = parts2[0];
+
+                Log.e("video", firstLevelFilter.getFileName());
+
+                try {
+//                    Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse( videoUrl));
+                    Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse(videoUrl));
+                    startActivity(webIntent);
+//                    try {
+//                        startActivity(appIntent);
+//                    } catch (ActivityNotFoundException ex) {
+//                        startActivity(webIntent);
+//                    }
+
+                } catch (ActivityNotFoundException e) {
+
+                    // youtube is not installed.Will be opened in other
+                    // available apps
+                    Intent videoIntent = new Intent(Intent.ACTION_VIEW);
+                    videoIntent.setDataAndType(
+                            Uri.parse(firstLevelFilter.getFileName()),
+                            "video/*");
+                    startActivity(videoIntent);
+
+                }
+            } else {
+
+
+                Intent intent = new Intent(getApplicationContext(), VideoFirstLevelActivity.class);
+                intent.putExtra("foldername", firstLevelFilter.getFileName());
+                intent.putExtra("videolist", (Serializable) videoLists);
+                intent.putExtra("folderlist", (Serializable) folderLists);
+                startActivity(intent);
+            }
 
         }
     }

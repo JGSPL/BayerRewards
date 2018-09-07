@@ -197,9 +197,13 @@
         <activity android:name=".Activity.TimeWeatherActivity" />
         <activity android:name=".Activity.CurrencyConverter" />
         <activity android:name=".Activity.InitGeneralInfoActivity" />
-        <activity android:name=".InnerDrawerActivity.GeneralInfoActivity"></activity>
-        <activity android:name=".InnerDrawerActivity.SelfieContentActivityNew"></activity>
-        <activity android:name=".Activity.LikeDetailActivity"></activity>
+        <activity android:name=".InnerDrawerActivity.GeneralInfoActivity" />
+        <activity android:name=".InnerDrawerActivity.SelfieContentActivityNew" />
+        <activity android:name=".Activity.LikeDetailActivity" />
+        <activity android:name=".InnerDrawerActivity.ExoVideoActivity" />
+        <activity android:name=".Activity.EULAActivity" />
+        <activity android:name=".Activity.PrivacyPolicy" />
+        <activity android:name=".EmptyViewActivity"></activity>
     </application>
 
 </manifest>

@@ -13,7 +13,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -33,8 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FeedBackActivity extends AppCompatActivity implements FeedBackAdapter.FeedBackAdapterListner{
-
+public class FeedBackActivity extends AppCompatActivity implements FeedBackAdapter.FeedBackAdapterListner {
 
 
     private APIService mAPIService;
@@ -70,9 +71,9 @@ public class FeedBackActivity extends AppCompatActivity implements FeedBackAdapt
         });
 
 
-        feedbackRv=findViewById(R.id.feedbackRv);
-        progressBar=findViewById(R.id.progressBar);
-        feedbackRvrefresh=findViewById(R.id.feedbackRvrefresh);
+        feedbackRv = findViewById(R.id.feedbackRv);
+        progressBar = findViewById(R.id.progressBar);
+        feedbackRvrefresh = findViewById(R.id.feedbackRvrefresh);
 
         mAPIService = ApiUtils.getAPIService();
 
@@ -84,7 +85,6 @@ public class FeedBackActivity extends AppCompatActivity implements FeedBackAdapt
         final String token = user.get(SessionManager.KEY_TOKEN);
 
 
-
         // use a linear layout manager
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         feedbackRv.setLayoutManager(mLayoutManager);
@@ -94,13 +94,12 @@ public class FeedBackActivity extends AppCompatActivity implements FeedBackAdapt
         feedbackRv.setLayoutAnimation(animation);
 
 
-
-        fetchFeedback(token,eventid);
+        fetchFeedback(token, eventid);
 
         feedbackRvrefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                fetchFeedback(token,eventid);
+                fetchFeedback(token, eventid);
             }
         });
 
@@ -110,11 +109,11 @@ public class FeedBackActivity extends AppCompatActivity implements FeedBackAdapt
 
     public void fetchFeedback(String token, String eventid) {
         showProgress();
-        mAPIService.SurveyListFetch(token,eventid).enqueue(new Callback<SurveyListFetch>() {
+        mAPIService.SurveyListFetch(token, eventid).enqueue(new Callback<SurveyListFetch>() {
             @Override
             public void onResponse(Call<SurveyListFetch> call, Response<SurveyListFetch> response) {
 
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     Log.i("hit", "post submitted to API." + response.body().toString());
 
                     if (feedbackRvrefresh.isRefreshing()) {
@@ -122,20 +121,19 @@ public class FeedBackActivity extends AppCompatActivity implements FeedBackAdapt
                     }
                     dismissProgress();
                     showResponse(response);
-                }else
-                {
+                } else {
 
                     if (feedbackRvrefresh.isRefreshing()) {
                         feedbackRvrefresh.setRefreshing(false);
                     }
                     dismissProgress();
-                    Toast.makeText(getApplicationContext(),"Unable to process",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<SurveyListFetch> call, Throwable t) {
-                Toast.makeText(getApplicationContext(),"Unable to process",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
 
                 if (feedbackRvrefresh.isRefreshing()) {
                     feedbackRvrefresh.setRefreshing(false);
@@ -148,32 +146,41 @@ public class FeedBackActivity extends AppCompatActivity implements FeedBackAdapt
 
         // specify an adapter (see also next example)
         if (response.body().getStatus().equalsIgnoreCase("success")) {
-            FeedBackAdapter feedbackAdapter = new FeedBackAdapter(this, response.body().getSurveyList(),this);
-            feedbackAdapter.notifyDataSetChanged();
-            feedbackRv.setAdapter(feedbackAdapter);
-            feedbackRv.scheduleLayoutAnimation();
-        }else
-        {
-            Toast.makeText(getApplicationContext(),response.body().getMsg(),Toast.LENGTH_SHORT).show();
+            if (!(response.body().getSurveyList().isEmpty())) {
+                FeedBackAdapter feedbackAdapter = new FeedBackAdapter(this, response.body().getSurveyList(), this);
+                feedbackAdapter.notifyDataSetChanged();
+                feedbackRv.setAdapter(feedbackAdapter);
+                feedbackRv.scheduleLayoutAnimation();
+            } else {
+                setContentView(R.layout.activity_empty_view);
+                ImageView imageView = findViewById(R.id.back);
+                TextView text_empty = findViewById(R.id.text_empty);
+                text_empty.setText("Survay not available");
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        finish();
+                    }
+                });
+            }
+        } else {
+            Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
 
         }
     }
 
-    public void showProgress()
-    {
-       if (progressBar.getVisibility()== View.GONE)
-       {
-           progressBar.setVisibility(View.VISIBLE);
-       }
+    public void showProgress() {
+        if (progressBar.getVisibility() == View.GONE) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
     }
 
-    public void dismissProgress()
-    {
-        if (progressBar.getVisibility()== View.VISIBLE)
-        {
+    public void dismissProgress() {
+        if (progressBar.getVisibility() == View.VISIBLE) {
             progressBar.setVisibility(View.GONE);
         }
     }
+
     @Override
     protected void onResume() {
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
@@ -185,7 +192,7 @@ public class FeedBackActivity extends AppCompatActivity implements FeedBackAdapt
     public void onContactSelected(SurveyList survey) {
 
         Intent pdfview = new Intent(this, PdfViewerActivity.class);
-        pdfview.putExtra("url",survey.getUrl());
+        pdfview.putExtra("url", survey.getUrl());
         startActivity(pdfview);
 
     }

@@ -56,12 +56,12 @@
             <RelativeLayout
                 android:id="@+id/txtfeedRv"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="30dp"
                 android:layout_weight="1">
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     android:layout_centerInParent="true"
                     android:src="@drawable/post_status" />
 
@@ -76,12 +76,12 @@
             <RelativeLayout
                 android:id="@+id/imagefeedRv"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="30dp"
                 android:layout_weight="1">
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     android:layout_centerInParent="true"
                     android:src="@drawable/post_image" />
 
@@ -96,12 +96,12 @@
             <RelativeLayout
                 android:id="@+id/videofeedRv"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="30dp"
                 android:layout_weight="1">
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     android:layout_centerInParent="true"
                     android:src="@drawable/post_video" />
 
@@ -324,7 +324,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawablePadding="2dp"
-                    android:drawableRight="@drawable/ic_like"
                     android:gravity="center" />
 
             </LinearLayout>
@@ -333,7 +332,7 @@
                 android:id="@+id/viewone"
                 android:layout_width="1dp"
                 android:layout_height="25dp"
-                android:background="@color/colorwhite" />
+                android:background="@color/black" />
 
             <LinearLayout
                 android:id="@+id/commentTv"
@@ -361,7 +360,7 @@
                 android:id="@+id/viewtwo"
                 android:layout_width="1dp"
                 android:layout_height="25dp"
-                android:background="@color/colorwhite" />
+                android:background="@color/black" />
 
             <LinearLayout
                 android:id="@+id/shareTv"

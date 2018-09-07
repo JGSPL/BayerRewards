@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -21,7 +22,9 @@ import com.bumptech.glide.request.target.Target;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.GetterSetter.NotificationList;
 import com.procialize.singleevent.R;
+
 import org.apache.commons.lang3.StringEscapeUtils;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,7 +43,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     private NotificationAdapterListner listener;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView nameTv,dataTv,dateTv;
+        public TextView nameTv, dataTv, dateTv, txt_msg;
         public ImageView profileIv;
         Button replyBtn;
         ImageView arrowIv;
@@ -48,13 +51,14 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         public MyViewHolder(View view) {
             super(view);
-            nameTv =  view.findViewById(R.id.nameTv);
-            dataTv =  view.findViewById(R.id.dataTv);
-            dateTv =  view.findViewById(R.id.dateTv);
+            nameTv = view.findViewById(R.id.nameTv);
+            dataTv = view.findViewById(R.id.dataTv);
+            dateTv = view.findViewById(R.id.dateTv);
+            txt_msg = view.findViewById(R.id.txt_msg);
 
-            replyBtn =  view.findViewById(R.id.replyBtn);
+            replyBtn = view.findViewById(R.id.replyBtn);
 
-            arrowIv =  view.findViewById(R.id.arrowIv);
+            arrowIv = view.findViewById(R.id.arrowIv);
 
             profileIv = view.findViewById(R.id.profileIV);
 
@@ -63,15 +67,21 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // send selected contact in callback
-                    listener.onContactSelected(notificationLists.get(getAdapterPosition()));
+                    if (replyBtn.getVisibility() == View.VISIBLE) {
+                        // send selected contact in callback
+                        listener.onContactSelected(notificationLists.get(getAdapterPosition()));
+                    }
                 }
             });
 
             replyBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onReplyClick(notificationLists.get(getAdapterPosition()));
+                    if (replyBtn.getVisibility() == View.VISIBLE) {
+                        listener.onReplyClick(notificationLists.get(getAdapterPosition()));
+                    } else {
+
+                    }
                 }
             });
         }
@@ -79,8 +89,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     public NotificationAdapter(Context context, List<NotificationList> notificationLists, NotificationAdapterListner listener) {
         this.notificationLists = notificationLists;
-        this.listener=listener;
-        this.context=context;
+        this.listener = listener;
+        this.context = context;
     }
 
     @Override
@@ -95,11 +105,22 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final NotificationList notificationList = notificationLists.get(position);
 
-        holder.nameTv.setText(notificationList.getAttendeeFirstName()+" "+notificationList.getAttendeeLastName());
-
-        holder.dataTv.setText(StringEscapeUtils.unescapeJava(notificationList.getNotificationContent()));
+        holder.nameTv.setText(notificationList.getAttendeeFirstName() + " " + notificationList.getAttendeeLastName());
 
 
+        if (notificationList.getNotificationContent().contains(".gif")) {
+            holder.dataTv.setText("GIF");
+        } else {
+            holder.dataTv.setText(StringEscapeUtils.unescapeJava(notificationList.getNotificationContent()));
+        }
+
+        if (notificationList.getNotificationType().equalsIgnoreCase("Msg")) {
+            holder.txt_msg.setText("Sent You Message");
+        } else if (notificationList.getNotificationType().equalsIgnoreCase("Like")) {
+            holder.txt_msg.setText("Liked Your Post");
+        } else if (notificationList.getNotificationType().equalsIgnoreCase("Cmnt")) {
+            holder.txt_msg.setText("Commented On Your Post");
+        }
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             Date date1 = formatter.parse(notificationList.getNotificationDate());
@@ -133,25 +154,21 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 }
             }).into(holder.profileIv).onLoadStarted(context.getDrawable(R.drawable.profilepic_placeholder));
 
-        }else
-        {
+        } else {
             holder.progressView.setVisibility(View.GONE);
 
         }
 
-        if (notificationList.getNotificationType().equalsIgnoreCase("Cmnt"))
-        {
+        if (notificationList.getNotificationType().equalsIgnoreCase("Cmnt")) {
             holder.replyBtn.setVisibility(View.VISIBLE);
             holder.arrowIv.setVisibility(View.VISIBLE);
-        }else if (notificationList.getNotificationType().equalsIgnoreCase("Like"))
-        {
-            holder.replyBtn.setVisibility(View.VISIBLE);
-            holder.arrowIv.setVisibility(View.VISIBLE);
-        }else  if (notificationList.getNotificationType().equalsIgnoreCase("Msg"))
-        {
+        } else if (notificationList.getNotificationType().equalsIgnoreCase("Like")) {
+            holder.replyBtn.setVisibility(View.GONE);
+            holder.arrowIv.setVisibility(View.GONE);
+        } else if (notificationList.getNotificationType().equalsIgnoreCase("Msg")) {
             holder.replyBtn.setVisibility(View.VISIBLE);
             holder.arrowIv.setVisibility(View.GONE);
-        }else {
+        } else {
             holder.replyBtn.setVisibility(View.GONE);
             holder.arrowIv.setVisibility(View.GONE);
         }

@@ -26,6 +26,20 @@ public class SelfieList implements Serializable{
     @Expose
     private String totalLikes;
 
+    public String getAttendee_id() {
+        return attendee_id;
+    }
+
+    public void setAttendee_id(String attendee_id) {
+        this.attendee_id = attendee_id;
+    }
+
+    @SerializedName("attendee_id")
+    @Expose
+    private String attendee_id;
+
+
+
     public String getId() {
         return id;
     }

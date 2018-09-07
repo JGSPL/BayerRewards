@@ -26,7 +26,7 @@ public class QRGeneratorActivity extends AppCompatActivity {
     TextView nameTv, companyTv, cityTv, emailTv, mobileTv,
             scan_id_txtTv, designationTv;
     SessionManager sessionManager;
-    String name, designation, company, email, mobile, city;
+    String name, designation, company, email, mobile, city, lname;
     ImageView img_qr_code_image;
     String QRcode;
     public final static int WIDTH = 500;
@@ -58,6 +58,7 @@ public class QRGeneratorActivity extends AppCompatActivity {
         HashMap<String, String> userData = sessionManager.getUserDetails();
 
         name = userData.get(SessionManager.KEY_NAME);
+        lname = userData.get(SessionManager.KEY_LNAME);
         designation = userData.get(SessionManager.KEY_DESIGNATION);
         company = userData.get(SessionManager.KEY_COMPANY);
         email = userData.get(SessionManager.KEY_EMAIL);
@@ -68,7 +69,7 @@ public class QRGeneratorActivity extends AppCompatActivity {
 
 
         nameTv = findViewById(R.id.name);
-        nameTv.setText("Name :  " + name);
+        nameTv.setText("Name :  " + name + " " + lname);
 
 //      designationTv = findViewById(R.id.designation);
 //      designationTv.setText("Designation: " + designation);
@@ -96,11 +97,12 @@ public class QRGeneratorActivity extends AppCompatActivity {
         Thread t = new Thread(new Runnable() {
             public void run() {
 
-                QRcode = "Name: " + name + " "+ "\n" + "Designation: "
-                        + designation + "\n" + "Email: "
-                        + email + "\n" + "Mobile: "
-                        + mobile + "\n" + "Company: "
-                        + company + "\n" + "City: "
+                QRcode = name + " " + "\n"
+                        + lname + "\n"
+                        + designation + "\n"
+                        + email + "\n"
+                        + mobile + "\n"
+                        + company + "\n"
                         + city;
 //
 //                QRcode = name + "\n" +

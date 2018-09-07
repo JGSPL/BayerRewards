@@ -48,6 +48,7 @@ import com.procialize.singleevent.CustomTools.PixabayImageView;
 import com.procialize.singleevent.GetterSetter.CommentDataList;
 import com.procialize.singleevent.GetterSetter.CommentList;
 import com.procialize.singleevent.GetterSetter.DeleteNewsFeedComment;
+import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.GetterSetter.FetchFeed;
 import com.procialize.singleevent.GetterSetter.GifId;
 import com.procialize.singleevent.GetterSetter.LikePost;
@@ -81,11 +82,11 @@ import retrofit2.Response;
 
 public class CommentActivity extends AppCompatActivity implements CommentAdapter.CommentAdapterListner, GifEmojiAdapter.GifEmojiAdapterListner {
 
-    public TextView nameTv, designationTv, companyTv, dateTv, headingTv, likeTv, commentTv;
+    public TextView nameTv, designationTv, companyTv, dateTv, headingTv, likeTv, commentTv, sharetext;
     public ImageView profileIv;
     public ProgressBar progressView, feedprogress;
     public PixabayImageView feedimageIv;
-    String name, company, designation, heading, date, Likes, Likeflag, Comments, profileurl, feedurl, type, feedid, apikey, thumbImg, videourl;
+    String name, company, designation, heading, date, Likes, Likeflag, Comments, profileurl, noti_profileurl, feedurl, type, feedid, apikey, thumbImg, videourl, noti_type;
     ProgressDialog progress;
     private APIService mAPIService;
     private TenorApiService mAPItenorService;
@@ -106,6 +107,9 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
     RecyclerView gifrecycler;
     LinearLayout action_container, container2;
     MyJZVideoPlayerStandard videoplayer;
+    LinearLayout linearshare,
+            linearcomment,
+            linearlike;
 
     private static final String API_KEY = "TVG20YJW1MXR";
     private String id;
@@ -113,6 +117,10 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
     String eventid;
     HashMap<String, String> user;
     String user_id;
+    List<EventSettingList> eventSettingLists;
+    String news_feed_share,
+            news_feed_comment,
+            news_feed_like;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,6 +159,9 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
         // apikey
         apikey = user.get(SessionManager.KEY_TOKEN);
 
+        eventSettingLists = sessionManager.loadEventList();
+        applysetting(eventSettingLists);
+
         try {
             if (intent != null) {
                 name = intent.getStringExtra("name");
@@ -170,8 +181,14 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
                     Comments = intent.getStringExtra("Comments");
                 }
                 Likeflag = intent.getStringExtra("Likeflag");
+                noti_type = intent.getStringExtra("noti_type");
 
-                profileurl = intent.getStringExtra("profilepic");
+                if (noti_type.equalsIgnoreCase("Notification")) {
+                    noti_profileurl = intent.getStringExtra("profilepic");
+                } else if (noti_type.equalsIgnoreCase("Wall_Post")) {
+                    profileurl = intent.getStringExtra("profilepic");
+                }
+
                 type = intent.getStringExtra("type");
 
                 feedid = intent.getStringExtra("feedid");
@@ -202,11 +219,15 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
         headingTv = findViewById(R.id.headingTv);
         likeTv = findViewById(R.id.likeTv);
         commentTv = findViewById(R.id.commentTv);
+        sharetext = findViewById(R.id.sharetext);
 
         commentEt = findViewById(R.id.commentEt);
         searchEt = findViewById(R.id.searchEt);
         commentbtn = findViewById(R.id.commentBt);
         playicon = findViewById(R.id.playicon);
+        linearshare = findViewById(R.id.linearshare);
+        linearcomment = findViewById(R.id.linearcomment);
+        linearlike = findViewById(R.id.linearlike);
 
         feedimageIv = findViewById(R.id.feedimageIv);
 //        feedimageIv.setAspectRatio(p1);
@@ -251,6 +272,31 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
         if (view != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+
+        if (news_feed_like.equalsIgnoreCase("0")) {
+            likeTv.setVisibility(View.GONE);
+            linearlike.setVisibility(View.GONE);
+
+        } else {
+            likeTv.setVisibility(View.VISIBLE);
+            linearlike.setVisibility(View.VISIBLE);
+        }
+
+        if (news_feed_comment.equalsIgnoreCase("0")) {
+            commentTv.setVisibility(View.GONE);
+            linearcomment.setVisibility(View.GONE);
+        } else {
+            commentTv.setVisibility(View.VISIBLE);
+            linearcomment.setVisibility(View.VISIBLE);
+        }
+
+        if (news_feed_share.equalsIgnoreCase("0")) {
+            sharetext.setVisibility(View.GONE);
+            linearshare.setVisibility(View.GONE);
+        } else {
+            sharetext.setVisibility(View.VISIBLE);
+            linearshare.setVisibility(View.VISIBLE);
         }
         gif.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -362,6 +408,23 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
                     Likeflag = "0";
                     PostLike(eventid, feedid, apikey);
                     Likecount("Dislike");
+                }
+            }
+        });
+
+        sharetext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (type.equals("Image")) {
+
+                    shareTextUrl(date + "\n" + heading, feedurl);
+
+                } else if (type.equals("Video")) {
+
+                    shareTextUrl(date + "\n" + heading, videourl);
+
+                } else {
+                    shareTextUrl(date, heading);
                 }
             }
         });
@@ -597,8 +660,14 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
 
         if (user_id.equalsIgnoreCase(comment.getAttendeeId())) {
             deleteTv.setVisibility(View.VISIBLE);
+            reportuserTv.setVisibility(View.GONE);
+            hideTv.setVisibility(View.GONE);
+            reportTv.setVisibility(View.GONE);
         } else {
             deleteTv.setVisibility(View.GONE);
+            reportuserTv.setVisibility(View.VISIBLE);
+            hideTv.setVisibility(View.VISIBLE);
+            reportTv.setVisibility(View.VISIBLE);
         }
 
         deleteTv.setOnClickListener(new View.OnClickListener() {
@@ -872,6 +941,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
             commentAdapter.commentLists.remove(position);
             commentAdapter.notifyItemRemoved(position);
             dialog.dismiss();
+            CommentcountDec();
 
         } else {
             Log.e("post", "fail");
@@ -1110,22 +1180,38 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
 //        commentTv.setText(Comments + " Comments ");
 
         if (date != null) {
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+//            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+//            try {
+//                Date date1 = formatter.parse(date);
+//
+//                DateFormat originalFormat = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss", Locale.ENGLISH);
+//
+//                String date = originalFormat.format(date1);
+//
+//                dateTv.setText(date);
+//
+//
+//                Log.e("date", date);
+//
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             try {
                 Date date1 = formatter.parse(date);
 
-                DateFormat originalFormat = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss", Locale.ENGLISH);
+                DateFormat originalFormat = new SimpleDateFormat("dd MMM , yyyy KK:mm", Locale.ENGLISH);
 
                 String date = originalFormat.format(date1);
 
                 dateTv.setText(date);
 
-
-                Log.e("date", date);
-
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+
+
         }
 
 
@@ -1137,26 +1223,49 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
             }
         }
 
-        if (profileurl != null) {
+        if (noti_type.equalsIgnoreCase("Notification")) {
 
-            Glide.with(this).load(ApiConstant.profilepic + profileurl).listener(new RequestListener<Drawable>() {
-                @Override
-                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                    progressView.setVisibility(View.GONE);
-                    profileIv.setImageResource(R.drawable.profilepic_placeholder);
-                    return true;
-                }
+            if (noti_profileurl != null) {
 
-                @Override
-                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                    progressView.setVisibility(View.GONE);
-                    return false;
-                }
-            }).into(profileIv);
-        } else {
-            progressView.setVisibility(View.GONE);
+                Glide.with(this).load(ApiConstant.profilepic + noti_profileurl).listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        progressView.setVisibility(View.GONE);
+                        profileIv.setImageResource(R.drawable.profilepic_placeholder);
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        progressView.setVisibility(View.GONE);
+                        return false;
+                    }
+                }).into(profileIv);
+            } else {
+                progressView.setVisibility(View.GONE);
+            }
+
+        } else if (noti_type.equalsIgnoreCase("Wall_Post")) {
+            if (profileurl != null) {
+
+                Glide.with(this).load(ApiConstant.profilepic + profileurl).listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        progressView.setVisibility(View.GONE);
+                        profileIv.setImageResource(R.drawable.profilepic_placeholder);
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        progressView.setVisibility(View.GONE);
+                        return false;
+                    }
+                }).into(profileIv);
+            } else {
+                progressView.setVisibility(View.GONE);
+            }
         }
-
 
         if (type.equals("Image")) {
             //photo
@@ -1208,8 +1317,41 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(CommentActivity.this, HomeActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(CommentActivity.this, HomeActivity.class);
+//        startActivity(intent);
         finish();
     }
+
+    private void applysetting(List<EventSettingList> eventSettingLists) {
+
+        for (int i = 0; i < eventSettingLists.size(); i++) {
+
+            if (eventSettingLists.get(i).getFieldName().equals("news_feed_like")) {
+                news_feed_like = eventSettingLists.get(i).getFieldValue();
+            }
+
+            if (eventSettingLists.get(i).getFieldName().equals("news_feed_comment")) {
+                news_feed_comment = eventSettingLists.get(i).getFieldValue();
+            }
+
+            if (eventSettingLists.get(i).getFieldName().equals("news_feed_share")) {
+                news_feed_share = eventSettingLists.get(i).getFieldValue();
+            }
+
+        }
+    }
+
+    private void shareTextUrl(String data, String url) {
+        Intent share = new Intent(Intent.ACTION_SEND);
+        share.setType("text/plain");
+        share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+
+        // Add data to the intent, the receiving app will decide
+        // what to do with it.
+        share.putExtra(Intent.EXTRA_SUBJECT, data);
+        share.putExtra(Intent.EXTRA_TEXT, url);
+
+        startActivity(Intent.createChooser(share, "Share link!"));
+    }
+
 }

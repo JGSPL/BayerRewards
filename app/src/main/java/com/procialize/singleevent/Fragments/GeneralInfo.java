@@ -1,34 +1,38 @@
 package com.procialize.singleevent.Fragments;
 
+import android.app.ActionBar.LayoutParams;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.app.ActionBar.LayoutParams;
 
 import com.procialize.singleevent.Activity.CurrencyConverter;
 import com.procialize.singleevent.Activity.InitGeneralInfoActivity;
 import com.procialize.singleevent.Activity.TimeWeatherActivity;
+import com.procialize.singleevent.Adapter.GeneralInfoListAdapter;
+import com.procialize.singleevent.Adapter.MyAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.GetterSetter.GeneralInfoList;
 import com.procialize.singleevent.GetterSetter.InfoList;
+import com.procialize.singleevent.InnerDrawerActivity.GeneralInfoActivity;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.jzvd.JZVideoPlayer;
@@ -36,7 +40,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class GeneralInfo extends Fragment {
+public class GeneralInfo extends Fragment implements GeneralInfoListAdapter.GeneralInfoListener {
 
     List<EventSettingList> eventSettingLists;
     TextView weather_tv, abtcurency_tv, about_hotel, pullrefresh;
@@ -49,29 +53,43 @@ public class GeneralInfo extends Fragment {
     LinearLayout.LayoutParams params;
     TextView textView;
     ProgressDialog progressDialog;
+    RecyclerView general_item_list;
+    GeneralInfoListAdapter generalInfoListAdapter;
+    List views = new ArrayList();
+    View viewlayout;
+    LinearLayout insertPoint;
+
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.general_info, container, false);
+        final View view = inflater.inflate(R.layout.general_info, container, false);
         SessionManager sessionManager = new SessionManager(getActivity());
         eventSettingLists = sessionManager.loadEventList();
         weather_tv = (TextView) view.findViewById(R.id.weather_tv);
         abtcurency_tv = (TextView) view.findViewById(R.id.abtcurency_tv);
-        about_hotel = (TextView) view.findViewById(R.id.about_hotel);
+//        about_hotel = (TextView) view.findViewById(R.id.about_hotel);
         linearlayout = (LinearLayout) view.findViewById(R.id.linearlayout);
         pullrefresh = (TextView) view.findViewById(R.id.pullrefresh);
         generalInforefresh = view.findViewById(R.id.generalInforefresh);
 
+        general_item_list = view.findViewById(R.id.general_item_list);
+
+        if (generalInforefresh.isRefreshing()) {
+            generalInforefresh.setRefreshing(false);
+        }
+
         mAPIService = ApiUtils.getAPIService();
         SharedPreferences prefs = getActivity().getSharedPreferences(MY_PREFS_NAME, getActivity().MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
-        params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+//        params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 
         // Create TextView programmatically.
-        textView = new TextView(getActivity());
+//        textView = new TextView(getActivity());
 
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        general_item_list.setLayoutManager(mLayoutManager);
         getInfoTab();
 
 //        generalInfoAdapter.scheduleLayoutAnimation();
@@ -110,7 +128,6 @@ public class GeneralInfo extends Fragment {
             @Override
             public void onRefresh() {
 
-                linearlayout.removeView(textView);
 
                 getInfoTab();
 
@@ -134,46 +151,13 @@ public class GeneralInfo extends Fragment {
                     progressDialog.dismiss();
                     Log.i("hit", "post submitted to API." + response.body().toString());
                     generalinfoLists = response.body().getInfoList();
-                    for (int i = 0; i <= generalinfoLists.size() - 1; i++) {
-                        final String name = generalinfoLists.get(i).getName();
-                        final String description = generalinfoLists.get(i).getDescription();
-//                        if (name.equalsIgnoreCase("about hotel")) {
 
 
-                        params.setMargins(15, 15, 15, 15);
-                        textView.setLayoutParams(params);
-                        textView.setPadding(0, 25, 20, 25);
-                        textView.setBackgroundResource(R.drawable.agendabg);
-                        textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_rightarrow, 0);
-                        textView.setGravity(Gravity.CENTER);
-                        textView.setText(name);
-                        textView.setTextColor(Color.BLACK);
-
-                        textView.setAllCaps(true);
+                    generalInfoListAdapter = new GeneralInfoListAdapter(getActivity(), generalinfoLists, GeneralInfo.this);
+                    generalInfoListAdapter.notifyDataSetChanged();
+                    general_item_list.setAdapter(generalInfoListAdapter);
 
 
-                        try {
-                            // Add TextView to LinearLayout
-                            if (linearlayout != null) {
-                                linearlayout.addView(textView);
-                            }
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
-
-//                            about_hotel.setVisibility(View.VISIBLE);
-//                        }
-                        textView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(getActivity(), InitGeneralInfoActivity.class);
-                                intent.putExtra("name", name);
-                                intent.putExtra("description", description);
-                                startActivity(intent);
-                            }
-                        });
-
-                    }
                     if (generalInforefresh.isRefreshing()) {
                         generalInforefresh.setRefreshing(false);
                     }
@@ -203,5 +187,13 @@ public class GeneralInfo extends Fragment {
 
         JZVideoPlayer.releaseAllVideos();
 
+    }
+
+    @Override
+    public void onContactSelected(InfoList firstLevelFilter) {
+        Intent intent = new Intent(getActivity(), InitGeneralInfoActivity.class);
+        intent.putExtra("name", firstLevelFilter.getName());
+        intent.putExtra("description", firstLevelFilter.getDescription());
+        startActivity(intent);
     }
 }

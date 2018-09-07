@@ -280,7 +280,13 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
         reportTv.setText("Report Selfie");
         hideTv.setText("Hide Selfie");
 
-//        if(user_id.equalsIgnoreCase(selfieList.get))
+        if (selfieList.getAttendee_id().equalsIgnoreCase(user_id)) {
+            deleteTv.setVisibility(View.VISIBLE);
+        } else {
+            deleteTv.setVisibility(View.GONE);
+        }
+
+
         hideTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -347,7 +353,7 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
     @Override
     protected void onResume() {
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-        SelfieListFetch(token, "1");
+        SelfieListFetch(token, eventid);
         super.onResume();
     }
 

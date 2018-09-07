@@ -84,23 +84,19 @@
                     android:visibility="gone" />
 
 
-                <TextView
-                    android:id="@+id/about_hotel"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/general_item_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/agendabg"
-                    android:drawableRight="@drawable/ic_rightarrow"
-                    android:elevation="10dp"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="About Hotel"
-                    android:textColor="@color/black"
-                    android:visibility="gone" />
+                    android:scrollbars="vertical">
 
+                </android.support.v7.widget.RecyclerView>
 
             </LinearLayout>
         </RelativeLayout>
+
+
     </android.support.v4.widget.NestedScrollView>
+
 
 </android.support.v4.widget.SwipeRefreshLayout>

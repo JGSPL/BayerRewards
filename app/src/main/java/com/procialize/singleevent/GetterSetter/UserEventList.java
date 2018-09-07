@@ -14,6 +14,18 @@ public class UserEventList {
     @SerializedName("event_start")
     @Expose
     private String eventStart;
+
+    public String getEvent_end() {
+        return event_end;
+    }
+
+    public void setEvent_end(String event_end) {
+        this.event_end = event_end;
+    }
+
+    @SerializedName("event_end")
+    @Expose
+    private String event_end;
     @SerializedName("location")
     @Expose
     private String location;

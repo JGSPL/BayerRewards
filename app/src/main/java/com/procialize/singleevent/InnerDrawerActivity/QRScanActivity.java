@@ -37,7 +37,7 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
 
     TextInputEditText edit_username_edit, edit_first_name_edit, edit_designation_edit, edit_company_name_edit, edit_city_edit, edit_mobile_edit, edit_email_edit;
     Button save_btn_qr;
-    String name, number, designation, company, city, email;
+    String name, number, designation, company, city, email, lname;
     QRCodeReaderView qrCodeReaderView;
 
     @Override
@@ -117,17 +117,18 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
         Log.e("text", parts[0]);
 
 
-        if (parts.length == 6) {
+        if (parts.length == 7) {
 
-            name = parts[0].substring(6, (parts[0].length()));
-            designation = parts[1].substring(13, (parts[1].length()));
-            email = parts[2].substring(7, (parts[2].length()));
-            number = parts[3].substring(8, (parts[3].length()));
-            company = parts[4].substring(8, (parts[4].length()));
-            city = parts[5].substring(6, (parts[5].length()));
+            name = parts[0].substring(0, (parts[0].length()));
+            lname = parts[1].substring(0, (parts[1].length()));
+            designation = parts[2].substring(0, (parts[2].length()));
+            email = parts[3].substring(0, (parts[3].length()));
+            number = parts[4].substring(0, (parts[4].length()));
+            company = parts[5].substring(0, (parts[5].length()));
+            city = parts[6].substring(0, (parts[6].length()));
 
             edit_username_edit.setText(email);
-            edit_first_name_edit.setText(name);
+            edit_first_name_edit.setText(name + " " + lname);
             edit_designation_edit.setText(designation);
             edit_company_name_edit.setText(company);
             edit_mobile_edit.setText(number);

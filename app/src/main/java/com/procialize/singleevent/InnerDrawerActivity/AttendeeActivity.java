@@ -16,7 +16,9 @@ import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.procialize.singleevent.Activity.AttendeeDetailActivity;
@@ -169,10 +171,23 @@ public class AttendeeActivity extends AppCompatActivity implements AttendeeAdapt
     public void showResponse(Response<FetchAttendee> response) {
 
         // specify an adapter (see also next example)
-        attendeeAdapter = new AttendeeAdapter(AttendeeActivity.this,response.body().getAttendeeList(), this);
-        attendeeAdapter.notifyDataSetChanged();
-        attendeerecycler.setAdapter(attendeeAdapter);
-        attendeerecycler.scheduleLayoutAnimation();
+        if(response.body().getAttendeeList().isEmpty()) {
+            attendeeAdapter = new AttendeeAdapter(AttendeeActivity.this, response.body().getAttendeeList(), this);
+            attendeeAdapter.notifyDataSetChanged();
+            attendeerecycler.setAdapter(attendeeAdapter);
+            attendeerecycler.scheduleLayoutAnimation();
+        }else {
+            setContentView(R.layout.activity_empty_view);
+            ImageView imageView = findViewById(R.id.back);
+            TextView text_empty = findViewById(R.id.text_empty);
+            text_empty.setText("Attendee not available");
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+        }
 
     }
 

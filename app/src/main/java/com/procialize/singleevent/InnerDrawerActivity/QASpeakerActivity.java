@@ -230,10 +230,23 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
                     }
                 }
 
-                qaSpeakerAdapter = new QASpeakerAdapter(QASpeakerActivity.this, speakerQuestionLists, response.body().getQuestionSpeakerList(), this, Selectedspeaker);
-                qaSpeakerAdapter.notifyDataSetChanged();
-                qaRv.setAdapter(qaSpeakerAdapter);
-                qaRv.scheduleLayoutAnimation();
+                if (!(response.body().getQuestionSpeakerList().isEmpty())) {
+                    qaSpeakerAdapter = new QASpeakerAdapter(QASpeakerActivity.this, speakerQuestionLists, response.body().getQuestionSpeakerList(), this, Selectedspeaker);
+                    qaSpeakerAdapter.notifyDataSetChanged();
+                    qaRv.setAdapter(qaSpeakerAdapter);
+                    qaRv.scheduleLayoutAnimation();
+                } else {
+                    setContentView(R.layout.activity_empty_view);
+                    ImageView imageView = findViewById(R.id.back);
+                    TextView text_empty = findViewById(R.id.text_empty);
+                    text_empty.setText("Q&A not available");
+                    imageView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            finish();
+                        }
+                    });
+                }
             }
 
 

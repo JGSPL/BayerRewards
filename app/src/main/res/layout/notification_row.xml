@@ -62,17 +62,10 @@
                     android:id="@+id/nameTv" />
 
 
-            <com.procialize.singleevent.Fonts.RobotoTextview
-                android:paddingLeft="5dp"
-                android:textSize="@dimen/textsizesmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="3454532"
-                android:layout_margin="@dimen/elevation"
-                android:textColor="@color/colorAccent"
-                android:id="@+id/dataTv" />
+
 
             <com.procialize.singleevent.Fonts.RobotoTextview
+                android:id="@+id/txt_msg"
                 android:paddingLeft="5dp"
                 android:textSize="@dimen/textsizesmall"
                 android:layout_width="match_parent"
@@ -91,7 +84,15 @@
                 android:text="Delhi"
                 android:textColor="@color/colorAccent"
                 android:id="@+id/dateTv" />
-
+            <com.procialize.singleevent.Fonts.RobotoTextview
+                android:paddingLeft="5dp"
+                android:textSize="@dimen/textsizesmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="3454532"
+                android:layout_margin="@dimen/elevation"
+                android:textColor="@color/colorAccent"
+                android:id="@+id/dataTv" />
 
             <com.procialize.singleevent.Fonts.RobotoButton
                 android:id="@+id/replyBtn"

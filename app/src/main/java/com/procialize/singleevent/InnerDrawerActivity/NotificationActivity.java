@@ -14,7 +14,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.procialize.singleevent.Activity.AttendeeDetailActivity;
@@ -43,7 +45,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
     private APIService mAPIService;
     SwipeRefreshLayout notificationRvrefresh;
     RecyclerView notificationRv;
-    ProgressBar progressBar;
+    //    ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
     private DBHelper procializeDB;
@@ -81,7 +83,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
 
 
         notificationRv = findViewById(R.id.notificationRv);
-        progressBar = findViewById(R.id.progressBar);
+//        progressBar = findViewById(R.id.progressBar);
         notificationRvrefresh = findViewById(R.id.notificationRvrefresh);
 
         mAPIService = ApiUtils.getAPIService();
@@ -117,7 +119,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
 
 
     public void fetchNotification(String token, String eventid) {
-        showProgress();
+//        showProgress();
         mAPIService.NotificationListFetch(token, eventid).enqueue(new Callback<NotificationListFetch>() {
             @Override
             public void onResponse(Call<NotificationListFetch> call, Response<NotificationListFetch> response) {
@@ -128,14 +130,14 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
                     if (notificationRvrefresh.isRefreshing()) {
                         notificationRvrefresh.setRefreshing(false);
                     }
-                    dismissProgress();
+//                    dismissProgress();
                     showResponse(response);
                 } else {
 
                     if (notificationRvrefresh.isRefreshing()) {
                         notificationRvrefresh.setRefreshing(false);
                     }
-                    dismissProgress();
+//                    dismissProgress();
                     Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -144,7 +146,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
             public void onFailure(Call<NotificationListFetch> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
 
-                dismissProgress();
+//                dismissProgress();
                 if (notificationRvrefresh.isRefreshing()) {
                     notificationRvrefresh.setRefreshing(false);
                 }
@@ -156,27 +158,40 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
 
         // specify an adapter (see also next example)
         if (response.body().getStatus().equalsIgnoreCase("success")) {
-            NotificationAdapter notificationAdapter = new NotificationAdapter(this, response.body().getNotificationList(), this);
-            notificationAdapter.notifyDataSetChanged();
-            notificationRv.setAdapter(notificationAdapter);
-            notificationRv.scheduleLayoutAnimation();
+            if ((!response.body().getNotificationList().isEmpty())) {
+                NotificationAdapter notificationAdapter = new NotificationAdapter(this, response.body().getNotificationList(), this);
+                notificationAdapter.notifyDataSetChanged();
+                notificationRv.setAdapter(notificationAdapter);
+                notificationRv.scheduleLayoutAnimation();
+            } else {
+                setContentView(R.layout.activity_empty_view);
+                ImageView imageView = findViewById(R.id.back);
+                TextView text_empty = findViewById(R.id.text_empty);
+                text_empty.setText("Notification not available");
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        finish();
+                    }
+                });
+            }
         } else {
             Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
 
         }
     }
 
-    public void showProgress() {
-        if (progressBar.getVisibility() == View.GONE) {
-            progressBar.setVisibility(View.VISIBLE);
-        }
-    }
+//    public void showProgress() {
+//        if (progressBar.getVisibility() == View.GONE) {
+//            progressBar.setVisibility(View.VISIBLE);
+//        }
+//    }
 
-    public void dismissProgress() {
-        if (progressBar.getVisibility() == View.VISIBLE) {
-            progressBar.setVisibility(View.GONE);
-        }
-    }
+//    public void dismissProgress() {
+//        if (progressBar.getVisibility() == View.VISIBLE) {
+//            progressBar.setVisibility(View.GONE);
+//        }
+//    }
 
     @Override
     protected void onResume() {
@@ -198,6 +213,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
                 comment.putExtra("company", notification.getCompanyName());
                 comment.putExtra("name", notification.getAttendeeFirstName());
                 comment.putExtra("profilepic", notification.getProfilePic());
+                comment.putExtra("noti_type", "Notification");
                 try {
                     comment.putExtra("Likes", newsfeedsDBList.get(0).getTotalLikes());
                     comment.putExtra("Comments", newsfeedsDBList.get(0).getTotalComments());

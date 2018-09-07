@@ -13,8 +13,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
+
 import com.procialize.singleevent.Activity.QuizDetailActivity;
 import com.procialize.singleevent.Adapter.QuizAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
@@ -35,7 +38,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class QuizActivity extends AppCompatActivity implements QuizAdapter.QuizAdapterListner{
+public class QuizActivity extends AppCompatActivity implements QuizAdapter.QuizAdapterListner {
 
     private APIService mAPIService;
     SwipeRefreshLayout quizrefresh;
@@ -45,6 +48,7 @@ public class QuizActivity extends AppCompatActivity implements QuizAdapter.QuizA
 
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,9 +74,9 @@ public class QuizActivity extends AppCompatActivity implements QuizAdapter.QuizA
         });
 
 
-        quizRv=findViewById(R.id.quizRv);
-        progressBar=findViewById(R.id.progressBar);
-        quizrefresh=findViewById(R.id.quizrefresh);
+        quizRv = findViewById(R.id.quizRv);
+        progressBar = findViewById(R.id.progressBar);
+        quizrefresh = findViewById(R.id.quizrefresh);
 
         quizOptionLists = new ArrayList<>();
 
@@ -86,7 +90,6 @@ public class QuizActivity extends AppCompatActivity implements QuizAdapter.QuizA
         final String token = user.get(SessionManager.KEY_TOKEN);
 
 
-
         // use a linear layout manager
         // use a linear layout manager
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
@@ -97,12 +100,12 @@ public class QuizActivity extends AppCompatActivity implements QuizAdapter.QuizA
         quizRv.setLayoutAnimation(animation);
 
 
-        fetchQuiz(token,eventid);
+        fetchQuiz(token, eventid);
 
         quizrefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                fetchQuiz(token,eventid);
+                fetchQuiz(token, eventid);
             }
         });
     }
@@ -110,11 +113,11 @@ public class QuizActivity extends AppCompatActivity implements QuizAdapter.QuizA
 
     public void fetchQuiz(String token, String eventid) {
         showProgress();
-        mAPIService.QuizFetch(token,eventid).enqueue(new Callback<QuizFetch>() {
+        mAPIService.QuizFetch(token, eventid).enqueue(new Callback<QuizFetch>() {
             @Override
             public void onResponse(Call<QuizFetch> call, Response<QuizFetch> response) {
 
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     Log.i("hit", "post submitted to API." + response.body().toString());
 
                     if (quizrefresh.isRefreshing()) {
@@ -122,19 +125,18 @@ public class QuizActivity extends AppCompatActivity implements QuizAdapter.QuizA
                     }
                     dismissProgress();
                     showResponse(response);
-                }else
-                {
+                } else {
                     if (quizrefresh.isRefreshing()) {
                         quizrefresh.setRefreshing(false);
                     }
                     dismissProgress();
-                    Toast.makeText(getApplicationContext(),"Unable to process",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<QuizFetch> call, Throwable t) {
-                Toast.makeText(getApplicationContext(),"Unable to process",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
 
                 dismissProgress();
                 if (quizrefresh.isRefreshing()) {
@@ -147,32 +149,36 @@ public class QuizActivity extends AppCompatActivity implements QuizAdapter.QuizA
     public void showResponse(Response<QuizFetch> response) {
 
         // specify an adapter (see also next example)
-        if (response.body().getQuizList().size()!=0) {
-            QuizAdapter quizAdapter = new QuizAdapter(this, response.body().getQuizList(),response.body().getQuizOptionList(),this);
+        if (response.body().getQuizList().size() != 0) {
+            QuizAdapter quizAdapter = new QuizAdapter(this, response.body().getQuizList(), response.body().getQuizOptionList(), this);
             quizAdapter.notifyDataSetChanged();
             quizRv.setAdapter(quizAdapter);
             quizRv.scheduleLayoutAnimation();
 
             quizOptionLists = response.body().getQuizOptionList();
-        }else
-        {
-            Toast.makeText(getApplicationContext(),"No Poll Available",Toast.LENGTH_SHORT).show();
+        } else {
+            setContentView(R.layout.activity_empty_view);
+            ImageView imageView = findViewById(R.id.back);
+            TextView text_empty = findViewById(R.id.text_empty);
+            text_empty.setText("Quiz not available");
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
 
         }
     }
 
-    public void showProgress()
-    {
-      if (progressBar.getVisibility()== View.GONE)
-      {
-          progressBar.setVisibility(View.VISIBLE);
-      }
+    public void showProgress() {
+        if (progressBar.getVisibility() == View.GONE) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
     }
 
-    public void dismissProgress()
-    {
-        if (progressBar.getVisibility()== View.VISIBLE)
-        {
+    public void dismissProgress() {
+        if (progressBar.getVisibility() == View.VISIBLE) {
             progressBar.setVisibility(View.GONE);
         }
     }
@@ -189,7 +195,7 @@ public class QuizActivity extends AppCompatActivity implements QuizAdapter.QuizA
         // token
         final String token = user.get(SessionManager.KEY_TOKEN);
 
-        fetchQuiz(token,"1");
+        fetchQuiz(token, "1");
     }
 
 
@@ -203,9 +209,8 @@ public class QuizActivity extends AppCompatActivity implements QuizAdapter.QuizA
             quizdetail.putExtra("replied", quizList.getReplied());
             quizdetail.putExtra("optionlist", (Serializable) quizOptionLists);
             startActivity(quizdetail);
-        }else
-        {
-            Toast.makeText(this,"You Already Submited This Quiz",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "You Already Submited This Quiz", Toast.LENGTH_SHORT).show();
         }
 
     }

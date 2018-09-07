@@ -486,13 +486,13 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
         int count = Integer.parseInt(feed.getTotalLikes());
 
         Drawable[] drawables = likeimage.getCompoundDrawables();
-        Bitmap bitmap = ((BitmapDrawable)drawables[2] ).getBitmap();
+        Bitmap bitmap = ((BitmapDrawable) drawables[2]).getBitmap();
 
-        Bitmap bitmap2 = ((BitmapDrawable)getResources().getDrawable(R.drawable.ic_like)).getBitmap();
+        Bitmap bitmap2 = ((BitmapDrawable) getResources().getDrawable(R.drawable.ic_like)).getBitmap();
 
 
+//        if(!drawables[2].equals(R.drawable.ic_like)){
         if (bitmap != bitmap2) {
-
 
             likeimage.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_like, 0);
 //            likeimage.setBackgroundResource(R.drawable.ic_like);
@@ -548,6 +548,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
         comment.putExtra("name", feed.getFirstName() + " " + feed.getLastName());
         comment.putExtra("company", feed.getCompanyName());
         comment.putExtra("designation", feed.getDesignation());
+
         comment.putExtra("heading", feed.getPostStatus());
         comment.putExtra("date", feed.getPostDate());
         comment.putExtra("Likes", feed.getTotalLikes());
@@ -557,6 +558,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
         comment.putExtra("type", feed.getType());
         comment.putExtra("feedid", feed.getNewsFeedId());
         comment.putExtra("AspectRatio", p1);
+        comment.putExtra("noti_type", "Wall_Post");
 
         if (feed.getType().equalsIgnoreCase("Image")) {
             comment.putExtra("url", ApiConstant.newsfeedwall + feed.getMediaFile());
@@ -574,14 +576,14 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
         if (feed.getType().equals("Image")) {
 
-            shareImage(ApiConstant.newsfeedwall + feed.getMediaFile(), getContext());
+            shareImage(feed.getPostDate() + "\n" + feed.getPostStatus(), ApiConstant.newsfeedwall + feed.getMediaFile(), getContext());
 
         } else if (feed.getType().equals("Video")) {
 
-            shareTextUrl(feed.getPostDate(), ApiConstant.newsfeedwall + feed.getMediaFile());
+            shareTextUrl(feed.getPostDate() + "\n" + feed.getPostStatus(), ApiConstant.newsfeedwall + feed.getMediaFile());
 
         } else {
-            shareTextUrl(feed.getPostDate(), StringEscapeUtils.unescapeJava(feed.getPostStatus()));
+            shareTextUrl(feed.getPostDate() + "\n" + feed.getPostStatus(), StringEscapeUtils.unescapeJava(feed.getPostStatus()));
         }
     }
 
@@ -723,13 +725,15 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
         startActivity(Intent.createChooser(share, "Share link!"));
     }
 
-    static public void shareImage(String url, final Context context) {
+    static public void shareImage(final String data, String url, final Context context) {
         Picasso.with(context).load(url).into(new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("image/*");
+                i.putExtra(Intent.EXTRA_SUBJECT, data);
                 i.putExtra(Intent.EXTRA_STREAM, getLocalBitmapUri(bitmap, context));
+
                 context.startActivity(Intent.createChooser(i, "Share Image"));
             }
 
@@ -966,9 +970,9 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 //            feedrecycler.getLayoutManager().smoothScrollToPosition(feedrecycler, null, feedAdapter.getItemCount() - 1);
 
 //            feedAdapter.setHasStableIds(true);
-            feedAdapter.notifyDataSetChanged();
+//            feedAdapter.notifyDataSetChanged();
             feedrecycler.setAdapter(feedAdapter);
-            feedrecycler.scheduleLayoutAnimation();
+//            feedrecycler.scheduleLayoutAnimation();
 
 
         } catch (Exception e) {
@@ -1010,7 +1014,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
         if (response.body().getStatus().equals("Success")) {
             Log.e("post", "success");
-//            fetchFeedLike(token,eventid);
+//            fetchFeed(token, eventid);
         } else {
             Log.e("post", "fail");
             Toast.makeText(getContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
@@ -1243,7 +1247,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
 
         Intent intent = new Intent(getActivity(), LikeDetailActivity.class);
-        intent.putExtra("noificationid",noificationid);
+        intent.putExtra("noificationid", noificationid);
         startActivity(intent);
 //        showProgress();
 //        mAPIService.postLikeUserList(token, noificationid, eventid).enqueue(new Callback<LikeListing>() {

@@ -8,8 +8,8 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -17,7 +17,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -82,6 +82,9 @@ public class ProfileActivity extends AppCompatActivity {
     public static final int RequestPermissionCode = 8;
     String eventnamestr;
     String profilepic;
+    String api_token;
+    TextView txt_upload;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +97,10 @@ public class ProfileActivity extends AppCompatActivity {
         eventid = prefs.getString("eventid", "");
         eventnamestr = prefs.getString("eventnamestr", "");
 
+        sessionManager = new SessionManager(this);
+        HashMap<String, String> user = sessionManager.getUserDetails();
+
+        api_token = user.get(SessionManager.KEY_TOKEN);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -115,7 +122,9 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         mAPIService = ApiUtils.getAPIService();
-        initializeView();
+
+        fetchProfileDetail(api_token, eventid);
+
 
         if (CheckingPermissionIsEnabledOrNot()) {
 //            Toast.makeText(MainActivity.this, "All Permissions Granted Successfully", Toast.LENGTH_LONG).show();
@@ -133,7 +142,7 @@ public class ProfileActivity extends AppCompatActivity {
     private void initializeView() {
 
 
-        sessionManager = new SessionManager(this);
+//        sessionManager = new SessionManager(this);
 
 
         // get user data from session
@@ -188,10 +197,12 @@ public class ProfileActivity extends AppCompatActivity {
         Etemail = findViewById(R.id.Etemail);
 
         savebtn = findViewById(R.id.savebtn);
+        txt_upload = findViewById(R.id.txt_upload);
 
 
         profileIV = findViewById(R.id.profileIV);
         progressView = findViewById(R.id.progressView);
+
 
         if (designation != null && edit_profile_designation.equalsIgnoreCase("1")) {
             Etdesignation.setText(designation);
@@ -224,17 +235,27 @@ public class ProfileActivity extends AppCompatActivity {
             Etmobile.setVisibility(View.GONE);
 
         }
-        Etcompany.setText(company);
 
-        if (name != null && edit_profile_naame.equalsIgnoreCase("1")) {
-
-            Etfirstname.setText(name);
-            Etlastname.setText(lname);
+        if (company != null && edit_profile_company.equalsIgnoreCase("1")) {
+            Etcompany.setText(company);
 
         } else {
-            Etfirstname.setVisibility(View.GONE);
-            Etlastname.setVisibility(View.GONE);
+            Etcompany.setVisibility(View.GONE);
+        }
 
+        try {
+            if (name != null && edit_profile_naame.equalsIgnoreCase("1")) {
+
+                Etfirstname.setText(name);
+                Etlastname.setText(lname);
+
+            } else {
+                Etfirstname.setVisibility(View.GONE);
+                Etlastname.setVisibility(View.GONE);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
 
@@ -246,6 +267,8 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         if (profilepic != null && edit_profile_pic.equalsIgnoreCase("1")) {
+            profileIV.setVisibility(View.VISIBLE);
+            txt_upload.setVisibility(View.VISIBLE);
 
             Glide.with(this).load(ApiConstant.profilepic + profilepic).listener(new RequestListener<Drawable>() {
                 @Override
@@ -262,7 +285,8 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             }).into(profileIV);
         } else {
-
+            profileIV.setVisibility(View.GONE);
+            txt_upload.setVisibility(View.GONE);
             progressView.setVisibility(View.GONE);
         }
 
@@ -285,19 +309,19 @@ public class ProfileActivity extends AppCompatActivity {
                 Etcountry = findViewById(R.id.Etcountry);
                 Etmobile = findViewById(R.id.Etmobile);
                 Etemail = findViewById(R.id.Etemail);
-                if (Etemail.getText().toString().isEmpty()) {
+                if (Etemail.getVisibility() == View.VISIBLE && Etemail.getText().toString().isEmpty()) {
                     Toast.makeText(ProfileActivity.this, "Enter Email Id", Toast.LENGTH_SHORT).show();
-                } else if (Etfirstname.getText().toString().isEmpty()) {
+                } else if (Etfirstname.getVisibility() == View.VISIBLE && Etfirstname.getText().toString().isEmpty()) {
                     Toast.makeText(ProfileActivity.this, "Enter First Name", Toast.LENGTH_SHORT).show();
-                } else if (Etlastname.getText().toString().isEmpty()) {
+                } else if (Etlastname.getVisibility() == View.VISIBLE && Etlastname.getText().toString().isEmpty()) {
                     Toast.makeText(ProfileActivity.this, "Enter Last Name", Toast.LENGTH_SHORT).show();
-                } else if (Etdesignation.getText().toString().isEmpty()) {
+                } else if (Etdesignation.getVisibility() == View.VISIBLE && Etdesignation.getText().toString().isEmpty()) {
                     Toast.makeText(ProfileActivity.this, "Enter Designation", Toast.LENGTH_SHORT).show();
-                } else if (Etcompany.getText().toString().isEmpty()) {
+                } else if (Etcompany.getVisibility() == View.VISIBLE && Etcompany.getText().toString().isEmpty()) {
                     Toast.makeText(ProfileActivity.this, "Enter Company Name", Toast.LENGTH_SHORT).show();
-                } else if (Etmobile.getText().toString().isEmpty()) {
+                } else if (Etmobile.getVisibility() == View.VISIBLE && Etmobile.getText().toString().isEmpty()) {
                     Toast.makeText(ProfileActivity.this, "Enter Mobile Number", Toast.LENGTH_SHORT).show();
-                } else if (Etcity.getText().toString().isEmpty()) {
+                } else if (Etcity.getVisibility() == View.VISIBLE && Etcity.getText().toString().isEmpty()) {
                     Toast.makeText(ProfileActivity.this, "Enter City Name", Toast.LENGTH_SHORT).show();
                 } else {
                     saveProfile();
@@ -305,6 +329,74 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void fetchProfileDetail(String token, String eventid) {
+
+        RequestBody token1 = RequestBody.create(MediaType.parse("text/plain"), token);
+        RequestBody eventid1 = RequestBody.create(MediaType.parse("text/plain"), eventid);
+//        showProgress();
+        mAPIService.fetchProfileDetail(token1, eventid1).enqueue(new Callback<ProfileSave>() {
+            @Override
+            public void onResponse(Call<ProfileSave> call, Response<ProfileSave> response) {
+
+                if (response.isSuccessful()) {
+                    Log.i("hit", "post submitted to API." + response.body().toString());
+
+                    showResponse(response);
+//                    dismissProgress();
+//                    showResponse(response);
+                } else {
+
+
+//                    dismissProgress();
+                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProfileSave> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+
+//                dismissProgress();
+
+            }
+        });
+    }
+
+    public void showResponse(Response<ProfileSave> response) {
+
+        // specify an adapter (see also next example)
+        if (response.body().getStatus().equalsIgnoreCase("success")) {
+            if (!(response.body().getUserData().equals(null))) {
+
+                try {
+                    String name = response.body().getUserData().getFirstName();
+                    String company = response.body().getUserData().getCompanyName();
+                    String designation = response.body().getUserData().getDesignation();
+                    String pic = response.body().getUserData().getProfilePic();
+                    String lastname = response.body().getUserData().getLastName();
+                    String city = response.body().getUserData().getCity();
+                    String mobno = response.body().getUserData().getMobile();
+                    String email = response.body().getUserData().getEmail();
+                    String country = response.body().getUserData().getCountry();
+                    String description = response.body().getUserData().getDescription();
+
+                    sessionManager.createProfileSession(name, company, designation, pic, lastname, city, description, country, email, mobno);
+
+                    initializeView();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+            } else {
+
+            }
+        } else {
+            Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
+
+        }
     }
 
     private void applysetting(List<EventSettingList> eventSettingLists) {
@@ -319,6 +411,10 @@ public class ProfileActivity extends AppCompatActivity {
             }
 
             if (eventSettingLists.get(i).getFieldName().equals("edit_profile_naame")) {
+                edit_profile_naame = eventSettingLists.get(i).getFieldValue();
+            }
+
+            if (eventSettingLists.get(i).getFieldName().equals("edit_profile_name")) {
                 edit_profile_naame = eventSettingLists.get(i).getFieldValue();
             }
 

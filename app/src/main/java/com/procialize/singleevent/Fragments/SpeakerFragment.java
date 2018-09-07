@@ -21,6 +21,7 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
 import com.procialize.singleevent.Activity.SpeakerDetailsActivity;
 import com.procialize.singleevent.Adapter.SpeakerAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
@@ -119,11 +120,11 @@ public class SpeakerFragment extends Fragment implements SpeakerAdapter.SpeakerA
         View view = inflater.inflate(R.layout.fragment_speaker, container, false);
         speakerrecycler = view.findViewById(R.id.speakerrecycler);
 
-        speakerfeedrefresh =  view.findViewById(R.id.speakerfeedrefresh);
+        speakerfeedrefresh = view.findViewById(R.id.speakerfeedrefresh);
 
-        searchEt =  view.findViewById(R.id.searchEt);
+        searchEt = view.findViewById(R.id.searchEt);
 
-        progressBar =  view.findViewById(R.id.progressBar);
+        progressBar = view.findViewById(R.id.progressBar);
 
         cd = new ConnectionDetector(getActivity());
         dbHelper = new DBHelper(getActivity());
@@ -139,7 +140,6 @@ public class SpeakerFragment extends Fragment implements SpeakerAdapter.SpeakerA
         eventid = prefs.getString("eventid", "1");
 
 
-
         mAPIService = ApiUtils.getAPIService();
 
         SessionManager sessionManager = new SessionManager(getContext());
@@ -148,7 +148,6 @@ public class SpeakerFragment extends Fragment implements SpeakerAdapter.SpeakerA
 
         // token
         final String token = user.get(SessionManager.KEY_TOKEN);
-
 
 
         // use a linear layout manager
@@ -160,13 +159,13 @@ public class SpeakerFragment extends Fragment implements SpeakerAdapter.SpeakerA
         speakerrecycler.setLayoutAnimation(animation);
 
         if (cd.isConnectingToInternet()) {
-            fetchSpeaker(token,eventid);
-        }else{
+            fetchSpeaker(token, eventid);
+        } else {
             db = procializeDB.getReadableDatabase();
 
             speakersDBList = dbHelper.getSpeakerDetails();
 
-            speakerAdapter = new SpeakerAdapter(getActivity(),speakersDBList, this);
+            speakerAdapter = new SpeakerAdapter(getActivity(), speakersDBList, this);
             speakerAdapter.notifyDataSetChanged();
             speakerrecycler.setAdapter(speakerAdapter);
             speakerrecycler.scheduleLayoutAnimation();
@@ -175,15 +174,15 @@ public class SpeakerFragment extends Fragment implements SpeakerAdapter.SpeakerA
         speakerfeedrefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-               // fetchSpeaker(token,evntid);
+                // fetchSpeaker(token,evntid);
                 if (cd.isConnectingToInternet()) {
-                    fetchSpeaker(token,eventid);
-                }else{
+                    fetchSpeaker(token, eventid);
+                } else {
                     db = procializeDB.getReadableDatabase();
 
                     speakersDBList = dbHelper.getSpeakerDetails();
 
-                    speakerAdapter = new SpeakerAdapter(getActivity(),speakersDBList, SpeakerFragment.this);
+                    speakerAdapter = new SpeakerAdapter(getActivity(), speakersDBList, SpeakerFragment.this);
                     speakerAdapter.notifyDataSetChanged();
                     speakerrecycler.setAdapter(speakerAdapter);
                     speakerrecycler.scheduleLayoutAnimation();
@@ -207,7 +206,12 @@ public class SpeakerFragment extends Fragment implements SpeakerAdapter.SpeakerA
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-                speakerAdapter.getFilter().filter(s.toString());
+                try {
+                    speakerAdapter.getFilter().filter(s.toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
         });
 
@@ -216,15 +220,14 @@ public class SpeakerFragment extends Fragment implements SpeakerAdapter.SpeakerA
     }
 
 
-
     public void fetchSpeaker(String token, String eventid) {
 
-       showProgress();
-        mAPIService.SpeakerFetchPost(token,eventid).enqueue(new Callback<FetchSpeaker>() {
+        showProgress();
+        mAPIService.SpeakerFetchPost(token, eventid).enqueue(new Callback<FetchSpeaker>() {
             @Override
             public void onResponse(Call<FetchSpeaker> call, Response<FetchSpeaker> response) {
 
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     Log.i("hit", "post submitted to API." + response.body().toString());
 
                     hideProgress();
@@ -232,21 +235,20 @@ public class SpeakerFragment extends Fragment implements SpeakerAdapter.SpeakerA
                         speakerfeedrefresh.setRefreshing(false);
                     }
                     showResponse(response);
-                }else
-                {
+                } else {
 
                     hideProgress();
                     if (speakerfeedrefresh.isRefreshing()) {
                         speakerfeedrefresh.setRefreshing(false);
                     }
-                    Toast.makeText(getContext(),"Unable to process",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<FetchSpeaker> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
-                Toast.makeText(getContext(),"Unable to process",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
 
                 hideProgress();
                 if (speakerfeedrefresh.isRefreshing()) {
@@ -263,25 +265,21 @@ public class SpeakerFragment extends Fragment implements SpeakerAdapter.SpeakerA
         procializeDB.insertSpeakersInfo(speakerList, db);
 
         // specify an adapter (see also next example)
-         speakerAdapter = new SpeakerAdapter(getActivity(),response.body().getSpeakerList(),this);
+        speakerAdapter = new SpeakerAdapter(getActivity(), response.body().getSpeakerList(), this);
         speakerAdapter.notifyDataSetChanged();
         speakerrecycler.setAdapter(speakerAdapter);
         speakerrecycler.scheduleLayoutAnimation();
     }
 
-    private void showProgress()
-    {
-        if (progressBar.getVisibility()==View.GONE)
-        {
+    private void showProgress() {
+        if (progressBar.getVisibility() == View.GONE) {
             progressBar.setVisibility(View.VISIBLE);
         }
     }
 
 
-    private void hideProgress()
-    {
-        if (progressBar.getVisibility()==View.VISIBLE)
-        {
+    private void hideProgress() {
+        if (progressBar.getVisibility() == View.VISIBLE) {
             progressBar.setVisibility(View.GONE);
         }
     }
@@ -297,15 +295,15 @@ public class SpeakerFragment extends Fragment implements SpeakerAdapter.SpeakerA
     @Override
     public void onContactSelected(SpeakerList speaker) {
         Intent speakeretail = new Intent(getContext(), SpeakerDetailsActivity.class);
-        speakeretail.putExtra("id",speaker.getAttendeeId());
-        speakeretail.putExtra("name",speaker.getFirstName()+" "+speaker.getLastName());
-        speakeretail.putExtra("city",speaker.getCity());
-        speakeretail.putExtra("country",speaker.getCountry());
-        speakeretail.putExtra("company",speaker.getCompany());
-        speakeretail.putExtra("designation",speaker.getDesignation());
-        speakeretail.putExtra("description",speaker.getDescription());
-        speakeretail.putExtra("totalrate",speaker.getTotalRating());
-        speakeretail.putExtra("profile",speaker.getProfilePic());
+        speakeretail.putExtra("id", speaker.getAttendeeId());
+        speakeretail.putExtra("name", speaker.getFirstName() + " " + speaker.getLastName());
+        speakeretail.putExtra("city", speaker.getCity());
+        speakeretail.putExtra("country", speaker.getCountry());
+        speakeretail.putExtra("company", speaker.getCompany());
+        speakeretail.putExtra("designation", speaker.getDesignation());
+        speakeretail.putExtra("description", speaker.getDescription());
+        speakeretail.putExtra("totalrate", speaker.getTotalRating());
+        speakeretail.putExtra("profile", speaker.getProfilePic());
         startActivity(speakeretail);
     }
 

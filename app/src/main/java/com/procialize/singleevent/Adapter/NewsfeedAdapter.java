@@ -108,7 +108,7 @@ public class NewsfeedAdapter extends BaseAdapter {
             holder = new ViewHolder();
 
             holder.nameTv = convertView.findViewById(R.id.nameTv);
-             holder.companyTv = convertView.findViewById(R.id.companyTv);
+            holder.companyTv = convertView.findViewById(R.id.companyTv);
             holder.designationTv = convertView.findViewById(R.id.designationTv);
             holder.dateTv = convertView.findViewById(R.id.dateTv);
             holder.headingTv = convertView.findViewById(R.id.headingTv);
@@ -450,20 +450,28 @@ public class NewsfeedAdapter extends BaseAdapter {
 
         if (news_feed_post.equalsIgnoreCase("0")) {
             holder.txtfeedRv.setVisibility(View.GONE);
+            holder.mindTv.setVisibility(View.GONE);
+            holder.view.setVisibility(View.GONE);
         } else {
             holder.txtfeedRv.setVisibility(View.VISIBLE);
+            holder.mindTv.setVisibility(View.VISIBLE);
+            holder.view.setVisibility(View.VISIBLE);
         }
 
         if (news_feed_images.equalsIgnoreCase("0")) {
             holder.imagefeedRv.setVisibility(View.GONE);
+            holder.viewteo.setVisibility(View.GONE);
         } else {
             holder.imagefeedRv.setVisibility(View.VISIBLE);
+            holder.viewteo.setVisibility(View.VISIBLE);
         }
 
         if (news_feed_video.equalsIgnoreCase("0")) {
             holder.videofeedRv.setVisibility(View.GONE);
+            holder.viewteo.setVisibility(View.GONE);
         } else {
             holder.videofeedRv.setVisibility(View.VISIBLE);
+            holder.viewteo.setVisibility(View.VISIBLE);
         }
 
         if (news_feed_images.equalsIgnoreCase("0") && news_feed_post.equalsIgnoreCase("0") && news_feed_video.equalsIgnoreCase("0")) {
@@ -524,8 +532,7 @@ public class NewsfeedAdapter extends BaseAdapter {
 
                 listener.moreLikeListOnClick(v, feedLists.get(position), position);
 
-//                    feedLists.remove(getAdapterPosition());
-//                    notifyItemRemoved(getAdapterPosition());
+
             }
         });
 
@@ -542,16 +549,19 @@ public class NewsfeedAdapter extends BaseAdapter {
 
         if (news_feed_like.equalsIgnoreCase("0")) {
             holder.likeTv.setVisibility(View.GONE);
+            holder.viewone.setVisibility(View.GONE);
         } else {
             holder.likeTv.setVisibility(View.VISIBLE);
+            holder.viewone.setVisibility(View.VISIBLE);
         }
 
         if (news_feed_comment.equalsIgnoreCase("0")) {
             holder.commentTv.setVisibility(View.GONE);
+            holder.viewtwo.setVisibility(View.GONE);
 
         } else {
             holder.commentTv.setVisibility(View.VISIBLE);
-
+            holder.viewtwo.setVisibility(View.VISIBLE);
         }
 
         if (news_feed_share.equalsIgnoreCase("0")) {

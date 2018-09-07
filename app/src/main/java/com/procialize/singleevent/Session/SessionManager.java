@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -75,7 +76,7 @@ public class SessionManager {
     // description (make variable public to access from outside)
     public static final String KEY_CITY = "city";
 
-
+    public static final String KEY_GCM_ID = "gcm_id";
     // country (make variable public to access from outside)
     public static final String KEY_COUNTRY = "country";
 
@@ -351,4 +352,22 @@ public class SessionManager {
         }
         return callLog;
     }
+
+    public String getGcmID() {
+
+        pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
+        editor = pref.edit();
+
+        String gcmRegID = pref.getString(KEY_GCM_ID, "");
+
+        return gcmRegID;
+    }
+
+    public void storeGcmID(String gcmRegID) {
+        // Storing eventId in pref
+        editor.putString(KEY_GCM_ID, gcmRegID);
+        // commit changes
+        editor.commit();
+    }
+
 }

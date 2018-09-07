@@ -76,7 +76,12 @@ public interface APIService {
     @FormUrlEncoded
     Call<Login> LoginPost(@Field("email") String email,
                           @Field("password") String password,
-                          @Field("event_id") String eventId);
+                          @Field("event_id") String eventId,
+                          @Field("registration_id") String registration_id,
+                          @Field("platform") String platform,
+                          @Field("device") String device,
+                          @Field("os_version") String os_version,
+                          @Field("app_version") String app_version);
 
     @POST("Login")
     @FormUrlEncoded
@@ -146,6 +151,13 @@ public interface APIService {
             @Part("event_id") RequestBody event_id,
             @Part("company_name") RequestBody company_name,
             @Part MultipartBody.Part filename);
+
+
+    @POST("EditProfileFetch")
+    @Multipart
+    Call<ProfileSave> fetchProfileDetail(
+            @Part("api_access_token") RequestBody api_access_token,
+            @Part("event_id") RequestBody event_id);
 
 
     @POST("NewsFeedFetch")

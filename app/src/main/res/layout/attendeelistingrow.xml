@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Abheejit Saxena"
-                android:textColor="@color/black"
+                android:textColor="@color/loginbutton"
                 android:id="@+id/nameTv" />
 
             <com.procialize.singleevent.Fonts.RobotoTextview
@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Simens LTD"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/colorwhite" />
 
 
             <com.procialize.singleevent.Fonts.RobotoTextview
@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Delhi"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorwhite"
                 android:id="@+id/locationTv" />
 
         </LinearLayout>

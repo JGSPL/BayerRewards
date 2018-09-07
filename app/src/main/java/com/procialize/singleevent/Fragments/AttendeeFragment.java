@@ -256,6 +256,7 @@ public class AttendeeFragment extends Fragment implements AttendeeAdapter.Attend
         procializeDB.insertAttendeesInfo(attendeeList, db);
         //attendeesDBList = dbHelper.getAttendeeDetails();
 
+
         attendeeAdapter = new AttendeeAdapter(getActivity(), response.body().getAttendeeList(), this);
         attendeeAdapter.notifyDataSetChanged();
         attendeerecycler.setAdapter(attendeeAdapter);

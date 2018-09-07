@@ -16,7 +16,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.procialize.singleevent.Activity.VideoViewActivity;
@@ -151,7 +153,6 @@ public class VideoActivity extends AppCompatActivity implements VideoAdapter.Vid
     public void showResponse(Response<VideoFetchListFetch> response) {
 
 
-
         // specify an adapter (see also next example)
         if (response.body().getVideoList().size() != 0) {
 
@@ -201,6 +202,17 @@ public class VideoActivity extends AppCompatActivity implements VideoAdapter.Vid
                 Toast.makeText(getApplicationContext(), "No Video Available", Toast.LENGTH_SHORT).show();
 
             }
+        } else {
+            setContentView(R.layout.activity_empty_view);
+            ImageView imageView = findViewById(R.id.back);
+            TextView text_empty = findViewById(R.id.text_empty);
+            text_empty.setText("Video's not available");
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
         }
     }
 

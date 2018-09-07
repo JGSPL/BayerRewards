@@ -88,7 +88,8 @@
         android:background="@drawable/speakerbtnbg"
         android:textSize="@dimen/textsizesmall"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"/>
 
 
 
@@ -96,7 +97,7 @@
         android:gravity="center"
         android:elevation="@dimen/elevation"
         android:layout_margin="@dimen/margin"
-        android:background="@drawable/speakerdatabg"
+        android:background="@drawable/agendabg"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -107,14 +108,15 @@
             android:textSize="@dimen/textsizesmall"
             android:textColor="@color/orange"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textStyle="bold"/>
 
 
         <com.procialize.singleevent.Fonts.RobotoTextview
             android:id="@+id/tvdesignation"
             android:layout_margin="@dimen/margin"
             android:textSize="@dimen/textsizesmall"
-            android:textColor="@color/black"
+            android:textColor="@color/colorwhite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -123,7 +125,7 @@
             android:id="@+id/tvcompany"
             android:layout_margin="@dimen/margin"
             android:textSize="@dimen/textsizesmall"
-            android:textColor="@color/black"
+            android:textColor="@color/colorwhite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -132,7 +134,7 @@
             android:id="@+id/tvcity"
             android:layout_margin="@dimen/margin"
             android:textSize="@dimen/textsizesmall"
-            android:textColor="@color/black"
+            android:textColor="@color/colorwhite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
