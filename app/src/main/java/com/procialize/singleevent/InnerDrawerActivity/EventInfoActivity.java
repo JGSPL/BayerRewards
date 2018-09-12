@@ -2,6 +2,8 @@ package com.procialize.singleevent.InnerDrawerActivity;
 
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +16,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -220,6 +228,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
             try {
                 if (event_info_description.equalsIgnoreCase("1") && response.body().getEventList().get(0).getEventDescription() != null) {
                     event_desc.setText(response.body().getEventList().get(0).getEventDescription());
+                    event_desc.setVisibility(View.VISIBLE);
                 } else {
                     event_desc.setVisibility(View.GONE);
                 }
@@ -227,7 +236,23 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
 
                 String image_final_url = ApiConstant.baseUrl + response.body().getEventList().get(0).getLogo();
 
-                Glide.with(getApplicationContext()).load(image_final_url).into(logoIv).onLoadStarted(getDrawable(R.drawable.logo));
+//                Glide.with(getApplicationContext()).load(image_final_url).into(logoIv).onLoadStarted(getDrawable(R.drawable.logo));
+                Glide.with(getApplicationContext()).load(image_final_url)
+                        .apply(RequestOptions.skipMemoryCacheOf(true))
+                        .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE)).listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+
+                        logoIv.setImageResource(R.drawable.logo);
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+
+                        return false;
+                    }
+                }).into(logoIv).onLoadStarted(this.getDrawable(R.drawable.logo));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -236,6 +261,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
             try {
                 if (map != null && event_info_display_map.equalsIgnoreCase("1")) {
 
+                    fm.getView().setVisibility(View.VISIBLE);
                     position = new LatLng(Double.parseDouble(response.body().getEventList().get(0).getEventLatitude()), Double.parseDouble(response.body().getEventList().get(0).getEventLongitude()));
 
                     CameraUpdate updatePosition1 = CameraUpdateFactory.newLatLng(position);

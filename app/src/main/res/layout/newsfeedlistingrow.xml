@@ -50,8 +50,7 @@
             android:layout_margin="@dimen/margin"
             android:background="@drawable/linearlayoutbg"
             android:orientation="horizontal"
-            android:padding="5dp"
-            android:weightSum="3">
+            android:padding="5dp">
 
             <RelativeLayout
                 android:id="@+id/txtfeedRv"
@@ -206,8 +205,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:orientation="horizontal"
-                    android:layout_marginRight="20dp">
+                    android:layout_marginRight="20dp"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:id="@+id/editIV"
@@ -332,7 +331,7 @@
                 android:id="@+id/viewone"
                 android:layout_width="1dp"
                 android:layout_height="25dp"
-                android:background="@color/black" />
+                android:background="@color/colorwhite" />
 
             <LinearLayout
                 android:id="@+id/commentTv"
@@ -360,7 +359,7 @@
                 android:id="@+id/viewtwo"
                 android:layout_width="1dp"
                 android:layout_height="25dp"
-                android:background="@color/black" />
+                android:background="@color/colorwhite" />
 
             <LinearLayout
                 android:id="@+id/shareTv"

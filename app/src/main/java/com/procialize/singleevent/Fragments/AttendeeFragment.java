@@ -29,6 +29,7 @@ import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.DbHelper.ConnectionDetector;
 import com.procialize.singleevent.DbHelper.DBHelper;
 import com.procialize.singleevent.GetterSetter.AttendeeList;
+import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.GetterSetter.FetchAttendee;
 
 import com.procialize.singleevent.R;
@@ -78,6 +79,7 @@ public class AttendeeFragment extends Fragment implements AttendeeAdapter.Attend
     private List<AttendeeList> attendeeList;
     private List<AttendeeList> attendeesDBList;
     private DBHelper dbHelper;
+    List<EventSettingList> eventSettingLists;
 
     String eventid;
     String MY_PREFS_NAME = "ProcializeInfo";
@@ -146,6 +148,8 @@ public class AttendeeFragment extends Fragment implements AttendeeAdapter.Attend
         SessionManager sessionManager = new SessionManager(getContext());
 
         HashMap<String, String> user = sessionManager.getUserDetails();
+
+
 
         // token
         final String token = user.get(SessionManager.KEY_TOKEN);
@@ -285,6 +289,8 @@ public class AttendeeFragment extends Fragment implements AttendeeAdapter.Attend
 //                speakeretail.putExtra("totalrate",attendee.getTotalRating());
         startActivity(attendeetail);
     }
+
+
 
 //    @Override
 //    public void onAttach(Context context) {

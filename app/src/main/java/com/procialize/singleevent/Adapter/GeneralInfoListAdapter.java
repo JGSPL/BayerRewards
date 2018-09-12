@@ -47,9 +47,9 @@ public class GeneralInfoListAdapter extends RecyclerView.Adapter<GeneralInfoList
 
 
     public GeneralInfoListAdapter(Context context, List<InfoList> infoList, GeneralInfoListener listener) {
+        this.context = context;
         this.infoList = infoList;
         this.listener = listener;
-        this.context = context;
     }
 
     @Override

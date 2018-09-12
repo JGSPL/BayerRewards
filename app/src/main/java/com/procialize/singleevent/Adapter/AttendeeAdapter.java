@@ -31,6 +31,7 @@ import com.procialize.singleevent.Fragments.AttendeeFragment;
 import com.procialize.singleevent.GetterSetter.AttendeeList;
 import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.R;
+import com.procialize.singleevent.Session.SessionManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,7 @@ public class AttendeeAdapter extends RecyclerView.Adapter<AttendeeAdapter.MyView
     private List<AttendeeList> attendeeListFiltered;
     private AttendeeAdapterListner listener;
     List<EventSettingList> eventSettingLists;
-
+    String attendee_design, attendee_company, attendee_location, attendee_mobile, attendee_save_contact;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTv, locationTv, designationTv;
@@ -96,23 +97,41 @@ public class AttendeeAdapter extends RecyclerView.Adapter<AttendeeAdapter.MyView
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final AttendeeList attendee = attendeeListFiltered.get(position);
+
+        SessionManager sessionManager = new SessionManager(context);
+        eventSettingLists = sessionManager.loadEventList();
+        applySetting(eventSettingLists);
+
+        if(attendee_company.equalsIgnoreCase("0")){
+
+        }else {
+
+        }
+
+        if(attendee_location.equalsIgnoreCase("0")){
+            holder.locationTv.setVisibility(View.GONE);
+        }else {
+            holder.locationTv.setVisibility(View.VISIBLE);
+        }
+
+    
+
         if (attendee.getFirstName().equalsIgnoreCase("N A")) {
             holder.nameTv.setText("");
         } else {
             holder.nameTv.setText(attendee.getFirstName() + " " + attendee.getLastName());
         }
-        if(attendee.getCity().equalsIgnoreCase("N A")){
+        if (attendee.getCity().equalsIgnoreCase("N A")) {
             holder.locationTv.setText("");
-        }else {
+        } else {
             holder.locationTv.setText(attendee.getCity());
         }
 
-        if(attendee.getDesignation().equalsIgnoreCase("N A")){
+        if (attendee.getDesignation().equalsIgnoreCase("N A")) {
             holder.designationTv.setText("");
-        }else {
+        } else {
             holder.designationTv.setText(attendee.getDesignation());
         }
-
 
 
         if (attendee.getProfilePic() != null) {
@@ -190,5 +209,25 @@ public class AttendeeAdapter extends RecyclerView.Adapter<AttendeeAdapter.MyView
 
     public interface AttendeeAdapterListner {
         void onContactSelected(AttendeeList attendee);
+    }
+
+    public void applySetting(List<EventSettingList> eventSettingLists) {
+        for (int i = 0; i < eventSettingLists.size(); i++) {
+            if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("attendee_design")) {
+                attendee_design = eventSettingLists.get(i).getFieldValue();
+            }
+            if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("attendee_location")) {
+                attendee_location = eventSettingLists.get(i).getFieldValue();
+            }
+            if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("attendee_company")) {
+                attendee_company = eventSettingLists.get(i).getFieldValue();
+            }
+            if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("attendee_mobile")) {
+                attendee_mobile = eventSettingLists.get(i).getFieldValue();
+            }
+            if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("attendee_save_contact")) {
+                attendee_save_contact = eventSettingLists.get(i).getFieldValue();
+            }
+        }
     }
 }

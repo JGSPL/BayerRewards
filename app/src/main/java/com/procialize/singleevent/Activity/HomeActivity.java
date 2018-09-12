@@ -106,7 +106,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
             side_menu_event_info = "0", side_menu_document = "0", side_menu_engagement = "0",
             engagement_selfie_contest = "0", engagement_video_contest = "0",
             news_feed_video = "0", QA_speaker = "0", QA_session = "0", side_menu_attendee = "0", side_menu_speaker = "0", side_menu_agenda = "0",
-            side_menu_general_info = "0";
+            side_menu_general_info = "0", edit_profile_company = "0", edit_profile_designation = "0";
     String news_feed = "0", attendee = "0", speaker = "0", agenda = "0", edit_profile = "0", general_ifo = "0";
 
 
@@ -212,150 +212,150 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
         try {
 
-           int i= tabLayout.getTabCount();
+            int i = tabLayout.getTabCount();
 
-           if(i==4) {
+            if (i == 4) {
 //               tabLayout.getTabAt(0).setIcon(tabIcons[0]);
 //               tabLayout.getTabAt(1).setIcon(tabIcons[1]);
 //               tabLayout.getTabAt(2).setIcon(tabIcons[2]);
 //               tabLayout.getTabAt(3).setIcon(tabIcons[3]);
 
 
-               tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
-               tabLayout.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#f15a2b"), PorterDuff.Mode.SRC_IN);
-               tabLayout.getTabAt(2).getIcon().setColorFilter(Color.parseColor("#f15a2b"), PorterDuff.Mode.SRC_IN);
-               tabLayout.getTabAt(3).getIcon().setColorFilter(Color.parseColor("#f15a2b"), PorterDuff.Mode.SRC_IN);
+                tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
+                tabLayout.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#f15a2b"), PorterDuff.Mode.SRC_IN);
+                tabLayout.getTabAt(2).getIcon().setColorFilter(Color.parseColor("#f15a2b"), PorterDuff.Mode.SRC_IN);
+                tabLayout.getTabAt(3).getIcon().setColorFilter(Color.parseColor("#f15a2b"), PorterDuff.Mode.SRC_IN);
 
-               tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-                   @Override
-                   public void onTabSelected(TabLayout.Tab tab) {
-                       JZVideoPlayerStandard.releaseAllVideos();
-                       String string = "#ffffff";
-                       int color = Color.parseColor(string);
+                tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        JZVideoPlayerStandard.releaseAllVideos();
+                        String string = "#ffffff";
+                        int color = Color.parseColor(string);
 
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this, color); //tabselected color
-                       tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
-                   }
+                        tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+                    }
 
-                   @Override
-                   public void onTabUnselected(TabLayout.Tab tab) {
+                    @Override
+                    public void onTabUnselected(TabLayout.Tab tab) {
 
-                       String string1 = "#f15a2b";
-                       int color1 = Color.parseColor(string1);
+                        String string1 = "#f15a2b";
+                        int color1 = Color.parseColor(string1);
 
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this,color1);//tabunselected color
-                       tab.getIcon().setColorFilter(color1, PorterDuff.Mode.SRC_IN);
-                   }
+                        tab.getIcon().setColorFilter(color1, PorterDuff.Mode.SRC_IN);
+                    }
 
-                   @Override
-                   public void onTabReselected(TabLayout.Tab tab) {
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {
 
-                   }
-               });
-           }else if(i==3){
+                    }
+                });
+            } else if (i == 3) {
 //               tabLayout.getTabAt(0).setIcon(tabIcons[0]);
 //               tabLayout.getTabAt(1).setIcon(tabIcons[1]);
 //               tabLayout.getTabAt(2).setIcon(tabIcons[2]);
 
 
-               tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
-               tabLayout.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#f15a2b"), PorterDuff.Mode.SRC_IN);
-               tabLayout.getTabAt(2).getIcon().setColorFilter(Color.parseColor("#f15a2b"), PorterDuff.Mode.SRC_IN);
+                tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
+                tabLayout.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#f15a2b"), PorterDuff.Mode.SRC_IN);
+                tabLayout.getTabAt(2).getIcon().setColorFilter(Color.parseColor("#f15a2b"), PorterDuff.Mode.SRC_IN);
 
-               tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-                   @Override
-                   public void onTabSelected(TabLayout.Tab tab) {
-                       JZVideoPlayerStandard.releaseAllVideos();
-                       String string = "#ffffff";
-                       int color = Color.parseColor(string);
+                tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        JZVideoPlayerStandard.releaseAllVideos();
+                        String string = "#ffffff";
+                        int color = Color.parseColor(string);
 
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this, color); //tabselected color
-                       tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
-                   }
+                        tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+                    }
 
-                   @Override
-                   public void onTabUnselected(TabLayout.Tab tab) {
+                    @Override
+                    public void onTabUnselected(TabLayout.Tab tab) {
 
-                       String string1 = "#f15a2b";
-                       int color1 = Color.parseColor(string1);
+                        String string1 = "#f15a2b";
+                        int color1 = Color.parseColor(string1);
 
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this,color1);//tabunselected color
-                       tab.getIcon().setColorFilter(color1, PorterDuff.Mode.SRC_IN);
-                   }
+                        tab.getIcon().setColorFilter(color1, PorterDuff.Mode.SRC_IN);
+                    }
 
-                   @Override
-                   public void onTabReselected(TabLayout.Tab tab) {
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {
 
-                   }
-               });
-           }else if(i==2){
+                    }
+                });
+            } else if (i == 2) {
 //               tabLayout.getTabAt(0).setIcon(tabIcons[0]);
 //               tabLayout.getTabAt(1).setIcon(tabIcons[1]);
 
 
-               tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
-               tabLayout.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#f15a2b"), PorterDuff.Mode.SRC_IN);
+                tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
+                tabLayout.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#f15a2b"), PorterDuff.Mode.SRC_IN);
 
 
-               tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-                   @Override
-                   public void onTabSelected(TabLayout.Tab tab) {
-                       JZVideoPlayerStandard.releaseAllVideos();
-                       String string = "#ffffff";
-                       int color = Color.parseColor(string);
+                tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        JZVideoPlayerStandard.releaseAllVideos();
+                        String string = "#ffffff";
+                        int color = Color.parseColor(string);
 
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this, color); //tabselected color
-                       tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
-                   }
+                        tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+                    }
 
-                   @Override
-                   public void onTabUnselected(TabLayout.Tab tab) {
+                    @Override
+                    public void onTabUnselected(TabLayout.Tab tab) {
 
-                       String string1 = "#f15a2b";
-                       int color1 = Color.parseColor(string1);
+                        String string1 = "#f15a2b";
+                        int color1 = Color.parseColor(string1);
 
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this,color1);//tabunselected color
-                       tab.getIcon().setColorFilter(color1, PorterDuff.Mode.SRC_IN);
-                   }
+                        tab.getIcon().setColorFilter(color1, PorterDuff.Mode.SRC_IN);
+                    }
 
-                   @Override
-                   public void onTabReselected(TabLayout.Tab tab) {
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {
 
-                   }
-               });
-           }else if(i==1){
+                    }
+                });
+            } else if (i == 1) {
 //               tabLayout.getTabAt(0).setIcon(tabIcons[0]);
 
 
-               tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
+                tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
 
-               tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-                   @Override
-                   public void onTabSelected(TabLayout.Tab tab) {
-                       JZVideoPlayerStandard.releaseAllVideos();
-                       String string = "#ffffff";
-                       int color = Color.parseColor(string);
+                tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        JZVideoPlayerStandard.releaseAllVideos();
+                        String string = "#ffffff";
+                        int color = Color.parseColor(string);
 
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this, color); //tabselected color
-                       tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
-                   }
+                        tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+                    }
 
-                   @Override
-                   public void onTabUnselected(TabLayout.Tab tab) {
+                    @Override
+                    public void onTabUnselected(TabLayout.Tab tab) {
 
 //                       String string1 = "#7898a9";
 //                       int color1 = Color.parseColor(string1);
 //
 //// int tabIconColor = ContextCompat.getColor(HomeActivity.this,color1);//tabunselected color
 //                       tab.getIcon().setColorFilter(color1, PorterDuff.Mode.SRC_IN);
-                   }
+                    }
 
-                   @Override
-                   public void onTabReselected(TabLayout.Tab tab) {
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {
 
-                   }
-               });
-           }
+                    }
+                });
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -588,6 +588,18 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
         //profilepic
         String profilepic = user.get(SessionManager.KEY_PIC);
+
+        if (edit_profile_company.equalsIgnoreCase("0")) {
+            compantyTv.setVisibility(View.GONE);
+        } else {
+            compantyTv.setVisibility(View.VISIBLE);
+        }
+
+        if (edit_profile_designation.equalsIgnoreCase("0")) {
+            designationTv.setVisibility(View.GONE);
+        } else {
+            designationTv.setVisibility(View.VISIBLE);
+        }
 
 
         nameTv.setText(name + " " + lname);
@@ -842,6 +854,10 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                     side_menu_attendee = eventSettingLists.get(i).getFieldValue();
                 } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_speaker")) {
                     side_menu_speaker = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("edit_profile_designation")) {
+                    edit_profile_designation = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("edit_profile_company")) {
+                    edit_profile_company = eventSettingLists.get(i).getFieldValue();
                 }
 
             }

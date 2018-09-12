@@ -45,8 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:src="@drawable/ic_back"
-                    />
+                    android:src="@drawable/ic_back" />
 
                 <ImageView
                     android:layout_width="150dp"
@@ -62,100 +61,88 @@
         </android.support.design.widget.AppBarLayout>
 
 
-        <com.procialize.singleevent.Fonts.RobotoTextview
-            android:id="@+id/pullrefresh"
+        <RelativeLayout
+            android:id="@+id/linear_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/appBarLayout"
-            android:gravity="center"
-            android:padding="@dimen/padding"
-            android:text="@string/refresh"
-            android:textColor="@color/black"
-            android:textSize="@dimen/textsizesmall" />
+            android:layout_height="match_parent"
+            android:layout_below="@id/appBarLayout"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/generalInforefresh"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/pullrefresh">
 
-            <android.support.v4.widget.NestedScrollView
+            <com.procialize.singleevent.Fonts.RobotoTextview
+                android:id="@+id/pullrefresh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:gravity="center"
+                android:padding="@dimen/padding"
+                android:text="@string/refresh"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textsizesmall"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/linearlayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scrollbars="none">
+                android:orientation="vertical">
 
-                <RelativeLayout
+
+                <TextView
+                    android:id="@+id/genHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="10dp"
+                    android:elevation="10dp"
+                    android:text="General Info"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:visibility="invisible" />
+
+
+                <TextView
+                    android:id="@+id/weather_tv"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:focusableInTouchMode="true"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/agendabg"
+                    android:drawableRight="@drawable/ic_rightarrow"
+                    android:elevation="10dp"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="TIME &amp; WEATHER"
+                    android:textColor="@color/colorwhite"
+                    android:visibility="gone" />
 
 
-                    <LinearLayout
-                        android:id="@+id/linearlayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
+                <TextView
+                    android:id="@+id/abtcurency_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/agendabg"
+                    android:drawableRight="@drawable/ic_rightarrow"
+                    android:elevation="10dp"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="CURRENCY CONVERTOR"
+                    android:textColor="@color/colorwhite"
+                    android:visibility="gone" />
 
 
-                        <TextView
-                            android:id="@+id/genHeader"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginTop="10dp"
-                            android:elevation="10dp"
-                            android:text="General Info"
-                            android:textColor="@color/black"
-                            android:textSize="18sp"
-                            android:visibility="invisible" />
+            </LinearLayout>
 
+        </RelativeLayout>
 
-                        <TextView
-                            android:id="@+id/weather_tv"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:background="@drawable/agendabg"
-                            android:drawableRight="@drawable/ic_rightarrow"
-                            android:elevation="10dp"
-                            android:gravity="center"
-                            android:padding="10dp"
-                            android:text="TIME &amp; WEATHER"
-                            android:textColor="@color/black"
-                            android:visibility="gone" />
-
-
-                        <TextView
-                            android:id="@+id/abtcurency_tv"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:background="@drawable/agendabg"
-                            android:drawableRight="@drawable/ic_rightarrow"
-                            android:elevation="10dp"
-                            android:gravity="center"
-                            android:padding="10dp"
-                            android:text="CURRENCY CONVERTOR"
-                            android:textColor="@color/black"
-                            android:visibility="gone" />
-
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/general_item_list"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:scrollbars="vertical">
-
-                        </android.support.v7.widget.RecyclerView>
-
-                    </LinearLayout>
-                </RelativeLayout>
-
-
-            </android.support.v4.widget.NestedScrollView>
-        </android.support.v4.widget.SwipeRefreshLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/general_item_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/linear_layout"
+            android:scrollbars="vertical" />
     </RelativeLayout>
 
 

@@ -28,8 +28,10 @@ import com.bumptech.glide.request.target.Target;
 import com.procialize.singleevent.Activity.SpeakerDetailsActivity;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.GetterSetter.AttendeeList;
+import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.GetterSetter.SpeakerList;
 import com.procialize.singleevent.R;
+import com.procialize.singleevent.Session.SessionManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,24 +48,26 @@ public class SpeakerAdapter extends RecyclerView.Adapter<SpeakerAdapter.MyViewHo
 
     private List<SpeakerList> speakerListFiltered;
     private SpeakerAdapterListner listener;
+    List<EventSettingList> eventSettingLists;
+    public String speaker_rating, speaker_designation, speaker_company, speaker_location, speaker_mobile, speaker_save_contact;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView nameTv, locationTv,designtionTv;
+        public TextView nameTv, locationTv, designtionTv;
         public ImageView profileIv;
         public ProgressBar progressView;
         private LinearLayout mainLL;
 
         public MyViewHolder(View view) {
             super(view);
-            nameTv =  view.findViewById(R.id.nameTv);
-            locationTv =  view.findViewById(R.id.locationTv);
+            nameTv = view.findViewById(R.id.nameTv);
+            locationTv = view.findViewById(R.id.locationTv);
             designtionTv = view.findViewById(R.id.designtionTv);
 
-            profileIv =  view.findViewById(R.id.profileIV);
+            profileIv = view.findViewById(R.id.profileIV);
 
             progressView = view.findViewById(R.id.progressView);
 
-            mainLL =  view.findViewById(R.id.mainLL);
+            mainLL = view.findViewById(R.id.mainLL);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -77,11 +81,11 @@ public class SpeakerAdapter extends RecyclerView.Adapter<SpeakerAdapter.MyViewHo
     }
 
 
-    public SpeakerAdapter(Context context,List<SpeakerList> speakerLists,SpeakerAdapterListner listener) {
+    public SpeakerAdapter(Context context, List<SpeakerList> speakerLists, SpeakerAdapterListner listener) {
         this.speakerLists = speakerLists;
         this.speakerListFiltered = speakerLists;
         this.listener = listener;
-        this.context=context;
+        this.context = context;
     }
 
     @Override
@@ -95,29 +99,43 @@ public class SpeakerAdapter extends RecyclerView.Adapter<SpeakerAdapter.MyViewHo
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final SpeakerList speaker = speakerListFiltered.get(position);
+        SessionManager sessionManager = new SessionManager(context);
+        eventSettingLists = sessionManager.loadEventList();
+        applySetting(eventSettingLists);
 
-        if(speaker.getFirstName().equalsIgnoreCase("N A")){
-            holder.nameTv.setText("");
-        }else {
-
-            holder.nameTv.setText(speaker.getFirstName()+" "+speaker.getLastName());
+        if (speaker_designation.equalsIgnoreCase("0")) {
+            holder.designtionTv.setVisibility(View.GONE);
+        } else {
+            holder.designtionTv.setVisibility(View.VISIBLE);
+        }
+        if (speaker_location.equalsIgnoreCase("0")) {
+            holder.locationTv.setVisibility(View.GONE);
+        } else {
+            holder.locationTv.setVisibility(View.VISIBLE);
         }
 
-        if(speaker.getCity().equalsIgnoreCase("N A")){
+
+        if (speaker.getFirstName().equalsIgnoreCase("N A")) {
+            holder.nameTv.setText("");
+        } else {
+
+            holder.nameTv.setText(speaker.getFirstName() + " " + speaker.getLastName());
+        }
+
+        if (speaker.getCity().equalsIgnoreCase("N A")) {
             holder.locationTv.setText("");
-        }else {
+        } else {
             holder.locationTv.setText(speaker.getCity());
         }
 
-        if(speaker.getDesignation().equalsIgnoreCase("N A")) {
+        if (speaker.getDesignation().equalsIgnoreCase("N A")) {
             holder.designtionTv.setText("");
-        }else {
+        } else {
             holder.designtionTv.setText(speaker.getDesignation());
         }
 
 
-
-        if(speaker.getProfilePic()!=null) {
+        if (speaker.getProfilePic() != null) {
 
 
             Glide.with(context).load(ApiConstant.speaker + speaker.getProfilePic())
@@ -136,8 +154,7 @@ public class SpeakerAdapter extends RecyclerView.Adapter<SpeakerAdapter.MyViewHo
                     return false;
                 }
             }).into(holder.profileIv).onLoadStarted(context.getDrawable(R.drawable.profilepic_placeholder));
-        }else
-        {
+        } else {
             holder.progressView.setVisibility(View.GONE);
 
         }
@@ -194,5 +211,25 @@ public class SpeakerAdapter extends RecyclerView.Adapter<SpeakerAdapter.MyViewHo
 
     public interface SpeakerAdapterListner {
         void onContactSelected(SpeakerList attendee);
+    }
+
+    public void applySetting(List<EventSettingList> eventSettingLists) {
+        for (int i = 0; i < eventSettingLists.size(); i++) {
+            if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("speaker_rating")) {
+                speaker_rating = eventSettingLists.get(i).getFieldValue();
+            }
+            if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("speaker_designation")) {
+                speaker_designation = eventSettingLists.get(i).getFieldValue();
+            }
+            if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("speaker_company")) {
+                speaker_company = eventSettingLists.get(i).getFieldValue();
+            }
+            if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("speaker_location")) {
+                speaker_location = eventSettingLists.get(i).getFieldValue();
+            }
+            if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("speaker_mobile")) {
+                speaker_mobile = eventSettingLists.get(i).getFieldValue();
+            }
+        }
     }
 }

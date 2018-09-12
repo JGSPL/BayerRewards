@@ -25,6 +25,7 @@ import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.Fragments.GeneralInfo;
 import com.procialize.singleevent.GetterSetter.EventSettingList;
+import com.procialize.singleevent.GetterSetter.FetchAgenda;
 import com.procialize.singleevent.GetterSetter.GeneralInfoList;
 import com.procialize.singleevent.GetterSetter.InfoList;
 import com.procialize.singleevent.R;
@@ -37,7 +38,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class GeneralInfoActivity extends AppCompatActivity implements GeneralInfoListAdapter.GeneralInfoListener{
+public class GeneralInfoActivity extends AppCompatActivity implements GeneralInfoListAdapter.GeneralInfoListener {
 
     List<EventSettingList> eventSettingLists;
     TextView weather_tv, abtcurency_tv, about_hotel, pullrefresh;
@@ -49,10 +50,11 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
     SwipeRefreshLayout generalInforefresh;
     LinearLayout.LayoutParams params;
     TextView textView;
-    ImageView back;
+    //    ImageView back;
     GeneralInfoListAdapter generalInfoListAdapter;
     RecyclerView general_item_list;
     ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,9 +67,9 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
 //        about_hotel = (TextView) findViewById(R.id.about_hotel);
         linearlayout = (LinearLayout) findViewById(R.id.linearlayout);
         pullrefresh = (TextView) findViewById(R.id.pullrefresh);
-        generalInforefresh = findViewById(R.id.generalInforefresh);
+//        generalInforefresh = findViewById(R.id.generalInforefresh);
         general_item_list = findViewById(R.id.general_item_list);
-        back = findViewById(R.id.back);
+//        back = findViewById(R.id.back);
 
         mAPIService = ApiUtils.getAPIService();
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
@@ -115,47 +117,48 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
         });
 
 
-        generalInforefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
+//        generalInforefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//
+//
+//                getInfoTab();
+//
+//            }
+//        });
 
-
-
-                getInfoTab();
-
-            }
-        });
-
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+//        back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
 
     }
 
     public void getInfoTab() {
+        progressDialog = new ProgressDialog(GeneralInfoActivity.this);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
 
         mAPIService.FetchGeneralInfo(eventid).enqueue(new Callback<GeneralInfoList>() {
             @Override
             public void onResponse(Call<GeneralInfoList> call, Response<GeneralInfoList> response) {
 
                 if (response.body().getStatus().equals("success")) {
-
-
+                    progressDialog.dismiss();
                     Log.i("hit", "post submitted to API." + response.body().toString());
                     generalinfoLists = response.body().getInfoList();
 
+                    showResponse(response);
+//                    generalInfoListAdapter = new GeneralInfoListAdapter(GeneralInfoActivity.this ,generalinfoLists, this);
+//                    generalInfoListAdapter.notifyDataSetChanged();
+//                    general_item_list.setAdapter(generalInfoListAdapter);
 
-                    generalInfoListAdapter = new GeneralInfoListAdapter(GeneralInfoActivity.this, generalinfoLists, GeneralInfoActivity.this);
-                    generalInfoListAdapter.notifyDataSetChanged();
-                    general_item_list.setAdapter(generalInfoListAdapter);
 
-
-                    if (generalInforefresh.isRefreshing()) {
-                        generalInforefresh.setRefreshing(false);
-                    }
+//                    if (generalInforefresh.isRefreshing()) {
+//                        generalInforefresh.setRefreshing(false);
+//                    }
 
 
                 } else {
@@ -166,14 +169,27 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
 
             @Override
             public void onFailure(Call<GeneralInfoList> call, Throwable t) {
+                progressDialog.dismiss();
                 Log.e("hit", "Unable to submit post to API.");
                 Toast.makeText(GeneralInfoActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
-                if (generalInforefresh.isRefreshing()) {
-                    generalInforefresh.setRefreshing(false);
-                }
+//                if (generalInforefresh.isRefreshing()) {
+//                    generalInforefresh.setRefreshing(false);
+//                }
             }
         });
     }
+
+    public void showResponse(Response<GeneralInfoList> response) {
+        try {
+            generalInfoListAdapter = new GeneralInfoListAdapter(GeneralInfoActivity.this, response.body().getInfoList(), GeneralInfoActivity.this);
+            generalInfoListAdapter.notifyDataSetChanged();
+            general_item_list.setAdapter(generalInfoListAdapter);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     @Override
     public void onPause() {
         super.onPause();

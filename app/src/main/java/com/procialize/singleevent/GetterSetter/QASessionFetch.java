@@ -13,7 +13,7 @@ public class QASessionFetch {
     @SerializedName("agenda_question")
     @Expose
     private List<AgendaQuestion> agendaQuestion = null;
-    @SerializedName("agenda_list")
+    @SerializedName("question_agenda_list")
     @Expose
     private List<AgendaLisQA> agendaList = null;
     @SerializedName("status")
