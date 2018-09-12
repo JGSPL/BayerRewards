@@ -64,8 +64,8 @@
                     android:elevation="10dp"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="TIME &amp; WEATHER"
-                    android:textColor="@color/black"
+                    android:text="Time &amp; Weather"
+                    android:textColor="@color/colorwhite"
                     android:visibility="gone" />
 
 
@@ -79,8 +79,8 @@
                     android:elevation="10dp"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="CURRENCY CONVERTOR"
-                    android:textColor="@color/black"
+                    android:text="Currency Convertor"
+                    android:textColor="@color/colorwhite"
                     android:visibility="gone" />
 
 

@@ -227,13 +227,15 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
 
             try {
                 if (event_info_description.equalsIgnoreCase("1") && response.body().getEventList().get(0).getEventDescription() != null) {
-                    event_desc.setText(response.body().getEventList().get(0).getEventDescription());
+
                     event_desc.setVisibility(View.VISIBLE);
+                    eventvenu.setVisibility(View.VISIBLE);
                 } else {
                     event_desc.setVisibility(View.GONE);
+                    eventvenu.setVisibility(View.GONE);
                 }
                 eventvenu.setText("Venue:- " + response.body().getEventList().get(0).getEventLocation());
-
+                event_desc.setText(response.body().getEventList().get(0).getEventDescription());
                 String image_final_url = ApiConstant.baseUrl + response.body().getEventList().get(0).getLogo();
 
 //                Glide.with(getApplicationContext()).load(image_final_url).into(logoIv).onLoadStarted(getDrawable(R.drawable.logo));
@@ -243,7 +245,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
 
-                        logoIv.setImageResource(R.drawable.logo);
+                        logoIv.setImageResource(R.drawable.profilepic_placeholder);
                         return true;
                     }
 
@@ -252,7 +254,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
 
                         return false;
                     }
-                }).into(logoIv).onLoadStarted(this.getDrawable(R.drawable.logo));
+                }).into(logoIv).onLoadStarted(this.getDrawable(R.drawable.profilepic_placeholder));
             } catch (Exception e) {
                 e.printStackTrace();
             }

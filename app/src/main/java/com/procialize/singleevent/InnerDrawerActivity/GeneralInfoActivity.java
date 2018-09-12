@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
@@ -50,7 +51,7 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
     SwipeRefreshLayout generalInforefresh;
     LinearLayout.LayoutParams params;
     TextView textView;
-    //    ImageView back;
+    ImageView back;
     GeneralInfoListAdapter generalInfoListAdapter;
     RecyclerView general_item_list;
     ProgressDialog progressDialog;
@@ -67,9 +68,9 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
 //        about_hotel = (TextView) findViewById(R.id.about_hotel);
         linearlayout = (LinearLayout) findViewById(R.id.linearlayout);
         pullrefresh = (TextView) findViewById(R.id.pullrefresh);
-//        generalInforefresh = findViewById(R.id.generalInforefresh);
+        generalInforefresh = findViewById(R.id.generalInforefresh);
         general_item_list = findViewById(R.id.general_item_list);
-//        back = findViewById(R.id.back);
+        back = findViewById(R.id.back);
 
         mAPIService = ApiUtils.getAPIService();
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
@@ -79,7 +80,6 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
         // Create TextView programmatically.
         textView = new TextView(GeneralInfoActivity.this);
 
-        getInfoTab();
 
 //                    generalInfoAdapter.scheduleLayoutAnimation();
         for (int i = 0; i < eventSettingLists.size(); i++) {
@@ -115,24 +115,26 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
                 startActivity(intent);
             }
         });
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(GeneralInfoActivity.this);
+        general_item_list.setLayoutManager(mLayoutManager);
+        getInfoTab();
+
+        generalInforefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
 
 
-//        generalInforefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//
-//
-//                getInfoTab();
-//
-//            }
-//        });
+                getInfoTab();
 
-//        back.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 
@@ -156,9 +158,9 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
 //                    general_item_list.setAdapter(generalInfoListAdapter);
 
 
-//                    if (generalInforefresh.isRefreshing()) {
-//                        generalInforefresh.setRefreshing(false);
-//                    }
+                    if (generalInforefresh.isRefreshing()) {
+                        generalInforefresh.setRefreshing(false);
+                    }
 
 
                 } else {
@@ -172,16 +174,16 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
                 progressDialog.dismiss();
                 Log.e("hit", "Unable to submit post to API.");
                 Toast.makeText(GeneralInfoActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
-//                if (generalInforefresh.isRefreshing()) {
-//                    generalInforefresh.setRefreshing(false);
-//                }
+                if (generalInforefresh.isRefreshing()) {
+                    generalInforefresh.setRefreshing(false);
+                }
             }
         });
     }
 
     public void showResponse(Response<GeneralInfoList> response) {
         try {
-            generalInfoListAdapter = new GeneralInfoListAdapter(GeneralInfoActivity.this, response.body().getInfoList(), GeneralInfoActivity.this);
+            generalInfoListAdapter = new GeneralInfoListAdapter(getApplicationContext(), response.body().getInfoList(), this);
             generalInfoListAdapter.notifyDataSetChanged();
             general_item_list.setAdapter(generalInfoListAdapter);
         } catch (Exception e) {

@@ -108,6 +108,12 @@ public class AttendeeAdapter extends RecyclerView.Adapter<AttendeeAdapter.MyView
 
         }
 
+        if (attendee_design.equalsIgnoreCase("0")){
+            holder.designationTv.setVisibility(View.GONE);
+        }else {
+            holder.designationTv.setVisibility(View.VISIBLE);
+        }
+
         if(attendee_location.equalsIgnoreCase("0")){
             holder.locationTv.setVisibility(View.GONE);
         }else {
@@ -213,7 +219,7 @@ public class AttendeeAdapter extends RecyclerView.Adapter<AttendeeAdapter.MyView
 
     public void applySetting(List<EventSettingList> eventSettingLists) {
         for (int i = 0; i < eventSettingLists.size(); i++) {
-            if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("attendee_design")) {
+            if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("attendee_designation")) {
                 attendee_design = eventSettingLists.get(i).getFieldValue();
             }
             if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("attendee_location")) {
