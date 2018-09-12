@@ -128,7 +128,6 @@ public class GeneralInfo extends Fragment implements GeneralInfoListAdapter.Gene
             @Override
             public void onRefresh() {
 
-
                 getInfoTab();
 
             }

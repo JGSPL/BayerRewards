@@ -59,7 +59,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
     String apikey;
     ImageView profileIV;
     ProgressBar progressBar;
-    String attendee_company, attendee_location, attendee_mobile;
+    String attendee_company, attendee_location, attendee_mobile, attendee_design;
     List<EventSettingList> eventSettingLists;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
@@ -171,9 +171,8 @@ public class AttendeeDetailActivity extends AppCompatActivity {
 
         if (designation.equalsIgnoreCase("N A")) {
             tvdesignation.setVisibility(View.GONE);
-        } else if (designation != null) {
+        } else if (designation != null && attendee_design.equalsIgnoreCase("1")) {
             tvdesignation.setText(designation);
-
         } else {
             tvdesignation.setVisibility(View.GONE);
         }
@@ -225,6 +224,8 @@ public class AttendeeDetailActivity extends AppCompatActivity {
                 attendee_location = eventSettingLists.get(i).getFieldValue();
             } else if (eventSettingLists.get(i).getFieldName().equals("attendee_mobile")) {
                 attendee_mobile = eventSettingLists.get(i).getFieldValue();
+            } else if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("attendee_designation")) {
+                attendee_design = eventSettingLists.get(i).getFieldValue();
             }
         }
     }

@@ -203,8 +203,9 @@
         <activity android:name=".InnerDrawerActivity.ExoVideoActivity" />
         <activity android:name=".Activity.EULAActivity" />
         <activity android:name=".Activity.PrivacyPolicy" />
-        <activity android:name=".EmptyViewActivity"></activity>
+        <activity android:name=".EmptyViewActivity" />
         <activity android:name=".Utility.ImageCropActivity" />
+        <activity android:name=".InnerDrawerActivity.QADirectActivity"></activity>
     </application>
 
 </manifest>

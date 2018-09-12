@@ -33,6 +33,7 @@ import com.procialize.singleevent.GetterSetter.PostSelfie;
 import com.procialize.singleevent.GetterSetter.PostTextFeed;
 import com.procialize.singleevent.GetterSetter.PostVideoSelfie;
 import com.procialize.singleevent.GetterSetter.ProfileSave;
+import com.procialize.singleevent.GetterSetter.QADirectFetch;
 import com.procialize.singleevent.GetterSetter.QASessionFetch;
 import com.procialize.singleevent.GetterSetter.QASpeakerFetch;
 import com.procialize.singleevent.GetterSetter.QuizFetch;
@@ -296,6 +297,18 @@ public interface APIService {
     Call<QASessionFetch> QASessionFetch(@Field("api_access_token") String api_access_token,
                                         @Field("event_id") String event_id);
 
+    @POST("QADirectFetch")
+    @FormUrlEncoded
+    Call<QADirectFetch> QADirectFetch(@Field("api_access_token") String api_access_token,
+                                      @Field("event_id") String event_id);
+
+    @POST("QADirectLike")
+    @FormUrlEncoded
+    Call<QADirectFetch> QADirectLike(@Field("api_access_token") String api_access_token,
+                                     @Field("event_id") String event_id, @Field("question_id") String question_id
+                                     );
+
+
     @POST("QASessionLike")
     @FormUrlEncoded
     Call<QASessionFetch> QASessionLike(@Field("api_access_token") String api_access_token,
@@ -325,6 +338,11 @@ public interface APIService {
     Call<QASpeakerFetch> QASpeakerPost(@Field("api_access_token") String api_access_token,
                                        @Field("event_id") String event_id, @Field("question") String question,
                                        @Field("speaker_name") String speaker_name, @Field("session_id") String session_id);
+
+    @POST("QADirectPost")
+    @FormUrlEncoded
+    Call<QADirectFetch> QADirectPost(@Field("api_access_token") String api_access_token,
+                                     @Field("event_id") String event_id, @Field("question") String question);
 
 
     @POST("NewsFeedDetailFetch")

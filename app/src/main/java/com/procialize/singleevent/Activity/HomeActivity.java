@@ -62,6 +62,7 @@ import com.procialize.singleevent.InnerDrawerActivity.LivePollActivity;
 import com.procialize.singleevent.InnerDrawerActivity.MyTravelActivity;
 import com.procialize.singleevent.InnerDrawerActivity.NotificationActivity;
 import com.procialize.singleevent.InnerDrawerActivity.QAAttendeeActivity;
+import com.procialize.singleevent.InnerDrawerActivity.QADirectActivity;
 import com.procialize.singleevent.InnerDrawerActivity.QASpeakerActivity;
 import com.procialize.singleevent.InnerDrawerActivity.QRGeneratorActivity;
 import com.procialize.singleevent.InnerDrawerActivity.QRScanActivity;
@@ -105,7 +106,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
             side_menu_image_gallery = "0", selfie_contest = "0", video_contest = "0",
             side_menu_event_info = "0", side_menu_document = "0", side_menu_engagement = "0",
             engagement_selfie_contest = "0", engagement_video_contest = "0",
-            news_feed_video = "0", QA_speaker = "0", QA_session = "0", side_menu_attendee = "0", side_menu_speaker = "0", side_menu_agenda = "0",
+            news_feed_video = "0", QA_speaker = "0", QA_direct = "0", QA_session = "0", side_menu_attendee = "0", side_menu_speaker = "0", side_menu_agenda = "0",
             side_menu_general_info = "0", edit_profile_company = "0", edit_profile_designation = "0";
     String news_feed = "0", attendee = "0", speaker = "0", agenda = "0", edit_profile = "0", general_ifo = "0";
 
@@ -858,6 +859,8 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                     edit_profile_designation = eventSettingLists.get(i).getFieldValue();
                 } else if (eventSettingLists.get(i).getFieldName().equals("edit_profile_company")) {
                     edit_profile_company = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("Q&A_direct_question")) {
+                    QA_direct = eventSettingLists.get(i).getFieldValue();
                 }
 
             }
@@ -950,6 +953,9 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                 startActivity(event);
             } else if (QA_speaker.equalsIgnoreCase("1")) {
                 Intent event = new Intent(this, QASpeakerActivity.class);
+                startActivity(event);
+            } else if (QA_direct.equalsIgnoreCase("1")) {
+                Intent event = new Intent(this, QADirectActivity.class);
                 startActivity(event);
             }
 

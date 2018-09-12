@@ -110,8 +110,8 @@ public class CurrencyConverter extends AppCompatActivity {
                     try {
                         if (response.body().getDropDownList() == null || response.body().getDropDownList().isEmpty()) {
                             ArrayList<String> myList = new ArrayList<>();
-                            myList.add("INR");
-                            myList.add("USD");
+                            myList.add("");
+
 
                             ArrayAdapter<String> adapter = new ArrayAdapter<String>(CurrencyConverter.this,
                                     android.R.layout.simple_spinner_item, myList);
