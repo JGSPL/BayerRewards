@@ -4,6 +4,7 @@ package com.procialize.singleevent.ApiConstant;
  * Created by Naushad on 10/30/2017.
  */
 
+import com.procialize.singleevent.GetterSetter.Analytic;
 import com.procialize.singleevent.GetterSetter.CommentList;
 import com.procialize.singleevent.GetterSetter.CurrencyConverterResponse;
 import com.procialize.singleevent.GetterSetter.CurrencyDropDown;
@@ -306,7 +307,7 @@ public interface APIService {
     @FormUrlEncoded
     Call<QADirectFetch> QADirectLike(@Field("api_access_token") String api_access_token,
                                      @Field("event_id") String event_id, @Field("question_id") String question_id
-                                     );
+    );
 
 
     @POST("QASessionLike")
@@ -474,5 +475,14 @@ public interface APIService {
                                                 @Field("event_id") String event_id,
                                                 @Field("selfie_id") String selfie_id,
                                                 @Field("text") String text);
+
+    @POST("AnalyticsSubmit")
+    @FormUrlEncoded
+    Call<Analytic> Analytic(@Field("api_access_token") String api_access_token,
+                            @Field("event_id") String event_id,
+                            @Field("target_attendee_id") String target_attendee_id,
+                            @Field("target_attendee_type") String target_attendee_type,
+                            @Field("analytic_type") String analytic_type);
+
 
 }

@@ -374,7 +374,7 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
 
         if (response.body().getStatus().equalsIgnoreCase("success")) {
 //            Toast.makeText(QASpeakerActivity.this,response.message(),Toast.LENGTH_SHORT).show();
-            ArrayList<DirectQuestion> speakerQuestionLists = new ArrayList<>();
+//            ArrayList<DirectQuestion> speakerQuestionLists = new ArrayList<>();
 
 
             qaAttendeeAdapter = new QADirectAdapter(QADirectActivity.this, response.body().getQa_question(), this);

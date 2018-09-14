@@ -108,11 +108,16 @@ public class AttendeeAdapter extends RecyclerView.Adapter<AttendeeAdapter.MyView
 
         }
 
-        if (attendee_design.equalsIgnoreCase("0")){
-            holder.designationTv.setVisibility(View.GONE);
-        }else {
-            holder.designationTv.setVisibility(View.VISIBLE);
+        try {
+            if (attendee_design.equalsIgnoreCase("0")){
+                holder.designationTv.setVisibility(View.GONE);
+            }else {
+                holder.designationTv.setVisibility(View.VISIBLE);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
 
         if(attendee_location.equalsIgnoreCase("0")){
             holder.locationTv.setVisibility(View.GONE);

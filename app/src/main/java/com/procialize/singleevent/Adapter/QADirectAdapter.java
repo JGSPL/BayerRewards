@@ -64,6 +64,13 @@ public class QADirectAdapter extends RecyclerView.Adapter<QADirectAdapter.MyView
         holder.nameTv.setText(question.getFirst_name());
         holder.QaTv.setText(StringEscapeUtils.unescapeJava(question.getQuestion()));
 
+        holder.AnsTv.setVisibility(View.GONE);
+
+        if (holder.likeLL.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) holder.likeLL.getLayoutParams();
+            p.setMargins(5, 15, 5, 5);
+            holder.likeLL.requestLayout();
+        }
 
 //        if (question.geta()!=null && QA_reply_question.equalsIgnoreCase("1")) {
 //            if(!question.getAnswer().equalsIgnoreCase("null")) {
@@ -88,8 +95,7 @@ public class QADirectAdapter extends RecyclerView.Adapter<QADirectAdapter.MyView
 
         eventSettingLists = sessionManager.loadEventList();
 
-        if (eventSettingLists.size()!=0)
-        {
+        if (eventSettingLists.size() != 0) {
             applysetting(eventSettingLists);
         }
 
@@ -158,30 +164,26 @@ public class QADirectAdapter extends RecyclerView.Adapter<QADirectAdapter.MyView
             likeLL.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onLikeListener(v,directQuestionLists.get(getAdapterPosition()),getAdapterPosition(),countTv,likeIv);
+                    listener.onLikeListener(v, directQuestionLists.get(getAdapterPosition()), getAdapterPosition(), countTv, likeIv);
                 }
             });
         }
     }
 
     public interface QADirectAdapterListner {
-//        void onContactSelected(SpeakerQuestionList question);
+        //        void onContactSelected(SpeakerQuestionList question);
 //
-        void onLikeListener(View v, DirectQuestion question, int position, TextView count,ImageView likeIv);
+        void onLikeListener(View v, DirectQuestion question, int position, TextView count, ImageView likeIv);
 
     }
 
     private void applysetting(List<EventSettingList> eventSettingLists) {
 
-        for (int i=0;i<eventSettingLists.size();i++)
-        {
+        for (int i = 0; i < eventSettingLists.size(); i++) {
 
-            if (eventSettingLists.get(i).getFieldName().equals("Q&A_like_question"))
-            {
+            if (eventSettingLists.get(i).getFieldName().equals("Q&A_like_question")) {
                 QA_like_question = eventSettingLists.get(i).getFieldValue();
-            }
-            else if (eventSettingLists.get(i).getFieldName().equals("Q&A_reply_question"))
-            {
+            } else if (eventSettingLists.get(i).getFieldName().equals("Q&A_reply_question")) {
                 QA_reply_question = eventSettingLists.get(i).getFieldValue();
             }
         }

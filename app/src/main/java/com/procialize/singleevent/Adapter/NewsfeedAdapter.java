@@ -212,15 +212,15 @@ public class NewsfeedAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
 
-                    if(holder.txtfeedRv.getVisibility()==View.VISIBLE) {
+                    if (holder.txtfeedRv.getVisibility() == View.VISIBLE) {
                         Intent postview = new Intent(context, PostViewActivity.class);
                         postview.putExtra("for", "text");
                         context.startActivity(postview);
-                    }else if(holder.imagefeedRv.getVisibility()==View.VISIBLE){
+                    } else if (holder.imagefeedRv.getVisibility() == View.VISIBLE) {
                         Intent postview = new Intent(context, PostViewActivity.class);
                         postview.putExtra("for", "image");
                         context.startActivity(postview);
-                    }else if(holder.videofeedRv.getVisibility()==View.VISIBLE){
+                    } else if (holder.videofeedRv.getVisibility() == View.VISIBLE) {
                         Intent postview = new Intent(context, PostViewActivity.class);
                         postview.putExtra("for", "video");
                         context.startActivity(postview);
@@ -255,7 +255,12 @@ public class NewsfeedAdapter extends BaseAdapter {
             holder.post_layout.setVisibility(RelativeLayout.GONE);
         }
         feed = feedLists.get(position);
-        holder.nameTv.setText(feed.getFirstName() + " " + feed.getLastName());
+        if (!(feed.getFirstName() == null && feed.getLastName() == null)) {
+            holder.nameTv.setText(feed.getFirstName() + " " + feed.getLastName());
+        }else {
+            holder.nameTv.setText(feed.getFirstName());
+        }
+
         holder.companyTv.setText(feed.getCompanyName());
         holder.designationTv.setText(feed.getDesignation());
         holder.headingTv.setText(StringEscapeUtils.unescapeJava(feed.getPostStatus()));
@@ -581,10 +586,10 @@ public class NewsfeedAdapter extends BaseAdapter {
             holder.viewtwo.setVisibility(View.VISIBLE);
         }
 
-        if(news_feed_comment.equalsIgnoreCase("0")&&news_feed_share.equalsIgnoreCase("0")){
+        if (news_feed_comment.equalsIgnoreCase("0") && news_feed_share.equalsIgnoreCase("0")) {
             holder.viewtwo.setVisibility(View.GONE);
             holder.viewone.setVisibility(View.GONE);
-        }else {
+        } else {
             holder.viewtwo.setVisibility(View.VISIBLE);
             holder.viewone.setVisibility(View.VISIBLE);
         }
