@@ -24,6 +24,7 @@ import com.bumptech.glide.request.target.Target;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
+import com.procialize.singleevent.GetterSetter.Analytic;
 import com.procialize.singleevent.GetterSetter.DeletePost;
 import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.GetterSetter.RatingSpeakerDetail;
@@ -110,7 +111,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
+        SubmitAnalytics(apikey, eventid, "", "", "speakerDetail");
         tvname = findViewById(R.id.tvname);
         tvcompany = findViewById(R.id.tvcompany);
         tvdesignation = findViewById(R.id.tvdesignation);
@@ -291,7 +292,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         if (response.body().getStatus().equalsIgnoreCase("Success")) {
 
             Log.e("post", "success");
-
+            SubmitAnalytics(apikey, eventid, "", "", "rating");
             myDialog.dismiss();
             Toast.makeText(this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
 
@@ -307,5 +308,29 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
     protected void onResume() {
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         super.onResume();
+    }
+
+    public void SubmitAnalytics(String token, String eventid, String target_attendee_id, String target_attendee_type, String analytic_type) {
+
+        mAPIService.Analytic(token, eventid, target_attendee_id, target_attendee_type, analytic_type).enqueue(new Callback<Analytic>() {
+            @Override
+            public void onResponse(Call<Analytic> call, Response<Analytic> response) {
+
+                if (response.isSuccessful()) {
+                    Log.i("hit", "Analytics Sumbitted" + response.body().toString());
+
+
+                } else {
+
+                    Toast.makeText(SpeakerDetailsActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Analytic> call, Throwable t) {
+                Toast.makeText(SpeakerDetailsActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 }

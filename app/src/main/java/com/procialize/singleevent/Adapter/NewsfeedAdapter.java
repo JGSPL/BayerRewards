@@ -255,10 +255,10 @@ public class NewsfeedAdapter extends BaseAdapter {
             holder.post_layout.setVisibility(RelativeLayout.GONE);
         }
         feed = feedLists.get(position);
-        if (!(feed.getFirstName() == null && feed.getLastName() == null)) {
-            holder.nameTv.setText(feed.getFirstName() + " " + feed.getLastName());
-        }else {
+        if (feed.getLastName() == null) {
             holder.nameTv.setText(feed.getFirstName());
+        } else {
+            holder.nameTv.setText(feed.getFirstName() + " " + feed.getLastName());
         }
 
         holder.companyTv.setText(feed.getCompanyName());

@@ -63,6 +63,7 @@ import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.CustomTools.EndlessRecyclerOnScrollListener;
 import com.procialize.singleevent.DbHelper.ConnectionDetector;
 import com.procialize.singleevent.DbHelper.DBHelper;
+import com.procialize.singleevent.GetterSetter.Analytic;
 import com.procialize.singleevent.GetterSetter.AttendeeList;
 import com.procialize.singleevent.GetterSetter.DeletePost;
 import com.procialize.singleevent.GetterSetter.EventSettingList;
@@ -922,6 +923,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
                         progressBar.setVisibility(View.GONE);
                     }
 
+
                     showResponse(response);
                 } else {
 
@@ -973,7 +975,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 //            feedAdapter.notifyDataSetChanged();
             feedrecycler.setAdapter(feedAdapter);
 //            feedrecycler.scheduleLayoutAnimation();
-
+            SubmitAnalytics(token, eventid, "", "", "newsfeed");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -1328,6 +1330,30 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
         JZVideoPlayer.releaseAllVideos();
 
+    }
+
+    public void SubmitAnalytics(String token, String eventid, String target_attendee_id, String target_attendee_type, String analytic_type) {
+
+        mAPIService.Analytic(token, eventid, target_attendee_id, target_attendee_type, analytic_type).enqueue(new Callback<Analytic>() {
+            @Override
+            public void onResponse(Call<Analytic> call, Response<Analytic> response) {
+
+                if (response.isSuccessful()) {
+                    Log.i("hit", "Analytics Sumbitted" + response.body().toString());
+
+
+                } else {
+
+                    Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Analytic> call, Throwable t) {
+                Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
 

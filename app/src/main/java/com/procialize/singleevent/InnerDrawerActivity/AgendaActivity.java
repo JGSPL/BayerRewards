@@ -21,6 +21,7 @@ import com.procialize.singleevent.Adapter.AgendaAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.GetterSetter.AgendaList;
+import com.procialize.singleevent.GetterSetter.Analytic;
 import com.procialize.singleevent.GetterSetter.FetchAgenda;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
@@ -92,6 +93,8 @@ public class AgendaActivity extends AppCompatActivity implements AgendaAdapter.A
 
 
         fetchAgenda(token, eventid);
+
+        SubmitAnalytics(token, eventid, "", "", "agenda");
 
         agendafeedrefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -181,5 +184,29 @@ public class AgendaActivity extends AppCompatActivity implements AgendaAdapter.A
 
         JZVideoPlayer.releaseAllVideos();
 
+    }
+
+    public void SubmitAnalytics(String token, String eventid, String target_attendee_id, String target_attendee_type, String analytic_type) {
+
+        mAPIService.Analytic(token, eventid, target_attendee_id, target_attendee_type, analytic_type).enqueue(new Callback<Analytic>() {
+            @Override
+            public void onResponse(Call<Analytic> call, Response<Analytic> response) {
+
+                if (response.isSuccessful()) {
+                    Log.i("hit", "Analytics Sumbitted" + response.body().toString());
+
+
+                } else {
+
+                    Toast.makeText(AgendaActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Analytic> call, Throwable t) {
+                Toast.makeText(AgendaActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 }

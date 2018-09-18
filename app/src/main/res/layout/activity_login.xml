@@ -13,7 +13,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="-70dp">
 
         <ImageView
             android:id="@+id/imageView2"
@@ -27,9 +28,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/logindummy"
-            android:textColor="@color/black"
-            android:textSize="@dimen/textsizenormal"
-            android:visibility="gone" />
+            android:textColor="@color/colorwhite"
+            android:textSize="@dimen/textsizenormal" />
 
         <com.procialize.singleevent.Fonts.RobotoTextview
             android:id="@+id/textView6"
@@ -57,12 +57,12 @@
             android:layout_margin="20dp"
             android:orientation="vertical">
 
-            <android.support.design.widget.TextInputLayout
+            <!--<android.support.design.widget.TextInputLayout
                 android:id="@+id/input_layout_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:textColorHint="@color/black">
+                android:textColorHint="@color/black">-->
 
                 <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                     android:id="@+id/input_email"
@@ -72,18 +72,20 @@
                     android:imeOptions="actionNext"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/black"
-                    android:textSize="@dimen/textsizesmall" />
-            </android.support.design.widget.TextInputLayout>
+                    android:textColor="@color/colorwhite"
+                    android:textColorHint="@color/colorwhite"
+                    android:textSize="@dimen/textsizesmall"
+                    android:background="@drawable/edit_background"
+                    android:padding="10dp"/>
+           <!-- </android.support.design.widget.TextInputLayout>-->
 
-            <android.support.design.widget.TextInputLayout
+            <!--<android.support.design.widget.TextInputLayout
                 android:id="@+id/input_layout_password"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textColor="@color/colorwhite"
                 android:textColorHint="@color/black"
-                app:passwordToggleEnabled="true">
+                app:passwordToggleEnabled="true">-->
 
                 <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                     android:id="@+id/input_password"
@@ -93,9 +95,13 @@
                     android:imeOptions="actionDone"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textsizesmall" />
-            </android.support.design.widget.TextInputLayout>
+                    android:textColor="@color/colorwhite"
+                    android:textColorHint="@color/colorwhite"
+                    android:textSize="@dimen/textsizesmall"
+                    android:background="@drawable/edit_background"
+                    android:padding="10dp"
+                    android:layout_marginTop="20dp"/>
+            <!--</android.support.design.widget.TextInputLayout>-->
 
         </LinearLayout>
     </LinearLayout>
@@ -103,36 +109,36 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
 
 
-    <com.procialize.singleevent.Fonts.RobotoButton
-        android:id="@+id/loginbtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@drawable/signupbutton"
-        android:text="@string/login"
-        android:textColor="@color/colorwhite"
-        android:textSize="@dimen/textsizesmall" />
+        <com.procialize.singleevent.Fonts.RobotoButton
+            android:id="@+id/loginbtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@color/colorwhite"
+            android:text="@string/login"
+            android:textColor="@color/logintxt"
+            android:textSize="@dimen/textsizesmall" />
 
-    <com.procialize.singleevent.Fonts.RobotoTextview
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        android:textAlignment="center"/>
+        <com.procialize.singleevent.Fonts.RobotoTextview
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
 
-    <ProgressBar
-        android:id="@+id/progressBar2"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_gravity="center"/>
+        <ProgressBar
+            android:id="@+id/progressBar2"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
 
     </LinearLayout>
 </RelativeLayout>

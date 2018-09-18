@@ -35,6 +35,7 @@ import com.bumptech.glide.request.target.Target;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
+import com.procialize.singleevent.GetterSetter.Analytic;
 import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.GetterSetter.ProfileSave;
 import com.procialize.singleevent.R;
@@ -125,6 +126,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         fetchProfileDetail(api_token, eventid);
 
+        SubmitAnalytics(api_token, eventid, "", "", "EditProfile");
 
         if (CheckingPermissionIsEnabledOrNot()) {
 //            Toast.makeText(MainActivity.this, "All Permissions Granted Successfully", Toast.LENGTH_LONG).show();
@@ -446,7 +448,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         HashMap<String, String> user = sessionManager.getUserDetails();
 
-        String api_token = user.get(SessionManager.KEY_TOKEN);
+        final String api_token = user.get(SessionManager.KEY_TOKEN);
         String firstname = Etfirstname.getText().toString();
         String lastname = Etlastname.getText().toString();
         String description = Etdescription.getText().toString();
@@ -528,7 +530,7 @@ public class ProfileActivity extends AppCompatActivity {
                         startActivity(home);
                         finish();
 
-
+                        SubmitAnalytics(api_token, eventid, "", "", "EditProfileSubmit");
                     } else {
                         Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
 //                        Intent home = new Intent(getApplicationContext(), HomeActivity.class);
@@ -775,6 +777,30 @@ public class ProfileActivity extends AppCompatActivity {
 
                 break;
         }
+    }
+
+    public void SubmitAnalytics(String token, String eventid, String target_attendee_id, String target_attendee_type, String analytic_type) {
+
+        mAPIService.Analytic(token, eventid, target_attendee_id, target_attendee_type, analytic_type).enqueue(new Callback<Analytic>() {
+            @Override
+            public void onResponse(Call<Analytic> call, Response<Analytic> response) {
+
+                if (response.isSuccessful()) {
+                    Log.i("hit", "Analytics Sumbitted" + response.body().toString());
+
+
+                } else {
+
+                    Toast.makeText(ProfileActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Analytic> call, Throwable t) {
+                Toast.makeText(ProfileActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
 }

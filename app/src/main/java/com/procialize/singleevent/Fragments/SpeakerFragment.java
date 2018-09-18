@@ -28,6 +28,7 @@ import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.DbHelper.ConnectionDetector;
 import com.procialize.singleevent.DbHelper.DBHelper;
+import com.procialize.singleevent.GetterSetter.Analytic;
 import com.procialize.singleevent.GetterSetter.FetchSpeaker;
 import com.procialize.singleevent.GetterSetter.SpeakerList;
 import com.procialize.singleevent.R;
@@ -80,6 +81,7 @@ public class SpeakerFragment extends Fragment implements SpeakerAdapter.SpeakerA
 
     String eventid;
     String MY_PREFS_NAME = "ProcializeInfo";
+     String token;
 
 
     public SpeakerFragment() {
@@ -147,7 +149,7 @@ public class SpeakerFragment extends Fragment implements SpeakerAdapter.SpeakerA
         HashMap<String, String> user = sessionManager.getUserDetails();
 
         // token
-        final String token = user.get(SessionManager.KEY_TOKEN);
+        token = user.get(SessionManager.KEY_TOKEN);
 
 
         // use a linear layout manager
@@ -269,6 +271,8 @@ public class SpeakerFragment extends Fragment implements SpeakerAdapter.SpeakerA
         speakerAdapter.notifyDataSetChanged();
         speakerrecycler.setAdapter(speakerAdapter);
         speakerrecycler.scheduleLayoutAnimation();
+
+        SubmitAnalytics(token, eventid, "", "", "speaker");
     }
 
     private void showProgress() {
@@ -344,5 +348,29 @@ public class SpeakerFragment extends Fragment implements SpeakerAdapter.SpeakerA
 
         JZVideoPlayer.releaseAllVideos();
 
+    }
+
+    public void SubmitAnalytics(String token, String eventid, String target_attendee_id, String target_attendee_type, String analytic_type) {
+
+        mAPIService.Analytic(token, eventid, target_attendee_id, target_attendee_type, analytic_type).enqueue(new Callback<Analytic>() {
+            @Override
+            public void onResponse(Call<Analytic> call, Response<Analytic> response) {
+
+                if (response.isSuccessful()) {
+                    Log.i("hit", "Analytics Sumbitted" + response.body().toString());
+
+
+                } else {
+
+                    Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Analytic> call, Throwable t) {
+                Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 }

@@ -25,6 +25,7 @@ import com.procialize.singleevent.Activity.SpeakerDetailsActivity;
 import com.procialize.singleevent.Adapter.SpeakerAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
+import com.procialize.singleevent.GetterSetter.Analytic;
 import com.procialize.singleevent.GetterSetter.FetchSpeaker;
 import com.procialize.singleevent.GetterSetter.SpeakerList;
 import com.procialize.singleevent.R;
@@ -96,7 +97,7 @@ public class SpeakerActivity extends AppCompatActivity implements SpeakerAdapter
         // token
         final String token = user.get(SessionManager.KEY_TOKEN);
 
-
+        SubmitAnalytics(token, eventid, "", "", "speaker");
         // use a linear layout manager
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         speakerrecycler.setLayoutManager(mLayoutManager);
@@ -232,5 +233,29 @@ public class SpeakerActivity extends AppCompatActivity implements SpeakerAdapter
 
         JZVideoPlayer.releaseAllVideos();
 
+    }
+
+    public void SubmitAnalytics(String token, String eventid, String target_attendee_id, String target_attendee_type, String analytic_type) {
+
+        mAPIService.Analytic(token, eventid, target_attendee_id, target_attendee_type, analytic_type).enqueue(new Callback<Analytic>() {
+            @Override
+            public void onResponse(Call<Analytic> call, Response<Analytic> response) {
+
+                if (response.isSuccessful()) {
+                    Log.i("hit", "Analytics Sumbitted" + response.body().toString());
+
+
+                } else {
+
+                    Toast.makeText(SpeakerActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Analytic> call, Throwable t) {
+                Toast.makeText(SpeakerActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 }

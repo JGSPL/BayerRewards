@@ -25,6 +25,7 @@ import com.procialize.singleevent.Adapter.GeneralInfoListAdapter;
 import com.procialize.singleevent.Adapter.MyAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
+import com.procialize.singleevent.GetterSetter.Analytic;
 import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.GetterSetter.GeneralInfoList;
 import com.procialize.singleevent.GetterSetter.InfoList;
@@ -33,6 +34,7 @@ import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import cn.jzvd.JZVideoPlayer;
@@ -76,6 +78,15 @@ public class GeneralInfo extends Fragment implements GeneralInfoListAdapter.Gene
 
         general_item_list = view.findViewById(R.id.general_item_list);
 
+
+
+        HashMap<String, String> user = sessionManager.getUserDetails();
+
+
+
+        // token
+        final String token = user.get(SessionManager.KEY_TOKEN);
+
         if (generalInforefresh.isRefreshing()) {
             generalInforefresh.setRefreshing(false);
         }
@@ -107,6 +118,7 @@ public class GeneralInfo extends Fragment implements GeneralInfoListAdapter.Gene
             }
         }
 
+        SubmitAnalytics(token, eventid, "", "", "generalInfo");
         weather_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -194,5 +206,29 @@ public class GeneralInfo extends Fragment implements GeneralInfoListAdapter.Gene
         intent.putExtra("name", firstLevelFilter.getName());
         intent.putExtra("description", firstLevelFilter.getDescription());
         startActivity(intent);
+    }
+
+    public void SubmitAnalytics(String token, String eventid, String target_attendee_id, String target_attendee_type, String analytic_type) {
+
+        mAPIService.Analytic(token, eventid, target_attendee_id, target_attendee_type, analytic_type).enqueue(new Callback<Analytic>() {
+            @Override
+            public void onResponse(Call<Analytic> call, Response<Analytic> response) {
+
+                if (response.isSuccessful()) {
+                    Log.i("hit", "Analytics Sumbitted" + response.body().toString());
+
+
+                } else {
+
+                    Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Analytic> call, Throwable t) {
+                Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 }

@@ -11,36 +11,41 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
+import com.procialize.singleevent.GetterSetter.Analytic;
 import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.GetterSetter.RatingSessionPost;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AgendaDetailActivity extends AppCompatActivity {
 
-    String agendaid,date,name,description,starttime,endtime;
-    TextView tvname,tvdate,tvtime,tvdscription;
+    String agendaid, date, name, description, starttime, endtime;
+    TextView tvname, tvdate, tvtime, tvdscription;
     Button ratebtn;
     APIService mAPIService;
     SessionManager sessionManager;
     String apikey;
     float ratingval;
     Dialog myDialog;
-    String agenda_save_to_calendar,agenda_text_description;
+    String agenda_save_to_calendar, agenda_text_description;
     List<EventSettingList> eventSettingLists;
 
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,11 +81,11 @@ public class AgendaDetailActivity extends AppCompatActivity {
 
         eventSettingLists = sessionManager.loadEventList();
 
-        if (eventSettingLists.size()!=0)
-        {
+        if (eventSettingLists.size() != 0) {
             applysetting(eventSettingLists);
         }
 
+        SubmitAnalytics(apikey, eventid, "", "", "agendaDetail");
 
         try {
             agendaid = getIntent().getExtras().getString("id");
@@ -89,48 +94,41 @@ public class AgendaDetailActivity extends AppCompatActivity {
             description = getIntent().getExtras().getString("description");
             starttime = getIntent().getExtras().getString("starttime");
             endtime = getIntent().getExtras().getString("endtime");
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        tvname=findViewById(R.id.tvname);
-        tvdate=findViewById(R.id.tvdate);
-        tvtime=findViewById(R.id.tvtime);
-        tvdscription=findViewById(R.id.tvdscription);
+        tvname = findViewById(R.id.tvname);
+        tvdate = findViewById(R.id.tvdate);
+        tvtime = findViewById(R.id.tvtime);
+        tvdscription = findViewById(R.id.tvdscription);
 
 
-        ratebtn=findViewById(R.id.ratebtn);
+        ratebtn = findViewById(R.id.ratebtn);
 
 
-        if (name!=null)
-        {
+        if (name != null) {
             tvname.setText(name);
-        }else
-        {
+        } else {
             tvname.setVisibility(View.GONE);
         }
 
-        if (date!=null)
-        {
+        if (date != null) {
             try {
                 SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
                 SimpleDateFormat targetFormat = new SimpleDateFormat("dd-MMM-yyyy");
                 Date ogdate = originalFormat.parse(date);
                 String sessiondate = targetFormat.format(ogdate);
                 tvdate.setText(sessiondate);
-            }catch (Exception e)
-            {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else
-        {
+        } else {
             tvdate.setVisibility(View.GONE);
         }
 
 
-        if (starttime!=null && endtime!=null)
-        {
+        if (starttime != null && endtime != null) {
             try {
                 SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss", Locale.ENGLISH);
                 SimpleDateFormat targetFormat = new SimpleDateFormat("kk:mm aa");
@@ -141,23 +139,20 @@ public class AgendaDetailActivity extends AppCompatActivity {
                 String startdatestr = targetFormat.format(startdate);
                 String enddatestr = targetFormat.format(enddate);
 
-                tvtime.setText(startdatestr+" - "+enddatestr);
+                tvtime.setText(startdatestr + " - " + enddatestr);
 
-            }catch (Exception e)
-            {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
 
-        }else
-        {
+        } else {
             tvtime.setVisibility(View.GONE);
         }
 
-        if (description!=null && agenda_text_description.equalsIgnoreCase("1"))
-        {
+        if (description != null && agenda_text_description.equalsIgnoreCase("1")) {
             tvdscription.setText(description);
-        }else {
+        } else {
             tvdscription.setVisibility(View.GONE);
         }
 
@@ -173,15 +168,11 @@ public class AgendaDetailActivity extends AppCompatActivity {
 
     private void applysetting(List<EventSettingList> eventSettingLists) {
 
-        for (int i=0;i<eventSettingLists.size();i++)
-        {
+        for (int i = 0; i < eventSettingLists.size(); i++) {
 
-            if (eventSettingLists.get(i).getFieldName().equals("agenda_save_to_calendar"))
-            {
+            if (eventSettingLists.get(i).getFieldName().equals("agenda_save_to_calendar")) {
                 agenda_save_to_calendar = eventSettingLists.get(i).getFieldValue();
-            }
-            else if (eventSettingLists.get(i).getFieldName().equals("agenda_text_description"))
-            {
+            } else if (eventSettingLists.get(i).getFieldName().equals("agenda_text_description")) {
                 agenda_text_description = eventSettingLists.get(i).getFieldValue();
             }
         }
@@ -204,7 +195,7 @@ public class AgendaDetailActivity extends AppCompatActivity {
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                ratingval =rating;
+                ratingval = rating;
             }
         });
 
@@ -219,11 +210,10 @@ public class AgendaDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (ratingval>0) {
+                if (ratingval > 0) {
                     PostRate(eventid, String.valueOf(ratingval), apikey, agendaid);
-                }else
-                {
-                    Toast.makeText(AgendaDetailActivity.this,"Please Select Something",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(AgendaDetailActivity.this, "Please Select Something", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -231,9 +221,9 @@ public class AgendaDetailActivity extends AppCompatActivity {
     }
 
 
-    public void PostRate(String eventid, String rating, String token,String speakerid) {
+    public void PostRate(String eventid, String rating, String token, String speakerid) {
 //        showProgress();
-        mAPIService.RatingSessionPost(token,eventid,speakerid, rating).enqueue(new Callback<RatingSessionPost>() {
+        mAPIService.RatingSessionPost(token, eventid, speakerid, rating).enqueue(new Callback<RatingSessionPost>() {
             @Override
             public void onResponse(Call<RatingSessionPost> call, Response<RatingSessionPost> response) {
 
@@ -265,9 +255,9 @@ public class AgendaDetailActivity extends AppCompatActivity {
             Log.e("post", "success");
 
             myDialog.dismiss();
-            Toast.makeText(this,response.body().getMsg(),Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
 
-
+            SubmitAnalytics(apikey, eventid, "", "", "rating");
         } else {
             Log.e("post", "fail");
             myDialog.dismiss();
@@ -279,5 +269,29 @@ public class AgendaDetailActivity extends AppCompatActivity {
     protected void onResume() {
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         super.onResume();
+    }
+
+    public void SubmitAnalytics(String token, String eventid, String target_attendee_id, String target_attendee_type, String analytic_type) {
+
+        mAPIService.Analytic(token, eventid, target_attendee_id, target_attendee_type, analytic_type).enqueue(new Callback<Analytic>() {
+            @Override
+            public void onResponse(Call<Analytic> call, Response<Analytic> response) {
+
+                if (response.isSuccessful()) {
+                    Log.i("hit", "Analytics Sumbitted" + response.body().toString());
+
+
+                } else {
+
+                    Toast.makeText(AgendaDetailActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Analytic> call, Throwable t) {
+                Toast.makeText(AgendaDetailActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 }

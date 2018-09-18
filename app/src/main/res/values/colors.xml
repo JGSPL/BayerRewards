@@ -23,6 +23,7 @@
     <color name="black">#000000</color>
     <color name="drawerbackground">#37474F</color>
     <color name="colorwhite">#ffffff</color>
+    <color name="logintxt">#0E73BA</color>
 
 
     <color name="green">#32CD32</color>

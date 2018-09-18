@@ -23,6 +23,7 @@ import com.procialize.singleevent.Adapter.DocumentsAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.EmptyViewActivity;
+import com.procialize.singleevent.GetterSetter.Analytic;
 import com.procialize.singleevent.GetterSetter.DocumentList;
 import com.procialize.singleevent.GetterSetter.DocumentsListFetch;
 import com.procialize.singleevent.R;
@@ -200,6 +201,8 @@ public class DocumentsActivity extends AppCompatActivity implements DocumentsAda
 
     @Override
     public void onContactSelected(DocumentList document) {
+
+
         Intent pdfview = new Intent(this, PdfViewerActivity.class);
         pdfview.putExtra("url", "https://docs.google.com/gview?embedded=true&url=" + "https://www.procialize.info/uploads/documents/" + document.getFileName());
         startActivity(pdfview);
@@ -212,4 +215,6 @@ public class DocumentsActivity extends AppCompatActivity implements DocumentsAda
         JZVideoPlayer.releaseAllVideos();
 
     }
+
+
 }

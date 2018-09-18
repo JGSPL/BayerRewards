@@ -20,11 +20,13 @@ import android.widget.Toast;
 
 import com.procialize.singleevent.Activity.CurrencyConverter;
 import com.procialize.singleevent.Activity.InitGeneralInfoActivity;
+import com.procialize.singleevent.Activity.ProfileActivity;
 import com.procialize.singleevent.Activity.TimeWeatherActivity;
 import com.procialize.singleevent.Adapter.GeneralInfoListAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.Fragments.GeneralInfo;
+import com.procialize.singleevent.GetterSetter.Analytic;
 import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.GetterSetter.FetchAgenda;
 import com.procialize.singleevent.GetterSetter.GeneralInfoList;
@@ -32,6 +34,7 @@ import com.procialize.singleevent.GetterSetter.InfoList;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 
+import java.util.HashMap;
 import java.util.List;
 
 import cn.jzvd.JZVideoPlayer;
@@ -55,6 +58,7 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
     GeneralInfoListAdapter generalInfoListAdapter;
     RecyclerView general_item_list;
     ProgressDialog progressDialog;
+    String api_token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +84,11 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
         // Create TextView programmatically.
         textView = new TextView(GeneralInfoActivity.this);
 
+
+        HashMap<String, String> user = sessionManager.getUserDetails();
+
+        api_token = user.get(SessionManager.KEY_TOKEN);
+        SubmitAnalytics(api_token, eventid, "", "", "generalInfo");
 
 //                    generalInfoAdapter.scheduleLayoutAnimation();
         for (int i = 0; i < eventSettingLists.size(); i++) {
@@ -206,5 +215,29 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
         intent.putExtra("name", firstLevelFilter.getName());
         intent.putExtra("description", firstLevelFilter.getDescription());
         startActivity(intent);
+    }
+
+    public void SubmitAnalytics(String token, String eventid, String target_attendee_id, String target_attendee_type, String analytic_type) {
+
+        mAPIService.Analytic(token, eventid, target_attendee_id, target_attendee_type, analytic_type).enqueue(new Callback<Analytic>() {
+            @Override
+            public void onResponse(Call<Analytic> call, Response<Analytic> response) {
+
+                if (response.isSuccessful()) {
+                    Log.i("hit", "Analytics Sumbitted" + response.body().toString());
+
+
+                } else {
+
+                    Toast.makeText(GeneralInfoActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Analytic> call, Throwable t) {
+                Toast.makeText(GeneralInfoActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 }
