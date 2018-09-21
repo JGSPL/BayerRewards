@@ -111,12 +111,12 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyViewHo
                 return false;
             }
         }).into(holder.imageIv).onLoadStarted(context.getDrawable(R.drawable.gallery_placeholder));
-       /* if (galleryList.getFolderName()==null)
+        if (galleryList.getFolderName()==null)
         {
 
         }else {
             holder.mainLL.setBackgroundResource(R.drawable.folder);
-        }*/
+        }
 
 
     }
