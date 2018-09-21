@@ -41,6 +41,7 @@ import com.bumptech.glide.request.target.Target;
 import com.procialize.singleevent.Adapter.CustomMenuAdapter;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.CustomTools.CustomViewPager;
+import com.procialize.singleevent.Fragments.AgendaFolderFragment;
 import com.procialize.singleevent.Fragments.AgendaFragment;
 import com.procialize.singleevent.Fragments.AttendeeFragment;
 
@@ -50,6 +51,7 @@ import com.procialize.singleevent.Fragments.WallFragment_POST;
 import com.procialize.singleevent.GetterSetter.EventMenuSettingList;
 import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.InnerDrawerActivity.AgendaActivity;
+import com.procialize.singleevent.InnerDrawerActivity.AgendaVacationActivity;
 import com.procialize.singleevent.InnerDrawerActivity.AttendeeActivity;
 import com.procialize.singleevent.InnerDrawerActivity.DocumentsActivity;
 import com.procialize.singleevent.InnerDrawerActivity.EngagementActivity;
@@ -107,7 +109,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
             side_menu_event_info = "0", side_menu_document = "0", side_menu_engagement = "0",
             engagement_selfie_contest = "0", engagement_video_contest = "0",
             news_feed_video = "0", QA_speaker = "0", QA_direct = "0", QA_session = "0", side_menu_attendee = "0", side_menu_speaker = "0", side_menu_agenda = "0",
-            side_menu_general_info = "0", edit_profile_company = "0", edit_profile_designation = "0";
+            side_menu_general_info = "0", edit_profile_company = "0", edit_profile_designation = "0", agenda_conference = "0", agenda_vacation = "0";
     String news_feed = "0", attendee = "0", speaker = "0", agenda = "0", edit_profile = "0", general_ifo = "0";
 
 
@@ -724,7 +726,12 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
             adapter.addFragment(new WallFragment_POST(), "News Feed");
         }
         if (agenda.equalsIgnoreCase("1")) {
-            adapter.addFragment(new AgendaFragment(), "Agenda");
+            if (agenda_conference.equalsIgnoreCase("1")) {
+                adapter.addFragment(new AgendaFragment(), "Agenda");
+            } else if (agenda_vacation.equalsIgnoreCase("1")) {
+                adapter.addFragment(new AgendaFolderFragment(), "Agenda");
+            }
+
         }
         if (attendee.equalsIgnoreCase("1")) {
             adapter.addFragment(new AttendeeFragment(), "Attendees");
@@ -861,6 +868,10 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                     edit_profile_company = eventSettingLists.get(i).getFieldValue();
                 } else if (eventSettingLists.get(i).getFieldName().equals("Q&A_direct_question")) {
                     QA_direct = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("agenda_conference")) {
+                    agenda_conference = eventSettingLists.get(i).getFieldValue();
+                } else if (eventSettingLists.get(i).getFieldName().equals("agenda_vacation")) {
+                    agenda_vacation = eventSettingLists.get(i).getFieldValue();
                 }
 
             }
@@ -972,8 +983,18 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
             startActivity(speaker);
 
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_agenda")) {
-            Intent agenda = new Intent(this, AgendaActivity.class);
-            startActivity(agenda);
+
+            if (agenda.equalsIgnoreCase("1")) {
+                if (agenda_conference.equalsIgnoreCase("1")) {
+                    Intent agenda = new Intent(this, AgendaActivity.class);
+                    startActivity(agenda);
+                } else if (agenda_vacation.equalsIgnoreCase("1")) {
+                    Intent agenda = new Intent(this, AgendaVacationActivity.class);
+                    startActivity(agenda);
+                }
+
+            }
+
 
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_gen_info")) {
             Intent generalinfo = new Intent(this, GeneralInfoActivity.class);

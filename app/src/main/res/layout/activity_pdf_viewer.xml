@@ -37,7 +37,7 @@
                 android:contentDescription=" "
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/splashlogo"/>
+                android:src="@drawable/header_logo"/>
 
             <ImageView
                 android:id="@+id/backIv"

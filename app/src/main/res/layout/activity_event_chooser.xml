@@ -43,7 +43,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_margin="3dp"
-                android:src="@drawable/splashlogo"
+                android:src="@drawable/header_logo"
                 android:visibility="visible" />
         </LinearLayout>
 

@@ -4,6 +4,7 @@ package com.procialize.singleevent.ApiConstant;
  * Created by Naushad on 10/30/2017.
  */
 
+import com.procialize.singleevent.GetterSetter.Agenda;
 import com.procialize.singleevent.GetterSetter.Analytic;
 import com.procialize.singleevent.GetterSetter.CommentList;
 import com.procialize.singleevent.GetterSetter.CurrencyConverterResponse;
@@ -203,6 +204,11 @@ public interface APIService {
     @FormUrlEncoded
     Call<FetchAgenda> AgendaFetchPost(@Field("api_access_token") String api_access_token,
                                       @Field("event_id") String event_id);
+
+    @POST("AgendaVacationSeprateFetch")
+    @FormUrlEncoded
+    Call<Agenda> AgendaFetchVacation(@Field("api_access_token") String api_access_token,
+                                     @Field("event_id") String event_id);
 
 
     @POST("DeleteNewsFeedPost")

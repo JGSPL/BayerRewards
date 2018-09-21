@@ -38,7 +38,7 @@
                 android:contentDescription=" "
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/splashlogo"/>
+                android:src="@drawable/header_logo"/>
 
         </android.support.v7.widget.Toolbar>
 
@@ -64,12 +64,13 @@
             android:id="@+id/uploadbtn"
             android:layout_margin="3dp"
             android:layout_gravity="right"
-            android:textColor="@color/colorwhite"
+            android:textColor="@color/logintxt"
             android:text="@string/upload"
             android:background="@drawable/signupbutton"
             android:padding="2dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textStyle="bold"/>
 
 
         <ProgressBar

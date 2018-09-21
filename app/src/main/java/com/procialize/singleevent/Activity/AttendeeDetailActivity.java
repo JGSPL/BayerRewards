@@ -169,13 +169,18 @@ public class AttendeeDetailActivity extends AppCompatActivity {
             tvcompany.setVisibility(View.GONE);
         }
 
-        if (designation.equalsIgnoreCase("N A")) {
-            tvdesignation.setVisibility(View.GONE);
-        } else if (designation != null && attendee_design.equalsIgnoreCase("1")) {
-            tvdesignation.setText(designation);
-        } else {
-            tvdesignation.setVisibility(View.GONE);
+        try {
+            if (designation.equalsIgnoreCase("N A")) {
+                tvdesignation.setVisibility(View.GONE);
+            } else if (designation != null && attendee_design.equalsIgnoreCase("1")) {
+                tvdesignation.setText(designation);
+            } else {
+                tvdesignation.setVisibility(View.GONE);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
 
         if (city.equalsIgnoreCase("N A")) {
             tvcity.setVisibility(View.GONE);

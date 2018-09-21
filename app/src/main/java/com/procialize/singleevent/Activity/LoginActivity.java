@@ -97,17 +97,19 @@ public class LoginActivity extends AppCompatActivity {
 
 
         final TextInputEditText Etemail,Etpassword;
-        final TextInputLayout inputLayoutemail,inputLayoutpassword;
+        final TextInputLayout inputLayoutemail;
+        final TextView text_forgotPswd;
 
 
         Etemail = findViewById(R.id.input_email);
         Etpassword=findViewById(R.id.input_password);
         progressBar2=findViewById(R.id.progressBar2);
-
-        inputLayoutemail = findViewById(R.id.input_layout_email);
-        inputLayoutemail.setErrorEnabled(true);
-        inputLayoutpassword = findViewById(R.id.input_layout_password);
-        inputLayoutpassword.setErrorEnabled(true);
+        text_forgotPswd=findViewById(R.id.text_forgotPswd);
+        text_forgotPswd.getPaint().setUnderlineText(true);
+//        inputLayoutemail = findViewById(R.id.input_layout_email);
+//        inputLayoutemail.setErrorEnabled(true);
+//        inputLayoutpassword = findViewById(R.id.input_layout_password);
+//        inputLayoutpassword.setErrorEnabled(true);
 
         loginbtn=findViewById(R.id.loginbtn);
 
@@ -116,12 +118,12 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (s.toString().matches(emailPattern) && s.length() > 0)
                 {
-                    inputLayoutemail.setError(null);
+//                    inputLayoutemail.setError(null);
                     emailbool = true;
                 }
                 else
                 {
-                    inputLayoutemail.setError("Please Enter Valid Email Id");
+//                    inputLayoutemail.setError("Please Enter Valid Email Id");
                     emailbool = false;
                 }
             }
@@ -139,12 +141,12 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (s.length() > 0)
                 {
-                    inputLayoutpassword.setError(null);
+//                    inputLayoutpassword.setError(null);
                     passwordbool=true;
                 }
                 else
                 {
-                    inputLayoutpassword.setError("Please Enter Password");
+//                    inputLayoutpassword.setError("Please Enter Password");
                     passwordbool=false;
                 }
             }
@@ -163,15 +165,15 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (emailbool==false)
                 {
-                    inputLayoutemail.setError("Please Enter Email Id");
+//                    inputLayoutemail.setError("Please Enter Email Id");
                 }else if (passwordbool==false)
                 {
-                    inputLayoutemail.setError(null);
-                    inputLayoutpassword.setError("Please Enter Password");
+//                    inputLayoutemail.setError(null);
+//                    inputLayoutpassword.setError("Please Enter Password");
                 }else
                 {
-                    inputLayoutpassword.setError(null);
-                    inputLayoutemail.setError(null);
+//                    inputLayoutpassword.setError(null);
+//                    inputLayoutemail.setError(null);
 
                     if (Connectivity.isConnected(LoginActivity.this)) {
                         emailid = Etemail.getText().toString();

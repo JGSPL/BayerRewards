@@ -167,7 +167,7 @@ public class GalleryActivity extends AppCompatActivity implements GalleryAdapter
                                 if (!response.body().getFolderList().get(i).getFolderName().contains("/")) {
                                     firstLevelFilter.setFolderName(response.body().getFolderList().get(i).getFolderName());
                                     firstLevelFilter.setTitle(response.body().getFolderList().get(i).getFolderName());
-                                    firstLevelFilter.setFileName(ApiConstant.folderimage + response.body().getFolderList().get(i).getFolderImage());
+                                    firstLevelFilter.setFileName(ApiConstant.galleryimage + response.body().getFolderList().get(i).getFolderImage());
 
                                     filtergallerylists.add(firstLevelFilter);
                                 }

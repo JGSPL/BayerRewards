@@ -44,7 +44,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="-10dp"
                 android:contentDescription=" "
-                android:src="@drawable/splashlogo" />
+                android:src="@drawable/header_logo" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -106,9 +106,6 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:padding="10dp">
-
-
-
 
 
                     <android.support.design.widget.TextInputLayout
@@ -281,14 +278,15 @@
                         android:layout_gravity="center"
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="30dp"
-                        android:background="@drawable/signupbutton"
+                        android:background="@color/colorwhite"
                         android:elevation="@dimen/elevation"
                         android:paddingLeft="70dp"
                         android:paddingRight="70dp"
                         android:stateListAnimator="@null"
                         android:text="@string/save"
-                        android:textColor="@color/colorwhite"
+                        android:textColor="@color/logintxt"
                         android:textSize="@dimen/textsizesmall"
+                        android:textStyle="bold"
                         android:translationZ="5dp" />
 
 

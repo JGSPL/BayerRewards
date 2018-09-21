@@ -195,7 +195,7 @@ public class QuizActivity extends AppCompatActivity implements QuizAdapter.QuizA
         // token
         final String token = user.get(SessionManager.KEY_TOKEN);
 
-        fetchQuiz(token, "1");
+        fetchQuiz(token, eventid);
     }
 
 

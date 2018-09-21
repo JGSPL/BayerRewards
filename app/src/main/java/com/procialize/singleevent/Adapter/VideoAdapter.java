@@ -28,9 +28,7 @@ import com.procialize.singleevent.R;
 
 import java.util.List;
 
-/**
- * Created by Naushad on 10/31/2017.
- */
+
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder> {
 
@@ -44,9 +42,10 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
         public LinearLayout mainLL;
         private ProgressBar progressBar;
 
+
         public MyViewHolder(View view) {
             super(view);
-            nameTv =  view.findViewById(R.id.nameTv);
+            nameTv = view.findViewById(R.id.nameTv);
             imageIv = view.findViewById(R.id.imageIv);
             mainLL = view.findViewById(R.id.mainLL);
             progressBar = view.findViewById(R.id.progressBar);
@@ -64,8 +63,8 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
 
     public VideoAdapter(Context context, List<FirstLevelFilter> galleryLists, VideoAdapterListner listener) {
         this.videoLists = galleryLists;
-        this.listener=listener;
-        this.context=context;
+        this.listener = listener;
+        this.context = context;
     }
 
     @Override
@@ -83,8 +82,8 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
         holder.nameTv.setText(videoList.getTitle());
 
 
-        if (videoList.getFolderName()==null)
-        {
+
+        if (videoList.getFolderName() == null) {
             try {
                 String CurrentString = videoList.getFileName();
                 String[] separated = CurrentString.split("v=");
@@ -92,9 +91,9 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
                 String id = separated[1];
 //                String url = "https://img.youtube.com/vi/"+id+"/default.jpg";
                 String videoId = id.substring(id.lastIndexOf("v=") + 1);
-                Log.e("id",videoId);
+                Log.e("id", videoId);
                 String previewURL = "https://img.youtube.com/vi/" + videoId + "/0.jpg";
-                Log.e("id",previewURL);
+                Log.e("id", previewURL);
                 Glide.with(context).load(previewURL)
                         .apply(RequestOptions.skipMemoryCacheOf(true))
                         .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE)).listener(new RequestListener<Drawable>() {
@@ -110,8 +109,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
                         return false;
                     }
                 }).into(holder.imageIv).onLoadStarted(context.getDrawable(R.drawable.gallery_placeholder));
-            }catch (Exception e)
-            {
+            } catch (Exception e) {
                 Glide.with(context).load(videoList.getFileName())
                         .apply(RequestOptions.skipMemoryCacheOf(true))
                         .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE)).listener(new RequestListener<Drawable>() {
@@ -129,7 +127,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
                 }).into(holder.imageIv).onLoadStarted(context.getDrawable(R.drawable.gallery_placeholder));
             }
 
-        }else {
+        } else {
             holder.mainLL.setBackgroundResource(R.drawable.folder);
             Glide.with(context).load(videoList.getFileName())
                     .apply(RequestOptions.skipMemoryCacheOf(true))
@@ -147,7 +145,6 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
                 }
             }).into(holder.imageIv).onLoadStarted(context.getDrawable(R.drawable.gallery_placeholder));
         }
-
 
 
     }

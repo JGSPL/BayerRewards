@@ -168,24 +168,24 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
             }
 
 
-            if (!(response.body().getQa_question().isEmpty())) {
+//            if (!(response.body().getQa_question().isEmpty())) {
                 qaAttendeeAdapter = new QADirectAdapter(QADirectActivity.this, response.body().getQa_question(), this);
                 qaAttendeeAdapter.notifyDataSetChanged();
                 qaRv.setAdapter(qaAttendeeAdapter);
                 qaRv.scheduleLayoutAnimation();
-            } else {
-                setContentView(R.layout.activity_empty_view);
-                ImageView imageView = findViewById(R.id.back);
-                TextView text_empty = findViewById(R.id.text_empty);
-                text_empty.setText("Q&A not available");
-                imageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        finish();
-                    }
-                });
-
-            }
+//            } else {
+//                setContentView(R.layout.activity_empty_view);
+//                ImageView imageView = findViewById(R.id.back);
+//                TextView text_empty = findViewById(R.id.text_empty);
+//                text_empty.setText("Q&A not available");
+//                imageView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        finish();
+//                    }
+//                });
+//
+//            }
 
 
         } else {

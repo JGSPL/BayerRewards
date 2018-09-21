@@ -61,7 +61,8 @@
     <string name="refresh">Pull down to Refresh</string>
     <string name="save">Save</string>
     <string name="share">Share</string>
-    <string name="login">LOGIN</string>
+    <string name="login">Login</string>
+    <string name="create_evnt">Create an event</string>
     <string name="signup">CREATE ACCOUNT</string>
     <string name="mytravel">My Travel</string>
     <string name="whatsmind">What\'s on your mind?</string>

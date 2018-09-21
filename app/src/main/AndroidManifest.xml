@@ -205,7 +205,8 @@
         <activity android:name=".Activity.PrivacyPolicy" />
         <activity android:name=".EmptyViewActivity" />
         <activity android:name=".Utility.ImageCropActivity" />
-        <activity android:name=".InnerDrawerActivity.QADirectActivity"></activity>
+        <activity android:name=".InnerDrawerActivity.QADirectActivity" />
+        <activity android:name=".InnerDrawerActivity.AgendaVacationActivity"></activity>
     </application>
 
 </manifest>

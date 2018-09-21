@@ -18,13 +18,13 @@
             android:src="@drawable/logo"
             android:visibility="gone" />
 
-        <com.procialize.abslmf_app.utility.AutoScrollViewPager
+        <com.procialize.singleevent.CustomTools.AutoScrollViewPager
             android:id="@+id/pagerimage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp">
 
-        </com.procialize.abslmf_app.utility.AutoScrollViewPager>
+        </com.procialize.singleevent.CustomTools.AutoScrollViewPager>
     </LinearLayout>
 
     <LinearLayout

@@ -1,9 +1,16 @@
 package com.procialize.singleevent.Adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.media.MediaMetadataRetriever;
+import android.media.ThumbnailUtils;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +27,18 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.procialize.singleevent.ApiConstant.ApiConstant;
+import com.procialize.singleevent.CustomTools.ImageFilePath;
 import com.procialize.singleevent.GetterSetter.FirstLevelFilter;
 import com.procialize.singleevent.InnerDrawerActivity.VideoFirstLevelActivity;
 import com.procialize.singleevent.R;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Naushad on 10/31/2017.
@@ -35,6 +49,7 @@ public class VideoFirstLevelAdapter extends RecyclerView.Adapter<VideoFirstLevel
     private List<FirstLevelFilter> videoLists;
     private Context context;
     private VideoFirstLevelAdapterListner listener;
+    String videoId;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTv;
@@ -44,7 +59,7 @@ public class VideoFirstLevelAdapter extends RecyclerView.Adapter<VideoFirstLevel
 
         public MyViewHolder(View view) {
             super(view);
-            nameTv =  view.findViewById(R.id.nameTv);
+            nameTv = view.findViewById(R.id.nameTv);
             imageIv = view.findViewById(R.id.imageIv);
             mainLL = view.findViewById(R.id.mainLL);
             progressBar = view.findViewById(R.id.progressBar);
@@ -62,8 +77,8 @@ public class VideoFirstLevelAdapter extends RecyclerView.Adapter<VideoFirstLevel
 
     public VideoFirstLevelAdapter(Context context, List<FirstLevelFilter> galleryLists, VideoFirstLevelAdapterListner listener) {
         this.videoLists = galleryLists;
-        this.listener=listener;
-        this.context=context;
+        this.listener = listener;
+        this.context = context;
     }
 
     @Override
@@ -80,62 +95,24 @@ public class VideoFirstLevelAdapter extends RecyclerView.Adapter<VideoFirstLevel
 
         holder.nameTv.setText(videoList.getTitle());
 
+        if (videoList.getFileName().contains("youtu")) {
+
+            String CurrentString = videoList.getFileName();
+//                String[] separated = CurrentString.split("/");
+//
+//                String id = separated[1];
+            String id = getYoutubeVideoIdFromUrl(videoList.getFileName());
+
+            String url = "https://img.youtube.com/vi/" + id + "/default.jpg";
 
 
-        if (videoList.getFolderName().equalsIgnoreCase(VideoFirstLevelActivity.foldername))
-        {
-            try {
-                String CurrentString = videoList.getFileName();
-                String[] separated = CurrentString.split("v=");
-
-                String id = separated[1];
-
-
-                String url = "https://img.youtube.com/vi/" + id + "/default.jpg";
-                Glide.with(context).load(url)
-                        .apply(RequestOptions.skipMemoryCacheOf(true))
-                        .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE)).listener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        holder.progressBar.setVisibility(View.GONE);
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        holder.progressBar.setVisibility(View.GONE);
-                        return false;
-                    }
-                }).into(holder.imageIv).onLoadStarted(context.getDrawable(R.drawable.gallery_placeholder));
-            }catch (Exception exception)
-            {
-                Glide.with(context).load(videoList.getFileName())
-                        .apply(RequestOptions.skipMemoryCacheOf(true))
-                        .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE)).listener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        holder.progressBar.setVisibility(View.GONE);
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        holder.progressBar.setVisibility(View.GONE);
-                        return false;
-                    }
-                }).into(holder.imageIv).onLoadStarted(context.getDrawable(R.drawable.gallery_placeholder));
-
-            }
-
-        }else {
-            holder.mainLL.setBackgroundResource(R.drawable.folder);
-            Glide.with(context).load(videoList.getFileName())
+            Glide.with(context).load(url)
                     .apply(RequestOptions.skipMemoryCacheOf(true))
                     .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE)).listener(new RequestListener<Drawable>() {
                 @Override
                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                     holder.progressBar.setVisibility(View.GONE);
-                    return false;
+                    return true;
                 }
 
                 @Override
@@ -144,11 +121,25 @@ public class VideoFirstLevelAdapter extends RecyclerView.Adapter<VideoFirstLevel
                     return false;
                 }
             }).into(holder.imageIv).onLoadStarted(context.getDrawable(R.drawable.gallery_placeholder));
+        } else {
+
+            Bitmap bitmap;
+            try {
+                bitmap = retriveVideoFrameFromVideo(ApiConstant.folderimage + videoList.getFileName());
+                if (bitmap != null) {
+                    bitmap = Bitmap.createScaledBitmap(bitmap, 240, 240, false);
+                    holder.imageIv.setImageBitmap(bitmap);
+                    holder.progressBar.setVisibility(View.GONE);
+                }
+            } catch (Throwable throwable) {
+                throwable.printStackTrace();
+            }
+
 
         }
 
-    }
 
+    }
 
 
     @Override
@@ -160,5 +151,43 @@ public class VideoFirstLevelAdapter extends RecyclerView.Adapter<VideoFirstLevel
         void onContactSelected(FirstLevelFilter firstLevelFilter);
     }
 
+    public static String getYoutubeVideoIdFromUrl(String inUrl) {
+        if (inUrl.toLowerCase().contains("youtu.be")) {
+            return inUrl.substring(inUrl.lastIndexOf("/") + 1);
+        }
+        String pattern = "(?<=watch\\?v=|/videos/|embed\\/)[^#\\&\\?]*";
+        Pattern compiledPattern = Pattern.compile(pattern);
+        Matcher matcher = compiledPattern.matcher(inUrl);
+        if (matcher.find()) {
+            return matcher.group();
+        }
+        return null;
+    }
+
+    public static Bitmap retriveVideoFrameFromVideo(String videoPath)
+            throws Throwable {
+        Bitmap bitmap = null;
+        MediaMetadataRetriever mediaMetadataRetriever = null;
+        try {
+            mediaMetadataRetriever = new MediaMetadataRetriever();
+            if (Build.VERSION.SDK_INT >= 14)
+                mediaMetadataRetriever.setDataSource(videoPath, new HashMap<String, String>());
+            else
+                mediaMetadataRetriever.setDataSource(videoPath);
+
+            bitmap = mediaMetadataRetriever.getFrameAtTime(1, MediaMetadataRetriever.OPTION_CLOSEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Throwable(
+                    "Exception in retriveVideoFrameFromVideo(String videoPath)"
+                            + e.getMessage());
+
+        } finally {
+            if (mediaMetadataRetriever != null) {
+                mediaMetadataRetriever.release();
+            }
+        }
+        return bitmap;
+    }
 
 }

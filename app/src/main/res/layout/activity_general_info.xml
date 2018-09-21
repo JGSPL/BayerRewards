@@ -55,7 +55,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="-10dp"
                     android:contentDescription=" "
-                    android:src="@drawable/splashlogo" />
+                    android:src="@drawable/header_logo" />
 
             </android.support.v7.widget.Toolbar>
 

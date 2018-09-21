@@ -11,6 +11,8 @@ import android.util.Log;
 
 
 import com.procialize.singleevent.GetterSetter.AgendaList;
+import com.procialize.singleevent.GetterSetter.AgendaMediaList;
+import com.procialize.singleevent.GetterSetter.AgendaVacationList;
 import com.procialize.singleevent.GetterSetter.AttendeeList;
 import com.procialize.singleevent.GetterSetter.NewsFeedList;
 import com.procialize.singleevent.GetterSetter.SpeakerList;
@@ -65,6 +67,24 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String SESSION_TOTAL_FEEDBACK = "SESSION_TOTAL_FEEDBACK";
     public static final String SESSION_FEEDBACK_COMMENT = "SESSION_FEEDBACK_COMMENT";
     public static final String SESSION_RATED = "SESSION_RATED";
+
+
+    public static final String AGENDA_VACATION_TABLE_NAME = "AGENDA_VACATION_TABLE_NAME";
+
+    public static final String SESSION_VACATION_ID = "SESSION_VACATION_ID";
+    public static final String SESSION_VACATION_NAME = "SESSION_VACATION_NAME";
+    public static final String SESSION_VACATION_DESCRIPTION = "SESSION_VACATION_DESCRIPTION";
+    public static final String FOLDER_NAME = "FOLDER_NAME";
+    public static final String SESSION_EVENT_VACATION_ID = "SESSION_EVENT_VACATION_ID";
+
+
+    public static final String AGENDA_VACATION_MEDIA_TABLE = "AGENDA_VACATION_MEDIA_TABLE";
+
+    public static final String SESSION_MEDIA_VACATION_ID = "SESSION_MEDIA_VACATION_ID";
+    public static final String MEDIA_TYPE = "MEDIA_TYPE";
+    public static final String MEDIA_NAME = "MEDIA_NAME";
+    public static final String MEDIA_THUMBNAIL = "MEDIA_THUMBNAIL";
+
 
     // News Feed Table
     public static final String NEWSFEED_TABLE_NAME = "NEWSFEED_TABLE_NAME";
@@ -142,6 +162,16 @@ public class DBHelper extends SQLiteOpenHelper {
                 + " text, " + SESSION_FEEDBACK_COMMENT + " text, "
                 + SESSION_RATED + " text)");
 
+        //Creating Agenda Vacation table
+        db.execSQL("create table " + AGENDA_VACATION_TABLE_NAME + "(" + SESSION_VACATION_ID
+                + " text, " + SESSION_VACATION_NAME + " text, " + SESSION_VACATION_DESCRIPTION + " text, " + FOLDER_NAME
+                + " text, " + SESSION_EVENT_VACATION_ID + " text)");
+
+        //create Agenda Media table
+        db.execSQL("create table " + AGENDA_VACATION_MEDIA_TABLE + "(" + SESSION_MEDIA_VACATION_ID
+                + " text, " + MEDIA_NAME + " text, " + MEDIA_TYPE + " text, " + MEDIA_THUMBNAIL
+                + " text)");
+
         // Creating Speaker table
         db.execSQL("create table " + SPEAKER_TABLE_NAME + "(" + ATTENDEE_ID
                 + " text, " + ATTENDEE_API_ACCESS_TOKEN + " text, " + ATTENDEE_FIRST_NAME + " text, " + ATTENDEE_LAST_NAME
@@ -181,6 +211,8 @@ public class DBHelper extends SQLiteOpenHelper {
             db.execSQL("DELETE FROM " + ATTENDEES_TABLE_NAME);
             db.execSQL("DELETE FROM " + SPEAKER_TABLE_NAME);
             db.execSQL("DELETE FROM " + AGENDA_TABLE_NAME);
+            db.execSQL("DELETE FROM " + AGENDA_VACATION_TABLE_NAME);
+            db.execSQL("DELETE FROM " + AGENDA_VACATION_MEDIA_TABLE);
             db.execSQL("DELETE FROM " + NEWSFEED_TABLE_NAME);
 
             onCreate(db);
@@ -687,6 +719,154 @@ public class DBHelper extends SQLiteOpenHelper {
         return;
     }
 
+
+    public void insertAgendaVacationInfo(List<AgendaVacationList> agendasList,
+                                         SQLiteDatabase db) {
+        db = this.getWritableDatabase();
+        ContentValues contentValues;
+        db.beginTransaction();
+        try {
+            for (int i = 0; i < agendasList.size(); i++) {
+                contentValues = new ContentValues();
+
+                String session_id = agendasList.get(i).getSessionId();
+                if (session_id != null && session_id.length() > 0) {
+                    contentValues.put(SESSION_VACATION_ID, session_id);
+                }
+
+                String session_name = agendasList.get(i).getSession_name();
+                if (session_name != null && session_name.length() > 0) {
+                    contentValues.put(SESSION_VACATION_NAME, session_name);
+                }
+
+                String session_description = agendasList.get(i).getSession_description();
+                if (session_description != null && session_description.length() > 0) {
+                    contentValues.put(SESSION_VACATION_DESCRIPTION, session_description);
+                }
+
+                String folder_name = agendasList.get(i).getFolder_name();
+                if (folder_name != null && folder_name.length() > 0) {
+                    contentValues.put(FOLDER_NAME, folder_name);
+                }
+
+
+                String event_id = agendasList.get(i).getEvent_id();
+                if (event_id != null
+                        && event_id.length() > 0) {
+                    contentValues.put(SESSION_EVENT_VACATION_ID, event_id);
+                }
+
+
+                db.insert(AGENDA_VACATION_TABLE_NAME, null, contentValues);
+            }
+
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            db.endTransaction();
+        }
+        return;
+    }
+
+    //get Agenda Media Info
+
+    public void insertAgendaMediaInfo(List<AgendaMediaList> agendasList,
+                                         SQLiteDatabase db) {
+        db = this.getWritableDatabase();
+        ContentValues contentValues;
+        db.beginTransaction();
+        try {
+            for (int i = 0; i < agendasList.size(); i++) {
+                contentValues = new ContentValues();
+
+                String session_id = agendasList.get(i).getSession_vacation_id();
+                if (session_id != null && session_id.length() > 0) {
+                    contentValues.put(SESSION_MEDIA_VACATION_ID, session_id);
+                }
+
+                String session_name = agendasList.get(i).getMedia_name();
+                if (session_name != null && session_name.length() > 0) {
+                    contentValues.put(MEDIA_NAME, session_name);
+                }
+
+                String session_description = agendasList.get(i).getMedia_type();
+                if (session_description != null && session_description.length() > 0) {
+                    contentValues.put(MEDIA_TYPE, session_description);
+                }
+
+                String folder_name = agendasList.get(i).getMedia_thumbnail();
+                if (folder_name != null && folder_name.length() > 0) {
+                    contentValues.put(MEDIA_THUMBNAIL, folder_name);
+                }
+
+
+
+
+
+                db.insert(AGENDA_VACATION_MEDIA_TABLE, null, contentValues);
+            }
+
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            db.endTransaction();
+        }
+        return;
+    }
+
+    //get Agenda vacation detail
+
+    public List<AgendaVacationList> getAgendaFolderList() {
+        String selectQuery = "select * from " + AGENDA_VACATION_TABLE_NAME;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        List<AgendaVacationList> questionList = new ArrayList<AgendaVacationList>();
+
+        if (cursor.moveToFirst()) {
+            do {
+
+                AgendaVacationList agendaQuestions = new AgendaVacationList();
+                agendaQuestions.setSessionId(cursor.getString(0));
+                agendaQuestions.setSession_name(cursor.getString(1));
+                agendaQuestions.setSession_description(cursor.getString(2));
+                agendaQuestions.setFolder_name(cursor.getString(3));
+                agendaQuestions.setEvent_id(cursor.getString(4));
+
+
+                questionList.add(agendaQuestions);
+            } while (cursor.moveToNext());
+        }
+        db.close();
+        return questionList;
+    }
+
+    //get Media detail
+
+    public List<AgendaMediaList> getAgendaMediaList() {
+        String selectQuery = "select * from " + AGENDA_VACATION_MEDIA_TABLE;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        List<AgendaMediaList> questionList = new ArrayList<AgendaMediaList>();
+
+        if (cursor.moveToFirst()) {
+            do {
+
+                AgendaMediaList agendaQuestions = new AgendaMediaList();
+                agendaQuestions.setSession_vacation_id(cursor.getString(0));
+                agendaQuestions.setMedia_name(cursor.getString(1));
+                agendaQuestions.setMedia_type(cursor.getString(2));
+                agendaQuestions.setMedia_thumbnail(cursor.getString(3));
+
+                questionList.add(agendaQuestions);
+            } while (cursor.moveToNext());
+        }
+        db.close();
+        return questionList;
+    }
     // Get Attendee List/ Details
     public List<AttendeeList> getAttendeeDetails() {
         String selectQuery = "select * from " + ATTENDEES_TABLE_NAME
@@ -855,7 +1035,8 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public List<NewsFeedList> getNewsFeedLikeandComment(String feedid) {
-        String selectQuery = "select * from " + NEWSFEED_TABLE_NAME + " where " + NEWSFEED_ID + " LIKE \'%" + feedid  + "%\'";;
+        String selectQuery = "select * from " + NEWSFEED_TABLE_NAME + " where " + NEWSFEED_ID + " LIKE \'%" + feedid + "%\'";
+        ;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -898,6 +1079,16 @@ public class DBHelper extends SQLiteOpenHelper {
     public void clearAgendaTable() {
         SQLiteDatabase db = this.getReadableDatabase();
         db.execSQL(" DELETE FROM " + AGENDA_TABLE_NAME);
+    }
+
+    public void clearAgendaVacationTable() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL(" DELETE FROM " + AGENDA_VACATION_TABLE_NAME);
+    }
+
+    public void clearAgendaFolerTable() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL(" DELETE FROM " + AGENDA_VACATION_MEDIA_TABLE);
     }
 
     public void clearSpeakersTable() {

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@drawable/background_login"
     android:orientation="vertical">
 
 
@@ -12,9 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_marginTop="-70dp">
+        android:layout_marginTop="50dp"
+        android:gravity="center|top"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/imageView2"
@@ -25,36 +25,21 @@
 
         <com.procialize.singleevent.Fonts.RobotoTextview
             android:id="@+id/textView5"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/logindummy"
+            android:gravity="center"
+            android:text="The World's Best Event App"
             android:textColor="@color/colorwhite"
             android:textSize="@dimen/textsizenormal" />
 
-        <com.procialize.singleevent.Fonts.RobotoTextview
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="@string/logindummy2"
-            android:textColor="@color/black"
-            android:textSize="@dimen/textsizenormal"
-            android:visibility="gone" />
-
-        <com.procialize.singleevent.Fonts.RobotoTextview
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/logindummy3"
-            android:textColor="@color/black"
-            android:textSize="@dimen/textsizenormal"
-            android:visibility="gone" />
 
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="60dp"
             android:orientation="vertical">
 
             <!--<android.support.design.widget.TextInputLayout
@@ -64,20 +49,21 @@
                 android:textColor="@color/black"
                 android:textColorHint="@color/black">-->
 
-                <com.procialize.singleevent.Fonts.RobotoTextInputEditext
-                    android:id="@+id/input_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/hint_email"
-                    android:imeOptions="actionNext"
-                    android:inputType="textEmailAddress"
-                    android:maxLines="1"
-                    android:textColor="@color/colorwhite"
-                    android:textColorHint="@color/colorwhite"
-                    android:textSize="@dimen/textsizesmall"
-                    android:background="@drawable/edit_background"
-                    android:padding="10dp"/>
-           <!-- </android.support.design.widget.TextInputLayout>-->
+            <com.procialize.singleevent.Fonts.RobotoTextInputEditext
+                android:id="@+id/input_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_background"
+                android:hint="@string/hint_email"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:padding="15dp"
+                android:textColor="@color/colorwhite"
+                android:textColorHint="@color/colorwhite"
+                android:textSize="@dimen/textsizesmall"
+                android:textCursorDrawable="@drawable/color_cursor"/>
+            <!-- </android.support.design.widget.TextInputLayout>-->
 
             <!--<android.support.design.widget.TextInputLayout
                 android:id="@+id/input_layout_password"
@@ -87,21 +73,35 @@
                 android:textColorHint="@color/black"
                 app:passwordToggleEnabled="true">-->
 
-                <com.procialize.singleevent.Fonts.RobotoTextInputEditext
-                    android:id="@+id/input_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/hint_password"
-                    android:imeOptions="actionDone"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:textColor="@color/colorwhite"
-                    android:textColorHint="@color/colorwhite"
-                    android:textSize="@dimen/textsizesmall"
-                    android:background="@drawable/edit_background"
-                    android:padding="10dp"
-                    android:layout_marginTop="20dp"/>
+            <com.procialize.singleevent.Fonts.RobotoTextInputEditext
+                android:id="@+id/input_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/edit_background"
+                android:hint="@string/hint_password"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:padding="15dp"
+                android:textColor="@color/colorwhite"
+                android:textColorHint="@color/colorwhite"
+                android:textSize="@dimen/textsizesmall"
+                android:textCursorDrawable="@drawable/color_cursor"/>
             <!--</android.support.design.widget.TextInputLayout>-->
+
+            <com.procialize.singleevent.Fonts.RobotoTextview
+                android:id="@+id/text_forgotPswd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:padding="5dp"
+                android:text="Forgot Password"
+                android:textColor="@color/colorwhite"
+                android:textColorHint="@color/colorwhite"
+                android:textSize="@dimen/textsizesmall"
+                android:gravity="right"
+                />
 
         </LinearLayout>
     </LinearLayout>
@@ -121,7 +121,30 @@
             android:background="@color/colorwhite"
             android:text="@string/login"
             android:textColor="@color/logintxt"
-            android:textSize="@dimen/textsizesmall" />
+            android:textSize="@dimen/textsizesmall"
+            android:textStyle="bold"
+            android:textAllCaps="false"/>
+
+        <com.procialize.singleevent.Fonts.RobotoTextview
+            android:id="@+id/textViewOR"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="OR"
+            android:textAlignment="center"
+            android:textColor="@color/colorwhite"
+            android:textSize="15sp" />
+
+        <com.procialize.singleevent.Fonts.RobotoButton
+            android:id="@+id/createaccbtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@color/colorwhite"
+            android:text="@string/create_evnt"
+            android:textColor="@color/logintxt"
+            android:textSize="@dimen/textsizesmall"
+            android:textStyle="bold"
+            android:textAllCaps="false" />
 
         <com.procialize.singleevent.Fonts.RobotoTextview
             android:id="@+id/textView"
@@ -129,7 +152,7 @@
             android:layout_height="wrap_content"
             android:text=""
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/colorwhite"
             android:textSize="15sp" />
 
         <ProgressBar

@@ -13,9 +13,7 @@ import android.view.animation.Interpolator;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 
-/**
- * Created by Rahul on 15-06-2018.
- */
+
 
 public class AutoScrollViewPager extends ViewPager {
 

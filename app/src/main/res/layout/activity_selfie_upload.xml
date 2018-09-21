@@ -36,7 +36,7 @@
                 android:contentDescription=" "
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/splashlogo"/>
+                android:src="@drawable/header_logo"/>
 
         </android.support.v7.widget.Toolbar>
 
@@ -108,7 +108,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center"
                 android:text="@string/submit"
-                android:textColor="@color/colorwhite"
+                android:textColor="@color/logintxt"
                 android:textSize="@dimen/textsizenormal"
                 android:textAllCaps="false"
                 android:textStyle="normal" />

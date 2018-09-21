@@ -213,7 +213,7 @@ public class VideoFirstLevelActivity extends AppCompatActivity implements VideoF
                 } else {
                     Intent videoIntent = new Intent(Intent.ACTION_VIEW);
                     videoIntent.setDataAndType(
-                            Uri.parse(firstLevelFilter.getFileName()), "video/*");
+                            Uri.parse(ApiConstant.folderimage + firstLevelFilter.getFileName()), "video/*");
                     startActivity(videoIntent);
                 }
             }

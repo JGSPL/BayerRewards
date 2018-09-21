@@ -38,7 +38,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SpeakerActivity extends AppCompatActivity implements SpeakerAdapter.SpeakerAdapterListner {
+public class
+SpeakerActivity extends AppCompatActivity implements SpeakerAdapter.SpeakerAdapterListner {
 
 
     private APIService mAPIService;
@@ -46,6 +47,7 @@ public class SpeakerActivity extends AppCompatActivity implements SpeakerAdapter
     RecyclerView speakerrecycler;
     EditText searchEt;
     SpeakerAdapter speakerAdapter;
+
     private ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
