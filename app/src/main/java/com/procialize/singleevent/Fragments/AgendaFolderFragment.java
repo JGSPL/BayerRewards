@@ -275,14 +275,14 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
 //                for (int i = 0; i < agendaDBList.size(); i++) {
 
 
-                    String imagedate = agendaDBList.get(0).getFolder_name();
-                    String session = agendaDBList.get(0).getSessionId();
-                    if (imagedate.equalsIgnoreCase(eventDates.get(0))) {
-                        for (int k = 0; k < agendaFolderDBList.size(); k++) {
-                            if (session.equalsIgnoreCase(agendaFolderDBList.get(k).getSession_vacation_id()))
-                                agendaFolderImageList.add(agendaFolderDBList.get(k));
-                        }
+                String imagedate = agendaDBList.get(0).getFolder_name();
+                String session = agendaDBList.get(0).getSessionId();
+                if (imagedate.equalsIgnoreCase(eventDates.get(0))) {
+                    for (int k = 0; k < agendaFolderDBList.size(); k++) {
+                        if (session.equalsIgnoreCase(agendaFolderDBList.get(k).getSession_vacation_id()))
+                            agendaFolderImageList.add(agendaFolderDBList.get(k));
                     }
+                }
 
 //                }
 
@@ -311,30 +311,35 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
 
                 dots[0].setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.active_dot));
 
-                mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                    @Override
-                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                try {
 
-                    }
 
-                    @Override
-                    public void onPageSelected(int position) {
+                    mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                        @Override
+                        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-                        for (int i = 0; i < dotscount; i++) {
-                            dots[i].setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.non_active_dot));
                         }
 
-                        dots[position].setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.active_dot));
+                        @Override
+                        public void onPageSelected(int position) {
 
-                    }
+                            for (int i = 0; i < dotscount; i++) {
+                                dots[i].setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.non_active_dot));
+                            }
 
-                    @Override
-                    public void onPageScrollStateChanged(int state) {
+                            dots[position].setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.active_dot));
 
-                    }
-                });
-                imgTemp = "1";
+                        }
 
+                        @Override
+                        public void onPageScrollStateChanged(int state) {
+
+                        }
+                    });
+                    imgTemp = "1";
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
         }
@@ -726,4 +731,9 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().finish();
+    }
 }

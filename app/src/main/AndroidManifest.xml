@@ -206,7 +206,8 @@
         <activity android:name=".EmptyViewActivity" />
         <activity android:name=".Utility.ImageCropActivity" />
         <activity android:name=".InnerDrawerActivity.QADirectActivity" />
-        <activity android:name=".InnerDrawerActivity.AgendaVacationActivity"></activity>
+        <activity android:name=".InnerDrawerActivity.AgendaVacationActivity" />
+        <activity android:name=".InnerDrawerActivity.AgendaFolderListActivity"></activity>
     </application>
 
 </manifest>
