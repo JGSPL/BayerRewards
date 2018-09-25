@@ -193,6 +193,25 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+
+        <service
+            android:name=".gcm.MyFirebaseMessagingService"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        <service android:name=".gcm.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <!-- Goolge API Key -->
+
+
+
         <activity android:name=".Activity.AboutHotelActivity" />
         <activity android:name=".Activity.TimeWeatherActivity" />
         <activity android:name=".Activity.CurrencyConverter" />
@@ -207,7 +226,7 @@
         <activity android:name=".Utility.ImageCropActivity" />
         <activity android:name=".InnerDrawerActivity.QADirectActivity" />
         <activity android:name=".InnerDrawerActivity.AgendaVacationActivity" />
-        <activity android:name=".InnerDrawerActivity.AgendaFolderListActivity"></activity>
+
     </application>
 
 </manifest>

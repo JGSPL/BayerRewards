@@ -148,7 +148,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, ADMIN_CHANNEL_ID)
                 .setSmallIcon(R.drawable.logo)
                 .setSmallIcon(getNotificationIcon())
-                .setContentTitle("Fames bond")
+                .setContentTitle("Procialize")
                 // .setColor(Color.parseColor("#ffff00"))
                 .setColorized(true)
                 //.setContentTitle(remoteMessage.getData().get("Fames bond"))
@@ -240,7 +240,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     this)
 
                     .setSmallIcon(R.drawable.logo)
-                    .setContentTitle("Fames bond")
+                    .setContentTitle("Procialize")
                     .setStyle(
                             new NotificationCompat.BigTextStyle().bigText(finalMsg))
                     .setContentText(finalMsg).setSound(alarmSound);
@@ -253,7 +253,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     this)
 
                     .setSmallIcon(R.drawable.logo)
-                    .setContentTitle("Fames bond")
+                    .setContentTitle("Procialize")
                     .setColor(getResources().getColor(R.color.colorPrimary))
 
                     .setStyle(

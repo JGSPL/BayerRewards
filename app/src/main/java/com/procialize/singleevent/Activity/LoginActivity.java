@@ -1,6 +1,7 @@
 package com.procialize.singleevent.Activity;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,6 +21,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -51,11 +53,11 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 public class LoginActivity extends AppCompatActivity {
 
 
-    Boolean emailbool=false,passwordbool=false;
+    Boolean emailbool = false, passwordbool = false;
     private APIService mAPIService;
     ProgressBar progressBar2;
     Button loginbtn;
-    String emailid,password;
+    String emailid, password;
     public static final int RequestPermissionCode = 8;
 
     @Override
@@ -63,7 +65,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-
 
 
         mAPIService = ApiUtils.getAPIService();
@@ -96,40 +97,46 @@ public class LoginActivity extends AppCompatActivity {
         final String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
 
-        final TextInputEditText Etemail,Etpassword;
+        final TextInputEditText Etemail, Etpassword;
         final TextInputLayout inputLayoutemail;
         final TextView text_forgotPswd;
 
 
         Etemail = findViewById(R.id.input_email);
-        Etpassword=findViewById(R.id.input_password);
-        progressBar2=findViewById(R.id.progressBar2);
-        text_forgotPswd=findViewById(R.id.text_forgotPswd);
+        Etpassword = findViewById(R.id.input_password);
+        progressBar2 = findViewById(R.id.progressBar2);
+        text_forgotPswd = findViewById(R.id.text_forgotPswd);
         text_forgotPswd.getPaint().setUnderlineText(true);
 //        inputLayoutemail = findViewById(R.id.input_layout_email);
 //        inputLayoutemail.setErrorEnabled(true);
 //        inputLayoutpassword = findViewById(R.id.input_layout_password);
 //        inputLayoutpassword.setErrorEnabled(true);
 
-        loginbtn=findViewById(R.id.loginbtn);
+        text_forgotPswd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                forgetPasswordDialog();
+            }
+        });
+
+        loginbtn = findViewById(R.id.loginbtn);
 
         Etemail.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
 
-                if (s.toString().matches(emailPattern) && s.length() > 0)
-                {
+                if (s.toString().matches(emailPattern) && s.length() > 0) {
 //                    inputLayoutemail.setError(null);
                     emailbool = true;
-                }
-                else
-                {
+                } else {
 //                    inputLayoutemail.setError("Please Enter Valid Email Id");
                     emailbool = false;
                 }
             }
+
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 // other stuffs
             }
+
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // other stuffs
             }
@@ -139,20 +146,19 @@ public class LoginActivity extends AppCompatActivity {
         Etpassword.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
 
-                if (s.length() > 0)
-                {
+                if (s.length() > 0) {
 //                    inputLayoutpassword.setError(null);
-                    passwordbool=true;
-                }
-                else
-                {
+                    passwordbool = true;
+                } else {
 //                    inputLayoutpassword.setError("Please Enter Password");
-                    passwordbool=false;
+                    passwordbool = false;
                 }
             }
+
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 // other stuffs
             }
+
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // other stuffs
             }
@@ -163,15 +169,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (emailbool==false)
-                {
+                if (emailbool == false) {
 //                    inputLayoutemail.setError("Please Enter Email Id");
-                }else if (passwordbool==false)
-                {
+                } else if (passwordbool == false) {
 //                    inputLayoutemail.setError(null);
 //                    inputLayoutpassword.setError("Please Enter Password");
-                }else
-                {
+                } else {
 //                    inputLayoutpassword.setError(null);
 //                    inputLayoutemail.setError(null);
 
@@ -180,17 +183,15 @@ public class LoginActivity extends AppCompatActivity {
                         password = Etpassword.getText().toString();
                         showProgress();
                         sendEventList(Etemail.getText().toString(), Etpassword.getText().toString());
-                    }else
-                    {
-                        Toast.makeText(LoginActivity.this,"You are not connected to Internet for processing",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(LoginActivity.this, "You are not connected to Internet for processing", Toast.LENGTH_SHORT).show();
                     }
                 }
 
             }
         });
 
-        if(CheckingPermissionIsEnabledOrNot())
-        {
+        if (CheckingPermissionIsEnabledOrNot()) {
 //            Toast.makeText(MainActivity.this, "All Permissions Granted Successfully", Toast.LENGTH_LONG).show();
         }
 
@@ -203,7 +204,6 @@ public class LoginActivity extends AppCompatActivity {
         }
 
 
-
     }
 
     public void sendEventList(String email, String password) {
@@ -211,21 +211,20 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<EventListing> call, Response<EventListing> response) {
 
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     Log.i("hit", "post submitted to API." + response.body().toString());
                     dismissProgress();
                     showResponse(response);
-                }else
-                {
+                } else {
                     dismissProgress();
-                    Toast.makeText(getApplicationContext(),"Unable to process",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                     Log.i("hit", "post submitted to API Wrong.");
                 }
             }
 
             @Override
             public void onFailure(Call<EventListing> call, Throwable t) {
-                Toast.makeText(getApplicationContext(),"Unable to process",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 dismissProgress();
             }
         });
@@ -236,27 +235,23 @@ public class LoginActivity extends AppCompatActivity {
         if (response.body().getStatus().equals("success")) {
 
             Intent event = new Intent(getApplicationContext(), EventChooserActivity.class);
-            event.putExtra("email",emailid);
-            event.putExtra("password",password);
+            event.putExtra("email", emailid);
+            event.putExtra("password", password);
             startActivity(event);
             finish();
 
-        }else
-        {
+        } else {
             Toast.makeText(this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void showProgress()
-    {
+    public void showProgress() {
         progressBar2.setVisibility(View.VISIBLE);
         loginbtn.setEnabled(false);
     }
 
-    public void dismissProgress()
-    {
-        if (progressBar2.getVisibility()==View.VISIBLE)
-        {
+    public void dismissProgress() {
+        if (progressBar2.getVisibility() == View.VISIBLE) {
             progressBar2.setVisibility(View.GONE);
         }
         loginbtn.setEnabled(true);
@@ -282,7 +277,7 @@ public class LoginActivity extends AppCompatActivity {
                 ThirdPermissionResult == PackageManager.PERMISSION_GRANTED &&
                 ForthPermissionResult == PackageManager.PERMISSION_GRANTED &&
                 FifthPermissionResult == PackageManager.PERMISSION_GRANTED &&
-                SixthPermissionResult == PackageManager.PERMISSION_GRANTED ;
+                SixthPermissionResult == PackageManager.PERMISSION_GRANTED;
     }
 
     private void RequestMultiplePermission() {
@@ -318,9 +313,8 @@ public class LoginActivity extends AppCompatActivity {
                     if (CameraPermission && readcontactpermission && writecontactpermission && readstoragepermjission && writestoragepermission && vibratepermission) {
 
 //                        Toast.makeText(MainActivity.this, "Permission Granted", Toast.LENGTH_LONG).show();
-                    }
-                    else {
-                        Toast.makeText(LoginActivity.this,"We need your permission so you can enjoy full features of app",Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(LoginActivity.this, "We need your permission so you can enjoy full features of app", Toast.LENGTH_LONG).show();
                         RequestMultiplePermission();
 
                     }
@@ -328,5 +322,25 @@ public class LoginActivity extends AppCompatActivity {
 
                 break;
         }
+    }
+
+    public Dialog forgetPasswordDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+        // Get the layout inflater
+        LayoutInflater inflater = getLayoutInflater();
+
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+        builder.setView(inflater.inflate(R.layout.dialog_signin, null))
+                // Add action buttons
+                .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        // sign in the user ...
+                    }
+                });
+
+        builder.show();
+        return builder.create();
     }
 }

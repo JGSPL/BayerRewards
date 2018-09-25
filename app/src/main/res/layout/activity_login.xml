@@ -30,7 +30,8 @@
             android:gravity="center"
             android:text="The World's Best Event App"
             android:textColor="@color/colorwhite"
-            android:textSize="@dimen/textsizenormal" />
+            android:textSize="@dimen/textsizenormal"
+            android:layout_marginTop="10dp"/>
 
 
         <LinearLayout
@@ -113,7 +114,7 @@
         android:orientation="vertical">
 
 
-        <com.procialize.singleevent.Fonts.RobotoButton
+        <Button
             android:id="@+id/loginbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -121,8 +122,7 @@
             android:background="@color/colorwhite"
             android:text="@string/login"
             android:textColor="@color/logintxt"
-            android:textSize="@dimen/textsizesmall"
-            android:textStyle="bold"
+            android:textSize="@dimen/textsizenormal"
             android:textAllCaps="false"/>
 
         <com.procialize.singleevent.Fonts.RobotoTextview
@@ -134,7 +134,7 @@
             android:textColor="@color/colorwhite"
             android:textSize="15sp" />
 
-        <com.procialize.singleevent.Fonts.RobotoButton
+        <Button
             android:id="@+id/createaccbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -142,8 +142,7 @@
             android:background="@color/colorwhite"
             android:text="@string/create_evnt"
             android:textColor="@color/logintxt"
-            android:textSize="@dimen/textsizesmall"
-            android:textStyle="bold"
+            android:textSize="@dimen/textsizenormal"
             android:textAllCaps="false" />
 
         <com.procialize.singleevent.Fonts.RobotoTextview

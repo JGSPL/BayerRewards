@@ -563,36 +563,36 @@ public class NewsfeedAdapter extends BaseAdapter {
 
         if (news_feed_like.equalsIgnoreCase("0")) {
             holder.likeTv.setVisibility(View.GONE);
-            holder.viewone.setVisibility(View.GONE);
+//            holder.viewone.setVisibility(View.GONE);
         } else {
             holder.likeTv.setVisibility(View.VISIBLE);
-            holder.viewone.setVisibility(View.VISIBLE);
+//            holder.viewone.setVisibility(View.VISIBLE);
         }
 
         if (news_feed_comment.equalsIgnoreCase("0")) {
             holder.commentTv.setVisibility(View.GONE);
-            holder.viewtwo.setVisibility(View.GONE);
+//            holder.viewtwo.setVisibility(View.GONE);
 
         } else {
             holder.commentTv.setVisibility(View.VISIBLE);
-            holder.viewtwo.setVisibility(View.VISIBLE);
+//            holder.viewtwo.setVisibility(View.VISIBLE);
         }
 
         if (news_feed_share.equalsIgnoreCase("0")) {
             holder.shareTv.setVisibility(View.GONE);
-            holder.viewtwo.setVisibility(View.GONE);
+//            holder.viewtwo.setVisibility(View.GONE);
         } else {
             holder.shareTv.setVisibility(View.VISIBLE);
-            holder.viewtwo.setVisibility(View.VISIBLE);
+//            holder.viewtwo.setVisibility(View.VISIBLE);
         }
 
-        if (news_feed_comment.equalsIgnoreCase("0") && news_feed_share.equalsIgnoreCase("0")) {
-            holder.viewtwo.setVisibility(View.GONE);
-            holder.viewone.setVisibility(View.GONE);
-        } else {
-            holder.viewtwo.setVisibility(View.VISIBLE);
-            holder.viewone.setVisibility(View.VISIBLE);
-        }
+//        if (news_feed_comment.equalsIgnoreCase("0") && news_feed_share.equalsIgnoreCase("0")) {
+//            holder.viewtwo.setVisibility(View.GONE);
+////            holder.viewone.setVisibility(View.GONE);
+//        } else {
+//            holder.viewtwo.setVisibility(View.VISIBLE);
+////            holder.viewone.setVisibility(View.VISIBLE);
+//        }
 
 
         return convertView;
@@ -622,8 +622,8 @@ public class NewsfeedAdapter extends BaseAdapter {
             commentTv.setLayoutParams(param);
             shareTv.setLayoutParams(param);
 
-            viewone.setVisibility(View.GONE);
-            viewtwo.setVisibility(View.VISIBLE);
+//            viewone.setVisibility(View.GONE);
+//            viewtwo.setVisibility(View.VISIBLE);
 
         } else if (commentTv.getVisibility() == View.GONE && likeTv.getVisibility() == View.VISIBLE && shareTv.getVisibility() == View.VISIBLE) {
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
@@ -634,8 +634,8 @@ public class NewsfeedAdapter extends BaseAdapter {
             likeTv.setLayoutParams(param);
             shareTv.setLayoutParams(param);
 
-            viewone.setVisibility(View.VISIBLE);
-            viewtwo.setVisibility(View.GONE);
+//            viewone.setVisibility(View.VISIBLE);
+//            viewtwo.setVisibility(View.GONE);
 
         } else if (shareTv.getVisibility() == View.GONE && likeTv.getVisibility() == View.VISIBLE && commentTv.getVisibility() == View.VISIBLE) {
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
@@ -647,8 +647,8 @@ public class NewsfeedAdapter extends BaseAdapter {
             likeTv.setLayoutParams(param);
             commentTv.setLayoutParams(param);
 
-            viewone.setVisibility(View.VISIBLE);
-            viewtwo.setVisibility(View.GONE);
+//            viewone.setVisibility(View.VISIBLE);
+//            viewtwo.setVisibility(View.GONE);
 
 
         } else if (likeTv.getVisibility() == View.VISIBLE && commentTv.getVisibility() == View.VISIBLE && shareTv.getVisibility() == View.VISIBLE) {
@@ -663,8 +663,8 @@ public class NewsfeedAdapter extends BaseAdapter {
             shareTv.setLayoutParams(param);
 
 
-            viewone.setVisibility(View.VISIBLE);
-            viewtwo.setVisibility(View.VISIBLE);
+//            viewone.setVisibility(View.VISIBLE);
+//            viewtwo.setVisibility(View.VISIBLE);
 
         } else if (shareTv.getVisibility() == View.VISIBLE && commentTv.getVisibility() == View.GONE && likeTv.getVisibility() == View.GONE) {
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
@@ -674,8 +674,8 @@ public class NewsfeedAdapter extends BaseAdapter {
             );
             shareTv.setLayoutParams(param);
 
-            viewone.setVisibility(View.GONE);
-            viewtwo.setVisibility(View.GONE);
+//            viewone.setVisibility(View.GONE);
+//            viewtwo.setVisibility(View.GONE);
         } else if (shareTv.getVisibility() == View.GONE && commentTv.getVisibility() == View.VISIBLE && likeTv.getVisibility() == View.GONE) {
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -684,8 +684,8 @@ public class NewsfeedAdapter extends BaseAdapter {
             );
             commentTv.setLayoutParams(param);
 
-            viewone.setVisibility(View.GONE);
-            viewtwo.setVisibility(View.GONE);
+//            viewone.setVisibility(View.GONE);
+//            viewtwo.setVisibility(View.GONE);
 
         } else if (shareTv.getVisibility() == View.GONE && commentTv.getVisibility() == View.GONE && likeTv.getVisibility() == View.VISIBLE) {
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
@@ -696,8 +696,8 @@ public class NewsfeedAdapter extends BaseAdapter {
 
             likeTv.setLayoutParams(param);
 
-            viewone.setVisibility(View.GONE);
-            viewtwo.setVisibility(View.GONE);
+//            viewone.setVisibility(View.GONE);
+//            viewtwo.setVisibility(View.GONE);
         }
 
     }

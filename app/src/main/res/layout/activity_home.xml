@@ -44,6 +44,11 @@
 
             </android.support.v7.widget.Toolbar>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/linecolor"/>
+
             <android.support.design.widget.TabLayout
                 android:id="@+id/tabs"
                 android:layout_width="fill_parent"
@@ -53,7 +58,7 @@
                 app:tabGravity="fill"
                 app:tabMode="fixed"
                 app:tabTextAppearance="@style/MyCustomTabText"
-                android:background="#7898a9"/>
+                android:background="#ffff"/>
 
         </android.support.design.widget.AppBarLayout>
 

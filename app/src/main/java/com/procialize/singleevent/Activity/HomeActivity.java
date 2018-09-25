@@ -224,16 +224,16 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 //               tabLayout.getTabAt(3).setIcon(tabIcons[3]);
 
 
-                tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
-                tabLayout.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#f15a2b"), PorterDuff.Mode.SRC_IN);
-                tabLayout.getTabAt(2).getIcon().setColorFilter(Color.parseColor("#f15a2b"), PorterDuff.Mode.SRC_IN);
-                tabLayout.getTabAt(3).getIcon().setColorFilter(Color.parseColor("#f15a2b"), PorterDuff.Mode.SRC_IN);
+                tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#0E73BA"), PorterDuff.Mode.SRC_IN);
+                tabLayout.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#4D4D4D"), PorterDuff.Mode.SRC_IN);
+                tabLayout.getTabAt(2).getIcon().setColorFilter(Color.parseColor("#4D4D4D"), PorterDuff.Mode.SRC_IN);
+                tabLayout.getTabAt(3).getIcon().setColorFilter(Color.parseColor("#4D4D4D"), PorterDuff.Mode.SRC_IN);
 
                 tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
                         JZVideoPlayerStandard.releaseAllVideos();
-                        String string = "#ffffff";
+                        String string = "#0E73BA";
                         int color = Color.parseColor(string);
 
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this, color); //tabselected color
@@ -243,7 +243,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                     @Override
                     public void onTabUnselected(TabLayout.Tab tab) {
 
-                        String string1 = "#f15a2b";
+                        String string1 = "#4D4D4D";
                         int color1 = Color.parseColor(string1);
 
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this,color1);//tabunselected color
@@ -261,15 +261,15 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 //               tabLayout.getTabAt(2).setIcon(tabIcons[2]);
 
 
-                tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
-                tabLayout.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#f15a2b"), PorterDuff.Mode.SRC_IN);
-                tabLayout.getTabAt(2).getIcon().setColorFilter(Color.parseColor("#f15a2b"), PorterDuff.Mode.SRC_IN);
+                tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#0E73BA"), PorterDuff.Mode.SRC_IN);
+                tabLayout.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#4D4D4D"), PorterDuff.Mode.SRC_IN);
+                tabLayout.getTabAt(2).getIcon().setColorFilter(Color.parseColor("#4D4D4D"), PorterDuff.Mode.SRC_IN);
 
                 tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
                         JZVideoPlayerStandard.releaseAllVideos();
-                        String string = "#ffffff";
+                        String string = "#0E73BA";
                         int color = Color.parseColor(string);
 
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this, color); //tabselected color
@@ -279,7 +279,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                     @Override
                     public void onTabUnselected(TabLayout.Tab tab) {
 
-                        String string1 = "#f15a2b";
+                        String string1 = "#4D4D4D";
                         int color1 = Color.parseColor(string1);
 
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this,color1);//tabunselected color
@@ -296,15 +296,15 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 //               tabLayout.getTabAt(1).setIcon(tabIcons[1]);
 
 
-                tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
-                tabLayout.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#f15a2b"), PorterDuff.Mode.SRC_IN);
+                tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#0E73BA"), PorterDuff.Mode.SRC_IN);
+                tabLayout.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#4D4D4D"), PorterDuff.Mode.SRC_IN);
 
 
                 tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
                         JZVideoPlayerStandard.releaseAllVideos();
-                        String string = "#ffffff";
+                        String string = "#0E73BA";
                         int color = Color.parseColor(string);
 
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this, color); //tabselected color
@@ -314,7 +314,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                     @Override
                     public void onTabUnselected(TabLayout.Tab tab) {
 
-                        String string1 = "#f15a2b";
+                        String string1 = "#4D4D4D";
                         int color1 = Color.parseColor(string1);
 
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this,color1);//tabunselected color
@@ -330,13 +330,13 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 //               tabLayout.getTabAt(0).setIcon(tabIcons[0]);
 
 
-                tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
+                tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#0E73BA"), PorterDuff.Mode.SRC_IN);
 
                 tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
                         JZVideoPlayerStandard.releaseAllVideos();
-                        String string = "#ffffff";
+                        String string = "#0E73BA";
                         int color = Color.parseColor(string);
 
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this, color); //tabselected color
