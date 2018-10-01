@@ -37,7 +37,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="-10dp"
                 android:contentDescription=" "
-                android:src="@drawable/splashlogo" />
+                android:src="@drawable/header_logo" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -91,7 +91,8 @@
             android:elevation="@dimen/elevation"
             android:text="@string/save"
             android:textColor="@color/colorwhite"
-            android:textSize="@dimen/textsizesmall" />
+            android:textSize="@dimen/textsizesmall"
+            android:textAllCaps="false"/>
 
         <com.procialize.singleevent.Fonts.RobotoButton
             android:id="@+id/sharebtn"
@@ -103,7 +104,8 @@
             android:elevation="@dimen/elevation"
             android:text="@string/share"
             android:textColor="@color/colorwhite"
-            android:textSize="@dimen/textsizesmall" />
+            android:textSize="@dimen/textsizesmall"
+            android:textAllCaps="false"/>
     </LinearLayout>
 
 </RelativeLayout>

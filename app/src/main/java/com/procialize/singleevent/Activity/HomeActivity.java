@@ -58,6 +58,7 @@ import com.procialize.singleevent.InnerDrawerActivity.EngagementActivity;
 import com.procialize.singleevent.InnerDrawerActivity.EventInfoActivity;
 
 import com.procialize.singleevent.InnerDrawerActivity.FeedBackActivity;
+import com.procialize.singleevent.InnerDrawerActivity.FolderQuizActivity;
 import com.procialize.singleevent.InnerDrawerActivity.GalleryActivity;
 import com.procialize.singleevent.InnerDrawerActivity.GeneralInfoActivity;
 import com.procialize.singleevent.InnerDrawerActivity.LivePollActivity;
@@ -925,7 +926,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
             startActivity(scanqr);
 
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_quiz")) {
-            Intent quiz = new Intent(this, QuizActivity.class);
+            Intent quiz = new Intent(this, FolderQuizActivity.class);
             startActivity(quiz);
 
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_live_poll")) {

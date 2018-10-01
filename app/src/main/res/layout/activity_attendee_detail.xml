@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/background"
+    android:orientation="vertical"
     tools:context="com.procialize.singleevent.Activity.SpeakerDetailsActivity">
 
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/appBarLayout"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
 
@@ -21,24 +21,24 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colortoolbar"
-            android:elevation="@dimen/elevation"
-            android:contentInsetLeft="0dp"
-            android:contentInsetStart="0dp"
-            app:contentInsetLeft="0dp"
-            app:contentInsetStart="0dp"
-            android:contentInsetRight="0dp"
             android:contentInsetEnd="0dp"
-            app:contentInsetRight="0dp"
+            android:contentInsetLeft="0dp"
+            android:contentInsetRight="0dp"
+            android:contentInsetStart="0dp"
+            android:elevation="@dimen/elevation"
+            android:minHeight="?attr/actionBarSize"
             app:contentInsetEnd="0dp"
-            android:minHeight="?attr/actionBarSize">
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp">
 
             <ImageView
-                android:layout_marginLeft="-10dp"
                 android:layout_width="150dp"
-                android:contentDescription=" "
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/header_logo"/>
+                android:layout_marginLeft="-10dp"
+                android:contentDescription=" "
+                android:src="@drawable/header_logo" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -46,105 +46,211 @@
     </android.support.design.widget.AppBarLayout>
 
     <com.procialize.singleevent.Fonts.RobotoTextview
-        android:gravity="center"
-        android:layout_margin="@dimen/margin"
-        android:textSize="@dimen/textsizebigger"
-        android:text="@string/attenddedetail"
-        android:textColor="@color/black"
+        android:id="@+id/attendeetitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appBarLayout"
+        android:layout_margin="@dimen/margin"
+        android:gravity="center"
+        android:text="@string/attenddedetail"
+        android:textColor="@color/activetab"
+        android:textSize="@dimen/textsizenormal"
+        android:textStyle="bold" />
 
     <RelativeLayout
-        android:layout_margin="@dimen/margin"
-        android:gravity="center"
+        android:id="@+id/relative"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/attendeetitle">
 
-        <ImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/profileIV"
-            android:layout_centerInParent="true"
-            android:src="@drawable/profilepic_placeholder"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"/>
+        <RelativeLayout
+            android:id="@+id/layoutTop"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@color/activetab"></RelativeLayout>
 
-        <ProgressBar
-            android:layout_centerInParent="true"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/progressBar"
-            android:layout_width="96dp"
-            android:layout_height="96dp"/>
+        <RelativeLayout
+            android:id="@+id/layoutBottom"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/layoutTop"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/agendabg">
 
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/layoutBottom"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="-40dp"
+            android:adjustViewBounds="true">
+
+            <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profileIV"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/profilepic_placeholder" />
+
+            <ProgressBar xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/progressBar"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_centerInParent="true" />
+
+        </RelativeLayout>
     </RelativeLayout>
 
-
-    <com.procialize.singleevent.Fonts.RobotoButton
-        android:id="@+id/sendbtn"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/margin"
-        android:elevation="@dimen/elevation"
-        android:textColor="@color/colorwhite"
-        android:text="@string/sendmsg"
-        android:padding="5dp"
-        android:background="@drawable/speakerbtnbg"
-        android:textSize="@dimen/textsizesmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:textAllCaps="false"
-        android:drawableLeft="@drawable/messega"
-        android:drawablePadding="2dp"/>
-
-
-
     <LinearLayout
-        android:gravity="center"
-        android:elevation="@dimen/elevation"
-        android:layout_margin="10dp"
-        android:background="@drawable/agendabg"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relative"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/agendabg"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <com.procialize.singleevent.Fonts.RobotoTextview
             android:id="@+id/tvname"
-            android:layout_margin="@dimen/margin"
-            android:textSize="@dimen/textsizesmall"
-            android:textColor="@color/orange"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:textColor="@color/activetab"
+            android:textSize="@dimen/textsizesmall" />
+
+        <View
+            android:id="@+id/viewone"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/linecolor" />
 
 
         <com.procialize.singleevent.Fonts.RobotoTextview
             android:id="@+id/tvdesignation"
-            android:layout_margin="@dimen/margin"
-            android:textSize="@dimen/textsizesmall"
-            android:textColor="@color/colorwhite"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textsizesmall" />
 
+        <View
+            android:id="@+id/viewtwo"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/linecolor" />
 
         <com.procialize.singleevent.Fonts.RobotoTextview
             android:id="@+id/tvcompany"
-            android:layout_margin="@dimen/margin"
-            android:textSize="@dimen/textsizesmall"
-            android:textColor="@color/colorwhite"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textsizesmall" />
 
+        <View
+            android:id="@+id/viewthree"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/linecolor" />
 
         <com.procialize.singleevent.Fonts.RobotoTextview
             android:id="@+id/tvcity"
-            android:layout_margin="@dimen/margin"
-            android:textSize="@dimen/textsizesmall"
-            android:textColor="@color/colorwhite"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textsizesmall" />
 
     </LinearLayout>
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <com.procialize.singleevent.Fonts.RobotoEditext
+                android:id="@+id/posttextEt"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_centerInParent="true"
+                android:layout_margin="@dimen/margin"
+                android:background="@drawable/edittextborder"
+                android:gravity="top|left"
+                android:hint="Type your message..."
+                android:imeOptions="actionSend|flagNoEnterAction"
+                android:inputType="textShortMessage|textAutoCorrect|textCapSentences|textMultiLine"
+                android:maxLength="500"
+                android:maxLines="5"
+                android:minLines="2"
+                android:padding="2dp"
+                android:scrollbars="vertical"
+                android:textSize="15dp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.procialize.singleevent.Fonts.RobotoButton
+                android:id="@+id/sendMsg"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin"
+                android:layout_weight="5"
+                android:background="@color/activetab"
+                android:drawableLeft="@drawable/messega"
+                android:drawablePadding="2dp"
+                android:elevation="@dimen/elevation"
+                android:padding="5dp"
+                android:text="@string/sendmsg"
+                android:textAllCaps="false"
+                android:textColor="@color/colorwhite"
+                android:textSize="@dimen/textsizesmall" />
+
+            <com.procialize.singleevent.Fonts.RobotoButton
+                android:id="@+id/saveContact"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin"
+                android:layout_weight="5"
+                android:background="@color/activetab"
+                android:drawableLeft="@drawable/save"
+                android:drawablePadding="2dp"
+                android:elevation="@dimen/elevation"
+                android:padding="5dp"
+                android:text="Save Contact"
+                android:textAllCaps="false"
+                android:textColor="@color/colorwhite"
+                android:textSize="@dimen/textsizesmall" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

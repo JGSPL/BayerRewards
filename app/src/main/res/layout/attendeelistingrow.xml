@@ -9,7 +9,10 @@
         android:padding="5dp"
         android:translationZ="@dimen/elevation"
         android:background="@drawable/agendabg"
-        android:layout_margin="@dimen/margin"
+        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginRight="@dimen/margin"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -26,8 +29,8 @@
                 android:id="@+id/profileIV"
                 android:layout_centerInParent="true"
                 android:src="@drawable/profilepic_placeholder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"/>
 
@@ -48,32 +51,32 @@
             android:layout_width="0dp"
             android:layout_height="match_parent">
 
-            <com.procialize.singleevent.Fonts.RobotoTextview
+            <TextView
                 android:paddingLeft="5dp"
-                android:textSize="@dimen/textsizenormal"
+                android:textSize="17dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Abheejit Saxena"
-                android:textColor="@color/loginbutton"
+                android:textColor="@color/activetab"
                 android:id="@+id/nameTv" />
 
-            <com.procialize.singleevent.Fonts.RobotoTextview
+            <TextView
                 android:paddingLeft="5dp"
                 android:id="@+id/designationTv"
                 android:textSize="@dimen/textsizesmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Simens LTD"
-                android:textColor="@color/colorwhite" />
+                android:textColor="@color/black" />
 
 
-            <com.procialize.singleevent.Fonts.RobotoTextview
+            <TextView
                 android:paddingLeft="5dp"
                 android:textSize="@dimen/textsizesmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Delhi"
-                android:textColor="@color/colorwhite"
+                android:textColor="@color/black"
                 android:id="@+id/locationTv" />
 
         </LinearLayout>
@@ -86,7 +89,7 @@
             <ImageView
                 android:src="@drawable/ic_rightarrow"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="30dp" />
 
         </LinearLayout>
     </LinearLayout>

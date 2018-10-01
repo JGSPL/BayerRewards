@@ -54,7 +54,7 @@
     <string name="deletecomment">Delete Comment</string>
     <string name="reportcomment">Report Comment</string>
     <string name="hidecomment">Hide Comment</string>
-    <string name="rate">Rate this Session</string>
+    <string name="rate">Rate</string>
     <string name="sendmsg">Send Message</string>
     <string name="attenddedetail">Attendee Profile</string>
     <string name="comment">comment</string>
@@ -95,6 +95,12 @@
     <string name="notifications_admin_channel_description">Procialize</string>
 
     <string-array name="image_array">
+        <item>/ue900</item>
+        <item>/ue900</item>
+        <item>/ue900</item>
+        <item>/ue900</item>
+    </string-array>
+    <string-array name="com_google_android_gms_fonts_certs">
         <item>/ue900</item>
         <item>/ue900</item>
         <item>/ue900</item>

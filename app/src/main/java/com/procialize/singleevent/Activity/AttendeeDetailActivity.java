@@ -1,6 +1,7 @@
 package com.procialize.singleevent.Activity;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
@@ -71,6 +72,9 @@ public class AttendeeDetailActivity extends AppCompatActivity {
     private List<AttendeeList> attendeesDBList;
     private DBHelper dbHelper;
     String getattendee;
+    EditText posttextEt;
+    View viewtwo, viewthree, viewone;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,8 +148,13 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         tvcity = findViewById(R.id.tvcity);
         profileIV = findViewById(R.id.profileIV);
         progressBar = findViewById(R.id.progressBar);
+        posttextEt = findViewById(R.id.posttextEt);
+        viewtwo = findViewById(R.id.viewtwo);
+        viewthree = findViewById(R.id.viewthree);
+        viewone = findViewById(R.id.viewone);
 
-        sendbtn = findViewById(R.id.sendbtn);
+        sendbtn = findViewById(R.id.sendMsg);
+        sendbtn.setVisibility(View.GONE);
         if (attendeeid.equalsIgnoreCase(getattendee)) {
             sendbtn.setVisibility(View.GONE);
         } else {
@@ -172,12 +181,15 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         try {
             if (designation.equalsIgnoreCase("N A")) {
                 tvdesignation.setVisibility(View.GONE);
+                viewtwo.setVisibility(View.GONE);
+
             } else if (designation != null && attendee_design.equalsIgnoreCase("1")) {
                 tvdesignation.setText(designation);
             } else {
                 tvdesignation.setVisibility(View.GONE);
+                viewtwo.setVisibility(View.GONE);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -214,7 +226,13 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         sendbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showratedialouge();
+                if (posttextEt.getText().toString().length() > 0) {
+
+                    String msg = StringEscapeUtils.escapeJava(posttextEt.getText().toString());
+                    PostMesssage(eventid, msg, apikey, attendeeid);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Enter Something", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -229,7 +247,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
                 attendee_location = eventSettingLists.get(i).getFieldValue();
             } else if (eventSettingLists.get(i).getFieldName().equals("attendee_mobile")) {
                 attendee_mobile = eventSettingLists.get(i).getFieldValue();
-            } else if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("attendee_designation")) {
+            } else if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("attendee_design")) {
                 attendee_design = eventSettingLists.get(i).getFieldValue();
             }
         }
@@ -299,16 +317,22 @@ public class AttendeeDetailActivity extends AppCompatActivity {
 
 
     public void PostMesssage(String eventid, String msg, String token, String attendeeid) {
+        progressDialog = new ProgressDialog(AttendeeDetailActivity.this);
+//        progressDialog.setMessage("Loading...");
+        progressDialog.show();
 //        showProgress();
         mAPIService.SendMessagePost(token, eventid, msg, attendeeid).enqueue(new Callback<SendMessagePost>() {
             @Override
             public void onResponse(Call<SendMessagePost> call, Response<SendMessagePost> response) {
 
                 if (response.isSuccessful()) {
+                    progressDialog.dismiss();
                     Log.i("hit", "post submitted to API." + response.body().toString());
 //                    dismissProgress();
+                    posttextEt.setText("");
                     DeletePostresponse(response);
                 } else {
+                    progressDialog.dismiss();
 //                    dismissProgress();
 
 //                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
@@ -317,6 +341,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<SendMessagePost> call, Throwable t) {
+                progressDialog.dismiss();
                 Log.e("hit", "Unable to submit post to API.");
                 Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
 
@@ -331,13 +356,13 @@ public class AttendeeDetailActivity extends AppCompatActivity {
 
             Log.e("post", "success");
 
-            myDialog.dismiss();
+//            myDialog.dismiss();
             Toast.makeText(this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
 
 
         } else {
             Log.e("post", "fail");
-            myDialog.dismiss();
+//            myDialog.dismiss();
             Toast.makeText(this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
         }
     }

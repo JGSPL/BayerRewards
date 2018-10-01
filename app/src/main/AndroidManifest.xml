@@ -15,6 +15,7 @@
     <uses-feature android:name="android.hardware.camera" />
 
     <application
+        android:name=".Utility.MyApplication"
         android:allowBackup="false"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
@@ -78,7 +79,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.AttendeeDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".Activity.AgendaDetailActivity"
             android:screenOrientation="portrait" />
@@ -226,6 +228,7 @@
         <activity android:name=".Utility.ImageCropActivity" />
         <activity android:name=".InnerDrawerActivity.QADirectActivity" />
         <activity android:name=".InnerDrawerActivity.AgendaVacationActivity" />
+        <activity android:name=".InnerDrawerActivity.FolderQuizActivity" />
 
     </application>
 

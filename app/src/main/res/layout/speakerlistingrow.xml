@@ -56,7 +56,7 @@
                 android:layout_alignStart="@+id/designationTv"
                 android:layout_alignTop="@+id/imageView"
                 android:text="Abheejit Saxena"
-                android:textColor="@color/loginbutton"
+                android:textColor="@color/activetab"
                 android:id="@+id/nameTv"
                 android:textStyle="bold"/>
 
@@ -67,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Simens LTD"
-                android:textColor="@color/colorwhite" />
+                android:textColor="@color/black" />
 
 
             <com.procialize.singleevent.Fonts.RobotoTextview
@@ -76,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Delhi"
-                android:textColor="@color/colorwhite"
+                android:textColor="@color/black"
                 android:id="@+id/locationTv" />
 
         </LinearLayout>
@@ -91,7 +91,7 @@
             <ImageView
                 android:src="@drawable/ic_rightarrow"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="30dp" />
 
         </LinearLayout>
     </LinearLayout>
