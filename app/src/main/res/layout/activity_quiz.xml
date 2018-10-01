@@ -1,18 +1,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background"
     android:orientation="vertical"
     android:weightSum="10">
 
 
     <LinearLayout
-        android:weightSum="10"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="10">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appBarLayout"
@@ -57,19 +57,19 @@
             android:layout_margin="5dp"
             android:layout_weight="8"
             android:gravity="top"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/quiz_list"
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
                 android:descendantFocusability="beforeDescendants"
                 android:divider="@android:color/transparent"
                 android:dividerHeight="5dp"
-                android:smoothScrollbar="true"
-                android:layout_marginBottom="5dp"/>
+                android:smoothScrollbar="true" />
 
-            <TextView
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@android:id/empty"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -82,12 +82,13 @@
     </LinearLayout>
 
 
-    <Button
+    <com.procialize.singleevent.Fonts.RobotoButton
         android:id="@+id/submit"
-        android:textColor="@color/colorwhite"
-        android:text="Submit"
-        android:background="@drawable/speakerbtnbg"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:background="@drawable/speakerbtnbg"
+        android:text="Submit"
+        android:textColor="@color/colorwhite" />
 </RelativeLayout>

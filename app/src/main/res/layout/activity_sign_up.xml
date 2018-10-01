@@ -221,7 +221,7 @@
               </android.support.design.widget.TextInputLayout>
           </LinearLayout>
 
-          <Button
+          <com.procialize.singleevent.Fonts.RobotoButton
               android:id="@+id/signupbtn"
               android:layout_margin="15dp"
               android:background="@drawable/signupbutton"

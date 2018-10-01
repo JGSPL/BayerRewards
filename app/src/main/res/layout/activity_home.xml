@@ -103,12 +103,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/my"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    android:drawableLeft="@drawable/home_icon"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="20dp"
+                    android:drawableLeft="@drawable/home"
                     android:drawablePadding="10dp"
-                    android:gravity="left"
+                    android:gravity="left|center"
                     android:text="Home"
                     android:textColor="@color/colorwhite"
                     android:textSize="@dimen/textsizesmall" />
@@ -132,7 +132,8 @@
                     android:gravity="left|center"
                     android:text="  @string/eula"
                     android:textColor="@color/colorwhite"
-                    android:textSize="@dimen/textsizesmall" />
+                    android:textSize="@dimen/textsizesmall"
+                    android:drawablePadding="10dp"/>
 
                 <com.procialize.singleevent.Fonts.RobotoTextview
                     android:id="@+id/privacy_policy"
@@ -188,7 +189,7 @@
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
-                    android:drawableLeft="@drawable/ic_logout"
+                    android:drawableLeft="@drawable/log_out"
                     android:drawablePadding="10dp"
                     android:gravity="left"
                     android:text="Logout"

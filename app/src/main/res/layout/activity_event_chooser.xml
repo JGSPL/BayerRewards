@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:orientation="vertical"
     tools:context=".Activity.EventChooserActivity">
 
@@ -12,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
-        android:weightSum="10">
+        android:weightSum="10"
+        android:background="@color/colorwhite">
 
         <LinearLayout
             android:id="@+id/back_agenda_detail"
@@ -28,7 +30,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_margin="10dp"
-                android:src="@drawable/logout"/>
+                android:src="@drawable/logout" />
         </LinearLayout>
 
         <LinearLayout
@@ -85,7 +87,7 @@
         android:visibility="gone" />
 
 
-    <EditText
+    <com.procialize.singleevent.Fonts.RobotoEditext
         android:id="@+id/searchEt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

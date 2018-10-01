@@ -102,7 +102,7 @@
                 android:textColorHint="@color/colorwhite"
                 android:textSize="@dimen/textsizesmall"
                 android:gravity="right"
-                />
+                android:visibility="gone"/>
 
         </LinearLayout>
     </LinearLayout>
@@ -114,7 +114,7 @@
         android:orientation="vertical">
 
 
-        <Button
+        <com.procialize.singleevent.Fonts.RobotoButton
             android:id="@+id/loginbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

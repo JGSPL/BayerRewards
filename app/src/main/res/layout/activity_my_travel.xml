@@ -59,7 +59,7 @@
         android:gravity="center"
         android:padding="@dimen/padding"
         android:text="@string/mytravel"
-        android:textColor="@color/black"
+        android:textColor="@color/activetab"
         android:textSize="@dimen/textsizenormal" />
 
     <ProgressBar
@@ -81,7 +81,7 @@
             android:padding="10dp"></ListView>
 
    <!-- </android.support.v4.widget.SwipeRefreshLayout>-->
-    <TextView
+    <com.procialize.singleevent.Fonts.RobotoTextview
         android:id="@android:id/empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

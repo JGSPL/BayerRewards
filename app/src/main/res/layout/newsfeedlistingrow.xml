@@ -162,7 +162,7 @@
                 android:layout_weight="4.5"
                 android:orientation="vertical">
 
-                <TextView
+                <com.procialize.singleevent.Fonts.RobotoTextview
                     android:id="@+id/nameTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -174,7 +174,7 @@
                     android:textSize="15dp"
                     android:textStyle="bold"/>
 
-                <TextView
+                <com.procialize.singleevent.Fonts.RobotoTextview
                     android:id="@+id/designationTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -186,7 +186,7 @@
                     android:textSize="@dimen/textsizesmall" />
 
 
-                <TextView
+                <com.procialize.singleevent.Fonts.RobotoTextview
                     android:id="@+id/companyTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -241,7 +241,7 @@
 
         </LinearLayout>
 
-        <TextView
+        <com.procialize.singleevent.Fonts.RobotoTextview
             android:id="@+id/headingTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -280,11 +280,13 @@
                 android:layout_centerInParent="true"
                 android:src="@drawable/play"
                 android:transitionName="feedimage"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"/>
 
             <com.procialize.singleevent.CustomTools.MyJZVideoPlayerStandard
                 android:id="@+id/videoplayer"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="200dp"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="5dp"
@@ -311,7 +313,7 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.procialize.singleevent.Fonts.RobotoTextview
                     android:id="@+id/img_like"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

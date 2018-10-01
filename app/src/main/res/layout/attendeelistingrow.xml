@@ -51,7 +51,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent">
 
-            <TextView
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:paddingLeft="5dp"
                 android:textSize="17dp"
                 android:layout_width="wrap_content"
@@ -60,7 +60,7 @@
                 android:textColor="@color/activetab"
                 android:id="@+id/nameTv" />
 
-            <TextView
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:paddingLeft="5dp"
                 android:id="@+id/designationTv"
                 android:textSize="@dimen/textsizesmall"
@@ -70,7 +70,7 @@
                 android:textColor="@color/black" />
 
 
-            <TextView
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:paddingLeft="5dp"
                 android:textSize="@dimen/textsizesmall"
                 android:layout_width="wrap_content"

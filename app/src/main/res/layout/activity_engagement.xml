@@ -45,10 +45,10 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <TextView
+    <com.procialize.singleevent.Fonts.RobotoTextview
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:textColor="@color/black"
+        android:textColor="@color/activetab"
         android:textSize="@dimen/textsizebigger"
         android:text="@string/engagement"
         android:layout_width="match_parent"

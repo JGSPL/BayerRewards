@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/textno1"
                 android:textColor="@color/black"
                 android:textStyle="bold"
@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <TextView
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/quiz_question"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

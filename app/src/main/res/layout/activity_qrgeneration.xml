@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/qrbadge"
-        android:textColor="@color/black"
+        android:textColor="@color/activetab"
         android:textSize="@dimen/textsizebigger" />
 
     <ImageView

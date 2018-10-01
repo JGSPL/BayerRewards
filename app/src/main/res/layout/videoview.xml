@@ -71,14 +71,14 @@
             android:visibility="visible" />
     </RelativeLayout>
 
-    <Button
+    <com.procialize.singleevent.Fonts.RobotoButton
         android:id="@+id/btn_share"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/signupbutton"
+        android:background="@drawable/loginbutton"
         android:text="Share"
         android:textColor="@color/colorwhite" />
 </RelativeLayout>

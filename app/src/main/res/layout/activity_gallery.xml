@@ -57,7 +57,7 @@
     <com.procialize.singleevent.Fonts.RobotoTextview
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="@color/activetab"
         android:gravity="center"
         android:padding="4sp"
         android:textSize="@dimen/textsizenormal"

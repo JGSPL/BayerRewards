@@ -119,7 +119,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:alpha="1"
-                android:background="@drawable/signupbutton"
+                android:background="@drawable/loginbutton"
                 android:elevation="4dp"
                 android:gravity="center"
                 android:minHeight="40dp"

@@ -53,12 +53,12 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <TextView
+        <com.procialize.singleevent.Fonts.RobotoTextview
             android:id="@+id/txtHeader"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="Time &amp; Weather"
-            android:textColor="#000000"
+            android:textColor="@color/activetab"
             android:textSize="20sp" />
     </LinearLayout>
 
@@ -81,7 +81,7 @@
             android:weightSum="10">
 
 
-            <TextView
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:gravity="center"
                 android:text=""
                 android:id="@+id/txtCity"
@@ -99,7 +99,7 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/temp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -116,7 +116,7 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/txtdate"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -142,7 +142,7 @@
                 android:weightSum="2"
                 android:layout_height="match_parent">
 
-                <TextView
+                <com.procialize.singleevent.Fonts.RobotoTextview
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -152,7 +152,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <TextView
+                <com.procialize.singleevent.Fonts.RobotoTextview
                     android:id="@+id/min"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
@@ -173,7 +173,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent">
 
-                <TextView
+                <com.procialize.singleevent.Fonts.RobotoTextview
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -183,7 +183,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <TextView
+                <com.procialize.singleevent.Fonts.RobotoTextview
                     android:id="@+id/max"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"

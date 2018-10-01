@@ -64,7 +64,7 @@
                     android:layout_marginTop="@dimen/margin"
                     android:gravity="center"
                     android:text="Edit Profile"
-                    android:textColor="@color/black"
+                    android:textColor="@color/activetab"
                     android:textSize="@dimen/textsizebigger" />
 
                 <RelativeLayout

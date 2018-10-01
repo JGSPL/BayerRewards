@@ -83,7 +83,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
                 android:text="@string/selfie"
-                android:textColor="@color/black"
+                android:textColor="@color/activetab"
                 android:textSize="@dimen/textsizenormal" />
 
 
@@ -93,10 +93,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_margin="3dp"
-                android:background="@drawable/signupbutton"
+                android:background="@drawable/loginbutton"
                 android:padding="2dp"
                 android:text="@string/upload"
-                android:textColor="@color/logintxt" />
+                android:textColor="@color/colorwhite" />
         </LinearLayout>
 
 
@@ -131,7 +131,7 @@
 
         </GridView>
 
-        <TextView
+        <com.procialize.singleevent.Fonts.RobotoTextview
             android:id="@android:id/empty"
             android:layout_width="match_parent"
             android:layout_height="0dp"

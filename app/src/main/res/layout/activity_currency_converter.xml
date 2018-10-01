@@ -50,13 +50,13 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <TextView
+        <com.procialize.singleevent.Fonts.RobotoTextview
             android:id="@+id/txtHeader"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="Currency Converter"
-            android:textColor="@color/black"
+            android:textColor="@color/activetab"
             android:textSize="20sp" />
     </LinearLayout>
 
@@ -85,7 +85,7 @@
                 android:background="@drawable/edit_background"
                 android:gravity="center">
 
-                <EditText
+                <com.procialize.singleevent.Fonts.RobotoEditext
                     android:id="@+id/edtAmount"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -121,7 +121,7 @@
                 android:background="@drawable/edit_background"
                 android:gravity="center">
 
-                <EditText
+                <com.procialize.singleevent.Fonts.RobotoEditext
                     android:id="@+id/txtValue"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -191,11 +191,11 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <Button
+            <com.procialize.singleevent.Fonts.RobotoButton
                 android:id="@+id/btnConverter"
                 android:layout_width="200dp"
                 android:layout_height="40dp"
-                android:background="@drawable/signupbutton"
+                android:background="@drawable/loginbutton"
                 android:text="Convert"
                 android:textColor="@color/colorwhite" />
         </LinearLayout>

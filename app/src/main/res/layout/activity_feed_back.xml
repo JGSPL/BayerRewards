@@ -59,7 +59,7 @@
         android:gravity="center"
         android:padding="4sp"
         android:text="Survey"
-        android:textColor="@color/black"
+        android:textColor="@color/activetab"
         android:textSize="@dimen/textsizenormal" />
 
     <ProgressBar
