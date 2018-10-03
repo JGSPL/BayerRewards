@@ -15,6 +15,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 
 import java.util.HashMap;
@@ -30,6 +31,7 @@ public class QRGeneratorActivity extends AppCompatActivity {
     ImageView img_qr_code_image;
     String QRcode;
     public final static int WIDTH = 500;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,9 @@ public class QRGeneratorActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
 
         sessionManager = new SessionManager(this);
 

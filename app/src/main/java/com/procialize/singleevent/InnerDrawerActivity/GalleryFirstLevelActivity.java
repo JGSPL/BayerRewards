@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import com.procialize.singleevent.GetterSetter.FirstLevelFilter;
 import com.procialize.singleevent.GetterSetter.FolderList;
 import com.procialize.singleevent.GetterSetter.GalleryList;
 import com.procialize.singleevent.R;
+import com.procialize.singleevent.Utility.Util;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -35,6 +37,7 @@ public class GalleryFirstLevelActivity extends AppCompatActivity implements Gall
     List<GalleryList> galleryLists;
     List<FolderList> folderLists;
     List<FirstLevelFilter> filtergallerylists;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,8 @@ public class GalleryFirstLevelActivity extends AppCompatActivity implements Gall
                 onBackPressed();
             }
         });
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
 
         foldername = getIntent().getExtras().getString("foldername");
         galleryLists = (List<GalleryList>) getIntent().getExtras().getSerializable("gallerylist");

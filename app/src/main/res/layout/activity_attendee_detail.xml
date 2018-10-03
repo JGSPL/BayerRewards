@@ -33,6 +33,7 @@
             app:contentInsetStart="0dp">
 
             <ImageView
+                android:id="@+id/headerlogoIv"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -95,6 +96,7 @@
                 android:layout_height="96dp"
                 android:layout_centerInParent="true"
                 android:adjustViewBounds="true"
+                android:background="@drawable/image_border"
                 android:scaleType="centerCrop"
                 android:src="@drawable/profilepic_placeholder" />
 
@@ -178,6 +180,7 @@
 
 
     <LinearLayout
+        android:id="@+id/linearsaveandsend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -223,7 +226,7 @@
                 android:layout_weight="5"
                 android:background="@color/activetab"
                 android:drawableLeft="@drawable/messega"
-                android:drawablePadding="2dp"
+                android:drawablePadding="5dp"
                 android:elevation="@dimen/elevation"
                 android:padding="5dp"
                 android:text="@string/sendmsg"
@@ -240,7 +243,7 @@
                 android:layout_weight="5"
                 android:background="@color/activetab"
                 android:drawableLeft="@drawable/save"
-                android:drawablePadding="2dp"
+                android:drawablePadding="5dp"
                 android:elevation="@dimen/elevation"
                 android:padding="5dp"
                 android:text="Save Contact"

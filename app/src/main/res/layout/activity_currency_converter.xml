@@ -28,6 +28,7 @@
             android:minHeight="?attr/actionBarSize">
 
             <ImageView
+                android:id="@+id/headerlogoIv"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -89,7 +90,7 @@
                     android:id="@+id/edtAmount"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/edit_background"
+                    android:background="@drawable/edittexthmbg"
                     android:gravity="center"
                     android:hint=""
                     android:inputType="number"
@@ -125,7 +126,7 @@
                     android:id="@+id/txtValue"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/edit_background"
+                    android:background="@drawable/edittexthmbg"
                     android:editable="false"
                     android:gravity="center"
                     android:hint=""
@@ -155,7 +156,8 @@
                     android:id="@+id/firstans_list_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp" />
+                    android:layout_margin="10dp"
+                    android:background="@drawable/spinner_back"/>
 
             </LinearLayout>
 
@@ -177,7 +179,8 @@
                     android:id="@+id/secondans_list_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp" />
+                    android:layout_margin="10dp"
+                    android:background="@drawable/spinner_back"/>
 
 
             </LinearLayout>
@@ -197,7 +200,8 @@
                 android:layout_height="40dp"
                 android:background="@drawable/loginbutton"
                 android:text="Convert"
-                android:textColor="@color/colorwhite" />
+                android:textColor="@color/colorwhite"
+                android:textAllCaps="false"/>
         </LinearLayout>
 
         <LinearLayout

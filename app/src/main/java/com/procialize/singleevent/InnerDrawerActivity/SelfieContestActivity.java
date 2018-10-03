@@ -39,6 +39,7 @@ import com.procialize.singleevent.GetterSetter.SelfieList;
 import com.procialize.singleevent.GetterSetter.SelfieListFetch;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -67,6 +68,7 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
     String user_id;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +95,8 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
             }
         });
 
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
         uploadbtn = findViewById(R.id.uploadbtn);
         selfiefeedrefresh = findViewById(R.id.selfiefeedrefresh);
         selfierecycler = findViewById(R.id.selfierecycler);
@@ -278,12 +282,17 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
         TextView deleteTv = dialog.findViewById(R.id.deleteTv);
 
         reportTv.setText("Report Selfie");
+        deleteTv.setText("Delete this Selfie");
         hideTv.setText("Hide Selfie");
 
         if (selfieList.getAttendee_id().equalsIgnoreCase(user_id)) {
             deleteTv.setVisibility(View.VISIBLE);
+            hideTv.setVisibility(View.GONE);
+            reportTv.setVisibility(View.GONE);
         } else {
             deleteTv.setVisibility(View.GONE);
+            hideTv.setVisibility(View.VISIBLE);
+            reportTv.setVisibility(View.VISIBLE);
         }
 
 

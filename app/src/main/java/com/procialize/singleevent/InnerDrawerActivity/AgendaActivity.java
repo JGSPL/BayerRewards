@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ import com.procialize.singleevent.GetterSetter.Analytic;
 import com.procialize.singleevent.GetterSetter.FetchAgenda;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import java.util.HashMap;
 
@@ -41,7 +43,7 @@ public class AgendaActivity extends AppCompatActivity implements AgendaAdapter.A
     private ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
-
+    ImageView headerlogoIv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +70,8 @@ public class AgendaActivity extends AppCompatActivity implements AgendaAdapter.A
                 onBackPressed();
             }
         });
-
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
         agendafeedrefresh = findViewById(R.id.agendafeedrefresh);
         agendarecycler = findViewById(R.id.agendarecycler);
         progressBar = findViewById(R.id.progressBar);

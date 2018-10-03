@@ -228,6 +228,7 @@
         <activity android:name=".InnerDrawerActivity.QADirectActivity" />
         <activity android:name=".InnerDrawerActivity.AgendaVacationActivity" />
         <activity android:name=".InnerDrawerActivity.FolderQuizActivity" />
+        <activity android:name=".InnerDrawerActivity.WeatherActivity"></activity>
 
     </application>
 

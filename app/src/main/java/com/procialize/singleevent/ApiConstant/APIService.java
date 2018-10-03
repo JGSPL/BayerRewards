@@ -62,6 +62,7 @@ import com.procialize.singleevent.GetterSetter.VideoContest;
 import com.procialize.singleevent.GetterSetter.VideoContestLikes;
 import com.procialize.singleevent.GetterSetter.VideoContestListFetch;
 import com.procialize.singleevent.GetterSetter.VideoFetchListFetch;
+import com.procialize.singleevent.GetterSetter.Weather;
 import com.procialize.singleevent.GetterSetter.response;
 
 import okhttp3.MultipartBody;
@@ -489,6 +490,11 @@ public interface APIService {
                             @Field("target_attendee_id") String target_attendee_id,
                             @Field("target_attendee_type") String target_attendee_type,
                             @Field("analytic_type") String analytic_type);
+
+    @POST("GenInfoWeather")
+    @FormUrlEncoded
+    Call<Weather> WeatherListFetch(@Field("api_access_token") String api_access_token,
+                                   @Field("event_id") String event_id);
 
 
 }

@@ -134,7 +134,7 @@
             android:textColor="@color/colorwhite"
             android:textSize="15sp" />
 
-        <Button
+        <com.procialize.singleevent.Fonts.RobotoButton
             android:id="@+id/createaccbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

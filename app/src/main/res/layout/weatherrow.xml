@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="10dp">
+
+    <LinearLayout
+        android:id="@+id/mainLL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#1F73BA"
+        android:elevation="@dimen/elevation"
+        android:orientation="horizontal"
+        android:translationZ="@dimen/elevation">
+
+
+        <LinearLayout
+            android:weightSum="5"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.procialize.singleevent.Fonts.RobotoTextview
+                android:id="@+id/nameTv"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text=""
+                android:textColor="@color/colorwhite"
+                android:textSize="@dimen/textsizesmall" />
+
+            <com.procialize.singleevent.Fonts.RobotoTextview
+                android:id="@+id/dateTv"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text=""
+                android:textColor="@color/colorwhite"
+                android:textSize="@dimen/textsizesmall" />
+
+            <ImageView
+                android:id="@+id/imageIv"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:src="@drawable/sunny"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+
+
+
+            <com.procialize.singleevent.Fonts.RobotoTextview
+                android:id="@+id/maxTv"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text=""
+                android:textColor="@color/colorwhite"
+                android:textSize="@dimen/textsizesmall" />
+
+            <com.procialize.singleevent.Fonts.RobotoTextview
+                android:id="@+id/minTv"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text=""
+                android:textColor="@color/colorwhite"
+                android:textSize="@dimen/textsizesmall" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

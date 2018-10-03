@@ -30,6 +30,7 @@ import com.procialize.singleevent.Parser.QuizParser;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.MyApplication;
+import com.procialize.singleevent.Utility.Util;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -74,6 +75,7 @@ public class FolderQuizActivity extends AppCompatActivity {
     public static MyApplication appDelegate;
     ApiConstant constant;
     String MY_PREFS_NAME = "ProcializeInfo";
+    ImageView headerlogoIv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +88,9 @@ public class FolderQuizActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

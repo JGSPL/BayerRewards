@@ -30,6 +30,7 @@ import com.procialize.singleevent.GetterSetter.FetchSpeaker;
 import com.procialize.singleevent.GetterSetter.SpeakerList;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import java.util.HashMap;
 
@@ -51,6 +52,7 @@ SpeakerActivity extends AppCompatActivity implements SpeakerAdapter.SpeakerAdapt
     private ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +79,8 @@ SpeakerActivity extends AppCompatActivity implements SpeakerAdapter.SpeakerAdapt
                 onBackPressed();
             }
         });
-
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
 
         speakerrecycler = findViewById(R.id.speakerrecycler);
 

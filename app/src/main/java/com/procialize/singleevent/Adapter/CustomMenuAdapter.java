@@ -110,7 +110,7 @@ public class CustomMenuAdapter extends RecyclerView.Adapter<CustomMenuAdapter.My
             holder.nameTv.setText("My Travel");
             holder.profileIv.setImageResource(R.drawable.ic_travel);
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_notification")) {
-            holder.nameTv.setText("Notification");
+            holder.nameTv.setText("Notifications");
             holder.profileIv.setImageResource(R.drawable.notification_icon);
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_display_qr")) {
             holder.nameTv.setText("Qr Badge");

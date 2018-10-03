@@ -21,12 +21,23 @@
             android:focusableInTouchMode="true"
             android:orientation="vertical">
 
+            <com.procialize.singleevent.Fonts.RobotoTextview
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:gravity="center"
+                android:padding="@dimen/padding"
+                android:text="General Info"
+                android:textColor="@color/activetab"
+                android:textSize="@dimen/textsizenormal" />
 
             <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/pullrefresh"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+
+                android:layout_below="@+id/header"
                 android:gravity="center"
                 android:padding="@dimen/padding"
                 android:text="@string/refresh"
@@ -37,7 +48,8 @@
                 android:id="@+id/linearlayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_below="@+id/pullrefresh">
 
 
                 <com.procialize.singleevent.Fonts.RobotoTextview
@@ -47,11 +59,10 @@
                     android:layout_gravity="center"
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="10dp"
-                    android:elevation="10dp"
                     android:text="General Info"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-                    android:visibility="invisible" />
+                    android:visibility="gone" />
 
 
                 <com.procialize.singleevent.Fonts.RobotoTextview
@@ -61,11 +72,10 @@
                     android:layout_margin="5dp"
                     android:background="@drawable/agendabg"
                     android:drawableRight="@drawable/ic_rightarrow"
-                    android:elevation="10dp"
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="Time &amp; Weather"
-                    android:textColor="@color/colorwhite"
+                    android:textColor="@color/black"
                     android:visibility="gone" />
 
 
@@ -76,11 +86,10 @@
                     android:layout_margin="5dp"
                     android:background="@drawable/agendabg"
                     android:drawableRight="@drawable/ic_rightarrow"
-                    android:elevation="10dp"
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="Currency Convertor"
-                    android:textColor="@color/colorwhite"
+                    android:textColor="@color/black"
                     android:visibility="gone" />
 
 

@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -29,6 +30,7 @@ import com.procialize.singleevent.GetterSetter.DropDownList;
 import com.procialize.singleevent.GetterSetter.GeneralInfoList;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +50,7 @@ public class CurrencyConverter extends AppCompatActivity {
     String fromCurrency, toCurrency, amount;
     EditText edtAmount, txtValue;
     ProgressDialog progressDialog;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,9 @@ public class CurrencyConverter extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
 
         secondans_list_spinner = (Spinner) findViewById(R.id.secondans_list_spinner);
         firstans_list_spinner = (Spinner) findViewById(R.id.firstans_list_spinner);
@@ -119,13 +125,13 @@ public class CurrencyConverter extends AppCompatActivity {
                             firstans_list_spinner.setAdapter(adapter);
 
                             ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(CurrencyConverter.this,
-                                    android.R.layout.simple_spinner_item, myList);
+                                    R.layout.spinner_item, myList);
                             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                             secondans_list_spinner.setAdapter(adapter2);
                         } else {
                             list = response.body().getDropDownList();
                             ArrayAdapter<DropDownList> adapter = new ArrayAdapter<DropDownList>(CurrencyConverter.this,
-                                    android.R.layout.simple_spinner_item, list);
+                                    R.layout.spinner_item, list);
                             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                             firstans_list_spinner.setAdapter(adapter);
 

@@ -28,6 +28,7 @@ import com.procialize.singleevent.GetterSetter.DocumentList;
 import com.procialize.singleevent.GetterSetter.DocumentsListFetch;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import java.util.HashMap;
 
@@ -45,6 +46,7 @@ public class DocumentsActivity extends AppCompatActivity implements DocumentsAda
     ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
+    ImageView headerlogoIv;
 
 
     @Override
@@ -72,7 +74,8 @@ public class DocumentsActivity extends AppCompatActivity implements DocumentsAda
             }
         });
 
-
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
         docRv = findViewById(R.id.docRv);
         docRvrefresh = findViewById(R.id.docRvrefresh);
         progressBar = findViewById(R.id.progressBar);

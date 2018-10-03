@@ -280,7 +280,7 @@ public class NewsfeedAdapter extends BaseAdapter {
         holder.liketext.setFocusable(true);
 
         if (user.get(SessionManager.KEY_ID).equalsIgnoreCase(feedLists.get(position).getAttendeeId())) {
-            holder.editIV.setVisibility(View.VISIBLE);
+            holder.editIV.setVisibility(View.GONE);
             holder.moreIV.setVisibility(View.VISIBLE);
 //            reportTv.setVisibility(View.GONE);
 //            reportuserTv.setVisibility(View.GONE);

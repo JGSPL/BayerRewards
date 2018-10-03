@@ -9,11 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/my"
-        android:background="@color/activetab"
+        android:background="@color/colorwhite"
         android:drawablePadding="10dp"
         android:gravity="center"
         android:text=""
-        android:textColor="@color/colorwhite"
+        android:textColor="@color/activetab"
         android:textSize="@dimen/textsizenormal" />
 
 

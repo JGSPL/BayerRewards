@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape>
-            <solid android:color="@color/feedwhtsmindbg" />
+            <solid android:color="@color/activetab" />
             <corners android:radius="1dp" />
             <gradient
-                android:startColor="@color/feedwhtsmindbg"
-                android:centerColor="@color/feedwhtsmindbg"
-                android:endColor="@color/feedwhtsmindbg"
-                android:angle="180" />
+                android:angle="180"
+                android:centerColor="@color/activetab"
+                android:endColor="@color/activetab"
+                android:startColor="@color/activetab" />
             <stroke
                 android:width="1dp"
-                android:color="@color/feedwhtsmindbg" />
+                android:color="@color/activetab" />
             <padding
                 android:bottom="10dp"
                 android:left="2dp"

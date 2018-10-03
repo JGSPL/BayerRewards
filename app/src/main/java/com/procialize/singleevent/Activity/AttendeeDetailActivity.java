@@ -2,9 +2,14 @@ package com.procialize.singleevent.Activity;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.ContentProviderOperation;
+import android.content.ContentProviderResult;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +21,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import android.widget.TextView;
@@ -38,9 +44,11 @@ import com.procialize.singleevent.GetterSetter.SendMessagePost;
 import com.procialize.singleevent.GetterSetter.UserData;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -75,6 +83,9 @@ public class AttendeeDetailActivity extends AppCompatActivity {
     EditText posttextEt;
     View viewtwo, viewthree, viewone;
     ProgressDialog progressDialog;
+    LinearLayout linearsaveandsend;
+    ImageView headerlogoIv;
+    Button saveContact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +107,8 @@ public class AttendeeDetailActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
 
@@ -152,13 +164,17 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         viewtwo = findViewById(R.id.viewtwo);
         viewthree = findViewById(R.id.viewthree);
         viewone = findViewById(R.id.viewone);
+        linearsaveandsend = findViewById(R.id.linearsaveandsend);
+        saveContact = findViewById(R.id.saveContact);
 
         sendbtn = findViewById(R.id.sendMsg);
         sendbtn.setVisibility(View.GONE);
         if (attendeeid.equalsIgnoreCase(getattendee)) {
             sendbtn.setVisibility(View.GONE);
+            linearsaveandsend.setVisibility(View.GONE);
         } else {
             sendbtn.setVisibility(View.VISIBLE);
+            linearsaveandsend.setVisibility(View.VISIBLE);
         }
 
         if (name.equalsIgnoreCase("N A")) {
@@ -232,6 +248,18 @@ public class AttendeeDetailActivity extends AppCompatActivity {
                     PostMesssage(eventid, msg, apikey, attendeeid);
                 } else {
                     Toast.makeText(getApplicationContext(), "Enter Something", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        saveContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                try {
+                    addToContactList(AttendeeDetailActivity.this,name,city);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -371,5 +399,49 @@ public class AttendeeDetailActivity extends AppCompatActivity {
     protected void onResume() {
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         super.onResume();
+    }
+
+    public void addToContactList(Context context, String strDisplayName, String strNumber) throws Exception {
+
+        ArrayList<ContentProviderOperation> cntProOper = new ArrayList<>();
+        int contactIndex = cntProOper.size();//ContactSize
+        ContentResolver contactHelper = context.getContentResolver();
+
+        cntProOper.add(ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI)//Step1
+                .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, null)
+                .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null).build());
+
+        //Display name will be inserted in ContactsContract.Data table
+        cntProOper.add(ContentProviderOperation.newInsert(android.provider.ContactsContract.Data.CONTENT_URI)//Step2
+                .withValueBackReference(android.provider.ContactsContract.Data.RAW_CONTACT_ID, contactIndex)
+                .withValue(android.provider.ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+                .withValue(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, strDisplayName) // Name of the contact
+                .build());
+
+//        for (String s : strNumber) {
+//            //Mobile number will be inserted in ContactsContract.Data table
+//            cntProOper.add(ContentProviderOperation.newInsert(android.provider.ContactsContract.Data.CONTENT_URI)//Step 3
+//                    .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, contactIndex)
+//                    .withValue(android.provider.ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
+//                    .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, s) // Number to be added
+//                    .withValue(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE).build()); //Type like HOME, MOBILE etc
+//        }
+
+        cntProOper.add(ContentProviderOperation.newInsert(android.provider.ContactsContract.Data.CONTENT_URI)//Step 3
+                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, contactIndex)
+                .withValue(android.provider.ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
+                .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, strNumber) // Number to be added
+                .withValue(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE).build());
+
+        ContentProviderResult[] s = context.getContentResolver().applyBatch(ContactsContract.AUTHORITY, cntProOper); //apply above data insertion into contacts list
+
+        for (ContentProviderResult r : s) {
+            Log.i("hey", "addToContactList: " + r.uri);
+        }
+
+        Toast.makeText(this, "Contact Save Successfully", Toast.LENGTH_SHORT).show();
+        finish();
+
+
     }
 }

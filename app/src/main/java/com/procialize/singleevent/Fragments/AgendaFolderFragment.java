@@ -453,7 +453,6 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
                 dots[0].setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.active_dot));
 
 
-
                 mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     @Override
                     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

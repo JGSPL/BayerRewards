@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -22,12 +23,14 @@ import com.procialize.singleevent.Activity.PdfViewerActivity;
 import com.procialize.singleevent.Adapter.MyTravelAdapter;
 import com.procialize.singleevent.Adapter.MyTravelAdapterList;
 import com.procialize.singleevent.ApiConstant.APIService;
+import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.CustomTools.RecyclerViewEmptySupport;
 import com.procialize.singleevent.GetterSetter.TravelList;
 import com.procialize.singleevent.GetterSetter.TravelListFetch;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import java.util.HashMap;
 
@@ -40,12 +43,13 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelAdapt
 
 
     private APIService mAPIService;
-//    SwipeRefreshLayout travelRvrefresh;
+    //    SwipeRefreshLayout travelRvrefresh;
     ListView travelRv;
     ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
     TextView empty;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,12 +76,12 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelAdapt
                 onBackPressed();
             }
         });
-
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this, headerlogoIv);
 
         travelRv = findViewById(R.id.travelRv);
 //        travelRvrefresh = findViewById(R.id.travelRvrefresh);
         progressBar = findViewById(R.id.progressBar);
-
 
 
         mAPIService = ApiUtils.getAPIService();
@@ -182,7 +186,7 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelAdapt
     @Override
     public void onContactSelected(TravelList travel) {
         Intent pdfview = new Intent(this, PdfViewerActivity.class);
-        pdfview.putExtra("url", "https://docs.google.com/gview?embedded=true&url=" + "https://www.procialize.info/uploads/documents/" + travel.getFileName());
+        pdfview.putExtra("url", "https://www.procialize.info/uploads/travel_gallery/" + travel.getFileName());
         startActivity(pdfview);
     }
 

@@ -58,7 +58,7 @@
                     android:layout_alignStart="@+id/designationTv"
                     android:layout_alignTop="@+id/imageView"
                     android:text="Abheejit Saxena"
-                    android:textColor="@color/black"
+                    android:textColor="@color/activetab"
                     android:id="@+id/nameTv" />
 
 

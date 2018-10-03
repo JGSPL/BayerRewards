@@ -36,6 +36,7 @@ import com.procialize.singleevent.GetterSetter.PostVideoSelfie;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.ScalingUtilities;
+import com.procialize.singleevent.Utility.Util;
 import com.procialize.singleevent.Utility.Utility;
 
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -76,6 +77,7 @@ public class VideoContestUploadActivity extends AppCompatActivity {
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventId;
     String angle = "0";
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +100,9 @@ public class VideoContestUploadActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
 
 
         displayRecordedVideo = findViewById(R.id.videopreview);

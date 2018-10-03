@@ -28,6 +28,7 @@ import com.procialize.singleevent.GetterSetter.GalleryList;
 import com.procialize.singleevent.GetterSetter.GalleryListFetch;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -49,6 +50,7 @@ public class GalleryActivity extends AppCompatActivity implements GalleryAdapter
     private static List<FolderList> folderLists;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +77,8 @@ public class GalleryActivity extends AppCompatActivity implements GalleryAdapter
                 onBackPressed();
             }
         });
-
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
 
         galleryRv = findViewById(R.id.galleryRv);
         galleryRvrefresh = findViewById(R.id.galleryRvrefresh);

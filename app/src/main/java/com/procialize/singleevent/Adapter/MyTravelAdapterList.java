@@ -47,7 +47,7 @@ public class MyTravelAdapterList extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-
+        final TravelList travel = travelLists.get(position);
         if (inflater == null)
             inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -72,6 +72,8 @@ public class MyTravelAdapterList extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+
+        holder.nameTv.setText(travel.getTitle());
         holder.nameTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

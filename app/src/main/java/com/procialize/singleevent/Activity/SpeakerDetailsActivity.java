@@ -31,6 +31,7 @@ import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.GetterSetter.RatingSpeakerPost;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import java.util.HashMap;
 import java.util.List;
@@ -58,6 +59,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
     View viewthree, viewtwo, viewone;
     RelativeLayout ratinglayout;
     RatingBar ratingbar;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +86,9 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
 
 
         mAPIService = ApiUtils.getAPIService();

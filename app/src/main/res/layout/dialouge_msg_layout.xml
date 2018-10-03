@@ -1,105 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:background="@android:color/transparent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:gravity="center"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:layout_gravity="center"
-        android:background="@drawable/speakerdatabg"
-        android:layout_margin="@dimen/margin"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/margin"
+        android:background="@drawable/speakerdatabg"
+        android:orientation="vertical">
 
         <com.procialize.singleevent.Fonts.RobotoTextview
             android:id="@+id/title"
-            android:padding="5dp"
-            android:textSize="@dimen/textsizenormal"
-            android:textColor="@color/black"
-            android:text="@string/sendmsg"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="@string/sendmsg"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textsizenormal" />
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="2dp"
             android:background="@color/colorwhite"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:orientation="vertical">
 
             <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/nametv"
-                android:text="To anupam"
-                android:paddingRight="10dp"
-                android:textColor="#000"
-                android:padding="10dp"
-                android:gravity="center_vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:paddingRight="10dp"
+                android:text="To anupam"
+                android:textColor="#000" />
 
 
             <EditText
                 android:id="@+id/etmsg"
-                android:inputType="textShortMessage|textAutoCorrect|textCapSentences|textMultiLine"
-                android:imeOptions="actionSend|flagNoEnterAction"
-                android:lines="5"
-                android:padding="5dp"
-                android:background="@drawable/sendmessage"
-                android:minLines="4"
-                android:gravity="top|left"
-                android:maxLines="10"
-                android:hint="@string/writemsg"
-                android:textColor="#000"
-                android:layout_margin="2dp"
-                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:scrollbars="vertical"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:background="@drawable/sendmessage"
+                android:gravity="top|left"
+                android:hint="@string/writemsg"
+                android:imeOptions="actionSend|flagNoEnterAction"
+                android:inputType="textShortMessage|textAutoCorrect|textCapSentences|textMultiLine"
+                android:lines="5"
                 android:maxLength="250"
-            />
+                android:maxLines="10"
+                android:minLines="4"
+                android:padding="5dp"
+                android:scrollbars="vertical"
+                android:textColor="#000" />
 
             <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/counttv"
-                android:text="250"
-                android:paddingRight="10dp"
-                android:textColor="#000"
-                android:gravity="right"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:paddingRight="10dp"
+                android:text="250"
+                android:textColor="#000" />
 
 
             <LinearLayout
-                android:orientation="horizontal"
-                android:weightSum="2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
                 <com.procialize.singleevent.Fonts.RobotoButton
-                    android:layout_width="0dp"
                     android:id="@+id/ratebtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin"
+                    android:layout_weight="1"
+                    android:background="@drawable/speakerbtnbg"
                     android:elevation="@dimen/elevation"
                     android:text="@string/sendmsg"
-                    android:layout_margin="@dimen/margin"
-                    android:textSize="@dimen/textsizesmaller"
+                    android:textAllCaps="false"
                     android:textColor="@color/colorwhite"
-                    android:background="@drawable/speakerbtnbg"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content" />
+                    android:textSize="@dimen/textsizesmaller" />
 
                 <com.procialize.singleevent.Fonts.RobotoButton
-                    android:layout_width="0dp"
                     android:id="@+id/canclebtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin"
+                    android:layout_weight="1"
+                    android:background="@drawable/speakerbtnbg"
                     android:elevation="@dimen/elevation"
                     android:text="@string/cancel"
-                    android:layout_margin="@dimen/margin"
-                    android:textSize="@dimen/textsizesmaller"
+                    android:textAllCaps="false"
                     android:textColor="@color/colorwhite"
-                    android:background="@drawable/speakerbtnbg"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content" />
+                    android:textSize="@dimen/textsizesmaller" />
 
             </LinearLayout>
 

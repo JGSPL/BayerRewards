@@ -36,6 +36,7 @@ import com.procialize.singleevent.Parser.QuizParser;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.MyApplication;
+import com.procialize.singleevent.Utility.Util;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -77,6 +78,7 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
 	public static MyApplication appDelegate;
 	String foldername="null";
 	Button submit;
+	ImageView headerlogoIv;
 
 	LinearLayoutManager recyclerLayoutManager;
 	String MY_PREFS_NAME = "ProcializeInfo";
@@ -102,7 +104,8 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
 		});
 		quizQuestionUrl = constant.baseUrl + constant.quizsubmit;
 
-
+		headerlogoIv = findViewById(R.id.headerlogoIv);
+		Util.logomethod(this,headerlogoIv);
 		appDelegate = (MyApplication) getApplicationContext();
 
 		foldername = getIntent().getExtras().getString("folder");

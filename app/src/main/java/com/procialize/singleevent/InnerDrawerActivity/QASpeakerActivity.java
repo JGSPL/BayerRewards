@@ -36,6 +36,7 @@ import com.procialize.singleevent.GetterSetter.SpeakerList;
 import com.procialize.singleevent.GetterSetter.SpeakerQuestionList;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -66,6 +67,7 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
     String token;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +94,8 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
                 onBackPressed();
             }
         });
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
 
 
         qaRv = findViewById(R.id.qaRv);

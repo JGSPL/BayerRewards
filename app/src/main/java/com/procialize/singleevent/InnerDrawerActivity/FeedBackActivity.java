@@ -28,6 +28,7 @@ import com.procialize.singleevent.GetterSetter.SurveyList;
 import com.procialize.singleevent.GetterSetter.SurveyListFetch;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import java.util.HashMap;
 
@@ -44,6 +45,7 @@ public class FeedBackActivity extends AppCompatActivity implements FeedBackAdapt
     ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,8 @@ public class FeedBackActivity extends AppCompatActivity implements FeedBackAdapt
                 onBackPressed();
             }
         });
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
 
 
         feedbackRv = findViewById(R.id.feedbackRv);

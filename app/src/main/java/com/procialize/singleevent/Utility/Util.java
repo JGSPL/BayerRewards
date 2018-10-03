@@ -14,9 +14,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.procialize.singleevent.R;
 
-/**
- * Created by Naushad on 10/30/2017.
- */
+
 
 public class Util
 {

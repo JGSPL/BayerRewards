@@ -5,9 +5,7 @@
 
     <LinearLayout
         android:id="@+id/mainLL"
-        android:elevation="@dimen/elevation"
         android:padding="5dp"
-        android:translationZ="@dimen/elevation"
         android:background="@drawable/agendabg"
         android:layout_marginLeft="@dimen/margin"
         android:layout_marginRight="@dimen/margin"
@@ -53,7 +51,7 @@
 
             <com.procialize.singleevent.Fonts.RobotoTextview
                 android:paddingLeft="5dp"
-                android:textSize="17dp"
+                android:textSize="15sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Abheejit Saxena"

@@ -33,6 +33,7 @@ import com.procialize.singleevent.GetterSetter.GeneralInfoList;
 import com.procialize.singleevent.GetterSetter.InfoList;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import java.util.HashMap;
 import java.util.List;
@@ -59,6 +60,7 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
     RecyclerView general_item_list;
     ProgressDialog progressDialog;
     String api_token;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +78,8 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
         general_item_list = findViewById(R.id.general_item_list);
         back = findViewById(R.id.back);
 
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
         mAPIService = ApiUtils.getAPIService();
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
@@ -112,7 +116,7 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
         weather_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(GeneralInfoActivity.this, TimeWeatherActivity.class);
+                Intent intent = new Intent(GeneralInfoActivity.this, WeatherActivity.class);
                 startActivity(intent);
             }
         });

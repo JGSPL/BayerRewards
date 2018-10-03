@@ -40,6 +40,7 @@ import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.GetterSetter.ProfileSave;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 import com.procialize.singleevent.Utility.Utility;
 
 import java.io.ByteArrayOutputStream;
@@ -85,6 +86,7 @@ public class ProfileActivity extends AppCompatActivity {
     String profilepic;
     String api_token;
     TextView txt_upload;
+    ImageView headerlogoIv;
 
 
     @Override
@@ -121,6 +123,8 @@ public class ProfileActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
 
         mAPIService = ApiUtils.getAPIService();
 

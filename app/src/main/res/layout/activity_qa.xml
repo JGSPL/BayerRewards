@@ -33,6 +33,7 @@
             app:contentInsetStart="0dp">
 
             <ImageView
+                android:id="@+id/headerlogoIv"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -87,7 +88,8 @@
         android:padding="5dp"
         android:text="@string/postquestion"
         android:textColor="@color/colorwhite"
-        android:textSize="@dimen/textsizesmall" />
+        android:textSize="@dimen/textsizesmall"
+        android:textAllCaps="false"/>
 
     <ProgressBar
         android:id="@+id/progressBar"

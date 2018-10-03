@@ -33,6 +33,7 @@
             android:minHeight="?attr/actionBarSize">
 
             <ImageView
+                android:id="@+id/headerlogoIv"
                 android:layout_marginLeft="-10dp"
                 android:layout_width="150dp"
                 android:contentDescription=" "
