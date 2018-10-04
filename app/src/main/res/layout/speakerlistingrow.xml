@@ -1,95 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/mainLL"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:elevation="@dimen/elevation"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:translationZ="@dimen/elevation"
+        android:background="@drawable/agendabg"
         android:layout_marginLeft="@dimen/margin"
         android:layout_marginRight="@dimen/margin"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/agendabg"
         android:orientation="horizontal"
-        android:padding="5dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
 
         <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:gravity="center"
             android:layout_weight="2"
-            android:gravity="center">
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
 
-            <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            <ImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/profileIV"
-                android:layout_width="96px"
-                android:layout_height="96px"
                 android:layout_centerInParent="true"
-                android:src="@drawable/profilepic_placeholder" />
+                android:src="@drawable/profilepic_placeholder"
+                android:layout_width="96dp"
+                android:layout_height="96dp"/>
 
             <ProgressBar
+                android:visibility="visible"
+                android:layout_centerInParent="true"
                 android:id="@+id/progressView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:visibility="visible" />
+                android:layout_height="wrap_content" />
 
 
         </RelativeLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="7"
+            android:orientation="vertical"
             android:gravity="center_vertical"
-            android:orientation="vertical">
+            android:layout_weight="7"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
 
             <com.procialize.singleevent.Fonts.RobotoTextview
-                android:id="@+id/nameTv"
+                android:paddingLeft="5dp"
+                android:textSize="@dimen/textsizenormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/designationTv"
                 android:layout_alignTop="@+id/imageView"
-                android:paddingLeft="5dp"
                 android:text="Abheejit Saxena"
-                android:textColor="@color/activetab"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textColor="@color/loginbutton"
+                android:id="@+id/nameTv"
+                android:textStyle="bold"/>
 
             <com.procialize.singleevent.Fonts.RobotoTextview
+                android:paddingLeft="5dp"
                 android:id="@+id/designtionTv"
+                android:textSize="@dimen/textsizesmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
                 android:text="Simens LTD"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textsizesmall" />
+                android:textColor="@color/colorwhite" />
 
 
             <com.procialize.singleevent.Fonts.RobotoTextview
-                android:id="@+id/locationTv"
+                android:paddingLeft="5dp"
+                android:textSize="@dimen/textsizesmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
                 android:text="Delhi"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textsizesmall" />
+                android:textColor="@color/colorwhite"
+                android:id="@+id/locationTv" />
 
         </LinearLayout>
 
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:gravity="center"
             android:layout_weight="1"
-            android:gravity="center">
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
 
             <ImageView
+                android:src="@drawable/ic_rightarrow"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_rightarrow" />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
     </LinearLayout>

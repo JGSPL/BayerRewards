@@ -33,13 +33,12 @@
             app:contentInsetStart="0dp">
 
             <ImageView
-                android:id="@+id/headerlogoIv"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="-10dp"
                 android:contentDescription=" "
-                android:src="@drawable/header_logo" />
+                android:src="@drawable/splashlogo" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -51,7 +50,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="4sp"
-        android:text="@string/qadirect"
+        android:text="@string/qa"
         android:textColor="@color/black"
         android:textSize="@dimen/textsizenormal" />
 
@@ -68,8 +67,7 @@
         android:padding="5dp"
         android:text="@string/postquestion"
         android:textColor="@color/colorwhite"
-        android:textSize="@dimen/textsizesmall"
-        android:textAllCaps="false"/>
+        android:textSize="@dimen/textsizesmall" />
 
     <ProgressBar
         android:id="@+id/progressBar"

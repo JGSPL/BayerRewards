@@ -33,7 +33,6 @@ import com.procialize.singleevent.GetterSetter.QASessionFetch;
 import com.procialize.singleevent.GetterSetter.QASpeakerFetch;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
-import com.procialize.singleevent.Utility.Util;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -56,7 +55,6 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
     private APIService mAPIService;
     RecyclerView qaRv;
     public QADirectAdapter qaAttendeeAdapter;
-    ImageView headerlogoIv;
 
 
     @Override
@@ -85,8 +83,6 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
                 onBackPressed();
             }
         });
-        headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
 
 
         mAPIService = ApiUtils.getAPIService();

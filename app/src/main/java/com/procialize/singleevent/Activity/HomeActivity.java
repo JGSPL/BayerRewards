@@ -58,7 +58,6 @@ import com.procialize.singleevent.InnerDrawerActivity.EngagementActivity;
 import com.procialize.singleevent.InnerDrawerActivity.EventInfoActivity;
 
 import com.procialize.singleevent.InnerDrawerActivity.FeedBackActivity;
-import com.procialize.singleevent.InnerDrawerActivity.FolderQuizActivity;
 import com.procialize.singleevent.InnerDrawerActivity.GalleryActivity;
 import com.procialize.singleevent.InnerDrawerActivity.GeneralInfoActivity;
 import com.procialize.singleevent.InnerDrawerActivity.LivePollActivity;
@@ -74,7 +73,6 @@ import com.procialize.singleevent.InnerDrawerActivity.SpeakerActivity;
 import com.procialize.singleevent.InnerDrawerActivity.VideoActivity;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
-import com.procialize.singleevent.Utility.Util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -102,7 +100,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
     List<EventSettingList> eventSettingLists;
     List<EventMenuSettingList> eventMenuSettingLists;
     HashMap<String, String> eventlist;
-    ImageView headerlogoIv;
+
 
     String side_menu = "0", side_menu_my_travel = "0", side_menu_notification = "0", side_menu_display_qr = "0", side_menu_qr_scanner = "0",
             side_menu_quiz = "0", side_menu_live_poll = "0", side_menu_survey = "0",
@@ -205,8 +203,6 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this, headerlogoIv);
 
         viewPager = (CustomViewPager) findViewById(R.id.viewpager);
         viewPager.setPagingEnabled(false);
@@ -929,7 +925,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
             startActivity(scanqr);
 
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_quiz")) {
-            Intent quiz = new Intent(this, FolderQuizActivity.class);
+            Intent quiz = new Intent(this, QuizActivity.class);
             startActivity(quiz);
 
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_live_poll")) {
@@ -988,14 +984,14 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_agenda")) {
 
-//            if (agenda.equalsIgnoreCase("1")) {
-            if (agenda_conference.equalsIgnoreCase("1")) {
-                Intent agenda = new Intent(this, AgendaActivity.class);
-                startActivity(agenda);
-            } else if (agenda_vacation.equalsIgnoreCase("1")) {
-                Intent agenda = new Intent(this, AgendaVacationActivity.class);
-                startActivity(agenda);
-//                }
+            if (agenda.equalsIgnoreCase("1")) {
+                if (agenda_conference.equalsIgnoreCase("1")) {
+                    Intent agenda = new Intent(this, AgendaActivity.class);
+                    startActivity(agenda);
+                } else if (agenda_vacation.equalsIgnoreCase("1")) {
+                    Intent agenda = new Intent(this, AgendaVacationActivity.class);
+                    startActivity(agenda);
+                }
 
             }
 

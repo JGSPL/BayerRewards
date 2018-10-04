@@ -10,7 +10,7 @@
         android:elevation="@dimen/elevation"
         android:padding="5dp"
         android:translationZ="10dp"
-        android:background="@color/feedpostingbgcolornew"
+        android:background="@color/colorunselectedtab"
         android:layout_margin="@dimen/margin"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -58,7 +58,7 @@
                     android:layout_alignStart="@+id/designationTv"
                     android:layout_alignTop="@+id/imageView"
                     android:text="Abheejit Saxena"
-                    android:textColor="@color/activetab"
+                    android:textColor="@color/black"
                     android:id="@+id/nameTv" />
 
 
@@ -98,10 +98,10 @@
                 android:id="@+id/replyBtn"
                 android:text="@string/replybtn"
                 android:textSize="@dimen/textsizesmall"
-                android:textColor="@color/colorwhite"
+                android:textColor="@color/logintxt"
                 android:layout_margin="@dimen/elevation"
                 android:layout_gravity="center"
-                android:background="@drawable/loginbutton"
+                android:background="@drawable/signupbutton"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:textAllCaps="false"/>
@@ -119,7 +119,7 @@
                 android:id="@+id/arrowIv"
                 android:src="@drawable/ic_rightarrow"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
     </LinearLayout>

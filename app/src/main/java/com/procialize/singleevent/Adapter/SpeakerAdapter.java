@@ -108,7 +108,7 @@ public class SpeakerAdapter extends RecyclerView.Adapter<SpeakerAdapter.MyViewHo
         } else {
             holder.designtionTv.setVisibility(View.VISIBLE);
         }
-        if (speaker_company.equalsIgnoreCase("0")) {
+        if (speaker_location.equalsIgnoreCase("0")) {
             holder.locationTv.setVisibility(View.GONE);
         } else {
             holder.locationTv.setVisibility(View.VISIBLE);
@@ -129,15 +129,11 @@ public class SpeakerAdapter extends RecyclerView.Adapter<SpeakerAdapter.MyViewHo
         }
 
         if (speaker.getDesignation().equalsIgnoreCase("N A")) {
-            holder.locationTv.setText("");
-        } else {
-            holder.locationTv.setText(speaker.getDesignation());
-        }
-        if (speaker.getCompany().equalsIgnoreCase("N A")) {
             holder.designtionTv.setText("");
         } else {
-            holder.designtionTv.setText(speaker.getCompany());
+            holder.designtionTv.setText(speaker.getDesignation());
         }
+
 
         if (speaker.getProfilePic() != null) {
 

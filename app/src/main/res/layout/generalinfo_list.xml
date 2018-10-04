@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
 
-        <com.procialize.singleevent.Fonts.RobotoTextview
+        <TextView
             android:id="@+id/info_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

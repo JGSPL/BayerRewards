@@ -1,12 +1,11 @@
 package com.procialize.singleevent.Activity;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +13,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,11 +25,12 @@ import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.GetterSetter.Analytic;
+import com.procialize.singleevent.GetterSetter.DeletePost;
 import com.procialize.singleevent.GetterSetter.EventSettingList;
+import com.procialize.singleevent.GetterSetter.RatingSpeakerDetail;
 import com.procialize.singleevent.GetterSetter.RatingSpeakerPost;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
-import com.procialize.singleevent.Utility.Util;
 
 import java.util.HashMap;
 import java.util.List;
@@ -56,10 +55,6 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
     ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
-    View viewthree, viewtwo, viewone;
-    RelativeLayout ratinglayout;
-    RatingBar ratingbar;
-    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,9 +81,6 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
-        headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
 
 
         mAPIService = ApiUtils.getAPIService();
@@ -125,11 +117,6 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         tvdesignation = findViewById(R.id.tvdesignation);
         tvcity = findViewById(R.id.tvcity);
         profileIV = findViewById(R.id.profileIV);
-        viewone = findViewById(R.id.viewone);
-        viewtwo = findViewById(R.id.viewtwo);
-        viewthree = findViewById(R.id.viewthree);
-        ratinglayout = findViewById(R.id.ratinglayout);
-        ratingbar = findViewById(R.id.ratingbar);
 
         progressBar = findViewById(R.id.progressBar);
 
@@ -161,14 +148,12 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         if (designation != null && speaker_designation.equalsIgnoreCase("1")) {
             if (designation.equalsIgnoreCase("N A")) {
                 tvdesignation.setVisibility(View.GONE);
-                viewthree.setVisibility(View.GONE);
             } else {
-                tvdesignation.setText(description);
+                tvdesignation.setText(designation);
             }
 
         } else {
             tvdesignation.setVisibility(View.GONE);
-            viewthree.setVisibility(View.GONE);
         }
 
         if (city != null && speaker_location.equalsIgnoreCase("1")) {
@@ -202,28 +187,15 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
 
         if (speaker_rating.equalsIgnoreCase("1")) {
             ratebtn.setVisibility(View.VISIBLE);
-            ratinglayout.setVisibility(View.VISIBLE);
         } else {
             ratebtn.setVisibility(View.GONE);
-            ratinglayout.setVisibility(View.GONE);
         }
-
-        ratingbar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                ratingval = rating;
-            }
-        });
-
 
         ratebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ratingval > 0) {
-                    PostRate(eventid, String.valueOf(ratingval), apikey, speakerid, "");
-                } else {
-                    Toast.makeText(SpeakerDetailsActivity.this, "Please Select Something", Toast.LENGTH_SHORT).show();
-                }
+
+                showratedialouge();
             }
         });
     }
@@ -239,10 +211,11 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
                 speaker_company = eventSettingLists.get(i).getFieldValue();
             } else if (eventSettingLists.get(i).getFieldName().equals("speaker_location")) {
                 speaker_location = eventSettingLists.get(i).getFieldValue();
-            } else if (eventSettingLists.get(i).getFieldName().equals("speaker_mobile")) {
-                speaker_mobile = eventSettingLists.get(i).getFieldValue();
             }
 
+            if (eventSettingLists.get(i).getFieldName().equals("speaker_mobile")) {
+                speaker_mobile = eventSettingLists.get(i).getFieldValue();
+            }
         }
     }
 
@@ -288,8 +261,6 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
 
 
     public void PostRate(String eventid, String rating, String token, String speakerid, String comment) {
-        final ProgressDialog progressDialog = new ProgressDialog(SpeakerDetailsActivity.this);
-        progressDialog.show();
 //        showProgress();
         mAPIService.RatingSpeakerPost(token, eventid, speakerid, rating, comment).enqueue(new Callback<RatingSpeakerPost>() {
             @Override
@@ -297,12 +268,11 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
 
                 if (response.isSuccessful()) {
                     Log.i("hit", "post submitted to API." + response.body().toString());
-                    progressDialog.dismiss();
 //                    dismissProgress();
                     DeletePostresponse(response);
                 } else {
 //                    dismissProgress();
-                    progressDialog.dismiss();
+
                     Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -310,7 +280,6 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<RatingSpeakerPost> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
-                progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
 
 //                dismissProgress();
@@ -324,13 +293,13 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
 
             Log.e("post", "success");
             SubmitAnalytics(apikey, eventid, "", "", "rating");
-//            myDialog.dismiss();
+            myDialog.dismiss();
             Toast.makeText(this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
 
 
         } else {
             Log.e("post", "fail");
-//            myDialog.dismiss();
+            myDialog.dismiss();
             Toast.makeText(this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
         }
     }

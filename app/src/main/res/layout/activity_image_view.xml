@@ -32,13 +32,12 @@
             app:contentInsetStart="0dp">
 
             <ImageView
-                android:id="@+id/headerlogoIv"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="-10dp"
                 android:contentDescription=" "
-                android:src="@drawable/header_logo" />
+                android:src="@drawable/splashlogo" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -92,8 +91,7 @@
             android:elevation="@dimen/elevation"
             android:text="@string/save"
             android:textColor="@color/colorwhite"
-            android:textSize="@dimen/textsizesmall"
-            android:textAllCaps="false"/>
+            android:textSize="@dimen/textsizesmall" />
 
         <com.procialize.singleevent.Fonts.RobotoButton
             android:id="@+id/sharebtn"
@@ -105,8 +103,7 @@
             android:elevation="@dimen/elevation"
             android:text="@string/share"
             android:textColor="@color/colorwhite"
-            android:textSize="@dimen/textsizesmall"
-            android:textAllCaps="false"/>
+            android:textSize="@dimen/textsizesmall" />
     </LinearLayout>
 
 </RelativeLayout>

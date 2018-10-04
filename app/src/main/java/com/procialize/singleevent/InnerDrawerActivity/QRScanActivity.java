@@ -17,13 +17,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
 import com.procialize.singleevent.R;
-import com.procialize.singleevent.Utility.Util;
 
 import java.util.ArrayList;
 
@@ -41,7 +39,6 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
     Button save_btn_qr;
     String name, number, designation, company, city, email, lname;
     QRCodeReaderView qrCodeReaderView;
-    ImageView headerlogoIv;
 
     @Override
     public void onCreate(Bundle state) {
@@ -63,8 +60,7 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
                 onBackPressed();
             }
         });
-        headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
+
 
         contactll = findViewById(R.id.contactll);
 

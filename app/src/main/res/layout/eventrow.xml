@@ -7,35 +7,35 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:background="#7898a9"
         android:elevation="@dimen/elevation"
         android:orientation="vertical"
-        android:translationZ="@dimen/elevation">
+        android:layout_margin="5dp"
+        android:translationZ="@dimen/elevation"
+        android:background="#7898a9">
 
-        <com.procialize.singleevent.Fonts.RobotoTextview
+        <TextView
             android:id="@+id/eventnaem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/activetab"
+            android:background="@color/red"
+            android:textColor="@color/colorwhite"
             android:gravity="center"
-            android:padding="5dp"
-            android:textColor="@color/colorwhite" />
+            android:padding="5dp"/>
 
         <LinearLayout
             android:id="@+id/mainLL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorgrey"
+
             android:orientation="horizontal">
 
 
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
                 android:layout_weight="2"
-                android:gravity="center">
+                android:gravity="center"
+                android:layout_margin="5dp">
 
                 <ImageView
                     android:id="@+id/profileIV"
@@ -57,43 +57,43 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
                 android:layout_weight="7"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginLeft="5dp">
 
 
                 <com.procialize.singleevent.Fonts.RobotoTextview
                     android:id="@+id/nameTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:paddingLeft="5dp"
                     android:text="Abheejit Saxena"
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorwhite"
                     android:textSize="@dimen/textsizenormal"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    android:gravity="center"/>
 
                 <com.procialize.singleevent.Fonts.RobotoTextview
                     android:id="@+id/designationTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="left"
                     android:paddingLeft="5dp"
                     android:text="Simens LTD"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textsizesmall" />
+                    android:textColor="@color/colorwhite"
+                    android:textSize="@dimen/textsizesmall"
+                    android:gravity="center"/>
 
 
                 <com.procialize.singleevent.Fonts.RobotoTextview
                     android:id="@+id/locationTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="left"
                     android:paddingLeft="5dp"
                     android:text="Delhi"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textsizesmall" />
+                    android:textColor="@color/colorwhite"
+                    android:textSize="@dimen/textsizesmall"
+                    android:gravity="center"/>
 
             </LinearLayout>
 
@@ -105,7 +105,7 @@
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/ic_rightarrow" />
 
             </LinearLayout>

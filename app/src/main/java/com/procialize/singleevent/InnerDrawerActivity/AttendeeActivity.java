@@ -29,7 +29,6 @@ import com.procialize.singleevent.GetterSetter.AttendeeList;
 import com.procialize.singleevent.GetterSetter.FetchAttendee;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
-import com.procialize.singleevent.Utility.Util;
 
 import java.util.HashMap;
 
@@ -48,7 +47,6 @@ public class AttendeeActivity extends AppCompatActivity implements AttendeeAdapt
     private ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
-    ImageView headerlogoIv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,8 +74,6 @@ public class AttendeeActivity extends AppCompatActivity implements AttendeeAdapt
         });
 
 
-        headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
         attendeerecycler = findViewById(R.id.attendeerecycler);
         searchEt =  findViewById(R.id.searchEt);
         attendeefeedrefresh =  findViewById(R.id.attendeefeedrefresh);

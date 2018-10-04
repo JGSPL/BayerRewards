@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +24,6 @@ import com.procialize.singleevent.GetterSetter.GalleryList;
 import com.procialize.singleevent.GetterSetter.VideoFolderList;
 import com.procialize.singleevent.GetterSetter.VideoList;
 import com.procialize.singleevent.R;
-import com.procialize.singleevent.Utility.Util;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -43,7 +41,6 @@ public class VideoFirstLevelActivity extends AppCompatActivity implements VideoF
     List<VideoFolderList> folderLists;
     List<FirstLevelFilter> filtergallerylists;
     String foldernamenew;
-    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +67,6 @@ public class VideoFirstLevelActivity extends AppCompatActivity implements VideoF
                 onBackPressed();
             }
         });
-
-        headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this, headerlogoIv);
 
         foldername = getIntent().getExtras().getString("foldername");
         videoLists = (List<VideoList>) getIntent().getExtras().getSerializable("videolist");

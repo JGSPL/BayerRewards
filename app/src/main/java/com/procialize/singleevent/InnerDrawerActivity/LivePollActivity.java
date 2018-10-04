@@ -29,7 +29,6 @@ import com.procialize.singleevent.GetterSetter.LivePollList;
 import com.procialize.singleevent.GetterSetter.LivePollOptionList;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
-import com.procialize.singleevent.Utility.Util;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -50,7 +49,6 @@ public class LivePollActivity extends AppCompatActivity implements PollAdapter.P
     List<LivePollOptionList> optionLists;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
-    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,8 +77,6 @@ public class LivePollActivity extends AppCompatActivity implements PollAdapter.P
         });
 
 
-        headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
         pollRv = findViewById(R.id.pollRv);
         pollrefresh = findViewById(R.id.pollrefresh);
         progressBar = findViewById(R.id.progressBar);

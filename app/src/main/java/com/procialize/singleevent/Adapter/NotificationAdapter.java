@@ -67,11 +67,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (arrowIv.getVisibility() == View.VISIBLE) {
+                    if (replyBtn.getVisibility() == View.VISIBLE) {
                         // send selected contact in callback
                         listener.onContactSelected(notificationLists.get(getAdapterPosition()));
                     }
-
                 }
             });
 
@@ -161,7 +160,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         }
 
         if (notificationList.getNotificationType().equalsIgnoreCase("Cmnt")) {
-            holder.replyBtn.setVisibility(View.GONE);
+            holder.replyBtn.setVisibility(View.VISIBLE);
             holder.arrowIv.setVisibility(View.VISIBLE);
         } else if (notificationList.getNotificationType().equalsIgnoreCase("Like")) {
             holder.replyBtn.setVisibility(View.GONE);

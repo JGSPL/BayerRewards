@@ -29,7 +29,7 @@ public class RobotoEditext extends EditText {
     }
 
     public void init() {
-        Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "DINPro-Regular.ttf");
+        Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "Roboto-Light.ttf");
         setTypeface(tf ,1);
 
     }

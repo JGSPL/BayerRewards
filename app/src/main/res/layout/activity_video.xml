@@ -32,7 +32,6 @@
             android:minHeight="?attr/actionBarSize">
 
             <ImageView
-                android:id="@+id/headerlogoIv"
                 android:layout_marginLeft="-10dp"
                 android:layout_width="150dp"
                 android:contentDescription=" "
@@ -58,11 +57,11 @@
     <com.procialize.singleevent.Fonts.RobotoTextview
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/activetab"
+        android:textColor="@color/black"
         android:gravity="center"
         android:padding="4sp"
         android:textSize="@dimen/textsizenormal"
-        android:text="Video"
+        android:text="@string/video"
         />
 
 

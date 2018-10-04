@@ -5,14 +5,11 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.ImageView;
 
 import com.procialize.singleevent.R;
-import com.procialize.singleevent.Utility.Util;
 
 public class WebViewActivity extends AppCompatActivity {
 
-    ImageView headerlogoIv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,9 +30,6 @@ public class WebViewActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
-        headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
 
 
         WebView mywebview = (WebView) findViewById(R.id.webView);

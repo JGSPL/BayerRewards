@@ -35,7 +35,6 @@ import com.procialize.singleevent.GetterSetter.VideoContestListFetch;
 
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
-import com.procialize.singleevent.Utility.Util;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -61,8 +60,6 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
     Dialog myDialog;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
-    String user_id;
-    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,8 +86,6 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
                 onBackPressed();
             }
         });
-        headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
 
         uploadbtn = findViewById(R.id.uploadbtn);
         videofeedrefresh = findViewById(R.id.videofeedrefresh);
@@ -113,9 +108,6 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
 
         HashMap<String, String> user = sessionManager.getUserDetails();
 
-
-        user_id = user.get(SessionManager.KEY_ID);
-        // token
         // token
         token = user.get(SessionManager.KEY_TOKEN);
 
@@ -276,17 +268,8 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
 
         reportTv.setText("Report Video");
         hideTv.setText("Hide Video");
-        deleteTv.setText("Detete this Video");
 
-        if (videoContest.getAttendeeId().equalsIgnoreCase(user_id)) {
-            deleteTv.setVisibility(View.VISIBLE);
-            hideTv.setVisibility(View.GONE);
-            reportTv.setVisibility(View.GONE);
-        } else {
-            deleteTv.setVisibility(View.GONE);
-            hideTv.setVisibility(View.VISIBLE);
-            reportTv.setVisibility(View.VISIBLE);
-        }
+
         hideTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

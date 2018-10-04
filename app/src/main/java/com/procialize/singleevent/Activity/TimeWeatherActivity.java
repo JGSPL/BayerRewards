@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,7 +15,6 @@ import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.GetterSetter.TimeWeather;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
-import com.procialize.singleevent.Utility.Util;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,7 +27,6 @@ public class TimeWeatherActivity extends AppCompatActivity {
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
     ProgressDialog progressDialog;
-    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +46,6 @@ public class TimeWeatherActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
-        headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
 
         txtCity = (TextView) findViewById(R.id.txtCity);
         temp = (TextView) findViewById(R.id.temp);

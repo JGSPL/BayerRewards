@@ -56,7 +56,6 @@ import com.procialize.singleevent.CustomTools.ProgressRequestBodyVideo;
 import com.procialize.singleevent.GetterSetter.PostTextFeed;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
-import com.procialize.singleevent.Utility.Util;
 import com.procialize.singleevent.Utility.Utility;
 
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -109,7 +108,6 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
     String mCurrentPhotoPath;
     private String picturePath = "";
     ImageView imgPlay;
-    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,8 +134,6 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
             }
         });
 
-        headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
         Intent intent = getIntent();
 
         postEt = findViewById(R.id.posttextEt);

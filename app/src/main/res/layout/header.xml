@@ -2,22 +2,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/activetab">
+    android:background="@color/drawerbackground">
 
     <com.procialize.singleevent.Fonts.RobotoTextview
         android:id="@+id/eventname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/my"
-        android:background="@color/colorwhite"
+        android:background="@color/loginbutton"
         android:drawablePadding="10dp"
         android:gravity="center"
         android:text=""
-        android:textColor="@color/activetab"
+        android:textColor="@color/colorwhite"
         android:textSize="@dimen/textsizenormal" />
 
 
-    <com.procialize.singleevent.Fonts.RobotoTextview
+    <TextView
         android:id="@+id/fceTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
         android:layout_centerInParent="true"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="@dimen/margin"
-        android:background="@color/activetab"
+        android:background="@color/drawerbackground"
         android:orientation="vertical">
 
 

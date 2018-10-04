@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
     android:orientation="vertical"
+    android:background="@drawable/background"
     tools:context="com.procialize.singleevent.Activity.AgendaDetailActivity">
 
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/appBarLayout"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
 
@@ -21,25 +21,24 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colortoolbar"
-            android:contentInsetEnd="0dp"
-            android:contentInsetLeft="0dp"
-            android:contentInsetRight="0dp"
-            android:contentInsetStart="0dp"
             android:elevation="@dimen/elevation"
-            android:minHeight="?attr/actionBarSize"
-            app:contentInsetEnd="0dp"
+            android:contentInsetLeft="0dp"
+            android:contentInsetStart="0dp"
             app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            android:contentInsetRight="0dp"
+            android:contentInsetEnd="0dp"
             app:contentInsetRight="0dp"
-            app:contentInsetStart="0dp">
+            app:contentInsetEnd="0dp"
+            android:minHeight="?attr/actionBarSize">
 
             <ImageView
-                android:id="@+id/headerlogoIv"
+                android:layout_marginLeft="-10dp"
                 android:layout_width="150dp"
+                android:contentDescription=" "
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="-10dp"
-                android:contentDescription=" "
-                android:src="@drawable/header_logo" />
+                android:src="@drawable/splashlogo"/>
 
         </android.support.v7.widget.Toolbar>
 
@@ -49,175 +48,67 @@
 
     <com.procialize.singleevent.Fonts.RobotoTextview
         android:id="@+id/tvname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_below="@+id/appBarLayout"
-        android:layout_marginTop="20dp"
-        android:background="@color/activetab"
-        android:paddingBottom="10dp"
-        android:paddingLeft="90dp"
-        android:paddingTop="10dp"
-        android:text="fgbgbgb"
-        android:textColor="@color/colorwhite"
-        android:textSize="@dimen/textsizenormal" />
+        android:layout_margin="@dimen/margin"
+        android:layout_centerInParent="true"
+        android:textSize="@dimen/textsizenormal"
+        android:textColor="@color/orange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <com.procialize.singleevent.Fonts.RobotoTextview
+        android:id="@+id/tvdate"
+        android:layout_margin="@dimen/margin"
         android:layout_below="@+id/tvname"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/feedpostingbgcolornew"
-        android:orientation="vertical">
+        android:layout_centerInParent="true"
+        android:textSize="@dimen/textsizesmall"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-        <LinearLayout
-            android:id="@+id/linear1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:orientation="horizontal">
+    <com.procialize.singleevent.Fonts.RobotoTextview
+        android:id="@+id/tvtime"
+        android:layout_margin="@dimen/margin"
+        android:layout_below="@+id/tvdate"
+        android:layout_centerInParent="true"
+        android:textSize="@dimen/textsizesmall"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/agendadate" />
 
-            <com.procialize.singleevent.Fonts.RobotoTextview
-                android:id="@+id/tvdate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="30dp"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textsizesmall" />
-        </LinearLayout>
-
-        <View
-            android:id="@+id/viewone"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/linecolor" />
-
-        <LinearLayout
-            android:id="@+id/linear2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/time" />
-
-            <com.procialize.singleevent.Fonts.RobotoTextview
-                android:id="@+id/tvtime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="30dp"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textsizesmall" />
-        </LinearLayout>
-
-        <View
-            android:id="@+id/viewtwo"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/linecolor" />
-
-        <LinearLayout
-            android:id="@+id/linear3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/desc" />
-
-            <com.procialize.singleevent.Fonts.RobotoTextview
-                android:id="@+id/tvdscription"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="30dp"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textsizesmall" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <RelativeLayout
+    <ScrollView
+        android:layout_below="@+id/tvtime"
+        android:layout_above="@+id/ratebtn"
+        android:padding="@dimen/padding"
+        android:layout_margin="10dp"
+        android:background="@drawable/speakerdatabg"
+        android:fillViewport="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true">
-
-        <LinearLayout
-            android:id="@+id/linear_bottom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin"
-            android:background="@color/feedpostingbgcolornew"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical">
-
-                <com.procialize.singleevent.Fonts.RobotoTextview
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Rate this session"
-                    android:textColor="@color/linecolor" />
-
-                <RatingBar
-                    android:id="@+id/ratingbar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:numStars="5"
-                    android:stepSize="0.5"
-                    android:theme="@style/RatingBar" />
-            </LinearLayout>
-
-            <com.procialize.singleevent.Fonts.RobotoButton
-                android:id="@+id/ratebtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/activetab"
-                android:text="@string/rate"
-                android:textAllCaps="false"
-                android:textColor="@color/colorwhite"
-                android:textSize="@dimen/textsizesmall" />
-
-        </LinearLayout>
+        android:layout_height="match_parent">
 
         <com.procialize.singleevent.Fonts.RobotoTextview
-            android:id="@+id/txtrate"
+            android:id="@+id/tvdscription"
+            android:textSize="@dimen/textsizesmall"
+            android:textColor="@color/black"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/linear_bottom"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:text="*Rating can be done only when the session starts"
-            android:textColor="@color/inactivetab" />
-    </RelativeLayout>
+            android:layout_height="match_parent" />
+
+
+    </ScrollView>
+
+    <com.procialize.singleevent.Fonts.RobotoButton
+        android:id="@+id/ratebtn"
+        android:background="@drawable/speakerbtnbg"
+        android:padding="5dp"
+        android:elevation="@dimen/elevation"
+        android:textColor="@color/colorwhite"
+        android:textSize="@dimen/textsizesmall"
+        android:layout_margin="@dimen/margin"
+        android:text="@string/rate"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </RelativeLayout>

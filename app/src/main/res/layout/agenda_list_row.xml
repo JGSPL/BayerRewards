@@ -26,7 +26,7 @@
 
         <!-- Title -->
 
-        <com.procialize.singleevent.Fonts.RobotoTextview
+        <TextView
             android:id="@+id/agenda_title"
             android:layout_width="fill_parent"
             android:layout_height="20dp"
@@ -41,7 +41,7 @@
 
         <!-- Time -->
 
-        <com.procialize.singleevent.Fonts.RobotoTextview
+        <TextView
             android:id="@+id/agenda_time_slot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
 
         <!-- Description -->
 
-        <com.procialize.singleevent.Fonts.RobotoTextview
+        <TextView
             android:id="@+id/agenda_desc"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

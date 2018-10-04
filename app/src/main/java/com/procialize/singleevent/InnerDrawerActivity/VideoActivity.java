@@ -32,7 +32,6 @@ import com.procialize.singleevent.GetterSetter.VideoFolderList;
 import com.procialize.singleevent.GetterSetter.VideoList;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
-import com.procialize.singleevent.Utility.Util;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -55,7 +54,6 @@ public class VideoActivity extends AppCompatActivity implements VideoAdapter.Vid
     private static List<VideoFolderList> folderLists;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
-    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,9 +79,6 @@ public class VideoActivity extends AppCompatActivity implements VideoAdapter.Vid
                 onBackPressed();
             }
         });
-
-        headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
 
         videoRv = findViewById(R.id.videoRv);
         progressBar = findViewById(R.id.progressBar);

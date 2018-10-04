@@ -47,13 +47,12 @@
                     android:src="@drawable/ic_back" />
 
                 <ImageView
-                    android:id="@+id/headerlogoIv"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="-10dp"
                     android:contentDescription=" "
-                    android:src="@drawable/header_logo" />
+                    android:src="@drawable/splashlogo" />
 
             </android.support.v7.widget.Toolbar>
 
@@ -61,7 +60,7 @@
         </android.support.design.widget.AppBarLayout>
 
 
-        <com.procialize.singleevent.Fonts.RobotoTextview
+        <TextView
             android:id="@+id/text_empty"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

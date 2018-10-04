@@ -38,7 +38,6 @@ import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.GetterSetter.FetchAgenda;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
-import com.procialize.singleevent.Utility.Util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -71,7 +70,6 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
 
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
-    ImageView headerlogoIv;
 
 
     @Override
@@ -91,8 +89,6 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
         sessionManager = new SessionManager(this);
 
         // get user data from session

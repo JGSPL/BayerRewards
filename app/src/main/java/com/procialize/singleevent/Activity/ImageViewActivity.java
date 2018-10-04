@@ -35,7 +35,6 @@ import com.github.chrisbanes.photoview.PhotoView;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.CustomTools.TouchImageView;
 import com.procialize.singleevent.R;
-import com.procialize.singleevent.Utility.Util;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -54,7 +53,6 @@ public class ImageViewActivity extends AppCompatActivity {
     String url;
     public ProgressDialog progressDialog;
     private ProgressBar progressBar;
-    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +73,6 @@ public class ImageViewActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
-        headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
 
 
         progressDialog = new ProgressDialog(this);

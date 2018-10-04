@@ -50,7 +50,6 @@
                     android:src="@drawable/ic_back" />
 
                 <ImageView
-                    android:id="@+id/headerlogoIv"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -75,80 +74,68 @@
                 android:layout_height="match_parent"
                 android:focusableInTouchMode="true"
                 android:orientation="vertical">
-                <com.procialize.singleevent.Fonts.RobotoTextview
-                    android:id="@+id/header"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:gravity="center"
-                    android:padding="@dimen/padding"
-                    android:text="General Info"
-                    android:textColor="@color/activetab"
-                    android:textSize="@dimen/textsizenormal" />
+
 
                 <com.procialize.singleevent.Fonts.RobotoTextview
                     android:id="@+id/pullrefresh"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
                     android:gravity="center"
                     android:padding="@dimen/padding"
                     android:text="@string/refresh"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/textsizesmall"
-                    android:layout_below="@+id/header"/>
+                    android:textSize="@dimen/textsizesmall" />
 
                 <LinearLayout
                     android:id="@+id/linearlayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_below="@+id/pullrefresh">
+                    android:orientation="vertical">
 
 
-                    <com.procialize.singleevent.Fonts.RobotoTextview
+                    <TextView
                         android:id="@+id/genHeader"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginBottom="5dp"
                         android:layout_marginTop="10dp"
-
+                        android:elevation="10dp"
                         android:text="General Info"
                         android:textColor="@color/black"
                         android:textSize="18sp"
-                        android:visibility="gone" />
+                        android:visibility="invisible" />
 
 
-                    <com.procialize.singleevent.Fonts.RobotoTextview
+                    <TextView
                         android:id="@+id/weather_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:background="@drawable/agendabg"
                         android:drawableRight="@drawable/ic_rightarrow"
-                        android:drawablePadding="5dp"
-
+                        android:elevation="10dp"
                         android:gravity="center"
                         android:padding="10dp"
                         android:text="Time &amp; Weather"
-                        android:textColor="@color/black"
+                        android:textColor="@color/colorwhite"
                         android:visibility="gone" />
 
 
-                    <com.procialize.singleevent.Fonts.RobotoTextview
+                    <TextView
                         android:id="@+id/abtcurency_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:background="@drawable/agendabg"
                         android:drawableRight="@drawable/ic_rightarrow"
-
+                        android:elevation="10dp"
                         android:gravity="center"
                         android:padding="10dp"
                         android:text="Currency Converter"
-                        android:textColor="@color/black"
-                        android:visibility="gone"
-                        android:drawablePadding="5dp"/>
+                        android:textColor="@color/colorwhite"
+                        android:visibility="gone" />
 
 
                     <android.support.v7.widget.RecyclerView

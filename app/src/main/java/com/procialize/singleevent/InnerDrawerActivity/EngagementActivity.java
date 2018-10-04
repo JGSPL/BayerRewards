@@ -7,12 +7,10 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
-import com.procialize.singleevent.Utility.Util;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,14 +19,12 @@ import cn.jzvd.JZVideoPlayer;
 
 public class EngagementActivity extends AppCompatActivity {
 
-    CardView selfiecard_view, videocard_view;
+    CardView selfiecard_view,videocard_view;
     private List<EventSettingList> eventSettingLists;
     HashMap<String, String> user;
-    String engagement_selfie_contest = "0", engagement_video_contest = "0";
+   String engagement_selfie_contest="0",engagement_video_contest="0";
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
-    ImageView headerlogoIv;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +33,7 @@ public class EngagementActivity extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
+
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -54,11 +51,8 @@ public class EngagementActivity extends AppCompatActivity {
             }
         });
 
-        headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this, headerlogoIv);
-
-        selfiecard_view = findViewById(R.id.selfiecard_view);
-        videocard_view = findViewById(R.id.videocard_view);
+        selfiecard_view=findViewById(R.id.selfiecard_view);
+        videocard_view=findViewById(R.id.videocard_view);
 
 
         SessionManager sessionManager = new SessionManager(this);
@@ -68,16 +62,19 @@ public class EngagementActivity extends AppCompatActivity {
 
         eventSettingLists = sessionManager.loadEventList();
 
-        if (eventSettingLists.size() != 0) {
+        if (eventSettingLists.size()!=0)
+        {
             applysetting(eventSettingLists);
         }
 
 
-        if (engagement_selfie_contest.equalsIgnoreCase("0")) {
+        if (engagement_selfie_contest.equalsIgnoreCase("0"))
+        {
             selfiecard_view.setVisibility(View.GONE);
         }
 
-        if (engagement_video_contest.equalsIgnoreCase("0")) {
+        if (engagement_video_contest.equalsIgnoreCase("0"))
+        {
             videocard_view.setVisibility(View.GONE);
         }
 
@@ -85,7 +82,7 @@ public class EngagementActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent selfie = new Intent(EngagementActivity.this, SelfieContestActivity.class);
+                Intent selfie = new Intent(EngagementActivity.this,SelfieContestActivity.class);
                 startActivity(selfie);
             }
         });
@@ -94,7 +91,7 @@ public class EngagementActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent videocontest = new Intent(EngagementActivity.this, VideoContestActivity.class);
+                Intent videocontest = new Intent(EngagementActivity.this,VideoContestActivity.class);
                 startActivity(videocontest);
             }
         });
@@ -102,11 +99,16 @@ public class EngagementActivity extends AppCompatActivity {
 
     private void applysetting(List<EventSettingList> eventSettingLists) {
 
-        for (int i = 0; i < eventSettingLists.size(); i++) {
+        for (int i=0;i<eventSettingLists.size();i++)
+        {
 
-            if (eventSettingLists.get(i).getFieldName().equals("engagement_selfie_contest")) {
+            if (eventSettingLists.get(i).getFieldName().equals("engagement_selfie_contest"))
+            {
                 engagement_selfie_contest = eventSettingLists.get(i).getFieldValue();
-            } else if (eventSettingLists.get(i).getFieldName().equals("engagement_video_contest")) {
+            }
+
+            else if (eventSettingLists.get(i).getFieldName().equals("engagement_video_contest"))
+            {
                 engagement_video_contest = eventSettingLists.get(i).getFieldValue();
             }
 

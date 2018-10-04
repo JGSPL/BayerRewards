@@ -40,7 +40,7 @@
                 android:contentDescription=" "
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/header_logo"/>
+                android:src="@drawable/splashlogo"/>
 
         </android.support.v7.widget.Toolbar>
 
@@ -61,7 +61,7 @@
             android:gravity="center"
             android:padding="5dp"
             android:text="@string/eventInfo"
-            android:textColor="@color/activetab"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
 

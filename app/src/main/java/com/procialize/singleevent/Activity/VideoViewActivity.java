@@ -13,7 +13,6 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.ProgressBar;
@@ -21,13 +20,11 @@ import android.widget.RelativeLayout;
 import android.widget.VideoView;
 
 import com.procialize.singleevent.R;
-import com.procialize.singleevent.Utility.Util;
 
 public class VideoViewActivity extends AppCompatActivity {
 
     String url;
     ProgressBar progressBar;
-    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +46,6 @@ public class VideoViewActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
-        headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
 
 
         Intent intent = getIntent();

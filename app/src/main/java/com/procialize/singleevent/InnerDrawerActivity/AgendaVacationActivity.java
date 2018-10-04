@@ -11,17 +11,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.procialize.singleevent.Fragments.AgendaFolderFragment;
 import com.procialize.singleevent.R;
-import com.procialize.singleevent.Utility.Util;
 
 
 public class AgendaVacationActivity extends AppCompatActivity {
     LinearLayout linear_header;
-    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +33,6 @@ public class AgendaVacationActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         linear_header = findViewById(R.id.linear_header);
-
-        headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

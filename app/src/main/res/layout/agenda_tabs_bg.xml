@@ -17,7 +17,7 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <com.procialize.singleevent.Fonts.RobotoTextview
+        <TextView
             android:id="@+id/tabsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
             android:textColor="@color/colorwhite"
             android:textSize="14sp" />
 
-        <com.procialize.singleevent.Fonts.RobotoTextview
+        <TextView
             android:id="@+id/tabsecondText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

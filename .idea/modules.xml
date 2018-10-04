@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ProcializeSingle-android.iml" filepath="$PROJECT_DIR$/ProcializeSingle-android.iml" />
+      <module fileurl="file://E:\2018\ProcializeInfo\ProcializeSingle-android-master\ProcializeSingle-android.iml" filepath="E:\2018\ProcializeInfo\ProcializeSingle-android-master\ProcializeSingle-android.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

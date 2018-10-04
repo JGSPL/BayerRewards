@@ -56,7 +56,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import cn.jzvd.JZVideoPlayer;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -378,7 +377,7 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
 
             @Override
             public void onTabChanged(String tabId) {
-                JZVideoPlayer.releaseAllVideos();
+
                 for (int i = 0; i < tabWidget.getChildCount(); i++) {
                     tabWidget.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.colorselectedtab));
                 }
@@ -451,7 +450,6 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
                 }
 
                 dots[0].setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.active_dot));
-
 
                 mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     @Override

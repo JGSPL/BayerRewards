@@ -34,7 +34,6 @@ import com.procialize.singleevent.GetterSetter.Login;
 import com.procialize.singleevent.GetterSetter.UserEventList;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
-import com.procialize.singleevent.Utility.Util;
 import com.procialize.singleevent.gcm.GCMHelper;
 
 import retrofit2.Call;
@@ -63,7 +62,6 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     static final String TAG = "GCMDemo";
     String gcmRegID;
-    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,9 +71,6 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
         emailid = getIntent().getExtras().getString("email");
         password = getIntent().getExtras().getString("password");
         session = new SessionManager(getApplicationContext());
-
-        headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
 
 
         platform = "android";

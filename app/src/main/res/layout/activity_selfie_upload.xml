@@ -31,7 +31,6 @@
             android:minHeight="?attr/actionBarSize">
 
             <ImageView
-                android:id="@+id/headerlogoIv"
                 android:layout_marginLeft="-10dp"
                 android:layout_width="150dp"
                 android:contentDescription=" "
@@ -63,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/preview"
-                android:textColor="@color/activetab"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textSize="@dimen/textsizenormal" />
 
@@ -85,12 +84,12 @@
                 android:hint="@string/caption"
                 android:minEms="20"
                 android:padding="15dp"
-                android:background="@color/colorwhite"
+                android:background="@drawable/edittextfeedbg"
                 android:singleLine="true"
                 android:focusableInTouchMode="true"
                 android:gravity="left|center"
                 android:textColor="@android:color/black"
-                android:textColorHint="@color/inactivetab"
+                android:textColorHint="@android:color/black"
                 android:textSize="@dimen/textsizenormal"
                 android:visibility="visible"
                 android:layout_alignParentTop="true"
@@ -102,14 +101,14 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:alpha="1"
-                android:background="@drawable/loginbutton"
+                android:background="@drawable/signupbutton"
                 android:elevation="4dp"
                 android:gravity="center"
                 android:minHeight="40dp"
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center"
                 android:text="@string/submit"
-                android:textColor="@color/colorwhite"
+                android:textColor="@color/logintxt"
                 android:textSize="@dimen/textsizenormal"
                 android:textAllCaps="false"
                 android:textStyle="normal" />

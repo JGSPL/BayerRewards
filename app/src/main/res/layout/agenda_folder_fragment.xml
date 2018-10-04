@@ -56,7 +56,7 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -93,7 +93,7 @@
                     android:orientation="vertical">
 
 
-                    <com.procialize.singleevent.Fonts.RobotoTextview
+                    <TextView
                         android:id="@+id/txtname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

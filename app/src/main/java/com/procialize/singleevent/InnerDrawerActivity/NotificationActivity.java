@@ -30,7 +30,6 @@ import com.procialize.singleevent.GetterSetter.NotificationList;
 import com.procialize.singleevent.GetterSetter.NotificationListFetch;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
-import com.procialize.singleevent.Utility.Util;
 
 import java.util.HashMap;
 import java.util.List;
@@ -53,7 +52,6 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
     private SQLiteDatabase db;
     private DBHelper dbHelper;
     private List<NewsFeedList> newsfeedsDBList;
-    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +81,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
             }
         });
 
-        headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
+
         notificationRv = findViewById(R.id.notificationRv);
 //        progressBar = findViewById(R.id.progressBar);
         notificationRvrefresh = findViewById(R.id.notificationRvrefresh);

@@ -16,7 +16,6 @@ import com.procialize.singleevent.Adapter.SwipepagerAdapter;
 import com.procialize.singleevent.GetterSetter.FirstLevelFilter;
 import com.procialize.singleevent.GetterSetter.GalleryList;
 import com.procialize.singleevent.R;
-import com.procialize.singleevent.Utility.Util;
 
 import java.util.List;
 
@@ -31,7 +30,6 @@ public class SwappingGalleryActivity extends AppCompatActivity implements SwipeI
     RecyclerView recyclerView;
     ViewPager pager;
     ImageView right,left,backIv;
-    ImageView headerlogoIv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,9 +43,6 @@ public class SwappingGalleryActivity extends AppCompatActivity implements SwipeI
         right = findViewById(R.id.right);
         left = findViewById(R.id.left);
         backIv = findViewById(R.id.backIv);
-
-        headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
 
 
         backIv.setOnClickListener(new View.OnClickListener() {

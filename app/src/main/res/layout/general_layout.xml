@@ -11,9 +11,9 @@
         android:layout_margin="5dp"
         android:background="@drawable/agendabg"
         android:drawableRight="@drawable/ic_rightarrow"
-        android:drawablePadding="10dp"
+        android:elevation="10dp"
         android:gravity="center"
-        android:padding="5dp"
-        android:textColor="@color/black" />
+        android:padding="10dp"
+        android:textColor="@color/colorwhite" />
 
 </LinearLayout>

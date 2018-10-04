@@ -30,7 +30,6 @@ import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.GetterSetter.GeneralInfoList;
 import com.procialize.singleevent.GetterSetter.InfoList;
 import com.procialize.singleevent.InnerDrawerActivity.GeneralInfoActivity;
-import com.procialize.singleevent.InnerDrawerActivity.WeatherActivity;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 
@@ -80,7 +79,9 @@ public class GeneralInfo extends Fragment implements GeneralInfoListAdapter.Gene
         general_item_list = view.findViewById(R.id.general_item_list);
 
 
+
         HashMap<String, String> user = sessionManager.getUserDetails();
+
 
 
         // token
@@ -121,7 +122,7 @@ public class GeneralInfo extends Fragment implements GeneralInfoListAdapter.Gene
         weather_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), WeatherActivity.class);
+                Intent intent = new Intent(getActivity(), TimeWeatherActivity.class);
                 startActivity(intent);
             }
         });

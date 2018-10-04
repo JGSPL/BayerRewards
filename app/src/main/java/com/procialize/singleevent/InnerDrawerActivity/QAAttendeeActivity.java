@@ -32,7 +32,6 @@ import com.procialize.singleevent.GetterSetter.AgendaQuestion;
 import com.procialize.singleevent.GetterSetter.QASessionFetch;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
-import com.procialize.singleevent.Utility.Util;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -62,7 +61,6 @@ public class QAAttendeeActivity extends AppCompatActivity implements QAAttendeeA
     String token;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
-    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,8 +87,6 @@ public class QAAttendeeActivity extends AppCompatActivity implements QAAttendeeA
             }
         });
 
-        headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
         qaRv = findViewById(R.id.qaRv);
         postbtn = findViewById(R.id.postbtn);
         qaRvrefresh = findViewById(R.id.qaRvrefresh);

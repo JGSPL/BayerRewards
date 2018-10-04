@@ -3,11 +3,7 @@ package com.procialize.singleevent.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
-import android.media.ExifInterface;
-import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -40,8 +36,6 @@ import com.procialize.singleevent.Session.SessionManager;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
-import java.io.File;
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -280,7 +274,7 @@ public class NewsfeedAdapter extends BaseAdapter {
         holder.liketext.setFocusable(true);
 
         if (user.get(SessionManager.KEY_ID).equalsIgnoreCase(feedLists.get(position).getAttendeeId())) {
-            holder.editIV.setVisibility(View.GONE);
+            holder.editIV.setVisibility(View.VISIBLE);
             holder.moreIV.setVisibility(View.VISIBLE);
 //            reportTv.setVisibility(View.GONE);
 //            reportuserTv.setVisibility(View.GONE);
@@ -750,6 +744,5 @@ public class NewsfeedAdapter extends BaseAdapter {
             }
         }
     }
-
 
 }

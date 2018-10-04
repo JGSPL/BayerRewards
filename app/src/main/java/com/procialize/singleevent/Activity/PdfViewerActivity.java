@@ -20,7 +20,6 @@ import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.GetterSetter.Analytic;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
-import com.procialize.singleevent.Utility.Util;
 
 import java.util.HashMap;
 
@@ -35,7 +34,6 @@ public class PdfViewerActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     ImageView backIv;
     private APIService mAPIService;
-    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +63,7 @@ public class PdfViewerActivity extends AppCompatActivity {
                 finish();
             }
         });
-        headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
+
         WebSettings settings = webview.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setLoadWithOverviewMode(true);

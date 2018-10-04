@@ -61,7 +61,6 @@ import com.procialize.singleevent.GetterSetter.Result;
 import com.procialize.singleevent.GetterSetter.response;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
-import com.procialize.singleevent.Utility.Util;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -122,7 +121,6 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
     String news_feed_share,
             news_feed_comment,
             news_feed_like;
-    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,9 +144,6 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
                 finish();
             }
         });
-
-        headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");

@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -19,7 +18,6 @@ import com.devbrackets.android.exomedia.listener.OnPreparedListener;
 import com.devbrackets.android.exomedia.ui.widget.EMVideoView;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.R;
-import com.procialize.singleevent.Utility.Util;
 
 
 /**
@@ -34,7 +32,6 @@ public class ExoVideoActivity extends AppCompatActivity implements OnPreparedLis
     String tripId = "";
     Button btn_share;
     RelativeLayout llTop;
-    ImageView headerlogoIv;
 
 
     @Override
@@ -61,8 +58,7 @@ public class ExoVideoActivity extends AppCompatActivity implements OnPreparedLis
         TextView txtIcon = (TextView) findViewById(R.id.txtIcon);
         btn_share = (Button) findViewById(R.id.btn_share);
 //        llTop = (RelativeLayout) findViewById(R.id.rlData);
-        headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
+
 
         txtIcon.setOnClickListener(new View.OnClickListener() {
             @Override
