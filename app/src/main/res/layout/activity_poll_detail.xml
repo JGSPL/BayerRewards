@@ -38,7 +38,7 @@
                 android:contentDescription=" "
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/splashlogo"/>
+                android:src="@drawable/header_logo"/>
 
         </android.support.v7.widget.Toolbar>
 
@@ -49,7 +49,7 @@
     <com.procialize.singleevent.Fonts.RobotoTextview
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="@color/activetab"
         android:gravity="center"
         android:padding="@dimen/padding"
         android:textSize="@dimen/textsizenormal"
@@ -58,25 +58,34 @@
 
     <com.procialize.singleevent.Fonts.RobotoTextview
         android:id="@+id/questionTv"
-        android:textColor="@color/black"
-        android:textSize="@dimen/textsizesmall"
-        android:layout_margin="@dimen/margin"
+        android:textColor="@color/colorwhite"
+        android:background="#4d4d4d"
+        android:textSize="16dp"
+        android:padding="10dp"
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <RadioGroup
         android:id="@+id/radiogroup"
-        android:layout_margin="@dimen/margin"
+        android:layout_margin="10dp"
         android:elevation="@dimen/elevation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:orientation="vertical" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/pollGraph"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
 
     <LinearLayout
         android:gravity="center"
-        android:layout_margin="@dimen/margin"
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <com.procialize.singleevent.Fonts.RobotoButton
@@ -84,11 +93,11 @@
             android:layout_gravity="bottom"
             android:text="Submit"
             android:textSize="@dimen/textsizesmall"
+            android:textAllCaps="false"
             android:textColor="@color/colorwhite"
-            android:background="@drawable/signupbutton"
-            android:elevation="@dimen/elevation"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content" />
+            android:background="@color/activetab"
+            android:layout_width="match_parent"
+            android:layout_height="35dp" />
 
     </LinearLayout>
 

@@ -6,11 +6,15 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -20,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.procialize.singleevent.Adapter.PollAdapter;
+import com.procialize.singleevent.Adapter.PollGraphAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.GetterSetter.LivePollFetch;
@@ -54,6 +59,8 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
     ViewGroup viewGroup;
     List<RadioButton> radios;
     String token;
+    LinearLayout linView;
+    RecyclerView pollGraph;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +88,15 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
             }
         });
 
+        pollGraph = findViewById(R.id.pollGraph);
+
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        pollGraph.setLayoutManager(mLayoutManager);
+
+        int resId = R.anim.layout_animation_slide_right;
+        LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
+        pollGraph.setLayoutAnimation(animation);
+
 
         optionLists = new ArrayList<>();
         mAPIService = ApiUtils.getAPIService();
@@ -88,6 +104,7 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
         questionTv = findViewById(R.id.questionTv);
         subBtn = findViewById(R.id.subBtn);
         subBtn.setOnClickListener(this);
+
 
         SessionManager sessionManager = new SessionManager(this);
 
@@ -223,6 +240,12 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
                         }
 
                     }
+
+                    viewGroup.setVisibility(View.GONE);
+                    PollGraphAdapter pollAdapter = new PollGraphAdapter(this,optionLists,questionId );
+                    pollAdapter.notifyDataSetChanged();
+                    pollGraph.setAdapter(pollAdapter);
+                    pollGraph.scheduleLayoutAnimation();
                 }
 
 
@@ -257,7 +280,7 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
          * "#FF9800", "#1B5E20" };
          */
 
-        String[] color = {"#000000", "#6b6b6b", "#76c8e2", "#057189", "#0573a5", "#000000", "#6b6b6b", "#76c8e2", "#057189", "#0573a5"};
+        String[] color = {"#0e73ba", "#00a89c", "#4d4d4d", "#949494", "#0e73ba", "#00a89c", "#4d4d4d", "#949494", "#0e73ba", "#00a89c","#4d4d4d","#949494"};
 
         Float totalUser = 0.0f;
 
@@ -289,106 +312,119 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
         }
 
         // quiz_layout.setBackgroundColor(Color.parseColor("#1B5E20"));
+        if(replyFlag.equalsIgnoreCase("1")){
+            viewGroup.setVisibility(View.GONE);
+            PollGraphAdapter pollAdapter = new PollGraphAdapter(this,optionLists,questionId );
+            pollAdapter.notifyDataSetChanged();
+            pollGraph.setAdapter(pollAdapter);
+            pollGraph.scheduleLayoutAnimation();
 
-        for (int row = 0; row < 1; row++) {
 
-            for (int i = 1; i < number; i++) {
+        }else {
 
-                LinearLayout ll = new LinearLayout(this);
+            pollGraph.setVisibility(View.GONE);
+            viewGroup.setVisibility(View.VISIBLE);
 
-                LinearLayout l3 = new LinearLayout(this);
-                FrameLayout fl = new FrameLayout(this);
+            for (int row = 0; row < 1; row++) {
 
-                ll.setOrientation(LinearLayout.HORIZONTAL);
-                ll.setPadding(10, 10, 10, 10);
+                for (int i = 1; i < number; i++) {
 
-                LinearLayout ll2 = new LinearLayout(this);
-                ll2.setOrientation(LinearLayout.HORIZONTAL);
-                ll2.setPadding(10, 10, 10, 10);
+                    LinearLayout ll = new LinearLayout(this);
 
-                LinearLayout.LayoutParams rprms, rprmsRdBtn, rpms2;
+                    LinearLayout l3 = new LinearLayout(this);
+                    FrameLayout fl = new FrameLayout(this);
 
-                RadioButton rdbtn = new RadioButton(this);
-                rdbtn.setId((row * 2) + i);
-                rdbtn.setText(optionLists.get(i - 1).getOption());
-                rdbtn.setTextColor(Color.BLACK);
+                    ll.setOrientation(LinearLayout.HORIZONTAL);
+                    ll.setPadding(10, 10, 10, 10);
+
+                    LinearLayout ll2 = new LinearLayout(this);
+                    ll2.setOrientation(LinearLayout.HORIZONTAL);
+                    ll2.setPadding(10, 10, 10, 10);
+
+                    LinearLayout.LayoutParams rprms, rprmsRdBtn, rpms2;
+
+                    RadioButton rdbtn = new RadioButton(this);
+                    rdbtn.setId((row * 2) + i);
+                    rdbtn.setText(optionLists.get(i - 1).getOption());
+                    rdbtn.setTextColor(Color.BLACK);
 //                rdbtn.setTypeface(typeFace);
-                rdbtn.setOnClickListener(this);
+                    rdbtn.setOnClickListener(this);
 
-                if (replyFlag.equalsIgnoreCase("1")) {
+                    if (replyFlag.equalsIgnoreCase("1")) {
 
-                    rdbtn.setClickable(false);
-                    rdbtn.setChecked(false);
+                        rdbtn.setClickable(false);
+                        rdbtn.setChecked(false);
 
-                } else {
+                    } else {
 
-                    if (i == 1)
-                        rdbtn.setChecked(true);
+                        if (i == 1)
+                            rdbtn.setChecked(true);
+                    }
+
+                    radios.add(rdbtn);
+
+                    // rdbtn.setBackgroundResource(R.drawable.edit_background);
+
+                    rprms = new LinearLayout.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                    rprms.setMargins(5, 5, 5, 5);
+
+                    Float weight = 0.0f;
+
+                    if (replyFlag.equalsIgnoreCase("1")) {
+
+                        // if (quizSpecificOptionListnew.get(i -
+                        // 1).getLive_poll_id()
+                        // .equalsIgnoreCase(questionId)) {
+                        ll2.setBackgroundColor(Color.parseColor(color[i]));
+
+                        weight = ((Float.parseFloat(optionLists.get(i - 1)
+                                .getTotalUser()) / totalUser) * 100);
+
+                        // }
+
+                    } else {
+
+                        weight = 100.0f;
+                    }
+
+                    rpms2 = new LinearLayout.LayoutParams(0,
+                            ViewGroup.LayoutParams.MATCH_PARENT, weight);
+                    rpms2.setMargins(5, 5, 5, 5);
+
+                    ll.setBackgroundResource(R.drawable.agenda_bg);
+                    ll.setWeightSum(100);
+                    ll.setLayoutParams(rprms);
+
+                    l3.setLayoutParams(rprms);
+                    l3.setWeightSum(100);
+
+                    // ll2.setBackgroundColor(Color.parseColor(color[i]));
+                    ll2.setLayoutParams(rpms2);
+
+                    FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+                    params.gravity = Gravity.CENTER;
+
+                    rprmsRdBtn = new LinearLayout.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                    rprms.setMargins(5, 5, 5, 5);
+                    rdbtn.setLayoutParams(rprmsRdBtn);
+
+                    l3.addView(ll2, rpms2);
+
+                    fl.addView(l3, rprms);
+                    fl.addView(rdbtn, rprmsRdBtn);
+
+                    // ll2.addView(rdbtn, rprmsRdBtn);
+                    ll.addView(fl, params);
+
+                    viewGroup.addView(ll, rprms);
+                    viewGroup.invalidate();
                 }
 
-                radios.add(rdbtn);
-
-                // rdbtn.setBackgroundResource(R.drawable.edit_background);
-
-                rprms = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                rprms.setMargins(5, 5, 5, 5);
-
-                Float weight = 0.0f;
-
-                if (replyFlag.equalsIgnoreCase("1")) {
-
-                    // if (quizSpecificOptionListnew.get(i -
-                    // 1).getLive_poll_id()
-                    // .equalsIgnoreCase(questionId)) {
-                    ll2.setBackgroundColor(Color.parseColor(color[i]));
-
-                    weight = ((Float.parseFloat(optionLists.get(i - 1)
-                            .getTotalUser()) / totalUser) * 100);
-
-                    // }
-
-                } else {
-
-                    weight = 100.0f;
-                }
-
-                rpms2 = new LinearLayout.LayoutParams(0,
-                        ViewGroup.LayoutParams.MATCH_PARENT, weight);
-                rpms2.setMargins(5, 5, 5, 5);
-
-                ll.setBackgroundResource(R.drawable.edit_background);
-                ll.setWeightSum(100);
-                ll.setLayoutParams(rprms);
-
-                l3.setLayoutParams(rprms);
-                l3.setWeightSum(100);
-
-                // ll2.setBackgroundColor(Color.parseColor(color[i]));
-                ll2.setLayoutParams(rpms2);
-
-                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-
-                params.gravity = Gravity.CENTER;
-
-                rprmsRdBtn = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                rprms.setMargins(5, 5, 5, 5);
-                rdbtn.setLayoutParams(rprmsRdBtn);
-
-                l3.addView(ll2, rpms2);
-
-                fl.addView(l3, rprms);
-                fl.addView(rdbtn, rprmsRdBtn);
-
-                // ll2.addView(rdbtn, rprmsRdBtn);
-                ll.addView(fl, params);
-
-                viewGroup.addView(ll, rprms);
-                viewGroup.invalidate();
             }
-
         }
 
     }
@@ -471,13 +507,19 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
         if (response.body().getLivePollList().size() != 0) {
 //            PollAdapter pollAdapter = new PollAdapter(this, response.body().getLivePollList(), response.body().getLivePollOptionList(), this);
 //            pollAdapter.notifyDataSetChanged();
-//            pollRv.setAdapter(pollAdapter);
-//            pollRv.scheduleLayoutAnimation();
+//            pollGraph.setAdapter(pollAdapter);
+//            pollGraph.scheduleLayoutAnimation();
 
             optionLists = response.body().getLivePollOptionList();
         } else {
             Toast.makeText(getApplicationContext(), "No Poll Available", Toast.LENGTH_SHORT).show();
 
         }
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(PollDetailActivity.this, LivePollActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
