@@ -6,11 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.procialize.singleevent.GetterSetter.LivePollList;
 import com.procialize.singleevent.GetterSetter.LivePollOptionList;
 import com.procialize.singleevent.R;
 
@@ -42,7 +40,7 @@ public class PollGraphAdapter extends RecyclerView.Adapter<PollGraphAdapter.MyVi
     }
 
 
-    public PollGraphAdapter(Context context,List<LivePollOptionList> optionLists,String questionId) {
+    public PollGraphAdapter(Context context, List<LivePollOptionList> optionLists, String questionId) {
         this.optionLists = optionLists;
         this.context=context;
         this.questionId= questionId;

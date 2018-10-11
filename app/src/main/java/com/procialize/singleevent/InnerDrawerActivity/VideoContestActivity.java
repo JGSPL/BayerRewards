@@ -35,6 +35,7 @@ import com.procialize.singleevent.GetterSetter.VideoContestListFetch;
 
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -60,6 +61,8 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
     Dialog myDialog;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
+    String user_id;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +89,8 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
                 onBackPressed();
             }
         });
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
 
         uploadbtn = findViewById(R.id.uploadbtn);
         videofeedrefresh = findViewById(R.id.videofeedrefresh);
@@ -108,6 +113,9 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
 
         HashMap<String, String> user = sessionManager.getUserDetails();
 
+
+        user_id = user.get(SessionManager.KEY_ID);
+        // token
         // token
         token = user.get(SessionManager.KEY_TOKEN);
 
@@ -153,13 +161,13 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
                         videofeedrefresh.setRefreshing(false);
                     }
                     dismissProgress();
-                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<VideoContestListFetch> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
 
                 dismissProgress();
                 if (videofeedrefresh.isRefreshing()) {
@@ -268,8 +276,17 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
 
         reportTv.setText("Report Video");
         hideTv.setText("Hide Video");
+        deleteTv.setText("Detete this Video");
 
-
+        if (videoContest.getAttendeeId().equalsIgnoreCase(user_id)) {
+            deleteTv.setVisibility(View.VISIBLE);
+            hideTv.setVisibility(View.GONE);
+            reportTv.setVisibility(View.GONE);
+        } else {
+            deleteTv.setVisibility(View.GONE);
+            hideTv.setVisibility(View.VISIBLE);
+            reportTv.setVisibility(View.VISIBLE);
+        }
         hideTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -321,7 +338,7 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
 
             @Override
             public void onFailure(Call<VideoContestLikes> call, Throwable t) {
-                Toast.makeText(VideoContestActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(VideoContestActivity.this, "Low network or no network", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -359,14 +376,14 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
                 } else {
 //                    dismissProgress();
 
-                    Toast.makeText(VideoContestActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(VideoContestActivity.this, response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ReportVideoContestHide> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
-                Toast.makeText(VideoContestActivity.this, "Unable to Delete please try again later", Toast.LENGTH_SHORT).show();
+                Toast.makeText(VideoContestActivity.this, "Low network or no network", Toast.LENGTH_SHORT).show();
 
 //                dismissProgress();
             }
@@ -386,14 +403,14 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
                 } else {
 //                    dismissProgress();
 
-                    Toast.makeText(VideoContestActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(VideoContestActivity.this, response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ReportVideoContestHide> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
-                Toast.makeText(VideoContestActivity.this, "Unable to Delete please try again later", Toast.LENGTH_SHORT).show();
+                Toast.makeText(VideoContestActivity.this, "Low network or no network", Toast.LENGTH_SHORT).show();
 
 //                dismissProgress();
             }
@@ -431,14 +448,14 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
                 } else {
 //                    dismissProgress();
 
-                    Toast.makeText(VideoContestActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(VideoContestActivity.this, response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ReportVideoContest> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
-                Toast.makeText(VideoContestActivity.this, "Unable to Delete please try again later", Toast.LENGTH_SHORT).show();
+                Toast.makeText(VideoContestActivity.this, "Low network or no network", Toast.LENGTH_SHORT).show();
 
 //                dismissProgress();
             }

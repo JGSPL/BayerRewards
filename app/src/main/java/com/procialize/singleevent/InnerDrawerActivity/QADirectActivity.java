@@ -33,6 +33,7 @@ import com.procialize.singleevent.GetterSetter.QASessionFetch;
 import com.procialize.singleevent.GetterSetter.QASpeakerFetch;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -55,6 +56,7 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
     private APIService mAPIService;
     RecyclerView qaRv;
     public QADirectAdapter qaAttendeeAdapter;
+    ImageView headerlogoIv;
 
 
     @Override
@@ -83,6 +85,8 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
                 onBackPressed();
             }
         });
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
 
 
         mAPIService = ApiUtils.getAPIService();
@@ -140,13 +144,13 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
                         qaRvrefresh.setRefreshing(false);
                     }
                     dismissProgress();
-                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<QADirectFetch> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
 
                 dismissProgress();
                 if (qaRvrefresh.isRefreshing()) {
@@ -277,6 +281,8 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
 
                 if (response.isSuccessful()) {
                     Log.i("hit", "post submitted to API." + response.body().toString());
+                    Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
+
                     if (myDialog != null) {
                         if (myDialog.isShowing()) {
                             myDialog.dismiss();
@@ -286,14 +292,14 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
 
                 } else {
 
-                    Toast.makeText(QADirectActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(QADirectActivity.this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
 
             @Override
             public void onFailure(Call<QADirectFetch> call, Throwable t) {
-                Toast.makeText(QADirectActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(QADirectActivity.this, "Low network or no network", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -357,14 +363,14 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
                     showLikeResponse(response);
                 } else {
 
-                    Toast.makeText(QADirectActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(QADirectActivity.this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
 
             @Override
             public void onFailure(Call<QADirectFetch> call, Throwable t) {
-                Toast.makeText(QADirectActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(QADirectActivity.this, "Low network or no network", Toast.LENGTH_SHORT).show();
 
             }
         });

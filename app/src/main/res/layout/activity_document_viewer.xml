@@ -36,7 +36,7 @@
                 android:contentDescription=" "
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/splashlogo"/>
+                android:src="@drawable/header_logo"/>
 
         </android.support.v7.widget.Toolbar>
 

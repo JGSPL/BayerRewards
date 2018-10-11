@@ -28,6 +28,7 @@ import com.procialize.singleevent.GetterSetter.GalleryList;
 import com.procialize.singleevent.GetterSetter.GalleryListFetch;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -49,6 +50,7 @@ public class GalleryActivity extends AppCompatActivity implements GalleryAdapter
     private static List<FolderList> folderLists;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +77,8 @@ public class GalleryActivity extends AppCompatActivity implements GalleryAdapter
                 onBackPressed();
             }
         });
-
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
 
         galleryRv = findViewById(R.id.galleryRv);
         galleryRvrefresh = findViewById(R.id.galleryRvrefresh);
@@ -130,13 +133,13 @@ public class GalleryActivity extends AppCompatActivity implements GalleryAdapter
                         galleryRvrefresh.setRefreshing(false);
                     }
                     dismissProgress();
-                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<GalleryListFetch> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
 
                 dismissProgress();
                 if (galleryRvrefresh.isRefreshing()) {

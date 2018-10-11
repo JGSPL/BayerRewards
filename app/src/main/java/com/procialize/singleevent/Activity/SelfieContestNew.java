@@ -34,6 +34,7 @@ import com.procialize.singleevent.InnerDrawerActivity.SelfieUploadActivity;
 import com.procialize.singleevent.InnerDrawerActivity.SwappingSelfieActivity;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -60,6 +61,7 @@ public class SelfieContestNew extends AppCompatActivity implements SelfieAdapter
     List<SelfieList> selfieLists;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +88,10 @@ public class SelfieContestNew extends AppCompatActivity implements SelfieAdapter
                 onBackPressed();
             }
         });
+
+
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
 
         mAPIService = ApiUtils.getAPIService();
 
@@ -140,13 +146,13 @@ public class SelfieContestNew extends AppCompatActivity implements SelfieAdapter
                         selfiefeedrefresh.setRefreshing(false);
                     }
                     dismissProgress();
-                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<SelfieListFetch> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
 
                 dismissProgress();
                 if (selfiefeedrefresh.isRefreshing()) {
@@ -255,14 +261,14 @@ public class SelfieContestNew extends AppCompatActivity implements SelfieAdapter
                 } else {
 //                    dismissProgress();
 
-                    Toast.makeText(SelfieContestNew.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SelfieContestNew.this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ReportSelfieHide> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
-                Toast.makeText(SelfieContestNew.this, "Unable to Delete please try again later", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SelfieContestNew.this, "Low network or no network", Toast.LENGTH_SHORT).show();
 
 //                dismissProgress();
             }
@@ -300,14 +306,14 @@ public class SelfieContestNew extends AppCompatActivity implements SelfieAdapter
                 } else {
 //                    dismissProgress();
 
-                    Toast.makeText(SelfieContestNew.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SelfieContestNew.this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ReportSelfie> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
-                Toast.makeText(SelfieContestNew.this, "Unable to Delete please try again later", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SelfieContestNew.this, "Low network or no network", Toast.LENGTH_SHORT).show();
 
 //                dismissProgress();
             }
@@ -407,14 +413,14 @@ public class SelfieContestNew extends AppCompatActivity implements SelfieAdapter
                     showLikeResponse(response);
                 } else {
 
-                    Toast.makeText(SelfieContestNew.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SelfieContestNew.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
 
 
             @Override
             public void onFailure(Call<SelfieLike> call, Throwable t) {
-                Toast.makeText(SelfieContestNew.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SelfieContestNew.this, "Low network or no network", Toast.LENGTH_SHORT).show();
 
             }
         });

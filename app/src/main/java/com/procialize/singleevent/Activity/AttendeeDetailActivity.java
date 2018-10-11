@@ -1,9 +1,15 @@
 package com.procialize.singleevent.Activity;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.ContentProviderOperation;
+import android.content.ContentProviderResult;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +21,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import android.widget.TextView;
@@ -37,9 +44,11 @@ import com.procialize.singleevent.GetterSetter.SendMessagePost;
 import com.procialize.singleevent.GetterSetter.UserData;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -50,8 +59,8 @@ import retrofit2.Response;
 public class AttendeeDetailActivity extends AppCompatActivity {
 
 
-    String attendeeid, city, country, company, designation, description, totalrating, name, profile;
-    TextView tvname, tvcompany, tvdesignation, tvcity;
+    String attendeeid, city, country, company, designation, description, totalrating, name, profile, mobile;
+    TextView tvname, tvcompany, tvdesignation, tvcity, tvmob;
     Button sendbtn;
     Dialog myDialog;
     APIService mAPIService;
@@ -71,6 +80,12 @@ public class AttendeeDetailActivity extends AppCompatActivity {
     private List<AttendeeList> attendeesDBList;
     private DBHelper dbHelper;
     String getattendee;
+    EditText posttextEt;
+    View viewtwo, viewthree, viewone;
+    ProgressDialog progressDialog;
+    LinearLayout linearsaveandsend;
+    ImageView headerlogoIv;
+    Button saveContact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +107,8 @@ public class AttendeeDetailActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this, headerlogoIv);
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
 
@@ -132,6 +148,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
             description = getIntent().getExtras().getString("description");
             totalrating = getIntent().getExtras().getString("totalrating");
             profile = getIntent().getExtras().getString("profile");
+            mobile = getIntent().getExtras().getString("mobile");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -144,12 +161,22 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         tvcity = findViewById(R.id.tvcity);
         profileIV = findViewById(R.id.profileIV);
         progressBar = findViewById(R.id.progressBar);
+        posttextEt = findViewById(R.id.posttextEt);
+        viewtwo = findViewById(R.id.viewtwo);
+        viewthree = findViewById(R.id.viewthree);
+        viewone = findViewById(R.id.viewone);
+        linearsaveandsend = findViewById(R.id.linearsaveandsend);
+        saveContact = findViewById(R.id.saveContact);
+        tvmob = findViewById(R.id.tvmob);
 
-        sendbtn = findViewById(R.id.sendbtn);
+        sendbtn = findViewById(R.id.sendMsg);
+        sendbtn.setVisibility(View.GONE);
         if (attendeeid.equalsIgnoreCase(getattendee)) {
             sendbtn.setVisibility(View.GONE);
+            linearsaveandsend.setVisibility(View.GONE);
         } else {
             sendbtn.setVisibility(View.VISIBLE);
+            linearsaveandsend.setVisibility(View.VISIBLE);
         }
 
         if (name.equalsIgnoreCase("N A")) {
@@ -169,15 +196,27 @@ public class AttendeeDetailActivity extends AppCompatActivity {
             tvcompany.setVisibility(View.GONE);
         }
 
+        if (attendee_mobile.equalsIgnoreCase("N A")) {
+            tvmob.setVisibility(View.GONE);
+        } else if (mobile != null && attendee_mobile.equalsIgnoreCase("1")) {
+            tvmob.setText(mobile);
+
+        } else {
+            tvmob.setVisibility(View.GONE);
+        }
+
         try {
             if (designation.equalsIgnoreCase("N A")) {
                 tvdesignation.setVisibility(View.GONE);
+                viewtwo.setVisibility(View.GONE);
+
             } else if (designation != null && attendee_design.equalsIgnoreCase("1")) {
                 tvdesignation.setText(designation);
             } else {
                 tvdesignation.setVisibility(View.GONE);
+                viewtwo.setVisibility(View.GONE);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -214,7 +253,25 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         sendbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showratedialouge();
+                if (posttextEt.getText().toString().length() > 0) {
+
+                    String msg = StringEscapeUtils.escapeJava(posttextEt.getText().toString());
+                    PostMesssage(eventid, msg, apikey, attendeeid);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Enter Something", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        saveContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                try {
+                    addToContactList(AttendeeDetailActivity.this, name, city);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -229,6 +286,8 @@ public class AttendeeDetailActivity extends AppCompatActivity {
                 attendee_location = eventSettingLists.get(i).getFieldValue();
             } else if (eventSettingLists.get(i).getFieldName().equals("attendee_mobile")) {
                 attendee_mobile = eventSettingLists.get(i).getFieldValue();
+            } else if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("attendee_design")) {
+                attendee_design = eventSettingLists.get(i).getFieldValue();
             } else if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("attendee_designation")) {
                 attendee_design = eventSettingLists.get(i).getFieldValue();
             }
@@ -299,26 +358,33 @@ public class AttendeeDetailActivity extends AppCompatActivity {
 
 
     public void PostMesssage(String eventid, String msg, String token, String attendeeid) {
+        progressDialog = new ProgressDialog(AttendeeDetailActivity.this);
+//        progressDialog.setMessage("Loading...");
+        progressDialog.show();
 //        showProgress();
         mAPIService.SendMessagePost(token, eventid, msg, attendeeid).enqueue(new Callback<SendMessagePost>() {
             @Override
             public void onResponse(Call<SendMessagePost> call, Response<SendMessagePost> response) {
 
                 if (response.isSuccessful()) {
+                    progressDialog.dismiss();
                     Log.i("hit", "post submitted to API." + response.body().toString());
 //                    dismissProgress();
+                    posttextEt.setText("");
                     DeletePostresponse(response);
                 } else {
+                    progressDialog.dismiss();
 //                    dismissProgress();
 
-//                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<SendMessagePost> call, Throwable t) {
-                Log.e("hit", "Unable to submit post to API.");
-                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+                Log.e("hit", "Low network or no network");
+                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
 
 //                dismissProgress();
             }
@@ -331,13 +397,13 @@ public class AttendeeDetailActivity extends AppCompatActivity {
 
             Log.e("post", "success");
 
-            myDialog.dismiss();
+//            myDialog.dismiss();
             Toast.makeText(this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
 
 
         } else {
             Log.e("post", "fail");
-            myDialog.dismiss();
+//            myDialog.dismiss();
             Toast.makeText(this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
         }
     }
@@ -346,5 +412,49 @@ public class AttendeeDetailActivity extends AppCompatActivity {
     protected void onResume() {
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         super.onResume();
+    }
+
+    public void addToContactList(Context context, String strDisplayName, String strNumber) throws Exception {
+
+        ArrayList<ContentProviderOperation> cntProOper = new ArrayList<>();
+        int contactIndex = cntProOper.size();//ContactSize
+        ContentResolver contactHelper = context.getContentResolver();
+
+        cntProOper.add(ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI)//Step1
+                .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, null)
+                .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null).build());
+
+        //Display name will be inserted in ContactsContract.Data table
+        cntProOper.add(ContentProviderOperation.newInsert(android.provider.ContactsContract.Data.CONTENT_URI)//Step2
+                .withValueBackReference(android.provider.ContactsContract.Data.RAW_CONTACT_ID, contactIndex)
+                .withValue(android.provider.ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+                .withValue(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, strDisplayName) // Name of the contact
+                .build());
+
+//        for (String s : strNumber) {
+//            //Mobile number will be inserted in ContactsContract.Data table
+//            cntProOper.add(ContentProviderOperation.newInsert(android.provider.ContactsContract.Data.CONTENT_URI)//Step 3
+//                    .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, contactIndex)
+//                    .withValue(android.provider.ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
+//                    .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, s) // Number to be added
+//                    .withValue(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE).build()); //Type like HOME, MOBILE etc
+//        }
+
+        cntProOper.add(ContentProviderOperation.newInsert(android.provider.ContactsContract.Data.CONTENT_URI)//Step 3
+                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, contactIndex)
+                .withValue(android.provider.ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
+                .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, strNumber) // Number to be added
+                .withValue(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE).build());
+
+        ContentProviderResult[] s = context.getContentResolver().applyBatch(ContactsContract.AUTHORITY, cntProOper); //apply above data insertion into contacts list
+
+        for (ContentProviderResult r : s) {
+            Log.i("hey", "addToContactList: " + r.uri);
+        }
+
+        Toast.makeText(this, "Contact Save Successfully", Toast.LENGTH_SHORT).show();
+        finish();
+
+
     }
 }

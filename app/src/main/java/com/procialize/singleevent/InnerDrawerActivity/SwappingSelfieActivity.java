@@ -17,6 +17,7 @@ import com.procialize.singleevent.Adapter.SwipepagerSelfieAdapter;
 import com.procialize.singleevent.GetterSetter.FirstLevelFilter;
 import com.procialize.singleevent.GetterSetter.SelfieList;
 import com.procialize.singleevent.R;
+import com.procialize.singleevent.Utility.Util;
 
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class SwappingSelfieActivity extends AppCompatActivity implements SwipeIm
     RecyclerView recyclerView;
     ViewPager pager;
     ImageView right,left,backIv;
+    ImageView headerlogoIv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +46,9 @@ public class SwappingSelfieActivity extends AppCompatActivity implements SwipeIm
         right = findViewById(R.id.right);
         left = findViewById(R.id.left);
         backIv = findViewById(R.id.backIv);
+
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
 
         backIv.setOnClickListener(new View.OnClickListener() {
             @Override

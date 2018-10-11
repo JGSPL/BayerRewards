@@ -36,6 +36,7 @@ import com.procialize.singleevent.GetterSetter.SpeakerList;
 import com.procialize.singleevent.GetterSetter.SpeakerQuestionList;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -66,6 +67,7 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
     String token;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +94,8 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
                 onBackPressed();
             }
         });
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
 
 
         qaRv = findViewById(R.id.qaRv);
@@ -178,13 +182,13 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
                         qaRvrefresh.setRefreshing(false);
                     }
                     dismissProgress();
-                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<QASpeakerFetch> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
 
                 dismissProgress();
                 if (qaRvrefresh.isRefreshing()) {
@@ -340,6 +344,8 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
 
                 if (response.isSuccessful()) {
                     Log.i("hit", "post submitted to API." + response.body().toString());
+                    Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
+
                     if (myDialog != null) {
                         if (myDialog.isShowing()) {
                             myDialog.dismiss();
@@ -349,14 +355,14 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
 
                 } else {
 
-                    Toast.makeText(QASpeakerActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(QASpeakerActivity.this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
 
             @Override
             public void onFailure(Call<QASpeakerFetch> call, Throwable t) {
-                Toast.makeText(QASpeakerActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(QASpeakerActivity.this, "Low network or no network", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -428,14 +434,14 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
                     showLikeResponse(response);
                 } else {
 
-                    Toast.makeText(QASpeakerActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(QASpeakerActivity.this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
 
             @Override
             public void onFailure(Call<QASpeakerFetch> call, Throwable t) {
-                Toast.makeText(QASpeakerActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(QASpeakerActivity.this, "Low network or no network", Toast.LENGTH_SHORT).show();
 
             }
         });

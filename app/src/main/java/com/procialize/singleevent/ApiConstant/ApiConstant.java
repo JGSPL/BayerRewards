@@ -9,6 +9,8 @@ public class ApiConstant {
     public static String baseUrl="https://www.procialize.info/API/event_api_call/";
 
     public static String tenorUrl="https://api.tenor.com/v1/";
+    public static String quizlist="QuizFetch";
+    public static String quizsubmit="QuizSubmit";
 
     public static String profilepic="https://www.procialize.info/uploads/attendee/";
     public static String eventpic="https://www.procialize.info/uploads/app_logo/";

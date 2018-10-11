@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:orientation="vertical"
     tools:context=".Activity.EventChooserActivity">
 
@@ -11,6 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="@color/colorwhite"
         android:orientation="horizontal"
         android:weightSum="10">
 
@@ -28,7 +30,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_margin="10dp"
-                android:src="@drawable/logout"/>
+                android:src="@drawable/ic_logout"
+                android:padding="2dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -38,6 +41,7 @@
             android:gravity="center">
 
             <ImageView
+                android:id="@+id/headerlogoIv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -85,15 +89,16 @@
         android:visibility="gone" />
 
 
-    <EditText
+    <com.procialize.singleevent.Fonts.RobotoEditext
         android:id="@+id/searchEt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="@drawable/edittextfeedbg"
+        android:background="@drawable/edittexthmbg"
         android:hint="@string/search_event_here"
         android:imeOptions="actionDone"
         android:padding="10dp"
+        android:textColor="@color/black"
         android:textSize="@dimen/textsizesmall" />
 
 

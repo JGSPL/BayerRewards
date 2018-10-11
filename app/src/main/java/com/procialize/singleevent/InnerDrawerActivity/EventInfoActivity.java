@@ -38,6 +38,7 @@ import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.GetterSetter.FetchAgenda;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -70,6 +71,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
 
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
+    ImageView headerlogoIv;
 
 
     @Override
@@ -89,6 +91,8 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
         sessionManager = new SessionManager(this);
 
         // get user data from session
@@ -153,14 +157,14 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
                     showResponse(response);
                 } else {
                     dismissProgress();
-                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<EventInfoFetch> call, Throwable t) {
                 dismissProgress();
-                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -236,7 +240,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
                 }
                 eventvenu.setText("Venue:- " + response.body().getEventList().get(0).getEventLocation());
                 event_desc.setText(response.body().getEventList().get(0).getEventDescription());
-                String image_final_url = ApiConstant.baseUrl + response.body().getEventList().get(0).getLogo();
+                String image_final_url = /*ApiConstant.baseUrl*/"https://www.procialize.info/uploads/app_logo/"+ response.body().getEventList().get(0).getLogo();
 
 //                Glide.with(getApplicationContext()).load(image_final_url).into(logoIv).onLoadStarted(getDrawable(R.drawable.logo));
                 Glide.with(getApplicationContext()).load(image_final_url)

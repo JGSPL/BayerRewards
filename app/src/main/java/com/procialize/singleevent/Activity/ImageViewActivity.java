@@ -3,15 +3,18 @@ package com.procialize.singleevent.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,8 +36,11 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
+import com.procialize.singleevent.CustomTools.PicassoTrustAll;
 import com.procialize.singleevent.CustomTools.TouchImageView;
+import com.procialize.singleevent.DbHelper.ConnectionDetector;
 import com.procialize.singleevent.R;
+import com.procialize.singleevent.Utility.Util;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -53,6 +59,10 @@ public class ImageViewActivity extends AppCompatActivity {
     String url;
     public ProgressDialog progressDialog;
     private ProgressBar progressBar;
+    ImageView headerlogoIv;
+    private ConnectionDetector cd;
+
+    String imgname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +84,9 @@ public class ImageViewActivity extends AppCompatActivity {
             }
         });
 
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
+
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Loading");
@@ -82,6 +95,8 @@ public class ImageViewActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null) {
             url = intent.getStringExtra("url");
+            imgname = url.substring(58,60);
+
         }
 
 
@@ -112,11 +127,116 @@ public class ImageViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                if (cd.isConnectingToInternet()) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+                        if (ImageViewActivity.this.checkSelfPermission(
+                                "android.permission.WRITE_EXTERNAL_STORAGE") != PackageManager.PERMISSION_GRANTED) {
+                            final String[] permissions = new String[]{"android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE"};
+                            ActivityCompat.requestPermissions(ImageViewActivity.this, permissions, 0);
+                        } else if (ImageViewActivity.this.checkSelfPermission(
+                                "android.permission.READ_EXTERNAL_STORAGE") != PackageManager.PERMISSION_GRANTED) {
+                            final String[] permissions = new String[]{"android.permission.READ_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE"};
+                            ActivityCompat.requestPermissions(ImageViewActivity.this, permissions, 0);
+                        } else {
+
+                            // new myAsyncTask().execute();
+                            PicassoTrustAll.getInstance(ImageViewActivity.this)
+                                    .load(url)
+                                    .into(new com.squareup.picasso.Target() {
+                                              @Override
+                                              public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                                                  try {
+                                                      String root = Environment.getExternalStorageDirectory().toString();
+                                                      File myDir = new File(root + "/Procialize");
+
+                                                      if (!myDir.exists()) {
+                                                          myDir.mkdirs();
+                                                      }
+                                                      Toast.makeText(ImageViewActivity.this,
+                                                              "Download completed- check folder Procialize/Image",
+                                                              Toast.LENGTH_SHORT).show();
+                                                      String name = imgname + ".jpg";
+                                                      myDir = new File(myDir, name);
+                                                      FileOutputStream out = new FileOutputStream(myDir);
+                                                      bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+
+                                                      out.flush();
+                                                      out.close();
+                                                  } catch(Exception e){
+                                                      // some action
+                                                  }
+                                              }
+
+                                              @Override
+                                              public void onBitmapFailed(Drawable errorDrawable) {
+                                              }
+
+                                              @Override
+                                              public void onPrepareLoad(Drawable placeHolderDrawable) {
+                                              }
+                                          }
+                                    );
+
+                        }
+
+
+
+                    } else {
+                        //new myAsyncTask().execute();
+                        PicassoTrustAll.getInstance(ImageViewActivity.this)
+                                .load(url)
+                                .into(new com.squareup.picasso.Target() {
+                                          @Override
+                                          public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                                              try {
+                                                  String root = Environment.getExternalStorageDirectory().toString();
+                                                  File myDir = new File(root + "/Procialize");
+
+                                                  if (!myDir.exists()) {
+                                                      myDir.mkdirs();
+                                                  }
+                                                  Toast.makeText(ImageViewActivity.this,
+                                                          "Download completed- check folder Procialize/Image",
+                                                          Toast.LENGTH_SHORT).show();
+                                                  String name = imgname + ".jpg";
+                                                  myDir = new File(myDir, name);
+
+                                                  FileOutputStream out = new FileOutputStream(myDir);
+                                                  bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+
+                                                  out.flush();
+                                                  out.close();
+                                              } catch(Exception e){
+                                                  // some action
+                                              }
+                                          }
+
+                                          @Override
+                                          public void onBitmapFailed(Drawable errorDrawable) {
+                                          }
+
+                                          @Override
+                                          public void onPrepareLoad(Drawable placeHolderDrawable) {
+                                          }
+                                      }
+                                );
+
+                    }
+
+
+                } else {
+                    Toast.makeText(getBaseContext(), "No Internet Connection",
+                            Toast.LENGTH_SHORT).show();
+                }
+
+/*
                 ImageViewActivity.this.runOnUiThread(new Runnable() {
                     public void run() {
                         new ImageDownloadAndSave().execute();
                     }
                 });
+*/
 
             }
         });

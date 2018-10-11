@@ -30,7 +30,7 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
     private AgendaAdapterListner listener;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView nameTv, dateTv,descriptionTv,tvheading;
+        public TextView nameTv, dateTv, descriptionTv, tvheading;
         public LinearLayout mainLL;
 
         public MyViewHolder(View view) {
@@ -54,10 +54,10 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
     }
 
 
-    public AgendaAdapter(Context context, List<AgendaList> agendaLists,AgendaAdapterListner listener) {
+    public AgendaAdapter(Context context, List<AgendaList> agendaLists, AgendaAdapterListner listener) {
         this.agendaLists = agendaLists;
-        this.context=context;
-        this.listener=listener;
+        this.context = context;
+        this.listener = listener;
     }
 
     @Override
@@ -75,29 +75,24 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
         holder.nameTv.setText(agenda.getSessionName());
         holder.descriptionTv.setText(agenda.getSessionDescription());
 
-        if (agenda.getSessionDate().equals(date))
-        {
+        if (agenda.getSessionDate().equals(date)) {
             holder.tvheading.setVisibility(View.GONE);
             date = agenda.getSessionDate();
 
 
-        }else
-        {
-
+        } else {
             holder.tvheading.setVisibility(View.VISIBLE);
-
+            date = agenda.getSessionDate();
             try {
                 SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-                SimpleDateFormat targetFormat = new SimpleDateFormat("dd-MMM-yyyy");
+                SimpleDateFormat targetFormat = new SimpleDateFormat(" dd-MMM-yyyy");
                 Date date = originalFormat.parse(agenda.getSessionDate());
                 String sessiondate = targetFormat.format(date);
                 holder.tvheading.setText(sessiondate);
-            }catch (Exception e)
-            {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-
 
 
         try {
@@ -112,9 +107,8 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
             String enddatestr = targetFormat.format(enddate);
 
 
-            holder.dateTv.setText(startdatestr+" - "+enddatestr);
-        }catch (Exception e)
-        {
+            holder.dateTv.setText(startdatestr + " - " + enddatestr);
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

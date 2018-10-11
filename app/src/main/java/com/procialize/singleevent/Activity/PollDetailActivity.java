@@ -4,8 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -23,7 +23,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.procialize.singleevent.Adapter.PollAdapter;
 import com.procialize.singleevent.Adapter.PollGraphAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
@@ -208,48 +207,10 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
                     "Answer posted successfully", Toast.LENGTH_SHORT)
                     .show();
             optionLists.clear();
-            if (AlloptionLists.size() != 0) {
-                for (int i = 0; i < AlloptionLists.size(); i++) {
 
-                    if (AlloptionLists.get(i).getLivePollId().equalsIgnoreCase(questionId)) {
-                        Count = Count + Integer.parseInt(AlloptionLists.get(i).getTotalUser());
-                        optionLists.add(AlloptionLists.get(i));
-                    }
-                }
-
-                replyFlag = "1";
-                subBtn.setVisibility(View.GONE);
-                if (optionLists.size() != 0) {
-
-                    viewGroup = (RadioGroup) findViewById(R.id.radiogroup);
-                    // viewGroup.setOnCheckedChangeListener(this);
-
-                    addRadioButtons(optionLists.size() + 1);
-
-                    for (int i = 0; i < optionLists.size(); i++) {
-
-                        if (optionLists
-                                .get(0)
-                                .getOption()
-                                .equalsIgnoreCase(
-                                        optionLists.get(i).getOption())) {
-
-                            quiz_options_id = optionLists.get(i)
-                                    .getOptionId();
-
-                        }
-
-                    }
-
-                    viewGroup.setVisibility(View.GONE);
-                    PollGraphAdapter pollAdapter = new PollGraphAdapter(this,optionLists,questionId );
-                    pollAdapter.notifyDataSetChanged();
-                    pollGraph.setAdapter(pollAdapter);
-                    pollGraph.scheduleLayoutAnimation();
-                }
+            fetchPoll(token, eventid);
 
 
-            }
 
         } else {
             Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
@@ -509,8 +470,56 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
 //            pollAdapter.notifyDataSetChanged();
 //            pollGraph.setAdapter(pollAdapter);
 //            pollGraph.scheduleLayoutAnimation();
+            AlloptionLists.clear();
 
-            optionLists = response.body().getLivePollOptionList();
+            AlloptionLists = response.body().getLivePollOptionList();
+            if (AlloptionLists.size() != 0) {
+                for (int i = 0; i < AlloptionLists.size(); i++) {
+
+                    if (AlloptionLists.get(i).getLivePollId().equalsIgnoreCase(questionId)) {
+                        Count = Count + Integer.parseInt(AlloptionLists.get(i).getTotalUser());
+                        optionLists.add(AlloptionLists.get(i));
+                    }
+                }
+
+                replyFlag = "1";
+                subBtn.setVisibility(View.GONE);
+                if (optionLists.size() != 0) {
+
+                    viewGroup = (RadioGroup) findViewById(R.id.radiogroup);
+                    // viewGroup.setOnCheckedChangeListener(this);
+
+                    addRadioButtons(optionLists.size() + 1);
+
+/*
+                    for (int i = 0; i < optionLists.size(); i++) {
+
+                        if (optionLists
+                                .get(0)
+                                .getOption()
+                                .equalsIgnoreCase(
+                                        optionLists.get(i).getOption())) {
+
+                            quiz_options_id = optionLists.get(i)
+                                    .getOptionId();
+
+                        }
+
+                    }
+*/
+
+
+                }
+               /* viewGroup.setVisibility(View.GONE);
+                PollGraphAdapter pollAdapter = new PollGraphAdapter(this,optionLists,questionId );
+                pollAdapter.notifyDataSetChanged();
+                pollGraph.setAdapter(pollAdapter);
+                pollGraph.scheduleLayoutAnimation();*/
+                startActivity(getIntent());
+
+
+            }
+
         } else {
             Toast.makeText(getApplicationContext(), "No Poll Available", Toast.LENGTH_SHORT).show();
 

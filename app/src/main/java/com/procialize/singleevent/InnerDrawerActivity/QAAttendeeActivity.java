@@ -32,6 +32,7 @@ import com.procialize.singleevent.GetterSetter.AgendaQuestion;
 import com.procialize.singleevent.GetterSetter.QASessionFetch;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -61,6 +62,7 @@ public class QAAttendeeActivity extends AppCompatActivity implements QAAttendeeA
     String token;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +89,8 @@ public class QAAttendeeActivity extends AppCompatActivity implements QAAttendeeA
             }
         });
 
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
         qaRv = findViewById(R.id.qaRv);
         postbtn = findViewById(R.id.postbtn);
         qaRvrefresh = findViewById(R.id.qaRvrefresh);
@@ -171,13 +175,13 @@ public class QAAttendeeActivity extends AppCompatActivity implements QAAttendeeA
                         qaRvrefresh.setRefreshing(false);
                     }
                     dismissProgress();
-                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<QASessionFetch> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
 
                 dismissProgress();
                 if (qaRvrefresh.isRefreshing()) {
@@ -390,19 +394,20 @@ public class QAAttendeeActivity extends AppCompatActivity implements QAAttendeeA
 
                 if (response.isSuccessful()) {
                     Log.i("hit", "post submitted to API." + response.body().toString());
+                    Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
 
 
                     showResponse(response);
                 } else {
 
-                    Toast.makeText(QAAttendeeActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(QAAttendeeActivity.this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
 
             @Override
             public void onFailure(Call<QASessionFetch> call, Throwable t) {
-                Toast.makeText(QAAttendeeActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(QAAttendeeActivity.this, "Low network or no network", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -420,14 +425,14 @@ public class QAAttendeeActivity extends AppCompatActivity implements QAAttendeeA
 
                     showLikeResponse(response);
                 } else {
-                    Toast.makeText(QAAttendeeActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(QAAttendeeActivity.this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
 
             @Override
             public void onFailure(Call<QASessionFetch> call, Throwable t) {
-                Toast.makeText(QAAttendeeActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(QAAttendeeActivity.this, "Low network or no network", Toast.LENGTH_SHORT).show();
 
             }
         });

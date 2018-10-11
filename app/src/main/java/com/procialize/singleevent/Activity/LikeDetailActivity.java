@@ -34,6 +34,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +49,7 @@ import com.procialize.singleevent.GetterSetter.AttendeeList;
 import com.procialize.singleevent.GetterSetter.LikeListing;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -68,6 +70,7 @@ public class LikeDetailActivity extends AppCompatActivity {
     LikeAdapter likeAdapter;
     List<AttendeeList> attendeeLists;
     RecyclerView like_list;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +93,9 @@ public class LikeDetailActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
 
         like_list=findViewById(R.id.like_list);
 
@@ -124,7 +130,7 @@ public class LikeDetailActivity extends AppCompatActivity {
             public void onFailure(Call<LikeListing> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
 //                dismissProgress();
-                Toast.makeText(LikeDetailActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LikeDetailActivity.this, "Low network or no network", Toast.LENGTH_SHORT).show();
 
             }
         });

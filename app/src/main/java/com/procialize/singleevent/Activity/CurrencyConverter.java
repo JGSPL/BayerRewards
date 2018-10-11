@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ import com.procialize.singleevent.GetterSetter.GeneralInfoList;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.ServiceHandler;
+import com.procialize.singleevent.Utility.Util;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -67,6 +69,7 @@ public class CurrencyConverter extends AppCompatActivity {
     String fromCurrency, toCurrency, amount, currencyDropDown="";
     EditText edtAmount, txtValue;
     ProgressDialog progressDialog;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +94,8 @@ public class CurrencyConverter extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
         currencyDropDown = "https://www.procialize.info/API/event_api_call/GenInfoCurrencyDropdown";
 
         secondans_list_spinner = (android.support.v7.widget.AppCompatSpinner) findViewById(R.id.secondans_list_spinner);
@@ -396,7 +400,7 @@ public class CurrencyConverter extends AppCompatActivity {
 
                 } else {
                     progressDialog.dismiss();
-                    Toast.makeText(CurrencyConverter.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CurrencyConverter.this, response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -404,7 +408,7 @@ public class CurrencyConverter extends AppCompatActivity {
             public void onFailure(Call<CurrencyConverterResponse> call, Throwable t) {
                 progressDialog.dismiss();
                 Log.e("hit", "Unable to submit post to API.");
-                Toast.makeText(CurrencyConverter.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CurrencyConverter.this, "Low network or no network", Toast.LENGTH_SHORT).show();
             }
         });
 

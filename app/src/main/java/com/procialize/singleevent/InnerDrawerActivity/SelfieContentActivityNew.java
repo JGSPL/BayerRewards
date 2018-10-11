@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import com.procialize.singleevent.GetterSetter.SelfieList;
 import com.procialize.singleevent.GetterSetter.SelfieListFetch;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,6 +53,7 @@ public class SelfieContentActivityNew extends AppCompatActivity {
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
     private Parcelable recyclerViewState;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +79,9 @@ public class SelfieContentActivityNew extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
         uploadbtn = findViewById(R.id.uploadbtn);
         progressBar = findViewById(R.id.progressBar);
 //        selfiefeedrefresh = findViewById(R.id.selfiefeedrefresh);
@@ -130,13 +136,13 @@ public class SelfieContentActivityNew extends AppCompatActivity {
 //                        selfiefeedrefresh.setRefreshing(false);
 //                    }
                     dismissProgress();
-                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<SelfieListFetch> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
 
                 dismissProgress();
                 if (selfiefeedrefresh.isRefreshing()) {

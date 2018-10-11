@@ -24,6 +24,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +37,7 @@ import com.procialize.singleevent.GetterSetter.EventListing;
 import com.procialize.singleevent.GetterSetter.Login;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import java.io.Serializable;
 
@@ -56,9 +58,10 @@ public class LoginActivity extends AppCompatActivity {
     Boolean emailbool = false, passwordbool = false;
     private APIService mAPIService;
     ProgressBar progressBar2;
-    Button loginbtn;
+    Button loginbtn, createaccbtn;
     String emailid, password;
     public static final int RequestPermissionCode = 8;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +90,7 @@ public class LoginActivity extends AppCompatActivity {
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
+                finish();
             }
         });
     }
@@ -101,7 +105,8 @@ public class LoginActivity extends AppCompatActivity {
         final TextInputLayout inputLayoutemail;
         final TextView text_forgotPswd;
 
-
+//        headerlogoIv = findViewById(R.id.headerlogoIv);
+//        Util.logomethod(this,headerlogoIv);
         Etemail = findViewById(R.id.input_email);
         Etpassword = findViewById(R.id.input_password);
         progressBar2 = findViewById(R.id.progressBar2);
@@ -120,6 +125,17 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         loginbtn = findViewById(R.id.loginbtn);
+        createaccbtn = findViewById(R.id.createaccbtn);
+
+        createaccbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://www.procialize.net/home.php";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
 
         Etemail.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
@@ -169,11 +185,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (emailbool == false) {
-//                    inputLayoutemail.setError("Please Enter Email Id");
-                } else if (passwordbool == false) {
-//                    inputLayoutemail.setError(null);
-//                    inputLayoutpassword.setError("Please Enter Password");
+                if (Etemail.getText().toString().isEmpty()) {
+                    Toast.makeText(LoginActivity.this, "Enter Email Id", Toast.LENGTH_SHORT).show();
+                } else if (Etpassword.getText().toString().isEmpty()) {
+                    Toast.makeText(LoginActivity.this, "Enter Password", Toast.LENGTH_SHORT).show();
                 } else {
 //                    inputLayoutpassword.setError(null);
 //                    inputLayoutemail.setError(null);
@@ -217,14 +232,14 @@ public class LoginActivity extends AppCompatActivity {
                     showResponse(response);
                 } else {
                     dismissProgress();
-                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
                     Log.i("hit", "post submitted to API Wrong.");
                 }
             }
 
             @Override
             public void onFailure(Call<EventListing> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
                 dismissProgress();
             }
         });

@@ -33,6 +33,7 @@
             android:minHeight="?attr/actionBarSize">
 
             <ImageView
+                android:id="@+id/headerlogoIv"
                 android:layout_marginLeft="-10dp"
                 android:layout_width="150dp"
                 android:contentDescription=" "
@@ -59,7 +60,7 @@
     <com.procialize.singleevent.Fonts.RobotoTextview
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="@color/activetab"
         android:gravity="center"
         android:padding="@dimen/padding"
         android:textSize="@dimen/textsizenormal"
@@ -68,14 +69,15 @@
 
 
     <com.procialize.singleevent.Fonts.RobotoTextInputEditext
-        android:background="@drawable/edittextfeedbg"
+        android:background="@drawable/edittexthmbg"
         android:id="@+id/searchEt"
         android:layout_margin="@dimen/margin"
         android:hint="@string/search_speaker_here"
         android:textSize="@dimen/textsizesmall"
         android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"/>
 
     <ProgressBar
         android:id="@+id/progressBar"

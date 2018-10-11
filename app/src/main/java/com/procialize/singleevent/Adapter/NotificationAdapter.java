@@ -67,10 +67,11 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (replyBtn.getVisibility() == View.VISIBLE) {
+                    if (arrowIv.getVisibility() == View.VISIBLE) {
                         // send selected contact in callback
                         listener.onContactSelected(notificationLists.get(getAdapterPosition()));
                     }
+
                 }
             });
 
@@ -125,7 +126,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         try {
             Date date1 = formatter.parse(notificationList.getNotificationDate());
 
-            DateFormat originalFormat = new SimpleDateFormat("dd MMM , yyyy KK:mm", Locale.ENGLISH);
+            DateFormat originalFormat = new SimpleDateFormat("dd MMM , yyyy HH:mm", Locale.UK);
 
             String date = originalFormat.format(date1);
 
@@ -160,7 +161,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         }
 
         if (notificationList.getNotificationType().equalsIgnoreCase("Cmnt")) {
-            holder.replyBtn.setVisibility(View.VISIBLE);
+            holder.replyBtn.setVisibility(View.GONE);
             holder.arrowIv.setVisibility(View.VISIBLE);
         } else if (notificationList.getNotificationType().equalsIgnoreCase("Like")) {
             holder.replyBtn.setVisibility(View.GONE);

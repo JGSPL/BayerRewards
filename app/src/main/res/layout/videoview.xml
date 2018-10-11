@@ -2,6 +2,7 @@
     xmlns:EMVideoView="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="@drawable/background"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
@@ -29,12 +30,13 @@
             android:minHeight="?attr/actionBarSize">
 
             <ImageView
+                android:id="@+id/headerlogoIv"
                 android:layout_marginLeft="-10dp"
                 android:layout_width="150dp"
                 android:contentDescription=" "
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/splashlogo"/>
+                android:src="@drawable/header_logo"/>
 
         </android.support.v7.widget.Toolbar>
 
@@ -43,15 +45,17 @@
 
     <RelativeLayout
         android:id="@+id/rlData"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_below="@+id/appBarLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_centerInParent="true"
-        android:background="@android:color/black">
+        >
 
         <com.devbrackets.android.exomedia.ui.widget.EMVideoView
             android:id="@+id/video_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
             android:visibility="gone"
             EMVideoView:useDefaultControls="true" />
 
@@ -68,17 +72,22 @@
             android:text="Close"
             android:textColor="@android:color/white"
             android:textSize="20sp"
-            android:visibility="visible" />
-    </RelativeLayout>
+            android:visibility="gone" />
 
-    <Button
+
+    </RelativeLayout>
+    <com.procialize.singleevent.Fonts.RobotoButton
         android:id="@+id/btn_share"
         android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
+        android:maxHeight="35dp"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/signupbutton"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/loginbutton"
         android:text="Share"
         android:textColor="@color/colorwhite" />
+
+
 </RelativeLayout>

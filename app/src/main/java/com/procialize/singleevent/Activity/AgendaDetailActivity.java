@@ -1,6 +1,7 @@
 package com.procialize.singleevent.Activity;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +22,7 @@ import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.GetterSetter.RatingSessionPost;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -45,6 +49,11 @@ public class AgendaDetailActivity extends AppCompatActivity {
 
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
+    LinearLayout linear1, linear2, linear3;
+    View viewtwo, viewone;
+    RatingBar ratingbar;
+    ProgressDialog progressDialog;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +76,10 @@ public class AgendaDetailActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
@@ -102,29 +115,57 @@ public class AgendaDetailActivity extends AppCompatActivity {
         tvdate = findViewById(R.id.tvdate);
         tvtime = findViewById(R.id.tvtime);
         tvdscription = findViewById(R.id.tvdscription);
-
-
+        linear1 = findViewById(R.id.linear1);
+        linear2 = findViewById(R.id.linear2);
+        linear3 = findViewById(R.id.linear3);
+        viewone = findViewById(R.id.viewone);
+        viewtwo = findViewById(R.id.viewtwo);
         ratebtn = findViewById(R.id.ratebtn);
+        ratingbar = findViewById(R.id.ratingbar);
 
+        ratingbar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                ratingval = rating;
+            }
+        });
+
+        ratebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (ratingval > 0) {
+                    PostRate(eventid, String.valueOf(ratingval), apikey, agendaid);
+                } else {
+                    Toast.makeText(AgendaDetailActivity.this, "Please Select Something", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
 
         if (name != null) {
             tvname.setText(name);
         } else {
             tvname.setVisibility(View.GONE);
+
         }
 
         if (date != null) {
             try {
                 SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-                SimpleDateFormat targetFormat = new SimpleDateFormat("dd-MMM-yyyy");
+                SimpleDateFormat targetFormat = new SimpleDateFormat("dd MMMM");
+
                 Date ogdate = originalFormat.parse(date);
+                String day = String.valueOf(android.text.format.DateFormat.format("EEEE", ogdate));
                 String sessiondate = targetFormat.format(ogdate);
-                tvdate.setText(sessiondate);
+                tvdate.setText(sessiondate+" - "+day);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
             tvdate.setVisibility(View.GONE);
+            linear1.setVisibility(View.GONE);
+            viewone.setVisibility(View.GONE);
         }
 
 
@@ -148,21 +189,25 @@ public class AgendaDetailActivity extends AppCompatActivity {
 
         } else {
             tvtime.setVisibility(View.GONE);
+            linear2.setVisibility(View.GONE);
+            viewone.setVisibility(View.GONE);
         }
 
         if (description != null && agenda_text_description.equalsIgnoreCase("1")) {
             tvdscription.setText(description);
         } else {
             tvdscription.setVisibility(View.GONE);
+            linear3.setVisibility(View.GONE);
+            viewtwo.setVisibility(View.GONE);
         }
 
 
-        ratebtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showratedialouge();
-            }
-        });
+//        ratebtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                showratedialouge();
+//            }
+//        });
 
     }
 
@@ -222,6 +267,9 @@ public class AgendaDetailActivity extends AppCompatActivity {
 
 
     public void PostRate(String eventid, String rating, String token, String speakerid) {
+        progressDialog = new ProgressDialog(AgendaDetailActivity.this);
+        progressDialog.setMessage("");
+        progressDialog.show();
 //        showProgress();
         mAPIService.RatingSessionPost(token, eventid, speakerid, rating).enqueue(new Callback<RatingSessionPost>() {
             @Override
@@ -229,9 +277,11 @@ public class AgendaDetailActivity extends AppCompatActivity {
 
                 if (response.isSuccessful()) {
                     Log.i("hit", "post submitted to API." + response.body().toString());
+                    progressDialog.dismiss();
 //                    dismissProgress();
                     DeletePostresponse(response);
                 } else {
+                    progressDialog.dismiss();
 //                    dismissProgress();
 
 //                    Toast.makeText(getApplicationContext(),"Unable to process",Toast.LENGTH_SHORT).show();
@@ -240,7 +290,8 @@ public class AgendaDetailActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<RatingSessionPost> call, Throwable t) {
-                Log.e("hit", "Unable to submit post to API.");
+                Log.e("hit", "Low network or no network");
+                progressDialog.dismiss();
 //                Toast.makeText(getApplicationContext(),"Unable to process",Toast.LENGTH_SHORT).show();
 
 //                dismissProgress();
@@ -254,13 +305,13 @@ public class AgendaDetailActivity extends AppCompatActivity {
 
             Log.e("post", "success");
 
-            myDialog.dismiss();
+//            myDialog.dismiss();
             Toast.makeText(this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
 
             SubmitAnalytics(apikey, eventid, "", "", "rating");
         } else {
             Log.e("post", "fail");
-            myDialog.dismiss();
+//            myDialog.dismiss();
 //            Toast.makeText(this,response.body().getMsg(),Toast.LENGTH_SHORT).show();
         }
     }
@@ -283,13 +334,13 @@ public class AgendaDetailActivity extends AppCompatActivity {
 
                 } else {
 
-                    Toast.makeText(AgendaDetailActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AgendaDetailActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Analytic> call, Throwable t) {
-                Toast.makeText(AgendaDetailActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(AgendaDetailActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
 
             }
         });

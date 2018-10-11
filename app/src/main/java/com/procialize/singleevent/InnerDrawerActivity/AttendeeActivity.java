@@ -29,6 +29,7 @@ import com.procialize.singleevent.GetterSetter.AttendeeList;
 import com.procialize.singleevent.GetterSetter.FetchAttendee;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import java.util.HashMap;
 
@@ -47,6 +48,7 @@ public class AttendeeActivity extends AppCompatActivity implements AttendeeAdapt
     private ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
+    ImageView headerlogoIv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +76,8 @@ public class AttendeeActivity extends AppCompatActivity implements AttendeeAdapt
         });
 
 
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
         attendeerecycler = findViewById(R.id.attendeerecycler);
         searchEt =  findViewById(R.id.searchEt);
         attendeefeedrefresh =  findViewById(R.id.attendeefeedrefresh);
@@ -151,14 +155,14 @@ public class AttendeeActivity extends AppCompatActivity implements AttendeeAdapt
                     if (attendeefeedrefresh.isRefreshing()) {
                         attendeefeedrefresh.setRefreshing(false);
                     }
-                    Toast.makeText(AttendeeActivity.this,"Unable to process",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AttendeeActivity.this,response.message(),Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<FetchAttendee> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
-                Toast.makeText(AttendeeActivity.this,"Unable to process",Toast.LENGTH_SHORT).show();
+                Toast.makeText(AttendeeActivity.this,"Low network or no network",Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.GONE);
 
                 if (attendeefeedrefresh.isRefreshing()) {
@@ -202,6 +206,7 @@ public class AttendeeActivity extends AppCompatActivity implements AttendeeAdapt
         attendeetail.putExtra("designation",attendee.getDesignation());
         attendeetail.putExtra("description",attendee.getDescription());
         attendeetail.putExtra("profile",attendee.getProfilePic());
+        attendeetail.putExtra("mobile",attendee.getMobile());
 //                speakeretail.putExtra("totalrate",attendee.getTotalRating());
         startActivity(attendeetail);
     }

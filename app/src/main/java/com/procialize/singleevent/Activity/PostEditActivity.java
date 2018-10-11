@@ -56,6 +56,7 @@ import com.procialize.singleevent.GetterSetter.PostTextFeed;
 import com.procialize.singleevent.GetterSetter.VideoContest;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 import com.procialize.singleevent.Utility.Utility;
 
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -107,6 +108,7 @@ public class PostEditActivity extends AppCompatActivity implements ProgressReque
     String status;
     String mCurrentPhotoPath;
     ImageView imgPlay;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,6 +134,9 @@ public class PostEditActivity extends AppCompatActivity implements ProgressReque
                 onBackPressed();
             }
         });
+
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
 
         Intent intent = getIntent();
 
@@ -353,7 +358,7 @@ public class PostEditActivity extends AppCompatActivity implements ProgressReque
                     showResponse(response);
                 } else {
                     dismissProgress();
-                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -362,7 +367,7 @@ public class PostEditActivity extends AppCompatActivity implements ProgressReque
                 Log.e("hit", "Unable to submit post to API.");
                 Log.e("hit", t.getMessage());
 
-                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
                 dismissProgress();
             }
         });

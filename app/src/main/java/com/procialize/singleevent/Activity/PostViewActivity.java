@@ -1,9 +1,6 @@
 package com.procialize.singleevent.Activity;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,26 +15,26 @@ import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.media.MediaPlayer;
-import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
-import android.os.StrictMode;
-import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -46,7 +43,6 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.daimajia.numberprogressbar.NumberProgressBar;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
@@ -56,6 +52,8 @@ import com.procialize.singleevent.CustomTools.ProgressRequestBodyVideo;
 import com.procialize.singleevent.GetterSetter.PostTextFeed;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.MyApplication;
+import com.procialize.singleevent.Utility.Util;
 import com.procialize.singleevent.Utility.Utility;
 
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -65,9 +63,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URI;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -104,6 +100,8 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventId;
     ImageView profileIV;
+    MyApplication appDelegate;
+    ImageView headerlogoIv;
 
     String mCurrentPhotoPath;
     private String picturePath = "";
@@ -118,6 +116,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventId = prefs.getString("eventid", "1");
 
+        appDelegate = (MyApplication) getApplicationContext();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -130,11 +129,17 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                appDelegate.setPostImagePath("");
+
                 onBackPressed();
             }
         });
 
         Intent intent = getIntent();
+
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
 
         postEt = findViewById(R.id.posttextEt);
         postbtn = findViewById(R.id.postbtn);
@@ -145,6 +150,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
         progressbar = (ProgressBar) findViewById(R.id.progressbar);
         mAPIService = ApiUtils.getAPIService();
         sessionManager = new SessionManager(getApplicationContext());
+        final TextView txtcount1 = (TextView) findViewById(R.id.txtcount1);
 
 
         // get user data from session
@@ -199,6 +205,36 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
         // apikey
         apikey = user.get(SessionManager.KEY_TOKEN);
 
+        final TextWatcher txwatcher = new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start,
+                                          int count, int after) {
+                int tick = start + after;
+                if (tick < 128) {
+                    int remaining = 500 - tick;
+                    // txtcount1.setText(String.valueOf(remaining));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+                txtcount1.setText(String.valueOf(500 - s.length()));
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+                // TODO Auto-generated method stub
+                System.out.print("Hello");
+            }
+        };
+
+        postEt.addTextChangedListener(txwatcher);
+
+
 
         postbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -208,6 +244,8 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
 //                if (data.equals("")) {
 //
 //                } else {
+                picturePath = appDelegate.getPostImagePath();
+
 
                 if (typepost.equalsIgnoreCase("status")) {
                     if (data.isEmpty()) {
@@ -230,33 +268,69 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
                                 ProgressRequestBodyVideo reqFile = new ProgressRequestBodyVideo(file, PostViewActivity.this);
                                 body = MultipartBody.Part.createFormData("media_file", file.getName(), reqFile);
                             }
+                        }else{
+                            Toast.makeText(PostViewActivity.this, "Please Enter your Post", Toast.LENGTH_SHORT).show();
+
                         }
 
 
                         postFeed(type, token, eventid, status, body);
                     }
                 } else {
-                    showProgress();
-                    RequestBody type = RequestBody.create(MediaType.parse("text/plain"), typepost);
-                    RequestBody token = RequestBody.create(MediaType.parse("text/plain"), apikey);
-                    RequestBody eventid = RequestBody.create(MediaType.parse("text/plain"), eventId);
-                    RequestBody status = RequestBody.create(MediaType.parse("text/plain"), StringEscapeUtils.escapeJava(data));
-                    MultipartBody.Part body = null;
+                    if (typepost.equals("image")) {
+                        if (appDelegate.getPostImagePath() != null
+                                && appDelegate.getPostImagePath().length() > 0) {
+                            System.out
+                                    .println("Post Image URL  inside SubmitPostTask :"
+                                            + appDelegate.getPostImagePath());
+
+                            appDelegate.setPostImagePath("");
+                            showProgress();
+                            RequestBody type = RequestBody.create(MediaType.parse("text/plain"), typepost);
+                            RequestBody token = RequestBody.create(MediaType.parse("text/plain"), apikey);
+                            RequestBody eventid = RequestBody.create(MediaType.parse("text/plain"), eventId);
+                            RequestBody status = RequestBody.create(MediaType.parse("text/plain"), StringEscapeUtils.escapeJava(data));
+                            MultipartBody.Part body = null;
 
 
-                    if (file != null) {
+                            if (file != null) {
 
-                        if (typepost.equals("image")) {
-                            ProgressRequestBodyImage reqFile = new ProgressRequestBodyImage(file, PostViewActivity.this);
-                            body = MultipartBody.Part.createFormData("media_file", file.getName(), reqFile);
-                        } else if (typepost.equals("video")) {
+
+                                ProgressRequestBodyImage reqFile = new ProgressRequestBodyImage(file, PostViewActivity.this);
+                                body = MultipartBody.Part.createFormData("media_file", file.getName(), reqFile);
+
+                        } else {
+                            Toast.makeText(PostViewActivity.this, "Please Select any Image", Toast.LENGTH_SHORT).show();
+
+                        }
+
+
+                        postFeed(type, token, eventid, status, body);
+                    } else {
+                        Toast.makeText(PostViewActivity.this, "Please Select any Image", Toast.LENGTH_SHORT).show();
+                        finish();
+
+                    }
+                } if (typepost.equals("video")) {
+                        showProgress();
+                        RequestBody type = RequestBody.create(MediaType.parse("text/plain"), typepost);
+                        RequestBody token = RequestBody.create(MediaType.parse("text/plain"), apikey);
+                        RequestBody eventid = RequestBody.create(MediaType.parse("text/plain"), eventId);
+                        RequestBody status = RequestBody.create(MediaType.parse("text/plain"), StringEscapeUtils.escapeJava(data));
+                        MultipartBody.Part body = null;
+
+
+                        if (file != null) {
                             ProgressRequestBodyVideo reqFile = new ProgressRequestBodyVideo(file, PostViewActivity.this);
                             body = MultipartBody.Part.createFormData("media_file", file.getName(), reqFile);
+                        } else {
+                            Toast.makeText(PostViewActivity.this, "Please Select any Video", Toast.LENGTH_SHORT).show();
+
                         }
+                        postFeed(type, token, eventid, status, body);
+
                     }
 
-
-                    postFeed(type, token, eventid, status, body);
                 }
 //                }
             }
@@ -462,6 +536,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
+        file = null;
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
 
             // Create the File where the photo should go
@@ -481,6 +556,8 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
+        }else{
+            file = null;
         }
     }
 
@@ -524,8 +601,8 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
                 } else if (items[item].equals("Take Video")) {
                     userChoosenTask = "Take Video";
                     if (result) {
-                        Intent videoCaptureIntent = new Intent(android.provider.MediaStore.ACTION_VIDEO_CAPTURE);
-                        videoCaptureIntent.putExtra(android.provider.MediaStore.EXTRA_DURATION_LIMIT, 15);
+                        Intent videoCaptureIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                        videoCaptureIntent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 15);
 //                        videoCaptureIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1); //0 means low & 1 means high
                         if (videoCaptureIntent.resolveActivity(getPackageManager()) != null) {
                             startActivityForResult(videoCaptureIntent, REQUEST_VIDEO_CAPTURE);
@@ -561,26 +638,34 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
 
         Intent intent = new Intent(
                 Intent.ACTION_PICK,
-                android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
+                MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
         intent.setType("video/*");
         startActivityForResult(intent, REQUEST_TAKE_GALLERY_VIDEO);
     }
 
     private void setpic2() {
 
-        Uploadiv.setVisibility(View.VISIBLE);
-        //selfieSubmit.setVisibility(View.VISIBLE);
-        //edtImagename.setVisibility(View.VISIBLE);
+        if(mCurrentPhotoPath!=null) {
+
+            Uploadiv.setVisibility(View.VISIBLE);
+            //selfieSubmit.setVisibility(View.VISIBLE);
+            //edtImagename.setVisibility(View.VISIBLE);
 
 
-        String compressedImagePath = compressImage(mCurrentPhotoPath);
-//        appDelegate.setPostImagePath(compressedImagePath);
+            // String compressedImagePath = compressImage(mCurrentPhotoPath);
+            String compressedImagePath = mCurrentPhotoPath;
+            appDelegate.setPostImagePath(compressedImagePath);
 
-        Glide.with(this).load(compressedImagePath).into(Uploadiv);
+
+            Glide.with(this).load(compressedImagePath).into(Uploadiv);
 
 
-        Toast.makeText(PostViewActivity.this, "Image selected",
-                Toast.LENGTH_SHORT).show();
+            Toast.makeText(PostViewActivity.this, "Image selected",
+                    Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(PostViewActivity.this, "Please select any image",
+                    Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -979,6 +1064,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
 
                 // CALL THIS METHOD TO GET THE ACTUAL PATH
                 file = new File(getRealPathFromURIGallery(tempUri));
+                appDelegate.setPostImagePath(getRealPathFromURIGallery(tempUri));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -1004,6 +1090,18 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
 
     private String getRealPathFromURI(String contentURI) {
         Uri contentUri = Uri.parse(contentURI);
+        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+        Cursor cursor1 = getContentResolver().query(contentUri,
+                filePathColumn, null, null, null);
+        cursor1.moveToFirst();
+
+        int columnIndex = cursor1.getColumnIndex(filePathColumn[0]);
+        String picturePath = cursor1.getString(columnIndex);
+
+        //String compressedImagePath = compressImage(picturePath);
+        appDelegate.setPostImagePath(picturePath);
+
         Cursor cursor = getContentResolver().query(contentUri, null, null,
                 null, null);
         if (cursor == null) {

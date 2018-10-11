@@ -35,6 +35,7 @@
                 app:contentInsetStart="0dp">
 
                 <ImageView
+                    android:id="@+id/headerlogoIv"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -103,12 +104,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/my"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    android:drawableLeft="@drawable/home_icon"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="20dp"
+                    android:drawableLeft="@drawable/home"
                     android:drawablePadding="10dp"
-                    android:gravity="left"
+                    android:gravity="left|center"
                     android:text="Home"
                     android:textColor="@color/colorwhite"
                     android:textSize="@dimen/textsizesmall" />
@@ -120,40 +121,12 @@
                     android:layout_below="@+id/home"
                     android:scrollbars="vertical" />
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
-                    android:id="@+id/eula"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/menurecycler"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    android:drawableLeft="@drawable/eula"
-                    android:gravity="left|center"
-                    android:text="  @string/eula"
-                    android:textColor="@color/colorwhite"
-                    android:textSize="@dimen/textsizesmall" />
-
-                <com.procialize.singleevent.Fonts.RobotoTextview
-                    android:id="@+id/privacy_policy"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/eula"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    android:drawablePadding="10dp"
-                    android:drawableLeft="@drawable/privacy_policy"
-                    android:gravity="left|center"
-                    android:text="@string/privacy_policy"
-                    android:textColor="@color/colorwhite"
-                    android:textSize="@dimen/textsizesmall" />
 
                 <com.procialize.singleevent.Fonts.RobotoTextview
                     android:id="@+id/contactus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/privacy_policy"
+                    android:layout_below="@+id/menurecycler"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
@@ -165,10 +138,40 @@
                     android:drawablePadding="10dp"/>
 
                 <com.procialize.singleevent.Fonts.RobotoTextview
-                    android:id="@+id/switchbt"
+                    android:id="@+id/privacy_policy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/contactus"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:drawablePadding="10dp"
+                    android:drawableLeft="@drawable/privacy_policy"
+                    android:gravity="left|center"
+                    android:text="@string/privacy_policy"
+                    android:textColor="@color/colorwhite"
+                    android:textSize="@dimen/textsizesmall" />
+
+                <com.procialize.singleevent.Fonts.RobotoTextview
+                    android:id="@+id/eula"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/privacy_policy"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/eula"
+                    android:gravity="left|center"
+                    android:text="  @string/eula"
+                    android:textColor="@color/colorwhite"
+                    android:textSize="@dimen/textsizesmall"
+                    android:drawablePadding="10dp"/>
+
+                <com.procialize.singleevent.Fonts.RobotoTextview
+                    android:id="@+id/switchbt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/eula"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
@@ -188,7 +191,7 @@
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
-                    android:drawableLeft="@drawable/ic_logout"
+                    android:drawableLeft="@drawable/log_out"
                     android:drawablePadding="10dp"
                     android:gravity="left"
                     android:text="Logout"

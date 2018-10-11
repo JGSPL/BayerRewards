@@ -32,6 +32,7 @@
             app:contentInsetStart="0dp">
 
             <ImageView
+                android:id="@+id/headerlogoIv"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -64,7 +65,8 @@
                 android:layout_height="90dp"
                 android:layout_centerInParent="true"
                 android:adjustViewBounds="true"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                />
 
         </RelativeLayout>
 
@@ -73,6 +75,7 @@
             android:layout_height="match_parent"
             android:layout_weight="7">
 
+<!--
             <com.procialize.singleevent.Fonts.RobotoEditext
                 android:id="@+id/posttextEt"
                 android:layout_width="match_parent"
@@ -90,6 +93,56 @@
                 android:padding="10dp"
                 android:scrollbars="vertical"
                 android:textSize="@dimen/textsizenormal" />
+-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.procialize.singleevent.Fonts.RobotoEditext
+                    android:id="@+id/posttextEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="@dimen/margin"
+                    android:background="@drawable/edittextfeedbg"
+                    android:gravity="top|left"
+                    android:hint="@string/whatsmind"
+                    android:imeOptions="actionSend|flagNoEnterAction"
+                    android:inputType="textShortMessage|textAutoCorrect|textCapSentences|textMultiLine"
+                    android:maxLength="500"
+                    android:maxLines="5"
+                    android:minLines="2"
+                    android:padding="10dp"
+                    android:scrollbars="vertical"
+                    android:textSize="@dimen/textsizenormal" />
+                <LinearLayout
+                    android:id="@+id/lincounter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtcount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="12dp"
+                        android:text="Character remaining : "
+                        android:textColor="@color/black"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/txtcount1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:text="500"
+                        android:textColor="@color/black"
+                        android:textSize="10sp" />
+                </LinearLayout>
+            </LinearLayout>
+
 
         </RelativeLayout>
 
@@ -143,10 +196,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="10dp"
-        android:background="@drawable/signupbutton"
+        android:background="@drawable/loginbutton"
         android:text="@string/post"
-        android:textColor="@color/logintxt"
-        android:textSize="14sp" />
+        android:textColor="@color/colorwhite"
+        android:textSize="@dimen/textsizesmall" />
 
     <!--<ProgressBar-->
     <!--android:id="@+id/progressbar"-->

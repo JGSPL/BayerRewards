@@ -40,6 +40,7 @@ import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.GetterSetter.ProfileSave;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 import com.procialize.singleevent.Utility.Utility;
 
 import java.io.ByteArrayOutputStream;
@@ -85,6 +86,7 @@ public class ProfileActivity extends AppCompatActivity {
     String profilepic;
     String api_token;
     TextView txt_upload;
+    ImageView headerlogoIv;
 
 
     @Override
@@ -121,6 +123,8 @@ public class ProfileActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
 
         mAPIService = ApiUtils.getAPIService();
 
@@ -292,7 +296,7 @@ public class ProfileActivity extends AppCompatActivity {
             progressView.setVisibility(View.GONE);
         }
 
-        profileIV.setOnClickListener(new View.OnClickListener() {
+        txt_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectImage();
@@ -352,13 +356,13 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 //                    dismissProgress();
-                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ProfileSave> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
 
 //                dismissProgress();
 
@@ -532,7 +536,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                         SubmitAnalytics(api_token, eventid, "", "", "EditProfileSubmit");
                     } else {
-                        Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
 //                        Intent home = new Intent(getApplicationContext(), HomeActivity.class);
 //                        home.putExtra("eventId", eventid);
 //                        home.putExtra("eventnamestr", eventnamestr);
@@ -546,7 +550,7 @@ public class ProfileActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ProfileSave> call, Throwable t) {
-                Log.e("hit", "Unable to submit post to API.");
+                Log.e("hit", "Low network or no network");
 //                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 Intent home = new Intent(getApplicationContext(), HomeActivity.class);
                 home.putExtra("eventId", eventid);

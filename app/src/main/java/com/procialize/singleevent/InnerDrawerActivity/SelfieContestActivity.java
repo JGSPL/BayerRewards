@@ -39,6 +39,7 @@ import com.procialize.singleevent.GetterSetter.SelfieList;
 import com.procialize.singleevent.GetterSetter.SelfieListFetch;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -67,6 +68,7 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
     String user_id;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +95,8 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
             }
         });
 
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
         uploadbtn = findViewById(R.id.uploadbtn);
         selfiefeedrefresh = findViewById(R.id.selfiefeedrefresh);
         selfierecycler = findViewById(R.id.selfierecycler);
@@ -158,13 +162,13 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
                         selfiefeedrefresh.setRefreshing(false);
                     }
                     dismissProgress();
-                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<SelfieListFetch> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
 
                 dismissProgress();
                 if (selfiefeedrefresh.isRefreshing()) {
@@ -278,12 +282,17 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
         TextView deleteTv = dialog.findViewById(R.id.deleteTv);
 
         reportTv.setText("Report Selfie");
+        deleteTv.setText("Delete this Selfie");
         hideTv.setText("Hide Selfie");
 
         if (selfieList.getAttendee_id().equalsIgnoreCase(user_id)) {
             deleteTv.setVisibility(View.VISIBLE);
+            hideTv.setVisibility(View.GONE);
+            reportTv.setVisibility(View.GONE);
         } else {
             deleteTv.setVisibility(View.GONE);
+            hideTv.setVisibility(View.VISIBLE);
+            reportTv.setVisibility(View.VISIBLE);
         }
 
 
@@ -325,14 +334,14 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
                     showLikeResponse(response);
                 } else {
 
-                    Toast.makeText(SelfieContestActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SelfieContestActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
 
 
             @Override
             public void onFailure(Call<SelfieLike> call, Throwable t) {
-                Toast.makeText(SelfieContestActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SelfieContestActivity.this, "Low network or no network", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -371,14 +380,14 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
                 } else {
 //                    dismissProgress();
 
-                    Toast.makeText(SelfieContestActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SelfieContestActivity.this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ReportSelfieHide> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
-                Toast.makeText(SelfieContestActivity.this, "Unable to Delete please try again later", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SelfieContestActivity.this, "Low network or no network", Toast.LENGTH_SHORT).show();
 
 //                dismissProgress();
             }
@@ -398,14 +407,14 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
                 } else {
 //                    dismissProgress();
 
-                    Toast.makeText(SelfieContestActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SelfieContestActivity.this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<DeleteSelfie> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
-                Toast.makeText(SelfieContestActivity.this, "Unable to Delete please try again later", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SelfieContestActivity.this, "Low network or no network", Toast.LENGTH_SHORT).show();
 
 //                dismissProgress();
             }
@@ -460,14 +469,14 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
                 } else {
 //                    dismissProgress();
 
-                    Toast.makeText(SelfieContestActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SelfieContestActivity.this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ReportSelfie> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
-                Toast.makeText(SelfieContestActivity.this, "Unable to Delete please try again later", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SelfieContestActivity.this, "Low network or no network", Toast.LENGTH_SHORT).show();
 
 //                dismissProgress();
             }

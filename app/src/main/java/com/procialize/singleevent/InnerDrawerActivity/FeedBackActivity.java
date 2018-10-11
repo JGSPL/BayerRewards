@@ -28,6 +28,7 @@ import com.procialize.singleevent.GetterSetter.SurveyList;
 import com.procialize.singleevent.GetterSetter.SurveyListFetch;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import java.util.HashMap;
 
@@ -44,6 +45,7 @@ public class FeedBackActivity extends AppCompatActivity implements FeedBackAdapt
     ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,8 @@ public class FeedBackActivity extends AppCompatActivity implements FeedBackAdapt
                 onBackPressed();
             }
         });
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
 
 
         feedbackRv = findViewById(R.id.feedbackRv);
@@ -127,13 +131,13 @@ public class FeedBackActivity extends AppCompatActivity implements FeedBackAdapt
                         feedbackRvrefresh.setRefreshing(false);
                     }
                     dismissProgress();
-                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<SurveyListFetch> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
 
                 if (feedbackRvrefresh.isRefreshing()) {
                     feedbackRvrefresh.setRefreshing(false);

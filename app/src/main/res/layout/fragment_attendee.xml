@@ -19,14 +19,15 @@
         />
 
     <com.procialize.singleevent.Fonts.RobotoTextInputEditext
-        android:background="@drawable/edittextfeedbg"
+        android:background="@drawable/edittexthmbg"
         android:id="@+id/searchEt"
         android:layout_margin="10dp"
         android:hint="@string/search_attendee_here"
         android:textSize="@dimen/textsizesmall"
         android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"/>
 
 
 

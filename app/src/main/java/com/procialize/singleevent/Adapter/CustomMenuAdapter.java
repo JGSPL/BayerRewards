@@ -110,7 +110,7 @@ public class CustomMenuAdapter extends RecyclerView.Adapter<CustomMenuAdapter.My
             holder.nameTv.setText("My Travel");
             holder.profileIv.setImageResource(R.drawable.ic_travel);
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_notification")) {
-            holder.nameTv.setText("Notification");
+            holder.nameTv.setText("Notifications");
             holder.profileIv.setImageResource(R.drawable.notification_icon);
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_display_qr")) {
             holder.nameTv.setText("Qr Badge");
@@ -129,7 +129,7 @@ public class CustomMenuAdapter extends RecyclerView.Adapter<CustomMenuAdapter.My
             holder.profileIv.setImageResource(R.drawable.survey);
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_feedback")) {
             holder.nameTv.setText("Feedback");
-            holder.profileIv.setImageResource(R.drawable.survey);
+            holder.profileIv.setImageResource(R.drawable.ic_feedback);
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_gallery_video")) {
             holder.nameTv.setText("Video");
             holder.profileIv.setImageResource(R.drawable.ic_videos);

@@ -38,7 +38,5 @@ public class CurrencyDropDown {
     @Expose
     private String msg;
 
-    @SerializedName("currency_dropdown")
-    @Expose
     private List<DropDownList> dropDownList = null;
 }

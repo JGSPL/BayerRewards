@@ -32,6 +32,7 @@ import com.procialize.singleevent.GetterSetter.VideoFolderList;
 import com.procialize.singleevent.GetterSetter.VideoList;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -54,6 +55,7 @@ public class VideoActivity extends AppCompatActivity implements VideoAdapter.Vid
     private static List<VideoFolderList> folderLists;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +81,9 @@ public class VideoActivity extends AppCompatActivity implements VideoAdapter.Vid
                 onBackPressed();
             }
         });
+
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
 
         videoRv = findViewById(R.id.videoRv);
         progressBar = findViewById(R.id.progressBar);
@@ -134,13 +139,13 @@ public class VideoActivity extends AppCompatActivity implements VideoAdapter.Vid
                         videoRvrefresh.setRefreshing(false);
                     }
                     dismissProgress();
-                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<VideoFetchListFetch> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
 
                 dismissProgress();
                 if (videoRvrefresh.isRefreshing()) {
@@ -297,10 +302,14 @@ public class VideoActivity extends AppCompatActivity implements VideoAdapter.Vid
 
             } else {
 
-                Intent videoIntent = new Intent(Intent.ACTION_VIEW);
+                /*Intent videoIntent = new Intent(Intent.ACTION_VIEW);
                 videoIntent.setDataAndType(
-                        Uri.parse(firstLevelFilter.getFileName()), "video/*");
-                startActivity(videoIntent);
+                        Uri.parse(firstLevelFilter.getFileName()), "video*//*");
+                startActivity(videoIntent);*/
+                Intent edit = new Intent(VideoActivity.this, ExoVideoActivity.class);
+                edit.putExtra("videoUrl", firstLevelFilter.getFileName());
+                edit.putExtra("title", "videoMain");
+                startActivity(edit);
             }
 
 //            String CurrentString =firstLevelFilter.getFileName();

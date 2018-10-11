@@ -11,7 +11,20 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            <com.procialize.singleevent.Fonts.RobotoTextview
+                android:id="@+id/editIV"
+                android:gravity="center"
+                android:padding="@dimen/padding"
+                android:textSize="@dimen/textsizenormal"
+                android:textColor="@color/black"
+                android:text="Edit Post"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
+            <View
+                android:background="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
 
             <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/deleteTv"

@@ -44,6 +44,7 @@ import com.procialize.singleevent.GetterSetter.PostSelfie;
 import com.procialize.singleevent.GetterSetter.PostTextFeed;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 import com.procialize.singleevent.Utility.Utility;
 
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -84,6 +85,7 @@ public class SelfieUploadActivity extends AppCompatActivity {
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventId;
     String mCurrentPhotoPath;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +112,8 @@ public class SelfieUploadActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
 
         imgpreview = findViewById(R.id.imgpreview);
         btnSubmit = findViewById(R.id.btnSubmit);
@@ -599,7 +603,7 @@ public class SelfieUploadActivity extends AppCompatActivity {
                     showResponse(response);
                 } else {
                     dismissProgress();
-                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -607,7 +611,7 @@ public class SelfieUploadActivity extends AppCompatActivity {
             public void onFailure(Call<PostSelfie> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
                 Log.e("hit", t.getMessage());
-                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
                 dismissProgress();
             }
         });

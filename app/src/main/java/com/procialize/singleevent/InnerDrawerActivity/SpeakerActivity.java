@@ -30,6 +30,7 @@ import com.procialize.singleevent.GetterSetter.FetchSpeaker;
 import com.procialize.singleevent.GetterSetter.SpeakerList;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import java.util.HashMap;
 
@@ -51,6 +52,7 @@ SpeakerActivity extends AppCompatActivity implements SpeakerAdapter.SpeakerAdapt
     private ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +79,8 @@ SpeakerActivity extends AppCompatActivity implements SpeakerAdapter.SpeakerAdapt
                 onBackPressed();
             }
         });
-
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
 
         speakerrecycler = findViewById(R.id.speakerrecycler);
 
@@ -161,14 +164,14 @@ SpeakerActivity extends AppCompatActivity implements SpeakerAdapter.SpeakerAdapt
                     if (speakerfeedrefresh.isRefreshing()) {
                         speakerfeedrefresh.setRefreshing(false);
                     }
-                    Toast.makeText(SpeakerActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SpeakerActivity.this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<FetchSpeaker> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
-                Toast.makeText(SpeakerActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SpeakerActivity.this, "Low network or no network", Toast.LENGTH_SHORT).show();
 
                 hideProgress();
                 if (speakerfeedrefresh.isRefreshing()) {
@@ -249,13 +252,13 @@ SpeakerActivity extends AppCompatActivity implements SpeakerAdapter.SpeakerAdapt
 
                 } else {
 
-                    Toast.makeText(SpeakerActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(SpeakerActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Analytic> call, Throwable t) {
-                Toast.makeText(SpeakerActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(SpeakerActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
 
             }
         });

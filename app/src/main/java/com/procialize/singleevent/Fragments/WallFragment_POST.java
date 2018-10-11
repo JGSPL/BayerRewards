@@ -602,16 +602,19 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
         TextView reportuserTv = dialog.findViewById(R.id.reportuserTv);
         TextView blockuserTv = dialog.findViewById(R.id.blockuserTv);
         TextView cancelTv = dialog.findViewById(R.id.cancelTv);
+        TextView editIV = dialog.findViewById(R.id.editIV);
 
 
         if (user.get(SessionManager.KEY_ID).equalsIgnoreCase(feed.getAttendeeId())) {
             deleteTv.setVisibility(View.VISIBLE);
+            editIV.setVisibility(View.VISIBLE);
             hideTv.setVisibility(View.GONE);
             reportTv.setVisibility(View.GONE);
             reportuserTv.setVisibility(View.GONE);
             blockuserTv.setVisibility(View.GONE);
         } else {
             deleteTv.setVisibility(View.GONE);
+            editIV.setVisibility(View.GONE);
             hideTv.setVisibility(View.VISIBLE);
             reportTv.setVisibility(View.VISIBLE);
             reportuserTv.setVisibility(View.VISIBLE);
@@ -623,6 +626,22 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
             @Override
             public void onClick(View v) {
                 PostDelete(eventid, feed.getNewsFeedId(), token, position);
+            }
+        });
+
+        editIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent edit = new Intent(getActivity(), PostEditActivity.class);
+                edit.putExtra("for", feed.getType());
+                edit.putExtra("feedid", feed.getNewsFeedId());
+                edit.putExtra("status", feed.getPostStatus());
+                if (feed.getType().equalsIgnoreCase("Image")) {
+                    edit.putExtra("Image", feed.getMediaFile());
+                } else if (feed.getType().equalsIgnoreCase("Video")) {
+                    edit.putExtra("Video", feed.getMediaFile());
+                }
+                startActivity(edit);
             }
         });
 

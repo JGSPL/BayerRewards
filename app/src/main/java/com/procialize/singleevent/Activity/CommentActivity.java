@@ -61,6 +61,7 @@ import com.procialize.singleevent.GetterSetter.Result;
 import com.procialize.singleevent.GetterSetter.response;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -121,6 +122,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
     String news_feed_share,
             news_feed_comment,
             news_feed_like;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,6 +146,9 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
                 finish();
             }
         });
+
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
@@ -515,13 +520,13 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
                 } else {
                     progressBar.setVisibility(View.GONE);
 
-                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<CommentList> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.GONE);
 
             }
@@ -556,13 +561,13 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
                     showPostCommentResponse(response);
                 } else {
                     dismissProgress();
-                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<PostComment> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
                 dismissProgress();
             }
         });
@@ -595,13 +600,13 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
                     showPostlikeresponse(response);
                 } else {
                     dismissProgress();
-                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<LikePost> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
                 dismissProgress();
             }
         });
@@ -804,14 +809,14 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
                     showCommentDetailResponse(response);
                 } else {
                     dismissProgress();
-                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<FetchFeed> call, Throwable t) {
 
-                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
                 dismissProgress();
             }
         });
@@ -873,14 +878,14 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
                 } else {
 //                    dismissProgress();
 
-                    Toast.makeText(CommentActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CommentActivity.this, response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<DeleteNewsFeedComment> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
-                Toast.makeText(CommentActivity.this, "Unable to Delete please try again later", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CommentActivity.this, "Low network or no network", Toast.LENGTH_SHORT).show();
 
 //                dismissProgress();
             }
@@ -918,14 +923,14 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
                 } else {
 //                    dismissProgress();
 
-                    Toast.makeText(CommentActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CommentActivity.this, response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ReportCommentHide> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
-                Toast.makeText(CommentActivity.this, "Unable to Delete please try again later", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CommentActivity.this, "Low network or no network", Toast.LENGTH_SHORT).show();
 
 //                dismissProgress();
             }
@@ -964,14 +969,14 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
                 } else {
 //                    dismissProgress();
 
-                    Toast.makeText(CommentActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CommentActivity.this, response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ReportComment> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
-                Toast.makeText(CommentActivity.this, "Unable to Delete please try again later", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CommentActivity.this, "Low network or no network", Toast.LENGTH_SHORT).show();
 
 //                dismissProgress();
             }
@@ -1007,14 +1012,14 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
                 } else {
 //                    dismissProgress();
 
-                    Toast.makeText(CommentActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CommentActivity.this, response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ReportUser> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
-                Toast.makeText(CommentActivity.this, "Unable to Delete please try again later", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CommentActivity.this, "Low network or no network", Toast.LENGTH_SHORT).show();
 
 //                dismissProgress();
             }
@@ -1047,7 +1052,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
                     Log.i("hit", "post submitted to API." + response.body().toString());
                     showgifIdResponse(response);
                 } else {
-                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
                     emojibar.setVisibility(View.GONE);
                     Log.i("hit", "post submitted to API Wrong.");
                 }
@@ -1055,7 +1060,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
 
             @Override
             public void onFailure(Call<GifId> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
                 emojibar.setVisibility(View.GONE);
             }
         });
@@ -1084,7 +1089,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
                 } else {
                     emojibar.setVisibility(View.GONE);
 
-                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
                     Log.i("hit", "post submitted to API Wrong.");
                 }
             }
@@ -1093,7 +1098,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
             public void onFailure(Call<response> call, Throwable t) {
                 emojibar.setVisibility(View.GONE);
 
-                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -1109,7 +1114,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
             gifEmojiAdapter.notifyDataSetChanged();
         } else {
             emojibar.setVisibility(View.GONE);
-            Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
 
         }
     }
@@ -1126,7 +1131,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
                 } else {
                     emojibar.setVisibility(View.GONE);
 
-                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
                     Log.i("hit", "post submitted to API Wrong.");
                 }
             }
@@ -1135,7 +1140,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
             public void onFailure(Call<response> call, Throwable t) {
                 emojibar.setVisibility(View.GONE);
 
-                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -1148,7 +1153,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
             gifrecycler.setAdapter(gifEmojiAdapter);
             gifEmojiAdapter.notifyDataSetChanged();
         } else {
-            Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
 
         }
     }
