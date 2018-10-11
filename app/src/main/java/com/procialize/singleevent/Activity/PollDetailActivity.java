@@ -202,17 +202,69 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
 
         // specify an adapter (see also next example)
         if (response.body().getStatus().equalsIgnoreCase("success")) {
-
-            Toast.makeText(PollDetailActivity.this,
-                    "Answer posted successfully", Toast.LENGTH_SHORT)
-                    .show();
             optionLists.clear();
 
-            fetchPoll(token, eventid);
+            //   fetchPoll(token, eventid);
+            if (response.body().getLivePollList().size() != 0) {
+                pollGraph.setVisibility(View.VISIBLE);
+                AlloptionLists.clear();
+                AlloptionLists = response.body().getLivePollOptionList();
+                if (AlloptionLists.size() != 0) {
+                    for (int i = 0; i < AlloptionLists.size(); i++) {
+
+                        if (AlloptionLists.get(i).getLivePollId().equalsIgnoreCase(questionId)) {
+                            Count = Count + Integer.parseInt(AlloptionLists.get(i).getTotalUser());
+                            optionLists.add(AlloptionLists.get(i));
+                        }
+                    }
+
+                    replyFlag = "1";
+                    subBtn.setVisibility(View.GONE);
+                    if (optionLists.size() != 0) {
+
+
+                        viewGroup.setVisibility(View.GONE);
+                        PollGraphAdapter pollAdapter = new PollGraphAdapter(this,optionLists,questionId );
+                        pollAdapter.notifyDataSetChanged();
+                        pollGraph.setAdapter(pollAdapter);
+                        pollGraph.scheduleLayoutAnimation();
 
 
 
-        } else {
+                       /* viewGroup = (RadioGroup) findViewById(R.id.radiogroup);
+                        // viewGroup.setOnCheckedChangeListener(this);
+
+                        addRadioButtons(optionLists.size() + 1);
+
+
+                    for (int i = 0; i < optionLists.size(); i++) {
+
+                        if (optionLists
+                                .get(0)
+                                .getOption()
+                                .equalsIgnoreCase(
+                                        optionLists.get(i).getOption())) {
+
+                            quiz_options_id = optionLists.get(i)
+                                    .getOptionId();
+
+                        }
+
+                    }*/
+
+                    }
+                }
+
+            }
+            Toast.makeText(PollDetailActivity.this,
+                    response.body().getMsg(), Toast.LENGTH_SHORT)
+                    .show();
+
+
+
+
+
+            } else {
             Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
 
         }

@@ -25,7 +25,7 @@
 
             <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/textno1"
-                android:textColor="@color/black"
+                android:textColor="@color/activetab"
                 android:textStyle="bold"
                 android:padding="2dp"
                 android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textColor="@color/black"
+                android:textColor="@color/activetab"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 

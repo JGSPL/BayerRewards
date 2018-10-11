@@ -12,7 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/pollquizrow"
+        android:background="@color/activetab"
         android:gravity="center"
         android:orientation="horizontal"
         android:minHeight="40dp"
@@ -47,7 +47,7 @@
                 android:maxLength="100"
                 android:singleLine="true"
                 android:text="Question"
-                android:textColor="@color/black"
+                android:textColor="@color/colorwhite"
                 android:textSize="18sp" />
         </LinearLayout>
 
@@ -60,7 +60,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:background="@drawable/ic_rightarrow"
+                android:background="@drawable/right_arrow1"
                 android:visibility="visible" />
         </LinearLayout>
     </LinearLayout>

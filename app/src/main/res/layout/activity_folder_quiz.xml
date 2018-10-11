@@ -47,7 +47,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="5dp"
         android:gravity="top"
         android:orientation="vertical">
 
@@ -57,8 +56,21 @@
             android:layout_height="wrap_content"
             android:gravity="center|center_horizontal"
             android:text="Quiz"
+            android:padding="5dp"
             android:textColor="@color/activetab"
             android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:background="@drawable/quiz_header"/>
+
+        </LinearLayout>
 
         <ListView
             android:id="@+id/quiz_list"

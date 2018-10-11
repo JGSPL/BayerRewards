@@ -152,8 +152,8 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
                     rdbtn.setTypeface(typeFace);
                     rdbtn.setText(quizSpecificOptionListnew.get(i - 1).getOption());
                     rdbtn.setTextColor(Color.BLACK);
-                    rdbtn.setTextSize(9);
-                    rdbtn.setBackgroundResource(R.drawable.quizbg);
+                    rdbtn.setTextSize(14);
+                    rdbtn.setBackgroundResource(R.drawable.agenda_bg);
 
                     RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(
                             width,
@@ -164,7 +164,7 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
                             LinearLayout.LayoutParams.FILL_PARENT,
                             LinearLayout.LayoutParams.WRAP_CONTENT
                     );
-//                    params.setMargins(5, 5, 5, 5);
+                    p.setMargins(5, 5, 5, 5);
 //                    rdbtn.setPadding(10,5,10,5);
                     rdbtn.setLayoutParams(p);
                     rdbtn.setTag(quizSpecificOptionListnew.get(i-1).getOptionId());
@@ -294,7 +294,7 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
                     rdbtn.setText(quizSpecificOptionListnew.get(i - 1).getOption());
                     rdbtn.setTextColor(Color.BLACK);
                     rdbtn.setTextSize(9);
-                    rdbtn.setBackgroundResource(R.drawable.quizbg);
+                    rdbtn.setBackgroundResource(R.drawable.agenda_bg);
 
                     RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(
                             width,
@@ -305,7 +305,7 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
                             LinearLayout.LayoutParams.FILL_PARENT,
                             LinearLayout.LayoutParams.WRAP_CONTENT
                     );
-//                    params.setMargins(5, 5, 5, 5);
+                    p.setMargins(5, 5, 5, 5);
 //                    rdbtn.setPadding(10,5,10,5);
                     rdbtn.setLayoutParams(p);
                     rdbtn.setTag(quizSpecificOptionListnew.get(i-1).getOptionId());
