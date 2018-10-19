@@ -2,16 +2,16 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape>
-            <solid android:color="@color/activetab" />
-            <corners android:radius="1dp" />
+            <solid android:color="@color/black" />
+            <corners android:radius="0.5dp" />
             <gradient
                 android:angle="180"
-                android:centerColor="@color/activetab"
-                android:endColor="@color/activetab"
-                android:startColor="@color/activetab" />
+                android:centerColor="@android:color/transparent"
+                android:endColor="@android:color/transparent"
+                android:startColor="@android:color/transparent" />
             <stroke
-                android:width="1dp"
-                android:color="@color/activetab" />
+                android:width="0.5dp"
+                android:color="@color/black" />
             <padding
                 android:bottom="10dp"
                 android:left="2dp"
@@ -22,6 +22,6 @@
     <item>
         <bitmap
             android:gravity="end"
-            android:src="@drawable/down_arrow" />
+            android:src="@drawable/qna_arrow" />
     </item>
 </layer-list>

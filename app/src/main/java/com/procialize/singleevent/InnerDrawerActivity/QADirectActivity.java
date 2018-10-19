@@ -1,8 +1,10 @@
 package com.procialize.singleevent.InnerDrawerActivity;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,6 +24,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.procialize.singleevent.Activity.CurrencyConverter;
 import com.procialize.singleevent.Adapter.QAAttendeeAdapter;
 import com.procialize.singleevent.Adapter.QADirectAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
@@ -222,6 +225,7 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
 
         Button cancelbtn = myDialog.findViewById(R.id.canclebtn);
         Button ratebtn = myDialog.findViewById(R.id.ratebtn);
+        ImageView imgCancel = myDialog.findViewById(R.id.imgCancel);
 
         final EditText etmsg = myDialog.findViewById(R.id.etmsg);
 
@@ -229,7 +233,7 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
         final TextView nametv = myDialog.findViewById(R.id.nametv);
         final TextView title = myDialog.findViewById(R.id.title);
         nametv.setVisibility(View.GONE);
-        title.setText("Ask Question");
+        title.setText("Post Question");
 
 
         etmsg.addTextChangedListener(new TextWatcher() {
@@ -251,6 +255,13 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
             }
         });
 
+        imgCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
+
 
         cancelbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -268,7 +279,19 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
                     String msg = StringEscapeUtils.escapeJava(etmsg.getText().toString());
                     PostQuetion(token, eventid, msg);
                 } else {
-                    Toast.makeText(getApplicationContext(), "Enter Something", Toast.LENGTH_SHORT).show();
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(QADirectActivity.this);
+                    builder.setTitle("");
+                    builder.setMessage("Please post a question");
+
+                    builder.setPositiveButton("OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    builder.show();
+                  //  Toast.makeText(getApplicationContext(), "Please post a question", Toast.LENGTH_SHORT).show();
                 }
             }
         });

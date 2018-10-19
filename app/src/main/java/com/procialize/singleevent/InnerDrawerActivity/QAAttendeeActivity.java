@@ -1,8 +1,10 @@
 package com.procialize.singleevent.InnerDrawerActivity;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -340,8 +342,9 @@ public class QAAttendeeActivity extends AppCompatActivity implements QAAttendeeA
         final TextView counttv = myDialog.findViewById(R.id.counttv);
         final TextView nametv = myDialog.findViewById(R.id.nametv);
         final TextView title = myDialog.findViewById(R.id.title);
+        final ImageView imgCancel = myDialog.findViewById(R.id.imgCancel);
 
-        title.setText("Ask Question");
+        title.setText("Post Question");
 
 
         nametv.setText("To " + Selectedspeaker);
@@ -365,6 +368,13 @@ public class QAAttendeeActivity extends AppCompatActivity implements QAAttendeeA
             }
         });
 
+        imgCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
+
 
         cancelbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -381,7 +391,20 @@ public class QAAttendeeActivity extends AppCompatActivity implements QAAttendeeA
                     String msg = StringEscapeUtils.escapeJava(etmsg.getText().toString());
                     PostQuetion(token, eventid, msg, Selectedspeaker, SelectedspeakerId);
                 } else {
-                    Toast.makeText(getApplicationContext(), "Enter Something", Toast.LENGTH_SHORT).show();
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(QAAttendeeActivity.this);
+                    builder.setTitle("");
+                    builder.setMessage("Please post a question");
+
+                    builder.setPositiveButton("OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    builder.show();
+                    //
+                   // Toast.makeText(getApplicationContext(), "Enter Something", Toast.LENGTH_SHORT).show();
                 }
             }
         });
