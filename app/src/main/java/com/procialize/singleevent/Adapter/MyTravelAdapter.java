@@ -52,7 +52,7 @@ public class MyTravelAdapter extends RecyclerView.Adapter<MyTravelAdapter.MyView
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.feedbackrow, parent, false);
+                .inflate(R.layout.travel_row, parent, false);
 
         return new MyViewHolder(itemView);
     }

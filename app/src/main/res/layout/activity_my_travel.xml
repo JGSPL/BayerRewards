@@ -50,6 +50,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="@dimen/padding"
+        android:visibility="gone"
         android:text="@string/refresh"
         android:textColor="@color/black"
         android:textSize="@dimen/textsizesmall" />
@@ -59,9 +60,22 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="@dimen/padding"
-        android:text="@string/mytravel"
+        android:text="Travel Desk"
         android:textColor="@color/activetab"
         android:textSize="@dimen/textsizenormal" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/travel_header"/>
+
+    </LinearLayout>
+
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -77,7 +91,9 @@
 
         <ListView
             android:id="@+id/travelRv"
+            android:background="@drawable/travel_bg"
             android:layout_width="fill_parent"
+            android:layout_margin="10dp"
             android:layout_height="wrap_content"
             android:padding="10dp"></ListView>
 
