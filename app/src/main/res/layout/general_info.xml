@@ -1,0 +1,111 @@
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/generalInforefresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical"
+    tools:context="com.procialize.vivo_app.Fragments.FeedFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <com.procialize.vivo_app.Fonts.RobotoTextview
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:gravity="center"
+                android:padding="@dimen/padding"
+                android:text="General Info"
+                android:textColor="@color/activetab"
+                android:textSize="@dimen/textsizenormal" />
+
+            <com.procialize.vivo_app.Fonts.RobotoTextview
+                android:id="@+id/pullrefresh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_below="@+id/header"
+                android:gravity="center"
+                android:padding="@dimen/padding"
+                android:text="@string/refresh"
+                android:textColor="@color/colorwhite"
+                android:textSize="@dimen/textsizesmall" />
+
+            <LinearLayout
+                android:id="@+id/linearlayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_below="@+id/pullrefresh">
+
+
+                <com.procialize.vivo_app.Fonts.RobotoTextview
+                    android:id="@+id/genHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="10dp"
+                    android:text="General Info"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
+
+
+                <com.procialize.vivo_app.Fonts.RobotoTextview
+                    android:id="@+id/weather_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/agendabg"
+                    android:drawableRight="@drawable/ic_rightarrow"
+                    android:gravity="left|center_vertical"
+                    android:padding="10dp"
+                    android:text="Time &amp; Weather"
+                    android:textColor="@color/activetab"
+                    android:visibility="gone" />
+
+
+                <com.procialize.vivo_app.Fonts.RobotoTextview
+                    android:id="@+id/abtcurency_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/agendabg"
+                    android:drawableRight="@drawable/ic_rightarrow"
+                    android:gravity="left|center_vertical"
+                    android:padding="10dp"
+                    android:text="Currency Convertor"
+                    android:textColor="@color/activetab"
+                    android:visibility="gone" />
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/general_item_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical">
+
+                </android.support.v7.widget.RecyclerView>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+</android.support.v4.widget.SwipeRefreshLayout>

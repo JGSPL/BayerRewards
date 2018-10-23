@@ -1,0 +1,197 @@
+package com.procialize.vivo_app.Adapter;
+
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
+import com.procialize.vivo_app.ApiConstant.ApiConstant;
+import com.procialize.vivo_app.GetterSetter.EventSettingList;
+import com.procialize.vivo_app.GetterSetter.UserEventList;
+import com.procialize.vivo_app.R;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+
+/**
+ * Created by Naushad on 10/31/2017.
+ */
+
+public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder> implements Filterable {
+
+    private List<UserEventList> eventList;
+    private List<UserEventList> eventListfilter;
+    private Context context;
+    private EventAdapterListner listener;
+    List<EventSettingList> eventSettingLists;
+
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public TextView nameTv, locationTv, designationTv, eventnaem;
+        public ImageView profileIv;
+        public LinearLayout mainLL;
+        public ProgressBar progressBar;
+
+        public MyViewHolder(View view) {
+            super(view);
+            nameTv = view.findViewById(R.id.nameTv);
+            locationTv = view.findViewById(R.id.locationTv);
+            designationTv = view.findViewById(R.id.designationTv);
+            eventnaem = view.findViewById(R.id.eventnaem);
+
+            profileIv = view.findViewById(R.id.profileIV);
+
+            mainLL = view.findViewById(R.id.mainLL);
+
+            progressBar = view.findViewById(R.id.progressBar);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // send selected contact in callback
+                    listener.onContactSelected(eventListfilter.get(getAdapterPosition()));
+                }
+            });
+        }
+    }
+
+
+    public EventAdapter(Context context, List<UserEventList> eventList, EventAdapterListner listener) {
+        this.eventListfilter = eventList;
+        this.eventList = eventList;
+        this.listener = listener;
+        this.context = context;
+    }
+
+    @Override
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.eventrow, parent, false);
+
+        return new MyViewHolder(itemView);
+    }
+
+    @Override
+    public void onBindViewHolder(final MyViewHolder holder, int position) {
+        final UserEventList evnt = eventListfilter.get(position);
+
+        holder.nameTv.setText(evnt.getName());
+        holder.locationTv.setText(evnt.getLocation());
+//        holder.designationTv.setText(evnt.getEventStart() + "-" + evnt.getEvent_end());
+        holder.eventnaem.setText(evnt.getName());
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date date1 = formatter.parse(evnt.getEventStart());
+            Date date2 = formatter.parse(evnt.getEvent_end());
+
+            DateFormat originalFormat = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
+
+            String date = originalFormat.format(date1);
+            String date3 = originalFormat.format(date2);
+
+            holder.designationTv.setText(date + " - " + date3);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if (evnt.getLogo() != null) {
+
+            Glide.with(context).load(ApiConstant.eventpic + evnt.getLogo())
+                    .apply(RequestOptions.skipMemoryCacheOf(true))
+                    .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE)).listener(new RequestListener<Drawable>() {
+                @Override
+                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                    holder.progressBar.setVisibility(View.GONE);
+                    holder.profileIv.setImageResource(R.drawable.profilepic_placeholder);
+                    return true;
+                }
+
+                @Override
+                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                    holder.progressBar.setVisibility(View.GONE);
+                    return false;
+                }
+            }).into(holder.profileIv);
+
+        } else {
+            holder.progressBar.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        return eventListfilter.size();
+    }
+
+
+    public interface EventAdapterListner {
+        void onContactSelected(UserEventList eventList);
+    }
+
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    eventListfilter = eventList;
+                } else {
+                    List<UserEventList> filteredList = new ArrayList<>();
+                    for (UserEventList row : eventList) {
+
+                        // name match condition. this might differ depending on your requirement
+                        // here we are looking for name or phone number match
+                        String name = row.getName().toLowerCase();
+
+                        if (name.contains(charString.toLowerCase())) {
+                            filteredList.add(row);
+                        }
+                    }
+
+                    eventListfilter = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = eventListfilter;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                eventListfilter = (ArrayList<UserEventList>) filterResults.values;
+
+                if (eventListfilter.size() == 0) {
+                    Toast.makeText(context, "No Event Found", Toast.LENGTH_SHORT).show();
+                }
+                // refresh the list with filtered data
+                notifyDataSetChanged();
+            }
+        };
+    }
+}

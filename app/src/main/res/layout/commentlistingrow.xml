@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:elevation="@dimen/elevation"
+        android:translationZ="@dimen/elevation"
+        android:background="@drawable/newsfeedrowbg"
+        android:layout_margin="@dimen/margin"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/textcommentContainer"
+            android:layout_margin="@dimen/margin"
+            android:orientation="horizontal"
+            android:weightSum="10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <RelativeLayout
+                android:gravity="center"
+                android:layout_weight="3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/profileIV"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/profilepic_placeholder"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"/>
+
+                <ProgressBar
+                    android:visibility="visible"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/progressView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:layout_weight="7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/moreIv"
+                    android:src="@drawable/ic_more"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <com.procialize.vivo_app.Fonts.RobotoTextview
+                    android:paddingLeft="5dp"
+                    android:textSize="@dimen/textsizenormal"
+                    android:layout_alignParentTop="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Abheejit Saxena"
+                    android:textColor="@color/activetab"
+                    android:layout_below="@+id/moreIv"
+                    android:id="@+id/nameTv" />
+
+                <com.procialize.vivo_app.Fonts.RobotoTextview
+                    android:visibility="gone"
+                    android:paddingLeft="5dp"
+                    android:layout_marginTop="@dimen/margin"
+                    android:textSize="@dimen/textsizesmall"
+                    android:id="@+id/commentTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/nameTv"
+                    android:text="Simens LTD"
+                    android:textColor="@color/colorwhite" />
+                <com.procialize.vivo_app.Fonts.RobotoTextview
+                    android:paddingLeft="5dp"
+                    android:textSize="@dimen/textsizesmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/commentTv"
+                    android:layout_toEndOf="@+id/imageView"
+                    android:text="Delhi"
+                    android:textColor="@color/colorwhite"
+                    android:id="@+id/dateTv" />
+
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_margin="3dp"
+            android:layout_below="@+id/nameTv"
+            android:id="@+id/gifIV"
+            android:layout_gravity="center"
+            android:layout_width="150dp"
+            android:layout_height="100dp" />
+
+        <ProgressBar
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_below="@+id/nameTv"
+            android:visibility="gone"
+            android:id="@+id/progressViewgif"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:gravity="center|top"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            app:srcCompat="@drawable/login_logo" />
+
+        <com.procialize.vivo_app.Fonts.RobotoTextview
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:gravity="center"
+            android:text="Vivanta by Taj, Bentota Mumbai \n 30th Nov - 2nd Dec, 2018"
+            android:textColor="@color/colorwhite"
+            android:textSize="@dimen/textsizenormal"
+            android:layout_marginTop="20dp"/>
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <!--<android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black">-->
+
+            <com.procialize.vivo_app.Fonts.RobotoTextInputEditext
+                android:id="@+id/input_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_background"
+                android:hint="@string/hint_email"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:gravity="center"
+                android:padding="15dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/colorwhite"
+                android:textColorHint="@color/colorwhite"
+                android:textSize="@dimen/textsizesmall"
+                android:textCursorDrawable="@drawable/color_cursor"/>
+            <!-- </android.support.design.widget.TextInputLayout>-->
+
+            <!--<android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/colorwhite"
+                android:textColorHint="@color/black"
+                app:passwordToggleEnabled="true">-->
+
+            <com.procialize.vivo_app.Fonts.RobotoTextInputEditext
+                android:id="@+id/input_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edit_background"
+                android:hint="@string/hint_password"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:gravity="center"
+                android:padding="15dp"
+                android:textColor="@color/colorwhite"
+                android:textColorHint="@color/colorwhite"
+                android:textSize="@dimen/textsizesmall"
+                android:textCursorDrawable="@drawable/color_cursor"/>
+            <!--</android.support.design.widget.TextInputLayout>-->
+
+            <com.procialize.vivo_app.Fonts.RobotoTextview
+                android:id="@+id/text_forgotPswd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:padding="5dp"
+                android:text="Forgot Password"
+                android:textColor="@color/colorwhite"
+                android:textColorHint="@color/colorwhite"
+                android:textSize="@dimen/textsizesmall"
+                android:gravity="right"
+                android:visibility="gone"/>
+
+            <com.procialize.vivo_app.Fonts.RobotoButton
+                android:id="@+id/loginbtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/bg_login"
+                android:text="@string/login"
+                android:textColor="#000000"
+                android:textSize="@dimen/textsizenormal"
+                android:textAllCaps="false"/>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+
+
+        <com.procialize.vivo_app.Fonts.RobotoTextview
+            android:id="@+id/textViewOR"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="OR"
+            android:visibility="gone"
+            android:textAlignment="center"
+            android:textColor="@color/colorwhite"
+            android:textSize="15sp" />
+
+        <com.procialize.vivo_app.Fonts.RobotoButton
+            android:id="@+id/createaccbtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@color/colorwhite"
+            android:text="@string/create_evnt"
+            android:textColor="@color/logintxt"
+            android:textSize="@dimen/textsizenormal"
+            android:visibility="gone"
+
+            android:textAllCaps="false" />
+
+        <com.procialize.vivo_app.Fonts.RobotoTextview
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text"
+            android:textAlignment="center"
+            android:textColor="@color/colorwhite"
+            android:textSize="15sp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar2"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+    </LinearLayout>
+</RelativeLayout>

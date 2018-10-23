@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background"
+    tools:context="com.procialize.vivo_app.Fragments.SpeakerFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <com.procialize.vivo_app.Fonts.RobotoTextview
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:padding="@dimen/padding"
+        android:textSize="@dimen/textsizesmall"
+        android:text="@string/refresh"
+        />
+
+    <com.procialize.vivo_app.Fonts.RobotoTextInputEditext
+        android:background="@drawable/edittexthmbg"
+        android:id="@+id/searchEt"
+        android:layout_margin="@dimen/margin"
+        android:hint="@string/search_speaker_here"
+        android:textSize="@dimen/textsizesmall"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/speakerfeedrefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/speakerrecycler"
+            android:scrollbars="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
+</LinearLayout>

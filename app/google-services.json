@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "158537856289",
+    "firebase_url": "https://vivoapp-219910.firebaseio.com",
+    "project_id": "vivoapp-219910",
+    "storage_bucket": "vivoapp-219910.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:158537856289:android:5134d48f7b7ec108",
+        "android_client_info": {
+          "package_name": "com.procialize.vivo_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "158537856289-ov3a23uuspa4rf7g1h6f3flj99tqat2p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDX-vVqRDQivTSJh5lGpEvOr4q-qa6NiyM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

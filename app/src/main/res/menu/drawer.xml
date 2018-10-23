@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/home"
+            android:checked="false"
+            android:icon="@drawable/ic_home"
+            android:title="@string/home" />
+
+        <item
+            android:id="@+id/eventinfo"
+            android:checked="false"
+            android:icon="@drawable/ic_info"
+            android:title="@string/eventInfo" />
+
+        <item
+            android:id="@+id/qrbadge"
+            android:checked="false"
+            android:icon="@drawable/ic_workspace"
+            android:title="@string/qrbadge" />
+
+        <item
+            android:id="@+id/scanqr"
+            android:checked="false"
+            android:icon="@drawable/ic_scan"
+            android:title="@string/scanqr" />
+
+
+        <item
+            android:id="@+id/travel"
+            android:checked="false"
+            android:icon="@drawable/ic_travel"
+            android:title="@string/travel" />
+        <item
+            android:id="@+id/notification"
+            android:checked="false"
+            android:icon="@drawable/ic_notification"
+            android:title="@string/notification" />
+        <item
+            android:id="@+id/qa"
+            android:checked="false"
+            android:icon="@drawable/ic_question"
+            android:title="@string/qa" />
+
+        <item
+            android:id="@+id/gallery"
+            android:checked="false"
+            android:icon="@drawable/ic_gallery"
+            android:title="@string/gallery" />
+
+        <item
+            android:id="@+id/video"
+            android:checked="false"
+            android:icon="@drawable/ic_videos"
+            android:title="@string/video" />
+
+        <item
+            android:id="@+id/documents"
+            android:checked="false"
+            android:icon="@drawable/ic_documents"
+            android:title="@string/documents" />
+
+        <item
+            android:id="@+id/livepol"
+            android:checked="false"
+            android:icon="@drawable/ic_livepole"
+            android:title="@string/livepol" />
+
+        <item
+            android:id="@+id/quiz"
+            android:checked="false"
+            android:icon="@drawable/ic_agenda"
+            android:title="@string/quiz" />
+
+        <item
+            android:id="@+id/engagement"
+            android:checked="false"
+            android:icon="@drawable/ic_agenda"
+            android:title="@string/engagement" />
+
+        <item
+            android:id="@+id/feedback"
+            android:checked="false"
+            android:icon="@drawable/ic_feedback"
+            android:title="@string/feedback" />
+
+        <item
+            android:id="@+id/contact"
+            android:checked="false"
+            android:icon="@drawable/ic_contact"
+            android:title="@string/contactus" />
+
+        <item
+            android:id="@+id/swit"
+            android:checked="false"
+            android:icon="@drawable/ic_switch"
+            android:title="@string/swit" />
+
+        <item
+            android:id="@+id/ajenda"
+            android:checked="false"
+            android:icon="@drawable/ic_agenda"
+            android:title="@string/agenda" />
+
+        <item
+            android:id="@+id/attendee"
+            android:checked="false"
+            android:icon="@drawable/ic_attendee"
+            android:title="@string/attendee" />
+
+        <item
+            android:id="@+id/speaker"
+            android:checked="false"
+            android:icon="@drawable/ic_speaker"
+            android:title="@string/speaker" />
+
+        <item
+            android:id="@+id/logout"
+            android:checked="false"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/logout" />
+
+
+        <item
+            android:id="@+id/version"
+            android:checked="false"
+            android:icon="@drawable/blnk"
+            android:title="@string/version" />
+    </group>
+</menu>

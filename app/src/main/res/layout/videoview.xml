@@ -1,0 +1,93 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:EMVideoView="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@drawable/background"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/appBarLayout"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colortoolbar"
+            android:elevation="@dimen/elevation"
+            android:contentInsetLeft="0dp"
+            android:contentInsetStart="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            android:contentInsetRight="0dp"
+            android:contentInsetEnd="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetEnd="0dp"
+            android:minHeight="?attr/actionBarSize">
+
+            <ImageView
+                android:id="@+id/headerlogoIv"
+                android:layout_marginLeft="-10dp"
+                android:layout_width="150dp"
+                android:contentDescription=" "
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/header_logo"/>
+
+        </android.support.v7.widget.Toolbar>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlData"
+        android:layout_below="@+id/appBarLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_centerInParent="true"
+        >
+
+        <com.devbrackets.android.exomedia.ui.widget.EMVideoView
+            android:id="@+id/video_view"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:visibility="gone"
+            EMVideoView:useDefaultControls="true" />
+
+
+        <TextView
+            android:id="@+id/txtIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:paddingBottom="15dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="10dp"
+            android:paddingTop="15dp"
+            android:text="Close"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:visibility="gone" />
+
+
+    </RelativeLayout>
+    <com.procialize.vivo_app.Fonts.RobotoButton
+        android:id="@+id/btn_share"
+        android:layout_width="100dp"
+        android:layout_height="35dp"
+        android:maxHeight="35dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/loginbutton"
+        android:text="Share"
+        android:textColor="@color/colorwhite" />
+
+
+</RelativeLayout>
