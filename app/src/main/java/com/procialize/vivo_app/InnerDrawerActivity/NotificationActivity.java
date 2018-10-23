@@ -240,6 +240,8 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
         attendeetail.putExtra("company", "");
         attendeetail.putExtra("designation", notificationList.getDesignation());
         attendeetail.putExtra("description", "");
+        attendeetail.putExtra("profile", notificationList.getProfilePic());
+
 //                speakeretail.putExtra("totalrate",attendee.getTotalRating());
         startActivity(attendeetail);
 

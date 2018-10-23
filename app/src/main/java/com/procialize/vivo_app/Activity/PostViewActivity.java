@@ -269,7 +269,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
                                 body = MultipartBody.Part.createFormData("media_file", file.getName(), reqFile);
                             }
                         }else{
-                            Toast.makeText(PostViewActivity.this, "Please Enter your Post", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(PostViewActivity.this, "Please Enter your Post", Toast.LENGTH_SHORT).show();
 
                         }
 
@@ -395,7 +395,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
                     showResponse(response);
                 } else {
                     dismissProgress();
-                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 

@@ -2,6 +2,11 @@ package com.procialize.vivo_app.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -22,6 +28,7 @@ import com.procialize.vivo_app.CustomTools.MyJZVideoPlayerStandard;
 import com.procialize.vivo_app.CustomTools.PicassoTrustAll;
 import com.procialize.vivo_app.CustomTools.ScaledImageView;
 import com.procialize.vivo_app.GetterSetter.EventSettingList;
+import com.procialize.vivo_app.GetterSetter.LikePost;
 import com.procialize.vivo_app.GetterSetter.NewsFeedList;
 import com.procialize.vivo_app.R;
 import com.procialize.vivo_app.Session.SessionManager;
@@ -37,6 +44,11 @@ import java.util.List;
 import java.util.Locale;
 
 import cn.jzvd.JZVideoPlayerStandard;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class NewsfeedAdapter extends BaseAdapter {
 
@@ -53,6 +65,10 @@ public class NewsfeedAdapter extends BaseAdapter {
     final String profilepic;
     String news_feed_post = "1", news_feed_images = "1", news_feed_video = "1";
     String topMgmtFlag;
+    String userType, noty_id;
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String eventid;
+    String token;
 
 
     public NewsfeedAdapter(Context con, List<NewsFeedList> feedLists, FeedAdapterListner listener) {
@@ -63,7 +79,10 @@ public class NewsfeedAdapter extends BaseAdapter {
         SessionManager sessionManager = new SessionManager(con);
         user = sessionManager.getUserDetails();
         profilepic = user.get(SessionManager.KEY_PIC);
+        token = user.get(SessionManager.KEY_TOKEN);
         topMgmtFlag = sessionManager.getSkipFlag();
+        SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        eventid = prefs.getString("eventid", "1");
 
     }
 
@@ -80,6 +99,18 @@ public class NewsfeedAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+
+        return getCount();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+
         return position;
     }
 
@@ -297,11 +328,14 @@ public class NewsfeedAdapter extends BaseAdapter {
 
 
             holder.img_like.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_afterlike, 0);
+
+//            feed.notify();
 //            holder.img_like.setBackgroundResource(R.drawable.ic_afterlike);
 
         } else {
             holder.img_like.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_like, 0);
 //            holder.img_like.setBackgroundResource(R.drawable.ic_like);
+//            feed.notify();
         }
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
@@ -498,8 +532,80 @@ public class NewsfeedAdapter extends BaseAdapter {
         holder.img_like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 listener.likeTvViewOnClick(v, feedLists.get(position), position, holder.img_like, holder.liketext);
+
+//                if (topMgmtFlag.equalsIgnoreCase("0")) {// // TODO
+                // holder.like_btn.setEnabled(false);
+                // holder.like_btn.setClickable(false);
+                // // holder.like_btn.setAlpha(0.5f);
+                // // holder.like_count_text.setText("");
+
+//                Drawable[] drawables = holder.img_like.getCompoundDrawables();
+//                Bitmap bitmap = ((BitmapDrawable) drawables[2]).getBitmap();
+//
+//                Bitmap bitmap2 = ((BitmapDrawable) context.getResources().getDrawable(R.drawable.ic_like)).getBitmap();
+//                int count = Integer.parseInt(feedLists.get(position).getTotalLikes());
+//
+////        if(!drawables[2].equals(R.drawable.ic_like)){
+//                if (bitmap == bitmap2) {
+//
+////                    if (feedLists.get(position).getLikeFlag()
+////                            .equalsIgnoreCase("0")) {
+//                    // holder.like_btn.setEnabled(true);
+//                    // holder.like_btn.setClickable(true);
+//                    // holder.like_btn.setAlpha(1f);
+//
+////                        holder.img_like.setBackgroundResource(R.drawable.ic_like);
+//                    holder.img_like.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_afterlike, 0);
+//
+//                    int likeCount = Integer.parseInt(feedLists
+//                            .get(position).getTotalLikes());
+//                    count = count + 1;
+//
+//                    holder.liketext.setText(count + " Likes");
+//
+//                } else {
+//                    // holder.like_btn.setEnabled(false);
+//                    // holder.like_btn.setClickable(false);
+//                    // holder.like_btn.setAlpha(0.5f);
+//
+////                        holder.img_like.setBackgroundResource(R.drawable.ic_afterlike);
+//
+//                    holder.img_like.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_like, 0);
+////                    int count = Integer.parseInt(feedLists
+////                            .get(position).getTotalLikes());
+//
+//                    if (count > 0) {
+//                        count = count - 1;
+//                    } else {
+//
+//                        count = 0;
+//                    }
+//
+//                    holder.liketext.setText(count + " Likes");
+//
+//                }
+//
+//                int likeCount = Integer.parseInt(feedLists.get(
+//                        position).getTotalLikes());
+//                likeCount = likeCount + 1;
+//                // holder.like_count_text.setText(likeCount + " Likes");
+//                userType = feedLists.get(position)
+//                        .getType();
+//                noty_id = feedLists.get(position)
+//                        .getNewsFeedId();
+//                PostLike(eventid, noty_id, token);
+//
+////                    new updateLike().execute();
+////                } else {
+////
+////                    Toast.makeText(context, "Only for Registered Users",
+////                            Toast.LENGTH_SHORT).show();
+////                }
+//
             }
+
         });
 
         holder.commentTv.setOnClickListener(new View.OnClickListener() {
@@ -735,5 +841,43 @@ public class NewsfeedAdapter extends BaseAdapter {
         }
     }
 
+    public void PostLike(String eventid, String feedid, String token) {
+
+//        showProgress();
+        mAPIService.postLike(eventid, feedid, token).enqueue(new Callback<LikePost>() {
+            @Override
+            public void onResponse(Call<LikePost> call, Response<LikePost> response) {
+
+                if (response.isSuccessful()) {
+                    Log.i("hit", "post submitted to API." + response.toString());
+//                    dismissProgress();
+                    showPostlikeresponse(response);
+                } else {
+//                    dismissProgress();
+                    Toast.makeText(context, "Unable to process", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LikePost> call, Throwable t) {
+                Log.e("hit", "Unable to submit post to API.");
+//                dismissProgress();
+                Toast.makeText(context, "Unable to process", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+    private void showPostlikeresponse(Response<LikePost> response) {
+
+        if (response.body().getStatus().equals("Success")) {
+            Log.e("post", "success");
+//            feedAdapter.notifyDataSetChanged();
+//            fetchFeed(token, eventid);
+        } else {
+            Log.e("post", "fail");
+            Toast.makeText(context, response.body().getMsg(), Toast.LENGTH_SHORT).show();
+        }
+    }
 
 }

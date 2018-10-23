@@ -1,126 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="2dp"
     android:background="@drawable/newsfeedrowbg"
-    android:layout_height="wrap_content">
+    android:orientation="vertical">
 
 
     <LinearLayout
         android:id="@+id/mainLL"
-        android:elevation="@dimen/elevation"
-        android:padding="5dp"
-        android:translationZ="10dp"
-        android:layout_margin="@dimen/margin"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:elevation="@dimen/elevation"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:translationZ="10dp">
 
 
         <RelativeLayout
-            android:gravity="top"
-            android:layout_weight="2"
             android:layout_width="0dp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="top">
 
-            <ImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <com.procialize.vivo_app.CustomTools.RoundCornersImageView
                 android:id="@+id/profileIV"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/profilepic_placeholder"
                 android:layout_width="96dp"
-                android:layout_height="96dp"/>
+                android:layout_height="96dp"
+                android:layout_alignParentTop="true"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/profilepic_placeholder" />
 
             <ProgressBar
-                android:layout_alignParentTop="true"
-                android:layout_centerInParent="true"
-                android:visibility="visible"
                 android:id="@+id/progressView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:visibility="visible" />
 
 
         </RelativeLayout>
 
         <LinearLayout
-            android:orientation="vertical"
-            android:gravity="center_vertical"
-            android:layout_weight="5"
             android:layout_width="0dp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
 
-                <com.procialize.vivo_app.Fonts.RobotoTextview
-                    android:paddingLeft="5dp"
-                    android:textSize="@dimen/textsizenormal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/designationTv"
-                    android:layout_alignTop="@+id/imageView"
-                    android:text="Abheejit Saxena"
-                    android:textColor="@color/activetab"
-                    android:id="@+id/nameTv" />
-
-
+            <com.procialize.vivo_app.Fonts.RobotoTextview
+                android:id="@+id/nameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/designationTv"
+                android:layout_alignTop="@+id/imageView"
+                android:paddingLeft="5dp"
+                android:text="Abheejit Saxena"
+                android:textColor="@color/activetab"
+                android:textSize="@dimen/textsizenormal" />
 
 
             <com.procialize.vivo_app.Fonts.RobotoTextview
                 android:id="@+id/txt_msg"
-                android:paddingLeft="5dp"
-                android:textSize="@dimen/textsizesmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/elevation"
+                android:paddingLeft="5dp"
                 android:text="Sent you message"
-                android:textColor="@color/colorwhite" />
+                android:textColor="@color/colorwhite"
+                android:textSize="@dimen/textsizesmall" />
 
 
             <com.procialize.vivo_app.Fonts.RobotoTextview
-                android:paddingLeft="5dp"
-                android:textSize="@dimen/textsizesmall"
+                android:id="@+id/dateTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/elevation"
+                android:paddingLeft="5dp"
                 android:text="Delhi"
                 android:textColor="@color/colorwhite"
-                android:id="@+id/dateTv" />
+                android:textSize="@dimen/textsizesmall" />
+
             <com.procialize.vivo_app.Fonts.RobotoTextview
-                android:paddingLeft="5dp"
-                android:textSize="@dimen/textsizesmall"
+                android:id="@+id/dataTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="3454532"
                 android:layout_margin="@dimen/elevation"
+                android:paddingLeft="5dp"
+                android:text="3454532"
                 android:textColor="@color/colorwhite"
-                android:id="@+id/dataTv" />
+                android:textSize="@dimen/textsizesmall" />
 
             <com.procialize.vivo_app.Fonts.RobotoButton
                 android:id="@+id/replyBtn"
-                android:text="@string/replybtn"
-                android:textSize="@dimen/textsizesmall"
-                android:textColor="@color/colorwhite"
-                android:layout_margin="@dimen/elevation"
-                android:layout_gravity="center"
-                android:background="@drawable/loginbutton"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:textAllCaps="false"/>
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/elevation"
+                android:background="@drawable/loginbutton"
+                android:text="@string/replybtn"
+                android:textAllCaps="false"
+                android:textColor="@color/colorwhite"
+                android:textSize="@dimen/textsizesmall" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_weight="1"
             android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical"
-            android:layout_height="match_parent">
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/arrowIv"
-                android:src="@drawable/ic_rightarrow"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp" />
+                android:layout_height="30dp"
+                android:src="@drawable/ic_rightarrow" />
         </LinearLayout>
 
     </LinearLayout>

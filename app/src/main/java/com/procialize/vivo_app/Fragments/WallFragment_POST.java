@@ -482,6 +482,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
         if (bitmap != bitmap2) {
 
             likeimage.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_like, 0);
+//            feedAdapter.notifyDataSetChanged();
 //            likeimage.setBackgroundResource(R.drawable.ic_like);
             PostLike(eventid, feed.getNewsFeedId(), token);
             try {
@@ -503,6 +504,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
             likeimage.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_afterlike, 0);
 //            likeimage.setBackgroundResource(R.drawable.ic_afterlike);
+//            feedAdapter.notifyDataSetChanged();
             PostLike(eventid, feed.getNewsFeedId(), token);
 
             try {
@@ -1021,6 +1023,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
         if (response.body().getStatus().equals("Success")) {
             Log.e("post", "success");
+//            feedAdapter.notifyDataSetChanged();
 //            fetchFeed(token, eventid);
         } else {
             Log.e("post", "fail");
