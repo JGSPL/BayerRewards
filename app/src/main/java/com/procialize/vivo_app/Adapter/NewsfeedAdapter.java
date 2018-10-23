@@ -102,17 +102,7 @@ public class NewsfeedAdapter extends BaseAdapter {
         return position;
     }
 
-    @Override
-    public int getViewTypeCount() {
 
-        return getCount();
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-
-        return position;
-    }
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {

@@ -1024,7 +1024,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
         if (response.body().getStatus().equals("Success")) {
             Log.e("post", "success");
 //            feedAdapter.notifyDataSetChanged();
-//            fetchFeed(token, eventid);
+            fetchFeed(token, eventid);
         } else {
             Log.e("post", "fail");
             Toast.makeText(getContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
@@ -1364,5 +1364,27 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        procializeDB = new DBHelper(getActivity());
+        db = procializeDB.getWritableDatabase();
+
+        //fetchFeed(token,eventid);
+        if (cd.isConnectingToInternet()) {
+            fetchFeed(token, eventid);
+        } else {
+            db = procializeDB.getReadableDatabase();
+
+            newsfeedsDBList = dbHelper.getNewsFeedDetails();
+
+            feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, this);
+            feedAdapter.notifyDataSetChanged();
+            feedrecycler.setAdapter(feedAdapter);
+            feedrecycler.scheduleLayoutAnimation();
+
+
+        }
+    }
 
 }
