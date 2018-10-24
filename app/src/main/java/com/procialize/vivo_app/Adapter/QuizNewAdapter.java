@@ -156,6 +156,8 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
                     rdbtn.setTypeface(typeFace);
                     rdbtn.setText(StringEscapeUtils.unescapeJava(quizSpecificOptionListnew.get(i - 1).getOption()));
                     rdbtn.setTextColor(Color.WHITE);
+                    rdbtn.setBackgroundResource(R.drawable.edit_background);
+
                     rdbtn.setTextSize(14);
                     if(Build.VERSION.SDK_INT>=21)
                     {
@@ -319,6 +321,8 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
                     rdbtn.setText(StringEscapeUtils.unescapeJava(quizSpecificOptionListnew.get(i - 1).getOption()));
                     rdbtn.setTextColor(Color.WHITE);
                     rdbtn.setTextSize(9);
+                    rdbtn.setBackgroundResource(R.drawable.edit_background);
+
 
                     if(Build.VERSION.SDK_INT>=21)
                     {

@@ -21,6 +21,7 @@ import com.procialize.vivo_app.Activity.AttendeeDetailActivity;
 import com.procialize.vivo_app.Activity.CommentActivity;
 import com.procialize.vivo_app.Adapter.NotificationAdapter;
 import com.procialize.vivo_app.ApiConstant.APIService;
+import com.procialize.vivo_app.ApiConstant.ApiConstant;
 import com.procialize.vivo_app.ApiConstant.ApiUtils;
 import com.procialize.vivo_app.DbHelper.DBHelper;
 import com.procialize.vivo_app.GetterSetter.NewsFeedList;
@@ -211,6 +212,51 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
                 Intent comment = new Intent(this, CommentActivity.class);
                 comment.putExtra("feedid", notification.getNotificationPostId());
                 comment.putExtra("type", notification.getNotificationType());
+
+                comment.putExtra("noti_type", "Notification");
+                try {
+                    float width = Float.parseFloat(newsfeedsDBList.get(0).getWidth());
+                    float height = Float.parseFloat(newsfeedsDBList.get(0).getHeight());
+
+                    float p1 = (float) (height / width);
+                    comment.putExtra("heading", newsfeedsDBList.get(0).getPostStatus());
+                    comment.putExtra("company", newsfeedsDBList.get(0).getCompanyName());
+                    comment.putExtra("name", newsfeedsDBList.get(0).getFirstName());
+                    comment.putExtra("profilepic", newsfeedsDBList.get(0).getProfilePic());
+                    comment.putExtra("Likes", newsfeedsDBList.get(0).getTotalLikes());
+                    comment.putExtra("Comments", newsfeedsDBList.get(0).getTotalComments());
+                    comment.putExtra("designation", newsfeedsDBList.get(0).getDesignation());
+                    comment.putExtra("Likeflag", newsfeedsDBList.get(0).getLikeFlag());
+                    comment.putExtra("date", newsfeedsDBList.get(0).getPostDate());
+
+                    comment.putExtra("AspectRatio", p1);
+                    if (newsfeedsDBList.get(0).getType().equalsIgnoreCase("Image")) {
+                        comment.putExtra("url", ApiConstant.newsfeedwall + newsfeedsDBList.get(0).getMediaFile());
+                    } else if (newsfeedsDBList.get(0).getType().equalsIgnoreCase("Video")) {
+                        comment.putExtra("videourl", ApiConstant.newsfeedwall + newsfeedsDBList.get(0).getMediaFile());
+                        comment.putExtra("thumbImg", ApiConstant.newsfeedwall + newsfeedsDBList.get(0).getThumbImage());
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+
+
+                startActivity(comment);
+            }
+        }
+
+/*
+        if (notification.getNotificationType() != null) {
+            db = procializeDB.getReadableDatabase();
+
+            newsfeedsDBList = dbHelper.getNewsFeedLikeandComment(notification.getNotificationPostId());
+            if (notification.getNotificationType().equalsIgnoreCase("Cmnt") || notification.getNotificationType().equalsIgnoreCase("Like")) {
+                Intent comment = new Intent(this, CommentActivity.class);
+                comment.putExtra("feedid", notification.getNotificationPostId());
+                comment.putExtra("type", notification.getNotificationType());
                 comment.putExtra("company", notification.getCompanyName());
                 comment.putExtra("name", notification.getAttendeeFirstName());
                 comment.putExtra("profilepic", notification.getProfilePic());
@@ -226,12 +272,25 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
                 startActivity(comment);
             }
         }
+*/
 
     }
 
     @Override
     public void onReplyClick(NotificationList notificationList) {
 
+        /*Intent attendeetail = new Intent(this, AttendeeDetailActivity.class);
+        attendeetail.putExtra("id", notificationList.getAttendeeId());
+        attendeetail.putExtra("name", notificationList.getAttendeeFirstName() + " " + notificationList.getAttendeeLastName());
+        attendeetail.putExtra("city", "");
+        attendeetail.putExtra("country", "");
+        attendeetail.putExtra("company", "");
+        attendeetail.putExtra("designation", notificationList.getDesignation());
+        attendeetail.putExtra("description", "");
+        attendeetail.putExtra("profile", notificationList.getProfilePic());
+
+//                speakeretail.putExtra("totalrate",attendee.getTotalRating());
+        startActivity(attendeetail);*/
         Intent attendeetail = new Intent(this, AttendeeDetailActivity.class);
         attendeetail.putExtra("id", notificationList.getAttendeeId());
         attendeetail.putExtra("name", notificationList.getAttendeeFirstName() + " " + notificationList.getAttendeeLastName());
@@ -241,6 +300,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
         attendeetail.putExtra("designation", notificationList.getDesignation());
         attendeetail.putExtra("description", "");
         attendeetail.putExtra("profile", notificationList.getProfilePic());
+
 
 //                speakeretail.putExtra("totalrate",attendee.getTotalRating());
         startActivity(attendeetail);

@@ -165,7 +165,7 @@ public class LeaderBoardActivity  extends AppCompatActivity {
                 setContentView(R.layout.activity_empty_view);
                 ImageView imageView = findViewById(R.id.back);
                 TextView text_empty = findViewById(R.id.text_empty);
-                text_empty.setText("LeaderBoard Data not available");
+                text_empty.setText("No LeaderBoard Points available");
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
