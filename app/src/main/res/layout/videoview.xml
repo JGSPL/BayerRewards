@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:EMVideoView="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="@drawable/background"
     android:layout_height="match_parent"
@@ -44,6 +45,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
+        android:layout_above="@+id/btn_share"
         android:id="@+id/rlData"
         android:layout_below="@+id/appBarLayout"
         android:layout_width="wrap_content"
@@ -57,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            EMVideoView:useDefaultControls="true" />
+            EMVideoView:useDefaultControls="true"/>
 
 
         <TextView
