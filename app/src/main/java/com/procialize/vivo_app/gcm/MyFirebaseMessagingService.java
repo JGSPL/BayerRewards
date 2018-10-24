@@ -52,7 +52,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, ADMIN_CHANNEL_ID)
                 .setSmallIcon(R.drawable.logo)
                 .setSmallIcon(getNotificationIcon())
-                .setContentTitle("Procialize Info")
+                .setContentTitle("Vivo")
                 // .setColor(Color.parseColor("#ffff00"))
                 .setColorized(true)
                 //.setContentTitle(remoteMessage.getData().get("Fames bond"))

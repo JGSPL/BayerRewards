@@ -904,7 +904,8 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                     public void onClick(DialogInterface dialog,
                                         int which) {
                         finish();
-                    }
+                        //System.exit(0);
+                        finishAffinity();                    }
                 });
         builder.show();
     }

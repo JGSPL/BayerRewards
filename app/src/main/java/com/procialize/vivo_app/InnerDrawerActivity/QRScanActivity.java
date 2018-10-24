@@ -128,15 +128,15 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
             city = parts[6].substring(0, (parts[6].length()));
 */
             name = parts[0].substring(0, (parts[0].length()));
-            lname = parts[1].substring(0, (parts[1].length()));
-            designation = parts[2].substring(0, (parts[2].length()));
-            company = parts[3].substring(0, (parts[3].length()));
-            city = parts[4].substring(0, (parts[4].length()));
-            email = parts[5].substring(0, (parts[5].length()));
-            number = parts[6].substring(0, (parts[6].length()));
+            //lname = parts[1].substring(0, (parts[1].length()));
+            designation = parts[1].substring(0, (parts[1].length()));
+            company = parts[4].substring(0, (parts[4].length()));
+            city = parts[5].substring(0, (parts[5].length()));
+            email = parts[2].substring(0, (parts[2].length()));
+            number = parts[3].substring(0, (parts[3].length()));
 
             edit_username_edit.setText(email);
-            edit_first_name_edit.setText(name + " " + lname);
+            edit_first_name_edit.setText(name);
             edit_designation_edit.setText(designation);
             edit_company_name_edit.setText(company);
             edit_mobile_edit.setText(number);

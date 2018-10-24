@@ -27,7 +27,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent">
 
-                <ImageView
+                <com.procialize.vivo_app.CustomTools.RoundCornersImageView
                     xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/profileIV"
                     android:layout_centerInParent="true"

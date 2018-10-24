@@ -4,8 +4,9 @@ import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -116,23 +117,7 @@ public class QuizDetailActivity extends AppCompatActivity {
                         RadioGroup.LayoutParams.MATCH_PARENT,
                         RadioGroup.LayoutParams.MATCH_PARENT
                 );
-                params.setMargins(15, 15, 15, 0);
-                ColorStateList colorStateList;
-
-                colorStateList = new ColorStateList(
-
-                        new int[][]{
-
-                                new int[]{-android.R.attr.state_checked}, //disabled
-                                new int[]{android.R.attr.state_checked} //enabled
-                        },
-                        new int[]{
-
-                                Color.BLACK //disabled
-                                , Color.GREEN //enabled
-
-                        }
-                );
+                params.setMargins(15, 25, 15, 0);
 
 //                ll.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 //                    @Override
@@ -145,13 +130,34 @@ public class QuizDetailActivity extends AppCompatActivity {
                     if (optionLists.get(i).getQuizId().equalsIgnoreCase(id)) {
                         AppCompatRadioButton rdbtn = new AppCompatRadioButton(this);
                         rdbtn.setId((row * 2) + i);
+                        rdbtn.setBackgroundResource(R.drawable.quizradiobtn);
                         rdbtn.setLayoutParams(params);
-                        rdbtn.setBackgroundResource(R.drawable.agendabg);
-
-                        rdbtn.setButtonDrawable(R.drawable.radio);
+//                        rdbtn.setButtonDrawable(R.drawable.radio);
 //                        rdbtn.setButtonTintList(colorStateList);
                         rdbtn.setTextColor(Color.parseColor("#FFFFFF"));
                         rdbtn.setText(optionLists.get(i).getOption());
+
+                        if(Build.VERSION.SDK_INT>=21)
+                        {
+
+                            ColorStateList colorStateList = new ColorStateList(
+                                    new int[][]{
+
+                                            new int[]{-android.R.attr.state_enabled}, //disabled
+                                            new int[]{android.R.attr.state_enabled} //enabled
+                                    },
+                                    new int[] {
+
+                                            Color.BLACK //disabled
+                                            ,Color.WHITE //enabled
+
+                                    }
+                            );
+
+
+                            rdbtn.setButtonTintList(colorStateList);//set the color tint list
+                            rdbtn.invalidate(); //could not be necessary
+                        }
 //                        if (rdbtn.isSelected()) {
 //                            rdbtn.setButtonDrawable(R.drawable.button_on);
 //                        } else {
