@@ -54,8 +54,8 @@
 
         <com.devbrackets.android.exomedia.ui.widget.EMVideoView
             android:id="@+id/video_view"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:visibility="gone"
             EMVideoView:useDefaultControls="true" />
 
