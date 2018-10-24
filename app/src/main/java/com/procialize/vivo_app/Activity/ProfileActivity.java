@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -88,6 +89,7 @@ public class ProfileActivity extends AppCompatActivity {
     TextView txt_upload;
     ImageView headerlogoIv;
     public static String logoImg="";
+    LinearLayout linear_upload;
 
 
 
@@ -208,6 +210,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         savebtn = findViewById(R.id.savebtn);
         txt_upload = findViewById(R.id.txt_upload);
+        linear_upload = findViewById(R.id.linear_upload);
 
 
         profileIV = findViewById(R.id.profileIV);
@@ -300,7 +303,7 @@ public class ProfileActivity extends AppCompatActivity {
             progressView.setVisibility(View.GONE);
         }
 
-        txt_upload.setOnClickListener(new View.OnClickListener() {
+        linear_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectImage();

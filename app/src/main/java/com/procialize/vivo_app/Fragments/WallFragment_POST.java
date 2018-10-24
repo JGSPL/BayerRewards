@@ -482,6 +482,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
         if (bitmap != bitmap2) {
 
             likeimage.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_like, 0);
+//            feedAdapter.notifyDataSetChanged();
 //            likeimage.setBackgroundResource(R.drawable.ic_like);
             PostLike(eventid, feed.getNewsFeedId(), token);
             try {
@@ -503,6 +504,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
             likeimage.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_afterlike, 0);
 //            likeimage.setBackgroundResource(R.drawable.ic_afterlike);
+//            feedAdapter.notifyDataSetChanged();
             PostLike(eventid, feed.getNewsFeedId(), token);
 
             try {
@@ -1021,7 +1023,8 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
         if (response.body().getStatus().equals("Success")) {
             Log.e("post", "success");
-//            fetchFeed(token, eventid);
+//            feedAdapter.notifyDataSetChanged();
+            fetchFeed(token, eventid);
         } else {
             Log.e("post", "fail");
             Toast.makeText(getContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
@@ -1361,5 +1364,27 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        procializeDB = new DBHelper(getActivity());
+        db = procializeDB.getWritableDatabase();
+
+        //fetchFeed(token,eventid);
+        if (cd.isConnectingToInternet()) {
+            fetchFeed(token, eventid);
+        } else {
+            db = procializeDB.getReadableDatabase();
+
+            newsfeedsDBList = dbHelper.getNewsFeedDetails();
+
+            feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, this);
+            feedAdapter.notifyDataSetChanged();
+            feedrecycler.setAdapter(feedAdapter);
+            feedrecycler.scheduleLayoutAnimation();
+
+
+        }
+    }
 
 }

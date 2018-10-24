@@ -125,7 +125,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
             android:textColor="@color/activetab"
-            android:textSize="@dimen/textsizesmall" />
+            android:textSize="@dimen/textsizesmall"
+            android:visibility="gone"/>
 
         <View
             android:id="@+id/viewone"
@@ -142,7 +143,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
             android:textColor="@color/colorwhite"
-            android:textSize="@dimen/textsizesmall" />
+            android:textSize="@dimen/textsizesmall"
+            android:visibility="gone"/>
 
         <View
             android:id="@+id/viewtwo"
@@ -158,7 +160,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
             android:textColor="@color/colorwhite"
-            android:textSize="@dimen/textsizesmall" />
+            android:textSize="@dimen/textsizesmall"
+            android:visibility="gone"/>
 
         <View
             android:id="@+id/viewthree"
@@ -174,7 +177,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
             android:textColor="@color/colorwhite"
-            android:textSize="@dimen/textsizesmall" />
+            android:textSize="@dimen/textsizesmall"
+            android:visibility="gone"/>
         <View
             android:id="@+id/viewtfour"
             android:layout_width="match_parent"
@@ -189,7 +193,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
             android:textColor="@color/colorwhite"
-            android:textSize="@dimen/textsizesmall" />
+            android:textSize="@dimen/textsizesmall"
+            android:visibility="gone"/>
 
     </LinearLayout>
 
@@ -267,6 +272,8 @@
                 android:textAllCaps="false"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
+
+
         </LinearLayout>
 
 
