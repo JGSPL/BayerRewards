@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="4sp"
-        android:text="@string/qadirect"
+        android:text="Ask Vivo"
         android:textColor="@color/activetab"
         android:textSize="@dimen/textsizenormal" />
 

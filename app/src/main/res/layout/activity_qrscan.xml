@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:orientation="vertical"
     tools:context="com.procialize.vivo_app.InnerDrawerActivity.QRScanActivity">
 
@@ -105,6 +106,7 @@
                             android:hint="@string/username"
                             android:textColor="@color/colorwhite"
                             android:textSize="@dimen/textsizesmall"
+                            android:theme="@style/EditTextHint"
                             android:visibility="gone">
 
                             <com.procialize.vivo_app.Fonts.RobotoTextInputEditext
@@ -124,6 +126,7 @@
                             style="@style/TextLabel"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:theme="@style/EditTextHint"
                             android:layout_below="@+id/edit_username"
                             android:hint="@string/firstname">
 
@@ -166,6 +169,7 @@
                             style="@style/TextLabel"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:theme="@style/EditTextHint"
                             android:layout_below="@+id/edit_designation"
                             android:hint="@string/company">
 
@@ -187,6 +191,7 @@
                             style="@style/TextLabel"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:theme="@style/EditTextHint"
                             android:layout_below="@+id/edit_company_name"
                             android:hint="@string/city">
 
@@ -208,6 +213,7 @@
                             style="@style/TextLabel"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:theme="@style/EditTextHint"
                             android:layout_below="@+id/edit_city"
                             android:hint="@string/hint_email">
 
@@ -232,6 +238,7 @@
                             style="@style/TextLabel"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:theme="@style/EditTextHint"
                             android:layout_below="@+id/edit_email"
                             android:hint="@string/mobile">
 
@@ -278,7 +285,7 @@
                     android:gravity="center"
                     android:minHeight="40dp"
                     android:text="@string/save"
-                    android:textColor="@color/colorwhite"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/textsizesmall"
                     android:textStyle="normal" />
 
@@ -288,7 +295,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/loginbutton"
                     android:text="@string/cancel"
-                    android:textColor="@color/colorwhite"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/textsizesmall"
                     android:textStyle="bold"
                     android:visibility="gone" />

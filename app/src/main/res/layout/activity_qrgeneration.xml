@@ -68,7 +68,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:layout_margin="5dp"
         android:gravity="center"
         android:text="Scan ID Card"
         android:textColor="@color/activetab"
@@ -79,6 +78,7 @@
         android:layout_below="@+id/img_qr_code_image"/>
 
     <ScrollView
+        android:id="@+id/scrup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txt1">
@@ -89,6 +89,7 @@
             android:layout_margin="10dp"
             android:orientation="vertical"
             android:padding="15dp"
+            android:id="@+id/linup"
             android:background="@color/feedpostingbgcolornew">
 
 
@@ -153,7 +154,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:layout_margin="10dp"
+        android:layout_below="@+id/scrup"
         android:textColor="@color/colorwhite"
         android:textSize="12sp"
         android:text="Powered By Procialize"
