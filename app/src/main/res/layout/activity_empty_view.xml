@@ -67,7 +67,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="No Data Found"
-            android:textColor="@color/black"
+            android:textColor="@color/colorwhite"
             android:textSize="@dimen/textsizenormal" />
     </RelativeLayout>
 

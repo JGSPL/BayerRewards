@@ -99,6 +99,7 @@
         android:hint="@string/search_event_here"
         android:imeOptions="actionDone"
         android:padding="10dp"
+        android:visibility="gone"
         android:textColorHint="@color/colorwhite"
         android:textColor="@color/colorwhite"
         android:textSize="@dimen/textsizesmall" />

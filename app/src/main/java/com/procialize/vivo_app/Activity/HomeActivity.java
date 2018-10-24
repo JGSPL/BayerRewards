@@ -62,6 +62,7 @@ import com.procialize.vivo_app.InnerDrawerActivity.FeedBackActivity;
 import com.procialize.vivo_app.InnerDrawerActivity.FolderQuizActivity;
 import com.procialize.vivo_app.InnerDrawerActivity.GalleryActivity;
 import com.procialize.vivo_app.InnerDrawerActivity.GeneralInfoActivity;
+import com.procialize.vivo_app.InnerDrawerActivity.LeaderBoardActivity;
 import com.procialize.vivo_app.InnerDrawerActivity.LivePollActivity;
 import com.procialize.vivo_app.InnerDrawerActivity.MyTravelActivity;
 import com.procialize.vivo_app.InnerDrawerActivity.NotificationActivity;
@@ -1010,9 +1011,9 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
            // Toast.makeText(HomeActivity.this, "Coming Soon...", Toast.LENGTH_SHORT).show();
 
         }else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_leaderboard")) {
-//            Intent feedback = new Intent(this, FeedBackActivity.class);
-////            startActivity(feedback);
-            Toast.makeText(HomeActivity.this, "Coming Soon...", Toast.LENGTH_SHORT).show();
+            Intent feedback = new Intent(this, LeaderBoardActivity.class);
+            startActivity(feedback);
+           // Toast.makeText(HomeActivity.this, "Coming Soon...", Toast.LENGTH_SHORT).show();
 
         }
 
