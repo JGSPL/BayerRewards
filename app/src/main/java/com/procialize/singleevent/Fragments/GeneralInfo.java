@@ -30,6 +30,7 @@ import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.GetterSetter.GeneralInfoList;
 import com.procialize.singleevent.GetterSetter.InfoList;
 import com.procialize.singleevent.InnerDrawerActivity.GeneralInfoActivity;
+
 import com.procialize.singleevent.InnerDrawerActivity.WeatherActivity;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;

@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.procialize.singleevent.Activity.ImageViewActivity;
+import com.procialize.singleevent.Activity.SelfiePost;
 import com.procialize.singleevent.Adapter.SelfieAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
@@ -127,7 +128,7 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
         uploadbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent selfie = new Intent(SelfieContestActivity.this, SelfieUploadActivity.class);
+                Intent selfie = new Intent(SelfieContestActivity.this, SelfiePost.class);
                 startActivity(selfie);
             }
         });

@@ -36,6 +36,7 @@ import com.procialize.singleevent.GetterSetter.DropDownList;
 import com.procialize.singleevent.GetterSetter.GeneralInfoList;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+
 import com.procialize.singleevent.Utility.ServiceHandler;
 import com.procialize.singleevent.Utility.Util;
 
@@ -60,7 +61,7 @@ import static java.security.AccessController.getContext;
 
 public class CurrencyConverter extends AppCompatActivity {
 
-    android.support.v7.widget.AppCompatSpinner firstans_list_spinner, secondans_list_spinner;
+    Spinner firstans_list_spinner, secondans_list_spinner;
     private APIService mAPIService;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
@@ -98,8 +99,8 @@ public class CurrencyConverter extends AppCompatActivity {
         Util.logomethod(this,headerlogoIv);
         currencyDropDown = "https://www.procialize.info/API/event_api_call/GenInfoCurrencyDropdown";
 
-        secondans_list_spinner = (android.support.v7.widget.AppCompatSpinner) findViewById(R.id.secondans_list_spinner);
-        firstans_list_spinner = (android.support.v7.widget.AppCompatSpinner) findViewById(R.id.firstans_list_spinner);
+        secondans_list_spinner = (Spinner) findViewById(R.id.secondans_list_spinner);
+        firstans_list_spinner = (Spinner) findViewById(R.id.firstans_list_spinner);
 
         /*econdans_list_spinner.setSelection(0, true);
         View v = secondans_list_spinner.getSelectedView();
