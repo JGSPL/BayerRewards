@@ -377,7 +377,7 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
                                 new int[] {
 
                                         Color.WHITE //disabled
-                                        ,Color.WHITE //enabled
+                                        ,Color.YELLOW //enabled
 
                                 }
                         );

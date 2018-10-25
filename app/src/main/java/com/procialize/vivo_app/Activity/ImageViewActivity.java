@@ -73,6 +73,8 @@ public class ImageViewActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        cd = new ConnectionDetector(getApplicationContext());
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,13 +146,13 @@ public class ImageViewActivity extends AppCompatActivity {
                                               public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                                                   try {
                                                       String root = Environment.getExternalStorageDirectory().toString();
-                                                      File myDir = new File(root + "/Procialize");
+                                                      File myDir = new File(root + "/vivo");
 
                                                       if (!myDir.exists()) {
                                                           myDir.mkdirs();
                                                       }
                                                       Toast.makeText(ImageViewActivity.this,
-                                                              "Download completed- check folder Procialize/Image",
+                                                              "Download completed- check folder vivo/Image",
                                                               Toast.LENGTH_SHORT).show();
                                                       String name = imgname + ".jpg";
                                                       myDir = new File(myDir, name);
@@ -187,13 +189,13 @@ public class ImageViewActivity extends AppCompatActivity {
                                           public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                                               try {
                                                   String root = Environment.getExternalStorageDirectory().toString();
-                                                  File myDir = new File(root + "/Procialize");
+                                                  File myDir = new File(root + "/vivo");
 
                                                   if (!myDir.exists()) {
                                                       myDir.mkdirs();
                                                   }
                                                   Toast.makeText(ImageViewActivity.this,
-                                                          "Download completed- check folder Procialize/Image",
+                                                          "Download completed- check folder vivo/Image",
                                                           Toast.LENGTH_SHORT).show();
                                                   String name = imgname + ".jpg";
                                                   myDir = new File(myDir, name);
@@ -259,7 +261,7 @@ public class ImageViewActivity extends AppCompatActivity {
                 URL url = new URL(downloadUrl);
                 /* making a directory in sdcard */
                 String sdCard = Environment.getExternalStorageDirectory().toString();
-                File myDir = new File(sdCard, "Procialize");
+                File myDir = new File(sdCard, "vivo");
 
                 /*  if specified not exist create new */
                 if (!myDir.exists()) {

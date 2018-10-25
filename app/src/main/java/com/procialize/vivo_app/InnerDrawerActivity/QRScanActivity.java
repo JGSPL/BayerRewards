@@ -117,7 +117,7 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
         Log.e("text", parts[0]);
 
 
-        if (parts.length == 7) {
+        if (parts.length == 6) {
 
            /* name = parts[0].substring(0, (parts[0].length()));
             lname = parts[1].substring(0, (parts[1].length()));
@@ -130,10 +130,10 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
             name = parts[0].substring(0, (parts[0].length()));
             //lname = parts[1].substring(0, (parts[1].length()));
             designation = parts[1].substring(0, (parts[1].length()));
-            company = parts[4].substring(0, (parts[4].length()));
-            city = parts[5].substring(0, (parts[5].length()));
             email = parts[2].substring(0, (parts[2].length()));
             number = parts[3].substring(0, (parts[3].length()));
+            company = parts[4].substring(0, (parts[4].length()));
+            city = parts[5].substring(0, (parts[5].length()));
 
             edit_username_edit.setText(email);
             edit_first_name_edit.setText(name);
