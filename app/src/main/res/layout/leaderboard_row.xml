@@ -14,10 +14,12 @@
         android:gravity="center"
         android:layout_gravity="center"
         android:layout_weight="2">
-        <ImageView
+        <com.procialize.vivo_app.CustomTools.RoundCornersImageView
             android:id="@+id/ivpic"
             android:layout_width="50dp"
+            android:adjustViewBounds="true"
             android:layout_height="50dp"
+            android:scaleType="centerCrop"
             android:layout_gravity="center"
             android:layout_margin="5dp"
             android:src="@drawable/logo"/>

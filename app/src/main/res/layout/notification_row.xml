@@ -45,6 +45,7 @@
                     android:layout_centerInParent="true"
                     android:adjustViewBounds="true"
                     android:id="@+id/profileIV"
+                    android:scaleType="centerCrop"
                     android:layout_alignParentTop="true"
                     android:src="@drawable/profilepic_placeholder"
                     android:layout_width="96dp"

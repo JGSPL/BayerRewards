@@ -73,7 +73,7 @@
         android:padding="10dp"
         android:layout_alignParentLeft="true"
         android:layout_centerInParent="true"
-        android:src="@drawable/ic_galleryleftarrow"
+        android:src="@drawable/ic_leftarrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -83,7 +83,7 @@
         android:padding="10dp"
         android:layout_alignParentRight="true"
         android:layout_centerInParent="true"
-        android:src="@drawable/ic_galleryrightarrow"
+        android:src="@drawable/ic_rightarrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
