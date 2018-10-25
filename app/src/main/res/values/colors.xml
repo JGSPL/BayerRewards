@@ -9,12 +9,12 @@
     <color name="coloagenda">#30333A</color>
     <color name="trans">#80000000</color>
     <color name="transp">#E6000000</color>
-    <color name="colorunselectedtab">#7898a9</color>
+    <color name="colorunselectedtab">#CC9933</color>
     <color name="colorselectedtab">#f15a2b</color>
     <color name="colortoolbar">#000000</color>
     <color name="loginbutton">#F25A30</color>
     <color name="feedwhtsmindbg">#DCDCDC</color>
-    <color name="feedpostingbgcolor">#7898a9</color>
+    <color name="feedpostingbgcolor">#CC9933</color>
     <color name="feedpostingbgcolornew">#3F3E3D</color>
     <color name="black">#000000</color>
     <color name="drawerbackground">#37474F</color>
