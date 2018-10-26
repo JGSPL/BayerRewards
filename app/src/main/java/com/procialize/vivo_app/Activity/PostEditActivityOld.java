@@ -206,7 +206,7 @@ public class PostEditActivityOld extends AppCompatActivity implements ProgressRe
                 @Override
                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
 //                    holder.feedprogress.setVisibility(View.GONE);
-                    return false;
+                    return true;
                 }
 
                 @Override
