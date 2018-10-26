@@ -222,7 +222,8 @@
 
         <!-- Goolge API Key -->
 
-
+        <activity android:name=".Activity.SelfiePost"></activity>
+        <activity android:name=".Activity.PostActivity"></activity>
         <activity android:name="com.procialize.vivo_app.Activity.TimeWeatherActivity" />
         <activity android:name="com.procialize.vivo_app.Activity.CurrencyConverter" />
         <activity android:name="com.procialize.vivo_app.Activity.InitGeneralInfoActivity" />

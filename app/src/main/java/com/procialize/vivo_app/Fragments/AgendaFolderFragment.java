@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -354,12 +355,17 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
         }
 
 
-        for (int i = 0; i < tabWidget.getChildCount(); i++) {
+        /*for (int i = 0; i < tabWidget.getChildCount(); i++) {
             tabWidget.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.inactivetab));
+            //tab_text = (LinearLayout) agendaTabHost.getTabWidget().getChildAt(i).findViewById(R.id.tab_text); //Unselected Tabs
+            //tab_text.setBackgroundColor(Color.parseColor("#CC9933"));
+
         }
 
         // set the active tab
-        tabWidget.getChildAt(agendaTabHost.getCurrentTab()).setBackgroundColor(getResources().getColor(R.color.activetab));
+        tabWidget.getChildAt(agendaTabHost.getCurrentTab()).setBackgroundColor(getResources().getColor(R.color.activetab));*/
+        //tab_text = (LinearLayout) agendaTabHost.getTabWidget().getChildAt(agendaTabHost.getCurrentTab()).findViewById(R.id.tab_text); //Unselected Tabs
+        //tab_text.setBackgroundColor(Color.parseColor("#3F3E3D"));
 
 //        for (int i = 0; i < agendaTabHost.getTabWidget().getChildCount(); i++) {
 //            // mTabHost.getTabWidget().getChildAt(i).setBackgroundColor(Color.parseColor("#FF0000")); // unselected
@@ -372,14 +378,16 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
             @Override
             public void onTabChanged(String tabId) {
                 JZVideoPlayer.releaseAllVideos();
-                for (int i = 0; i < tabWidget.getChildCount(); i++) {
+               /* for (int i = 0; i < tabWidget.getChildCount(); i++) {
                     tabWidget.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.inactivetab));
+                   // tab_text = (LinearLayout) agendaTabHost.getTabWidget().getChildAt(i).findViewById(R.id.tab_text); //Unselected Tabs
+                   // tab_text.setBackgroundColor(Color.parseColor("#CC9933"));
                 }
 
                 // set the active tab
-                tabWidget.getChildAt(agendaTabHost.getCurrentTab()).setBackgroundColor(getResources().getColor(R.color.activetab));
-//                tab_text = (LinearLayout) agendaTabHost.getTabWidget().getChildAt(i).findViewById(R.id.tab_text); //Unselected Tabs
-//                tab_text.setBackgroundColor(Color.parseColor("#80000000"));
+                tabWidget.getChildAt(agendaTabHost.getCurrentTab()).setBackgroundColor(getResources().getColor(R.color.activetab));*/
+               // tab_text = (LinearLayout) agendaTabHost.getTabWidget().getChildAt(agendaTabHost.getCurrentTab()).findViewById(R.id.tab_text); //Unselected Tabs
+              //  tab_text.setBackgroundColor(Color.parseColor("#3F3E3D"));
 
                 if (agendaFolderImageList.size() > 0) {
                     agendaFolderImageList.clear();

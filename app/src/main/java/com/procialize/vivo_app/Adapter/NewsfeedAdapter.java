@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import com.procialize.vivo_app.Activity.PostActivity;
 import com.procialize.vivo_app.Activity.PostViewActivity;
 import com.procialize.vivo_app.ApiConstant.APIService;
 import com.procialize.vivo_app.ApiConstant.ApiConstant;
@@ -208,14 +209,13 @@ public class NewsfeedAdapter extends BaseAdapter {
 
             }
 
-            holder.txtfeedRv.setOnClickListener(new View.OnClickListener() {
+           /* holder.txtfeedRv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                     Intent postview = new Intent(context, PostViewActivity.class);
                     postview.putExtra("for", "text");
                     context.startActivity(postview);
-//                getActivity().finish();
                 }
             });
 
@@ -238,9 +238,63 @@ public class NewsfeedAdapter extends BaseAdapter {
                     }
 //                getActivity().finish();
                 }
+            });*/
+            holder.txtfeedRv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent postview = new Intent(context, PostViewActivity.class);
+                    postview.putExtra("for", "text");
+                    context.startActivity(postview);
+//                getActivity().finish();
+                }
+            });
+
+            holder.mindTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if(holder.txtfeedRv.getVisibility()==View.VISIBLE) {
+                        Intent postview = new Intent(context, PostViewActivity.class);
+                        postview.putExtra("for", "text");
+                        context.startActivity(postview);
+                    }else if(holder.imagefeedRv.getVisibility()==View.VISIBLE){
+                        Intent postview = new Intent(context, PostActivity.class);
+                        postview.putExtra("for", "image");
+                        context.startActivity(postview);
+                    }else if(holder.videofeedRv.getVisibility()==View.VISIBLE){
+                        Intent postview = new Intent(context, PostViewActivity.class);
+                        postview.putExtra("for", "video");
+                        context.startActivity(postview);
+                    }
+//                getActivity().finish();
+                }
             });
 
             holder.imagefeedRv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent postview = new Intent(context, PostActivity.class);
+                    postview.putExtra("for", "image");
+                    context.startActivity(postview);
+//                getActivity().finish();
+                }
+            });
+
+            holder.videofeedRv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent postview = new Intent(context, PostViewActivity.class);
+
+                    postview.putExtra("for", "video");
+                    context.startActivity(postview);
+//                getActivity().finish();
+                }
+            });
+
+           /* holder.imagefeedRv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -261,7 +315,7 @@ public class NewsfeedAdapter extends BaseAdapter {
                     context.startActivity(postview);
 //                getActivity().finish();
                 }
-            });
+            });*/
         } else {
             holder.post_layout.setVisibility(RelativeLayout.GONE);
         }

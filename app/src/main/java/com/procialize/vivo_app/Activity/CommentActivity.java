@@ -369,7 +369,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
 
         fetchCommentDetails(apikey, eventid, feedid);
         getComment(eventid, feedid);
-        initiate();
+//        initiate();
 
         commentbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -797,6 +797,8 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
             public void onResponse(Call<FetchFeed> call, Response<FetchFeed> response) {
 
                 if (response.isSuccessful()) {
+
+
                     Log.i("hit", "post submitted to API." + response.body().toString());
 
                     dismissProgress();

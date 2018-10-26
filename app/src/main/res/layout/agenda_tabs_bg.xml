@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
+    android:background="@drawable/agenda_folder_selector"
     android:orientation="vertical"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp">
@@ -24,7 +25,7 @@
             android:gravity="center"
             android:padding="5dp"
             android:text="Title"
-            android:textColor="@color/colorwhite"
+            android:textColor="@drawable/selector_tab_text_agenda"
             android:textSize="14sp" />
 
         <com.procialize.vivo_app.Fonts.RobotoTextview
@@ -34,7 +35,7 @@
             android:gravity="center"
             android:padding="5dp"
             android:text="Title"
-            android:textColor="@color/colorwhite"
+            android:textColor="@drawable/selector_tab_text_agenda"
             android:textSize="14sp" />
     </LinearLayout>
 
