@@ -3,8 +3,8 @@ package com.procialize.vivo_app.InnerDrawerActivity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -53,6 +53,25 @@ public class VideoFirstLevelActivity extends AppCompatActivity implements VideoF
         folderLists = new ArrayList<>();
         filtergallerylists = new ArrayList<>();
 
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this, headerlogoIv);
+
+
+        Runnable runnable = new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                dothings();
+            }
+        };
+
+        new Thread(runnable).start();//to work in Background
+
+    }
+
+    private void dothings() {
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -68,17 +87,17 @@ public class VideoFirstLevelActivity extends AppCompatActivity implements VideoF
             }
         });
 
-        headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this, headerlogoIv);
+
 
         foldername = getIntent().getExtras().getString("foldername");
         videoLists = (List<VideoList>) getIntent().getExtras().getSerializable("videolist");
         folderLists = (List<VideoFolderList>) getIntent().getExtras().getSerializable("folderlist");
 
+//        videoLists = VideoActivity.videoLists;
+//        folderLists = VideoActivity.folderLists;
 
         videoRv = findViewById(R.id.videoRv);
         tvname = findViewById(R.id.tvname);
-
 
         // use a linear layout manager
         int columns = 2;
@@ -88,6 +107,12 @@ public class VideoFirstLevelActivity extends AppCompatActivity implements VideoF
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
         videoRv.setLayoutAnimation(animation);
 
+
+        showRecycler();
+
+    }
+
+    private void showRecycler() {
 
         if (foldername.contains("/")) {
             String[] parts = foldername.split("/");
@@ -139,7 +164,6 @@ public class VideoFirstLevelActivity extends AppCompatActivity implements VideoF
         } else {
             Toast.makeText(getApplicationContext(), "No Video Found", Toast.LENGTH_SHORT).show();
         }
-
 
     }
 
@@ -280,8 +304,7 @@ public class VideoFirstLevelActivity extends AppCompatActivity implements VideoF
 
                 }
             } else {
-
-
+                JZVideoPlayer.releaseAllVideos();
                 Intent intent = new Intent(getApplicationContext(), VideoFirstLevelActivity.class);
                 intent.putExtra("foldername", firstLevelFilter.getFileName());
                 intent.putExtra("videolist", (Serializable) videoLists);

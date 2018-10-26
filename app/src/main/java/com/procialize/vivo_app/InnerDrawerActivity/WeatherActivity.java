@@ -16,17 +16,20 @@ import android.widget.Toast;
 
 import com.procialize.vivo_app.Adapter.WeatherAdapter;
 import com.procialize.vivo_app.ApiConstant.APIService;
+import com.procialize.vivo_app.ApiConstant.ApiConstant;
 import com.procialize.vivo_app.ApiConstant.ApiUtils;
 import com.procialize.vivo_app.GetterSetter.Forecast;
 import com.procialize.vivo_app.GetterSetter.Weather;
 import com.procialize.vivo_app.R;
 import com.procialize.vivo_app.Session.SessionManager;
-import com.procialize.vivo_app.Utility.Util;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,7 +43,6 @@ public class WeatherActivity extends AppCompatActivity implements WeatherAdapter
     private APIService mAPIService;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
-    ImageView headerlogoIv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,9 +67,6 @@ public class WeatherActivity extends AppCompatActivity implements WeatherAdapter
                 onBackPressed();
             }
         });
-
-        headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
         mAPIService = ApiUtils.getAPIService();
 
 
@@ -122,13 +121,13 @@ public class WeatherActivity extends AppCompatActivity implements WeatherAdapter
                     showResponse(response);
                 }else
                 {
-                    Toast.makeText(getApplicationContext(),response.message(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Unable to process",Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Weather> call, Throwable t) {
-                Toast.makeText(getApplicationContext(),"Low network or no network",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Unable to process",Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -146,12 +145,15 @@ public class WeatherActivity extends AppCompatActivity implements WeatherAdapter
             SimpleDateFormat formatter = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss z");
             SimpleDateFormat mdyFormat = new SimpleDateFormat("dd MMM yyyy");
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm aa");
-            SimpleDateFormat dayFormat = new SimpleDateFormat("MMMM");
+            SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE");
+
+
             Date date = new Date();
             try {
                 date = formatter.parse(response.body().getDateTime());
                 System.out.println("Date is: "+date);
             } catch (ParseException e) {e.printStackTrace();}
+
 
             String dmy = mdyFormat.format(date);
             String time = timeFormat.format(date);
@@ -164,27 +166,30 @@ public class WeatherActivity extends AppCompatActivity implements WeatherAdapter
             if (response.body().getCurrentTempText().equalsIgnoreCase("Thunderstorms"))
             {
                 infoIv.setImageResource(R.drawable.thunder);
-            }else if (response.body().getCurrentTempText().equalsIgnoreCase("Mostly Cloud"))
-            {
-                infoIv.setImageResource(R.drawable.clean);
-            }else if (response.body().getCurrentTempText().equalsIgnoreCase("Partly Cloudy"))
+            }else if (response.body().getCurrentTempText().equalsIgnoreCase("Mostly Cloudy"))
             {
                 infoIv.setImageResource(R.drawable.clean);
             }else if (response.body().getCurrentTempText().equalsIgnoreCase("Cloudy"))
             {
                 infoIv.setImageResource(R.drawable.cloudy);
+            }else if (response.body().getCurrentTempText().equalsIgnoreCase("Partly Cloudy"))
+            {
+                infoIv.setImageResource(R.drawable.clean);
             }else
             {
-                infoIv.setImageResource(R.drawable.sunny);
+                infoIv.setImageResource(R.drawable.clean);
             }
 
             char tmp = 0x00B0;
 
+            dayTv.setText(day);
             infoTv.setText(response.body().getCurrentTempText());
             tempTv.setText(String.valueOf(response.body().getCurrentTemp()) + tmp+"" );
-            feelTv.setText(String.valueOf(response.body().getCurrentTemp()) + tmp+"");
+          //  feelTv.setText(String.valueOf(response.body().getCurrentTemp()) + tmp+"");
             humidityTv.setText(response.body().getHumidity());
             visibilityTv.setText(response.body().getVisibility());
+            feelTv.setText(response.body().getSunrise());
+
 
             WeatherAdapter docAdapter = new WeatherAdapter(WeatherActivity.this, response.body().getForecast(),this);
             docAdapter.notifyDataSetChanged();
@@ -195,6 +200,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherAdapter
             maxTv.setText(String.valueOf(response.body().getMax()) + tmp );
             minTv.setText(String.valueOf(response.body().getMin()) + tmp );
 
+            indexTv.setText(response.body().getSunset());
         }else
         {
             Toast.makeText(getApplicationContext(),response.body().getMsg(),Toast.LENGTH_SHORT).show();

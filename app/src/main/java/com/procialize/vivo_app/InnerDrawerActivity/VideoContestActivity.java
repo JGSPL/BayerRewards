@@ -126,7 +126,7 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
 
                 Intent videoupload = new Intent(VideoContestActivity.this, VideoContestUploadActivity.class);
                 startActivity(videoupload);
-                finish();
+
             }
         });
 

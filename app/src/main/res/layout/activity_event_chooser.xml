@@ -30,7 +30,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_margin="10dp"
-                android:src="@drawable/ic_logout"
+                android:src="@drawable/ic_logout_g"
                 android:padding="2dp"/>
         </LinearLayout>
 

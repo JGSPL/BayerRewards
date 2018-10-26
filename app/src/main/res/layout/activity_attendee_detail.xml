@@ -90,13 +90,13 @@
             android:layout_marginBottom="-40dp"
             android:adjustViewBounds="true">
 
-            <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            <com.procialize.vivo_app.CustomTools.RoundCornersImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/profileIV"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_centerInParent="true"
                 android:adjustViewBounds="true"
-                android:background="@drawable/image_border"
                 android:scaleType="centerCrop"
                 android:src="@drawable/profilepic_placeholder" />
 

@@ -370,6 +370,7 @@ public class PostEditActivity extends AppCompatActivity implements ProgressReque
     public void showResponse(Response<EditNewsFeed> response) {
 
         if (response.body().getStatus().equals("success")) {
+            Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
 
             Intent i = new Intent(this, HomeActivity.class);
             startActivity(i);

@@ -7,6 +7,7 @@ package com.procialize.vivo_app.ApiConstant;
 import com.procialize.vivo_app.GetterSetter.Agenda;
 import com.procialize.vivo_app.GetterSetter.Analytic;
 import com.procialize.vivo_app.GetterSetter.CommentList;
+import com.procialize.vivo_app.GetterSetter.ContactListFetch;
 import com.procialize.vivo_app.GetterSetter.CurrencyConverterResponse;
 import com.procialize.vivo_app.GetterSetter.CurrencyDropDown;
 import com.procialize.vivo_app.GetterSetter.DeleteNewsFeedComment;
@@ -22,6 +23,7 @@ import com.procialize.vivo_app.GetterSetter.FetchFeed;
 import com.procialize.vivo_app.GetterSetter.FetchSpeaker;
 import com.procialize.vivo_app.GetterSetter.GalleryListFetch;
 import com.procialize.vivo_app.GetterSetter.GeneralInfoList;
+import com.procialize.vivo_app.GetterSetter.LeaderBoardListFetch;
 import com.procialize.vivo_app.GetterSetter.LikeListing;
 import com.procialize.vivo_app.GetterSetter.LikePost;
 import com.procialize.vivo_app.GetterSetter.LivePollFetch;
@@ -249,6 +251,16 @@ public interface APIService {
     @FormUrlEncoded
     Call<DocumentsListFetch> DocumentsListFetch(@Field("api_access_token") String api_access_token,
                                                 @Field("event_id") String event_id);
+
+    @POST("ContactListFetch")
+    @FormUrlEncoded
+    Call<ContactListFetch> ContactListFetch(@Field("event_id") String event_id,
+                                            @Field("api_access_token") String api_access_token);
+
+    @POST("leaderboard")
+    @FormUrlEncoded
+    Call<LeaderBoardListFetch> LeaderBoardListFetch(@Field("event_id") String event_id,
+                                                    @Field("api_access_token") String api_access_token);
 
     @POST("TravelGalleryFetch")
     @FormUrlEncoded

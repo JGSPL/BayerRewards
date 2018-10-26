@@ -58,13 +58,16 @@
 
     <com.procialize.vivo_app.Fonts.RobotoTextview
         android:id="@+id/questionTv"
-        android:textColor="@color/colorwhite"
-        android:background="#4d4d4d"
+        android:textColor="@color/black"
+        android:background="@drawable/speakerbtnbg"
         android:textSize="16dp"
         android:padding="10dp"
         android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <RadioGroup
         android:id="@+id/radiogroup"
@@ -75,6 +78,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:orientation="vertical" />
+    </ScrollView>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/pollGraph"
         android:padding="5dp"
@@ -94,8 +98,8 @@
             android:text="Submit"
             android:textSize="@dimen/textsizesmall"
             android:textAllCaps="false"
-            android:textColor="@color/colorwhite"
-            android:background="@color/activetab"
+            android:textColor="@color/black"
+            android:background="@drawable/bg_login"
             android:layout_width="match_parent"
             android:layout_height="35dp" />
 

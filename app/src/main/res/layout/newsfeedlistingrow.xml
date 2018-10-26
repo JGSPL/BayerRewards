@@ -347,8 +347,7 @@
                 android:id="@+id/viewone"
                 android:layout_width="1dp"
                 android:layout_height="25dp"
-                android:background="@color/colorwhite"
-                android:visibility="gone" />
+                android:background="@color/black" />
 
             <LinearLayout
                 android:id="@+id/commentTv"
@@ -375,8 +374,8 @@
                 android:id="@+id/viewtwo"
                 android:layout_width="1dp"
                 android:layout_height="25dp"
-                android:background="@color/colorwhite"
-                android:visibility="gone" />
+                android:background="@color/black"
+                 />
 
             <LinearLayout
                 android:id="@+id/shareTv"

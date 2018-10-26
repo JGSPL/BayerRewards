@@ -181,6 +181,11 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name="com.procialize.vivo_app.InnerDrawerActivity.LeaderBoardActivity"
+            android:screenOrientation="portrait" />
+
+
+        <activity
             android:name="com.procialize.vivo_app.Activity.PostEditActivity"
             android:screenOrientation="portrait" />
         <activity
