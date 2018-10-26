@@ -50,9 +50,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         notificationManager.notify(notificationId *//* ID of notification *//*, notificationBuilder.build());*/
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, ADMIN_CHANNEL_ID)
-                .setSmallIcon(R.drawable.logo)
+                .setSmallIcon(R.drawable.notify_icon)
                 .setSmallIcon(getNotificationIcon())
-                .setContentTitle("Vivo")
+                .setContentTitle("Vivo Royal Club")
                 // .setColor(Color.parseColor("#ffff00"))
                 .setColorized(true)
                 //.setContentTitle(remoteMessage.getData().get("Fames bond"))
@@ -146,9 +146,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(getEmojiFromString(msg)))
                 .setContentText(getEmojiFromString(msg)).setSound(alarmSound);*/
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, ADMIN_CHANNEL_ID)
-                .setSmallIcon(R.drawable.logo)
+                .setSmallIcon(R.drawable.notify_icon)
                 .setSmallIcon(getNotificationIcon())
-                .setContentTitle("Procialize")
+                .setContentTitle("Vivo Royal Club")
                 // .setColor(Color.parseColor("#ffff00"))
                 .setColorized(true)
                 //.setContentTitle(remoteMessage.getData().get("Fames bond"))
@@ -172,7 +172,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private int getNotificationIcon() {
         boolean selectIcon = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
-        return selectIcon ? R.drawable.logo : R.drawable.logo;
+        return selectIcon ? R.drawable.notify_icon : R.drawable.notify_icon;
     }
 
     public static String getEmojiFromString(String emojiString) {
@@ -239,8 +239,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             mBuilder = new NotificationCompat.Builder(
                     this)
 
-                    .setSmallIcon(R.drawable.logo)
-                    .setContentTitle("Procialize")
+                    .setSmallIcon(R.drawable.notify_icon)
+                    .setContentTitle("Vivo Royal Club")
                     .setStyle(
                             new NotificationCompat.BigTextStyle().bigText(finalMsg))
                     .setContentText(finalMsg).setSound(alarmSound);
@@ -252,8 +252,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             mBuilder = new NotificationCompat.Builder(
                     this)
 
-                    .setSmallIcon(R.drawable.logo)
-                    .setContentTitle("Procialize")
+                    .setSmallIcon(R.drawable.notify_icon)
+                    .setContentTitle("Vivo Royal Club")
                     .setColor(getResources().getColor(R.color.colorPrimary))
 
                     .setStyle(

@@ -209,6 +209,7 @@
                     <ImageView
                         android:layout_width="10dp"
                         android:layout_height="10dp"
+                        android:tint="@color/activetab"
                         android:src="@drawable/arrow_blue" />
 
 

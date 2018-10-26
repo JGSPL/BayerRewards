@@ -193,6 +193,9 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
 
                 if (type.equalsIgnoreCase("Image")) {
                     feedurl = intent.getStringExtra("url");
+
+                    Log.e("feedurl", feedurl);
+
                 } else if (type.equalsIgnoreCase("Video")) {
                     thumbImg = intent.getStringExtra("thumbImg");
                     videourl = intent.getStringExtra("videourl");
@@ -827,7 +830,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
             Comments = response.body().getNewsFeedList().get(0).getTotalComments();
             profileurl = response.body().getNewsFeedList().get(0).getProfilePic();
             type = response.body().getNewsFeedList().get(0).getType();
-            feedurl = response.body().getNewsFeedList().get(0).getFirstName();
+          //  feedurl = response.body().getNewsFeedList().get(0).getMediaFile();
             feedid = response.body().getNewsFeedList().get(0).getNewsFeedId();
 
 
@@ -845,7 +848,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
             if (type.equalsIgnoreCase("Image")) {
                 feedurl = ApiConstant.newsfeedwall + response.body().getNewsFeedList().get(0).getMediaFile();
             } else if (type.equalsIgnoreCase("Video")) {
-                feedurl = ApiConstant.newsfeedwall + response.body().getNewsFeedList().get(0).getThumbImage();
+                thumbImg = ApiConstant.newsfeedwall + response.body().getNewsFeedList().get(0).getThumbImage();
             } else {
 
             }

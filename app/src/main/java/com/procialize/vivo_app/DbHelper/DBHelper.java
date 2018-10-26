@@ -899,6 +899,45 @@ public class DBHelper extends SQLiteOpenHelper {
         return attendeeList;
     }
 
+    //Attendee list fetch by id
+    public List<AttendeeList> getAttendeeDetailsId(String att_id) {
+/*
+        String selectQuery = "select * from " + ATTENDEES_TABLE_NAME
+                + " where " + ATTENDEE_TYPE + " =\'A\'";
+*/
+
+        String selectQuery = "select * from " + ATTENDEES_TABLE_NAME + " where " + ATTENDEE_ID + " LIKE \'%" + att_id + "%\'";
+        ;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        List<AttendeeList> attendeeList = new ArrayList<AttendeeList>();
+        if (cursor.moveToFirst()) {
+
+            do {
+                AttendeeList attendeesList = new AttendeeList();
+                attendeesList.setAttendeeId(cursor.getString(0));
+                attendeesList.setApiAccessToken(cursor.getString(1));
+                attendeesList.setFirstName(cursor.getString(2));
+                attendeesList.setLastName(cursor.getString(3));
+                attendeesList.setDescription(cursor.getString(4));
+                attendeesList.setCity(cursor.getString(5));
+                attendeesList.setCountry(cursor.getString(6));
+                attendeesList.setProfilePic(cursor.getString(7));
+                attendeesList.setMobile(cursor.getString(8));
+                attendeesList.setEmail(cursor.getString(9));
+                attendeesList.setCompanyName(cursor.getString(10));
+                attendeesList.setDesignation(cursor.getString(11));
+                attendeesList.setAttendeeType(cursor.getString(12));
+
+                attendeeList.add(attendeesList);
+            } while (cursor.moveToNext());
+        }
+        db.close();
+        return attendeeList;
+    }
+
+
     //Get User Data
     public UserData getUserDetails() {
         String selectQuery = "select * from " + USER_TABLE_NAME;

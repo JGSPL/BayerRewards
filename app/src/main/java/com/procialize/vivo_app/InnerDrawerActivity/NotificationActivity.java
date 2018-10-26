@@ -24,6 +24,7 @@ import com.procialize.vivo_app.ApiConstant.APIService;
 import com.procialize.vivo_app.ApiConstant.ApiConstant;
 import com.procialize.vivo_app.ApiConstant.ApiUtils;
 import com.procialize.vivo_app.DbHelper.DBHelper;
+import com.procialize.vivo_app.GetterSetter.AttendeeList;
 import com.procialize.vivo_app.GetterSetter.NewsFeedList;
 import com.procialize.vivo_app.GetterSetter.NotificationList;
 import com.procialize.vivo_app.GetterSetter.NotificationListFetch;
@@ -52,6 +53,8 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
     private SQLiteDatabase db;
     private DBHelper dbHelper;
     private List<NewsFeedList> newsfeedsDBList;
+    private List<AttendeeList> attendeeDBList;
+
     ImageView headerlogoIv;
 
     @Override
@@ -83,7 +86,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
         });
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
+        //Util.logomethod(this,headerlogoIv);
         notificationRv = findViewById(R.id.notificationRv);
 //        progressBar = findViewById(R.id.progressBar);
         notificationRvrefresh = findViewById(R.id.notificationRvrefresh);
@@ -291,14 +294,16 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
 
 //                speakeretail.putExtra("totalrate",attendee.getTotalRating());
         startActivity(attendeetail);*/
+        attendeeDBList = dbHelper.getAttendeeDetailsId(notificationList.getAttendeeId());
+
         Intent attendeetail = new Intent(this, AttendeeDetailActivity.class);
         attendeetail.putExtra("id", notificationList.getAttendeeId());
         attendeetail.putExtra("name", notificationList.getAttendeeFirstName() + " " + notificationList.getAttendeeLastName());
-        attendeetail.putExtra("city", "");
-        attendeetail.putExtra("country", "");
-        attendeetail.putExtra("company", "");
+        attendeetail.putExtra("city", attendeeDBList.get(0).getCity());
+        attendeetail.putExtra("country", attendeeDBList.get(0).getCountry());
+        attendeetail.putExtra("company", notificationList.getCompanyName());
         attendeetail.putExtra("designation", notificationList.getDesignation());
-        attendeetail.putExtra("description", "");
+        attendeetail.putExtra("description", attendeeDBList.get(0).getDescription());
         attendeetail.putExtra("profile", notificationList.getProfilePic());
 
 

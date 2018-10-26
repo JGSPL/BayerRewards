@@ -350,6 +350,7 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
                     FrameLayout fl = new FrameLayout(this);
 
                     ll.setOrientation(LinearLayout.HORIZONTAL);
+                   // ll.setMinimumWidth();
                     ll.setPadding(10, 10, 10, 10);
 
                     LinearLayout ll2 = new LinearLayout(this);
@@ -362,8 +363,11 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
                     rdbtn.setId((row * 2) + i);
                     rdbtn.setText(optionLists.get(i - 1).getOption());
                     rdbtn.setTextColor(Color.WHITE);
+
 //                rdbtn.setTypeface(typeFace);
                     rdbtn.setOnClickListener(this);
+
+
 
                     if(Build.VERSION.SDK_INT>=21)
                     {
@@ -377,15 +381,19 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
                                 new int[] {
 
                                         Color.WHITE //disabled
-                                        ,Color.YELLOW //enabled
+                                        ,Color.WHITE //enabled
 
                                 }
                         );
 
 
                         rdbtn.setButtonTintList(colorStateList);//set the color tint list
+                      //  rdbtn.setButtonDrawable(R.drawable.bg_opt_button);
+
                         rdbtn.invalidate(); //could not be necessary
                     }
+                   // rdbtn.setButtonDrawable(R.drawable.bg_opt_button);
+
 
                     if (replyFlag.equalsIgnoreCase("1")) {
 
@@ -429,7 +437,7 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
                             ViewGroup.LayoutParams.MATCH_PARENT, weight);
                     rpms2.setMargins(5, 5, 5, 5);
 
-                    ll.setBackgroundResource(R.drawable.agenda_bg);
+                    ll.setBackgroundResource(R.drawable.edit_background);
                     ll.setWeightSum(100);
                     ll.setLayoutParams(rprms);
 

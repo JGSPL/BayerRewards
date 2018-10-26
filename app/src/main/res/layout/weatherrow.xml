@@ -9,7 +9,7 @@
         android:id="@+id/mainLL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/newsfeedrowbg"
+        android:background="@drawable/speakerbtnbg"
         android:elevation="@dimen/elevation"
         android:orientation="horizontal"
         android:translationZ="@dimen/elevation">
@@ -30,7 +30,7 @@
                 android:drawablePadding="5dp"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="00"
+                android:text=""
                 android:textColor="@color/colorwhite"
                 android:textSize="@dimen/textsizesmall" />
 
@@ -46,7 +46,21 @@
                 android:textColor="@color/colorwhite"
                 android:textSize="@dimen/textsizesmall" />
 
+
+            <com.procialize.vivo_app.Fonts.RobotoTextview
+                android:id="@+id/typev"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text=""
+                android:textColor="@color/colorwhite"
+                android:textSize="9sp" />
+
             <ImageView
+                android:visibility="gone"
                 android:id="@+id/imageIv"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
@@ -64,7 +78,7 @@
                 android:drawablePadding="5dp"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="00"
+                android:text=""
                 android:textColor="@color/colorwhite"
                 android:textSize="@dimen/textsizesmall" />
 
@@ -76,7 +90,7 @@
                 android:drawablePadding="5dp"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="00"
+                android:text=""
                 android:textColor="@color/colorwhite"
                 android:textSize="@dimen/textsizesmall" />
 

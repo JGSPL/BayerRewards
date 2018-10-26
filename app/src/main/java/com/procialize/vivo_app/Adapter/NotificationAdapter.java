@@ -97,16 +97,24 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final NotificationList notificationList = notificationLists.get(position);
 
-        holder.nameTv.setText(notificationList.getAttendeeFirstName()+" "+notificationList.getAttendeeLastName());
 
         holder.messageTV.setText(StringEscapeUtils.unescapeJava(notificationList.getNotificationContent()));
 
         if (notificationList.getNotificationType().equalsIgnoreCase("Msg")) {
             holder.txt_msg.setText("Sent You Message");
+            holder.nameTv.setText(notificationList.getAttendeeFirstName()+" "+notificationList.getAttendeeLastName());
+
         } else if (notificationList.getNotificationType().equalsIgnoreCase("Like")) {
             holder.txt_msg.setText("Liked Your Post");
+            holder.nameTv.setText(notificationList.getAttendeeFirstName()+" "+notificationList.getAttendeeLastName());
+
         } else if (notificationList.getNotificationType().equalsIgnoreCase("Cmnt")) {
             holder.txt_msg.setText("Commented On Your Post");
+            holder.nameTv.setText(notificationList.getAttendeeFirstName()+" "+notificationList.getAttendeeLastName());
+
+        }else{
+            holder.nameTv.setText(notificationList.getAttendeeFirstName());
+
         }
 
 
@@ -162,10 +170,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 //            holder.replyBtn.setVisibility(View.VISIBLE);
             holder.arrowIv.setVisibility(View.VISIBLE);
 
-            holder.arrowIvmsg.setVisibility(View.VISIBLE);
+            holder.arrowIvmsg.setVisibility(View.GONE);
 
             holder.ivtype.setImageResource(R.drawable.notifylike);
-            holder.arrowIv.setVisibility(View.GONE);
+            holder.arrowIv.setImageResource(R.drawable.ic_rightarrow);
         }else  if (notificationList.getNotificationType().equalsIgnoreCase("Msg"))
         {
 //            holder.replyBtn.setVisibility(View.VISIBLE);

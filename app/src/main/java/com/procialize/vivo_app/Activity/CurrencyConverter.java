@@ -165,7 +165,7 @@ public class CurrencyConverter extends AppCompatActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             TextView view = (TextView) super.getView(position, convertView, parent);
 //            view.setTypeface(font);
-            view.setTextColor(Color.parseColor("#0E73BA"));
+            view.setTextColor(Color.parseColor("#CC9933"));
 
             return view;
         }
@@ -175,7 +175,7 @@ public class CurrencyConverter extends AppCompatActivity {
         public View getDropDownView(int position, View convertView, ViewGroup parent) {
             TextView view = (TextView) super.getDropDownView(position, convertView, parent);
 //            view.setTypeface(font);
-            view.setTextColor(Color.parseColor("#0E73BA"));
+            view.setTextColor(Color.parseColor("#CC9933"));
             view.setPadding(15, 15, 15, 15);
             return view;
         }
@@ -360,7 +360,7 @@ public class CurrencyConverter extends AppCompatActivity {
 
 
                     MySpinnerAdapter adapter = new MySpinnerAdapter(CurrencyConverter.this,
-                            android.R.layout.simple_spinner_item, categories
+                            R.layout.spinner_dropdown_item2, categories
                     );
 
                     MySpinnerAdapter1 adapter1 = new MySpinnerAdapter1(CurrencyConverter.this,
