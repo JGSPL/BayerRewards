@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.procialize.vivo_app.Activity.SelfiePost;
 import com.procialize.vivo_app.Adapter.SelfieAdapterNew;
 import com.procialize.vivo_app.ApiConstant.APIService;
 import com.procialize.vivo_app.ApiConstant.ApiUtils;
@@ -98,7 +99,7 @@ public class SelfieContentActivityNew extends AppCompatActivity {
         uploadbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent selfie = new Intent(SelfieContentActivityNew.this, SelfieUploadActivity.class);
+                Intent selfie = new Intent(SelfieContentActivityNew.this, SelfiePost.class);
                 startActivity(selfie);
             }
         });

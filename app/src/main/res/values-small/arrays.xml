@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <string-array name="selectType">
+        <item>Select from Image Gallery</item>
+
+        <item>Capture Image</item>
+    </string-array>
+
+
+
+
+    <string-array name="selectVideo">
+        <item>Select from Video Gallery</item>
+        <item>Record Video</item>
+    </string-array>
+
+
+
+    <string-array name="selectAudio">
+        <item>Select from Audio Gallery</item>
+        <item>Record Audio</item>
+    </string-array>
+
+
+    <string-array name="selectType_Remove">
+        <item>Select from Image Gallery</item>
+        <item>Capture Image</item>
+        <item>Remove Image</item>
+    </string-array>
+
+
+</resources>

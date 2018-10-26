@@ -233,6 +233,9 @@
         <activity android:name="com.procialize.vivo_app.InnerDrawerActivity.AgendaVacationActivity" />
         <activity android:name="com.procialize.vivo_app.InnerDrawerActivity.FolderQuizActivity" />
         <activity android:name="com.procialize.vivo_app.InnerDrawerActivity.WeatherActivity"></activity>
+        <activity android:name=".Activity.PostActivity"></activity>
+        <activity android:name=".Activity.SelfiePost"></activity>
+        <activity android:name=".Activity.PostEditActivityOld"></activity>
 
     </application>
 
