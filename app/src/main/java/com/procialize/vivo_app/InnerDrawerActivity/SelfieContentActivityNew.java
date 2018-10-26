@@ -99,7 +99,7 @@ public class SelfieContentActivityNew extends AppCompatActivity {
         /*uploadbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent selfie = new Intent(SelfieContentActivityNew.this, SelfieUploadActivity.class);
+                Intent selfie = new Intent(SelfieContentActivityNew.this, SelfiePost.class);
                 startActivity(selfie);
             }
         });*/

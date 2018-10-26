@@ -38,10 +38,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.procialize.vivo_app.Activity.CommentActivity;
 import com.procialize.vivo_app.Activity.ImageViewActivity;
 import com.procialize.vivo_app.Activity.LikeDetailActivity;
 import com.procialize.vivo_app.Activity.PostEditActivity;
+import com.procialize.vivo_app.Activity.PostEditActivityOld;
 import com.procialize.vivo_app.Adapter.LikeAdapter;
 import com.procialize.vivo_app.Adapter.NewsfeedAdapter;
 import com.procialize.vivo_app.ApiConstant.APIService;
@@ -49,7 +51,6 @@ import com.procialize.vivo_app.ApiConstant.ApiConstant;
 import com.procialize.vivo_app.ApiConstant.ApiUtils;
 import com.procialize.vivo_app.DbHelper.ConnectionDetector;
 import com.procialize.vivo_app.DbHelper.DBHelper;
-import com.procialize.vivo_app.GetterSetter.Analytic;
 import com.procialize.vivo_app.GetterSetter.AttendeeList;
 import com.procialize.vivo_app.GetterSetter.DeletePost;
 import com.procialize.vivo_app.GetterSetter.EventSettingList;
@@ -65,7 +66,6 @@ import com.procialize.vivo_app.R;
 import com.procialize.vivo_app.Session.SessionManager;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
-
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -294,6 +294,8 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
     }
 
 
+
+
     private void weightapply(RelativeLayout txtfeedRv, RelativeLayout imagefeedRv, RelativeLayout videofeedRv, View viewone, View viewteo) {
 
         if (txtfeedRv.getVisibility() == View.GONE && imagefeedRv.getVisibility() == View.VISIBLE && videofeedRv.getVisibility() == View.VISIBLE) {
@@ -482,7 +484,6 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
         if (bitmap != bitmap2) {
 
             likeimage.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_like, 0);
-//            feedAdapter.notifyDataSetChanged();
 //            likeimage.setBackgroundResource(R.drawable.ic_like);
             PostLike(eventid, feed.getNewsFeedId(), token);
             try {
@@ -504,7 +505,6 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
             likeimage.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_afterlike, 0);
 //            likeimage.setBackgroundResource(R.drawable.ic_afterlike);
-//            feedAdapter.notifyDataSetChanged();
             PostLike(eventid, feed.getNewsFeedId(), token);
 
             try {
@@ -620,16 +620,26 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
         editIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent edit = new Intent(getActivity(), PostEditActivity.class);
-                edit.putExtra("for", feed.getType());
-                edit.putExtra("feedid", feed.getNewsFeedId());
-                edit.putExtra("status", feed.getPostStatus());
+//                Intent edit = new Intent(getActivity(), PostEditActivityOld.class);
+//                edit.putExtra("for", feed.getType());
+//                edit.putExtra("feedid", feed.getNewsFeedId());
+//                edit.putExtra("status", feed.getPostStatus());
                 if (feed.getType().equalsIgnoreCase("Image")) {
-                    edit.putExtra("Image", feed.getMediaFile());
+                    Intent editimage = new Intent(getActivity(), PostEditActivityOld.class);
+                    editimage.putExtra("for", feed.getType());
+                    editimage.putExtra("feedid", feed.getNewsFeedId());
+                    editimage.putExtra("status", feed.getPostStatus());
+                    editimage.putExtra("Image", feed.getMediaFile());
+                    startActivity(editimage);
                 } else if (feed.getType().equalsIgnoreCase("Video")) {
+                    Intent edit = new Intent(getActivity(), PostEditActivityOld.class);
+                    edit.putExtra("for", feed.getType());
+                    edit.putExtra("feedid", feed.getNewsFeedId());
+                    edit.putExtra("status", feed.getPostStatus());
                     edit.putExtra("Video", feed.getMediaFile());
+                    startActivity(edit);
                 }
-                startActivity(edit);
+
             }
         });
 
@@ -676,6 +686,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
     }
 
+
     @Override
     public void moreLikeListOnClick(View v, NewsFeedList feed, int position) {
         PostLikeList(eventid, feed.getType(), feed.getNewsFeedId(), token);
@@ -702,6 +713,30 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
             edit.putExtra("Video", feed.getMediaFile());
         }
         startActivity(edit);
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        procializeDB = new DBHelper(getActivity());
+        db = procializeDB.getWritableDatabase();
+
+        //fetchFeed(token,eventid);
+        if (cd.isConnectingToInternet()) {
+            fetchFeed(token, eventid);
+        } else {
+            db = procializeDB.getReadableDatabase();
+
+            newsfeedsDBList = dbHelper.getNewsFeedDetails();
+
+            feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, this);
+            feedAdapter.notifyDataSetChanged();
+            feedrecycler.setAdapter(feedAdapter);
+            feedrecycler.scheduleLayoutAnimation();
+
+
+        }
     }
 
 
@@ -763,7 +798,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
             bmp.compress(Bitmap.CompressFormat.PNG, 90, out);
             out.close();
 //            bmpUri = Uri.fromFile(file);
-            bmpUri = FileProvider.getUriForFile(context, "com.procialize.vivo_app.android.fileprovider", file);
+            bmpUri = FileProvider.getUriForFile(context, "com.procialize.cloudsec.android.fileprovider", file);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -839,6 +874,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
 
     public void fetchFeedLike(String token, String eventid) {
+
 
         if (progressBar.getVisibility() == View.GONE) {
             progressBar.setVisibility(View.VISIBLE);
@@ -930,7 +966,6 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
                         progressBar.setVisibility(View.GONE);
                     }
 
-
                     showResponse(response);
                 } else {
 
@@ -982,7 +1017,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 //            feedAdapter.notifyDataSetChanged();
             feedrecycler.setAdapter(feedAdapter);
 //            feedrecycler.scheduleLayoutAnimation();
-            SubmitAnalytics(token, eventid, "", "", "newsfeed");
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -1023,8 +1058,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
         if (response.body().getStatus().equals("Success")) {
             Log.e("post", "success");
-//            feedAdapter.notifyDataSetChanged();
-            fetchFeed(token, eventid);
+//            fetchFeed(token, eventid);
         } else {
             Log.e("post", "fail");
             Toast.makeText(getContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
@@ -1339,52 +1373,4 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
         JZVideoPlayer.releaseAllVideos();
 
     }
-
-    public void SubmitAnalytics(String token, String eventid, String target_attendee_id, String target_attendee_type, String analytic_type) {
-
-        mAPIService.Analytic(token, eventid, target_attendee_id, target_attendee_type, analytic_type).enqueue(new Callback<Analytic>() {
-            @Override
-            public void onResponse(Call<Analytic> call, Response<Analytic> response) {
-
-                if (response.isSuccessful()) {
-                    Log.i("hit", "Analytics Sumbitted" + response.body().toString());
-
-
-                } else {
-
-                    Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Analytic> call, Throwable t) {
-                Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        procializeDB = new DBHelper(getActivity());
-        db = procializeDB.getWritableDatabase();
-
-        //fetchFeed(token,eventid);
-        if (cd.isConnectingToInternet()) {
-            fetchFeed(token, eventid);
-        } else {
-            db = procializeDB.getReadableDatabase();
-
-            newsfeedsDBList = dbHelper.getNewsFeedDetails();
-
-            feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, this);
-            feedAdapter.notifyDataSetChanged();
-            feedrecycler.setAdapter(feedAdapter);
-            feedrecycler.scheduleLayoutAnimation();
-
-
-        }
-    }
-
 }

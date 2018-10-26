@@ -138,4 +138,14 @@
 
     </style>
 
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+
+        <item name="colorAccent">#ff0000</item>
+
+        <item name="android:textColor">#ff0000</item>
+
+        <item name="android:textColorHint">#ff0000</item>
+
+    </style>
+
 </resources>

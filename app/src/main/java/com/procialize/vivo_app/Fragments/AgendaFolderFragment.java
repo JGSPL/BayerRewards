@@ -257,10 +257,15 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
 
 
             // Create Session Tabs
-            agendaTabHost.addTab(
-                    agendaTabHost.newTabSpec(tag)
-                            .setIndicator(createTabView(agendaTabHost.getContext(), outputDateStr, dayFromDate)),
-                    AgendaFolderListFragment.class, sessionDate);
+            try {
+                agendaTabHost.addTab(
+                        agendaTabHost.newTabSpec(tag)
+                                .setIndicator(createTabView(agendaTabHost.getContext(), outputDateStr, dayFromDate)),
+                        AgendaFolderListFragment.class, sessionDate);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
 
 
             if (imgTemp.equalsIgnoreCase("0")) {

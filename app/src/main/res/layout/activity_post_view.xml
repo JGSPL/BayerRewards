@@ -164,7 +164,6 @@
             android:layout_margin="10dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            android:visibility="gone"
             />
 
         <RelativeLayout
