@@ -24,6 +24,8 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -92,7 +94,7 @@ import okhttp3.ResponseBody;
 
 import static org.apache.http.HttpVersion.HTTP_1_1;
 
-public class PostEditActivity extends Activity implements OnClickListener {
+public class PostEditActivity extends AppCompatActivity implements OnClickListener {
 
     private ImageView back_edt_post, wall_sender_thumbnail_post;
 
@@ -145,17 +147,31 @@ public class PostEditActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        toolbar.setNavigationOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                appDelegate.setPostImagePath("");
+            }
+        });
         // mixpanel.track("Agenda Detail Page");
 
 
         // mixpanel.track("Wall Post Page");
 
-        actionFlag = getIntent().getExtras().getString("actionFlag");
-        notify_id = getIntent().getExtras().getString("Noty_post_id");
-        NotifyType = getIntent().getExtras().getString("NotificationType");
-        wallStatus = getIntent().getExtras().getString("WallStatus");
-        ImageStatus = getIntent().getExtras().getString("ImageStatus");
+        actionFlag = getIntent().getExtras().getString("for");
+        notify_id = getIntent().getExtras().getString("feedid");
+//        NotifyType = getIntent().getExtras().getString("NotificationType");
+        wallStatus = getIntent().getExtras().getString("status");
+        ImageStatus = getIntent().getExtras().getString("Image");
 
         session = new SessionManager(getApplicationContext());
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
@@ -166,26 +182,26 @@ public class PostEditActivity extends Activity implements OnClickListener {
         initializeGUI();
         profilepic = user.get(SessionManager.KEY_PIC);
         //post_status_post.setHint("What's on your mind?");
-        if (NotifyType.equalsIgnoreCase("Status")) {
+        if (actionFlag.equalsIgnoreCase("Status")) {
             //post_status_post.setText(wallStatus);
 
-            post_status_post.setText(getEmojiFromString(wallStatus));
-            post_thumbnail.setVisibility(View.GONE);
+            postEt.setText(getEmojiFromString(wallStatus));
+            Uploadiv.setVisibility(View.GONE);
 
-        } else if (NotifyType.equalsIgnoreCase("Image")) {
-            post_status_post.setText(getEmojiFromString(ImageStatus));
+        } else if (actionFlag.equalsIgnoreCase("Image")) {
+            postEt.setText(getEmojiFromString(wallStatus));
 			/*if (ImageStatus.toString().length() > 5){
 				post_status_post.setText(getEmojiFromString(ImageStatus));
 		}else {
 			post_status_post.setText((ImageStatus));
 		}*/
-            post_thumbnail.setVisibility(View.VISIBLE);
+            Uploadiv.setVisibility(View.VISIBLE);
             //Glide.with(this).load(constant.WEBSERVICE_URL + constant.STATUS_IMAGE_URL+ wallStatus).into(post_thumbnail);
-            PicassoTrustAll.getInstance(this).load(ApiConstant.profilepic + profilepic)
-                    .placeholder(R.drawable.profilepic_placeholder)
-                    .into(post_thumbnail);
+            PicassoTrustAll.getInstance(this).load(ApiConstant.newsfeedwall + ImageStatus)
+                    .placeholder(R.drawable.gallery_placeholder)
+                    .into(Uploadiv);
             if (ImageFlag.equalsIgnoreCase("0")) {
-                picturePath = constant.baseUrl + constant.profilepic + profilepic;
+                picturePath = constant.newsfeedwall + ImageStatus;
                 appDelegate.setPostImagePath(picturePath);
 
             }
@@ -196,14 +212,14 @@ public class PostEditActivity extends Activity implements OnClickListener {
 
         //post_thumbnail.setVisibility(View.GONE);
 
-        post_thumbnail.setOnClickListener(new OnClickListener() {
+        Uploadiv.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
                 ImageFlag = "1";
                 // TODO Auto-generated method stub
-                if (actionFlag.equalsIgnoreCase("image")) {
+                if (actionFlag.equalsIgnoreCase("Image")) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         // Android M Permission check
 						/*if (PostEditActivity.this.checkSelfPermission("android.permission.READ_EXTERNAL_STORAGE") != PackageManager.PERMISSION_GRANTED && PostEditActivity.this.checkSelfPermission("android.permission.WRITE_EXTERNAL_STORAGE") != PackageManager.PERMISSION_GRANTED) {
@@ -386,7 +402,7 @@ public class PostEditActivity extends Activity implements OnClickListener {
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 Uri photoURI = FileProvider.getUriForFile(this,
-                        "com.procialize.hdfcmulti_event.android.fileprovider",
+                        "com.procialize.singleevent.android.fileprovider",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
@@ -396,7 +412,7 @@ public class PostEditActivity extends Activity implements OnClickListener {
 
     private void setpic2() {
 
-        post_thumbnail.setVisibility(View.VISIBLE);
+        Uploadiv.setVisibility(View.VISIBLE);
         //selfieSubmit.setVisibility(View.VISIBLE);
         //edtImagename.setVisibility(View.VISIBLE);
 
@@ -406,7 +422,7 @@ public class PostEditActivity extends Activity implements OnClickListener {
 
         appDelegate.setPostImagePath(compressedImagePath);
 
-        Glide.with(this).load(compressedImagePath).into(post_thumbnail);
+        Glide.with(this).load(compressedImagePath).into(Uploadiv);
 
 
         Toast.makeText(PostEditActivity.this, "Image selected",
@@ -474,7 +490,7 @@ public class PostEditActivity extends Activity implements OnClickListener {
         displayRecordedVideo = findViewById(R.id.Upvideov);
         imgPlay = findViewById(R.id.imgPlay);
         progressbar = (ProgressBar) findViewById(R.id.progressbar);
-
+        postbtn.setOnClickListener(this);
 //		procializeDB = new DBHelper(PostEditActivity.this);
 //		db = procializeDB.getReadableDatabase();
 //		userData = procializeDB.getUserProfile();
@@ -485,14 +501,14 @@ public class PostEditActivity extends Activity implements OnClickListener {
         constant = new ApiConstant();
 
         // User Image URL
-        senderImageURL = ApiConstant.profilepic + profilepic;
+//        senderImageURL = ApiConstant.newsfeedwall + ;
 
         // Post Status & Image URL
         postUrl = ApiConstant.baseUrl + "PostNewsFeed";
 
-        Picasso.with(this).load(senderImageURL)
-                .placeholder(R.drawable.profilepic_placeholder)
-                .into(Uploadiv);
+//        Picasso.with(this).load(senderImageURL)
+//                .placeholder(R.drawable.profilepic_placeholder)
+//                .into(Uploadiv);
 
         //sms_count = (TextView) findViewById(R.id.textView2);
 
@@ -541,7 +557,7 @@ public class PostEditActivity extends Activity implements OnClickListener {
 //			overridePendingTransition(R.anim.pull_in_left,
 //					R.anim.pull_out_right);
 
-        } else if (v == post_btn_layout || v == post_txt_post) {
+        } else if (v == postbtn) {
 
             // mixpanel.track("Wall Post Button");
 
@@ -559,12 +575,12 @@ public class PostEditActivity extends Activity implements OnClickListener {
 //			}
 
             ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
-                    .hideSoftInputFromWindow(post_status_post.getWindowToken(),
+                    .hideSoftInputFromWindow(postEt.getWindowToken(),
                             0);
 
             //postMsg = post_status_post.getText().toString();
 
-            postMsg = StringEscapeUtils.escapeJava(post_status_post.getText().toString());
+            postMsg = StringEscapeUtils.escapeJava(postEt.getText().toString());
 
             // post_status_post.setText("");
             // post_status_post
@@ -612,9 +628,9 @@ public class PostEditActivity extends Activity implements OnClickListener {
         if (requestCode == 2 && resultCode == RESULT_OK
                 && null != data) {
 
-            post_status_post.setHint("Say something about this photo");
+            postEt.setHint("Say something about this photo");
 
-            post_thumbnail.setVisibility(View.VISIBLE);
+            Uploadiv.setVisibility(View.VISIBLE);
 
             Uri selectedImage = data.getData();
             String[] filePathColumn = {MediaStore.Images.Media.DATA};
@@ -630,7 +646,7 @@ public class PostEditActivity extends Activity implements OnClickListener {
             appDelegate.setPostImagePath(compressedImagePath);
 
             // PicassoTrustAll.getInstance(this).load(compressedImagePath).into(post_thumbnail);
-            Glide.with(this).load(compressedImagePath).into(post_thumbnail);
+            Glide.with(this).load(compressedImagePath).into(Uploadiv);
 
 
             // PicassoTrustAll.getInstance(PostActivity.this).load(compressedImagePath)
@@ -1012,10 +1028,7 @@ public class PostEditActivity extends Activity implements OnClickListener {
 
             super.onPreExecute();
             // Showing progress dialog
-            pDialog = new ProgressDialog(PostEditActivity.this);
-            pDialog.setCancelable(false);
-            pDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
-            pDialog.show();
+            showProgress();
 
         }
 
@@ -1040,7 +1053,7 @@ public class PostEditActivity extends Activity implements OnClickListener {
                 try {
 
                     URL url = new URL(postUrl);
-                    //SSLSocketFactory NoSSLv3Factory = new NoSSLv3SocketFactory(url);
+                    // SSLSocketFactory NoSSLv3Factory = new NoSSLv3SocketFactory(url);
 
 
                     client = getUnsafeOkHttpClient().newBuilder().build();
@@ -1053,17 +1066,14 @@ public class PostEditActivity extends Activity implements OnClickListener {
                 MultipartBody.Builder builder = new MultipartBody.Builder();
 
                 builder.setType(MultipartBody.FORM);
-                if (ImageFlag.equalsIgnoreCase("1")) {
-
-                    if (picturePath != null && !(picturePath.equalsIgnoreCase(""))) {
-                        builder.addFormDataPart("media_file", filename, RequestBody.create(MEDIA_TYPE_PNG, sourceFile));
-                    }
+                if (picturePath != null && !(picturePath.equalsIgnoreCase(""))) {
+                    builder.addFormDataPart("media_file", filename, RequestBody.create(MEDIA_TYPE_PNG, sourceFile));
                 }
 
                 builder.addFormDataPart("api_access_token", accessToken);
-                builder.addFormDataPart("noty_id", notify_id);
                 builder.addFormDataPart("event_id", eventId);
-                builder.addFormDataPart("user_type", type_of_user);
+
+                builder.addFormDataPart("type", actionFlag);
                 builder.addFormDataPart("status", postMsg);
 
                 RequestBody requestBody = builder.build();
@@ -1112,11 +1122,7 @@ public class PostEditActivity extends Activity implements OnClickListener {
 
             super.onPostExecute(result);
             // Dismiss the progress dialog
-            if (pDialog != null) {
-                pDialog.dismiss();
-                pDialog = null;
-            }
-
+           dismissProgress();
             if (error.equalsIgnoreCase("success")) {
 
                 // notifyDataSetChanged();
@@ -1349,10 +1355,7 @@ public class PostEditActivity extends Activity implements OnClickListener {
 
             super.onPreExecute();
             // Showing progress dialog
-            pDialog = new ProgressDialog(PostEditActivity.this);
-            pDialog.setCancelable(false);
-            pDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
-            pDialog.show();
+         showProgress();
 
         }
 
@@ -1434,10 +1437,7 @@ public class PostEditActivity extends Activity implements OnClickListener {
             super.onPostExecute(result);
             // Dismiss the progress dialog
 
-            if (pDialog != null) {
-                pDialog.dismiss();
-                pDialog = null;
-            }
+           dismissProgress();
 
             // String s = "";
             // String message = "";
@@ -1654,10 +1654,7 @@ public class PostEditActivity extends Activity implements OnClickListener {
 
     @Override
     public void onDestroy() {
-        if (pDialog != null) {
-            pDialog.dismiss();
-            pDialog = null;
-        }
+       dismissProgress();
         super.onDestroy();
     }
 
@@ -1668,5 +1665,19 @@ public class PostEditActivity extends Activity implements OnClickListener {
         appDelegate.setPostImagePath("");
 
     }
+
+    public void showProgress() {
+        if (progressbar.getVisibility() == View.GONE) {
+            progressbar.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void dismissProgress() {
+        if (progressbar.getVisibility() == View.VISIBLE) {
+            progressbar.setVisibility(View.GONE);
+        }
+    }
+
+
 }
 

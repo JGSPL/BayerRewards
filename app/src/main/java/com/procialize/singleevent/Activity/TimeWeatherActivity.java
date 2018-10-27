@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +29,7 @@ public class TimeWeatherActivity extends AppCompatActivity {
     private APIService mAPIService;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
-    ProgressDialog progressDialog;
+    ProgressBar progressBar;
     ImageView headerlogoIv;
 
     @Override
@@ -70,16 +71,14 @@ public class TimeWeatherActivity extends AppCompatActivity {
     }
 
     public void getInfoTab() {
-        progressDialog = new ProgressDialog(TimeWeatherActivity.this);
-        progressDialog.setMessage("Loading...");
-        progressDialog.show();
+        showProgress();
 
         mAPIService.FetchTimeWeather(eventid).enqueue(new Callback<TimeWeather>() {
             @Override
             public void onResponse(Call<TimeWeather> call, Response<TimeWeather> response) {
 
                 if (response.body().getStatus().equals("success")) {
-                    progressDialog.dismiss();
+                    dismissProgress();
                     Log.i("hit", "post submitted to API." + response.body().toString());
                     String date_time = response.body().getDate_time();
                     String mintemp = response.body().getMin();
@@ -95,17 +94,30 @@ public class TimeWeatherActivity extends AppCompatActivity {
 
 
                 } else {
-                    progressDialog.dismiss();
+                    dismissProgress();
                     Toast.makeText(TimeWeatherActivity.this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<TimeWeather> call, Throwable t) {
-                progressDialog.dismiss();
+                dismissProgress();
                 Log.e("hit", "Unable to submit post to API.");
                 Toast.makeText(TimeWeatherActivity.this, "Low network or no network", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+    public void showProgress() {
+        if (progressBar.getVisibility() == View.GONE) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void dismissProgress() {
+        if (progressBar.getVisibility() == View.VISIBLE) {
+            progressBar.setVisibility(View.GONE);
+        }
+    }
+
 }

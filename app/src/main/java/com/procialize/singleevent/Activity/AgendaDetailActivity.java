@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,7 +53,7 @@ public class AgendaDetailActivity extends AppCompatActivity {
     LinearLayout linear1, linear2, linear3;
     View viewtwo, viewone;
     RatingBar ratingbar;
-    ProgressDialog progressDialog;
+    ProgressBar progressBar;
     ImageView headerlogoIv;
 
     @Override
@@ -122,6 +123,7 @@ public class AgendaDetailActivity extends AppCompatActivity {
         viewtwo = findViewById(R.id.viewtwo);
         ratebtn = findViewById(R.id.ratebtn);
         ratingbar = findViewById(R.id.ratingbar);
+        progressBar = findViewById(R.id.progressBar);
 
         ratingbar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -267,9 +269,7 @@ public class AgendaDetailActivity extends AppCompatActivity {
 
 
     public void PostRate(String eventid, String rating, String token, String speakerid) {
-        progressDialog = new ProgressDialog(AgendaDetailActivity.this);
-        progressDialog.setMessage("");
-        progressDialog.show();
+        showProgress();
 //        showProgress();
         mAPIService.RatingSessionPost(token, eventid, speakerid, rating).enqueue(new Callback<RatingSessionPost>() {
             @Override
@@ -277,11 +277,11 @@ public class AgendaDetailActivity extends AppCompatActivity {
 
                 if (response.isSuccessful()) {
                     Log.i("hit", "post submitted to API." + response.body().toString());
-                    progressDialog.dismiss();
+                    dismissProgress();
 //                    dismissProgress();
                     DeletePostresponse(response);
                 } else {
-                    progressDialog.dismiss();
+                    dismissProgress();
 //                    dismissProgress();
 
 //                    Toast.makeText(getApplicationContext(),"Unable to process",Toast.LENGTH_SHORT).show();
@@ -291,7 +291,7 @@ public class AgendaDetailActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<RatingSessionPost> call, Throwable t) {
                 Log.e("hit", "Low network or no network");
-                progressDialog.dismiss();
+                dismissProgress();
 //                Toast.makeText(getApplicationContext(),"Unable to process",Toast.LENGTH_SHORT).show();
 
 //                dismissProgress();
@@ -344,5 +344,17 @@ public class AgendaDetailActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void showProgress() {
+        if (progressBar.getVisibility() == View.GONE) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void dismissProgress() {
+        if (progressBar.getVisibility() == View.VISIBLE) {
+            progressBar.setVisibility(View.GONE);
+        }
     }
 }

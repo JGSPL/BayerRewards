@@ -284,12 +284,17 @@ public class VideoFirstLevelActivity extends AppCompatActivity implements VideoF
                 }
             } else {
 
+                if (videoLists.size() == 0) {
 
-                Intent intent = new Intent(getApplicationContext(), VideoFirstLevelActivity.class);
-                intent.putExtra("foldername", firstLevelFilter.getFileName());
-                intent.putExtra("videolist", (Serializable) videoLists);
-                intent.putExtra("folderlist", (Serializable) folderLists);
-                startActivity(intent);
+                    Toast.makeText(VideoFirstLevelActivity.this, "Folder is Empty", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Intent intent = new Intent(getApplicationContext(), VideoFirstLevelActivity.class);
+                    intent.putExtra("foldername", firstLevelFilter.getFileName());
+                    intent.putExtra("videolist", (Serializable) videoLists);
+                    intent.putExtra("folderlist", (Serializable) folderLists);
+                    startActivity(intent);
+                }
             }
 
         }

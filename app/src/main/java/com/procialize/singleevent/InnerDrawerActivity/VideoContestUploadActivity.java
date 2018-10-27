@@ -24,6 +24,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -70,7 +71,7 @@ public class VideoContestUploadActivity extends AppCompatActivity {
     String apikey;
     TextInputEditText editTitle;
     APIService mAPIService;
-    ProgressDialog progress;
+    ProgressBar progressBar;
     String userChoosenTask;
     private static final int REQUEST_VIDEO_CAPTURE = 300;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
@@ -102,14 +103,14 @@ public class VideoContestUploadActivity extends AppCompatActivity {
         });
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
+        Util.logomethod(this, headerlogoIv);
 
 
         displayRecordedVideo = findViewById(R.id.videopreview);
         btnSubmit = findViewById(R.id.btnSubmit);
         editTitle = findViewById(R.id.editTitle);
         imgPlay = (ImageView) findViewById(R.id.imgPlay);
-
+        progressBar = findViewById(R.id.progressBar);
         sessionManager = new SessionManager(this);
 
         mAPIService = ApiUtils.getAPIService();
@@ -264,8 +265,7 @@ public class VideoContestUploadActivity extends AppCompatActivity {
                 if ((duration / 1000) > 15) {
                     // Show Your Messages
                     Toast.makeText(VideoContestUploadActivity.this, "Please select video length less than 15 sec", Toast.LENGTH_SHORT).show();
-//                        Intent intent = new Intent(VideoContestUploadActivity.this, HomeActivity.class);
-//                        startActivity(intent);
+
                     finish();
                 } else {
                     displayRecordedVideo.setVideoURI(uri);
@@ -436,23 +436,24 @@ public class VideoContestUploadActivity extends AppCompatActivity {
 
         if (response.body().getStatus().equals("success")) {
             Toast.makeText(this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
-
+            Intent intent = new Intent(VideoContestUploadActivity.this, VideoContestActivity.class);
+            startActivity(intent);
             finish();
+
         } else {
             Toast.makeText(this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
         }
     }
 
     public void showProgress() {
-        progress = new ProgressDialog(this, R.style.MyAlertDialogStyle);
-        progress.setMessage("Loading....");
-        progress.setTitle("Progress");
-        progress.show();
+        if (progressBar.getVisibility() == View.GONE) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
     }
 
     public void dismissProgress() {
-        if (progress.isShowing()) {
-            progress.dismiss();
+        if (progressBar.getVisibility() == View.VISIBLE) {
+            progressBar.setVisibility(View.GONE);
         }
     }
 

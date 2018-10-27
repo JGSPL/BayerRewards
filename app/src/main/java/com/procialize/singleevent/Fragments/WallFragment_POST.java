@@ -630,6 +630,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
                     editimage.putExtra("status", feed.getPostStatus());
                     editimage.putExtra("Image", feed.getMediaFile());
                     startActivity(editimage);
+                    dialog.dismiss();
                 } else if (feed.getType().equalsIgnoreCase("Video")) {
                     Intent edit = new Intent(getActivity(), PostEditActivityOld.class);
                     edit.putExtra("for", feed.getType());
@@ -637,6 +638,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
                     edit.putExtra("status", feed.getPostStatus());
                     edit.putExtra("Video", feed.getMediaFile());
                     startActivity(edit);
+                    dialog.dismiss();
                 }
 
             }

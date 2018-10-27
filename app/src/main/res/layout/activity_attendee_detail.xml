@@ -58,6 +58,14 @@
         android:textSize="@dimen/textsizenormal"
         android:textStyle="bold" />
 
+
+    <ProgressBar
+        android:id="@+id/progressBarmain"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <RelativeLayout
         android:id="@+id/relative"
         android:layout_width="match_parent"

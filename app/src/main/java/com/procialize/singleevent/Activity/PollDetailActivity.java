@@ -18,6 +18,7 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -50,7 +51,7 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
     RadioGroup ll;
     Button subBtn;
     private APIService mAPIService;
-    ProgressDialog progress;
+    ProgressBar progressBar;
     String selected;
     int Count;
     String MY_PREFS_NAME = "ProcializeInfo";
@@ -103,6 +104,7 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
         questionTv = findViewById(R.id.questionTv);
         subBtn = findViewById(R.id.subBtn);
         subBtn.setOnClickListener(this);
+        progressBar = findViewById(R.id.progressBar);
 
 
         SessionManager sessionManager = new SessionManager(this);
@@ -224,7 +226,7 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
 
 
                         viewGroup.setVisibility(View.GONE);
-                        PollGraphAdapter pollAdapter = new PollGraphAdapter(this,optionLists,questionId );
+                        PollGraphAdapter pollAdapter = new PollGraphAdapter(this, optionLists, questionId);
                         pollAdapter.notifyDataSetChanged();
                         pollGraph.setAdapter(pollAdapter);
                         pollGraph.scheduleLayoutAnimation();
@@ -261,25 +263,21 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
                     .show();
 
 
-
-
-
-            } else {
+        } else {
             Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
 
         }
     }
 
     public void showProgress() {
-        progress = new ProgressDialog(this);
-        progress.setMessage("Loading....");
-//        progress.setTitle("Progress");
-        progress.show();
+        if (progressBar.getVisibility() == View.GONE) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
     }
 
     public void dismissProgress() {
-        if (progress.isShowing()) {
-            progress.dismiss();
+        if (progressBar.getVisibility() == View.VISIBLE) {
+            progressBar.setVisibility(View.GONE);
         }
     }
 
@@ -293,7 +291,7 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
          * "#FF9800", "#1B5E20" };
          */
 
-        String[] color = {"#0e73ba", "#00a89c", "#4d4d4d", "#949494", "#0e73ba", "#00a89c", "#4d4d4d", "#949494", "#0e73ba", "#00a89c","#4d4d4d","#949494"};
+        String[] color = {"#0e73ba", "#00a89c", "#4d4d4d", "#949494", "#0e73ba", "#00a89c", "#4d4d4d", "#949494", "#0e73ba", "#00a89c", "#4d4d4d", "#949494"};
 
         Float totalUser = 0.0f;
 
@@ -325,15 +323,15 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
         }
 
         // quiz_layout.setBackgroundColor(Color.parseColor("#1B5E20"));
-        if(replyFlag.equalsIgnoreCase("1")){
+        if (replyFlag.equalsIgnoreCase("1")) {
             viewGroup.setVisibility(View.GONE);
-            PollGraphAdapter pollAdapter = new PollGraphAdapter(this,optionLists,questionId );
+            PollGraphAdapter pollAdapter = new PollGraphAdapter(this, optionLists, questionId);
             pollAdapter.notifyDataSetChanged();
             pollGraph.setAdapter(pollAdapter);
             pollGraph.scheduleLayoutAnimation();
 
 
-        }else {
+        } else {
 
             pollGraph.setVisibility(View.GONE);
             viewGroup.setVisibility(View.VISIBLE);
@@ -577,6 +575,7 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
 
         }
     }
+
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(PollDetailActivity.this, LivePollActivity.class);

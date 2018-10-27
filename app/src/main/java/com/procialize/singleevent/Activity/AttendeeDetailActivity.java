@@ -67,7 +67,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
     SessionManager sessionManager;
     String apikey;
     ImageView profileIV;
-    ProgressBar progressBar;
+    ProgressBar progressBar,progressBarmain;
     String attendee_company, attendee_location, attendee_mobile, attendee_design;
     List<EventSettingList> eventSettingLists;
     String MY_PREFS_NAME = "ProcializeInfo";
@@ -161,6 +161,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         tvcity = findViewById(R.id.tvcity);
         profileIV = findViewById(R.id.profileIV);
         progressBar = findViewById(R.id.progressBar);
+        progressBarmain = findViewById(R.id.progressBarmain);
         posttextEt = findViewById(R.id.posttextEt);
         viewtwo = findViewById(R.id.viewtwo);
         viewthree = findViewById(R.id.viewthree);
@@ -358,22 +359,20 @@ public class AttendeeDetailActivity extends AppCompatActivity {
 
 
     public void PostMesssage(String eventid, String msg, String token, String attendeeid) {
-        progressDialog = new ProgressDialog(AttendeeDetailActivity.this);
-//        progressDialog.setMessage("Loading...");
-        progressDialog.show();
+       showProgress();
 //        showProgress();
         mAPIService.SendMessagePost(token, eventid, msg, attendeeid).enqueue(new Callback<SendMessagePost>() {
             @Override
             public void onResponse(Call<SendMessagePost> call, Response<SendMessagePost> response) {
 
                 if (response.isSuccessful()) {
-                    progressDialog.dismiss();
+                    dismissProgress();
                     Log.i("hit", "post submitted to API." + response.body().toString());
 //                    dismissProgress();
                     posttextEt.setText("");
                     DeletePostresponse(response);
                 } else {
-                    progressDialog.dismiss();
+                   dismissProgress();
 //                    dismissProgress();
 
                     Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
@@ -382,7 +381,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<SendMessagePost> call, Throwable t) {
-                progressDialog.dismiss();
+               dismissProgress();
                 Log.e("hit", "Low network or no network");
                 Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
 
@@ -456,5 +455,17 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         finish();
 
 
+    }
+
+    public void showProgress() {
+        if (progressBarmain.getVisibility() == View.GONE) {
+            progressBarmain.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void dismissProgress() {
+        if (progressBarmain.getVisibility() == View.VISIBLE) {
+            progressBarmain.setVisibility(View.GONE);
+        }
     }
 }

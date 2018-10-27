@@ -1150,10 +1150,7 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
 
             super.onPreExecute();
             // Showing progress dialog
-            pDialog = new ProgressDialog(PostActivity.this);
-            pDialog.setCancelable(false);
-            pDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
-            pDialog.show();
+            showProgress();
 
         }
 
@@ -1250,10 +1247,7 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
 
             super.onPostExecute(result);
             // Dismiss the progress dialog
-            if (pDialog != null) {
-                pDialog.dismiss();
-                pDialog = null;
-            }
+            dismissProgress();
 
             if (error.equalsIgnoreCase("success")) {
 
@@ -1297,10 +1291,7 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
 
             super.onPreExecute();
             // Showing progress dialog
-            pDialog = new ProgressDialog(PostActivity.this);
-            pDialog.setCancelable(false);
-            pDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
-            pDialog.show();
+            showProgress();
 
         }
 
@@ -1380,10 +1371,7 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
             super.onPostExecute(result);
             // Dismiss the progress dialog
 
-            if (pDialog != null) {
-                pDialog.dismiss();
-                pDialog = null;
-            }
+            dismissProgress();
 
             // String s = "";
             // String message = "";
@@ -1507,10 +1495,7 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
     @Override
     public void onDestroy() {
 
-        if (pDialog != null) {
-            pDialog.dismiss();
-            pDialog = null;
-        }
+        dismissProgress();
         super.onDestroy();
     }
 
@@ -1678,6 +1663,5 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
         }
 
     }
-
 
 }

@@ -83,7 +83,7 @@ public class VideoActivity extends AppCompatActivity implements VideoAdapter.Vid
         });
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
+        Util.logomethod(this, headerlogoIv);
 
         videoRv = findViewById(R.id.videoRv);
         progressBar = findViewById(R.id.progressBar);
@@ -325,14 +325,20 @@ public class VideoActivity extends AppCompatActivity implements VideoAdapter.Vid
 //            startActivity(view);
         } else {
 
-            String foldername = firstLevelFilter.getFolderName();
+            if (videoLists.size() == 0) {
 
-            Intent intent = new Intent(getApplicationContext(), VideoFirstLevelActivity.class);
-            intent.putExtra("foldername", foldername);
-            intent.putExtra("videolist", (Serializable) videoLists);
-            intent.putExtra("folderlist", (Serializable) folderLists);
+                Toast.makeText(VideoActivity.this, "Folder is Empty", Toast.LENGTH_SHORT).show();
 
-            startActivity(intent);
+            } else {
+                String foldername = firstLevelFilter.getFolderName();
+
+                Intent intent = new Intent(getApplicationContext(), VideoFirstLevelActivity.class);
+                intent.putExtra("foldername", foldername);
+                intent.putExtra("videolist", (Serializable) videoLists);
+                intent.putExtra("folderlist", (Serializable) folderLists);
+
+                startActivity(intent);
+            }
 
 
         }

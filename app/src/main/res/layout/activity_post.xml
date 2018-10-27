@@ -65,8 +65,7 @@
                 android:layout_height="90dp"
                 android:layout_centerInParent="true"
                 android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                />
+                android:scaleType="centerCrop" />
 
         </RelativeLayout>
 
@@ -100,15 +99,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
+        android:layout_below="@+id/ll"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:gravity="center">
 
 
         <com.procialize.singleevent.CustomTools.ScaledImageView
             android:id="@+id/Uploadiv"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_margin="10dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
@@ -144,7 +147,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_margin="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/loginbutton"
         android:text="@string/post"
         android:textColor="@color/colorwhite"

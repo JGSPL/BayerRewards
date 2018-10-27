@@ -32,6 +32,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -109,6 +110,7 @@ public class SelfiePost extends Activity {
     String name = "";
 
     String eventId;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -119,6 +121,7 @@ public class SelfiePost extends Activity {
         editName = (EditText) findViewById(R.id.editTitle);
         btnSubmit = (Button) findViewById(R.id.btnSubmit);
         txtTitle = (TextView) findViewById(R.id.txtTitle);
+        progressBar =  findViewById(R.id.progressBar);
 
 
 //        Typeface typeFace = Typeface.createFromAsset(getAssets(), "fonts/FuturaStd-Medium.ttf");
@@ -889,10 +892,7 @@ public class SelfiePost extends Activity {
 //            pDialog.setCancelable(false);
 //            pDialog.show();
             // Showing progress dialog
-            pDialog = new ProgressDialog(SelfiePost.this);
-            pDialog.setCancelable(false);
-            pDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
-            pDialog.show();
+           showProgress();
         }
 
         @Override
@@ -985,10 +985,7 @@ public class SelfiePost extends Activity {
 
             super.onPostExecute(result);
             // Dismiss the progress dialog
-            if (pDialog != null) {
-                pDialog.dismiss();
-                pDialog = null;
-            }
+           dismissProgress();
             if (!TextUtils.isEmpty(message))
                 Toast.makeText(SelfiePost.this, message,
                         Toast.LENGTH_SHORT).show();
@@ -1117,6 +1114,18 @@ public class SelfiePost extends Activity {
         }
 
         return httpResponse;
+    }
+
+    public void showProgress() {
+        if (progressBar.getVisibility() == View.GONE) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void dismissProgress() {
+        if (progressBar.getVisibility() == View.VISIBLE) {
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
 }

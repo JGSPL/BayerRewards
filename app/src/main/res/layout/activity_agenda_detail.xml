@@ -47,11 +47,19 @@
     </android.support.design.widget.AppBarLayout>
 
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appBarLayout"/>
+
     <com.procialize.singleevent.Fonts.RobotoTextview
         android:id="@+id/tvname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/appBarLayout"
+        android:layout_below="@+id/progressBar"
         android:layout_marginTop="20dp"
         android:background="@color/activetab"
         android:paddingBottom="10dp"
@@ -60,6 +68,8 @@
         android:text="fgbgbgb"
         android:textColor="@color/colorwhite"
         android:textSize="@dimen/textsizenormal" />
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
