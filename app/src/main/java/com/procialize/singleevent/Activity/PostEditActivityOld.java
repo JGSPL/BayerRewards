@@ -27,12 +27,15 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -143,6 +146,35 @@ public class PostEditActivityOld extends AppCompatActivity implements ProgressRe
         progressbar = findViewById(R.id.progressbar);
         mAPIService = ApiUtils.getAPIService();
         sessionManager = new SessionManager(getApplicationContext());
+
+        final TextView txtcount1 = (TextView) findViewById(R.id.txtcount1);
+
+        final TextWatcher txwatcher = new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+                int tick = start + after;
+                if (tick < 500) {
+                    int remaining = 500 - tick;
+                    // txtcount1.setText(String.valueOf(remaining));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+                txtcount1.setText(String.valueOf(500 - s.length()));
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // TODO Auto-generated method stub
+                System.out.print("Hello");
+            }
+        };
+
+        postEt.addTextChangedListener(txwatcher);
 
 
         // get user data from session

@@ -510,35 +510,34 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
 //                .placeholder(R.drawable.profilepic_placeholder)
 //                .into(Uploadiv);
 
-        //sms_count = (TextView) findViewById(R.id.textView2);
+        final TextView txtcount1 = (TextView) findViewById(R.id.txtcount1);
 
+        final TextWatcher txwatcher = new TextWatcher() {
 
-//        final TextWatcher txwatcher = new TextWatcher() {
-//
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
-//                int tick = start + after;
-//                if (tick < 500) {
-//                    int remaining = 500 - tick;
-//                    // txtcount1.setText(String.valueOf(remaining));
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                // TODO Auto-generated method stub
-//                txtcount1.setText(String.valueOf(500 - s.length()));
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                // TODO Auto-generated method stub
-//                System.out.print("Hello");
-//            }
-//        };
-//
-//        post_status_post.addTextChangedListener(txwatcher);
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+                int tick = start + after;
+                if (tick < 500) {
+                    int remaining = 500 - tick;
+                    // txtcount1.setText(String.valueOf(remaining));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+                txtcount1.setText(String.valueOf(500 - s.length()));
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // TODO Auto-generated method stub
+                System.out.print("Hello");
+            }
+        };
+
+        postEt.addTextChangedListener(txwatcher);
 
     }
 

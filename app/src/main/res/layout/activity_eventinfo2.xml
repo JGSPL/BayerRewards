@@ -88,7 +88,8 @@
                 android:text="@string/eventInfo"
                 android:textColor="@color/activetab"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone"/>
 
         </LinearLayout>
 
@@ -212,7 +213,8 @@
             android:layout_weight="4"
             android:elevation="@dimen/elevation"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_margin="15dp">
 
 
             <fragment
