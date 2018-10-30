@@ -224,7 +224,12 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
 
             try {
                 nameTv.setText(response.body().getEventList().get(0).getEventName());
-                dateTv.setText(finalStartTime + " - " + finalEndTime);
+                if(finalStartTime.equalsIgnoreCase(finalEndTime)){
+                    dateTv.setText(finalStartTime);
+
+                }else {
+                    dateTv.setText(finalStartTime + " - " + finalEndTime);
+                }
                 cityTv.setText(response.body().getEventList().get(0).getEventCity());
             } catch (Exception e) {
                 e.printStackTrace();

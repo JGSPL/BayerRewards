@@ -113,8 +113,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 
             String date = originalFormat.format(date1);
             String date3 = originalFormat.format(date2);
+            if(date.equalsIgnoreCase(date3)){
+                holder.designationTv.setText(date);
 
-            holder.designationTv.setText(date + " - " + date3);
+            }else {
+
+                holder.designationTv.setText(date + " - " + date3);
+            }
 
         } catch (ParseException e) {
             e.printStackTrace();
