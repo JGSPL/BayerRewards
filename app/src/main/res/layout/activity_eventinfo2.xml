@@ -91,7 +91,7 @@
                 android:textColor="@color/activetab"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:visibility="gone"/>
+                android:visibility="visible"/>
 
         </LinearLayout>
 
