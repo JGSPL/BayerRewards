@@ -1,8 +1,10 @@
 package com.procialize.singleevent.InnerDrawerActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -68,6 +71,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
     List<EventSettingList> eventSettingLists;
     SupportMapFragment fm;
     ImageView back;
+    LinearLayout linMap;
 
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
@@ -120,6 +124,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
         event_desc = findViewById(R.id.event_desc);
         progressbar = findViewById(R.id.progressbar);
         back = findViewById(R.id.back);
+        linMap = findViewById(R.id.linMap);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,6 +132,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
                 finish();
             }
         });
+
 
     }
 
@@ -169,7 +175,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
         });
     }
 
-    public void showResponse(Response<EventInfoFetch> response) {
+    public void showResponse(final Response<EventInfoFetch> response) {
 
         // specify an adapter (see also next example)
 
@@ -262,6 +268,24 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+            linMap.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    String label = "ABC Label";
+                    String uriBegin = "geo:" + response.body().getEventList().get(0).getEventLatitude() + "," + response.body().getEventList().get(0).getEventLongitude();
+                    String query = response.body().getEventList().get(0).getEventLatitude() + "," + response.body().getEventList().get(0).getEventLatitude() + "(" + label + ")";
+                    String encodedQuery = Uri.encode(query);
+                    String uriString = uriBegin + "?q=" + encodedQuery + "&z=16";
+                    Uri uri = Uri.parse(uriString);
+                    Intent intent = new Intent(android.content.Intent.ACTION_VIEW, uri);
+                    startActivity(intent);
+
+
+                }
+            });
+
 
 
             try {

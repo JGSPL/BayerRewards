@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical"
-    android:weightSum="10"
     tools:context="com.procialize.singleevent.InnerDrawerActivity.EventInfoActivity">
 
     <ProgressBar
@@ -25,6 +24,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:weightSum="10"
+
         android:orientation="vertical">
 
         <android.support.design.widget.AppBarLayout
@@ -74,7 +75,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -82,9 +84,9 @@
                 android:id="@+id/event_info_heading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin"
+                android:layout_margin="5dp"
                 android:gravity="center"
-                android:padding="5dp"
+                android:padding="2dp"
                 android:text="@string/eventInfo"
                 android:textColor="@color/activetab"
                 android:textSize="18sp"
@@ -103,65 +105,94 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="top"
                 android:visibility="visible">
+                <RelativeLayout
+                    android:id="@+id/relative"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/attendeetitle">
 
-                <ImageView
-                    android:id="@+id/logoIv"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/logo" />
+                    <RelativeLayout
+                        android:id="@+id/layoutTop"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:background="@color/activetab"></RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/layoutBottom"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_below="@id/layoutTop"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/agendabg">
+
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@id/layoutBottom"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="-40dp"
+                        android:adjustViewBounds="true">
+
+                        <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/logoIv"
+                            android:layout_width="96dp"
+                            android:layout_height="96dp"
+                            android:layout_centerInParent="true"
+                            android:adjustViewBounds="true"
+                            android:background="@drawable/image_border"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/logo" />
+
+
+                    </RelativeLayout>
+                </RelativeLayout>
+
+
+                <!--
+                                <ImageView
+                                    android:id="@+id/logoIv"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:src="@drawable/logo" />
+                -->
 
             </LinearLayout>
 
 
+<!--
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="7"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/agendabg"
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
-                    android:id="@+id/nameTv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textsizesmall" />
-
-                <com.procialize.singleevent.Fonts.RobotoTextview
-                    android:id="@+id/dateTv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textsizesmall" />
-
-                <com.procialize.singleevent.Fonts.RobotoTextview
-                    android:id="@+id/cityTv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textsizesmall" />
 
             </LinearLayout>
+-->
 
         </LinearLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2.5">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/agendabg"
+            android:layout_weight="6">
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -172,8 +203,36 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="left"
+                        android:gravity="center"
                         android:orientation="vertical">
+
+                        <com.procialize.singleevent.Fonts.RobotoTextview
+                            android:id="@+id/nameTv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:textColor="@color/activetab"
+                            android:textSize="@dimen/textsizenormal" />
+
+                        <com.procialize.singleevent.Fonts.RobotoTextview
+                            android:id="@+id/dateTv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/textsizesmall" />
+
+                        <com.procialize.singleevent.Fonts.RobotoTextview
+                            android:id="@+id/cityTv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/textsizesmall" />
+
 
                         <com.procialize.singleevent.Fonts.RobotoTextview
                             android:id="@+id/eventvenu"
@@ -196,6 +255,7 @@
                             android:autoLink="web"
                             android:maxEms="50"
                             android:text=""
+                            android:gravity="center"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="normal" />
@@ -205,12 +265,42 @@
                 </LinearLayout>
             </ScrollView>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:id="@+id/linMap"
+            android:background="@color/activetab"
+
+            android:elevation="@dimen/elevation"
+            android:gravity="center"
+
+            android:orientation="horizontal">
+
+            <com.procialize.singleevent.Fonts.RobotoTextview
+                android:id="@+id/createaccbtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="View on Maps"
+                android:gravity="center"
+                android:textColor="@color/colorwhite"
+                android:textSize="@dimen/textsizenormal"
+                android:textAllCaps="false" />
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                android:src="@drawable/map_icon"/>
+
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4"
+            android:layout_weight="0"
             android:elevation="@dimen/elevation"
+            android:visibility="gone"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -219,6 +309,7 @@
                 android:id="@+id/map"
                 class="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
+
                 android:layout_height="match_parent" />
         </LinearLayout>
 
