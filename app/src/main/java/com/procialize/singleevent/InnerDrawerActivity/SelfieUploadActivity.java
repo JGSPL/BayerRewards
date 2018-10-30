@@ -34,6 +34,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -81,7 +82,7 @@ public class SelfieUploadActivity extends AppCompatActivity {
     String apikey;
     TextInputEditText editTitle;
     APIService mAPIService;
-    ProgressDialog progress;
+    ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventId;
     String mCurrentPhotoPath;
@@ -118,6 +119,7 @@ public class SelfieUploadActivity extends AppCompatActivity {
         imgpreview = findViewById(R.id.imgpreview);
         btnSubmit = findViewById(R.id.btnSubmit);
         editTitle = findViewById(R.id.editTitle);
+        progressBar = findViewById(R.id.progressBar);
 
         sessionManager = new SessionManager(this);
 
@@ -628,17 +630,17 @@ public class SelfieUploadActivity extends AppCompatActivity {
     }
 
     public void showProgress() {
-        progress = new ProgressDialog(this, R.style.MyAlertDialogStyle);
-        progress.setMessage("Loading....");
-        progress.setTitle("Progress");
-        progress.show();
+        if (progressBar.getVisibility() == View.GONE) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
     }
 
     public void dismissProgress() {
-        if (progress.isShowing()) {
-            progress.dismiss();
+        if (progressBar.getVisibility() == View.VISIBLE) {
+            progressBar.setVisibility(View.GONE);
         }
     }
+
 
     @Override
     public void onPause() {

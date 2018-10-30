@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -44,7 +45,7 @@ public class QuizDetailActivity extends AppCompatActivity {
     RadioGroup ll;
     Button subBtn;
     private APIService mAPIService;
-    ProgressDialog progress;
+    ProgressBar progressBar;
     String selected;
     int Count;
     String MY_PREFS_NAME = "ProcializeInfo";
@@ -78,6 +79,7 @@ public class QuizDetailActivity extends AppCompatActivity {
         });
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
+        progressBar = findViewById(R.id.progressBar);
         Util.logomethod(this,headerlogoIv);
 
 
@@ -246,16 +248,16 @@ public class QuizDetailActivity extends AppCompatActivity {
     }
 
     public void showProgress() {
-        progress = new ProgressDialog(this);
-        progress.setMessage("Loading....");
-//        progress.setTitle("Progress");
-        progress.show();
+        if (progressBar.getVisibility() == View.GONE) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
     }
 
     public void dismissProgress() {
-        if (progress.isShowing()) {
-            progress.dismiss();
+        if (progressBar.getVisibility() == View.VISIBLE) {
+            progressBar.setVisibility(View.GONE);
         }
     }
+
 
 }

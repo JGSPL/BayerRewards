@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.GetterSetter.GeneralInfoList;
 import com.procialize.singleevent.GetterSetter.InfoList;
 import com.procialize.singleevent.InnerDrawerActivity.GeneralInfoActivity;
+
 import com.procialize.singleevent.InnerDrawerActivity.WeatherActivity;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
@@ -55,7 +57,7 @@ public class GeneralInfo extends Fragment implements GeneralInfoListAdapter.Gene
     SwipeRefreshLayout generalInforefresh;
     LinearLayout.LayoutParams params;
     TextView textView;
-    ProgressDialog progressDialog;
+    ProgressBar progressBar;
     RecyclerView general_item_list;
     GeneralInfoListAdapter generalInfoListAdapter;
     List views = new ArrayList();
@@ -78,6 +80,7 @@ public class GeneralInfo extends Fragment implements GeneralInfoListAdapter.Gene
         generalInforefresh = view.findViewById(R.id.generalInforefresh);
 
         general_item_list = view.findViewById(R.id.general_item_list);
+        progressBar = view.findViewById(R.id.progressBar);
 
 
         HashMap<String, String> user = sessionManager.getUserDetails();
@@ -149,16 +152,14 @@ public class GeneralInfo extends Fragment implements GeneralInfoListAdapter.Gene
     }
 
     public void getInfoTab() {
-        progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage("Loading...");
-        progressDialog.show();
+      showProgress();
 
         mAPIService.FetchGeneralInfo(eventid).enqueue(new Callback<GeneralInfoList>() {
             @Override
             public void onResponse(Call<GeneralInfoList> call, Response<GeneralInfoList> response) {
 
                 if (response.body().getStatus().equals("success")) {
-                    progressDialog.dismiss();
+                   dismissProgress();
                     Log.i("hit", "post submitted to API." + response.body().toString());
                     generalinfoLists = response.body().getInfoList();
 
@@ -174,14 +175,14 @@ public class GeneralInfo extends Fragment implements GeneralInfoListAdapter.Gene
 
 
                 } else {
-                    progressDialog.dismiss();
+                   dismissProgress();
                     Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<GeneralInfoList> call, Throwable t) {
-                progressDialog.dismiss();
+                dismissProgress();
                 Log.e("hit", "Unable to submit post to API.");
                 Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
                 if (generalInforefresh.isRefreshing()) {
@@ -230,4 +231,17 @@ public class GeneralInfo extends Fragment implements GeneralInfoListAdapter.Gene
             }
         });
     }
+
+    public void showProgress() {
+        if (progressBar.getVisibility() == View.GONE) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void dismissProgress() {
+        if (progressBar.getVisibility() == View.VISIBLE) {
+            progressBar.setVisibility(View.GONE);
+        }
+    }
+
 }

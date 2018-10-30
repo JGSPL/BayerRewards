@@ -1,7 +1,6 @@
 package com.procialize.singleevent.Fragments;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,19 +9,14 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.os.Parcelable;
-import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -44,23 +38,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.procialize.singleevent.Activity.AttendeeDetailActivity;
 import com.procialize.singleevent.Activity.CommentActivity;
 import com.procialize.singleevent.Activity.ImageViewActivity;
 import com.procialize.singleevent.Activity.LikeDetailActivity;
 import com.procialize.singleevent.Activity.PostEditActivity;
-import com.procialize.singleevent.Activity.PostViewActivity;
-import com.procialize.singleevent.Adapter.FeedAdapter;
+import com.procialize.singleevent.Activity.PostEditActivityOld;
 import com.procialize.singleevent.Adapter.LikeAdapter;
 import com.procialize.singleevent.Adapter.NewsfeedAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
-import com.procialize.singleevent.CustomTools.EndlessRecyclerOnScrollListener;
 import com.procialize.singleevent.DbHelper.ConnectionDetector;
 import com.procialize.singleevent.DbHelper.DBHelper;
 import com.procialize.singleevent.GetterSetter.Analytic;
@@ -632,16 +619,28 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
         editIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent edit = new Intent(getActivity(), PostEditActivity.class);
-                edit.putExtra("for", feed.getType());
-                edit.putExtra("feedid", feed.getNewsFeedId());
-                edit.putExtra("status", feed.getPostStatus());
+//                Intent edit = new Intent(getActivity(), PostEditActivityOld.class);
+//                edit.putExtra("for", feed.getType());
+//                edit.putExtra("feedid", feed.getNewsFeedId());
+//                edit.putExtra("status", feed.getPostStatus());
                 if (feed.getType().equalsIgnoreCase("Image")) {
-                    edit.putExtra("Image", feed.getMediaFile());
+                    Intent editimage = new Intent(getActivity(), PostEditActivity.class);
+                    editimage.putExtra("for", feed.getType());
+                    editimage.putExtra("feedid", feed.getNewsFeedId());
+                    editimage.putExtra("status", feed.getPostStatus());
+                    editimage.putExtra("Image", feed.getMediaFile());
+                    startActivity(editimage);
+                    dialog.dismiss();
                 } else if (feed.getType().equalsIgnoreCase("Video")) {
+                    Intent edit = new Intent(getActivity(), PostEditActivityOld.class);
+                    edit.putExtra("for", feed.getType());
+                    edit.putExtra("feedid", feed.getNewsFeedId());
+                    edit.putExtra("status", feed.getPostStatus());
                     edit.putExtra("Video", feed.getMediaFile());
+                    startActivity(edit);
+                    dialog.dismiss();
                 }
-                startActivity(edit);
+
             }
         });
 
@@ -704,7 +703,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
     @Override
     public void FeedEditOnClick(View v, NewsFeedList feed, int position) {
 
-        Intent edit = new Intent(getActivity(), PostEditActivity.class);
+        Intent edit = new Intent(getActivity(), PostEditActivityOld.class);
         edit.putExtra("for", feed.getType());
         edit.putExtra("feedid", feed.getNewsFeedId());
         edit.putExtra("status", feed.getPostStatus());

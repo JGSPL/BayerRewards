@@ -101,6 +101,7 @@
         <item name="android:colorPrimary">#00397F</item>
         <item name="android:colorAccent">@color/colorPrimary</item>
     </style>
+
     <style name="MyRadioButtonStyle" parent="@android:style/Widget.CompoundButton.RadioButton">
         <item name="android:button">@drawable/radio</item>
     </style>
@@ -116,6 +117,16 @@
         <item name="backgroundTint">#f1f1f1</item>
         <item name="background">@color/activetab</item>
         <item name="android:textColor">@color/colorwhite</item>
+
+    </style>
+
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+
+        <item name="colorAccent">#ff0000</item>
+
+        <item name="android:textColor">#ff0000</item>
+
+        <item name="android:textColorHint">#ff0000</item>
 
     </style>
 

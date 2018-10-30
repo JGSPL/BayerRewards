@@ -624,17 +624,17 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
 
 
     public void showProgress() {
-        progress = new ProgressDialog(this, R.style.MyAlertDialogStyle);
-        progress.setMessage("Loading....");
-        progress.setTitle("Progress");
-        progress.show();
+        if (progressBar.getVisibility() == View.GONE) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
     }
 
     public void dismissProgress() {
-        if (progress.isShowing()) {
-            progress.dismiss();
+        if (progressBar.getVisibility() == View.VISIBLE) {
+            progressBar.setVisibility(View.GONE);
         }
     }
+
 
     @Override
     protected void onResume() {

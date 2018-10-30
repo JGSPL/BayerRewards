@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.procialize.singleevent.GetterSetter.DocumentList;
 import com.procialize.singleevent.GetterSetter.Forecast;
-import com.procialize.singleevent.GetterSetter.Weather;
+
 import com.procialize.singleevent.R;
 
 import java.text.ParseException;

@@ -23,13 +23,14 @@ import com.procialize.singleevent.GetterSetter.Quiz;
 import com.procialize.singleevent.GetterSetter.QuizFolder;
 import com.procialize.singleevent.GetterSetter.QuizOptionList;
 import com.procialize.singleevent.InnerDrawerActivity.QuizActivity;
-import com.procialize.singleevent.Network.ServiceHandler;
+
 import com.procialize.singleevent.Parser.QuizFolderParser;
 import com.procialize.singleevent.Parser.QuizOptionParser;
 import com.procialize.singleevent.Parser.QuizParser;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.MyApplication;
+import com.procialize.singleevent.Utility.ServiceHandler;
 import com.procialize.singleevent.Utility.Util;
 
 import org.apache.http.NameValuePair;

@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +37,7 @@ import com.procialize.singleevent.GetterSetter.DropDownList;
 import com.procialize.singleevent.GetterSetter.GeneralInfoList;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+
 import com.procialize.singleevent.Utility.ServiceHandler;
 import com.procialize.singleevent.Utility.Util;
 
@@ -60,15 +62,15 @@ import static java.security.AccessController.getContext;
 
 public class CurrencyConverter extends AppCompatActivity {
 
-    android.support.v7.widget.AppCompatSpinner firstans_list_spinner, secondans_list_spinner;
+    Spinner firstans_list_spinner, secondans_list_spinner;
     private APIService mAPIService;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
     List<DropDownList> list = null;
     Button btnConverter;
-    String fromCurrency, toCurrency, amount, currencyDropDown="";
+    String fromCurrency, toCurrency, amount, currencyDropDown = "";
     EditText edtAmount, txtValue;
-    ProgressDialog progressDialog;
+    ProgressBar progressBar;
     ImageView headerlogoIv;
 
     @Override
@@ -95,11 +97,12 @@ public class CurrencyConverter extends AppCompatActivity {
             }
         });
         headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
+        Util.logomethod(this, headerlogoIv);
         currencyDropDown = "https://www.procialize.info/API/event_api_call/GenInfoCurrencyDropdown";
 
-        secondans_list_spinner = (android.support.v7.widget.AppCompatSpinner) findViewById(R.id.secondans_list_spinner);
-        firstans_list_spinner = (android.support.v7.widget.AppCompatSpinner) findViewById(R.id.firstans_list_spinner);
+        secondans_list_spinner = (Spinner) findViewById(R.id.secondans_list_spinner);
+        firstans_list_spinner = (Spinner) findViewById(R.id.firstans_list_spinner);
+        progressBar = findViewById(R.id.progressBar);
 
         /*econdans_list_spinner.setSelection(0, true);
         View v = secondans_list_spinner.getSelectedView();
@@ -121,7 +124,7 @@ public class CurrencyConverter extends AppCompatActivity {
                 fromCurrency = firstans_list_spinner.getSelectedItem().toString();
                 toCurrency = secondans_list_spinner.getSelectedItem().toString();
                 amount = edtAmount.getText().toString();
-                if(amount.length()==0){
+                if (amount.length() == 0) {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(CurrencyConverter.this);
                     builder.setTitle("");
                     builder.setMessage("Please Enter Value");
@@ -134,7 +137,7 @@ public class CurrencyConverter extends AppCompatActivity {
                                 }
                             });
                     builder.show();
-                }else{
+                } else {
                     submitCurrency(fromCurrency, toCurrency, amount);
 
                 }
@@ -143,7 +146,6 @@ public class CurrencyConverter extends AppCompatActivity {
         });
 
     }
-
 
 
     private static class MySpinnerAdapter extends ArrayAdapter<String> {
@@ -276,6 +278,7 @@ public class CurrencyConverter extends AppCompatActivity {
         });
 */
     }
+
     public class GetCurrencyDropDown extends AsyncTask<String, String, JSONObject> {
 
         String json1 = "";
@@ -283,15 +286,13 @@ public class CurrencyConverter extends AppCompatActivity {
         JSONObject json = null;
         JSONObject status;
         JSONArray jsonArray;
-        String statusDesc,msg;
+        String statusDesc, msg;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             // Showing progress dialog
-            progressDialog = new ProgressDialog(CurrencyConverter.this);
-            progressDialog.setMessage("Loading...");
-            progressDialog.show();
+            showProgress();
 
         }
 
@@ -329,10 +330,7 @@ public class CurrencyConverter extends AppCompatActivity {
         protected void onPostExecute(JSONObject result) {
             super.onPostExecute(result);
             // Dismiss the progress dialog
-            if (progressDialog != null) {
-                progressDialog.dismiss();
-                progressDialog = null;
-            }
+            dismissProgress();
             List<String> categories = new ArrayList<String>();
 
             try {
@@ -383,35 +381,46 @@ public class CurrencyConverter extends AppCompatActivity {
 
 
     public void submitCurrency(String fromCurrency, String toCurrency, String amount) {
-        progressDialog = new ProgressDialog(CurrencyConverter.this);
-        progressDialog.setMessage("Loading...");
-        progressDialog.show();
+        showProgress();
 
         mAPIService.SubmitCurrencyConverter(eventid, fromCurrency, toCurrency, amount).enqueue(new Callback<CurrencyConverterResponse>() {
             @Override
             public void onResponse(Call<CurrencyConverterResponse> call, Response<CurrencyConverterResponse> response) {
 
                 if (response.body().getStatus().equals("success")) {
-                    progressDialog.dismiss();
+                    dismissProgress();
                     Log.i("hit", "post submitted to API." + response.body().toString());
                     String converted_amt = response.body().getConverted_amount();
 
                     txtValue.setText(converted_amt);
 
                 } else {
-                    progressDialog.dismiss();
+                    dismissProgress();
                     Toast.makeText(CurrencyConverter.this, response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<CurrencyConverterResponse> call, Throwable t) {
-                progressDialog.dismiss();
+                dismissProgress();
                 Log.e("hit", "Unable to submit post to API.");
                 Toast.makeText(CurrencyConverter.this, "Low network or no network", Toast.LENGTH_SHORT).show();
             }
         });
 
     }
+
+    public void showProgress() {
+        if (progressBar.getVisibility() == View.GONE) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void dismissProgress() {
+        if (progressBar.getVisibility() == View.VISIBLE) {
+            progressBar.setVisibility(View.GONE);
+        }
+    }
+
 
 }

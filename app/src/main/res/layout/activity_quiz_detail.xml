@@ -47,6 +47,13 @@
     </android.support.design.widget.AppBarLayout>
 
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <com.procialize.singleevent.Fonts.RobotoTextview
         android:id="@+id/txt_quiz"
         android:layout_width="match_parent"

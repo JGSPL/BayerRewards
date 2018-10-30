@@ -14,11 +14,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.procialize.singleevent.Adapter.WeatherAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.GetterSetter.Forecast;
+
 import com.procialize.singleevent.GetterSetter.Weather;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;

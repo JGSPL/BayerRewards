@@ -176,7 +176,7 @@
             android:name=".Activity.EventChooserActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.PostEditActivity"
+            android:name=".Activity.PostEditActivityOld"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.WebViewActivity"
@@ -228,6 +228,9 @@
         <activity android:name=".InnerDrawerActivity.AgendaVacationActivity" />
         <activity android:name=".InnerDrawerActivity.FolderQuizActivity" />
         <activity android:name=".InnerDrawerActivity.WeatherActivity"></activity>
+        <activity android:name=".Activity.PostActivity"></activity>
+        <activity android:name=".Activity.SelfiePost"></activity>
+        <activity android:name=".Activity.PostEditActivity"></activity>
 
     </application>
 

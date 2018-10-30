@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import com.procialize.singleevent.Activity.PostActivity;
 import com.procialize.singleevent.Activity.PostViewActivity;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
@@ -207,7 +208,7 @@ public class NewsfeedAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
 
-                    Intent postview = new Intent(context, PostViewActivity.class);
+                    Intent postview = new Intent(context, PostActivity.class);
                     postview.putExtra("for", "text");
                     context.startActivity(postview);
 //                getActivity().finish();
@@ -219,11 +220,11 @@ public class NewsfeedAdapter extends BaseAdapter {
                 public void onClick(View v) {
 
                     if (holder.txtfeedRv.getVisibility() == View.VISIBLE) {
-                        Intent postview = new Intent(context, PostViewActivity.class);
+                        Intent postview = new Intent(context, PostActivity.class);
                         postview.putExtra("for", "text");
                         context.startActivity(postview);
                     } else if (holder.imagefeedRv.getVisibility() == View.VISIBLE) {
-                        Intent postview = new Intent(context, PostViewActivity.class);
+                        Intent postview = new Intent(context, PostActivity.class);
                         postview.putExtra("for", "image");
                         context.startActivity(postview);
                     } else if (holder.videofeedRv.getVisibility() == View.VISIBLE) {
@@ -239,7 +240,7 @@ public class NewsfeedAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
 
-                    Intent postview = new Intent(context, PostViewActivity.class);
+                    Intent postview = new Intent(context, PostActivity.class);
                     postview.putExtra("for", "image");
                     context.startActivity(postview);
 //                getActivity().finish();

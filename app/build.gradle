@@ -111,5 +111,6 @@ dependencies {
     implementation "org.apache.httpcomponents:httpcore:4.4.5"
     implementation "org.apache.httpcomponents:httpmime:4.3.6"
     implementation 'info.guardianproject.netcipher:netcipher:1.2'
+    compile 'com.afollestad.material-dialogs:core:0.8.5.9'
 }
 apply plugin: 'com.google.gms.google-services'

@@ -15,6 +15,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,7 +59,7 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
     ImageView back;
     GeneralInfoListAdapter generalInfoListAdapter;
     RecyclerView general_item_list;
-    ProgressDialog progressDialog;
+    ProgressBar progressBar;
     String api_token;
     ImageView headerlogoIv;
 
@@ -77,6 +78,7 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
         generalInforefresh = findViewById(R.id.generalInforefresh);
         general_item_list = findViewById(R.id.general_item_list);
         back = findViewById(R.id.back);
+        progressBar = findViewById(R.id.progressBar);
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
         Util.logomethod(this,headerlogoIv);
@@ -152,16 +154,14 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
     }
 
     public void getInfoTab() {
-        progressDialog = new ProgressDialog(GeneralInfoActivity.this);
-        progressDialog.setMessage("Loading...");
-        progressDialog.show();
 
+        showProgress();
         mAPIService.FetchGeneralInfo(eventid).enqueue(new Callback<GeneralInfoList>() {
             @Override
             public void onResponse(Call<GeneralInfoList> call, Response<GeneralInfoList> response) {
 
                 if (response.body().getStatus().equals("success")) {
-                    progressDialog.dismiss();
+                   dismissProgress();
                     Log.i("hit", "post submitted to API." + response.body().toString());
                     generalinfoLists = response.body().getInfoList();
 
@@ -177,14 +177,14 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
 
 
                 } else {
-                    progressDialog.dismiss();
+                    dismissProgress();
                     Toast.makeText(GeneralInfoActivity.this, response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<GeneralInfoList> call, Throwable t) {
-                progressDialog.dismiss();
+                dismissProgress();
                 Log.e("hit", "Unable to submit post to API.");
                 Toast.makeText(GeneralInfoActivity.this, "Low network or no network", Toast.LENGTH_SHORT).show();
                 if (generalInforefresh.isRefreshing()) {
@@ -244,4 +244,17 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
             }
         });
     }
+
+    public void showProgress() {
+        if (progressBar.getVisibility() == View.GONE) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void dismissProgress() {
+        if (progressBar.getVisibility() == View.VISIBLE) {
+            progressBar.setVisibility(View.GONE);
+        }
+    }
+
 }

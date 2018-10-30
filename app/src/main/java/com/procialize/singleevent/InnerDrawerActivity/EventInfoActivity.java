@@ -89,11 +89,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//
-//
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
         Util.logomethod(this,headerlogoIv);
