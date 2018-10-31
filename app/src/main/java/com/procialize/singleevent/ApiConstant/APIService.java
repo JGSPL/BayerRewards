@@ -497,5 +497,21 @@ public interface APIService {
     Call<Weather> WeatherListFetch(@Field("api_access_token") String api_access_token,
                                    @Field("event_id") String event_id);
 
+    @POST("EditProfileSubmit")
+    @Multipart
+    Call<ProfileSave> ProfileSave1(
+            @Part("api_access_token") RequestBody api_access_token,
+            @Part("first_name") RequestBody first_name,
+            @Part("last_name") RequestBody last_name,
+            @Part("description") RequestBody description,
+            @Part("city") RequestBody city,
+            @Part("country") RequestBody country,
+            @Part("mobile") RequestBody mobile,
+            @Part("attendee_type") RequestBody attendee_type,
+            @Part("designation") RequestBody designation,
+            @Part("event_id") RequestBody event_id,
+            @Part("company_name") RequestBody company_name);
+
+
 
 }

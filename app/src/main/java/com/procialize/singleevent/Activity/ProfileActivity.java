@@ -23,7 +23,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -87,6 +89,9 @@ public class ProfileActivity extends AppCompatActivity {
     String api_token;
     TextView txt_upload;
     ImageView headerlogoIv;
+    public static String logoImg="";
+    RelativeLayout linear_upload;
+
 
 
     @Override
@@ -99,6 +104,8 @@ public class ProfileActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "");
         eventnamestr = prefs.getString("eventnamestr", "");
+        logoImg = prefs.getString("logoImg","");
+
 
         sessionManager = new SessionManager(this);
         HashMap<String, String> user = sessionManager.getUserDetails();
@@ -204,6 +211,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         savebtn = findViewById(R.id.savebtn);
         txt_upload = findViewById(R.id.txt_upload);
+        linear_upload = findViewById(R.id.linear_upload);
 
 
         profileIV = findViewById(R.id.profileIV);
@@ -296,7 +304,7 @@ public class ProfileActivity extends AppCompatActivity {
             progressView.setVisibility(View.GONE);
         }
 
-        txt_upload.setOnClickListener(new View.OnClickListener() {
+        linear_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectImage();
@@ -332,6 +340,7 @@ public class ProfileActivity extends AppCompatActivity {
                 } else {
                     saveProfile();
                 }
+
             }
         });
 
@@ -465,27 +474,28 @@ public class ProfileActivity extends AppCompatActivity {
         MultipartBody.Part body = null;
         if (file != null) {
 
-            RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
-            body = MultipartBody.Part.createFormData("profile_pic", file.getName(), reqFile);
-            SharedPreferences.Editor editor = getSharedPreferences("PROFILE_PICTURE", MODE_PRIVATE).edit();
-            editor.putString("profile", String.valueOf(file)).commit();
-
-//                editor.putString("loginfirst","1");
-            editor.apply();
-
+            if (!file.equals("")) {
+                RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
+                body = MultipartBody.Part.createFormData("profile_pic", file.getName(), reqFile);
+                SharedPreferences.Editor editor = getSharedPreferences("PROFILE_PICTURE", MODE_PRIVATE).edit();
+                editor.putString("profile", String.valueOf(file)).commit();
+//          editor.putString("loginfirst","1");
+                editor.apply();
+            }
         } else {
             SharedPreferences pref = getSharedPreferences("PROFILE_PICTURE", MODE_PRIVATE);
             String prof_pic = pref.getString("profile", "");
             if (prof_pic != null) {
-                file = new File(prof_pic);
-                RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
-                body = MultipartBody.Part.createFormData("profile_pic", file.getName(), reqFile);
+                if (!prof_pic.equals("")) {
+                    file = new File(prof_pic);
+                    RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
+                    body = MultipartBody.Part.createFormData("profile_pic", file.getName(), reqFile);
+                }
             } else {
-                file = new File(profilepic);
-                RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), profilepic);
-                body = MultipartBody.Part.createFormData("profile_pic", profilepic, reqFile);
+//                file = new File(profilepic);
+//                RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), profilepic);
+//                body = MultipartBody.Part.createFormData("profile_pic", profilepic, reqFile);
             }
-
 //            RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), profilepic);
 //            body = MultipartBody.Part.createFormData("profile_pic", profilepic, reqFile);
         }
@@ -503,62 +513,122 @@ public class ProfileActivity extends AppCompatActivity {
         RequestBody evid = RequestBody.create(MediaType.parse("text/plain"), eventid);
 
 
-        mAPIService.ProfileSave(token, fstname, lstname, desc, cit, countr,
-                mob, typ, des, evid, cmp, body).enqueue(new Callback<ProfileSave>() {
-            @Override
-            public void onResponse(Call<ProfileSave> call, Response<ProfileSave> response) {
-                try {
-                    if (response.body().getStatus().equals("success")) {
-                        Log.i("hit", "post submitted to API." + response.body().toString());
+        if(body!=null) {
+            mAPIService.ProfileSave(token, fstname, lstname, desc, cit, countr,
+                    mob, typ, des, evid, cmp, body).enqueue(new Callback<ProfileSave>() {
+                @Override
+                public void onResponse(Call<ProfileSave> call, Response<ProfileSave> response) {
+                    try {
+                        if (response.body().getStatus().equals("success")) {
+                            Log.i("hit", "post submitted to API." + response.body().toString());
 
-                        String name = response.body().getUserData().getFirstName();
-                        String company = response.body().getUserData().getCompanyName();
-                        String designation = response.body().getUserData().getDesignation();
-                        String pic = response.body().getUserData().getProfilePic();
-                        String lastname = response.body().getUserData().getLastName();
-                        String city = response.body().getUserData().getCity();
-                        String mobno = response.body().getUserData().getMobile();
-                        String email = response.body().getUserData().getEmail();
-                        String country = response.body().getUserData().getCountry();
-                        String description = response.body().getUserData().getDescription();
+                            String name = response.body().getUserData().getFirstName();
+                            String company = response.body().getUserData().getCompanyName();
+                            String designation = response.body().getUserData().getDesignation();
+                            String pic = response.body().getUserData().getProfilePic();
+                            String lastname = response.body().getUserData().getLastName();
+                            String city = response.body().getUserData().getCity();
+                            String mobno = response.body().getUserData().getMobile();
+                            String email = response.body().getUserData().getEmail();
+                            String country = response.body().getUserData().getCountry();
+                            String description = response.body().getUserData().getDescription();
 
-                        SharedPreferences.Editor pref = getSharedPreferences("PROFILE_PICTURE", MODE_PRIVATE).edit();
-                        pref.clear();
+                            SharedPreferences.Editor pref = getSharedPreferences("PROFILE_PICTURE", MODE_PRIVATE).edit();
+                            pref.clear();
 
-                        sessionManager.createProfileSession(name, company, designation, pic, lastname, city, description, country, email, mobno);
-//                    initializeView();
+                            sessionManager.createProfileSession(name, company, designation, pic, lastname, city, description, country, email, mobno);
+//                      initializeView();
 
-                        Intent home = new Intent(getApplicationContext(), HomeActivity.class);
-                        home.putExtra("eventId", eventid);
-                        home.putExtra("eventnamestr", eventnamestr);
-                        startActivity(home);
-                        finish();
+                            Intent home = new Intent(getApplicationContext(), HomeActivity.class);
+                            home.putExtra("eventId", eventid);
+                            home.putExtra("eventnamestr", eventnamestr);
+                            startActivity(home);
+                            finish();
 
-                        SubmitAnalytics(api_token, eventid, "", "", "EditProfileSubmit");
-                    } else {
-                        Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
+                            SubmitAnalytics(api_token, eventid, "", "", "EditProfileSubmit");
+                        } else {
+                            Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
 //                        Intent home = new Intent(getApplicationContext(), HomeActivity.class);
 //                        home.putExtra("eventId", eventid);
 //                        home.putExtra("eventnamestr", eventnamestr);
 //                        startActivity(home);
 //                        finish();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
-            }
 
-            @Override
-            public void onFailure(Call<ProfileSave> call, Throwable t) {
-                Log.e("hit", "Low network or no network");
-//                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
-                Intent home = new Intent(getApplicationContext(), HomeActivity.class);
-                home.putExtra("eventId", eventid);
-                home.putExtra("eventnamestr", eventnamestr);
-                startActivity(home);
-                finish();
-            }
-        });
+                @Override
+                public void onFailure(Call<ProfileSave> call, Throwable t) {
+                    Log.e("hit", "Low network or no network");
+                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+//                Intent home = new Intent(getApplicationContext(), HomeActivity.class);
+//                home.putExtra("eventId", eventid);
+//                home.putExtra("eventnamestr", eventnamestr);
+//                startActivity(home);
+//                finish();
+                }
+            });
+        }else
+        {
+            mAPIService.ProfileSave1(token, fstname, lstname, desc, cit, countr,
+                    mob, typ, des, evid, cmp).enqueue(new Callback<ProfileSave>() {
+                @Override
+                public void onResponse(Call<ProfileSave> call, Response<ProfileSave> response) {
+                    try {
+                        if (response.body().getStatus().equals("success")) {
+                            Log.i("hit", "post submitted to API." + response.body().toString());
+
+                            String name = response.body().getUserData().getFirstName();
+                            String company = response.body().getUserData().getCompanyName();
+                            String designation = response.body().getUserData().getDesignation();
+                            String pic = response.body().getUserData().getProfilePic();
+                            String lastname = response.body().getUserData().getLastName();
+                            String city = response.body().getUserData().getCity();
+                            String mobno = response.body().getUserData().getMobile();
+                            String email = response.body().getUserData().getEmail();
+                            String country = response.body().getUserData().getCountry();
+                            String description = response.body().getUserData().getDescription();
+
+                            SharedPreferences.Editor pref = getSharedPreferences("PROFILE_PICTURE", MODE_PRIVATE).edit();
+                            pref.clear();
+
+                            sessionManager.createProfileSession(name, company, designation, pic, lastname, city, description, country, email, mobno);
+//                      initializeView();
+
+                            Intent home = new Intent(getApplicationContext(), HomeActivity.class);
+                            home.putExtra("eventId", eventid);
+                            home.putExtra("eventnamestr", eventnamestr);
+                            startActivity(home);
+                            finish();
+
+                            SubmitAnalytics(api_token, eventid, "", "", "EditProfileSubmit");
+                        } else {
+                            Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
+//                        Intent home = new Intent(getApplicationContext(), HomeActivity.class);
+//                        home.putExtra("eventId", eventid);
+//                        home.putExtra("eventnamestr", eventnamestr);
+//                        startActivity(home);
+//                        finish();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ProfileSave> call, Throwable t) {
+                    Log.e("hit", "Low network or no network");
+                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+//                Intent home = new Intent(getApplicationContext(), HomeActivity.class);
+//                home.putExtra("eventId", eventid);
+//                home.putExtra("eventnamestr", eventnamestr);
+//                startActivity(home);
+//                finish();
+                }
+            });
+        }
     }
 
 

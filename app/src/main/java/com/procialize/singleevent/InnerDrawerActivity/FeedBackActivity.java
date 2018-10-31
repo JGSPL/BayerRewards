@@ -159,7 +159,7 @@ public class FeedBackActivity extends AppCompatActivity implements FeedBackAdapt
                 setContentView(R.layout.activity_empty_view);
                 ImageView imageView = findViewById(R.id.back);
                 TextView text_empty = findViewById(R.id.text_empty);
-                text_empty.setText("Survay not available");
+                text_empty.setText("Survey not available");
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

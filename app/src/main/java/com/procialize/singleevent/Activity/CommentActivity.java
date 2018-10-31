@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
@@ -20,10 +19,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -52,7 +47,6 @@ import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.GetterSetter.FetchFeed;
 import com.procialize.singleevent.GetterSetter.GifId;
 import com.procialize.singleevent.GetterSetter.LikePost;
-import com.procialize.singleevent.GetterSetter.NewsFeedList;
 import com.procialize.singleevent.GetterSetter.PostComment;
 import com.procialize.singleevent.GetterSetter.ReportComment;
 import com.procialize.singleevent.GetterSetter.ReportCommentHide;
@@ -73,9 +67,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import cn.jzvd.JZUserAction;
-import cn.jzvd.JZUserActionStandard;
-import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -202,6 +193,9 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
 
                 if (type.equalsIgnoreCase("Image")) {
                     feedurl = intent.getStringExtra("url");
+
+                    Log.e("feedurl", feedurl);
+
                 } else if (type.equalsIgnoreCase("Video")) {
                     thumbImg = intent.getStringExtra("thumbImg");
                     videourl = intent.getStringExtra("videourl");
@@ -375,7 +369,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
 
         fetchCommentDetails(apikey, eventid, feedid);
         getComment(eventid, feedid);
-        initiate();
+//        initiate();
 
         commentbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -624,17 +618,17 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
 
 
     public void showProgress() {
-        if (progressBar.getVisibility() == View.GONE) {
-            progressBar.setVisibility(View.VISIBLE);
-        }
+        progress = new ProgressDialog(this, R.style.MyAlertDialogStyle);
+        progress.setMessage("Loading....");
+        progress.setTitle("Progress");
+        progress.show();
     }
 
     public void dismissProgress() {
-        if (progressBar.getVisibility() == View.VISIBLE) {
-            progressBar.setVisibility(View.GONE);
+        if (progress.isShowing()) {
+            progress.dismiss();
         }
     }
-
 
     @Override
     protected void onResume() {
@@ -803,6 +797,8 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
             public void onResponse(Call<FetchFeed> call, Response<FetchFeed> response) {
 
                 if (response.isSuccessful()) {
+
+
                     Log.i("hit", "post submitted to API." + response.body().toString());
 
                     dismissProgress();
@@ -836,7 +832,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
             Comments = response.body().getNewsFeedList().get(0).getTotalComments();
             profileurl = response.body().getNewsFeedList().get(0).getProfilePic();
             type = response.body().getNewsFeedList().get(0).getType();
-            feedurl = response.body().getNewsFeedList().get(0).getFirstName();
+          //  feedurl = response.body().getNewsFeedList().get(0).getMediaFile();
             feedid = response.body().getNewsFeedList().get(0).getNewsFeedId();
 
 
@@ -854,7 +850,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
             if (type.equalsIgnoreCase("Image")) {
                 feedurl = ApiConstant.newsfeedwall + response.body().getNewsFeedList().get(0).getMediaFile();
             } else if (type.equalsIgnoreCase("Video")) {
-                feedurl = ApiConstant.newsfeedwall + response.body().getNewsFeedList().get(0).getThumbImage();
+                thumbImg = ApiConstant.newsfeedwall + response.body().getNewsFeedList().get(0).getThumbImage();
             } else {
 
             }
