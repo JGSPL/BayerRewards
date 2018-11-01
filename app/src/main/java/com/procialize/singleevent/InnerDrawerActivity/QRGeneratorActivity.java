@@ -70,6 +70,9 @@ public class QRGeneratorActivity extends AppCompatActivity {
         mobile = userData.get(SessionManager.KEY_MOBILE);
         city = userData.get(SessionManager.KEY_CITY);
 
+        final String fullName = name + " "+lname;
+
+
         scan_id_txtTv = findViewById(R.id.scan_id_txt);
 
 
@@ -102,13 +105,21 @@ public class QRGeneratorActivity extends AppCompatActivity {
         Thread t = new Thread(new Runnable() {
             public void run() {
 
-                QRcode = name + " " + "\n"
+              /*  QRcode = name + " " + "\n"
                         + lname + "\n"
                         + designation + "\n"
                         + email + "\n"
                         + mobile + "\n"
                         + company + "\n"
+                        + city;*/
+
+                QRcode = fullName + " " + "\n"
+                        + designation + "\n"
+                        + email + "\n"
+                        + mobile + "\n"
+                        + company + "\n"
                         + city;
+
 //
 //                QRcode = name + "\n" +
 //                        designation + "\n"

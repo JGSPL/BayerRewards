@@ -8,6 +8,7 @@ package com.procialize.singleevent.ApiConstant;
 import com.procialize.singleevent.GetterSetter.Agenda;
 import com.procialize.singleevent.GetterSetter.Analytic;
 import com.procialize.singleevent.GetterSetter.CommentList;
+import com.procialize.singleevent.GetterSetter.ContactListFetch;
 import com.procialize.singleevent.GetterSetter.CurrencyConverterResponse;
 import com.procialize.singleevent.GetterSetter.CurrencyDropDown;
 import com.procialize.singleevent.GetterSetter.DeleteNewsFeedComment;
@@ -512,6 +513,9 @@ public interface APIService {
             @Part("event_id") RequestBody event_id,
             @Part("company_name") RequestBody company_name);
 
-
+    @POST("ContactListFetch")
+    @FormUrlEncoded
+    Call<ContactListFetch> ContactListFetch(@Field("event_id") String event_id,
+                                            @Field("api_access_token") String api_access_token);
 
 }
