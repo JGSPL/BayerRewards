@@ -120,7 +120,35 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
         String parts[] = text.split("\\r?\\n");
         Log.e("text", parts[0]);
 
+        if (parts.length == 6) {
 
+            name = parts[0].substring(0, (parts[0].length()));
+            //lname = parts[1].substring(0, (parts[1].length()));
+            designation = parts[1].substring(0, (parts[1].length()));
+            email = parts[2].substring(0, (parts[2].length()));
+            number = parts[3].substring(0, (parts[3].length()));
+            company = parts[4].substring(0, (parts[4].length()));
+            city = parts[5].substring(0, (parts[5].length()));
+
+            edit_username_edit.setText(email);
+            edit_first_name_edit.setText(name);
+            edit_designation_edit.setText(designation);
+            edit_company_name_edit.setText(company);
+            edit_mobile_edit.setText(number);
+            edit_city_edit.setText(city);
+            edit_email_edit.setText(email);
+
+            if (number == null) {
+                edit_mobile_edit.setEnabled(true);
+            } else {
+                edit_mobile_edit.setEnabled(false);
+            }
+
+        }
+
+
+
+/*
         if (parts.length == 7) {
 
             name = parts[0].substring(0, (parts[0].length()));
@@ -146,6 +174,7 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
             }
 
         }
+*/
 
         qrCodeReaderView.setVisibility(View.GONE);
         contactll.setVisibility(View.VISIBLE);

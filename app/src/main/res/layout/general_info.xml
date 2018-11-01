@@ -66,9 +66,23 @@
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="10dp"
                     android:text="General Info"
-                    android:textColor="@color/black"
+                    android:textColor="@color/activetab"
                     android:textSize="18sp"
                     android:visibility="gone" />
+
+                <com.procialize.singleevent.Fonts.RobotoTextview
+                    android:id="@+id/abtcurency_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/agendabg"
+                    android:drawableRight="@drawable/ic_rightarrow"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Currency Converter"
+                    android:textColor="@color/black"
+                    android:visibility="gone" />
+
 
 
                 <com.procialize.singleevent.Fonts.RobotoTextview
@@ -85,18 +99,6 @@
                     android:visibility="gone" />
 
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
-                    android:id="@+id/abtcurency_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/agendabg"
-                    android:drawableRight="@drawable/ic_rightarrow"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Currency Convertor"
-                    android:textColor="@color/black"
-                    android:visibility="gone" />
 
 
                 <android.support.v7.widget.RecyclerView

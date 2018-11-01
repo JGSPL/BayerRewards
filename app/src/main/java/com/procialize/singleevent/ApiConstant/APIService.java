@@ -8,6 +8,7 @@ package com.procialize.singleevent.ApiConstant;
 import com.procialize.singleevent.GetterSetter.Agenda;
 import com.procialize.singleevent.GetterSetter.Analytic;
 import com.procialize.singleevent.GetterSetter.CommentList;
+import com.procialize.singleevent.GetterSetter.ContactListFetch;
 import com.procialize.singleevent.GetterSetter.CurrencyConverterResponse;
 import com.procialize.singleevent.GetterSetter.CurrencyDropDown;
 import com.procialize.singleevent.GetterSetter.DeleteNewsFeedComment;
@@ -497,5 +498,24 @@ public interface APIService {
     Call<Weather> WeatherListFetch(@Field("api_access_token") String api_access_token,
                                    @Field("event_id") String event_id);
 
+    @POST("EditProfileSubmit")
+    @Multipart
+    Call<ProfileSave> ProfileSave1(
+            @Part("api_access_token") RequestBody api_access_token,
+            @Part("first_name") RequestBody first_name,
+            @Part("last_name") RequestBody last_name,
+            @Part("description") RequestBody description,
+            @Part("city") RequestBody city,
+            @Part("country") RequestBody country,
+            @Part("mobile") RequestBody mobile,
+            @Part("attendee_type") RequestBody attendee_type,
+            @Part("designation") RequestBody designation,
+            @Part("event_id") RequestBody event_id,
+            @Part("company_name") RequestBody company_name);
+
+    @POST("ContactListFetch")
+    @FormUrlEncoded
+    Call<ContactListFetch> ContactListFetch(@Field("event_id") String event_id,
+                                            @Field("api_access_token") String api_access_token);
 
 }

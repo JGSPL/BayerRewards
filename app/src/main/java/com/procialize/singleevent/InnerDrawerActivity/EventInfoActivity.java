@@ -274,13 +274,20 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
                 @Override
                 public void onClick(View v) {
 
-                    String label = "ABC Label";
+                   /* String label = "ABC Label";
                     String uriBegin = "geo:" + response.body().getEventList().get(0).getEventLatitude() + "," + response.body().getEventList().get(0).getEventLongitude();
                     String query = response.body().getEventList().get(0).getEventLatitude() + "," + response.body().getEventList().get(0).getEventLatitude() + "(" + label + ")";
                     String encodedQuery = Uri.encode(query);
                     String uriString = uriBegin + "?q=" + encodedQuery + "&z=16";
                     Uri uri = Uri.parse(uriString);
                     Intent intent = new Intent(android.content.Intent.ACTION_VIEW, uri);
+                    startActivity(intent);*/
+                    String label = response.body().getEventList().get(0).getEventName();
+                    String strUri = "http://maps.google.com/maps?q=loc:" + response.body().getEventList().get(0).getEventLatitude() + "," + response.body().getEventList().get(0).getEventLongitude() + " (" + label+ ")";
+                    Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(strUri));
+
+                    intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+
                     startActivity(intent);
 
 
