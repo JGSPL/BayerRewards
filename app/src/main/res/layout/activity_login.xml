@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="The World's Best Event App"
+            android:text="@string/logindummy"
             android:textColor="@color/colorwhite"
             android:textSize="@dimen/textsizenormal"
             android:layout_marginTop="10dp"/>

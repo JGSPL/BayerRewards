@@ -46,7 +46,21 @@
                 android:textColor="@color/colorwhite"
                 android:textSize="@dimen/textsizesmall" />
 
+
+            <com.procialize.singleevent.Fonts.RobotoTextview
+                android:id="@+id/typev"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text=""
+                android:textColor="@color/colorwhite"
+                android:textSize="9sp" />
+
             <ImageView
+                android:visibility="gone"
                 android:id="@+id/imageIv"
                 android:layout_margin="4dp"
                 android:layout_weight="1"

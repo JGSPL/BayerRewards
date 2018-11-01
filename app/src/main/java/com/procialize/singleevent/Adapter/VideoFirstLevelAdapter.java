@@ -40,6 +40,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.procialize.singleevent.Utility.Util.getYoutubeVideoIdFromUrl;
+import static com.procialize.singleevent.Utility.Util.retriveVideoFrameFromVideo;
+
 /**
  * Created by Naushad on 10/31/2017.
  */
@@ -151,43 +154,6 @@ public class VideoFirstLevelAdapter extends RecyclerView.Adapter<VideoFirstLevel
         void onContactSelected(FirstLevelFilter firstLevelFilter);
     }
 
-    public static String getYoutubeVideoIdFromUrl(String inUrl) {
-        if (inUrl.toLowerCase().contains("youtu.be")) {
-            return inUrl.substring(inUrl.lastIndexOf("/") + 1);
-        }
-        String pattern = "(?<=watch\\?v=|/videos/|embed\\/)[^#\\&\\?]*";
-        Pattern compiledPattern = Pattern.compile(pattern);
-        Matcher matcher = compiledPattern.matcher(inUrl);
-        if (matcher.find()) {
-            return matcher.group();
-        }
-        return null;
-    }
 
-    public static Bitmap retriveVideoFrameFromVideo(String videoPath)
-            throws Throwable {
-        Bitmap bitmap = null;
-        MediaMetadataRetriever mediaMetadataRetriever = null;
-        try {
-            mediaMetadataRetriever = new MediaMetadataRetriever();
-            if (Build.VERSION.SDK_INT >= 14)
-                mediaMetadataRetriever.setDataSource(videoPath, new HashMap<String, String>());
-            else
-                mediaMetadataRetriever.setDataSource(videoPath);
-
-            bitmap = mediaMetadataRetriever.getFrameAtTime(1, MediaMetadataRetriever.OPTION_CLOSEST);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new Throwable(
-                    "Exception in retriveVideoFrameFromVideo(String videoPath)"
-                            + e.getMessage());
-
-        } finally {
-            if (mediaMetadataRetriever != null) {
-                mediaMetadataRetriever.release();
-            }
-        }
-        return bitmap;
-    }
 
 }

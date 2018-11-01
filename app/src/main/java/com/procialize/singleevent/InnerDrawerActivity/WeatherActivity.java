@@ -14,17 +14,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.procialize.singleevent.Adapter.WeatherAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.GetterSetter.Forecast;
-
 import com.procialize.singleevent.GetterSetter.Weather;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
-import com.procialize.singleevent.Utility.Util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -45,7 +42,6 @@ public class WeatherActivity extends AppCompatActivity implements WeatherAdapter
     private APIService mAPIService;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
-    ImageView headerlogoIv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,9 +66,6 @@ public class WeatherActivity extends AppCompatActivity implements WeatherAdapter
                 onBackPressed();
             }
         });
-
-        headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
         mAPIService = ApiUtils.getAPIService();
 
 
@@ -127,13 +120,13 @@ public class WeatherActivity extends AppCompatActivity implements WeatherAdapter
                     showResponse(response);
                 }else
                 {
-                    Toast.makeText(getApplicationContext(),response.message(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Unable to process",Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Weather> call, Throwable t) {
-                Toast.makeText(getApplicationContext(),"Low network or no network",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Unable to process",Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -169,7 +162,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherAdapter
             if (response.body().getCurrentTempText().equalsIgnoreCase("Thunderstorms"))
             {
                 infoIv.setImageResource(R.drawable.thunder);
-            }else if (response.body().getCurrentTempText().equalsIgnoreCase("Mostly Cloud"))
+            }else if (response.body().getCurrentTempText().equalsIgnoreCase("Mostly Cloudy"))
             {
                 infoIv.setImageResource(R.drawable.clean);
             }else if (response.body().getCurrentTempText().equalsIgnoreCase("Cloudy"))
@@ -197,6 +190,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherAdapter
             maxTv.setText(String.valueOf(response.body().getMax()) + tmp );
             minTv.setText(String.valueOf(response.body().getMin()) + tmp );
 
+            indexTv.setText(response.body().getSunset());
         }else
         {
             Toast.makeText(getApplicationContext(),response.body().getMsg(),Toast.LENGTH_SHORT).show();

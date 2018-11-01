@@ -121,13 +121,33 @@ public class CurrencyConverter extends AppCompatActivity {
         btnConverter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fromCurrency = firstans_list_spinner.getSelectedItem().toString();
-                toCurrency = secondans_list_spinner.getSelectedItem().toString();
-                amount = edtAmount.getText().toString();
-                if (amount.length() == 0) {
+
+                if(firstans_list_spinner.getSelectedItem()!=null && secondans_list_spinner.getSelectedItem()!=null) {
+                    fromCurrency = firstans_list_spinner.getSelectedItem().toString();
+                    toCurrency = secondans_list_spinner.getSelectedItem().toString();
+                    amount = edtAmount.getText().toString();
+                    if (amount.length() == 0) {
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(CurrencyConverter.this);
+                        builder.setTitle("");
+                        builder.setMessage("Please Enter Value");
+
+                        builder.setPositiveButton("OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        builder.show();
+                    } else {
+                        submitCurrency(fromCurrency, toCurrency, amount);
+
+                    }
+                }else
+                {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(CurrencyConverter.this);
                     builder.setTitle("");
-                    builder.setMessage("Please Enter Value");
+                    builder.setMessage("Please Select Dropdown Value");
 
                     builder.setPositiveButton("OK",
                             new DialogInterface.OnClickListener() {
@@ -137,9 +157,6 @@ public class CurrencyConverter extends AppCompatActivity {
                                 }
                             });
                     builder.show();
-                } else {
-                    submitCurrency(fromCurrency, toCurrency, amount);
-
                 }
 
             }
@@ -311,7 +328,7 @@ public class CurrencyConverter extends AppCompatActivity {
             String jsonStr = sh.makeServiceCall(currencyDropDown, ServiceHandler.POST,
                     nameValuePair);
 
-            Log.d("Response: ", "> " + jsonStr);
+//            Log.d("Response: ", "> " + jsonStr);
 
             try {
                 json = new JSONObject(jsonStr);
@@ -389,7 +406,7 @@ public class CurrencyConverter extends AppCompatActivity {
 
                 if (response.body().getStatus().equals("success")) {
                     dismissProgress();
-                    Log.i("hit", "post submitted to API." + response.body().toString());
+//                    Log.i("hit", "post submitted to API." + response.body().toString());
                     String converted_amt = response.body().getConverted_amount();
 
                     txtValue.setText(converted_amt);

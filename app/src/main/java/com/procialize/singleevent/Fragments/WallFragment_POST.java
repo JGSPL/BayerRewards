@@ -230,10 +230,20 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
             newsfeedsDBList = dbHelper.getNewsFeedDetails();
 
-            feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, this);
-            feedAdapter.notifyDataSetChanged();
-            feedrecycler.setAdapter(feedAdapter);
-            feedrecycler.scheduleLayoutAnimation();
+            if (newsfeedsDBList.size()==0)
+            {
+                NewsFeedList newsFeedList = new NewsFeedList();
+                newsFeedList.setType("text");
+
+                newsfeedsDBList.add(newsFeedList);
+                feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, WallFragment_POST.this,true);
+
+            }else {
+                feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, WallFragment_POST.this,false);
+                feedAdapter.notifyDataSetChanged();
+                feedrecycler.setAdapter(feedAdapter);
+                feedrecycler.scheduleLayoutAnimation();
+            }
 
 
         }
@@ -251,10 +261,20 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
                     newsfeedsDBList = dbHelper.getNewsFeedDetails();
 
-                    feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, WallFragment_POST.this);
-                    feedAdapter.notifyDataSetChanged();
-                    feedrecycler.setAdapter(feedAdapter);
-                    feedrecycler.scheduleLayoutAnimation();
+                    if (newsfeedsDBList.size()==0)
+                    {
+                        NewsFeedList newsFeedList = new NewsFeedList();
+                        newsFeedList.setType("text");
+
+                        newsfeedsDBList.add(newsFeedList);
+                        feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, WallFragment_POST.this,true);
+
+                    }else {
+                        feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, WallFragment_POST.this,false);
+                        feedAdapter.notifyDataSetChanged();
+                        feedrecycler.setAdapter(feedAdapter);
+                        feedrecycler.scheduleLayoutAnimation();
+                    }
 
                 }
             }
@@ -913,7 +933,23 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
         procializeDB.clearNewsFeedTable();
         procializeDB.insertNEwsFeedInfo(newsfeedList, db);
 
-        feedAdapter = new NewsfeedAdapter(getActivity(), response.body().getNewsFeedList(), this);
+        newsfeedsDBList = dbHelper.getNewsFeedDetails();
+
+        if (newsfeedsDBList.size()==0)
+        {
+            NewsFeedList newsFeedList = new NewsFeedList();
+            newsFeedList.setType("text");
+
+            newsfeedsDBList.add(newsFeedList);
+            feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, WallFragment_POST.this,true);
+
+        }else {
+            feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, WallFragment_POST.this,false);
+            feedAdapter.notifyDataSetChanged();
+            feedrecycler.setAdapter(feedAdapter);
+            feedrecycler.scheduleLayoutAnimation();
+        }
+
 //        feedAdapter.setHasStableIds(true);
         feedrecycler.setAdapter(feedAdapter);
 
@@ -986,7 +1022,23 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
             procializeDB.clearNewsFeedTable();
             procializeDB.insertNEwsFeedInfo(newsfeedList, db);
 //            feedrecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-            feedAdapter = new NewsfeedAdapter(getActivity(), response.body().getNewsFeedList(), this);
+            newsfeedsDBList = dbHelper.getNewsFeedDetails();
+
+            if (newsfeedsDBList.size()==0)
+            {
+                NewsFeedList newsFeedList = new NewsFeedList();
+                newsFeedList.setType("text");
+
+                newsfeedsDBList.add(newsFeedList);
+                feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, WallFragment_POST.this,true);
+
+            }else {
+                feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, WallFragment_POST.this,false);
+                feedAdapter.notifyDataSetChanged();
+                feedrecycler.setAdapter(feedAdapter);
+                feedrecycler.scheduleLayoutAnimation();
+            }
+
 //            feedrecycler.getLayoutManager().smoothScrollToPosition(feedrecycler, null, feedAdapter.getItemCount() - 1);
 
 //            feedAdapter.setHasStableIds(true);

@@ -662,32 +662,32 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
         }
 
 
-			/*post_status_post.setHint("Say something about this photo");
-
-			post_thumbnail.setVisibility(View.VISIBLE);
-
-			Uri selectedImage = data.getData();
-			String[] filePathColumn = { MediaStore.Images.Media.DATA };
-
-			Cursor cursor = getContentResolver().query(selectedImage,
-					filePathColumn, null, null, null);
-			cursor.moveToFirst();
-
-			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-			String picturePath = cursor.getString(columnIndex);
-
-			String compressedImagePath = compressImage(picturePath);
-			appDelegate.setPostImagePath(compressedImagePath);
-
-			Glide.with(this).load(compressedImagePath).into(post_thumbnail);
-
-			// Picasso.with(PostEditActivity.this).load(compressedImagePath)
-			// .into(post_thumbnail);
-
-			Toast.makeText(PostEditActivity.this, "Image selected",
-					Toast.LENGTH_SHORT).show();
-
-			cursor.close();*/
+//			/*post_status_post.setHint("Say something about this photo");
+//
+//			post_thumbnail.setVisibility(View.VISIBLE);
+//
+//			Uri selectedImage = data.getData();
+//			String[] filePathColumn = { MediaStore.Images.Media.DATA };
+//
+//			Cursor cursor = getContentResolver().query(selectedImage,
+//					filePathColumn, null, null, null);
+//			cursor.moveToFirst();
+//
+//			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+//			String picturePath = cursor.getString(columnIndex);
+//
+//			String compressedImagePath = compressImage(picturePath);
+//			appDelegate.setPostImagePath(compressedImagePath);
+//
+//			Glide.with(this).load(compressedImagePath).into(post_thumbnail);
+//
+//			// Picasso.with(PostEditActivity.this).load(compressedImagePath)
+//			// .into(post_thumbnail);
+//
+//			Toast.makeText(PostEditActivity.this, "Image selected",
+//					Toast.LENGTH_SHORT).show();
+//
+//			cursor.close();*/
 
     }
 
@@ -1333,6 +1333,7 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
 //
 //		}
 //	}
+
     public class SubmitStatusOnlyTask extends
             AsyncTask<String, String, JSONObject> {
 

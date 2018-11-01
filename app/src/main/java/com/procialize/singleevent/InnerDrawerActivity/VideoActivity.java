@@ -334,8 +334,8 @@ public class VideoActivity extends AppCompatActivity implements VideoAdapter.Vid
 
                 Intent intent = new Intent(getApplicationContext(), VideoFirstLevelActivity.class);
                 intent.putExtra("foldername", foldername);
-                intent.putExtra("videolist", (Serializable) videoLists);
-                intent.putExtra("folderlist", (Serializable) folderLists);
+//                intent.putExtra("videolist", (Serializable) videoLists);
+//                intent.putExtra("folderlist", (Serializable) folderLists);
 
                 startActivity(intent);
             }

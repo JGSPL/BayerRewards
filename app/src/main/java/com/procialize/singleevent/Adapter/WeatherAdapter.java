@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.procialize.singleevent.GetterSetter.DocumentList;
 import com.procialize.singleevent.GetterSetter.Forecast;
-
+import com.procialize.singleevent.GetterSetter.Weather;
 import com.procialize.singleevent.R;
 
 import java.text.ParseException;
@@ -28,7 +28,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.MyViewHo
     private Context context;
     private WeatherAdapterListner listener;
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView nameTv,dateTv,maxTv,minTv;
+        public TextView nameTv,dateTv,maxTv,minTv,typev;
         public ImageView imageIv;
 
         public MyViewHolder(View view) {
@@ -37,6 +37,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.MyViewHo
             dateTv = view.findViewById(R.id.dateTv);
             maxTv = view.findViewById(R.id.maxTv);
             minTv = view.findViewById(R.id.minTv);
+            typev = view.findViewById(R.id.typev);
 
             imageIv = view.findViewById(R.id.imageIv);
 
@@ -78,19 +79,21 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.MyViewHo
         holder.maxTv.setText(String.valueOf(max_temp) + tmp+"" );
         holder.minTv.setText(String.valueOf(min_temp) + tmp+"" );
 
-        if (forecast.getText().equalsIgnoreCase("Thunderstorms"))
-        {
-            holder.imageIv.setImageResource(R.drawable.thunderwhite);
-        }else if (forecast.getText().equalsIgnoreCase("Mostly Cloudy"))
-        {
-            holder.imageIv.setImageResource(R.drawable.cleanwhite);
-        }else if (forecast.getText().equalsIgnoreCase("Cloudy"))
-        {
-            holder.imageIv.setImageResource(R.drawable.cloudywhite);
-        }else
-        {
-            holder.imageIv.setImageResource(R.drawable.sunnywhite);
-        }
+        holder.typev.setText(forecast.getText());
+
+//        if (forecast.getText().equalsIgnoreCase("Thunderstorms"))
+//        {
+//            holder.imageIv.setImageResource(R.drawable.thunderwhite);
+//        }else if (forecast.getText().equalsIgnoreCase("Mostly Cloudy"))
+//        {
+//            holder.imageIv.setImageResource(R.drawable.cleanwhite);
+//        }else if (forecast.getText().equalsIgnoreCase("Cloudy"))
+//        {
+//            holder.imageIv.setImageResource(R.drawable.cloudywhite);
+//        }else
+//        {
+//            holder.imageIv.setImageResource(R.drawable.sunnywhite);
+//        }
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
         SimpleDateFormat myFormat = new SimpleDateFormat("dd MMM");

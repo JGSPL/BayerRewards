@@ -46,6 +46,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -70,13 +71,15 @@ public class NewsfeedAdapter extends BaseAdapter {
     final String profilepic;
     String news_feed_post = "1", news_feed_images = "1", news_feed_video = "1";
     String topMgmtFlag;
+    Boolean value;
 
 
-    public NewsfeedAdapter(Context con, List<NewsFeedList> feedLists, FeedAdapterListner listener) {
+    public NewsfeedAdapter(Context con, List<NewsFeedList> feedLists, FeedAdapterListner listener, Boolean value) {
 
         this.feedLists = feedLists;
         this.listener = listener;
         this.context = con;
+        this.value = value;
         SessionManager sessionManager = new SessionManager(con);
         user = sessionManager.getUserDetails();
         profilepic = user.get(SessionManager.KEY_PIC);
@@ -149,6 +152,7 @@ public class NewsfeedAdapter extends BaseAdapter {
             holder.imagefeedRv = convertView.findViewById(R.id.imagefeedRv);
             holder.videofeedRv = convertView.findViewById(R.id.videofeedRv);
             holder.post_layout = convertView.findViewById(R.id.post_layout);
+            holder.feedll = convertView.findViewById(R.id.feedll);
 
             holder.view = convertView.findViewById(R.id.view);
             holder.viewteo = convertView.findViewById(R.id.viewteo);
@@ -196,68 +200,136 @@ public class NewsfeedAdapter extends BaseAdapter {
 
         if (position == 0) {
 
-            if (topMgmtFlag.equalsIgnoreCase("1")) {
-                holder.post_layout.setVisibility(RelativeLayout.VISIBLE);
+            if (value==true)
+            {
+                if (topMgmtFlag.equalsIgnoreCase("1")) {
+                    holder.post_layout.setVisibility(RelativeLayout.VISIBLE);
 
-            } else {
-                holder.post_layout.setVisibility(RelativeLayout.GONE);
+                } else {
+                    holder.post_layout.setVisibility(RelativeLayout.GONE);
 
-            }
-
-            holder.txtfeedRv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Intent postview = new Intent(context, PostActivity.class);
-                    postview.putExtra("for", "text");
-                    context.startActivity(postview);
-//                getActivity().finish();
                 }
-            });
+                holder.feedll.setVisibility(RelativeLayout.GONE);
 
-            holder.mindTv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+                holder.txtfeedRv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                    if (holder.txtfeedRv.getVisibility() == View.VISIBLE) {
                         Intent postview = new Intent(context, PostActivity.class);
                         postview.putExtra("for", "text");
                         context.startActivity(postview);
-                    } else if (holder.imagefeedRv.getVisibility() == View.VISIBLE) {
+//                getActivity().finish();
+                    }
+                });
+
+                holder.mindTv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if (holder.txtfeedRv.getVisibility() == View.VISIBLE) {
+                            Intent postview = new Intent(context, PostActivity.class);
+                            postview.putExtra("for", "text");
+                            context.startActivity(postview);
+                        } else if (holder.imagefeedRv.getVisibility() == View.VISIBLE) {
+                            Intent postview = new Intent(context, PostActivity.class);
+                            postview.putExtra("for", "image");
+                            context.startActivity(postview);
+                        } else if (holder.videofeedRv.getVisibility() == View.VISIBLE) {
+                            Intent postview = new Intent(context, PostViewActivity.class);
+                            postview.putExtra("for", "video");
+                            context.startActivity(postview);
+                        }
+//                getActivity().finish();
+                    }
+                });
+
+                holder.imagefeedRv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
                         Intent postview = new Intent(context, PostActivity.class);
                         postview.putExtra("for", "image");
                         context.startActivity(postview);
-                    } else if (holder.videofeedRv.getVisibility() == View.VISIBLE) {
+//                getActivity().finish();
+                    }
+                });
+
+                holder.videofeedRv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
                         Intent postview = new Intent(context, PostViewActivity.class);
+
                         postview.putExtra("for", "video");
                         context.startActivity(postview);
+//                getActivity().finish();
                     }
-//                getActivity().finish();
+                });
+            }else
+            {
+                if (topMgmtFlag.equalsIgnoreCase("1")) {
+                    holder.post_layout.setVisibility(RelativeLayout.VISIBLE);
+
+                } else {
+                    holder.post_layout.setVisibility(RelativeLayout.GONE);
+
                 }
-            });
+                holder.feedll.setVisibility(RelativeLayout.VISIBLE);
+                holder.txtfeedRv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-            holder.imagefeedRv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Intent postview = new Intent(context, PostActivity.class);
-                    postview.putExtra("for", "image");
-                    context.startActivity(postview);
+                        Intent postview = new Intent(context, PostActivity.class);
+                        postview.putExtra("for", "text");
+                        context.startActivity(postview);
 //                getActivity().finish();
-                }
-            });
+                    }
+                });
 
-            holder.videofeedRv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+                holder.mindTv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                    Intent postview = new Intent(context, PostViewActivity.class);
-
-                    postview.putExtra("for", "video");
-                    context.startActivity(postview);
+                        if (holder.txtfeedRv.getVisibility() == View.VISIBLE) {
+                            Intent postview = new Intent(context, PostActivity.class);
+                            postview.putExtra("for", "text");
+                            context.startActivity(postview);
+                        } else if (holder.imagefeedRv.getVisibility() == View.VISIBLE) {
+                            Intent postview = new Intent(context, PostActivity.class);
+                            postview.putExtra("for", "image");
+                            context.startActivity(postview);
+                        } else if (holder.videofeedRv.getVisibility() == View.VISIBLE) {
+                            Intent postview = new Intent(context, PostViewActivity.class);
+                            postview.putExtra("for", "video");
+                            context.startActivity(postview);
+                        }
 //                getActivity().finish();
-                }
-            });
+                    }
+                });
+
+                holder.imagefeedRv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent postview = new Intent(context, PostActivity.class);
+                        postview.putExtra("for", "image");
+                        context.startActivity(postview);
+//                getActivity().finish();
+                    }
+                });
+
+                holder.videofeedRv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent postview = new Intent(context, PostViewActivity.class);
+
+                        postview.putExtra("for", "video");
+                        context.startActivity(postview);
+//                getActivity().finish();
+                    }
+                });
+            }
         } else {
             holder.post_layout.setVisibility(RelativeLayout.GONE);
         }
@@ -607,7 +679,7 @@ public class NewsfeedAdapter extends BaseAdapter {
 
     static class ViewHolder {
         public TextView nameTv, designationTv, companyTv, dateTv, headingTv, liketext, commenttext, sharetext, img_like;
-        private LinearLayout likeTv, commentTv, shareTv, mindTv, mainLLpost, post_layout;
+        private LinearLayout likeTv, commentTv, shareTv, mindTv, mainLLpost, post_layout,feedll;
         public ImageView img_vol, img_playback;
         public ProgressBar progressView, feedprogress;
         public ScaledImageView feedimageIv, profileIv, profilestatus;

@@ -584,6 +584,8 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
 			nameValuePair.add(new BasicNameValuePair("quiz_id", quiz_question_id));
 			nameValuePair.add(new BasicNameValuePair("quiz_options_id",
 					quiz_options_id));
+			nameValuePair.add(new BasicNameValuePair("event_id",
+					event_id));
 
 			// Making a request to url and getting response
 			String jsonStr = sh.makeServiceCall(quizQuestionUrl,
