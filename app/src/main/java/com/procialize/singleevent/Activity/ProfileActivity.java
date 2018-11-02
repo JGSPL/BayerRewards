@@ -311,6 +311,14 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        profileIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage();
+
+            }
+        });
+
         savebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

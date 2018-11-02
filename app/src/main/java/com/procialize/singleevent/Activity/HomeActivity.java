@@ -111,7 +111,8 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
             side_menu_event_info = "0", side_menu_document = "0", side_menu_engagement = "0",
             engagement_selfie_contest = "0", engagement_video_contest = "0",
             news_feed_video = "0", QA_speaker = "0", QA_direct = "0", QA_session = "0", side_menu_attendee = "0", side_menu_speaker = "0", side_menu_agenda = "0",
-            side_menu_general_info = "0", edit_profile_company = "0", edit_profile_designation = "0", agenda_conference = "0", agenda_vacation = "0";
+            side_menu_general_info = "0", edit_profile_company = "0", edit_profile_designation = "0", agenda_conference = "0", agenda_vacation = "0",
+            side_menu_contact = "0", side_menu_email = "0",side_menu_leaderboard = "0";
     String news_feed = "0", attendee = "0", speaker = "0", agenda = "0", edit_profile = "0", general_ifo = "0";
 
 
@@ -876,6 +877,12 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                     agenda_conference = eventSettingLists.get(i).getFieldValue();
                 } else if (eventSettingLists.get(i).getFieldName().equals("agenda_vacation")) {
                     agenda_vacation = eventSettingLists.get(i).getFieldValue();
+                }else if (eventSettingLists.get(i).getFieldName().equals("side_menu_contact_us")) {
+                    side_menu_contact = eventSettingLists.get(i).getFieldValue();
+                }else if (eventSettingLists.get(i).getFieldName().equals("side_menu_email_template")) {
+                    side_menu_email = eventSettingLists.get(i).getFieldValue();
+                }else if (eventSettingLists.get(i).getFieldName().equals("side_menu_leaderboard")) {
+                    side_menu_leaderboard = eventSettingLists.get(i).getFieldValue();
                 }
 
             }
@@ -883,7 +890,6 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
         afterSettingView();
     }
-
 
     @Override
     public void onBackPressed() {
@@ -1003,6 +1009,15 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_gen_info")) {
             Intent generalinfo = new Intent(this, GeneralInfoActivity.class);
             startActivity(generalinfo);
+        }else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_contact_us")) {
+            Intent generalinfo = new Intent(this, WebViewActivity.class);
+            startActivity(generalinfo);
+        }else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_email_template")) {
+            Toast.makeText(HomeActivity.this, "Comming Soon...", Toast.LENGTH_SHORT).show();
+
+        }else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_leaderboard")) {
+            Toast.makeText(HomeActivity.this, "Comming Soon...", Toast.LENGTH_SHORT).show();
+
         }
 
 

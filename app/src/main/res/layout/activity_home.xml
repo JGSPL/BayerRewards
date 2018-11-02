@@ -130,6 +130,7 @@
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
+                    android:visibility="gone"
                     android:drawableLeft="@drawable/contact_us"
                     android:gravity="left|center"
                     android:text="@string/contactus"

@@ -46,14 +46,14 @@ public class CustomMenuAdapter extends RecyclerView.Adapter<CustomMenuAdapter.My
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTv, locationTv, designationTv;
         public ImageView profileIv;
-        public LinearLayout mainLL;
+        public LinearLayout mainLL,topll;
 
         public MyViewHolder(View view) {
             super(view);
             nameTv = view.findViewById(R.id.nameTv);
             locationTv = view.findViewById(R.id.locationTv);
             designationTv = view.findViewById(R.id.designationTv);
-
+            topll = view.findViewById(R.id.topll);
             profileIv = view.findViewById(R.id.profileIV);
 
             mainLL = view.findViewById(R.id.mainLL);
@@ -90,19 +90,26 @@ public class CustomMenuAdapter extends RecyclerView.Adapter<CustomMenuAdapter.My
 
 
         if (menuSettingList.getFieldValue().equalsIgnoreCase("0")) {
+            holder.topll.setVisibility(View.GONE);
 
             holder.nameTv.setVisibility(View.GONE);
             holder.profileIv.setVisibility(View.GONE);
             holder.mainLL.setVisibility(View.GONE);
+
+
         } else {
             if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu")) {
                 holder.nameTv.setVisibility(View.GONE);
                 holder.profileIv.setVisibility(View.GONE);
                 holder.mainLL.setVisibility(View.GONE);
+                holder.topll.setVisibility(View.GONE);
+
             } else {
                 holder.nameTv.setVisibility(View.VISIBLE);
                 holder.profileIv.setVisibility(View.VISIBLE);
                 holder.mainLL.setVisibility(View.VISIBLE);
+                holder.topll.setVisibility(View.VISIBLE);
+
             }
         }
 
@@ -154,12 +161,21 @@ public class CustomMenuAdapter extends RecyclerView.Adapter<CustomMenuAdapter.My
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_speaker")) {
             holder.nameTv.setText("Speaker");
             holder.profileIv.setImageResource(R.drawable.speaker);
-        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_agenda")) {
-            holder.nameTv.setText("Agenda");
-            holder.profileIv.setImageResource(R.drawable.agenda);
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_gen_info")) {
             holder.nameTv.setText("General Info");
             holder.profileIv.setImageResource(R.drawable.general);
+        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_agenda")) {
+            holder.nameTv.setText("Agenda");
+            holder.profileIv.setImageResource(R.drawable.agenda);
+        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_contact_us")) {
+            holder.nameTv.setText("Contact Us");
+            holder.profileIv.setImageResource(R.drawable.contact_us);
+        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_email_template")) {
+            holder.nameTv.setText("Email Template");
+            holder.profileIv.setImageResource(R.drawable.ic_info);
+        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_leaderboard")) {
+            holder.nameTv.setText("LeaderBoard");
+            holder.profileIv.setImageResource(R.drawable.leaderboard);
         }
 
 
