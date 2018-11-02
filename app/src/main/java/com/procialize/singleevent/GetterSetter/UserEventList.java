@@ -33,6 +33,20 @@ public class UserEventList {
     @Expose
     private String logo;
 
+    @SerializedName("header_logo")
+    @Expose
+    private String header_logo;
+
+
+    public String getHeader_logo() {
+        return header_logo;
+    }
+
+    public void setHeader_logo(String header_logo) {
+        this.header_logo = header_logo;
+    }
+
+
 //    @SerializedName("logo")
 //    @Expose
 //    private String logo;

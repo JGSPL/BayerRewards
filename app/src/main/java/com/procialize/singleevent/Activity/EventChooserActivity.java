@@ -64,6 +64,7 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
     static final String TAG = "GCMDemo";
     String gcmRegID;
     ImageView headerlogoIv;
+    private String logoImg="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +75,8 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
         password = getIntent().getExtras().getString("password");
         session = new SessionManager(getApplicationContext());
 
-        headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
+      //  headerlogoIv = findViewById(R.id.headerlogoIv);
+       // Util.logomethod(this,headerlogoIv);
 
 
         platform = "android";
@@ -226,6 +227,7 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
     public void onContactSelected(UserEventList eventList) {
         String eventid = eventList.getEventId();
         eventnamestr = eventList.getName();
+        logoImg = eventList.getHeader_logo();
 
 
         sendLogin(emailid, password, eventid, gcmRegID, platform, device, os_version, app_version);
@@ -289,6 +291,8 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
                 SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
                 editor.putString("eventid", eventid).commit();
                 editor.putString("eventnamestr", eventnamestr).commit();
+                editor.putString("logoImg", logoImg).commit();
+
 //                editor.putString("loginfirst","1");
                 editor.apply();
                 Intent home = new Intent(getApplicationContext(), ProfileActivity.class);
@@ -300,6 +304,8 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
                 SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
                 editor.putString("eventid", eventid).commit();
                 editor.putString("eventnamestr", eventnamestr).commit();
+                editor.putString("logoImg", logoImg).commit();
+
 //                editor.putString("loginfirst","1");
                 editor.apply();
 

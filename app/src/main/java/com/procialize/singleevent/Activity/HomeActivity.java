@@ -125,6 +125,8 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
     TextView logout, home, contactus, eventname, switchbt, eula, privacy_policy;
     String eventnamestr;
     public static final int RequestPermissionCode = 8;
+    public static String logoImg="";
+
 
     private int[] tabIcons = {
             R.drawable.ic_newsfeed,
@@ -158,6 +160,8 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "");
         eventnamestr = prefs.getString("eventnamestr", "");
+        logoImg = prefs.getString("logoImg","");
+
 
 //        SharedPreferences.Editor editor = getSharedPreferences(MY_EVENT, MODE_PRIVATE).edit();
 //        editor.putString("eventid",eventid);

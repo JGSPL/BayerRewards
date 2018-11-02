@@ -131,7 +131,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
         headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
+        Util.logomethod1(this,headerlogoIv);
 
         mAPIService = ApiUtils.getAPIService();
 
@@ -311,7 +311,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        profileIV.setOnClickListener(new View.OnClickListener() {
+        txt_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectImage();

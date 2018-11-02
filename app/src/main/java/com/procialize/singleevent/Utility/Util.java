@@ -15,6 +15,9 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.procialize.singleevent.Activity.EventChooserActivity;
+import com.procialize.singleevent.Activity.HomeActivity;
+import com.procialize.singleevent.Activity.ProfileActivity;
 import com.procialize.singleevent.R;
 
 import java.util.HashMap;
@@ -25,6 +28,38 @@ import java.util.regex.Pattern;
 public class Util
 {
 
+    public static void logomethod(final Context context, final ImageView headerlogoIv)
+    {
+        Glide.with(context).load("http://www.procialize.info/uploads/app_logo/" + HomeActivity.logoImg).listener(new RequestListener<Drawable>() {
+            @Override
+            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                headerlogoIv.setImageResource(R.drawable.splashlogo);
+                return true;
+            }
+
+            @Override
+            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                return false;
+            }
+        }).into(headerlogoIv);
+    }
+    public static void logomethod1(final Context context, final ImageView headerlogoIv)
+    {
+        Glide.with(context).load("http://www.procialize.info/uploads/app_logo/" + ProfileActivity.logoImg).listener(new RequestListener<Drawable>() {
+            @Override
+            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                headerlogoIv.setImageResource(R.drawable.splashlogo);
+                return true;
+            }
+
+            @Override
+            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                return false;
+            }
+        }).into(headerlogoIv);
+    }
+
+/*
     public static void logomethod(final Context context, final ImageView headerlogoIv)
     {
         Glide.with(context).load("http://www.procialize.info/uploads/app_logo/logo-testing.png").listener(new RequestListener<Drawable>() {
@@ -40,6 +75,7 @@ public class Util
             }
         }).into(headerlogoIv);
     }
+*/
 
 
     public static String getYoutubeVideoIdFromUrl(String inUrl) {
