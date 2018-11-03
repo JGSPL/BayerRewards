@@ -37,6 +37,17 @@ public class UserEventList {
     @Expose
     private String header_logo;
 
+    @SerializedName("primary_color_code")
+    @Expose
+    private String primary_color_code;
+
+    public String getPrimary_color_code() {
+        return primary_color_code;
+    }
+
+    public void setPrimary_color_code(String primary_color_code) {
+        this.primary_color_code = primary_color_code;
+    }
 
     public String getHeader_logo() {
         return header_logo;

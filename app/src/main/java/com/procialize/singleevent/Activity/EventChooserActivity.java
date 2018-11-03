@@ -64,7 +64,7 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
     static final String TAG = "GCMDemo";
     String gcmRegID;
     ImageView headerlogoIv;
-    private String logoImg="";
+    private String logoImg="",colorActive="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -228,6 +228,7 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
         String eventid = eventList.getEventId();
         eventnamestr = eventList.getName();
         logoImg = eventList.getHeader_logo();
+        colorActive = eventList.getPrimary_color_code();
 
 
         sendLogin(emailid, password, eventid, gcmRegID, platform, device, os_version, app_version);
@@ -292,6 +293,8 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
                 editor.putString("eventid", eventid).commit();
                 editor.putString("eventnamestr", eventnamestr).commit();
                 editor.putString("logoImg", logoImg).commit();
+                editor.putString("colorActive", colorActive).commit();
+
 
 //                editor.putString("loginfirst","1");
                 editor.apply();
@@ -305,6 +308,8 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
                 editor.putString("eventid", eventid).commit();
                 editor.putString("eventnamestr", eventnamestr).commit();
                 editor.putString("logoImg", logoImg).commit();
+                editor.putString("colorActive", colorActive).commit();
+
 
 //                editor.putString("loginfirst","1");
                 editor.apply();

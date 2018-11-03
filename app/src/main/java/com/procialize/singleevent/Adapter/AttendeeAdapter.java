@@ -26,6 +26,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.procialize.singleevent.Activity.AttendeeDetailActivity;
+import com.procialize.singleevent.Activity.HomeActivity;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.Fragments.AttendeeFragment;
 import com.procialize.singleevent.GetterSetter.AttendeeList;
@@ -131,6 +132,7 @@ public class AttendeeAdapter extends RecyclerView.Adapter<AttendeeAdapter.MyView
             holder.nameTv.setText("");
         } else {
             holder.nameTv.setText(attendee.getFirstName() + " " + attendee.getLastName());
+            holder.nameTv.setTextColor(HomeActivity.activetab);
         }
         if (attendee.getCity().equalsIgnoreCase("N A")) {
             holder.locationTv.setText("");
