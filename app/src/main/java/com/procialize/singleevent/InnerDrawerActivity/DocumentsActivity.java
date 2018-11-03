@@ -3,6 +3,8 @@ package com.procialize.singleevent.InnerDrawerActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +20,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.procialize.singleevent.Activity.PdfViewerActivity;
 import com.procialize.singleevent.Adapter.DocumentsAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
@@ -45,7 +52,7 @@ public class DocumentsActivity extends AppCompatActivity implements DocumentsAda
     RecyclerView docRv;
     ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid;
+    String eventid, logoImg;
     ImageView headerlogoIv;
 
 
@@ -57,6 +64,7 @@ public class DocumentsActivity extends AppCompatActivity implements DocumentsAda
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
+        logoImg = prefs.getString("logoImg","");
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -75,7 +83,20 @@ public class DocumentsActivity extends AppCompatActivity implements DocumentsAda
         });
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
+       // Util.logomethod(this,headerlogoIv);
+        Glide.with(this).load("http://www.procialize.info/uploads/app_logo/" + logoImg).listener(new RequestListener<Drawable>() {
+            @Override
+            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                headerlogoIv.setImageResource(R.drawable.splashlogo);
+                return true;
+            }
+
+            @Override
+            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                return false;
+            }
+        }).into(headerlogoIv);
+
         docRv = findViewById(R.id.docRv);
         docRvrefresh = findViewById(R.id.docRvrefresh);
         progressBar = findViewById(R.id.progressBar);
@@ -164,6 +185,9 @@ public class DocumentsActivity extends AppCompatActivity implements DocumentsAda
                 setContentView(R.layout.activity_empty_view);
                 ImageView imageView = findViewById(R.id.back);
                 TextView text_empty = findViewById(R.id.text_empty);
+                final ImageView headerlogoIv1 = findViewById(R.id.headerlogoIv);
+                Util.logomethod(this,headerlogoIv1);
+
                 text_empty.setText("Document not available");
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override

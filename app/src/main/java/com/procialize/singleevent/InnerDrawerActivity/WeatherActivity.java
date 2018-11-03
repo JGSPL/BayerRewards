@@ -22,6 +22,7 @@ import com.procialize.singleevent.GetterSetter.Forecast;
 import com.procialize.singleevent.GetterSetter.Weather;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,7 +38,7 @@ import retrofit2.Response;
 public class WeatherActivity extends AppCompatActivity implements WeatherAdapter.WeatherAdapterListner{
 
     RecyclerView weatherRV;
-    ImageView infoIv;
+    ImageView infoIv,headerlogoIv;
     TextView cityTv,countryTv,dateTv,timeTv,infoTv,feelTv,humidityTv,visibilityTv,indexTv,tempTv,maxTv,minTv,dayTv;
     private APIService mAPIService;
     String MY_PREFS_NAME = "ProcializeInfo";
@@ -75,6 +76,9 @@ public class WeatherActivity extends AppCompatActivity implements WeatherAdapter
 
         // token
         final String token = user.get(SessionManager.KEY_TOKEN);
+
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this, headerlogoIv);
 
 
         cityTv = findViewById(R.id.cityTv);

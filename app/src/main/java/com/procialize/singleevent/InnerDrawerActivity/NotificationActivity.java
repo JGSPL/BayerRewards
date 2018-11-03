@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,8 +21,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.procialize.singleevent.Activity.AttendeeDetailActivity;
 import com.procialize.singleevent.Activity.CommentActivity;
+import com.procialize.singleevent.Activity.HomeActivity;
 import com.procialize.singleevent.Adapter.NotificationAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
@@ -48,7 +56,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
     RecyclerView notificationRv;
     //    ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid;
+    String eventid,logoImg;
     private DBHelper procializeDB;
     private SQLiteDatabase db;
     private DBHelper dbHelper;
@@ -62,6 +70,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
+        logoImg = prefs.getString("logoImg","");
 
         procializeDB = new DBHelper(NotificationActivity.this);
         db = procializeDB.getWritableDatabase();
@@ -84,7 +93,21 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
         });
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
+       // Util.logomethod(this,headerlogoIv);
+        Glide.with(this).load("http://www.procialize.info/uploads/app_logo/" + logoImg).listener(new RequestListener<Drawable>() {
+            @Override
+            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                headerlogoIv.setImageResource(R.drawable.splashlogo);
+                return true;
+            }
+
+            @Override
+            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                return false;
+            }
+        }).into(headerlogoIv);
+
+
         notificationRv = findViewById(R.id.notificationRv);
 //        progressBar = findViewById(R.id.progressBar);
         notificationRvrefresh = findViewById(R.id.notificationRvrefresh);
@@ -170,6 +193,20 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
                 setContentView(R.layout.activity_empty_view);
                 ImageView imageView = findViewById(R.id.back);
                 TextView text_empty = findViewById(R.id.text_empty);
+
+                final ImageView headerlogoIv1 = findViewById(R.id.headerlogoIv);
+                Glide.with(this).load("http://www.procialize.info/uploads/app_logo/" + logoImg).listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        headerlogoIv1.setImageResource(R.drawable.splashlogo);
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        return false;
+                    }
+                }).into(headerlogoIv1);
                 text_empty.setText("Notification not available");
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override

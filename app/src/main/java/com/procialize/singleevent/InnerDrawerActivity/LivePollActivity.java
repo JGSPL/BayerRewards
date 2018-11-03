@@ -166,6 +166,9 @@ public class LivePollActivity extends AppCompatActivity implements PollAdapter.P
             setContentView(R.layout.activity_empty_view);
             ImageView imageView = findViewById(R.id.back);
             TextView text_empty = findViewById(R.id.text_empty);
+            final ImageView headerlogoIv1 = findViewById(R.id.headerlogoIv);
+            Util.logomethod(this,headerlogoIv1);
+
             text_empty.setText("LivePoll not available");
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
