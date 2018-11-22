@@ -60,7 +60,7 @@ public class DocumentsActivity extends AppCompatActivity implements DocumentsAda
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_documents);
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        //overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
@@ -118,7 +118,7 @@ public class DocumentsActivity extends AppCompatActivity implements DocumentsAda
 
         int resId = R.anim.layout_animation_slide_right;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
-        docRv.setLayoutAnimation(animation);
+     //   docRv.setLayoutAnimation(animation);
 
 
         fetchDocuments(token, eventid);
@@ -222,7 +222,7 @@ public class DocumentsActivity extends AppCompatActivity implements DocumentsAda
 
     @Override
     protected void onResume() {
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+      //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         super.onResume();
     }
 

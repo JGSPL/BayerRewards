@@ -106,7 +106,7 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
 
         int resId = R.anim.layout_animation_slide_right;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
-        eventrecycler.setLayoutAnimation(animation);
+      //  eventrecycler.setLayoutAnimation(animation);
 
 
         mAPIService = ApiUtils.getAPIService();
@@ -219,7 +219,7 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
 
     @Override
     protected void onResume() {
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+      //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         super.onResume();
     }
 

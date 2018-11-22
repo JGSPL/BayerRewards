@@ -61,7 +61,7 @@ public class VideoActivity extends AppCompatActivity implements VideoAdapter.Vid
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        //overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
@@ -236,7 +236,7 @@ public class VideoActivity extends AppCompatActivity implements VideoAdapter.Vid
     @Override
     protected void onResume() {
         super.onResume();
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+      //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
     }
 

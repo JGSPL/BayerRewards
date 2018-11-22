@@ -75,7 +75,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
         procializeDB = new DBHelper(NotificationActivity.this);
         db = procializeDB.getWritableDatabase();
         dbHelper = new DBHelper(NotificationActivity.this);
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+     //   overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -129,7 +129,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
 
         int resId = R.anim.layout_animation_slide_right;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
-        notificationRv.setLayoutAnimation(animation);
+       // notificationRv.setLayoutAnimation(animation);
 
 
         fetchNotification(token, eventid);
@@ -236,7 +236,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
     @Override
     protected void onResume() {
         super.onResume();
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+       // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
     }
 

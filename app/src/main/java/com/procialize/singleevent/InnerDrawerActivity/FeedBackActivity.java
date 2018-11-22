@@ -56,7 +56,7 @@ public class FeedBackActivity extends AppCompatActivity implements FeedBackAdapt
         eventid = prefs.getString("eventid", "1");
 
 
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+      //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -187,7 +187,7 @@ public class FeedBackActivity extends AppCompatActivity implements FeedBackAdapt
 
     @Override
     protected void onResume() {
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+     //   overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         super.onResume();
     }
 

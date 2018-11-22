@@ -47,7 +47,7 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
     public void onCreate(Bundle state) {
         super.onCreate(state);
         setContentView(R.layout.activity_qrscan);
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+       // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -44,7 +44,7 @@ public class GalleryFirstLevelActivity extends AppCompatActivity implements Gall
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery_first_level);
 
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+      //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         galleryLists = new ArrayList<>();
         folderLists = new ArrayList<>();
@@ -82,7 +82,7 @@ public class GalleryFirstLevelActivity extends AppCompatActivity implements Gall
 
         int resId = R.anim.layout_animation_slide_right;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
-        galleryRv.setLayoutAnimation(animation);
+        //galleryRv.setLayoutAnimation(animation);
 
 
         if (foldername.contains("/")) {

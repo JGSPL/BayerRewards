@@ -160,6 +160,8 @@ public class SpeakerAdapter extends RecyclerView.Adapter<SpeakerAdapter.MyViewHo
             }).into(holder.profileIv).onLoadStarted(context.getDrawable(R.drawable.profilepic_placeholder));
         } else {
             holder.progressView.setVisibility(View.GONE);
+            holder.profileIv.setImageResource(R.drawable.profilepic_placeholder);
+
 
         }
 //        ImageSize targetSize = new ImageSize(10, 10);

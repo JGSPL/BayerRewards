@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        //overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
 
         mAPIService = ApiUtils.getAPIService();
@@ -274,7 +274,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+       // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         super.onResume();
     }
 

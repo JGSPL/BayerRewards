@@ -200,7 +200,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
         int resId = R.anim.layout_animation_slide_right;
         animation = AnimationUtils.loadLayoutAnimation(getContext(), resId);
-        feedrecycler.setLayoutAnimation(animation);
+       // feedrecycler.setLayoutAnimation(animation);
 
 
         newsfeedrefresh = view.findViewById(R.id.newsfeedrefresh);
@@ -614,11 +614,20 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
         if (user.get(SessionManager.KEY_ID).equalsIgnoreCase(feed.getAttendeeId())) {
             deleteTv.setVisibility(View.VISIBLE);
-            editIV.setVisibility(View.VISIBLE);
+            //editIV.setVisibility(View.VISIBLE);
             hideTv.setVisibility(View.GONE);
             reportTv.setVisibility(View.GONE);
             reportuserTv.setVisibility(View.GONE);
             blockuserTv.setVisibility(View.GONE);
+
+            if(feed.getType().equalsIgnoreCase("Video")){
+                editIV.setVisibility(View.GONE);
+
+            }else{
+                editIV.setVisibility(View.VISIBLE);
+
+            }
+
         } else {
             deleteTv.setVisibility(View.GONE);
             editIV.setVisibility(View.GONE);
@@ -653,6 +662,14 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
                     dialog.dismiss();
                 } else if (feed.getType().equalsIgnoreCase("Video")) {
                     Intent edit = new Intent(getActivity(), PostEditActivityOld.class);
+                    edit.putExtra("for", feed.getType());
+                    edit.putExtra("feedid", feed.getNewsFeedId());
+                    edit.putExtra("status", feed.getPostStatus());
+                    edit.putExtra("Video", feed.getMediaFile());
+                    startActivity(edit);
+                    dialog.dismiss();
+                }else if (feed.getType().equalsIgnoreCase("Status")) {
+                    Intent edit = new Intent(getActivity(), PostEditActivity.class);
                     edit.putExtra("for", feed.getType());
                     edit.putExtra("feedid", feed.getNewsFeedId());
                     edit.putExtra("status", feed.getPostStatus());

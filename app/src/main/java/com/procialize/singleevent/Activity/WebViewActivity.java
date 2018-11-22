@@ -161,7 +161,7 @@ public class WebViewActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+       // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         super.onResume();
     }
 

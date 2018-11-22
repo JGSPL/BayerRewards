@@ -14,7 +14,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -22,6 +24,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
@@ -44,6 +47,10 @@ import android.widget.VideoView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.CustomTools.PicassoTrustAll;
 import com.procialize.singleevent.CustomTools.ScaledImageView;
@@ -122,7 +129,7 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
     EditText postEt;
     Button postbtn;
     MyApplication appDelegate;
-    ScaledImageView Uploadiv;
+    ImageView Uploadiv;
     // Access Token Variable
     private String accessToken, mCurrentPhotoPath;
     ImageView profileIV;
@@ -154,6 +161,7 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.colorwhite), PorterDuff.Mode.SRC_ATOP);
 
         toolbar.setNavigationOnClickListener(new OnClickListener() {
             @Override
@@ -178,18 +186,42 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
         eventId = prefs.getString("eventid", "1");
         HashMap<String, String> user = session.getUserDetails();
 
+
+
+
         // InitializeGUI
         initializeGUI();
         profilepic = user.get(SessionManager.KEY_PIC);
+
+        if (profilepic != null) {
+            Glide.with(this).load(ApiConstant.profilepic + profilepic).listener(new RequestListener<Drawable>() {
+                @Override
+                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                    profileIV.setImageResource(R.drawable.profilepic_placeholder);
+                    return true;
+                }
+
+                @Override
+                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                    return false;
+                }
+            }).into(profileIV).onLoadStarted(getDrawable(R.drawable.profilepic_placeholder));
+        } else {
+            profileIV.setImageResource(R.drawable.profilepic_placeholder);
+
+        }
+
         //post_status_post.setHint("What's on your mind?");
         if (actionFlag.equalsIgnoreCase("Status")) {
             //post_status_post.setText(wallStatus);
+            postEt.setText(StringEscapeUtils.unescapeJava(wallStatus));
 
-            postEt.setText(getEmojiFromString(wallStatus));
+            //postEt.setText(getEmojiFromString(wallStatus));
             Uploadiv.setVisibility(View.GONE);
 
         } else if (actionFlag.equalsIgnoreCase("Image")) {
-            postEt.setText(getEmojiFromString(wallStatus));
+           // postEt.setText(getEmojiFromString(wallStatus));
+            postEt.setText(StringEscapeUtils.unescapeJava(wallStatus));
 			/*if (ImageStatus.toString().length() > 5){
 				post_status_post.setText(getEmojiFromString(ImageStatus));
 		}else {
@@ -201,7 +233,7 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
                     .placeholder(R.drawable.gallery_placeholder)
                     .into(Uploadiv);
             if (ImageFlag.equalsIgnoreCase("0")) {
-                picturePath = constant.newsfeedwall + ImageStatus;
+                picturePath = ApiConstant.newsfeedwall + ImageStatus;
                 appDelegate.setPostImagePath(picturePath);
 
             }
@@ -217,7 +249,6 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
             @Override
             public void onClick(View v) {
 
-                ImageFlag = "1";
                 // TODO Auto-generated method stub
                 if (actionFlag.equalsIgnoreCase("Image")) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -285,6 +316,7 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
 
     public void showAlert(int res) {
 
+
         new MaterialDialog.Builder(PostEditActivity.this)
                 .title("Select Image")
                 .items(res)
@@ -307,10 +339,12 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
 
     private void selectType(int pos) {
         if (pos == 0) {
+            ImageFlag = "1";
 
             openGallery(pos);
 
         } else if (pos == 1) {
+            ImageFlag = "1";
 
             cameraTask(pos);
 
@@ -491,11 +525,11 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
         imgPlay = findViewById(R.id.imgPlay);
         progressbar = (ProgressBar) findViewById(R.id.progressbar);
         postbtn.setOnClickListener(this);
-//		procializeDB = new DBHelper(PostEditActivity.this);
-//		db = procializeDB.getReadableDatabase();
-//		userData = procializeDB.getUserProfile();
+		procializeDB = new DBHelper(PostEditActivity.this);
+		db = procializeDB.getReadableDatabase();
+		//userData = procializeDB.getUserProfile();
 //
-//		type_of_user = userData.getAttendee_type();
+	//	type_of_user = userData.getAttendee_type();
 
         // Initialize Constant Class Reference
         constant = new ApiConstant();
@@ -504,40 +538,41 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
 //        senderImageURL = ApiConstant.newsfeedwall + ;
 
         // Post Status & Image URL
-        postUrl = ApiConstant.baseUrl + "PostNewsFeed";
+        postUrl = ApiConstant.baseUrl + "EditNewsFeed";
 
 //        Picasso.with(this).load(senderImageURL)
 //                .placeholder(R.drawable.profilepic_placeholder)
 //                .into(Uploadiv);
 
-        final TextView txtcount1 = (TextView) findViewById(R.id.txtcount1);
+        //sms_count = (TextView) findViewById(R.id.textView2);
 
-        final TextWatcher txwatcher = new TextWatcher() {
 
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
-                int tick = start + after;
-                if (tick < 500) {
-                    int remaining = 500 - tick;
-                    // txtcount1.setText(String.valueOf(remaining));
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                // TODO Auto-generated method stub
-                txtcount1.setText(String.valueOf(500 - s.length()));
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // TODO Auto-generated method stub
-                System.out.print("Hello");
-            }
-        };
-
-        postEt.addTextChangedListener(txwatcher);
+//        final TextWatcher txwatcher = new TextWatcher() {
+//
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+//                int tick = start + after;
+//                if (tick < 500) {
+//                    int remaining = 500 - tick;
+//                    // txtcount1.setText(String.valueOf(remaining));
+//                }
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                // TODO Auto-generated method stub
+//                txtcount1.setText(String.valueOf(500 - s.length()));
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                // TODO Auto-generated method stub
+//                System.out.print("Hello");
+//            }
+//        };
+//
+//        post_status_post.addTextChangedListener(txwatcher);
 
     }
 
@@ -588,8 +623,9 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
 
             // Check for Internet Connection
             if (cd.isConnectingToInternet()) {
-                if (appDelegate.getPostImagePath() != null
-                        && appDelegate.getPostImagePath().length() > 0) {
+                if (actionFlag.equalsIgnoreCase("Image") || actionFlag.equalsIgnoreCase("Video")) {
+
+                    postbtn.setEnabled(false);
                     System.out
                             .println("Post Image URL  inside SubmitPostTask :"
                                     + appDelegate.getPostImagePath());
@@ -601,7 +637,7 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
                 } else {
                     System.out
                             .println("Post Image URL  inside SubmitStatusOnlyTask :" + appDelegate.getPostImagePath());
-
+                    postbtn.setEnabled(false);
                     if (postMsg.length() > 0) {
                         new SubmitStatusOnlyTask().execute(postUrl);
                     } else {
@@ -662,32 +698,32 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
         }
 
 
-//			/*post_status_post.setHint("Say something about this photo");
-//
-//			post_thumbnail.setVisibility(View.VISIBLE);
-//
-//			Uri selectedImage = data.getData();
-//			String[] filePathColumn = { MediaStore.Images.Media.DATA };
-//
-//			Cursor cursor = getContentResolver().query(selectedImage,
-//					filePathColumn, null, null, null);
-//			cursor.moveToFirst();
-//
-//			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-//			String picturePath = cursor.getString(columnIndex);
-//
-//			String compressedImagePath = compressImage(picturePath);
-//			appDelegate.setPostImagePath(compressedImagePath);
-//
-//			Glide.with(this).load(compressedImagePath).into(post_thumbnail);
-//
-//			// Picasso.with(PostEditActivity.this).load(compressedImagePath)
-//			// .into(post_thumbnail);
-//
-//			Toast.makeText(PostEditActivity.this, "Image selected",
-//					Toast.LENGTH_SHORT).show();
-//
-//			cursor.close();*/
+			/*post_status_post.setHint("Say something about this photo");
+
+			post_thumbnail.setVisibility(View.VISIBLE);
+
+			Uri selectedImage = data.getData();
+			String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+			Cursor cursor = getContentResolver().query(selectedImage,
+					filePathColumn, null, null, null);
+			cursor.moveToFirst();
+
+			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+			String picturePath = cursor.getString(columnIndex);
+
+			String compressedImagePath = compressImage(picturePath);
+			appDelegate.setPostImagePath(compressedImagePath);
+
+			Glide.with(this).load(compressedImagePath).into(post_thumbnail);
+
+			// Picasso.with(PostEditActivity.this).load(compressedImagePath)
+			// .into(post_thumbnail);
+
+			Toast.makeText(PostEditActivity.this, "Image selected",
+					Toast.LENGTH_SHORT).show();
+
+			cursor.close();*/
 
     }
 
@@ -1020,7 +1056,7 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
         String error = "";
         String msg = "";
 
-        String res = null;
+        String res = "";
 
         @Override
         protected void onPreExecute() {
@@ -1065,12 +1101,16 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
                 MultipartBody.Builder builder = new MultipartBody.Builder();
 
                 builder.setType(MultipartBody.FORM);
-                if (picturePath != null && !(picturePath.equalsIgnoreCase(""))) {
-                    builder.addFormDataPart("media_file", filename, RequestBody.create(MEDIA_TYPE_PNG, sourceFile));
+                if(ImageFlag.equalsIgnoreCase("1")) {
+
+                    if (picturePath != null && !(picturePath.equalsIgnoreCase(""))) {
+                        builder.addFormDataPart("media_file", filename, RequestBody.create(MEDIA_TYPE_PNG, sourceFile));
+                    }
                 }
 
                 builder.addFormDataPart("api_access_token", accessToken);
                 builder.addFormDataPart("event_id", eventId);
+                builder.addFormDataPart("news_feed_id", notify_id);
 
                 builder.addFormDataPart("type", actionFlag);
                 builder.addFormDataPart("status", postMsg);
@@ -1122,6 +1162,7 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
             super.onPostExecute(result);
             // Dismiss the progress dialog
            dismissProgress();
+           postbtn.setEnabled(true);
             if (error.equalsIgnoreCase("success")) {
 
                 // notifyDataSetChanged();
@@ -1333,7 +1374,6 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
 //
 //		}
 //	}
-
     public class SubmitStatusOnlyTask extends
             AsyncTask<String, String, JSONObject> {
 
@@ -1384,10 +1424,12 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
 
                 builder.addFormDataPart("api_access_token", accessToken);
                 builder.addFormDataPart("event_id", eventId);
-                builder.addFormDataPart("noty_id", notify_id);
-                builder.addFormDataPart("user_type", type_of_user);
+                builder.addFormDataPart("news_feed_id", notify_id);
+                //builder.addFormDataPart("user_type", "A");
                 builder.addFormDataPart("status", postMsg);
-                builder.addFormDataPart("wall_image", "");
+                builder.addFormDataPart("type", actionFlag);
+
+                builder.addFormDataPart("media_file", "");
 
 
                 RequestBody requestBody = builder.build();
@@ -1438,7 +1480,7 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
             // Dismiss the progress dialog
 
            dismissProgress();
-
+            postbtn.setEnabled(true);
             // String s = "";
             // String message = "";
             // Toast.makeText(activity, "Status Posted Successfully",
@@ -1458,7 +1500,7 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
                 Toast.makeText(PostEditActivity.this, message, Toast.LENGTH_SHORT)
                         .show();
 
-                Intent MainIntent = new Intent(PostEditActivity.this, MainActivity.class);
+                Intent MainIntent = new Intent(PostEditActivity.this, HomeActivity.class);
                 startActivity(MainIntent);
             } else {
                 Toast.makeText(PostEditActivity.this, message, Toast.LENGTH_SHORT)

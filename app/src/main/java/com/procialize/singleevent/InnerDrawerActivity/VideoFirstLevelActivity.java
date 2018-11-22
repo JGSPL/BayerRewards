@@ -62,7 +62,7 @@ public class VideoFirstLevelActivity extends AppCompatActivity implements VideoF
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_first_level);
 
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+      //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 

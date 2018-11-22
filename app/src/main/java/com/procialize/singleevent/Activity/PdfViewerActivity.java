@@ -41,7 +41,7 @@ public class PdfViewerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdf_viewer);
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+     //   overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         url = getIntent().getStringExtra("url");
 
@@ -132,7 +132,7 @@ public class PdfViewerActivity extends AppCompatActivity {
     }
     @Override
     protected void onResume() {
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+       // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         super.onResume();
     }
 }

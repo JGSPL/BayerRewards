@@ -62,7 +62,7 @@ public class SwappingGalleryActivity extends AppCompatActivity implements SwipeI
 
         int resId = R.anim.layout_animation_slide_right;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
-        recyclerView.setLayoutAnimation(animation);
+        //recyclerView.setLayoutAnimation(animation);
 
         swipeImageAdapter = new SwipeImageAdapter(this,firstLevelFilters,this);
         recyclerView.setAdapter(swipeImageAdapter);

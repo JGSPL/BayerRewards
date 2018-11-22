@@ -161,7 +161,7 @@ public class FolderQuizActivity extends AppCompatActivity {
                                     Intent quizOptionIntent = new Intent(FolderQuizActivity.this, QuizActivity.class);
                                     quizOptionIntent.putExtra("folder", quiz.getFolder_name());
                                     startActivity(quizOptionIntent);
-                                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                                  //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                                 }
                             } else {
 

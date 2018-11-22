@@ -189,7 +189,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/agendabg"
-            android:layout_weight="6">
+            android:layout_weight="2">
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -271,7 +271,7 @@
             android:layout_height="45dp"
             android:id="@+id/linMap"
             android:background="@color/activetab"
-
+            android:visibility="gone"
             android:elevation="@dimen/elevation"
             android:gravity="center"
 
@@ -299,10 +299,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0"
+            android:layout_weight="4"
             android:elevation="@dimen/elevation"
-            android:visibility="gone"
+            android:visibility="visible"
             android:gravity="center"
+
             android:orientation="vertical"
             android:layout_margin="15dp">
 

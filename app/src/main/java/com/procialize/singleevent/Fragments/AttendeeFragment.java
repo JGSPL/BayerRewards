@@ -137,7 +137,7 @@ public class AttendeeFragment extends Fragment implements AttendeeAdapter.Attend
 
         int resId = R.anim.layout_animation_slide_right;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getContext(), resId);
-        attendeerecycler.setLayoutAnimation(animation);
+       // attendeerecycler.setLayoutAnimation(animation);
 
         SharedPreferences prefs = getActivity().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");

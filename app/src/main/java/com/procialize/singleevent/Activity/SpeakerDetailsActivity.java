@@ -65,7 +65,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speaker_details);
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+      //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
@@ -337,7 +337,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+     //   overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         super.onResume();
     }
 

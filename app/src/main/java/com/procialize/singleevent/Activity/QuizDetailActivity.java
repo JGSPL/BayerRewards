@@ -61,7 +61,7 @@ public class QuizDetailActivity extends AppCompatActivity {
         eventid = prefs.getString("eventid", "1");
 
 
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+       // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

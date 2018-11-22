@@ -433,6 +433,8 @@ public class NewsfeedAdapter extends BaseAdapter {
 
         } else {
             holder.progressView.setVisibility(View.GONE);
+            holder.profileIv.setImageResource(R.drawable.profilepic_placeholder);
+
         }
 
 

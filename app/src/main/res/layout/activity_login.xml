@@ -121,6 +121,7 @@
             android:layout_margin="20dp"
             android:background="@color/colorwhite"
             android:text="@string/login"
+            android:stateListAnimator="@null"
             android:textColor="@color/logintxt"
             android:textSize="@dimen/textsizenormal"
             android:textAllCaps="false"/>
@@ -139,6 +140,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            android:stateListAnimator="@null"
+
             android:background="@color/colorwhite"
             android:text="@string/create_evnt"
             android:textColor="@color/logintxt"

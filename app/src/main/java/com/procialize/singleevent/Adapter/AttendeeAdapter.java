@@ -146,7 +146,6 @@ public class AttendeeAdapter extends RecyclerView.Adapter<AttendeeAdapter.MyView
             holder.designationTv.setText(attendee.getDesignation());
         }
 
-
         if (attendee.getProfilePic() != null) {
 
 
@@ -169,7 +168,35 @@ public class AttendeeAdapter extends RecyclerView.Adapter<AttendeeAdapter.MyView
 
         } else {
             holder.progressBar.setVisibility(View.GONE);
+            holder.profileIv.setImageResource(R.drawable.profilepic_placeholder);
+
         }
+
+
+
+        /*if (attendee.getProfilePic() != null) {
+
+
+            Glide.with(context).load(ApiConstant.profilepic + attendee.getProfilePic())
+                    .apply(RequestOptions.skipMemoryCacheOf(true))
+                    .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE)).listener(new RequestListener<Drawable>() {
+                @Override
+                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                    holder.progressBar.setVisibility(View.GONE);
+                    holder.profileIv.setImageResource(R.drawable.profilepic_placeholder);
+                    return true;
+                }
+
+                @Override
+                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                    holder.progressBar.setVisibility(View.GONE);
+                    return false;
+                }
+            }).into(holder.profileIv);
+
+        } else {
+            holder.progressBar.setVisibility(View.GONE);
+        }*/
     }
 
     @Override

@@ -76,7 +76,7 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qaspeaker);
 
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+       // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
@@ -128,7 +128,7 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
 
         int resId = R.anim.layout_animation_slide_right;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
-        qaRv.setLayoutAnimation(animation);
+       // qaRv.setLayoutAnimation(animation);
 
 
         qaRvrefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

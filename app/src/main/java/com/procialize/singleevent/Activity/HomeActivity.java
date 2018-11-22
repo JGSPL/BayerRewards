@@ -152,7 +152,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+      //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         if (CheckingPermissionIsEnabledOrNot()) {
 //            Toast.makeText(MainActivity.this, "All Permissions Granted Successfully", Toast.LENGTH_LONG).show();
@@ -499,7 +499,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
         int resId = R.anim.layout_animation_slide_right;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
-        menurecycler.setLayoutAnimation(animation);
+      //  menurecycler.setLayoutAnimation(animation);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         menurecycler.setLayoutManager(mLayoutManager);
 
@@ -805,7 +805,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
     @Override
     protected void onResume() {
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+       // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         super.onResume();
     }
 

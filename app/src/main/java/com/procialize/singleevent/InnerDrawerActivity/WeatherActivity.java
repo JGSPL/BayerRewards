@@ -51,7 +51,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherAdapter
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
 
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+       // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -105,7 +105,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherAdapter
 
         int resId = R.anim.layout_animation_slide_right;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
-        weatherRV.setLayoutAnimation(animation);
+      //  weatherRV.setLayoutAnimation(animation);
 
 
         fetchWeather(token,eventid);

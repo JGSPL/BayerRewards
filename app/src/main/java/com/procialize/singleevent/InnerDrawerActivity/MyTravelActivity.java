@@ -60,7 +60,7 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelAdapt
         eventid = prefs.getString("eventid", "1");
 
 
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+       // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -100,7 +100,7 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelAdapt
 
         int resId = R.anim.layout_animation_slide_right;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
-        travelRv.setLayoutAnimation(animation);
+       // travelRv.setLayoutAnimation(animation);
 
         fetchTravel(token, eventid);
 
@@ -179,7 +179,7 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelAdapt
 
     @Override
     protected void onResume() {
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+     //   overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         super.onResume();
     }
 

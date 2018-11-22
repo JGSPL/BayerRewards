@@ -7,10 +7,10 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".Activity.HomeActivity">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:weightSum="10"
         android:orientation="vertical">
 
         <android.support.design.widget.AppBarLayout
@@ -50,6 +50,26 @@
                 android:layout_height="0.5dp"
                 android:background="@color/linecolor"/>
 
+
+
+
+        </android.support.design.widget.AppBarLayout>
+
+        <com.procialize.singleevent.CustomTools.CustomViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="9"
+            android:layout_above="@+id/tabs"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="bottom"
+            android:elevation="80dp">
+
             <android.support.design.widget.TabLayout
                 android:id="@+id/tabs"
                 android:layout_width="fill_parent"
@@ -63,13 +83,74 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <com.procialize.singleevent.CustomTools.CustomViewPager
-            android:id="@+id/viewpager"
-            style="@style/Widget.Design.TabLayout"
+
+    </LinearLayout>
+
+
+    <!--
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-    </LinearLayout>
+            android:orientation="vertical">
+
+            <android.support.design.widget.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/colortoolbar"
+                    android:contentInsetEnd="0dp"
+                    android:contentInsetLeft="0dp"
+                    android:contentInsetRight="0dp"
+                    android:contentInsetStart="0dp"
+                    android:elevation="@dimen/elevation"
+                    android:minHeight="?attr/actionBarSize"
+                    app:contentInsetEnd="0dp"
+                    app:contentInsetLeft="0dp"
+                    app:contentInsetRight="0dp"
+                    app:contentInsetStart="0dp">
+
+                    <ImageView
+                        android:id="@+id/headerlogoIv"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="-10dp"
+                        android:contentDescription=" "
+                        android:src="@drawable/header_logo" />
+
+                </android.support.v7.widget.Toolbar>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/linecolor"/>
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tabs"
+                    android:layout_width="fill_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_marginLeft="0dp"
+                    android:elevation="@dimen/elevation"
+                    app:tabGravity="fill"
+                    app:tabMode="fixed"
+                    app:tabTextAppearance="@style/MyCustomTabText"
+                    android:background="#ffff"/>
+
+            </android.support.design.widget.AppBarLayout>
+
+            <com.procialize.singleevent.CustomTools.CustomViewPager
+                android:id="@+id/viewpager"
+                style="@style/Widget.Design.TabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        </LinearLayout>
+    -->
 
 
     <android.support.design.widget.NavigationView

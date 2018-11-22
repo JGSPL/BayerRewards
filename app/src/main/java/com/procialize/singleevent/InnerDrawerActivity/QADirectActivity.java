@@ -107,7 +107,7 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
 
         int resId = R.anim.layout_animation_slide_right;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
-        qaRv.setLayoutAnimation(animation);
+       // qaRv.setLayoutAnimation(animation);
 
         QAFetch(token, eventid);
 

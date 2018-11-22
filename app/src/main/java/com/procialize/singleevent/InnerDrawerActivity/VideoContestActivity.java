@@ -69,7 +69,7 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_contest);
 
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+       // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "");
@@ -357,7 +357,7 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
 
     @Override
     protected void onResume() {
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+      //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         SelfieListFetch(token, eventid);
 
         super.onResume();

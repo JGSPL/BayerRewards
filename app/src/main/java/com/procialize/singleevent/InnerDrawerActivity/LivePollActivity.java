@@ -61,7 +61,7 @@ public class LivePollActivity extends AppCompatActivity implements PollAdapter.P
         eventid = prefs.getString("eventid", "1");
 
 
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+       // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -195,7 +195,7 @@ public class LivePollActivity extends AppCompatActivity implements PollAdapter.P
     @Override
     protected void onResume() {
         super.onResume();
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+      //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
     }
 

@@ -158,7 +158,7 @@ public class SpeakerFragment extends Fragment implements SpeakerAdapter.SpeakerA
 
         int resId = R.anim.layout_animation_slide_right;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getContext(), resId);
-        speakerrecycler.setLayoutAnimation(animation);
+        //speakerrecycler.setLayoutAnimation(animation);
 
         if (cd.isConnectingToInternet()) {
             fetchSpeaker(token, eventid);

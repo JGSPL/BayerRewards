@@ -126,7 +126,7 @@ public class AgendaFragment extends Fragment implements AgendaAdapter.AgendaAdap
 
         int resId = R.anim.layout_animation_slide_right;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getContext(), resId);
-        agendarecycler.setLayoutAnimation(animation);
+        //agendarecycler.setLayoutAnimation(animation);
 
 
         SharedPreferences prefs = getActivity().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);

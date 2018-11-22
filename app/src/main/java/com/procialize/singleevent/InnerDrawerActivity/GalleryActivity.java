@@ -61,7 +61,7 @@ public class GalleryActivity extends AppCompatActivity implements GalleryAdapter
         eventid = prefs.getString("eventid", "1");
 
 
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+      //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -100,7 +100,7 @@ public class GalleryActivity extends AppCompatActivity implements GalleryAdapter
 
         int resId = R.anim.layout_animation_slide_right;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
-        galleryRv.setLayoutAnimation(animation);
+        //galleryRv.setLayoutAnimation(animation);
 
 
         fetchGallery(token, eventid);
@@ -244,7 +244,7 @@ public class GalleryActivity extends AppCompatActivity implements GalleryAdapter
     @Override
     protected void onResume() {
         super.onResume();
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+     //   overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
     }
 
