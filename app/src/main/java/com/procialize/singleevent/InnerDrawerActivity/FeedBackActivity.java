@@ -95,7 +95,7 @@ public class FeedBackActivity extends AppCompatActivity implements FeedBackAdapt
 
         int resId = R.anim.layout_animation_slide_right;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
-        feedbackRv.setLayoutAnimation(animation);
+        //feedbackRv.setLayoutAnimation(animation);
 
 
         fetchFeedback(token, eventid);
