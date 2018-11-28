@@ -105,7 +105,7 @@ public class VideoActivity extends AppCompatActivity implements VideoAdapter.Vid
 
         int resId = R.anim.layout_animation_slide_right;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
-        videoRv.setLayoutAnimation(animation);
+       // videoRv.setLayoutAnimation(animation);
 
 
         fetchVideo(token, eventid);

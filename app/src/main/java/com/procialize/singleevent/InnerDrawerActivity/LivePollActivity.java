@@ -104,7 +104,7 @@ public class LivePollActivity extends AppCompatActivity implements PollAdapter.P
 
         int resId = R.anim.layout_animation_slide_right;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
-        pollRv.setLayoutAnimation(animation);
+      //  pollRv.setLayoutAnimation(animation);
 
 
         fetchPoll(token, eventid);

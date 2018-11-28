@@ -109,7 +109,7 @@ SpeakerActivity extends AppCompatActivity implements SpeakerAdapter.SpeakerAdapt
 
         int resId = R.anim.layout_animation_slide_right;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
-        speakerrecycler.setLayoutAnimation(animation);
+       // speakerrecycler.setLayoutAnimation(animation);
 
 
         fetchSpeaker(token, eventid);
