@@ -37,6 +37,7 @@ public class InitGeneralInfoActivity extends AppCompatActivity {
 
 //        txt_title = (TextView) findViewById(R.id.txt_title);
 //        text_maininfo = (TextView) findViewById(R.id.text_maininfo);
+        //
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
