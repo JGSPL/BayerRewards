@@ -54,7 +54,7 @@ public class MyTravelAdapterList extends BaseAdapter {
 
         if (convertView == null) {
 
-            convertView = inflater.inflate(R.layout.feedbackrow, null);
+            convertView = inflater.inflate(R.layout.travel_detail, null);
 
             holder = new ViewHolder();
 

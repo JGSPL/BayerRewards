@@ -329,7 +329,7 @@ public class QAAttendeeActivity extends AppCompatActivity implements QAAttendeeA
 
         myDialog = new Dialog(QAAttendeeActivity.this);
         myDialog.setContentView(R.layout.dialouge_msg_layout);
-        myDialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme; //style id
+//        myDialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme; //style id
 
         myDialog.show();
 

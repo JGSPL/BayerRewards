@@ -122,11 +122,16 @@ public class SpeakerAdapter extends RecyclerView.Adapter<SpeakerAdapter.MyViewHo
             holder.nameTv.setText(speaker.getFirstName() + " " + speaker.getLastName());
         }
 
-        if (speaker.getCity().equalsIgnoreCase("N A")) {
-            holder.locationTv.setText("");
-        } else {
-            holder.locationTv.setText(speaker.getCity());
+        try {
+            if (speaker.getCity().equalsIgnoreCase("N A")) {
+                holder.locationTv.setText("");
+            } else {
+                holder.locationTv.setText(speaker.getCity());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
 
         if (speaker.getDesignation().equalsIgnoreCase("N A")) {
             holder.locationTv.setText("");

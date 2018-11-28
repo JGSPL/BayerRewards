@@ -3,7 +3,9 @@ package com.procialize.singleevent.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -360,6 +362,8 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
                     rdbtn.setTextColor(Color.BLACK);
 //                rdbtn.setTypeface(typeFace);
                     rdbtn.setOnClickListener(this);
+
+
 
                     if (replyFlag.equalsIgnoreCase("1")) {
 

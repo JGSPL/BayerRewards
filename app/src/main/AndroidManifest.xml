@@ -231,6 +231,7 @@
         <activity android:name=".Activity.PostActivity"></activity>
         <activity android:name=".Activity.SelfiePost"></activity>
         <activity android:name=".Activity.PostEditActivity"></activity>
+        <activity android:name=".Activity.ViewPDFActivity"></activity>
 
     </application>
 

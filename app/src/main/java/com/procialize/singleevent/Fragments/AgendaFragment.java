@@ -29,6 +29,8 @@ import com.procialize.singleevent.GetterSetter.Analytic;
 import com.procialize.singleevent.GetterSetter.FetchAgenda;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -52,7 +54,7 @@ public class AgendaFragment extends Fragment implements AgendaAdapter.AgendaAdap
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private List<AgendaList> tempagendaList=new ArrayList<AgendaList>();
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -283,7 +285,15 @@ public class AgendaFragment extends Fragment implements AgendaAdapter.AgendaAdap
     }
 
     public void showResponse(Response<FetchAgenda> response) {
-
+        String date = "";
+        for(int i=0;i<response.body().getAgendaList().size();i++){
+            if(response.body().getAgendaList().get(i).getSessionDate().equalsIgnoreCase(date)){
+                date = response.body().getAgendaList().get(i).getSessionDate();
+                tempagendaList.add(response.body().getAgendaList().get(i));
+            }else {
+                date = response.body().getAgendaList().get(i).getSessionDate();
+            }
+        }
 
         agendaList = response.body().getAgendaList();
         procializeDB.clearAgendaTable();
