@@ -24,6 +24,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -34,6 +35,7 @@ import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.CustomTools.Connectivity;
 import com.procialize.singleevent.GetterSetter.EventListing;
+import com.procialize.singleevent.GetterSetter.Forgot;
 import com.procialize.singleevent.GetterSetter.Login;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
@@ -62,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
     String emailid, password;
     public static final int RequestPermissionCode = 8;
     ImageView headerlogoIv;
+    Dialog myDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String url = "https://www.procialize.net/home.php";
+                String url = "https://www.procialize.net";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
@@ -130,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
         createaccbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://www.procialize.net/home.php";
+                String url = "https://www.procialize.net";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
@@ -274,7 +277,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-       // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         super.onResume();
     }
 
@@ -339,23 +342,70 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public Dialog forgetPasswordDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-        // Get the layout inflater
-        LayoutInflater inflater = getLayoutInflater();
+    public void forgetPasswordDialog() {
+        myDialog = new Dialog(this);
+        myDialog.setContentView(R.layout.dialog_signin);
+//        myDialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme; //style id
 
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
-        builder.setView(inflater.inflate(R.layout.dialog_signin, null))
-                // Add action buttons
-                .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        // sign in the user ...
-                    }
-                });
+        myDialog.show();
 
-        builder.show();
-        return builder.create();
+        Button submit = myDialog.findViewById(R.id.submit);
+        final EditText edit_emailid = myDialog.findViewById(R.id.edit_emailid);
+        ImageView imgCancel = myDialog.findViewById(R.id.imgCancel);
+
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (edit_emailid.getText().toString().isEmpty()) {
+                    Toast.makeText(LoginActivity.this, "Please Enter Email Id", Toast.LENGTH_SHORT).show();
+                } else {
+                    forgotPassword(edit_emailid.getText().toString());
+                }
+            }
+        });
+
+        imgCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
+
+    }
+
+    public void forgotPassword(String email) {
+        mAPIService.ForgotPassword(email).enqueue(new Callback<Forgot>() {
+            @Override
+            public void onResponse(Call<Forgot> call, Response<Forgot> response) {
+
+                if (response.isSuccessful()) {
+                    Log.i("hit", "post submitted to API." + response.body().toString());
+                    dismissProgress();
+                    showResponseForgotP(response);
+                } else {
+                    dismissProgress();
+                    Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
+                    Log.i("hit", "post submitted to API Wrong.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Forgot> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
+                dismissProgress();
+            }
+        });
+    }
+
+    public void showResponseForgotP(Response<Forgot> response) {
+
+        if (response.body().getStatus().equals("success")) {
+            Toast.makeText(this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
+            myDialog.dismiss();
+
+        } else {
+            Toast.makeText(this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
+        }
     }
 }

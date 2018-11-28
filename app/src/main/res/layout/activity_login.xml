@@ -27,11 +27,11 @@
             android:id="@+id/textView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="@string/logindummy"
             android:textColor="@color/colorwhite"
-            android:textSize="@dimen/textsizenormal"
-            android:layout_marginTop="10dp"/>
+            android:textSize="@dimen/textsizenormal" />
 
 
         <LinearLayout
@@ -62,8 +62,8 @@
                 android:padding="15dp"
                 android:textColor="@color/colorwhite"
                 android:textColorHint="@color/colorwhite"
-                android:textSize="@dimen/textsizesmall"
-                android:textCursorDrawable="@drawable/color_cursor"/>
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:textSize="@dimen/textsizesmall" />
             <!-- </android.support.design.widget.TextInputLayout>-->
 
             <!--<android.support.design.widget.TextInputLayout
@@ -87,22 +87,21 @@
                 android:padding="15dp"
                 android:textColor="@color/colorwhite"
                 android:textColorHint="@color/colorwhite"
-                android:textSize="@dimen/textsizesmall"
-                android:textCursorDrawable="@drawable/color_cursor"/>
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:textSize="@dimen/textsizesmall" />
             <!--</android.support.design.widget.TextInputLayout>-->
 
             <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/text_forgotPswd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="right"
                 android:maxLines="1"
                 android:padding="5dp"
                 android:text="Forgot Password"
                 android:textColor="@color/colorwhite"
                 android:textColorHint="@color/colorwhite"
-                android:textSize="@dimen/textsizesmall"
-                android:gravity="right"
-                android:visibility="gone"/>
+                android:textSize="@dimen/textsizesmall" />
 
         </LinearLayout>
     </LinearLayout>
@@ -120,11 +119,11 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:background="@color/colorwhite"
-            android:text="@string/login"
             android:stateListAnimator="@null"
+            android:text="@string/login"
+            android:textAllCaps="false"
             android:textColor="@color/logintxt"
-            android:textSize="@dimen/textsizenormal"
-            android:textAllCaps="false"/>
+            android:textSize="@dimen/textsizenormal" />
 
         <com.procialize.singleevent.Fonts.RobotoTextview
             android:id="@+id/textViewOR"
@@ -140,13 +139,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:stateListAnimator="@null"
-
             android:background="@color/colorwhite"
+
+            android:stateListAnimator="@null"
             android:text="@string/create_evnt"
+            android:textAllCaps="false"
             android:textColor="@color/logintxt"
-            android:textSize="@dimen/textsizenormal"
-            android:textAllCaps="false" />
+            android:textSize="@dimen/textsizenormal" />
 
         <com.procialize.singleevent.Fonts.RobotoTextview
             android:id="@+id/textView"

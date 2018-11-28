@@ -218,7 +218,7 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
 
         myDialog = new Dialog(this);
         myDialog.setContentView(R.layout.dialouge_msg_layout);
-        myDialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme; //style id
+//        myDialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme; //style id
 
         myDialog.show();
 

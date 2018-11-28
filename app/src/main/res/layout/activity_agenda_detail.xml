@@ -228,6 +228,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:text="*Rating can be done only when the session starts"
-            android:textColor="@color/inactivetab" />
+            android:textColor="@color/inactivetab"
+            android:visibility="invisible"/>
     </RelativeLayout>
 </RelativeLayout>

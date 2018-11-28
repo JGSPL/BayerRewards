@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="300dp"
-    android:gravity="center"
+    android:layout_width="300dp"
+    android:layout_height="280dp"
+    android:layout_gravity="center|top"
     android:background="@android:color/transparent"
+    android:gravity="top"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="@dimen/margin"
-        android:background="@drawable/agenda_bg"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="10"
+            android:layout_gravity="top"
             android:background="@color/activetab"
-            android:layout_gravity="center"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="5dp">
 
-        <com.procialize.singleevent.Fonts.RobotoTextview
-            android:id="@+id/title"
-            android:layout_width="0dp"
-            android:layout_weight="8.5"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="@string/sendmsg"
-            android:textColor="@color/colorwhite"
-            android:textSize="@dimen/textsizenormal" />
+            <com.procialize.singleevent.Fonts.RobotoTextview
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="8.5"
+                android:padding="5dp"
+                android:text="@string/sendmsg"
+                android:textColor="@color/colorwhite"
+                android:textSize="@dimen/textsizenormal" />
 
             <ImageView
-                android:layout_width="20dp"
                 android:id="@+id/imgCancel"
-                android:layout_weight="1.5"
+                android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="right|center"
-                android:src="@drawable/cancel_btn"/>
+                android:layout_weight="1.5"
+                android:src="@drawable/cancel_btn" />
         </LinearLayout>
 
         <LinearLayout
@@ -99,7 +99,8 @@
                     android:id="@+id/ratebtn"
                     android:layout_width="0dp"
                     android:layout_height="35dp"
-                    android:layout_margin="@dimen/margin"
+                    android:layout_marginLeft="@dimen/margin"
+                    android:layout_marginRight="@dimen/margin"
                     android:layout_weight="1"
                     android:background="@drawable/speakerbtnbg"
                     android:elevation="@dimen/elevation"

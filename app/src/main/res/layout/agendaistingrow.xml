@@ -4,89 +4,27 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:background="@android:color/transparent"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
 
-    <com.procialize.singleevent.Fonts.RobotoTextview
-        android:id="@+id/tvheading"
+
+        <com.procialize.singleevent.Fonts.RobotoTextview
+            android:id="@+id/tvheading"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/colorwhite"
+            android:textSize="20dp"
+            android:background="@color/activetab"/>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_agenda"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@color/activetab"
-        android:gravity="center_vertical"
-        android:padding="10dp"
-        android:text=""
-        android:textColor="@color/colorwhite"
-        android:textSize="12dp" />
-
-    <LinearLayout
-        android:id="@+id/mainLL"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/agendabg"
-        android:elevation="@dimen/elevation"
-        android:orientation="horizontal"
-        android:padding="5dp"
-        android:translationZ="@dimen/elevation"
-        android:weightSum="10">
-
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="9"
-            android:orientation="vertical">
-
-            <com.procialize.singleevent.Fonts.RobotoTextview
-                android:id="@+id/nameTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/designationTv"
-                android:layout_alignTop="@+id/imageView"
-                android:paddingLeft="5dp"
-                android:text="Abheejit Saxena"
-                android:textColor="@color/activetab"
-                android:textSize="15dp"
-                android:textStyle="bold" />
-
-            <com.procialize.singleevent.Fonts.RobotoTextview
-                android:id="@+id/dateTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/nameTv"
-                android:layout_toEndOf="@+id/imageView"
-                android:paddingLeft="5dp"
-                android:text="Simens LTD"
-                android:textColor="@color/colorAccent"
-                android:textSize="@dimen/textsizesmall" />
-
-            <com.procialize.singleevent.Fonts.RobotoTextview
-                android:id="@+id/descriptionTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/designationTv"
-                android:layout_toEndOf="@+id/imageView"
-                android:paddingLeft="5dp"
-                android:text="Delhi"
-                android:textColor="@color/colorAccent"
-                android:textSize="@dimen/textsizesmall" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_rightarrow" />
-
-        </LinearLayout>
-
-    </LinearLayout>
+        android:layout_gravity="center"></android.support.v7.widget.RecyclerView>
 
 
 </LinearLayout>

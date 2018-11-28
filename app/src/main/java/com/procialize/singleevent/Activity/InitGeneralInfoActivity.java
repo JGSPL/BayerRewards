@@ -19,9 +19,27 @@ public class InitGeneralInfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_init_general_info);
+//        setContentView(R.layout.activity_init_general_info);
+
+
+        Intent intent = getIntent();
+        name = intent.getStringExtra("name");
+        description = intent.getStringExtra("description");
+
+        if(name.equalsIgnoreCase("about location")){
+            setContentView(R.layout.about_city);
+        }else if(name.equalsIgnoreCase("about hotel")){
+            setContentView(R.layout.about_hotel);
+        }else
+        {
+            setContentView(R.layout.activity_init_general_info);
+        }
+
+//        txt_title = (TextView) findViewById(R.id.txt_title);
+//        text_maininfo = (TextView) findViewById(R.id.text_maininfo);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -30,14 +48,6 @@ public class InitGeneralInfoActivity extends AppCompatActivity {
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
         Util.logomethod(this,headerlogoIv);
-
-        Intent intent = getIntent();
-        name = intent.getStringExtra("name");
-        description = intent.getStringExtra("description");
-
-        txt_title = (TextView) findViewById(R.id.txt_title);
-        text_maininfo = (TextView) findViewById(R.id.text_maininfo);
-
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,9 +55,9 @@ public class InitGeneralInfoActivity extends AppCompatActivity {
             }
         });
 
-        txt_title.setText(name);
-        txt_title.setAllCaps(true);
-        text_maininfo.setText(description);
+//        txt_title.setText(name);
+//        txt_title.setAllCaps(true);
+//        text_maininfo.setText(description);
 
 
     }

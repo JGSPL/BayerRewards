@@ -134,17 +134,24 @@ public class AttendeeAdapter extends RecyclerView.Adapter<AttendeeAdapter.MyView
             holder.nameTv.setText(attendee.getFirstName() + " " + attendee.getLastName());
             holder.nameTv.setTextColor(HomeActivity.activetab);
         }
-        if (attendee.getCity().equalsIgnoreCase("N A")) {
-            holder.locationTv.setText("");
-        } else {
-            holder.locationTv.setText(attendee.getCity());
+        try {
+            if (attendee.getCity().equalsIgnoreCase("N A")) {
+                holder.locationTv.setText("");
+            } else {
+                holder.locationTv.setText(attendee.getCity());
+            }
+
+            if (attendee.getDesignation().equalsIgnoreCase("N A")) {
+                holder.designationTv.setText("");
+            } else {
+                holder.designationTv.setText(attendee.getDesignation());
+            }
+
+
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
-        if (attendee.getDesignation().equalsIgnoreCase("N A")) {
-            holder.designationTv.setText("");
-        } else {
-            holder.designationTv.setText(attendee.getDesignation());
-        }
 
         if (attendee.getProfilePic() != null) {
 

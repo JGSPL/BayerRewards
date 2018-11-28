@@ -23,6 +23,7 @@ import com.procialize.singleevent.GetterSetter.FetchAgenda;
 import com.procialize.singleevent.GetterSetter.FetchAttendee;
 import com.procialize.singleevent.GetterSetter.FetchFeed;
 import com.procialize.singleevent.GetterSetter.FetchSpeaker;
+import com.procialize.singleevent.GetterSetter.Forgot;
 import com.procialize.singleevent.GetterSetter.GalleryListFetch;
 import com.procialize.singleevent.GetterSetter.GeneralInfoList;
 import com.procialize.singleevent.GetterSetter.GifId;
@@ -93,6 +94,10 @@ public interface APIService {
     @FormUrlEncoded
     Call<EventListing> EventListPost(@Field("email") String email,
                                      @Field("password") String password);
+
+    @POST("ForgetPassword")
+    @FormUrlEncoded
+    Call<Forgot> ForgotPassword(@Field("email") String email);
 
 
     @POST("CommentFetch")

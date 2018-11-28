@@ -12,8 +12,10 @@
         android:background="@drawable/agendabg"
         android:drawableRight="@drawable/ic_rightarrow"
         android:drawablePadding="10dp"
-        android:gravity="center"
+        android:gravity="left|center"
         android:padding="5dp"
-        android:textColor="@color/black" />
+        android:textColor="@color/activetab"
+        android:text="gh"
+        android:textAllCaps="false"/>
 
 </LinearLayout>

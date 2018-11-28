@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.procialize.singleevent.Activity.AgendaDetailActivity;
 import com.procialize.singleevent.Adapter.AgendaAdapter;
+import com.procialize.singleevent.Adapter.AgendaDateWiseAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.GetterSetter.AgendaList;
@@ -28,7 +29,12 @@ import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.Util;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 
 import cn.jzvd.JZVideoPlayer;
 import retrofit2.Call;
@@ -44,6 +50,7 @@ public class AgendaActivity extends AppCompatActivity implements AgendaAdapter.A
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
     ImageView headerlogoIv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,7 +153,15 @@ public class AgendaActivity extends AppCompatActivity implements AgendaAdapter.A
     }
 
     public void showResponse(Response<FetchAgenda> response) {
-
+//        String date = "";
+//        for(int i=0;i<response.body().getAgendaList().size();i++){
+//            if(response.body().getAgendaList().get(i).getSessionDate().equalsIgnoreCase(date)){
+//                date = response.body().getAgendaList().get(i).getSessionDate();
+//                tempagendaList.add(response.body().getAgendaList().get(i));
+//            }else {
+//                date = response.body().getAgendaList().get(i).getSessionDate();
+//            }
+//        }
         // specify an adapter (see also next example)
         try {
             AgendaAdapter agendaAdapter = new AgendaAdapter(AgendaActivity.this, response.body().getAgendaList(), this);
@@ -212,4 +227,6 @@ public class AgendaActivity extends AppCompatActivity implements AgendaAdapter.A
             }
         });
     }
+
+
 }

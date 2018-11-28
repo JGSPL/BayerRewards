@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.procialize.singleevent.Activity.PdfViewerActivity;
+import com.procialize.singleevent.Activity.ViewPDFActivity;
 import com.procialize.singleevent.Adapter.MyTravelAdapter;
 import com.procialize.singleevent.Adapter.MyTravelAdapterList;
 import com.procialize.singleevent.ApiConstant.APIService;
@@ -185,7 +186,7 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelAdapt
 
     @Override
     public void onContactSelected(TravelList travel) {
-        Intent pdfview = new Intent(this, PdfViewerActivity.class);
+        Intent pdfview = new Intent(this, ViewPDFActivity.class);
         pdfview.putExtra("url", "https://www.procialize.info/uploads/travel_gallery/" + travel.getFileName());
         startActivity(pdfview);
     }

@@ -62,7 +62,8 @@
         android:padding="@dimen/padding"
         android:text="Travel Desk"
         android:textColor="@color/activetab"
-        android:textSize="@dimen/textsizenormal" />
+        android:textSize="@dimen/textsizenormal"
+        android:layout_margin="10dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="250dp"
@@ -91,7 +92,6 @@
 
         <ListView
             android:id="@+id/travelRv"
-            android:background="@drawable/travel_bg"
             android:layout_width="fill_parent"
             android:layout_margin="10dp"
             android:layout_height="wrap_content"
