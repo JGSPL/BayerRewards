@@ -92,6 +92,8 @@ import static android.Manifest.permission.WRITE_CONTACTS;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 
+//preeti
+
 public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter.CustomMenuAdapterListner {
 
     RecyclerView menurecycler;
