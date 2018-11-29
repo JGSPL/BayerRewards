@@ -3,12 +3,15 @@ package com.procialize.singleevent.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.os.Build;
 import android.support.annotation.Nullable;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,6 +75,10 @@ public class NewsfeedAdapter extends BaseAdapter {
     String news_feed_post = "1", news_feed_images = "1", news_feed_video = "1";
     String topMgmtFlag;
     Boolean value;
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String MY_PREFS_LOGIN = "ProcializeLogin";
+    String colorActive;
+
 
 
     public NewsfeedAdapter(Context con, List<NewsFeedList> feedLists, FeedAdapterListner listener, Boolean value) {
@@ -84,6 +91,10 @@ public class NewsfeedAdapter extends BaseAdapter {
         user = sessionManager.getUserDetails();
         profilepic = user.get(SessionManager.KEY_PIC);
         topMgmtFlag = sessionManager.getSkipFlag();
+        SharedPreferences prefs = con.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        colorActive = prefs.getString("colorActive","");
+
+
 
     }
 
@@ -333,6 +344,8 @@ public class NewsfeedAdapter extends BaseAdapter {
         } else {
             holder.post_layout.setVisibility(RelativeLayout.GONE);
         }
+
+        holder.nameTv.setTextColor(Color.parseColor(colorActive));
         feed = feedLists.get(position);
         if (feed.getLastName() == null) {
             holder.nameTv.setText(feed.getFirstName());
@@ -384,9 +397,16 @@ public class NewsfeedAdapter extends BaseAdapter {
 
         if (feed.getLikeFlag().equals("1")) {
 
+           // holder.img_like.setBackgroundResource(R.drawable.ic_afterlike);
 
             holder.img_like.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_afterlike, 0);
-//            holder.img_like.setBackgroundResource(R.drawable.ic_afterlike);
+            int colorInt = Color.parseColor(colorActive);
+
+            /*ColorStateList csl = ColorStateList.valueOf(colorInt);
+            Drawable drawable = DrawableCompat.wrap(holder.img_like.getDrawableState());
+            DrawableCompat.setTintList(drawable, csl);
+            holder.img_like.setImageDrawable(drawable);
+*/
 
         } else {
             holder.img_like.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_like, 0);

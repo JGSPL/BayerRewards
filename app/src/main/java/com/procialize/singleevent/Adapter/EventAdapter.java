@@ -1,8 +1,12 @@
 package com.procialize.singleevent.Adapter;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
+import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,7 +57,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTv, locationTv, designationTv, eventnaem;
-        public ImageView profileIv;
+        public ImageView profileIv, imgArrow;
         public LinearLayout mainLL;
         public ProgressBar progressBar;
 
@@ -63,6 +67,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
             locationTv = view.findViewById(R.id.locationTv);
             designationTv = view.findViewById(R.id.designationTv);
             eventnaem = view.findViewById(R.id.eventnaem);
+            imgArrow = view.findViewById(R.id.imgArrow);
 
             profileIv = view.findViewById(R.id.profileIV);
 
@@ -99,6 +104,15 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final UserEventList evnt = eventListfilter.get(position);
+
+
+        holder.eventnaem.setBackgroundColor(Color.parseColor(evnt.getPrimary_color_code()));
+        int colorInt = Color.parseColor(evnt.getPrimary_color_code());
+
+        ColorStateList csl = ColorStateList.valueOf(colorInt);
+        Drawable drawable = DrawableCompat.wrap(holder.imgArrow.getDrawable());
+        DrawableCompat.setTintList(drawable, csl);
+        holder.imgArrow.setImageDrawable(drawable);
 
         holder.nameTv.setText(evnt.getName());
         holder.locationTv.setText(evnt.getLocation());
