@@ -2,12 +2,14 @@ package com.procialize.singleevent.InnerDrawerActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.R;
@@ -26,7 +28,7 @@ public class EngagementActivity extends AppCompatActivity {
     HashMap<String, String> user;
     String engagement_selfie_contest = "0", engagement_video_contest = "0";
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid;
+    String eventid,colorActive;
     ImageView headerlogoIv;
 
     @Override
@@ -37,6 +39,7 @@ public class EngagementActivity extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -59,6 +62,13 @@ public class EngagementActivity extends AppCompatActivity {
 
         selfiecard_view = findViewById(R.id.selfiecard_view);
         videocard_view = findViewById(R.id.videocard_view);
+
+        TextView header = (TextView)findViewById(R.id.title);
+        header.setTextColor(Color.parseColor(colorActive));
+        TextView selfieTv = (TextView)findViewById(R.id.selfieTv);
+        selfieTv.setTextColor(Color.parseColor(colorActive));
+        TextView videoTv = (TextView)findViewById(R.id.videoTv);
+        videoTv.setTextColor(Color.parseColor(colorActive));
 
 
         SessionManager sessionManager = new SessionManager(this);

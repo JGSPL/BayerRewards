@@ -3,6 +3,7 @@ package com.procialize.singleevent.InnerDrawerActivity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -68,7 +69,7 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
     List<SelfieList> selfieLists;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
-    String user_id;
+    String user_id,colorActive;
     ImageView headerlogoIv;
 
     @Override
@@ -79,6 +80,7 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -101,6 +103,12 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
         uploadbtn = findViewById(R.id.uploadbtn);
         selfiefeedrefresh = findViewById(R.id.selfiefeedrefresh);
         selfierecycler = findViewById(R.id.selfierecycler);
+        TextView header = (TextView)findViewById(R.id.title);
+        header.setTextColor(Color.parseColor(colorActive));
+        uploadbtn.setBackgroundColor(Color.parseColor(colorActive));
+
+
+
         selfieLists = new ArrayList<>();
 
         int columns = 2;

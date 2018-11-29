@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -76,7 +77,7 @@ public class VideoContestUploadActivity extends AppCompatActivity {
     private static final int REQUEST_VIDEO_CAPTURE = 300;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventId;
+    String eventId,colorActive;
     String angle = "0";
     ImageView headerlogoIv;
 
@@ -86,6 +87,8 @@ public class VideoContestUploadActivity extends AppCompatActivity {
         setContentView(R.layout.activity_video_upload);
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventId = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -108,6 +111,8 @@ public class VideoContestUploadActivity extends AppCompatActivity {
 
         displayRecordedVideo = findViewById(R.id.videopreview);
         btnSubmit = findViewById(R.id.btnSubmit);
+
+        btnSubmit.setBackgroundColor(Color.parseColor(colorActive));
         editTitle = findViewById(R.id.editTitle);
         imgPlay = (ImageView) findViewById(R.id.imgPlay);
         progressBar = findViewById(R.id.progressBar);

@@ -3,6 +3,7 @@ package com.procialize.singleevent.InnerDrawerActivity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -61,7 +62,7 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
     Dialog myDialog;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
-    String user_id;
+    String user_id,colorActive;
     ImageView headerlogoIv;
 
     @Override
@@ -73,6 +74,7 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "");
+        colorActive = prefs.getString("colorActive","");
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -95,6 +97,8 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
         uploadbtn = findViewById(R.id.uploadbtn);
         videofeedrefresh = findViewById(R.id.videofeedrefresh);
         videorecycler = findViewById(R.id.videorecycler);
+        TextView header = (TextView)findViewById(R.id.title);
+        header.setTextColor(Color.parseColor(colorActive));
 
 
         int columns = 2;
@@ -118,6 +122,7 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
         // token
         // token
         token = user.get(SessionManager.KEY_TOKEN);
+        uploadbtn.setBackgroundColor(Color.parseColor(colorActive));
 
         uploadbtn.setOnClickListener(new View.OnClickListener() {
             @Override

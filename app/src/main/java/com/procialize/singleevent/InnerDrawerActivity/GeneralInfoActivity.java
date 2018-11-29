@@ -4,7 +4,10 @@ import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -47,12 +50,12 @@ import retrofit2.Response;
 public class GeneralInfoActivity extends AppCompatActivity implements GeneralInfoListAdapter.GeneralInfoListener {
 
     List<EventSettingList> eventSettingLists;
-    TextView weather_tv, abtcurency_tv, about_hotel, pullrefresh;
+    TextView weather_tv, abtcurency_tv, about_hotel, pullrefresh,genHeader;
     private APIService mAPIService;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
     List<InfoList> generalinfoLists;
-    LinearLayout linearlayout;
+    LinearLayout linearlayout,general_info_cur,general_info_wea;
     SwipeRefreshLayout generalInforefresh;
     LinearLayout.LayoutParams params;
     TextView textView;
@@ -60,7 +63,7 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
     GeneralInfoListAdapter generalInfoListAdapter;
     RecyclerView general_item_list;
     ProgressBar progressBar;
-    String api_token;
+    String api_token,colorActive;
     ImageView headerlogoIv;
 
     @Override
@@ -77,6 +80,8 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
         pullrefresh = (TextView) findViewById(R.id.pullrefresh);
         generalInforefresh = findViewById(R.id.generalInforefresh);
         general_item_list = findViewById(R.id.general_item_list);
+        genHeader=findViewById(R.id.genHeader);
+
         back = findViewById(R.id.back);
         progressBar = findViewById(R.id.progressBar);
 
@@ -85,10 +90,40 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
         mAPIService = ApiUtils.getAPIService();
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
+
+
         params = new LinearLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
 
         // Create TextView programmatically.
         textView = new TextView(GeneralInfoActivity.this);
+
+        weather_tv.setTextColor(Color.parseColor(colorActive));
+        abtcurency_tv.setTextColor(Color.parseColor(colorActive));
+        genHeader.setTextColor(Color.parseColor(colorActive));
+
+
+        general_info_wea = (LinearLayout) findViewById(R.id.general_info_wea);
+        general_info_cur = (LinearLayout) findViewById(R.id.general_info_cur);
+
+        ImageView ic_rightarrow = (ImageView) findViewById(R.id.ic_rightarrow);
+        ImageView ic_rightarrow1 = (ImageView) findViewById(R.id.ic_rightarrow1);
+        int colorInt = Color.parseColor(colorActive);
+
+        ColorStateList csl = ColorStateList.valueOf(colorInt);
+        Drawable drawable = DrawableCompat.wrap(ic_rightarrow.getDrawable());
+        DrawableCompat.setTintList(drawable, csl);
+        ic_rightarrow.setImageDrawable(drawable);
+        int colorInt2 = Color.parseColor(colorActive);
+
+        ColorStateList csl2 = ColorStateList.valueOf(colorInt2);
+
+        Drawable drawable1 = DrawableCompat.wrap(ic_rightarrow1.getDrawable());
+        DrawableCompat.setTintList(drawable1, csl2);
+        ic_rightarrow1.setImageDrawable(drawable1);
+
+
+
 
 
         HashMap<String, String> user = sessionManager.getUserDetails();
@@ -104,6 +139,8 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
             if (eventName.equalsIgnoreCase("gen_info_weather")) {
                 if (eventValue.equalsIgnoreCase("1")) {
                     weather_tv.setVisibility(View.VISIBLE);
+                    general_info_wea.setVisibility(View.VISIBLE);
+
                 }
 
             }
@@ -111,6 +148,8 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
             if (eventName.equalsIgnoreCase("gen_info_currency_converter")) {
                 if (eventValue.equalsIgnoreCase("1")) {
                     abtcurency_tv.setVisibility(View.VISIBLE);
+                    general_info_cur.setVisibility(View.VISIBLE);
+
                 }
             }
         }

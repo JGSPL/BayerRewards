@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Typeface;
@@ -109,7 +110,7 @@ public class SelfiePost extends Activity {
     String MY_PREFS_NAME = "ProcializeInfo";
     String name = "";
 
-    String eventId;
+    String eventId,colorActive;
     ProgressBar progressBar;
 
     @Override
@@ -143,6 +144,9 @@ public class SelfiePost extends Activity {
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventId = prefs.getString("eventid", "");
+        colorActive = prefs.getString("colorActive","");
+
+        btnSubmit.setBackgroundColor(Color.parseColor(colorActive));
 
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {

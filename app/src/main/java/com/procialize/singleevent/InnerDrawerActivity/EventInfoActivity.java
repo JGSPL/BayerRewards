@@ -127,6 +127,8 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
 
         TextView header = (TextView)findViewById(R.id.event_info_heading);
         header.setTextColor(Color.parseColor(colorActive));
+        nameTv.setTextColor(Color.parseColor(colorActive));
+
 
         RelativeLayout layoutTop = (RelativeLayout)findViewById(R.id.layoutTop);
         layoutTop.setBackgroundColor(Color.parseColor(colorActive));
