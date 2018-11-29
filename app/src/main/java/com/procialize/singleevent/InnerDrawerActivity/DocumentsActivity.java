@@ -3,6 +3,7 @@ package com.procialize.singleevent.InnerDrawerActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -52,7 +53,7 @@ public class DocumentsActivity extends AppCompatActivity implements DocumentsAda
     RecyclerView docRv;
     ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid, logoImg;
+    String eventid, logoImg,colorActive;
     ImageView headerlogoIv;
 
 
@@ -65,6 +66,7 @@ public class DocumentsActivity extends AppCompatActivity implements DocumentsAda
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
         logoImg = prefs.getString("logoImg","");
+        colorActive = prefs.getString("colorActive","");
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -98,6 +100,10 @@ public class DocumentsActivity extends AppCompatActivity implements DocumentsAda
         }).into(headerlogoIv);
 
         docRv = findViewById(R.id.docRv);
+
+        TextView header = (TextView)findViewById(R.id.title);
+        header.setTextColor(Color.parseColor(colorActive));
+
         docRvrefresh = findViewById(R.id.docRvrefresh);
         progressBar = findViewById(R.id.progressBar);
 

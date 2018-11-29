@@ -66,9 +66,9 @@ public class EngagementActivity extends AppCompatActivity {
         TextView header = (TextView)findViewById(R.id.title);
         header.setTextColor(Color.parseColor(colorActive));
         TextView selfieTv = (TextView)findViewById(R.id.selfieTv);
-        selfieTv.setTextColor(Color.parseColor(colorActive));
+        selfieTv.setBackgroundColor(Color.parseColor(colorActive));
         TextView videoTv = (TextView)findViewById(R.id.videoTv);
-        videoTv.setTextColor(Color.parseColor(colorActive));
+        videoTv.setBackgroundColor(Color.parseColor(colorActive));
 
 
         SessionManager sessionManager = new SessionManager(this);

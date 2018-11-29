@@ -80,7 +80,7 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
         pullrefresh = (TextView) findViewById(R.id.pullrefresh);
         generalInforefresh = findViewById(R.id.generalInforefresh);
         general_item_list = findViewById(R.id.general_item_list);
-        genHeader=findViewById(R.id.genHeader);
+        genHeader=findViewById(R.id.header);
 
         back = findViewById(R.id.back);
         progressBar = findViewById(R.id.progressBar);
