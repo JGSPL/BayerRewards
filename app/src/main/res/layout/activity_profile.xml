@@ -66,48 +66,76 @@
                     android:gravity="center"
                     android:text="Edit Profile"
                     android:textColor="@color/activetab"
-                    android:textSize="@dimen/textsizebigger" />
+                    android:textSize="@dimen/textsizenormal" />
 
                 <RelativeLayout
-                    android:id="@+id/linear_upload"
+                    android:id="@+id/relative"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center">
+                    android:layout_below="@+id/attendeetitle"
+                    android:layout_marginTop="10dp">
 
-                    <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/profileIV"
-                        android:layout_width="90dp"
-                        android:layout_height="98dp"
-                        android:layout_centerInParent="true"
+                    <RelativeLayout
+                        android:id="@+id/layoutTop"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:background="@color/activetab"></RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/layoutBottom"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_below="@id/layoutTop"
+                        android:background="@drawable/agendabg">
+
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@id/layoutBottom"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="-40dp"
                         android:adjustViewBounds="true"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/profilepic_placeholder" />
+                        android:id="@+id/linear_upload">
 
-                    <ProgressBar
-                        android:id="@+id/progressView"
-                        android:layout_width="96dp"
-                        android:layout_height="96dp"
-                        android:layout_centerInParent="true"
-                        android:layout_gravity="center"
-                        android:visibility="visible" />
+                        <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/profileIV"
+                            android:layout_width="90dp"
+                            android:layout_height="98dp"
+                            android:layout_centerInParent="true"
+                            android:adjustViewBounds="true"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/profilepic_placeholder" />
 
+                        <ProgressBar
+                            android:id="@+id/progressView"
+                            android:layout_width="96dp"
+                            android:layout_height="96dp"
+                            android:layout_centerInParent="true"
+                            android:layout_gravity="center"
+                            android:visibility="visible" />
+
+                    </RelativeLayout>
                 </RelativeLayout>
 
                 <com.procialize.singleevent.Fonts.RobotoTextview
                     android:id="@+id/txt_upload"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin"
                     android:gravity="center"
                     android:text="Upload Photo"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textsizenormal" />
+                    android:textColor="@color/trans"
+                    android:textSize="@dimen/textsizenormal"
+                    android:background="@drawable/agendabg"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:padding="10dp">
+                    android:padding="10dp"
+                    android:background="@drawable/agendabg">
 
 
                     <android.support.design.widget.TextInputLayout
@@ -115,7 +143,8 @@
                         style="@style/TextAppearence.App.TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColorHint="@color/black">
+                        android:textColorHint="@color/trans"
+                        android:layout_marginTop="10dp">
 
                         <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                             android:id="@+id/Etfirstname"
@@ -133,7 +162,8 @@
                         style="@style/TextAppearence.App.TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColorHint="@color/black">
+                        android:textColorHint="@color/trans"
+                        android:layout_marginTop="10dp">
 
                         <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                             android:id="@+id/Etlastname"
@@ -151,7 +181,8 @@
                         style="@style/TextAppearence.App.TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColorHint="@color/black">
+                        android:textColorHint="@color/trans"
+                        android:layout_marginTop="10dp">
 
                         <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                             android:id="@+id/Etdesignation"
@@ -169,7 +200,8 @@
                         style="@style/TextAppearence.App.TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColorHint="@color/black">
+                        android:textColorHint="@color/trans"
+                        android:layout_marginTop="10dp">
 
                         <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                             android:id="@+id/Etcompany"
@@ -186,7 +218,8 @@
                         style="@style/TextAppearence.App.TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColorHint="@color/black">
+                        android:textColorHint="@color/trans"
+                        android:layout_marginTop="10dp">
 
                         <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                             android:id="@+id/Etmobile"
@@ -204,8 +237,9 @@
                         style="@style/TextAppearence.App.TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColorHint="@color/black"
-                        android:visibility="gone">
+                        android:textColorHint="@color/trans"
+                        android:visibility="gone"
+                        android:layout_marginTop="10dp">
 
                         <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                             android:id="@+id/Etdescription"
@@ -223,7 +257,8 @@
                         style="@style/TextAppearence.App.TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColorHint="@color/black">
+                        android:textColorHint="@color/trans"
+                        android:layout_marginTop="10dp">
 
                         <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                             android:id="@+id/Etcity"
@@ -240,7 +275,8 @@
                         style="@style/TextAppearence.App.TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColorHint="@color/black">
+                        android:textColorHint="@color/trans"
+                        android:layout_marginTop="10dp">
 
                         <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                             android:id="@+id/Etemail"
@@ -257,8 +293,9 @@
                         style="@style/TextAppearence.App.TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColorHint="@color/black"
-                        android:visibility="gone">
+                        android:textColorHint="@color/trans"
+                        android:visibility="gone"
+                        android:layout_marginTop="10dp">
 
                         <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                             android:id="@+id/Etcountry"
@@ -271,28 +308,29 @@
                     </android.support.design.widget.TextInputLayout>
 
 
-                    <com.procialize.singleevent.Fonts.RobotoButton
-                        android:id="@+id/savebtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/linearLayout"
-                        android:layout_centerHorizontal="true"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="30dp"
-                        android:background="@drawable/loginbutton"
-                        android:paddingLeft="70dp"
-                        android:paddingRight="70dp"
-                        android:stateListAnimator="@null"
-                        android:text="@string/save"
-                        android:textColor="@color/colorwhite"
-                        android:textSize="@dimen/textsizesmall"
-                        android:textStyle="bold" />
+
 
 
                 </LinearLayout>
 
-
+                <com.procialize.singleevent.Fonts.RobotoButton
+                    android:id="@+id/savebtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linearLayout"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/loginbutton"
+                    android:paddingLeft="70dp"
+                    android:paddingRight="70dp"
+                    android:stateListAnimator="@null"
+                    android:text="@string/save"
+                    android:textColor="@color/colorwhite"
+                    android:textSize="@dimen/textsizesmall"
+                    android:textStyle="bold"
+                    android:textAllCaps="false"/>
             </LinearLayout>
 
 

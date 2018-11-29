@@ -104,5 +104,6 @@
         android:layout_margin="10dp"
         android:background="@drawable/speakerbtnbg"
         android:text="Submit"
-        android:textColor="@color/colorwhite" />
+        android:textColor="@color/colorwhite"
+        android:textAllCaps="false"/>
 </RelativeLayout>
