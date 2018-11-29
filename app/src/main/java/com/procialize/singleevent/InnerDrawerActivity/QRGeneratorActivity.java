@@ -1,5 +1,6 @@
 package com.procialize.singleevent.InnerDrawerActivity;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -25,13 +26,16 @@ import cn.jzvd.JZVideoPlayer;
 public class QRGeneratorActivity extends AppCompatActivity {
 
     TextView nameTv, companyTv, cityTv, emailTv, mobileTv,
-            scan_id_txtTv, designationTv;
+            scan_id_txtTv, designationTv,header;
     SessionManager sessionManager;
     String name, designation, company, email, mobile, city, lname;
     ImageView img_qr_code_image;
     String QRcode;
     public final static int WIDTH = 500;
     ImageView headerlogoIv;
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String colorActive;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,10 @@ public class QRGeneratorActivity extends AppCompatActivity {
         headerlogoIv = findViewById(R.id.headerlogoIv);
         Util.logomethod(this,headerlogoIv);
 
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        colorActive = prefs.getString("colorActive","");
+
+
         sessionManager = new SessionManager(this);
 
         // get user data from session
@@ -75,9 +83,11 @@ public class QRGeneratorActivity extends AppCompatActivity {
 
         scan_id_txtTv = findViewById(R.id.scan_id_txt);
 
-
+        header= findViewById(R.id.header);
+        header.setTextColor(Color.parseColor(colorActive));
         nameTv = findViewById(R.id.name);
         nameTv.setText("Name :  " + name + " " + lname);
+        nameTv.setTextColor(Color.parseColor(colorActive));
 
 //      designationTv = findViewById(R.id.designation);
 //      designationTv.setText("Designation: " + designation);

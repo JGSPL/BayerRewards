@@ -1,7 +1,9 @@
 package com.procialize.singleevent.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -35,6 +37,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import static android.content.Context.MODE_PRIVATE;
+
 
 /**
  * Created by Naushad on 10/31/2017.
@@ -45,6 +49,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
     public List<CommentDataList> commentLists;
     private Context context;
     private CommentAdapterListner listener;
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String MY_PREFS_LOGIN = "ProcializeLogin";
+    String colorActive;
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTv, commentTv, dateTv;
@@ -93,6 +101,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
         this.commentLists = commentLists;
         this.listener = listener;
         this.context = context;
+        SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        colorActive = prefs.getString("colorActive","");
+
     }
 
     @Override
@@ -106,7 +117,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         CommentDataList comment = commentLists.get(position);
-
+        holder.nameTv.setTextColor(Color.parseColor(colorActive));
 
 //        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
         holder.nameTv.setText(comment.getFirstName() + " " + comment.getLastName());

@@ -1,11 +1,14 @@
 package com.procialize.singleevent.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
@@ -14,6 +17,8 @@ import com.procialize.singleevent.GetterSetter.LivePollOptionList;
 import com.procialize.singleevent.R;
 
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by Naushad on 10/31/2017.
@@ -25,15 +30,21 @@ public class PollAdapter extends RecyclerView.Adapter<PollAdapter.MyViewHolder> 
     private List<LivePollOptionList> optionLists;
     private Context context;
     private PollAdapterListner listener;
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String MY_PREFS_LOGIN = "ProcializeLogin";
+    String colorActive;
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTv;
         public ImageView imageIv;
+        public LinearLayout mainLL;
 
         public MyViewHolder(View view) {
             super(view);
             nameTv =  view.findViewById(R.id.nameTv);
             imageIv = view.findViewById(R.id.imageIv);
+            mainLL = view.findViewById(R.id.mainLL);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -51,6 +62,9 @@ public class PollAdapter extends RecyclerView.Adapter<PollAdapter.MyViewHolder> 
         this.optionLists = optionLists;
         this.listener=listener;
         this.context=context;
+        SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        colorActive = prefs.getString("colorActive","");
+
     }
 
     @Override
@@ -65,7 +79,7 @@ public class PollAdapter extends RecyclerView.Adapter<PollAdapter.MyViewHolder> 
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final LivePollList pollList = pollLists.get(position);
 
-
+        holder.mainLL.setBackgroundColor(Color.parseColor(colorActive));
 
         holder.nameTv.setText(pollList.getQuestion());
 

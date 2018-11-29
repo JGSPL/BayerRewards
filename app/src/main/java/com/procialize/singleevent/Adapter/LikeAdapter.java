@@ -32,6 +32,10 @@ public class LikeAdapter extends RecyclerView.Adapter<LikeAdapter.MyViewHolder> 
     private List<AttendeeList> attendeeListList;
     private Context context;
 //    private LikeAdapterListner listener;
+String MY_PREFS_NAME = "ProcializeInfo";
+    String MY_PREFS_LOGIN = "ProcializeLogin";
+    String colorActive;
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTv;

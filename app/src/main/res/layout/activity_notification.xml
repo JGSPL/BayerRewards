@@ -61,6 +61,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/activetab"
         android:gravity="center"
+        android:id="@+id/notyHeader"
         android:padding="@dimen/padding"
         android:textSize="@dimen/textsizenormal"
         android:text="@string/notification"

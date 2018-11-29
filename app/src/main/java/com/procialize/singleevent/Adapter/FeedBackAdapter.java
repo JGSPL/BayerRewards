@@ -23,6 +23,10 @@ public class FeedBackAdapter extends RecyclerView.Adapter<FeedBackAdapter.MyView
     private List<SurveyList> surveyLists;
     private Context context;
     private FeedBackAdapterListner listener;
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String MY_PREFS_LOGIN = "ProcializeLogin";
+    String colorActive;
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTv;
 

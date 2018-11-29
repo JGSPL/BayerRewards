@@ -13,16 +13,18 @@
         android:id="@+id/mainLL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:weightSum="10"
         android:elevation="@dimen/elevation"
+        android:padding="10dp"
         android:orientation="horizontal"
         android:translationZ="@dimen/elevation">
 
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
+            android:layout_weight="9"
             android:orientation="horizontal">
 
             <com.procialize.singleevent.Fonts.RobotoTextview
@@ -32,7 +34,6 @@
                 android:layout_alignStart="@+id/designationTv"
                 android:layout_alignTop="@+id/imageView"
                 android:drawablePadding="5dp"
-                android:drawableRight="@drawable/ic_rightarrow"
                 android:gravity="center|center_vertical"
                 android:paddingBottom="5dp"
                 android:paddingLeft="10dp"
@@ -42,6 +43,20 @@
                 android:textSize="@dimen/textsizenormal" />
 
         </LinearLayout>
+        <LinearLayout
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/ic_rightarrow"
+                android:src="@drawable/ic_rightarrow"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

@@ -1,14 +1,19 @@
 package com.procialize.singleevent.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
@@ -29,6 +34,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by Naushad on 10/31/2017.
  */
@@ -38,12 +45,17 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     private List<NotificationList> notificationLists;
     private Context context;
     private NotificationAdapterListner listener;
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String MY_PREFS_LOGIN = "ProcializeLogin";
+    String colorActive;
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTv,dataTv,messageTV;
         public ImageView profileIv;
         Button replyBtn;
         ImageView arrowIv,ivtype;
+        LinearLayout notiLin;
         private ProgressBar progressView;
 
         public MyViewHolder(View view) {
@@ -51,7 +63,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             nameTv =  view.findViewById(R.id.nameTv);
             dataTv =  view.findViewById(R.id.dataTv);
             messageTV =  view.findViewById(R.id.messageTV);
-
+            notiLin = view.findViewById(R.id.notiLin);
             replyBtn =  view.findViewById(R.id.replyBtn);
 
             arrowIv =  view.findViewById(R.id.arrowIv);
@@ -81,6 +93,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         this.notificationLists = notificationLists;
         this.listener=listener;
         this.context=context;
+
+        SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        colorActive = prefs.getString("colorActive","");
+
     }
 
     @Override
@@ -94,6 +110,16 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final NotificationList notificationList = notificationLists.get(position);
+
+        holder.notiLin.setBackgroundColor(Color.parseColor( colorActive));
+        holder.nameTv.setTextColor(Color.parseColor(colorActive));
+        int colorInt = Color.parseColor(colorActive);
+
+        ColorStateList csl = ColorStateList.valueOf(colorInt);
+        Drawable drawable = DrawableCompat.wrap(holder.arrowIv.getDrawable());
+        DrawableCompat.setTintList(drawable, csl);
+        holder.arrowIv.setImageDrawable(drawable);
+
 
         holder.nameTv.setText(notificationList.getAttendeeFirstName()+" "+notificationList.getAttendeeLastName());
 

@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -56,7 +57,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
     RecyclerView notificationRv;
     //    ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid,logoImg;
+    String eventid,logoImg,colorActive;
     private DBHelper procializeDB;
     private SQLiteDatabase db;
     private DBHelper dbHelper;
@@ -71,6 +72,8 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
         logoImg = prefs.getString("logoImg","");
+        colorActive = prefs.getString("colorActive","");
+
 
         procializeDB = new DBHelper(NotificationActivity.this);
         db = procializeDB.getWritableDatabase();
@@ -108,6 +111,8 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
         }).into(headerlogoIv);
 
 
+        TextView notyHeader = findViewById(R.id.notyHeader);
+        notyHeader.setTextColor(Color.parseColor(colorActive));
         notificationRv = findViewById(R.id.notificationRv);
 //        progressBar = findViewById(R.id.progressBar);
         notificationRvrefresh = findViewById(R.id.notificationRvrefresh);

@@ -5,9 +5,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -70,6 +74,7 @@ public class GeneralInfo extends Fragment implements GeneralInfoListAdapter.Gene
 
 
 
+
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -95,6 +100,23 @@ public class GeneralInfo extends Fragment implements GeneralInfoListAdapter.Gene
 
         general_info_wea = (LinearLayout) view.findViewById(R.id.general_info_wea);
         general_info_cur = (LinearLayout) view.findViewById(R.id.general_info_cur);
+
+        ImageView ic_rightarrow = (ImageView) view.findViewById(R.id.ic_rightarrow);
+        ImageView ic_rightarrow1 = (ImageView) view.findViewById(R.id.ic_rightarrow1);
+        int colorInt = Color.parseColor(colorActive);
+
+        ColorStateList csl = ColorStateList.valueOf(colorInt);
+        Drawable drawable = DrawableCompat.wrap(ic_rightarrow.getDrawable());
+        DrawableCompat.setTintList(drawable, csl);
+        ic_rightarrow.setImageDrawable(drawable);
+
+
+        Drawable drawable1 = DrawableCompat.wrap(ic_rightarrow1.getDrawable());
+        DrawableCompat.setTintList(drawable1, csl);
+        ic_rightarrow1.setImageDrawable(drawable1);
+
+
+
 
         pullrefresh = (TextView) view.findViewById(R.id.pullrefresh);
         generalInforefresh = view.findViewById(R.id.generalInforefresh);

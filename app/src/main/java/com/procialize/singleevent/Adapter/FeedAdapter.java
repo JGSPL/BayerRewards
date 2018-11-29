@@ -74,6 +74,10 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
     String news_feed_like, news_feed_comment, news_feed_share;
     List<EventSettingList> eventSettingLists;
     HashMap<String, String> user;
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String MY_PREFS_LOGIN = "ProcializeLogin";
+    String colorActive;
+
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

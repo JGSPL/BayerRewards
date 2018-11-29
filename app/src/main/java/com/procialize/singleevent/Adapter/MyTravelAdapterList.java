@@ -2,7 +2,12 @@ package com.procialize.singleevent.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.procialize.singleevent.GetterSetter.TravelList;
@@ -17,16 +23,26 @@ import com.procialize.singleevent.R;
 
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class MyTravelAdapterList extends BaseAdapter {
     private List<TravelList> travelLists;
     private Context context;
     private MyTravelAdapterListner listener;
     private LayoutInflater inflater;
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String MY_PREFS_LOGIN = "ProcializeLogin";
+    String colorActive;
+
 
     public MyTravelAdapterList(Context context, List<TravelList> travelList, MyTravelAdapterListner listener) {
         this.travelLists = travelList;
         this.listener = listener;
         this.context = context;
+
+        SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        colorActive = prefs.getString("colorActive","");
+
     }
 
     @Override
@@ -65,6 +81,8 @@ public class MyTravelAdapterList extends BaseAdapter {
 
 
             holder.nameTv = (TextView) convertView.findViewById(R.id.nameTv);
+            holder.ic_rightarrow = (ImageView) convertView.findViewById(R.id.ic_rightarrow);
+            holder.linTicket = (LinearLayout) convertView.findViewById(R.id.linTicket);
 
 
             convertView.setTag(holder);
@@ -72,6 +90,15 @@ public class MyTravelAdapterList extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+
+        holder.linTicket.setBackgroundColor(Color.parseColor(colorActive));
+        int colorInt = Color.parseColor(colorActive);
+
+        ColorStateList csl = ColorStateList.valueOf(colorInt);
+        Drawable drawable = DrawableCompat.wrap(holder.ic_rightarrow.getDrawable());
+        DrawableCompat.setTintList(drawable, csl);
+        holder.ic_rightarrow.setImageDrawable(drawable);
+
 
         holder.nameTv.setText(travel.getTitle());
         holder.nameTv.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +113,9 @@ public class MyTravelAdapterList extends BaseAdapter {
 
     static class ViewHolder {
         public TextView nameTv;
+
+        ImageView ic_rightarrow;
+        LinearLayout linTicket;
     }
 
     public interface MyTravelAdapterListner {

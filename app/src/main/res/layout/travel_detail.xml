@@ -9,6 +9,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/speakerbtnbg"
         android:gravity="center"
+        android:id="@+id/linTicket"
         android:orientation="vertical">
 
         <ImageView
@@ -26,8 +27,14 @@
         android:layout_height="match_parent"
         android:layout_marginRight="10dp"
         android:background="@drawable/pollquizrow"
-        android:orientation="vertical"
+        android:orientation="horizontal"
+        android:weightSum="10"
         android:padding="5dp">
+        <LinearLayout
+            android:gravity="center"
+            android:layout_weight="9"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
 
 
         <com.procialize.singleevent.Fonts.RobotoTextview
@@ -38,12 +45,26 @@
             android:layout_alignTop="@+id/imageView"
             android:layout_gravity="top"
             android:drawablePadding="5dp"
-            android:drawableRight="@drawable/ic_rightarrow"
             android:gravity="center|center_horizontal"
             android:padding="5dp"
             android:text="Abheejit Saxena"
             android:textColor="@color/black"
             android:textSize="@dimen/textsizenormal" />
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/ic_rightarrow"
+                android:src="@drawable/ic_rightarrow"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp" />
+
+        </LinearLayout>
+
 
 
     </LinearLayout>

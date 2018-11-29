@@ -3,6 +3,7 @@ package com.procialize.singleevent.InnerDrawerActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -48,7 +49,7 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelAdapt
     ListView travelRv;
     ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid;
+    String eventid, colorActive;
     TextView empty;
     ImageView headerlogoIv;
 
@@ -59,9 +60,11 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelAdapt
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
 
 
-       // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+
+        // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -84,6 +87,8 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelAdapt
 //        travelRvrefresh = findViewById(R.id.travelRvrefresh);
         progressBar = findViewById(R.id.progressBar);
 
+        TextView travelHeader = findViewById(R.id.travelHeader);
+        travelHeader.setTextColor(Color.parseColor(colorActive));
 
         mAPIService = ApiUtils.getAPIService();
 
