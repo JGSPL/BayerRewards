@@ -3,7 +3,10 @@ package com.procialize.singleevent.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -43,7 +46,7 @@ import retrofit2.Response;
 public class SpeakerDetailsActivity extends AppCompatActivity {
 
     String speakerid, city, country, company, designation, description, totalrating, name, profile;
-    TextView tvname, tvcompany, tvdesignation, tvcity;
+    TextView tvname, tvcompany, tvdesignation, tvcity,speakertitle;
     ImageView profileIV;
     Button ratebtn;
     APIService mAPIService;
@@ -55,9 +58,9 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
     List<EventSettingList> eventSettingLists;
     ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid;
+    String eventid,colorActive;
     View viewthree, viewtwo, viewone;
-    RelativeLayout ratinglayout;
+    RelativeLayout ratinglayout,layoutTop;
     RatingBar ratingbar;
     ImageView headerlogoIv;
 
@@ -70,6 +73,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -123,6 +127,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         tvname = findViewById(R.id.tvname);
         tvcompany = findViewById(R.id.tvcompany);
         tvdesignation = findViewById(R.id.tvdesignation);
+        speakertitle = findViewById(R.id.speakertitle);
         tvcity = findViewById(R.id.tvcity);
         profileIV = findViewById(R.id.profileIV);
         viewone = findViewById(R.id.viewone);
@@ -130,10 +135,20 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         viewthree = findViewById(R.id.viewthree);
         ratinglayout = findViewById(R.id.ratinglayout);
         ratingbar = findViewById(R.id.ratingbar);
+        layoutTop = findViewById(R.id.layoutTop);
 
         progressBar = findViewById(R.id.progressBar);
 
         ratebtn = findViewById(R.id.ratebtn);
+
+        tvname.setTextColor(Color.parseColor(colorActive));
+        speakertitle.setTextColor(Color.parseColor(colorActive));
+        ratebtn.setBackgroundColor(Color.parseColor(colorActive));
+        layoutTop.setBackgroundColor(Color.parseColor(colorActive));
+        LayerDrawable stars = (LayerDrawable) ratingbar.getProgressDrawable();
+        stars.getDrawable(2).setColorFilter(Color.parseColor(colorActive),
+                PorterDuff.Mode.SRC_ATOP);
+
 
 
         if (name != null) {

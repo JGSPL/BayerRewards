@@ -254,6 +254,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                 tabLayout.getTabAt(2).getIcon().setColorFilter(Color.parseColor("#4D4D4D"), PorterDuff.Mode.SRC_IN);
                 tabLayout.getTabAt(3).getIcon().setColorFilter(Color.parseColor("#4D4D4D"), PorterDuff.Mode.SRC_IN);
 
+
                 tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
@@ -557,7 +558,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
         View header = navigationView.getHeaderView(0);
         RelativeLayout outer = (RelativeLayout) findViewById(R.id.my);
-
+        RelativeLayout headerRel = (RelativeLayout)outer.findViewById(R.id.relbelo);
 
         TextView nameTv = (TextView) outer.findViewById(R.id.nameTv);
         TextView lastNameTv = (TextView) outer.findViewById(R.id.lastNameTv);
@@ -567,6 +568,8 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         final ProgressBar progressView = (ProgressBar) outer.findViewById(R.id.progressView);
 
         eventname = outer.findViewById(R.id.eventname);
+        eventname.setTextColor(Color.parseColor(colorActive));
+        headerRel.setBackgroundColor(Color.parseColor(colorActive));
 
         eventname.setText(eventnamestr);
 

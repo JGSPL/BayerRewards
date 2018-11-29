@@ -8,6 +8,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
@@ -24,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,7 +62,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
 
 
     String attendeeid, city, country, company, designation, description, totalrating, name, profile, mobile;
-    TextView tvname, tvcompany, tvdesignation, tvcity, tvmob;
+    TextView tvname, tvcompany, tvdesignation, tvcity, tvmob,attendeetitle;
     Button sendbtn;
     Dialog myDialog;
     APIService mAPIService;
@@ -71,7 +73,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
     String attendee_company, attendee_location, attendee_mobile, attendee_design;
     List<EventSettingList> eventSettingLists;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid;
+    String eventid,colorActive;
     UserData userData;
     private DBHelper procializeDB;
     private SQLiteDatabase db;
@@ -86,6 +88,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
     LinearLayout linearsaveandsend;
     ImageView headerlogoIv;
     Button saveContact;
+    private RelativeLayout layoutTop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +114,8 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         Util.logomethod(this, headerlogoIv);
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
+
 
         dbHelper = new DBHelper(AttendeeDetailActivity.this);
         db = dbHelper.getWritableDatabase();
@@ -155,7 +160,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
 
 
         tvname = findViewById(R.id.tvname);
-
+        attendeetitle = findViewById(R.id.attendeetitle);
         tvcompany = findViewById(R.id.tvcompany);
         tvdesignation = findViewById(R.id.tvdesignation);
         tvcity = findViewById(R.id.tvcity);
@@ -169,8 +174,16 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         linearsaveandsend = findViewById(R.id.linearsaveandsend);
         saveContact = findViewById(R.id.saveContact);
         tvmob = findViewById(R.id.tvmob);
+        layoutTop = findViewById(R.id.layoutTop);
+
+        attendeetitle.setTextColor(Color.parseColor(colorActive));
+        tvname.setTextColor(Color.parseColor(colorActive));
+        layoutTop.setBackgroundColor(Color.parseColor(colorActive));
+        saveContact.setBackgroundColor(Color.parseColor(colorActive));
+
 
         sendbtn = findViewById(R.id.sendMsg);
+        sendbtn.setBackgroundColor(Color.parseColor(colorActive));
         sendbtn.setVisibility(View.GONE);
         if (attendeeid.equalsIgnoreCase(getattendee)) {
             sendbtn.setVisibility(View.GONE);

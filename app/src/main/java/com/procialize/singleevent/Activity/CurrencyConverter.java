@@ -65,13 +65,14 @@ public class CurrencyConverter extends AppCompatActivity {
     Spinner firstans_list_spinner, secondans_list_spinner;
     private APIService mAPIService;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid;
+    String eventid,colorActive;
     List<DropDownList> list = null;
     Button btnConverter;
     String fromCurrency, toCurrency, amount, currencyDropDown = "";
     EditText edtAmount, txtValue;
     ProgressBar progressBar;
     ImageView headerlogoIv;
+    TextView txtHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +82,7 @@ public class CurrencyConverter extends AppCompatActivity {
         mAPIService = ApiUtils.getAPIService();
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -115,6 +117,10 @@ public class CurrencyConverter extends AppCompatActivity {
         btnConverter = (Button) findViewById(R.id.btnConverter);
         edtAmount = (EditText) findViewById(R.id.edtAmount);
         txtValue = (EditText) findViewById(R.id.txtValue);
+        txtHeader = (TextView)findViewById(R.id.txtHeader);
+        txtHeader.setTextColor(Color.parseColor(colorActive));
+        btnConverter.setTextColor(Color.parseColor(colorActive));
+
         txtValue.setEnabled(false);
         getInfoTab();
 

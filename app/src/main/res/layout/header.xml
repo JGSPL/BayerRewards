@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:id="@+id/headerRel"
+    android:layout_below="@+id/my"
     android:layout_height="wrap_content"
-    android:background="@color/activetab">
+   >
 
     <com.procialize.singleevent.Fonts.RobotoTextview
         android:id="@+id/eventname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/my"
         android:background="@color/colorwhite"
         android:drawablePadding="10dp"
         android:gravity="center"
@@ -38,11 +39,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/relbelo"
         android:layout_alignStart="@+id/fceTv"
         android:layout_below="@+id/fceTv"
         android:layout_centerInParent="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="@dimen/margin"
         android:background="@color/activetab"
         android:orientation="vertical">
 
@@ -50,6 +50,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin"
+            android:layout_marginBottom="10dp"
+
             android:orientation="horizontal">
 
 

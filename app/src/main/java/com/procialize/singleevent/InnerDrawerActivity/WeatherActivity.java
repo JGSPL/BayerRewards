@@ -1,6 +1,7 @@
 package com.procialize.singleevent.InnerDrawerActivity;
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,10 +41,11 @@ public class WeatherActivity extends AppCompatActivity implements WeatherAdapter
 
     RecyclerView weatherRV;
     ImageView infoIv,headerlogoIv;
-    TextView cityTv,countryTv,dateTv,timeTv,infoTv,feelTv,humidityTv,visibilityTv,indexTv,tempTv,maxTv,minTv,dayTv;
+    TextView cityTv,countryTv,dateTv,timeTv,infoTv,feelTv,humidityTv,visibilityTv,indexTv,tempTv,maxTv,minTv,dayTv,twTitle,cTv,fTv;
     private APIService mAPIService;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid;
+    String eventid,colorActive;
+    LinearLayout twLin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +53,10 @@ public class WeatherActivity extends AppCompatActivity implements WeatherAdapter
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
 
-       // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+
+        // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -87,6 +92,10 @@ public class WeatherActivity extends AppCompatActivity implements WeatherAdapter
         timeTv = findViewById(R.id.timeTv);
         infoTv = findViewById(R.id.infoTv);
         feelTv = findViewById(R.id.feelTv);
+
+        cTv = findViewById(R.id.cTv);
+        fTv = findViewById(R.id.fTv);
+
         humidityTv = findViewById(R.id.humidityTv);
         visibilityTv = findViewById(R.id.visibilityTv);
         indexTv = findViewById(R.id.indexTv);
@@ -95,10 +104,24 @@ public class WeatherActivity extends AppCompatActivity implements WeatherAdapter
         maxTv = findViewById(R.id.maxTv);
         minTv = findViewById(R.id.minTv);
         dayTv = findViewById(R.id.dayTv);
+        twLin = findViewById(R.id.twLin);
+        twTitle= findViewById(R.id.twTitle);
 
 
         infoIv = findViewById(R.id.infoIv);
         weatherRV = findViewById(R.id.weatherRV);
+
+        twTitle.setTextColor(Color.parseColor(colorActive));
+        twLin.setBackgroundColor(Color.parseColor(colorActive));
+        dayTv.setTextColor(Color.parseColor(colorActive));
+        tempTv.setTextColor(Color.parseColor(colorActive));
+        cTv.setTextColor(Color.parseColor(colorActive));
+        fTv.setTextColor(Color.parseColor(colorActive));
+        maxTv.setTextColor(Color.parseColor(colorActive));
+        minTv.setTextColor(Color.parseColor(colorActive));
+        infoTv.setTextColor(Color.parseColor(colorActive));
+        maxTv.setTextColor(Color.parseColor(colorActive));
+
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         weatherRV.setLayoutManager(mLayoutManager);

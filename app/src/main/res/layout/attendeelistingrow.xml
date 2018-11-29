@@ -85,6 +85,7 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:id="@+id/ic_rightarrow"
                 android:src="@drawable/ic_rightarrow"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp" />

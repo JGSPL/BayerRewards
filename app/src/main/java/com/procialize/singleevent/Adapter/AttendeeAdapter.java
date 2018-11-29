@@ -2,9 +2,13 @@ package com.procialize.singleevent.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,6 +41,8 @@ import com.procialize.singleevent.Session.SessionManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 
 /**
  * Created by Naushad on 10/31/2017.
@@ -50,10 +56,14 @@ public class AttendeeAdapter extends RecyclerView.Adapter<AttendeeAdapter.MyView
     private AttendeeAdapterListner listener;
     List<EventSettingList> eventSettingLists;
     String attendee_design, attendee_company, attendee_location, attendee_mobile, attendee_save_contact;
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String MY_PREFS_LOGIN = "ProcializeLogin";
+    String colorActive;
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTv, locationTv, designationTv;
-        public ImageView profileIv;
+        public ImageView profileIv,ic_rightarrow;
         public LinearLayout mainLL;
         public ProgressBar progressBar;
 
@@ -64,6 +74,8 @@ public class AttendeeAdapter extends RecyclerView.Adapter<AttendeeAdapter.MyView
             designationTv = view.findViewById(R.id.designationTv);
 
             profileIv = view.findViewById(R.id.profileIV);
+
+            ic_rightarrow = view.findViewById(R.id.ic_rightarrow);
 
             mainLL = view.findViewById(R.id.mainLL);
 
@@ -85,6 +97,9 @@ public class AttendeeAdapter extends RecyclerView.Adapter<AttendeeAdapter.MyView
         this.attendeeListFiltered = attendeeLists;
         this.listener = listener;
         this.context = context;
+        SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        colorActive = prefs.getString("colorActive","");
+
     }
 
     @Override
@@ -102,6 +117,15 @@ public class AttendeeAdapter extends RecyclerView.Adapter<AttendeeAdapter.MyView
         SessionManager sessionManager = new SessionManager(context);
         eventSettingLists = sessionManager.loadEventList();
         applySetting(eventSettingLists);
+
+
+        int colorInt = Color.parseColor(colorActive);
+
+        ColorStateList csl = ColorStateList.valueOf(colorInt);
+        Drawable drawable = DrawableCompat.wrap(holder.ic_rightarrow.getDrawable());
+        DrawableCompat.setTintList(drawable, csl);
+        holder.ic_rightarrow.setImageDrawable(drawable);
+
 
         if(attendee_company.equalsIgnoreCase("0")){
 
@@ -132,7 +156,7 @@ public class AttendeeAdapter extends RecyclerView.Adapter<AttendeeAdapter.MyView
             holder.nameTv.setText("");
         } else {
             holder.nameTv.setText(attendee.getFirstName() + " " + attendee.getLastName());
-            holder.nameTv.setTextColor(HomeActivity.activetab);
+            holder.nameTv.setTextColor(Color.parseColor(colorActive));
         }
         try {
             if (attendee.getCity().equalsIgnoreCase("N A")) {

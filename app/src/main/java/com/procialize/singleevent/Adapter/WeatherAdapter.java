@@ -1,11 +1,14 @@
 package com.procialize.singleevent.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.procialize.singleevent.GetterSetter.DocumentList;
@@ -18,6 +21,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by Naushad on 10/31/2017.
  */
@@ -27,9 +32,14 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.MyViewHo
     private List<Forecast> forecastList;
     private Context context;
     private WeatherAdapterListner listener;
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String MY_PREFS_LOGIN = "ProcializeLogin";
+    String colorActive;
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTv,dateTv,maxTv,minTv,typev;
         public ImageView imageIv;
+        public LinearLayout mainLL;
 
         public MyViewHolder(View view) {
             super(view);
@@ -38,6 +48,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.MyViewHo
             maxTv = view.findViewById(R.id.maxTv);
             minTv = view.findViewById(R.id.minTv);
             typev = view.findViewById(R.id.typev);
+            mainLL = view.findViewById(R.id.mainLL);
 
             imageIv = view.findViewById(R.id.imageIv);
 
@@ -56,6 +67,10 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.MyViewHo
         this.forecastList = forecastList;
         this.listener=listener;
         this.context=context;
+
+        SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        colorActive = prefs.getString("colorActive","");
+
     }
 
     @Override
@@ -78,6 +93,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.MyViewHo
 
         holder.maxTv.setText(String.valueOf(max_temp) + tmp+"" );
         holder.minTv.setText(String.valueOf(min_temp) + tmp+"" );
+        holder.mainLL.setBackgroundColor(Color.parseColor(colorActive));
 
         holder.typev.setText(forecast.getText());
 

@@ -50,6 +50,7 @@
         android:layout_height="wrap_content"
         android:textColor="#1F73BA"
         android:gravity="center"
+        android:id="@+id/twTitle"
         android:padding="4sp"
         android:textSize="@dimen/textsizesmall"
         android:text="Time and Weather"
@@ -58,6 +59,7 @@
     <LinearLayout
         android:background="#1F73BA"
         android:weightSum="2"
+        android:id="@+id/twLin"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="100dp">

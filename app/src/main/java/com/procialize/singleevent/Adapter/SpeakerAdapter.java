@@ -2,9 +2,13 @@ package com.procialize.singleevent.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,6 +40,8 @@ import com.procialize.singleevent.Session.SessionManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 
 /**
  * Created by Naushad on 10/31/2017.
@@ -50,10 +56,14 @@ public class SpeakerAdapter extends RecyclerView.Adapter<SpeakerAdapter.MyViewHo
     private SpeakerAdapterListner listener;
     List<EventSettingList> eventSettingLists;
     public String speaker_rating, speaker_designation, speaker_company, speaker_location, speaker_mobile, speaker_save_contact;
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String MY_PREFS_LOGIN = "ProcializeLogin";
+    String colorActive;
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTv, locationTv, designtionTv;
-        public ImageView profileIv;
+        public ImageView profileIv,ic_rightarrow;
         public ProgressBar progressView;
         private LinearLayout mainLL;
 
@@ -64,6 +74,7 @@ public class SpeakerAdapter extends RecyclerView.Adapter<SpeakerAdapter.MyViewHo
             designtionTv = view.findViewById(R.id.designtionTv);
 
             profileIv = view.findViewById(R.id.profileIV);
+            ic_rightarrow = view.findViewById(R.id.ic_rightarrow);
 
             progressView = view.findViewById(R.id.progressView);
 
@@ -86,6 +97,9 @@ public class SpeakerAdapter extends RecyclerView.Adapter<SpeakerAdapter.MyViewHo
         this.speakerListFiltered = speakerLists;
         this.listener = listener;
         this.context = context;
+        SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        colorActive = prefs.getString("colorActive","");
+
     }
 
     @Override
@@ -103,6 +117,14 @@ public class SpeakerAdapter extends RecyclerView.Adapter<SpeakerAdapter.MyViewHo
         eventSettingLists = sessionManager.loadEventList();
         applySetting(eventSettingLists);
 
+        int colorInt = Color.parseColor(colorActive);
+
+        ColorStateList csl = ColorStateList.valueOf(colorInt);
+        Drawable drawable = DrawableCompat.wrap(holder.ic_rightarrow.getDrawable());
+        DrawableCompat.setTintList(drawable, csl);
+        holder.ic_rightarrow.setImageDrawable(drawable);
+
+
         if (speaker_designation.equalsIgnoreCase("0")) {
             holder.designtionTv.setVisibility(View.GONE);
         } else {
@@ -114,6 +136,7 @@ public class SpeakerAdapter extends RecyclerView.Adapter<SpeakerAdapter.MyViewHo
             holder.locationTv.setVisibility(View.VISIBLE);
         }
 
+        holder.nameTv.setTextColor(Color.parseColor(colorActive));
 
         if (speaker.getFirstName().equalsIgnoreCase("N A")) {
             holder.nameTv.setText("");

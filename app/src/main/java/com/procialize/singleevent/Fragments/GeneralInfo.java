@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -45,24 +46,28 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class GeneralInfo extends Fragment implements GeneralInfoListAdapter.GeneralInfoListener {
 
     List<EventSettingList> eventSettingLists;
     TextView weather_tv, abtcurency_tv, about_hotel, pullrefresh;
     private APIService mAPIService;
-    String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
     List<InfoList> generalinfoLists;
-    LinearLayout linearlayout;
+    LinearLayout linearlayout,general_info_cur,general_info_wea;
     SwipeRefreshLayout generalInforefresh;
     LinearLayout.LayoutParams params;
-    TextView textView;
+    TextView textView,header;
     ProgressBar progressBar;
     RecyclerView general_item_list;
     GeneralInfoListAdapter generalInfoListAdapter;
     List views = new ArrayList();
     View viewlayout;
     LinearLayout insertPoint;
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String colorActive;
+
 
 
     @Override
@@ -72,10 +77,25 @@ public class GeneralInfo extends Fragment implements GeneralInfoListAdapter.Gene
         final View view = inflater.inflate(R.layout.general_info, container, false);
         SessionManager sessionManager = new SessionManager(getActivity());
         eventSettingLists = sessionManager.loadEventList();
+        SharedPreferences prefs1 = getActivity().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        colorActive = prefs1.getString("colorActive","");
+
+
         weather_tv = (TextView) view.findViewById(R.id.weather_tv);
         abtcurency_tv = (TextView) view.findViewById(R.id.abtcurency_tv);
+        header = (TextView) view.findViewById(R.id.header);
+
 //        about_hotel = (TextView) view.findViewById(R.id.about_hotel);
         linearlayout = (LinearLayout) view.findViewById(R.id.linearlayout);
+
+        weather_tv.setTextColor(Color.parseColor(colorActive));
+        abtcurency_tv.setTextColor(Color.parseColor(colorActive));
+        header.setTextColor(Color.parseColor(colorActive));
+
+
+        general_info_wea = (LinearLayout) view.findViewById(R.id.general_info_wea);
+        general_info_cur = (LinearLayout) view.findViewById(R.id.general_info_cur);
+
         pullrefresh = (TextView) view.findViewById(R.id.pullrefresh);
         generalInforefresh = view.findViewById(R.id.generalInforefresh);
 
@@ -112,11 +132,14 @@ public class GeneralInfo extends Fragment implements GeneralInfoListAdapter.Gene
 
             if (eventName.equalsIgnoreCase("gen_info_weather") && eventValue.equalsIgnoreCase("1")) {
                 weather_tv.setVisibility(View.VISIBLE);
+                general_info_wea.setVisibility(View.VISIBLE);
 
             }
 
             if (eventName.equalsIgnoreCase("gen_info_currency_converter") && eventValue.equalsIgnoreCase("1")) {
                 abtcurency_tv.setVisibility(View.VISIBLE);
+                general_info_cur.setVisibility(View.VISIBLE);
+
             }
         }
 
