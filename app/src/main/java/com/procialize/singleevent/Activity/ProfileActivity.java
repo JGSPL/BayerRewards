@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -86,7 +87,7 @@ public class ProfileActivity extends AppCompatActivity {
     public static final int RequestPermissionCode = 8;
     String eventnamestr;
     String profilepic;
-    String api_token;
+    String api_token,colorActive;
     TextView txt_upload;
     ImageView headerlogoIv;
     public static String logoImg="";
@@ -105,6 +106,7 @@ public class ProfileActivity extends AppCompatActivity {
         eventid = prefs.getString("eventid", "");
         eventnamestr = prefs.getString("eventnamestr", "");
         logoImg = prefs.getString("logoImg","");
+        colorActive = prefs.getString("colorActive","");
 
 
         sessionManager = new SessionManager(this);
@@ -212,6 +214,14 @@ public class ProfileActivity extends AppCompatActivity {
         savebtn = findViewById(R.id.savebtn);
         txt_upload = findViewById(R.id.txt_upload);
         linear_upload = findViewById(R.id.linear_upload);
+
+        TextView header = (TextView)findViewById(R.id.title);
+        header.setTextColor(Color.parseColor(colorActive));
+
+        RelativeLayout layoutTop = (RelativeLayout)findViewById(R.id.layoutTop);
+        layoutTop.setBackgroundColor(Color.parseColor(colorActive));
+
+        savebtn.setBackgroundColor(Color.parseColor(colorActive));
 
 
         profileIV = findViewById(R.id.profileIV);

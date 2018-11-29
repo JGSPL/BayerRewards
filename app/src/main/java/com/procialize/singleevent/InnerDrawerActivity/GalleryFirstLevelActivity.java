@@ -1,6 +1,8 @@
 package com.procialize.singleevent.InnerDrawerActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -37,7 +39,10 @@ public class GalleryFirstLevelActivity extends AppCompatActivity implements Gall
     List<GalleryList> galleryLists;
     List<FolderList> folderLists;
     List<FirstLevelFilter> filtergallerylists;
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String eventid,colorActive;
     ImageView headerlogoIv;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +71,10 @@ public class GalleryFirstLevelActivity extends AppCompatActivity implements Gall
         });
         headerlogoIv = findViewById(R.id.headerlogoIv);
         Util.logomethod(this,headerlogoIv);
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        eventid = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
+
 
         foldername = getIntent().getExtras().getString("foldername");
         galleryLists = (List<GalleryList>) getIntent().getExtras().getSerializable("gallerylist");
@@ -74,7 +83,7 @@ public class GalleryFirstLevelActivity extends AppCompatActivity implements Gall
 
         galleryRv = findViewById(R.id.galleryRv);
         tvname = findViewById(R.id.tvname);
-
+        tvname.setTextColor(Color.parseColor(colorActive));
 
         // use a linear layout manager
         int columns = 2;

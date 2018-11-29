@@ -3,6 +3,7 @@ package com.procialize.singleevent.InnerDrawerActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,7 +51,7 @@ public class LivePollActivity extends AppCompatActivity implements PollAdapter.P
     ProgressBar progressBar;
     List<LivePollOptionList> optionLists;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid;
+    String eventid,colorActive;
     ImageView headerlogoIv;
 
     @Override
@@ -59,6 +61,7 @@ public class LivePollActivity extends AppCompatActivity implements PollAdapter.P
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
 
 
        // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
@@ -84,6 +87,13 @@ public class LivePollActivity extends AppCompatActivity implements PollAdapter.P
         pollRv = findViewById(R.id.pollRv);
         pollrefresh = findViewById(R.id.pollrefresh);
         progressBar = findViewById(R.id.progressBar);
+
+        TextView header = (TextView)findViewById(R.id.title);
+        header.setTextColor(Color.parseColor(colorActive));
+
+        RelativeLayout layoutTop = (RelativeLayout)findViewById(R.id.layoutTop);
+        layoutTop.setBackgroundColor(Color.parseColor(colorActive));
+
 
         optionLists = new ArrayList<>();
 

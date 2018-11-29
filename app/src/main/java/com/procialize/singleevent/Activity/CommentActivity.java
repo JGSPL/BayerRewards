@@ -108,7 +108,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
     HashMap<String, String> user;
-    String user_id;
+    String user_id,colorActive;
     List<EventSettingList> eventSettingLists;
     String news_feed_share,
             news_feed_comment,
@@ -143,6 +143,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
 
 
         Intent intent = getIntent();
@@ -223,6 +224,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
         commentEt = findViewById(R.id.commentEt);
         searchEt = findViewById(R.id.searchEt);
         commentbtn = findViewById(R.id.commentBt);
+        commentbtn.setBackgroundColor(Color.parseColor(colorActive));
         playicon = findViewById(R.id.playicon);
         linearshare = findViewById(R.id.linearshare);
         linearcomment = findViewById(R.id.linearcomment);
@@ -370,6 +372,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
         fetchCommentDetails(apikey, eventid, feedid);
         getComment(eventid, feedid);
 //        initiate();
+
 
         commentbtn.setOnClickListener(new View.OnClickListener() {
             @Override

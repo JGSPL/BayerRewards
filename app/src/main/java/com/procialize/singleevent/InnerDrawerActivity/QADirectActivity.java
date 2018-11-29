@@ -3,6 +3,7 @@ package com.procialize.singleevent.InnerDrawerActivity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -52,7 +53,7 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
     Dialog myDialog;
     String token;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid;
+    String eventid,colorActive;
     public Button postbtn;
     SwipeRefreshLayout qaRvrefresh;
     ProgressBar progressBar;
@@ -69,6 +70,7 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -77,6 +79,8 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
         qaRvrefresh = findViewById(R.id.qaRvrefresh);
         postbtn = findViewById(R.id.postbtn);
         qaRv = findViewById(R.id.qaRv);
+
+        postbtn.setBackgroundColor(Color.parseColor(colorActive));
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -225,6 +229,10 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
 
         Button cancelbtn = myDialog.findViewById(R.id.canclebtn);
         Button ratebtn = myDialog.findViewById(R.id.ratebtn);
+
+        cancelbtn.setBackgroundColor(Color.parseColor(colorActive));
+        ratebtn.setBackgroundColor(Color.parseColor(colorActive));
+
         ImageView imgCancel = myDialog.findViewById(R.id.imgCancel);
 
         final EditText etmsg = myDialog.findViewById(R.id.etmsg);

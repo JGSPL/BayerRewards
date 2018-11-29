@@ -3,6 +3,7 @@ package com.procialize.singleevent.InnerDrawerActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,7 +76,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
     LinearLayout linMap;
 
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid;
+    String eventid,colorActive;
     ImageView headerlogoIv;
 
 
@@ -86,6 +88,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -121,6 +124,13 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
         progressbar = findViewById(R.id.progressbar);
         back = findViewById(R.id.back);
         linMap = findViewById(R.id.linMap);
+
+        TextView header = (TextView)findViewById(R.id.event_info_heading);
+        header.setTextColor(Color.parseColor(colorActive));
+
+        RelativeLayout layoutTop = (RelativeLayout)findViewById(R.id.layoutTop);
+        layoutTop.setBackgroundColor(Color.parseColor(colorActive));
+
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

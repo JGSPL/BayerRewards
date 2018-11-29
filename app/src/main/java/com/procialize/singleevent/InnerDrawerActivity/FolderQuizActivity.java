@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,8 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.procialize.singleevent.Adapter.QuizFolderAdapter;
@@ -52,7 +55,7 @@ public class FolderQuizActivity extends AppCompatActivity {
     // Access Token Variable
     private String accessToken,event_id;
 
-    private String quiz_id;
+    private String quiz_id,colorActive;
     private String quiz_options_id;
 
     private String quizQuestionUrl = "";
@@ -107,11 +110,18 @@ public class FolderQuizActivity extends AppCompatActivity {
         accessToken = session.getUserDetails().get(SessionManager.KEY_TOKEN);
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         event_id = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
 
         cd = new ConnectionDetector(getApplicationContext());
 
         // Initialize Get Quiz URL
         getQuizUrl = constant.baseUrl + constant.quizlist;
+
+        TextView header = (TextView)findViewById(R.id.header);
+        header.setTextColor(Color.parseColor(colorActive));
+
+        RelativeLayout layoutTop = (RelativeLayout)findViewById(R.id.layoutTop);
+        layoutTop.setBackgroundColor(Color.parseColor(colorActive));
 
         quizNameList = (ListView) findViewById(R.id.quiz_list);
         quizNameList.setScrollingCacheEnabled(false);

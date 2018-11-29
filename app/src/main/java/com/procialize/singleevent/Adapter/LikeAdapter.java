@@ -1,6 +1,8 @@
 package com.procialize.singleevent.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +24,8 @@ import com.procialize.singleevent.GetterSetter.LivePollOptionList;
 import com.procialize.singleevent.R;
 
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by Sneha on 10/31/2017.
@@ -57,6 +61,9 @@ String MY_PREFS_NAME = "ProcializeInfo";
         this.attendeeListList = attendeeListList;
 //        this.listener=listener;
         this.context=context;
+        SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        colorActive = prefs.getString("colorActive","");
+
     }
 
     @Override
@@ -88,6 +95,8 @@ String MY_PREFS_NAME = "ProcializeInfo";
         {
             holder.imageIv.setImageResource(R.drawable.profilepic_placeholder);
         }
+
+        holder.nameTv.setTextColor(Color.parseColor(colorActive));
 
         holder.nameTv.setText(attendeeList.getFirstName()+" "+attendeeList.getLastName());
 

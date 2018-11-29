@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.StrictMode;
@@ -53,7 +54,7 @@ public class VideoFirstLevelActivity extends AppCompatActivity implements VideoF
     List<FirstLevelFilter> filtergallerylists;
     String foldernamenew;
     ImageView headerlogoIv;
-    String eventid;
+    String eventid,colorActive;
     String MY_PREFS_NAME = "ProcializeInfo";
     private APIService mAPIService;
     ProgressDialog progressDialog;
@@ -70,6 +71,7 @@ public class VideoFirstLevelActivity extends AppCompatActivity implements VideoF
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
 
         mAPIService = ApiUtils.getAPIService();
         SessionManager sessionManager = new SessionManager(this);
@@ -110,6 +112,7 @@ public class VideoFirstLevelActivity extends AppCompatActivity implements VideoF
 
         videoRv = findViewById(R.id.videoRv);
         tvname = findViewById(R.id.tvname);
+        tvname.setTextColor(Color.parseColor(colorActive));
 
 
         // use a linear layout manager

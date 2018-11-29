@@ -2,11 +2,14 @@ package com.procialize.singleevent.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.barteksc.pdfviewer.util.Constants;
@@ -15,15 +18,23 @@ import com.procialize.singleevent.R;
 
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class QuizFolderAdapter extends BaseAdapter {
     private Activity activity;
     private LayoutInflater inflater;
     private List<QuizFolder> quizList;
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String colorActive;
+
 
 
     public QuizFolderAdapter(Activity activity, List<QuizFolder> quizList) {
         this.activity = activity;
         this.quizList = quizList;
+        SharedPreferences prefs = activity.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        colorActive = prefs.getString("colorActive","");
+
     }
 
     @Override
@@ -65,6 +76,8 @@ public class QuizFolderAdapter extends BaseAdapter {
 
             holder.quiz_title_txt = (TextView) convertView
                     .findViewById(R.id.video_title_txt);
+            holder.linQuiz =(LinearLayout)convertView.findViewById(R.id.linQuiz);
+            holder.linQuiz.setBackgroundColor(Color.parseColor(colorActive));
 
             Typeface typeFace = Typeface.createFromAsset(activity.getAssets(),
                     "Roboto-Light.ttf");
@@ -82,7 +95,7 @@ public class QuizFolderAdapter extends BaseAdapter {
 
     static class ViewHolder {
         TextView quiz_title_txt;
-
+        LinearLayout linQuiz;
     }
 
 }

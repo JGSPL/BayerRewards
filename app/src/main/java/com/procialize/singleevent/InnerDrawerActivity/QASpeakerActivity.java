@@ -3,6 +3,7 @@ package com.procialize.singleevent.InnerDrawerActivity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -68,7 +69,7 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
     Dialog myDialog;
     String token;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid;
+    String eventid, colorActive;
     ImageView headerlogoIv;
 
     @Override
@@ -80,6 +81,7 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -102,6 +104,7 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
 
         qaRv = findViewById(R.id.qaRv);
         postbtn = findViewById(R.id.postbtn);
+        postbtn.setBackgroundColor(Color.parseColor(colorActive));
         qaRvrefresh = findViewById(R.id.qaRvrefresh);
         spinner = findViewById(R.id.spinner);
         progressBar = findViewById(R.id.progressBar);
@@ -286,6 +289,10 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
 
         Button cancelbtn = myDialog.findViewById(R.id.canclebtn);
         Button ratebtn = myDialog.findViewById(R.id.ratebtn);
+
+        cancelbtn.setBackgroundColor(Color.parseColor(colorActive));
+        cancelbtn.setBackgroundColor(Color.parseColor(colorActive));
+
 
         final EditText etmsg = myDialog.findViewById(R.id.etmsg);
 

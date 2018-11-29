@@ -4,6 +4,7 @@ package com.procialize.singleevent.InnerDrawerActivity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.StrictMode;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -54,7 +55,7 @@ public class VideoActivity extends AppCompatActivity implements VideoAdapter.Vid
     private static List<VideoList> videoLists;
     private static List<VideoFolderList> folderLists;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid;
+    String eventid,colorActive;
     ImageView headerlogoIv;
 
     @Override
@@ -65,6 +66,7 @@ public class VideoActivity extends AppCompatActivity implements VideoAdapter.Vid
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -88,6 +90,9 @@ public class VideoActivity extends AppCompatActivity implements VideoAdapter.Vid
         videoRv = findViewById(R.id.videoRv);
         progressBar = findViewById(R.id.progressBar);
         videoRvrefresh = findViewById(R.id.videoRvrefresh);
+        TextView header = (TextView)findViewById(R.id.title);
+        header.setTextColor(Color.parseColor(colorActive));
+
 
         mAPIService = ApiUtils.getAPIService();
 

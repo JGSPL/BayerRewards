@@ -2,6 +2,7 @@ package com.procialize.singleevent.InnerDrawerActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -49,7 +50,7 @@ public class GalleryActivity extends AppCompatActivity implements GalleryAdapter
     private static List<GalleryList> galleryLists;
     private static List<FolderList> folderLists;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid;
+    String eventid,colorActive;
     ImageView headerlogoIv;
 
     @Override
@@ -59,6 +60,7 @@ public class GalleryActivity extends AppCompatActivity implements GalleryAdapter
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
 
 
       //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
@@ -83,6 +85,10 @@ public class GalleryActivity extends AppCompatActivity implements GalleryAdapter
         galleryRv = findViewById(R.id.galleryRv);
         galleryRvrefresh = findViewById(R.id.galleryRvrefresh);
         progressBar = findViewById(R.id.progressBar);
+
+        TextView header = (TextView)findViewById(R.id.title);
+        header.setTextColor(Color.parseColor(colorActive));
+
 
         mAPIService = ApiUtils.getAPIService();
 

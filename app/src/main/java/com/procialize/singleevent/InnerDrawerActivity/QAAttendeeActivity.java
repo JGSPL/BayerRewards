@@ -3,6 +3,7 @@ package com.procialize.singleevent.InnerDrawerActivity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -63,7 +64,7 @@ public class QAAttendeeActivity extends AppCompatActivity implements QAAttendeeA
     Dialog myDialog;
     String token;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid;
+    String eventid,colorActive;
     ImageView headerlogoIv;
 
     @Override
@@ -74,6 +75,7 @@ public class QAAttendeeActivity extends AppCompatActivity implements QAAttendeeA
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -93,11 +95,16 @@ public class QAAttendeeActivity extends AppCompatActivity implements QAAttendeeA
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
         Util.logomethod(this,headerlogoIv);
+        TextView header = (TextView)findViewById(R.id.title);
+        header.setTextColor(Color.parseColor(colorActive));
+
+
         qaRv = findViewById(R.id.qaRv);
         postbtn = findViewById(R.id.postbtn);
         qaRvrefresh = findViewById(R.id.qaRvrefresh);
         spinner = findViewById(R.id.spinner);
         progressBar = findViewById(R.id.progressBar);
+        postbtn.setBackgroundColor(Color.parseColor(colorActive));
 
         list = new ArrayList<>();
         agendaLisQAS = new ArrayList<>();
@@ -343,6 +350,10 @@ public class QAAttendeeActivity extends AppCompatActivity implements QAAttendeeA
         final TextView nametv = myDialog.findViewById(R.id.nametv);
         final TextView title = myDialog.findViewById(R.id.title);
         final ImageView imgCancel = myDialog.findViewById(R.id.imgCancel);
+
+        cancelbtn.setBackgroundColor(Color.parseColor(colorActive));
+        ratebtn.setBackgroundColor(Color.parseColor(colorActive));
+
 
         title.setText("Post Question");
 

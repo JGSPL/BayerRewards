@@ -3,6 +3,7 @@ package com.procialize.singleevent.InnerDrawerActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,7 +45,7 @@ public class FeedBackActivity extends AppCompatActivity implements FeedBackAdapt
     RecyclerView feedbackRv;
     ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid;
+    String eventid,colorActive;
     ImageView headerlogoIv;
 
     @Override
@@ -54,6 +55,7 @@ public class FeedBackActivity extends AppCompatActivity implements FeedBackAdapt
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
 
 
       //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
@@ -74,6 +76,8 @@ public class FeedBackActivity extends AppCompatActivity implements FeedBackAdapt
         headerlogoIv = findViewById(R.id.headerlogoIv);
         Util.logomethod(this,headerlogoIv);
 
+        TextView header = (TextView)findViewById(R.id.title);
+        header.setTextColor(Color.parseColor(colorActive));
 
         feedbackRv = findViewById(R.id.feedbackRv);
         progressBar = findViewById(R.id.progressBar);
