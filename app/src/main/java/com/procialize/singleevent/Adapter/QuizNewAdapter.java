@@ -11,6 +11,7 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -154,7 +155,7 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
                     rdbtn.setTextColor(Color.BLACK);
                     rdbtn.setTextSize(14);
                     rdbtn.setBackgroundResource(R.drawable.agenda_bg);
-
+                    rdbtn.setButtonDrawable(R.drawable.radio_buttontoggle_first);
                     RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(
                             width,
                             height
@@ -165,7 +166,7 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
                             LinearLayout.LayoutParams.WRAP_CONTENT
                     );
                     p.setMargins(5, 5, 5, 5);
-//                    rdbtn.setPadding(10,5,10,5);
+                    rdbtn.setPadding(10,5,10,5);
                     rdbtn.setLayoutParams(p);
                     rdbtn.setTag(quizSpecificOptionListnew.get(i-1).getOptionId());
 
@@ -211,6 +212,7 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
             if (radioButton!=null) {
                 dataArray[position] = radioButton.getText().toString();
                 dataIDArray[position] = radioButton.getText().toString();
+
             }
         }else if (quizList.get(position).getQuiz_type().equalsIgnoreCase("2"))
         {
@@ -295,7 +297,7 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
                     rdbtn.setTextColor(Color.BLACK);
                     rdbtn.setTextSize(9);
                     rdbtn.setBackgroundResource(R.drawable.agenda_bg);
-
+                    rdbtn.setButtonDrawable(R.drawable.radio_buttontoggle_first);
                     RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(
                             width,
                             height
@@ -306,7 +308,7 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
                             LinearLayout.LayoutParams.WRAP_CONTENT
                     );
                     p.setMargins(5, 5, 5, 5);
-//                    rdbtn.setPadding(10,5,10,5);
+
                     rdbtn.setLayoutParams(p);
                     rdbtn.setTag(quizSpecificOptionListnew.get(i-1).getOptionId());
 
@@ -352,6 +354,7 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
             if (radioButton!=null) {
                 dataArray[position] = radioButton.getText().toString();
                 dataIDArray[position] = radioButton.getText().toString();
+
             }
         }
 

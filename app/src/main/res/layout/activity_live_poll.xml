@@ -67,17 +67,51 @@
         android:text="@string/livepol"
         />
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/relative"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:orientation="vertical">
-        <ImageView
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/speakertitle"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp">
+
+        <RelativeLayout
+            android:id="@+id/layoutTop"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="80dp"
+            android:background="@color/colorPrimary"></RelativeLayout>
 
-            android:background="@drawable/live_poll_header1"/>
+        <RelativeLayout
+            android:id="@+id/layoutBottom"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_below="@id/layoutTop"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/live_poll_header">
 
-    </LinearLayout>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/layoutBottom"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="-40dp"
+            android:adjustViewBounds="true">
+
+            <ImageView
+                android:id="@+id/profileIV"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/livepollroundback"
+                android:src="@drawable/live_poll_logo" />
+
+
+        </RelativeLayout>
+    </RelativeLayout>
 
 
 <!--
