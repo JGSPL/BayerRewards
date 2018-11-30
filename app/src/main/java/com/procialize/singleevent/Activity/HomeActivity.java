@@ -1036,10 +1036,10 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
             Intent generalinfo = new Intent(this, WebViewActivity.class);
             startActivity(generalinfo);
         }else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_email_template")) {
-            Toast.makeText(HomeActivity.this, "Comming Soon...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(HomeActivity.this, "Coming Soon...", Toast.LENGTH_SHORT).show();
 
         }else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_leaderboard")) {
-            Toast.makeText(HomeActivity.this, "Comming Soon...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(HomeActivity.this, "Coming Soon...", Toast.LENGTH_SHORT).show();
 
         }
 

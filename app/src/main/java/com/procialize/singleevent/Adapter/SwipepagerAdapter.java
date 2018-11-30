@@ -1,6 +1,8 @@
 package com.procialize.singleevent.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
@@ -24,6 +26,8 @@ import com.procialize.singleevent.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by gauravnaik309 on 01/03/18.
  */
@@ -33,11 +37,17 @@ public class SwipepagerAdapter extends PagerAdapter {
     private List<FirstLevelFilter> images;
     private LayoutInflater inflater;
     private Context context;
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String colorActive;
 
     public SwipepagerAdapter(Context context, List<FirstLevelFilter> images) {
         this.context = context;
         this.images=images;
         inflater = LayoutInflater.from(context);
+        SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        colorActive = prefs.getString("colorActive","");
+
+
     }
 
     @Override
@@ -58,6 +68,8 @@ public class SwipepagerAdapter extends PagerAdapter {
 
         ImageView myImage = (ImageView) myImageLayout.findViewById(R.id.image);
         TextView name = (TextView) myImageLayout.findViewById(R.id.name);
+        name.setBackgroundColor(Color.parseColor(colorActive));
+
         final ProgressBar progressBar = myImageLayout.findViewById(R.id.progressbar);
 
         Glide.with(context).load(firstLevelFilter.getFileName())

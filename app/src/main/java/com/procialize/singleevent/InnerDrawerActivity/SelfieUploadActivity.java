@@ -12,6 +12,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.media.ExifInterface;
@@ -35,6 +36,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -84,7 +86,7 @@ public class SelfieUploadActivity extends AppCompatActivity {
     APIService mAPIService;
     ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventId;
+    String eventId,colorActive;
     String mCurrentPhotoPath;
     ImageView headerlogoIv;
 
@@ -98,6 +100,7 @@ public class SelfieUploadActivity extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventId = prefs.getString("eventid", "");
+        colorActive = prefs.getString("colorActive","");
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -120,6 +123,11 @@ public class SelfieUploadActivity extends AppCompatActivity {
         btnSubmit = findViewById(R.id.btnSubmit);
         editTitle = findViewById(R.id.editTitle);
         progressBar = findViewById(R.id.progressBar);
+
+        TextView header = (TextView)findViewById(R.id.txtTitle);
+        header.setTextColor(Color.parseColor(colorActive));
+
+        btnSubmit.setBackgroundColor(Color.parseColor(colorActive));
 
         sessionManager = new SessionManager(this);
 

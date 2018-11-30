@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -117,6 +118,10 @@ public class VideoContestUploadActivity extends AppCompatActivity {
         imgPlay = (ImageView) findViewById(R.id.imgPlay);
         progressBar = findViewById(R.id.progressBar);
         sessionManager = new SessionManager(this);
+
+        TextView header = (TextView)findViewById(R.id.txtTitle);
+        header.setTextColor(Color.parseColor(colorActive));
+
 
         mAPIService = ApiUtils.getAPIService();
 

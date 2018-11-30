@@ -1,6 +1,7 @@
 package com.procialize.singleevent.Adapter;
 //
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
@@ -26,6 +27,8 @@ import com.procialize.singleevent.Utility.MyApplication;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHolder> {
     private Activity activity;
@@ -55,6 +58,9 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
     Typeface typeFace;
     private RadioGroup lastCheckedRadioGroup = null;
 
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String colorActive;
+
     public QuizNewAdapter(Activity activity, List<Quiz> quizList) {
         this.activity = activity;
         this.quizList = quizList;
@@ -62,6 +68,10 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
         dataIDArray=new String[quizList.size()];
         checkArray=new String[quizList.size()];
         ansArray=new String[quizList.size()];
+
+        SharedPreferences prefs = activity.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        colorActive = prefs.getString("colorActive","");
+
 
 
     }
@@ -101,6 +111,8 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
             }
 
             holder.quiz_title_txt.setText(quizList.get(position).getQuestion());
+
+            holder.quiz_title_txt.setTextColor(Color.parseColor(colorActive));
 
 //					int count = position+1;
 //					String no = "Q" + String.valueOf(count)+".";

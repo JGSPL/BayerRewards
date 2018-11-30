@@ -107,13 +107,15 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
         general_info_cur = (LinearLayout) findViewById(R.id.general_info_cur);
 
         ImageView ic_rightarrow = (ImageView) findViewById(R.id.ic_rightarrow);
-        ImageView ic_rightarrow1 = (ImageView) findViewById(R.id.ic_rightarrow1);
+        ImageView ic_rightarrow1 = (ImageView) findViewById(R.id.ic_rightarrow2);
         int colorInt = Color.parseColor(colorActive);
 
         ColorStateList csl = ColorStateList.valueOf(colorInt);
         Drawable drawable = DrawableCompat.wrap(ic_rightarrow.getDrawable());
         DrawableCompat.setTintList(drawable, csl);
         ic_rightarrow.setImageDrawable(drawable);
+
+
         int colorInt2 = Color.parseColor(colorActive);
 
         ColorStateList csl2 = ColorStateList.valueOf(colorInt2);

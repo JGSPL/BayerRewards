@@ -220,8 +220,7 @@
                             <ImageView
                                 android:src="@drawable/ic_rightarrow"
                                 android:layout_width="wrap_content"
-                                android:background="@drawable/agendabg"
-                                android:id="@+id/ic_rightarrow1"
+                                android:id="@+id/ic_rightarrow2"
                                 android:layout_height="30dp" />
 
                         </LinearLayout>

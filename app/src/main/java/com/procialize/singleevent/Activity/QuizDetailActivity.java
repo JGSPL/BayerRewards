@@ -49,7 +49,7 @@ public class QuizDetailActivity extends AppCompatActivity {
     String selected;
     int Count;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid;
+    String eventid,colorActive;
     ImageView headerlogoIv;
 
     @Override
@@ -59,6 +59,7 @@ public class QuizDetailActivity extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
 
 
        // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
@@ -88,6 +89,7 @@ public class QuizDetailActivity extends AppCompatActivity {
 
         questionTv = findViewById(R.id.questionTv);
         subBtn = findViewById(R.id.subBtn);
+        subBtn.setBackgroundColor(Color.parseColor(colorActive));
 
         SessionManager sessionManager = new SessionManager(this);
 
@@ -109,6 +111,7 @@ public class QuizDetailActivity extends AppCompatActivity {
 
 
         questionTv.setText(question);
+        questionTv.setTextColor(Color.parseColor(colorActive));
 
         if (optionLists.size() != 0) {
 

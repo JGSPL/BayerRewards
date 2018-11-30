@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -77,7 +78,7 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
 	private ArrayList<QuizOptionList> quizOptionList = new ArrayList<QuizOptionList>();
 
 	public static MyApplication appDelegate;
-	String foldername="null";
+	String foldername="null",colorActive;
 	Button submit;
 	ImageView headerlogoIv;
 
@@ -111,11 +112,14 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
 
 		foldername = getIntent().getExtras().getString("folder");
 
+
 		// Session Manager
 		session = new SessionManager(getApplicationContext());
 		accessToken = session.getUserDetails().get(SessionManager.KEY_TOKEN);
 		SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
 		event_id = prefs.getString("eventid", "1");
+		colorActive = prefs.getString("colorActive","");
+
 
 		cd = new ConnectionDetector(getApplicationContext());
 
@@ -125,6 +129,7 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
 
 		submit = (Button) findViewById(R.id.submit);
 		submit.setOnClickListener(this);
+		submit.setBackgroundColor(Color.parseColor(colorActive));
 
 		quizNameList = (RecyclerView) findViewById(R.id.quiz_list);
 

@@ -147,6 +147,9 @@ public class SelfiePost extends Activity {
         colorActive = prefs.getString("colorActive","");
 
         btnSubmit.setBackgroundColor(Color.parseColor(colorActive));
+        TextView header = (TextView)findViewById(R.id.txtTitle);
+        header.setTextColor(Color.parseColor(colorActive));
+
 
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {

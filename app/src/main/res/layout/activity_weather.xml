@@ -241,6 +241,7 @@
                         <LinearLayout
                             android:gravity="center"
                             android:layout_width="match_parent"
+                            android:orientation="horizontal"
                             android:layout_height="wrap_content">
 
                             <com.procialize.singleevent.Fonts.RobotoTextview
@@ -250,10 +251,15 @@
                                 android:layout_height="wrap_content"
                                 android:textColor="#1F73BA"
                                 android:textStyle="bold"
-                                android:drawableLeft="@drawable/high"
                                 android:textSize="@dimen/textsizesmall"
                                 android:text=""
                                 />
+                            <ImageView
+                                android:src="@drawable/high"
+                                android:layout_width="wrap_content"
+                                android:id="@+id/highiv"
+                                android:layout_height="wrap_content" />
+
                             <com.procialize.singleevent.Fonts.RobotoTextview
                                 android:id="@+id/minTv"
                                 android:layout_margin="3dp"
@@ -262,9 +268,14 @@
                                 android:textColor="#1F73BA"
                                 android:textStyle="bold"
                                 android:textSize="@dimen/textsizesmall"
-                                android:drawableLeft="@drawable/low"
                                 android:text=""
                                 />
+                            <ImageView
+                                android:src="@drawable/low"
+                                android:layout_width="wrap_content"
+                                android:id="@+id/lowiv"
+                                android:layout_height="wrap_content" />
+
 
                         </LinearLayout>
 

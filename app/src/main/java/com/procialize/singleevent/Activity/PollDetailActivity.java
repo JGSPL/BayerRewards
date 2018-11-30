@@ -60,7 +60,7 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
     String eventid;
     ViewGroup viewGroup;
     List<RadioButton> radios;
-    String token;
+    String token,colorActive;
     LinearLayout linView;
     RecyclerView pollGraph;
 
@@ -71,6 +71,7 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -106,6 +107,9 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
         questionTv = findViewById(R.id.questionTv);
         subBtn = findViewById(R.id.subBtn);
         subBtn.setOnClickListener(this);
+
+        subBtn.setBackgroundColor(Color.parseColor(colorActive));
+        //questionTv.setTextColor(Color.parseColor(colorActive));
         progressBar = findViewById(R.id.progressBar);
 
 

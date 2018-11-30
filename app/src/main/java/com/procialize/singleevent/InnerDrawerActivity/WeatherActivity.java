@@ -1,7 +1,10 @@
 package com.procialize.singleevent.InnerDrawerActivity;
 
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -121,6 +124,25 @@ public class WeatherActivity extends AppCompatActivity implements WeatherAdapter
         minTv.setTextColor(Color.parseColor(colorActive));
         infoTv.setTextColor(Color.parseColor(colorActive));
         maxTv.setTextColor(Color.parseColor(colorActive));
+
+        ImageView ic_rightarrow = (ImageView) findViewById(R.id.highiv);
+        ImageView ic_rightarrow1 = (ImageView) findViewById(R.id.lowiv);
+        int colorInt = Color.parseColor(colorActive);
+
+        ColorStateList csl = ColorStateList.valueOf(colorInt);
+        Drawable drawable = DrawableCompat.wrap(ic_rightarrow.getDrawable());
+        DrawableCompat.setTintList(drawable, csl);
+        ic_rightarrow.setImageDrawable(drawable);
+
+
+        int colorInt2 = Color.parseColor(colorActive);
+
+        ColorStateList csl2 = ColorStateList.valueOf(colorInt2);
+
+        Drawable drawable1 = DrawableCompat.wrap(ic_rightarrow1.getDrawable());
+        DrawableCompat.setTintList(drawable1, csl2);
+        ic_rightarrow1.setImageDrawable(drawable1);
+
 
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
