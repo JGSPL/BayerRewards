@@ -394,13 +394,13 @@ public class NewsfeedAdapter extends BaseAdapter {
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
+        if(feed.getLikeFlag()!=null) {
+            if (feed.getLikeFlag().equals("1")) {
 
-        if (feed.getLikeFlag().equals("1")) {
+                // holder.img_like.setBackgroundResource(R.drawable.ic_afterlike);
 
-           // holder.img_like.setBackgroundResource(R.drawable.ic_afterlike);
-
-            holder.img_like.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_afterlike, 0);
-            int colorInt = Color.parseColor(colorActive);
+                holder.img_like.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_afterlike, 0);
+                int colorInt = Color.parseColor(colorActive);
 
             /*ColorStateList csl = ColorStateList.valueOf(colorInt);
             Drawable drawable = DrawableCompat.wrap(holder.img_like.getDrawableState());
@@ -408,22 +408,26 @@ public class NewsfeedAdapter extends BaseAdapter {
             holder.img_like.setImageDrawable(drawable);
 */
 
-        } else {
-            holder.img_like.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_like, 0);
+            } else {
+                holder.img_like.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_like, 0);
 //            holder.img_like.setBackgroundResource(R.drawable.ic_like);
+            }
         }
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        try {
-            Date date1 = formatter.parse(feed.getPostDate());
 
-            DateFormat originalFormat = new SimpleDateFormat("dd MMM , HH:mm", Locale.UK);
+        if(feed.getPostDate()!=null) {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try {
+                Date date1 = formatter.parse(feed.getPostDate());
 
-            String date = originalFormat.format(date1);
+                DateFormat originalFormat = new SimpleDateFormat("dd MMM , HH:mm", Locale.UK);
 
-            holder.dateTv.setText(date);
+                String date = originalFormat.format(date1);
 
-        } catch (ParseException e) {
-            e.printStackTrace();
+                holder.dateTv.setText(date);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
 
 
