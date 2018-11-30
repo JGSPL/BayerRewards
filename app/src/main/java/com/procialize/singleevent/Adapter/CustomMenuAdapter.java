@@ -139,7 +139,7 @@ public class CustomMenuAdapter extends RecyclerView.Adapter<CustomMenuAdapter.My
             holder.profileIv.setImageResource(R.drawable.ic_feedback);
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_gallery_video")) {
             holder.nameTv.setText("Video");
-            holder.profileIv.setImageResource(R.drawable.ic_videos);
+            holder.profileIv.setImageResource(R.drawable.gallery_videos);
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_image_gallery")) {
             holder.nameTv.setText("Gallery");
             holder.profileIv.setImageResource(R.drawable.ic_gallery);

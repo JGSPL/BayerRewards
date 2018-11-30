@@ -121,10 +121,13 @@ public class CurrencyConverter extends AppCompatActivity {
         txtHeader.setTextColor(Color.parseColor(colorActive));
         btnConverter.setTextColor(Color.parseColor(colorActive));
 
-        txtValue.setEnabled(false);
+       // txtValue.setEnabled(false);
         getInfoTab();
 
-        btnConverter.setOnClickListener(new View.OnClickListener() {
+
+
+
+            btnConverter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -389,6 +392,22 @@ public class CurrencyConverter extends AppCompatActivity {
                     // attaching data adapter to spinner
                     firstans_list_spinner.setAdapter(adapter1);
                     secondans_list_spinner.setAdapter(adapter);
+
+                    if(firstans_list_spinner.getSelectedItem()!=null && secondans_list_spinner.getSelectedItem()!=null) {
+                        btnConverter.setEnabled(true);
+                        edtAmount.setEnabled(true);
+                        txtValue.setEnabled(true);
+                        firstans_list_spinner.setEnabled(true);
+                        secondans_list_spinner.setEnabled(true);
+                    }else{
+                        btnConverter.setEnabled(false);
+                        edtAmount.setEnabled(false);
+                        txtValue.setEnabled(false);
+                        firstans_list_spinner.setEnabled(false);
+                        secondans_list_spinner.setEnabled(false);
+
+                    }
+
                 } else {
 
                     Toast.makeText(CurrencyConverter.this, msg,
