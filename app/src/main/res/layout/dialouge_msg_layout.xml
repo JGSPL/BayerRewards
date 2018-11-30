@@ -19,6 +19,7 @@
             android:layout_gravity="top"
             android:background="@color/activetab"
             android:gravity="center"
+            android:id="@+id/diatitle"
             android:orientation="horizontal"
             android:padding="5dp">
 

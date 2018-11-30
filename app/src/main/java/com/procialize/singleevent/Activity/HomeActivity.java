@@ -898,6 +898,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                     QA_direct = eventSettingLists.get(i).getFieldValue();
                 } else if (eventSettingLists.get(i).getFieldName().equals("agenda_conference")) {
                     agenda_conference = eventSettingLists.get(i).getFieldValue();
+
                 } else if (eventSettingLists.get(i).getFieldName().equals("agenda_vacation")) {
                     agenda_vacation = eventSettingLists.get(i).getFieldValue();
                 }else if (eventSettingLists.get(i).getFieldName().equals("side_menu_contact_us")) {
@@ -1015,17 +1016,26 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
             Intent speaker = new Intent(this, SpeakerActivity.class);
             startActivity(speaker);
 
-        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_agenda")) {
+        } /*else if (menuSettingList.getFieldName().equalsIgnoreCase("agenda_conference") ||menuSettingList.getFieldName().equalsIgnoreCase("agenda_vacation")) {
 
-//            if (agenda.equalsIgnoreCase("1")) {
             if (agenda_conference.equalsIgnoreCase("1")) {
                 Intent agenda = new Intent(this, AgendaActivity.class);
                 startActivity(agenda);
             } else if (agenda_vacation.equalsIgnoreCase("1")) {
                 Intent agenda = new Intent(this, AgendaVacationActivity.class);
                 startActivity(agenda);
-//                }
+            }
 
+
+        }*/
+        else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_agenda")) {
+
+            if (agenda_conference.equalsIgnoreCase("1")) {
+                Intent agenda = new Intent(this, AgendaActivity.class);
+                startActivity(agenda);
+            } else if (agenda_vacation.equalsIgnoreCase("1")) {
+                Intent agenda = new Intent(this, AgendaVacationActivity.class);
+                startActivity(agenda);
             }
 
 

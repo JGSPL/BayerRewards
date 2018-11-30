@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -340,6 +341,10 @@ public class QAAttendeeActivity extends AppCompatActivity implements QAAttendeeA
 
         myDialog.show();
 
+        LinearLayout diatitle = myDialog.findViewById(R.id.diatitle);
+
+        diatitle.setBackgroundColor(Color.parseColor(colorActive));
+
 
         Button cancelbtn = myDialog.findViewById(R.id.canclebtn);
         Button ratebtn = myDialog.findViewById(R.id.ratebtn);
@@ -353,6 +358,8 @@ public class QAAttendeeActivity extends AppCompatActivity implements QAAttendeeA
 
         cancelbtn.setBackgroundColor(Color.parseColor(colorActive));
         ratebtn.setBackgroundColor(Color.parseColor(colorActive));
+
+        nametv.setTextColor(Color.parseColor(colorActive));
 
 
         title.setText("Post Question");

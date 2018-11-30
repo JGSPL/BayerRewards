@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -286,6 +287,9 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
 
         myDialog.show();
 
+        LinearLayout diatitle = myDialog.findViewById(R.id.diatitle);
+
+        diatitle.setBackgroundColor(Color.parseColor(colorActive));
 
         Button cancelbtn = myDialog.findViewById(R.id.canclebtn);
         Button ratebtn = myDialog.findViewById(R.id.ratebtn);
@@ -300,6 +304,8 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
         final TextView nametv = myDialog.findViewById(R.id.nametv);
         final TextView title = myDialog.findViewById(R.id.title);
         final ImageView imgCancel = myDialog.findViewById(R.id.imgCancel);
+
+        nametv.setTextColor(Color.parseColor(colorActive));
 
         title.setText("Post Question");
 

@@ -20,6 +20,7 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -276,6 +277,7 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
         TextView reportTv = dialog.findViewById(R.id.reportTv);
         TextView hideTv = dialog.findViewById(R.id.hideTv);
         TextView deleteTv = dialog.findViewById(R.id.deleteTv);
+        TextView cancelTv = dialog.findViewById(R.id.cancelTv);
 
         deleteTv.setVisibility(View.GONE);
 
@@ -310,9 +312,17 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
         reportTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showratedialouge(videoContest.getId());
+                showratedialouge(videoContest.getId(),videoContest.getFirstName());
             }
         });
+
+        cancelTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
 
         dialog.show();
 
@@ -482,7 +492,7 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
         }
     }
 
-    private void showratedialouge(final String id) {
+    private void showratedialouge(final String id, String name) {
 
         myDialog = new Dialog(this);
         myDialog.setContentView(R.layout.dialouge_msg_layout);
@@ -490,19 +500,28 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
 
         myDialog.show();
 
+        LinearLayout diatitle = myDialog.findViewById(R.id.diatitle);
+
+        diatitle.setBackgroundColor(Color.parseColor(colorActive));
+
 
         Button cancelbtn = myDialog.findViewById(R.id.canclebtn);
         Button ratebtn = myDialog.findViewById(R.id.ratebtn);
-        ratebtn.setText("Report User");
+        ratebtn.setText("Send");
+
+        ratebtn.setBackgroundColor(Color.parseColor(colorActive));
 
         final EditText etmsg = myDialog.findViewById(R.id.etmsg);
 
         final TextView counttv = myDialog.findViewById(R.id.counttv);
         final TextView nametv = myDialog.findViewById(R.id.nametv);
         final TextView title = myDialog.findViewById(R.id.title);
-        title.setText("Report User");
+        final ImageView imgCancel= myDialog.findViewById(R.id.imgCancel);
 
-        nametv.setText("To " + "Admin");
+        title.setText("Report Video");
+
+        nametv.setText("To " + name);
+        nametv.setTextColor(Color.parseColor(colorActive));
 
         etmsg.addTextChangedListener(new TextWatcher() {
             @Override
@@ -531,6 +550,16 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
             }
         });
 
+        imgCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
+
+
+
+
         ratebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -541,6 +570,7 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
                     dialog.dismiss();
                     ReportVideoContest(eventid, id, token, msg);
                 } else {
+
                     Toast.makeText(VideoContestActivity.this, "Enter Something", Toast.LENGTH_SHORT).show();
                 }
             }

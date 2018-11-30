@@ -1,6 +1,8 @@
 package com.procialize.singleevent.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
@@ -28,6 +30,8 @@ import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by gauravnaik309 on 01/03/18.
  */
@@ -37,11 +41,17 @@ public class SwipepagerSelfieAdapter extends PagerAdapter {
     private List<SelfieList> images;
     private LayoutInflater inflater;
     private Context context;
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String colorActive;
 
     public SwipepagerSelfieAdapter(Context context, List<SelfieList> images) {
         this.context = context;
         this.images=images;
         inflater = LayoutInflater.from(context);
+
+        SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        colorActive = prefs.getString("colorActive","");
+
     }
 
     @Override
@@ -82,7 +92,7 @@ public class SwipepagerSelfieAdapter extends PagerAdapter {
         }).into(myImage).onLoadStarted(context.getDrawable(R.drawable.gallery_placeholder));
 
         name.setText(StringEscapeUtils.unescapeJava(firstLevelFilter.getTitle()));
-
+        name.setBackgroundColor(Color.parseColor(colorActive));
         view.addView(myImageLayout, 0);
         return myImageLayout;
     }

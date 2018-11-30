@@ -41,6 +41,9 @@ public class CustomMenuAdapter extends RecyclerView.Adapter<CustomMenuAdapter.My
     private List<EventMenuSettingList> eventMenuSettingLists;
     private Context context;
     private CustomMenuAdapterListner listener;
+    List<EventSettingList> eventSettingLists;
+    String agenda_conference;
+    String agenda_vacation;
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -74,6 +77,7 @@ public class CustomMenuAdapter extends RecyclerView.Adapter<CustomMenuAdapter.My
         this.eventMenuSettingLists = eventMenuSettingLists;
         this.listener = listener;
         this.context = context;
+
     }
 
     @Override
@@ -164,7 +168,14 @@ public class CustomMenuAdapter extends RecyclerView.Adapter<CustomMenuAdapter.My
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_gen_info")) {
             holder.nameTv.setText("General Info");
             holder.profileIv.setImageResource(R.drawable.general);
-        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_agenda")) {
+        } /*else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_agenda")) {
+            if(agenda_vacation.equalsIgnoreCase("1") ||agenda_conference.equalsIgnoreCase("1")) {
+                holder.nameTv.setText("Agenda");
+                holder.profileIv.setImageResource(R.drawable.agenda);
+            }else{
+                holder.topll.setVisibility(View.GONE);
+            }
+        }*/else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_agenda")) {
             holder.nameTv.setText("Agenda");
             holder.profileIv.setImageResource(R.drawable.agenda);
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_contact_us")) {

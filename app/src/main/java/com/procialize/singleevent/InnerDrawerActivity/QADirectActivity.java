@@ -21,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -225,6 +226,9 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
 //        myDialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme; //style id
 
         myDialog.show();
+        LinearLayout diatitle = myDialog.findViewById(R.id.diatitle);
+
+        diatitle.setBackgroundColor(Color.parseColor(colorActive));
 
 
         Button cancelbtn = myDialog.findViewById(R.id.canclebtn);
@@ -242,6 +246,8 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
         final TextView title = myDialog.findViewById(R.id.title);
         nametv.setVisibility(View.GONE);
         title.setText("Post Question");
+
+        nametv.setTextColor(Color.parseColor(colorActive));
 
 
         etmsg.addTextChangedListener(new TextWatcher() {
