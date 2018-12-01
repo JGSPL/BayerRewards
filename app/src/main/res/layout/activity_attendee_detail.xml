@@ -247,6 +247,8 @@
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:layout_weight="5"
+                android:id="@+id/linMsg"
+
                 android:background="@drawable/loginbutton"
                 android:gravity="center"
                 android:orientation="horizontal">
@@ -274,6 +276,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:layout_weight="5"
+                android:id="@+id/linsave"
                 android:background="@drawable/loginbutton"
                 android:gravity="center"
                 android:orientation="horizontal">

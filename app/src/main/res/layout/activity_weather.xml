@@ -139,7 +139,7 @@
 
     </LinearLayout>
 
-    <android.support.v4.widget.NestedScrollView
+   <!-- <android.support.v4.widget.NestedScrollView
         android:fillViewport="true"
         android:layout_margin="10dp"
         android:layout_width="match_parent"
@@ -148,11 +148,14 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent">-->
 
             <LinearLayout
                 android:orientation="vertical"
                 android:background="#F1F1F1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -310,7 +313,22 @@
 
 
                 </LinearLayout>
+            </LinearLayout>
 
+    <android.support.v4.widget.NestedScrollView
+                    android:fillViewport="true"
+                    android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:background="#F1F1F1"
+
+                    android:layout_height="match_parent">
                 <LinearLayout
                     android:weightSum="2"
                     android:layout_width="match_parent"
@@ -325,120 +343,7 @@
                         android:gravity="left"
                         android:padding="4sp"
                         android:textSize="@dimen/textsizesmall"
-                        android:text="Feels like"
-                        />
-
-
-                    <com.procialize.singleevent.Fonts.RobotoTextview
-                        android:id="@+id/feelTv"
-                        android:layout_marginRight="25dp"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:gravity="right"
-                        android:padding="4sp"
-                        android:textSize="@dimen/textsizesmall"
-                        android:text=""
-                        />
-
-                </LinearLayout>
-                <View
-                    android:background="@color/colorgrey"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
-
-
-                <LinearLayout
-                    android:weightSum="2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.procialize.singleevent.Fonts.RobotoTextview
-                        android:layout_marginRight="0dp"
-                        android:layout_weight="1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:gravity="left"
-                        android:padding="4sp"
-                        android:textSize="@dimen/textsizesmall"
-                        android:text="Humidity"
-                        />
-
-
-                    <com.procialize.singleevent.Fonts.RobotoTextview
-                        android:id="@+id/humidityTv"
-                        android:layout_marginRight="25dp"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:gravity="right"
-                        android:padding="4sp"
-                        android:textSize="@dimen/textsizesmall"
-                        android:text=""
-                        />
-
-                </LinearLayout>
-                <View
-                    android:background="@color/colorgrey"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
-
-
-                <LinearLayout
-                    android:weightSum="2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.procialize.singleevent.Fonts.RobotoTextview
-                        android:layout_marginRight="0dp"
-                        android:layout_weight="1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:gravity="left"
-                        android:padding="4sp"
-                        android:textSize="@dimen/textsizesmall"
-                        android:text="Visibility"
-                        />
-
-
-                    <com.procialize.singleevent.Fonts.RobotoTextview
-                        android:id="@+id/visibilityTv"
-                        android:layout_marginRight="25dp"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:gravity="right"
-                        android:padding="4sp"
-                        android:textSize="@dimen/textsizesmall"
-                        android:text=""
-                        />
-
-                </LinearLayout>
-                <View
-                    android:background="@color/colorgrey"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
-
-                <LinearLayout
-                    android:weightSum="2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.procialize.singleevent.Fonts.RobotoTextview
-                        android:layout_marginRight="0dp"
-                        android:layout_weight="1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:gravity="left"
-                        android:padding="4sp"
-                        android:textSize="@dimen/textsizesmall"
-                        android:text="Sunset"
+                        android:text="sunset"
                         />
 
 
@@ -461,7 +366,128 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"/>
 
-            </LinearLayout>
+
+
+                <LinearLayout
+                    android:weightSum="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.procialize.singleevent.Fonts.RobotoTextview
+                        android:layout_marginRight="0dp"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:gravity="left"
+                        android:padding="4sp"
+                        android:textSize="@dimen/textsizesmall"
+                        android:text="visibility"
+                        />
+
+
+                    <com.procialize.singleevent.Fonts.RobotoTextview
+                        android:id="@+id/visibilityTv"
+                        android:layout_marginRight="25dp"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:gravity="right"
+                        android:padding="4sp"
+                        android:textSize="@dimen/textsizesmall"
+                        android:text=""
+                        />
+
+                </LinearLayout>
+
+                <View
+                    android:background="@color/colorgrey"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
+
+                <LinearLayout
+                    android:weightSum="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.procialize.singleevent.Fonts.RobotoTextview
+                        android:layout_marginRight="0dp"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:gravity="left"
+                        android:padding="4sp"
+                        android:textSize="@dimen/textsizesmall"
+                        android:text="humidity"
+                        />
+
+
+                    <com.procialize.singleevent.Fonts.RobotoTextview
+                        android:id="@+id/humidityTv"
+                        android:layout_marginRight="25dp"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:gravity="right"
+                        android:padding="4sp"
+                        android:textSize="@dimen/textsizesmall"
+                        android:text=""
+                        />
+
+                </LinearLayout>
+
+
+                <View
+                    android:background="@color/colorgrey"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
+                <LinearLayout
+                    android:weightSum="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.procialize.singleevent.Fonts.RobotoTextview
+                        android:layout_marginRight="0dp"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:gravity="left"
+                        android:padding="4sp"
+                        android:textSize="@dimen/textsizesmall"
+                        android:text="sunrise"
+                        />
+
+
+                    <com.procialize.singleevent.Fonts.RobotoTextview
+                        android:id="@+id/feelTv"
+                        android:layout_marginRight="25dp"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:gravity="right"
+                        android:padding="4sp"
+                        android:textSize="@dimen/textsizesmall"
+                        android:text=""
+                        />
+
+                </LinearLayout>
+                <View
+                    android:background="@color/colorgrey"
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:layout_height="1dp"/>
+
+
+
+
+
 
 
 

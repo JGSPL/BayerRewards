@@ -113,7 +113,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.MyViewHo
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
         SimpleDateFormat myFormat = new SimpleDateFormat("dd MMM");
-        SimpleDateFormat mymonthFormat = new SimpleDateFormat("EEEE");
+        SimpleDateFormat mymonthFormat = new SimpleDateFormat("EEE");
 
         Date date = new Date();
         try {

@@ -515,7 +515,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
 
         if (eventMenuSettingLists != null) {
-            customMenuAdapter = new CustomMenuAdapter(this, eventMenuSettingLists, this);
+            customMenuAdapter = new CustomMenuAdapter(this, eventMenuSettingLists, this,side_menu_agenda);
             menurecycler.setAdapter(customMenuAdapter);
             customMenuAdapter.notifyDataSetChanged();
         }

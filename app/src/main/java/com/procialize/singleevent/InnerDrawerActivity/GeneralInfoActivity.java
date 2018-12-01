@@ -107,7 +107,7 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
         general_info_cur = (LinearLayout) findViewById(R.id.general_info_cur);
 
         ImageView ic_rightarrow = (ImageView) findViewById(R.id.ic_rightarrow);
-        ImageView ic_rightarrow1 = (ImageView) findViewById(R.id.ic_rightarrow2);
+        ImageView ic_arrow_we = (ImageView) findViewById(R.id.ic_arrow_we);
         int colorInt = Color.parseColor(colorActive);
 
         ColorStateList csl = ColorStateList.valueOf(colorInt);
@@ -120,9 +120,9 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
 
         ColorStateList csl2 = ColorStateList.valueOf(colorInt2);
 
-        Drawable drawable1 = DrawableCompat.wrap(ic_rightarrow1.getDrawable());
+        Drawable drawable1 = DrawableCompat.wrap(ic_arrow_we.getDrawable());
         DrawableCompat.setTintList(drawable1, csl2);
-        ic_rightarrow1.setImageDrawable(drawable1);
+        ic_arrow_we.setImageDrawable(drawable1);
 
 
 
