@@ -40,7 +40,7 @@ import java.util.Locale;
 import static android.content.Context.MODE_PRIVATE;
 
 /**
- * Created by Naushad on 10/31/2017.
+ * Created by Naushad on 10/31/2017.//preeti
  */
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.MyViewHolder> {
