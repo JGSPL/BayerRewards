@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.procialize.singleevent.GetterSetter.LivePollOptionList;
 import com.procialize.singleevent.R;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import java.util.List;
 
 /**
@@ -25,15 +27,15 @@ public class PollGraphAdapter extends RecyclerView.Adapter<PollGraphAdapter.MyVi
     String questionId;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView txtOptMessage,txtper;
+        public TextView txtOptMessage, txtper;
         public LinearLayout linGraph;
 
         public MyViewHolder(View view) {
             super(view);
-            txtOptMessage =  view.findViewById(R.id.txtOptMessage);
-            txtper =  view.findViewById(R.id.txtper);
+            txtOptMessage = view.findViewById(R.id.txtOptMessage);
+            txtper = view.findViewById(R.id.txtper);
 
-            linGraph =  view.findViewById(R.id.linGraph);
+            linGraph = view.findViewById(R.id.linGraph);
 
 
         }
@@ -42,8 +44,8 @@ public class PollGraphAdapter extends RecyclerView.Adapter<PollGraphAdapter.MyVi
 
     public PollGraphAdapter(Context context, List<LivePollOptionList> optionLists, String questionId) {
         this.optionLists = optionLists;
-        this.context=context;
-        this.questionId= questionId;
+        this.context = context;
+        this.questionId = questionId;
     }
 
     @Override
@@ -58,9 +60,8 @@ public class PollGraphAdapter extends RecyclerView.Adapter<PollGraphAdapter.MyVi
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final LivePollOptionList pollList = optionLists.get(position);
 
-        String[] color = {"#0e73ba", "#00a89c", "#4d4d4d", "#949494", "#0e73ba", "#00a89c", "#4d4d4d", "#949494", "#0e73ba", "#00a89c","#4d4d4d","#949494"};
+        String[] color = {"#0e73ba", "#00a89c", "#4d4d4d", "#949494", "#0e73ba", "#00a89c", "#4d4d4d", "#949494", "#0e73ba", "#00a89c", "#4d4d4d", "#949494"};
         Float totalUser = 0.0f;
-
 
 
         for (int k = 0; k < optionLists.size(); k++) {
@@ -73,7 +74,7 @@ public class PollGraphAdapter extends RecyclerView.Adapter<PollGraphAdapter.MyVi
             }
 
         }
-        LinearLayout.LayoutParams  rpms2,rprms;
+        LinearLayout.LayoutParams rpms2, rprms;
         LinearLayout l3 = new LinearLayout(context);
 
         LinearLayout ll2 = new LinearLayout(context);
@@ -84,7 +85,7 @@ public class PollGraphAdapter extends RecyclerView.Adapter<PollGraphAdapter.MyVi
         Float weight = 0.0f;
 
 
-        weight = ((Float.parseFloat(optionLists.get(position )
+        weight = ((Float.parseFloat(optionLists.get(position)
                 .getTotalUser()) / totalUser) * 100);
 
 
@@ -102,13 +103,12 @@ public class PollGraphAdapter extends RecyclerView.Adapter<PollGraphAdapter.MyVi
         l3.setWeightSum(100);
         l3.setMinimumHeight(40);
 
-        holder.txtOptMessage.setText(pollList.getOption());
-        holder.txtper.setText(num +"%");
-       // holder.linGraph.setBackgroundColor(Color.parseColor(color[position]));
+        holder.txtOptMessage.setText(StringEscapeUtils.unescapeJava(pollList.getOption()));
+        holder.txtper.setText(num + "%");
+        // holder.linGraph.setBackgroundColor(Color.parseColor(color[position]));
 
-        l3.addView(ll2,rpms2);
+        l3.addView(ll2, rpms2);
         holder.linGraph.addView(l3);
-
 
 
     }
@@ -118,5 +118,5 @@ public class PollGraphAdapter extends RecyclerView.Adapter<PollGraphAdapter.MyVi
         return optionLists.size();
     }
 
-   
+
 }

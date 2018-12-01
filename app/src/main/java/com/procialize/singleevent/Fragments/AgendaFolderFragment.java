@@ -362,11 +362,11 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
 
 
         for (int i = 0; i < tabWidget.getChildCount(); i++) {
-            tabWidget.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.colorselectedtab));
+//            tabWidget.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.activetab));
         }
 
         // set the active tab
-        tabWidget.getChildAt(agendaTabHost.getCurrentTab()).setBackgroundColor(getResources().getColor(R.color.colorunselectedtab));
+//        tabWidget.getChildAt(agendaTabHost.getCurrentTab()).setBackgroundColor(getResources().getColor(R.color.activetab));
 
 //        for (int i = 0; i < agendaTabHost.getTabWidget().getChildCount(); i++) {
 //            // mTabHost.getTabWidget().getChildAt(i).setBackgroundColor(Color.parseColor("#FF0000")); // unselected
@@ -380,11 +380,12 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
             public void onTabChanged(String tabId) {
                 JZVideoPlayer.releaseAllVideos();
                 for (int i = 0; i < tabWidget.getChildCount(); i++) {
-                    tabWidget.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.colorselectedtab));
+//                    tabWidget.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.activetab));
+
                 }
 
                 // set the active tab
-                tabWidget.getChildAt(agendaTabHost.getCurrentTab()).setBackgroundColor(getResources().getColor(R.color.colorunselectedtab));
+//                tabWidget.getChildAt(agendaTabHost.getCurrentTab()).setBackgroundColor(getResources().getColor(R.color.activetab));
 //                tab_text = (LinearLayout) agendaTabHost.getTabWidget().getChildAt(i).findViewById(R.id.tab_text); //Unselected Tabs
 //                tab_text.setBackgroundColor(Color.parseColor("#80000000"));
 

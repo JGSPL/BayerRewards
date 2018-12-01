@@ -78,7 +78,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
     public ImageView profileIv;
     public ProgressBar progressView, feedprogress;
     public PixabayImageView feedimageIv;
-    String name, company, designation, heading, date, Likes, Likeflag, Comments, profileurl, noti_profileurl, feedurl, type, feedid, apikey, thumbImg, videourl, noti_type;
+    String fname, lname, name, company, designation, heading, date, Likes, Likeflag, Comments, profileurl, noti_profileurl, feedurl, type, feedid, apikey, thumbImg, videourl, noti_type;
     ProgressDialog progress;
     private APIService mAPIService;
     private TenorApiService mAPItenorService;
@@ -119,7 +119,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
-       // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -139,7 +139,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
         });
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
+        Util.logomethod(this, headerlogoIv);
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
@@ -161,7 +161,15 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
 
         try {
             if (intent != null) {
-                name = intent.getStringExtra("name");
+                lname = intent.getStringExtra("lname");
+                fname = intent.getStringExtra("fname");
+                if (fname == null) {
+                    fname = "";
+                }
+
+                if (lname == null) {
+                    lname = "";
+                }
                 company = intent.getStringExtra("company");
                 designation = intent.getStringExtra("designation");
                 heading = intent.getStringExtra("heading");
@@ -242,7 +250,8 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
         feedprogress = findViewById(R.id.feedprogress);
         videoplayer = (MyJZVideoPlayerStandard) findViewById(R.id.videoplayer);
 
-        nameTv.setText(name);
+
+        nameTv.setText(fname+" "+lname);
         companyTv.setText(company);
         designationTv.setText(designation);
         headingTv.setText(StringEscapeUtils.unescapeJava(heading));
@@ -545,7 +554,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
     }
 
 
-    public void PostComment(String eventid, String feedid, String comments, String accesskey) {
+    public void PostComment(final String eventid, final String feedid, String comments, String accesskey) {
         showProgress();
         mAPIService.postComment(eventid, feedid, comments, accesskey).enqueue(new Callback<PostComment>() {
             @Override
@@ -566,6 +575,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
             public void onFailure(Call<PostComment> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
                 dismissProgress();
+                fetchCommentDetails(apikey, eventid, feedid);
             }
         });
     }
@@ -621,7 +631,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
 
 
     public void showProgress() {
-        progress = new ProgressDialog(this, R.style.MyAlertDialogStyle);
+        progress = new ProgressDialog(this);
         progress.setMessage("Loading....");
         progress.setTitle("Progress");
         progress.show();
@@ -635,7 +645,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
 
     @Override
     protected void onResume() {
-       // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         super.onResume();
     }
 
@@ -835,7 +845,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
             Comments = response.body().getNewsFeedList().get(0).getTotalComments();
             profileurl = response.body().getNewsFeedList().get(0).getProfilePic();
             type = response.body().getNewsFeedList().get(0).getType();
-          //  feedurl = response.body().getNewsFeedList().get(0).getMediaFile();
+            //  feedurl = response.body().getNewsFeedList().get(0).getMediaFile();
             feedid = response.body().getNewsFeedList().get(0).getNewsFeedId();
 
 
@@ -1205,7 +1215,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
             try {
                 Date date1 = formatter.parse(date);
 
-                DateFormat originalFormat = new SimpleDateFormat("dd MMM , yyyy KK:mm", Locale.ENGLISH);
+                DateFormat originalFormat = new SimpleDateFormat("dd MMM,KK:mm", Locale.ENGLISH);
 
                 String date = originalFormat.format(date1);
 

@@ -69,75 +69,19 @@
                     android:textColor="@color/activetab"
                     android:textSize="18sp"
                     android:visibility="gone" />
+
                 <LinearLayout
-                    android:id="@+id/general_info_cur"
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:weightSum="10"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/agendabg"
-                    android:gravity="center"
-                    android:minHeight="60dp"
-                    android:visibility="gone"
-                    android:layout_height="wrap_content">
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="9">
-
-                        <com.procialize.singleevent.Fonts.RobotoTextview
-                            android:id="@+id/abtcurency_tv"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:drawablePadding="10dp"
-                            android:gravity="left|center"
-                            android:padding="5dp"
-                            android:layout_marginLeft="5dp"
-                            android:textColor="@color/activetab"
-                            android:text="Currency Converter"
-                            android:textAllCaps="false"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1">
-                        <ImageView
-                            android:src="@drawable/ic_rightarrow"
-                            android:layout_width="wrap_content"
-                            android:background="@drawable/agendabg"
-                            android:id="@+id/ic_rightarrow"
-                            android:layout_height="30dp" />
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
-
-<!--
-                <com.procialize.singleevent.Fonts.RobotoTextview
-                    android:id="@+id/abtcurency_tv"
+                    android:id="@+id/general_info_wea"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:background="@drawable/agendabg"
-                    android:drawableRight="@drawable/ic_rightarrow"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Currency Converter"
-                    android:textColor="@color/black"
-                    android:visibility="gone" />
--->
-                <LinearLayout
-                    android:id="@+id/general_info_wea"
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:weightSum="10"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/agendabg"
                     android:gravity="center"
                     android:minHeight="60dp"
+                    android:orientation="horizontal"
                     android:visibility="gone"
-                    android:layout_height="wrap_content">
+                    android:weightSum="10">
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -147,24 +91,89 @@
                             android:id="@+id/weather_tv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
                             android:drawablePadding="10dp"
                             android:gravity="left|center"
                             android:padding="5dp"
-                            android:layout_marginLeft="5dp"
-                            android:textColor="@color/activetab"
                             android:text="Time &amp; Weather"
-                            android:textAllCaps="false"/>
+                            android:textAllCaps="false"
+                            android:textColor="@color/activetab" />
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/general_info_cur"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/agendabg"
+                        android:gravity="center"
+                        android:minHeight="60dp"
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+                        android:weightSum="10">
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="9">
+
+                            <com.procialize.singleevent.Fonts.RobotoTextview
+                                android:id="@+id/abtcurency_tv"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:drawablePadding="10dp"
+                                android:gravity="left|center"
+                                android:padding="5dp"
+                                android:text="Currency Converter"
+                                android:textAllCaps="false"
+                                android:textColor="@color/activetab" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <ImageView
+                                android:id="@+id/ic_rightarrow"
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:background="@drawable/agendabg"
+                                android:src="@drawable/ic_rightarrow" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <!--
+                                    <com.procialize.singleevent.Fonts.RobotoTextview
+                                        android:id="@+id/abtcurency_tv"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="5dp"
+                                        android:background="@drawable/agendabg"
+                                        android:drawableRight="@drawable/ic_rightarrow"
+                                        android:gravity="center"
+                                        android:padding="10dp"
+                                        android:text="Currency Converter"
+                                        android:textColor="@color/black"
+                                        android:visibility="gone" />
+                    -->
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1">
+
                         <ImageView
-                            android:src="@drawable/ic_rightarrow"
-                            android:layout_width="wrap_content"
-                            android:background="@drawable/agendabg"
                             android:id="@+id/ic_rightarrow1"
-                            android:layout_height="30dp" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:background="@drawable/agendabg"
+                            android:src="@drawable/ic_rightarrow" />
 
                     </LinearLayout>
 
@@ -172,23 +181,20 @@
                 </LinearLayout>
 
 
-
-<!--
-                <com.procialize.singleevent.Fonts.RobotoTextview
-                    android:id="@+id/weather_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/agendabg"
-                    android:drawableRight="@drawable/ic_rightarrow"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Time &amp; Weather"
-                    android:textColor="@color/black"
-                    android:visibility="gone" />
--->
-
-
+                <!--
+                                <com.procialize.singleevent.Fonts.RobotoTextview
+                                    android:id="@+id/weather_tv"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:background="@drawable/agendabg"
+                                    android:drawableRight="@drawable/ic_rightarrow"
+                                    android:gravity="center"
+                                    android:padding="10dp"
+                                    android:text="Time &amp; Weather"
+                                    android:textColor="@color/black"
+                                    android:visibility="gone" />
+                -->
 
 
                 <android.support.v7.widget.RecyclerView

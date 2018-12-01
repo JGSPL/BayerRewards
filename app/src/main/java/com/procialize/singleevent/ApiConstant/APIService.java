@@ -160,8 +160,7 @@ public interface APIService {
             @Part("attendee_type") RequestBody attendee_type,
             @Part("designation") RequestBody designation,
             @Part("event_id") RequestBody event_id,
-            @Part("company_name") RequestBody company_name,
-            @Part MultipartBody.Part filename);
+            @Part("company_name") RequestBody company_name);
 
 
     @POST("EditProfileFetch")

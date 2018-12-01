@@ -36,6 +36,8 @@ import com.procialize.singleevent.InnerDrawerActivity.LivePollActivity;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -139,7 +141,7 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
             }
         }
 
-        questionTv.setText(question);
+        questionTv.setText(StringEscapeUtils.unescapeJava(question));
 
         if (AlloptionLists.size() != 0) {
             for (int i = 0; i < AlloptionLists.size(); i++) {
@@ -362,7 +364,7 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
 
                     RadioButton rdbtn = new RadioButton(this);
                     rdbtn.setId((row * 2) + i);
-                    rdbtn.setText(optionLists.get(i - 1).getOption());
+                    rdbtn.setText(StringEscapeUtils.unescapeJava(optionLists.get(i - 1).getOption()));
                     rdbtn.setTextColor(Color.BLACK);
 //                rdbtn.setTypeface(typeFace);
                     rdbtn.setOnClickListener(this);

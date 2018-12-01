@@ -45,22 +45,22 @@ import retrofit2.Response;
 
 public class SpeakerDetailsActivity extends AppCompatActivity {
 
-    String speakerid, city, country, company, designation, description, totalrating, name, profile;
-    TextView tvname, tvcompany, tvdesignation, tvcity,speakertitle;
+    String speakerid, city, country, company, designation, description, totalrating, name, profile, mobile;
+    TextView tvname, tvcompany, tvdesignation, tvcity, speakertitle, tvmobile;
     ImageView profileIV;
     Button ratebtn;
     APIService mAPIService;
     SessionManager sessionManager;
-    String apikey;
+    String apikey, attendeeid;
     float ratingval;
     Dialog myDialog;
     String speaker_rating, speaker_designation, speaker_company, speaker_location, speaker_mobile;
     List<EventSettingList> eventSettingLists;
     ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid,colorActive;
+    String eventid, colorActive;
     View viewthree, viewtwo, viewone;
-    RelativeLayout ratinglayout,layoutTop;
+    RelativeLayout ratinglayout, layoutTop;
     RatingBar ratingbar;
     ImageView headerlogoIv;
 
@@ -68,12 +68,12 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speaker_details);
-      //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
-        colorActive = prefs.getString("colorActive","");
+        colorActive = prefs.getString("colorActive", "");
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -92,7 +92,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         });
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
+        Util.logomethod(this, headerlogoIv);
 
 
         mAPIService = ApiUtils.getAPIService();
@@ -102,6 +102,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
 
         // apikey
         apikey = user.get(SessionManager.KEY_TOKEN);
+        attendeeid = user.get(SessionManager.KEY_ID);
 
         eventSettingLists = sessionManager.loadEventList();
 
@@ -119,6 +120,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
             description = getIntent().getExtras().getString("description");
             totalrating = getIntent().getExtras().getString("totalrating");
             profile = getIntent().getExtras().getString("profile");
+            mobile = getIntent().getExtras().getString("mobile");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -127,6 +129,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         tvname = findViewById(R.id.tvname);
         tvcompany = findViewById(R.id.tvcompany);
         tvdesignation = findViewById(R.id.tvdesignation);
+        tvmobile = findViewById(R.id.tvmobile);
         speakertitle = findViewById(R.id.speakertitle);
         tvcity = findViewById(R.id.tvcity);
         profileIV = findViewById(R.id.profileIV);
@@ -150,7 +153,6 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
                 PorterDuff.Mode.SRC_ATOP);
 
 
-
         if (name != null) {
             if (name.equalsIgnoreCase("N A")) {
                 tvname.setVisibility(View.GONE);
@@ -163,7 +165,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
 
 
         if (company != null && speaker_company.equalsIgnoreCase("1")) {
-            if (company.equalsIgnoreCase("N A")) {
+            if (company.equalsIgnoreCase("")) {
                 tvcompany.setVisibility(View.GONE);
             } else {
                 tvcompany.setText(company);
@@ -174,11 +176,11 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         }
 
         if (designation != null && speaker_designation.equalsIgnoreCase("1")) {
-            if (designation.equalsIgnoreCase("N A")) {
+            if (designation.equalsIgnoreCase("")) {
                 tvdesignation.setVisibility(View.GONE);
                 viewthree.setVisibility(View.GONE);
             } else {
-                tvdesignation.setText(description);
+                tvdesignation.setText(designation);
             }
 
         } else {
@@ -187,7 +189,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         }
 
         if (city != null && speaker_location.equalsIgnoreCase("1")) {
-            if (city.equalsIgnoreCase("N A")) {
+            if (city.equalsIgnoreCase("")) {
                 tvcity.setVisibility(View.GONE);
             } else {
                 tvcity.setText(city);
@@ -195,6 +197,17 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
 
         } else {
             tvcity.setVisibility(View.GONE);
+        }
+
+        if (mobile != null && speaker_mobile.equalsIgnoreCase("1")) {
+            if (mobile.equalsIgnoreCase("")) {
+                tvmobile.setVisibility(View.GONE);
+            } else {
+                tvmobile.setText(mobile);
+            }
+
+        } else {
+            tvmobile.setVisibility(View.GONE);
         }
         if (profile != null) {
             Glide.with(this).load(ApiConstant.speaker + profile).listener(new RequestListener<Drawable>() {
@@ -215,12 +228,12 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
             progressBar.setVisibility(View.GONE);
         }
 
-        if (speaker_rating.equalsIgnoreCase("1")) {
-            ratebtn.setVisibility(View.VISIBLE);
-            ratinglayout.setVisibility(View.VISIBLE);
-        } else {
+        if (speakerid.equalsIgnoreCase(attendeeid)) {
             ratebtn.setVisibility(View.GONE);
             ratinglayout.setVisibility(View.GONE);
+        } else {
+            ratebtn.setVisibility(View.VISIBLE);
+            ratinglayout.setVisibility(View.VISIBLE);
         }
 
         ratingbar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
@@ -313,6 +326,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Log.i("hit", "post submitted to API." + response.body().toString());
                     progressDialog.dismiss();
+                    ratingbar.setRating(0F);
 //                    dismissProgress();
                     DeletePostresponse(response);
                 } else {
@@ -352,7 +366,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-     //   overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        //   overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         super.onResume();
     }
 

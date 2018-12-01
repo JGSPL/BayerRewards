@@ -162,7 +162,7 @@ public class AttendeeAdapter extends RecyclerView.Adapter<AttendeeAdapter.MyView
             if (attendee.getCity().equalsIgnoreCase("N A")) {
                 holder.locationTv.setText("");
             } else {
-                holder.locationTv.setText(attendee.getCity());
+                holder.locationTv.setText(attendee.getCompanyName());
             }
 
             if (attendee.getDesignation().equalsIgnoreCase("N A")) {

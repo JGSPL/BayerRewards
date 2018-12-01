@@ -203,7 +203,8 @@ public class VideoFirstLevelActivity extends AppCompatActivity implements VideoF
                     startActivity(videoIntent);*/
                     Intent edit = new Intent(VideoFirstLevelActivity.this, ExoVideoActivity.class);
                     edit.putExtra("videoUrl", firstLevelFilter.getFileName());
-                    edit.putExtra("title", "videoMain");
+                    edit.putExtra("title", firstLevelFilter.getTitle());
+                    edit.putExtra("page", "videoMain");
                     startActivity(edit);
                 }
             }

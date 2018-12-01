@@ -1,5 +1,6 @@
 package com.procialize.singleevent.Adapter;
 //
+
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -25,6 +26,8 @@ import com.procialize.singleevent.InnerDrawerActivity.QuizActivity;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Utility.MyApplication;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +40,7 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
     private List<QuizOptionList> quizOptionList = new ArrayList<>();
     ArrayList<QuizOptionList> quizSpecificOptionListnew = new ArrayList<QuizOptionList>();
 
-   // ArrayList<String> dataArray=new ArrayList<String>();
+    // ArrayList<String> dataArray=new ArrayList<String>();
 
 
     String[] dataArray;
@@ -64,10 +67,10 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
     public QuizNewAdapter(Activity activity, List<Quiz> quizList) {
         this.activity = activity;
         this.quizList = quizList;
-        dataArray=new String[quizList.size()];
-        dataIDArray=new String[quizList.size()];
-        checkArray=new String[quizList.size()];
-        ansArray=new String[quizList.size()];
+        dataArray = new String[quizList.size()];
+        dataIDArray = new String[quizList.size()];
+        checkArray = new String[quizList.size()];
+        ansArray = new String[quizList.size()];
 
         SharedPreferences prefs = activity.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         colorActive = prefs.getString("colorActive","");
@@ -77,7 +80,7 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent,int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.quiz_row_test, parent, false);
@@ -85,7 +88,6 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
-
 
 
     @Override
@@ -103,14 +105,13 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
 //        }
 
         holder.setIsRecyclable(false);
-        if (quizList.get(position).getQuiz_type()==null)
-        {
+        if (quizList.get(position).getQuiz_type() == null) {
 
-            if (holder.raiolayout.getVisibility()==View.GONE) {
+            if (holder.raiolayout.getVisibility() == View.GONE) {
                 holder.raiolayout.setVisibility(View.VISIBLE);
             }
 
-            holder.quiz_title_txt.setText(quizList.get(position).getQuestion());
+            holder.quiz_title_txt.setText(StringEscapeUtils.unescapeJava(quizList.get(position).getQuestion()));
 
             holder.quiz_title_txt.setTextColor(Color.parseColor(colorActive));
 
@@ -147,9 +148,9 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
             int number = quizSpecificOptionListnew.size() + 1;
 
             Display display = activity.getWindowManager().getDefaultDisplay();
-            int width = display.getWidth()-40;
-            double ratio = ((float) (width))/300.0;
-            int height = (int)(ratio*50);
+            int width = display.getWidth() - 40;
+            double ratio = ((float) (width)) / 300.0;
+            int height = (int) (ratio * 50);
 
 
             for (int row = 0; row < 1; row++) {
@@ -163,7 +164,7 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
                     RadioButton rdbtn = new RadioButton(activity);
                     rdbtn.setId((row * 2) + i);
                     rdbtn.setTypeface(typeFace);
-                    rdbtn.setText(quizSpecificOptionListnew.get(i - 1).getOption());
+                    rdbtn.setText(StringEscapeUtils.unescapeJava(quizSpecificOptionListnew.get(i - 1).getOption()));
                     rdbtn.setTextColor(Color.BLACK);
                     rdbtn.setTextSize(14);
                     rdbtn.setBackgroundResource(R.drawable.agenda_bg);
@@ -178,26 +179,24 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
                             LinearLayout.LayoutParams.WRAP_CONTENT
                     );
                     p.setMargins(5, 5, 5, 5);
-                    rdbtn.setPadding(10,5,10,5);
+                    rdbtn.setPadding(10, 5, 10, 5);
                     rdbtn.setLayoutParams(p);
-                    rdbtn.setTag(quizSpecificOptionListnew.get(i-1).getOptionId());
+                    rdbtn.setTag(quizSpecificOptionListnew.get(i - 1).getOptionId());
 
                     //  rdbtn.setOnCheckedChangeListener(activity.this);
 
 //                    if (i == 1)
 //                        rdbtn.setChecked(true);
 
-                    if (checkArray[position]!=null)
-                    {
-                        if(rdbtn.getText().toString().equalsIgnoreCase(checkArray[position]))
-                        {
+                    if (checkArray[position] != null) {
+                        if (rdbtn.getText().toString().equalsIgnoreCase(checkArray[position])) {
                             rdbtn.setChecked(true);
                         }
                     }
 
                     holder.viewGroup.addView(rdbtn);
 
-                    flag=1;
+                    flag = 1;
                 }
             }
 
@@ -214,22 +213,19 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
                 }
 
             }
-            int genid=  holder.viewGroup.getCheckedRadioButtonId();
+            int genid = holder.viewGroup.getCheckedRadioButtonId();
             RadioButton radioButton = holder.viewGroup.findViewById(genid);
 
 
-
-
             //  value[0] = radioButton.getText().toString();
-            if (radioButton!=null) {
+            if (radioButton != null) {
                 dataArray[position] = radioButton.getText().toString();
                 dataIDArray[position] = radioButton.getText().toString();
 
             }
-        }else if (quizList.get(position).getQuiz_type().equalsIgnoreCase("2"))
-        {
+        } else if (quizList.get(position).getQuiz_type().equalsIgnoreCase("2")) {
 
-            if (holder.raiolayout.getVisibility()==View.VISIBLE) {
+            if (holder.raiolayout.getVisibility() == View.VISIBLE) {
                 holder.raiolayout.setVisibility(View.GONE);
             }
 
@@ -247,10 +243,9 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
 //                holder.ans_edit.setText(ansArray[position]);
 //            }
 
-        }else if (quizList.get(position).getQuiz_type().equalsIgnoreCase("1"))
-        {
+        } else if (quizList.get(position).getQuiz_type().equalsIgnoreCase("1")) {
 
-            if (holder.raiolayout.getVisibility()==View.GONE) {
+            if (holder.raiolayout.getVisibility() == View.GONE) {
                 holder.raiolayout.setVisibility(View.VISIBLE);
             }
 
@@ -289,23 +284,23 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
             int number = quizSpecificOptionListnew.size() + 1;
 
             Display display = activity.getWindowManager().getDefaultDisplay();
-            int width = display.getWidth()-40;
-            double ratio = ((float) (width))/300.0;
-            int height = (int)(ratio*50);
+            int width = display.getWidth() - 40;
+            double ratio = ((float) (width)) / 300.0;
+            int height = (int) (ratio * 50);
 
 
             for (int row = 0; row < 1; row++) {
                 LinearLayout ll = new LinearLayout(activity);
                 ll.setOrientation(LinearLayout.VERTICAL);
 
-              //  holder.viewGroup.removeAllViews();
+                //  holder.viewGroup.removeAllViews();
                 //	if(flag==0)
                 for (int i = 1; i < number; i++) {
 
                     RadioButton rdbtn = new RadioButton(activity);
                     rdbtn.setId((row * 2) + i);
                     rdbtn.setTypeface(typeFace);
-                    rdbtn.setText(quizSpecificOptionListnew.get(i - 1).getOption());
+                    rdbtn.setText(StringEscapeUtils.unescapeJava(quizSpecificOptionListnew.get(i - 1).getOption()));
                     rdbtn.setTextColor(Color.BLACK);
                     rdbtn.setTextSize(9);
                     rdbtn.setBackgroundResource(R.drawable.agenda_bg);
@@ -322,24 +317,22 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
                     p.setMargins(5, 5, 5, 5);
 
                     rdbtn.setLayoutParams(p);
-                    rdbtn.setTag(quizSpecificOptionListnew.get(i-1).getOptionId());
+                    rdbtn.setTag(quizSpecificOptionListnew.get(i - 1).getOptionId());
 
-        			  //  rdbtn.setOnCheckedChangeListener(activity.this);
+                    //  rdbtn.setOnCheckedChangeListener(activity.this);
 
 //                    if (i == 1)
 //                        rdbtn.setChecked(true);
 
-                    if (checkArray[position]!=null)
-                    {
-                        if(rdbtn.getText().toString().equalsIgnoreCase(checkArray[position]))
-                        {
+                    if (checkArray[position] != null) {
+                        if (rdbtn.getText().toString().equalsIgnoreCase(checkArray[position])) {
                             rdbtn.setChecked(true);
                         }
                     }
 
                     holder.viewGroup.addView(rdbtn);
 
-                    flag=1;
+                    flag = 1;
                 }
             }
 
@@ -356,14 +349,12 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
                 }
 
             }
-            int genid=  holder.viewGroup.getCheckedRadioButtonId();
+            int genid = holder.viewGroup.getCheckedRadioButtonId();
             RadioButton radioButton = holder.viewGroup.findViewById(genid);
 
 
-
-
-          //  value[0] = radioButton.getText().toString();
-            if (radioButton!=null) {
+            //  value[0] = radioButton.getText().toString();
+            if (radioButton != null) {
                 dataArray[position] = radioButton.getText().toString();
                 dataIDArray[position] = radioButton.getText().toString();
 
@@ -390,7 +381,7 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
                                       int count) {
-                  System.out.print("Hello");
+                System.out.print("Hello");
             }
         };
 
@@ -398,15 +389,14 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
         holder.viewGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                int genid=  radioGroup.getCheckedRadioButtonId();
+                int genid = radioGroup.getCheckedRadioButtonId();
                 RadioButton radioButton = radioGroup.findViewById(genid);
                 //  value[0] = radioButton.getText().toString();
-                dataArray[position]=radioButton.getText().toString();
-                checkArray[position]=radioButton.getText().toString();
+                dataArray[position] = radioButton.getText().toString();
+                checkArray[position] = radioButton.getText().toString();
 
             }
         });
-
 
 
     }
@@ -421,21 +411,19 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
         return super.getItemViewType(position);
     }
 
-    public String[] getselectedData()
-    {
+    public String[] getselectedData() {
         return dataArray;
 
     }
 
-    public String[] getselectedquestion()
-    {
+    public String[] getselectedquestion() {
         return dataIDArray;
 
     }
 
     @Override
     public void onViewDetachedFromWindow(ViewHolder holder) {
-        if (holder instanceof ViewHolder){
+        if (holder instanceof ViewHolder) {
             holder.setIsRecyclable(false);
         }
         super.onViewDetachedFromWindow(holder);
@@ -443,16 +431,16 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView quiz_title_txt,quiz_question_distruct,textno1,textno;
+        TextView quiz_title_txt, quiz_question_distruct, textno1, textno;
         LinearLayout raiolayout;
-//        EditText ans_edit;
+        //        EditText ans_edit;
         RadioGroup viewGroup;
 
         public ViewHolder(View convertView) {
             super(convertView);
             quiz_title_txt = (TextView) convertView
                     .findViewById(R.id.quiz_question);
-           //quiz_title_txt.setTag(position);
+            //quiz_title_txt.setTag(position);
 
 //            quiz_question_distruct = (TextView) convertView
 //                    .findViewById(R.id.quiz_question_distruct);

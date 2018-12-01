@@ -84,7 +84,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eventinfo2);
-       // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
@@ -95,7 +95,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
 
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
+        Util.logomethod(this, headerlogoIv);
         sessionManager = new SessionManager(this);
 
         // get user data from session
@@ -187,104 +187,118 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
 
         // specify an adapter (see also next example)
 
-        if (response.body().getStatus().equalsIgnoreCase("success")) {
-            String startTime = "", endTime = "";
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-            String currentDateandTime = sdf.format(new Date());
-            try {
-                if (response.body().getEventList().get(0).getEventStart().equals("null") && response.body().getEventList().get(0).getEventStart() != null && !response.body().getEventList().get(0).getEventStart().isEmpty()) {
-                    startTime = currentDateandTime;
-                } else {
-                    startTime = response.body().getEventList().get(0).getEventStart();
-                }
-
-                if (response.body().getEventList().get(0).getEventEnd().equals("null") && response.body().getEventList().get(0).getEventEnd() != null && response.body().getEventList().get(0).getEventEnd().isEmpty()) {
-                    endTime = currentDateandTime;
-                } else {
-                    endTime = response.body().getEventList().get(0).getEventEnd();
-                }
-            } catch (Exception e) {
-                startTime = currentDateandTime;
-                endTime = currentDateandTime;
-            }
-
-
-            // SimpleDateFormat df = new SimpleDateFormat("hh:mm a");
-
-            SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
-
-            try {
-                d1 = f.parse(startTime);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            long millisecondsStart = d1.getTime();
-
-            try {
-                d2 = f.parse(endTime);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            long millisecondsEnd = d2.getTime();
-
-            SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
-
-            String finalStartTime = formatter.format(new Date(millisecondsStart));
-            String finalEndTime = formatter.format(new Date(millisecondsEnd));
-
-            try {
-                nameTv.setText(response.body().getEventList().get(0).getEventName());
-                if(finalStartTime.equalsIgnoreCase(finalEndTime)){
-                    dateTv.setText(finalStartTime);
-
-                }else {
-                    dateTv.setText(finalStartTime + " - " + finalEndTime);
-                }
-                cityTv.setText(response.body().getEventList().get(0).getEventCity());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-
-            try {
-                if (event_info_description.equalsIgnoreCase("1") && response.body().getEventList().get(0).getEventDescription() != null) {
-
-                    event_desc.setVisibility(View.VISIBLE);
-                    eventvenu.setVisibility(View.VISIBLE);
-                } else {
-                    event_desc.setVisibility(View.GONE);
-                    eventvenu.setVisibility(View.GONE);
-                }
-                eventvenu.setText("Venue:- " + response.body().getEventList().get(0).getEventLocation());
-                event_desc.setText(response.body().getEventList().get(0).getEventDescription());
-                String image_final_url = /*ApiConstant.baseUrl*/"https://www.procialize.info/uploads/app_logo/"+ response.body().getEventList().get(0).getLogo();
-
-//                Glide.with(getApplicationContext()).load(image_final_url).into(logoIv).onLoadStarted(getDrawable(R.drawable.logo));
-                Glide.with(getApplicationContext()).load(image_final_url)
-                        .apply(RequestOptions.skipMemoryCacheOf(true))
-                        .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE)).listener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-
-                        logoIv.setImageResource(R.drawable.profilepic_placeholder);
-                        return true;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-
-                        return false;
-                    }
-                }).into(logoIv).onLoadStarted(this.getDrawable(R.drawable.profilepic_placeholder));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            linMap.setOnClickListener(new View.OnClickListener() {
+        if (response.body().getEventList().isEmpty()) {
+            setContentView(R.layout.activity_empty_view);
+            ImageView imageView = findViewById(R.id.back);
+            TextView text_empty = findViewById(R.id.text_empty);
+            final ImageView headerlogoIv1 = findViewById(R.id.headerlogoIv);
+            Util.logomethod(this, headerlogoIv1);
+            text_empty.setText("No Data Found");
+            imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    finish();
+                }
+            });
+        } else {
+            if (response.body().getStatus().equalsIgnoreCase("success")) {
+                String startTime = "", endTime = "";
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                String currentDateandTime = sdf.format(new Date());
+                try {
+                    if (response.body().getEventList().get(0).getEventStart().equals("null") && response.body().getEventList().get(0).getEventStart() != null && !response.body().getEventList().get(0).getEventStart().isEmpty()) {
+                        startTime = currentDateandTime;
+                    } else {
+                        startTime = response.body().getEventList().get(0).getEventStart();
+                    }
+
+                    if (response.body().getEventList().get(0).getEventEnd().equals("null") && response.body().getEventList().get(0).getEventEnd() != null && response.body().getEventList().get(0).getEventEnd().isEmpty()) {
+                        endTime = currentDateandTime;
+                    } else {
+                        endTime = response.body().getEventList().get(0).getEventEnd();
+                    }
+                } catch (Exception e) {
+                    startTime = currentDateandTime;
+                    endTime = currentDateandTime;
+                }
+
+
+                // SimpleDateFormat df = new SimpleDateFormat("hh:mm a");
+
+                SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+
+                try {
+                    d1 = f.parse(startTime);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                long millisecondsStart = d1.getTime();
+
+                try {
+                    d2 = f.parse(endTime);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                long millisecondsEnd = d2.getTime();
+
+                SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+
+                String finalStartTime = formatter.format(new Date(millisecondsStart));
+                String finalEndTime = formatter.format(new Date(millisecondsEnd));
+
+                try {
+                    nameTv.setText(response.body().getEventList().get(0).getEventName());
+                    if (finalStartTime.equalsIgnoreCase(finalEndTime)) {
+                        dateTv.setText(finalStartTime);
+
+                    } else {
+                        dateTv.setText(finalStartTime + " - " + finalEndTime);
+                    }
+                    cityTv.setText(response.body().getEventList().get(0).getEventCity());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+                try {
+                    if (event_info_description.equalsIgnoreCase("1") && response.body().getEventList().get(0).getEventDescription() != null) {
+
+                        event_desc.setVisibility(View.VISIBLE);
+                        eventvenu.setVisibility(View.VISIBLE);
+                    } else {
+                        event_desc.setVisibility(View.GONE);
+                        eventvenu.setVisibility(View.GONE);
+                    }
+                    eventvenu.setText("Venue:- " + response.body().getEventList().get(0).getEventLocation());
+                    event_desc.setText(response.body().getEventList().get(0).getEventDescription());
+                    String image_final_url = /*ApiConstant.baseUrl*/"https://www.procialize.info/uploads/app_logo/" + response.body().getEventList().get(0).getLogo();
+
+//                Glide.with(getApplicationContext()).load(image_final_url).into(logoIv).onLoadStarted(getDrawable(R.drawable.logo));
+                    Glide.with(getApplicationContext()).load(image_final_url)
+                            .apply(RequestOptions.skipMemoryCacheOf(true))
+                            .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE)).listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+
+                            logoIv.setImageResource(R.drawable.profilepic_placeholder);
+                            return true;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+
+                            return false;
+                        }
+                    }).into(logoIv).onLoadStarted(this.getDrawable(R.drawable.profilepic_placeholder));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                linMap.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
                    /* String label = "ABC Label";
                     String uriBegin = "geo:" + response.body().getEventList().get(0).getEventLatitude() + "," + response.body().getEventList().get(0).getEventLongitude();
@@ -294,56 +308,55 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
                     Uri uri = Uri.parse(uriString);
                     Intent intent = new Intent(android.content.Intent.ACTION_VIEW, uri);
                     startActivity(intent);*/
-                    String label = response.body().getEventList().get(0).getEventName();
-                    String strUri = "http://maps.google.com/maps?q=loc:" + response.body().getEventList().get(0).getEventLatitude() + "," + response.body().getEventList().get(0).getEventLongitude() + " (" + label+ ")";
-                    Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(strUri));
+                        String label = response.body().getEventList().get(0).getEventName();
+                        String strUri = "http://maps.google.com/maps?q=loc:" + response.body().getEventList().get(0).getEventLatitude() + "," + response.body().getEventList().get(0).getEventLongitude() + " (" + label + ")";
+                        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(strUri));
 
-                    intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+                        intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
 
-                    startActivity(intent);
+                        startActivity(intent);
 
 
+                    }
+                });
+
+
+                try {
+                    if (map != null && event_info_display_map.equalsIgnoreCase("1")) {
+
+                        fm.getView().setVisibility(View.VISIBLE);
+                        position = new LatLng(Double.parseDouble(response.body().getEventList().get(0).getEventLatitude()), Double.parseDouble(response.body().getEventList().get(0).getEventLongitude()));
+
+                        CameraUpdate updatePosition1 = CameraUpdateFactory.newLatLng(position);
+
+                        map.moveCamera(updatePosition1);
+
+                        // Instantiating MarkerOptions class
+                        options = new MarkerOptions();
+
+                        // Setting position for the MarkerOptions
+                        options.position(position);
+
+                        // Setting title for the MarkerOptions
+                        options.title("Venue");
+
+                        // Setting snippet for the MarkerOptions
+                        options.snippet("Venue:- " + response.body().getEventList().get(0).getEventLocation());
+
+
+                        // Adding Marker on the Google Map
+                        map.addMarker(options);
+
+
+                        moveToCurrentLocation(position);
+                    } else {
+                        fm.getView().setVisibility(View.GONE);
+                    }
+                } catch (Exception e) {
                 }
-            });
-
-
-
-            try {
-                if (map != null && event_info_display_map.equalsIgnoreCase("1")) {
-
-                    fm.getView().setVisibility(View.VISIBLE);
-                    position = new LatLng(Double.parseDouble(response.body().getEventList().get(0).getEventLatitude()), Double.parseDouble(response.body().getEventList().get(0).getEventLongitude()));
-
-                    CameraUpdate updatePosition1 = CameraUpdateFactory.newLatLng(position);
-
-                    map.moveCamera(updatePosition1);
-
-                    // Instantiating MarkerOptions class
-                    options = new MarkerOptions();
-
-                    // Setting position for the MarkerOptions
-                    options.position(position);
-
-                    // Setting title for the MarkerOptions
-                    options.title("Venue");
-
-                    // Setting snippet for the MarkerOptions
-                    options.snippet("Venue:- " + response.body().getEventList().get(0).getEventLocation());
-
-
-                    // Adding Marker on the Google Map
-                    map.addMarker(options);
-
-
-                    moveToCurrentLocation(position);
-                } else {
-                    fm.getView().setVisibility(View.GONE);
-                }
-            } catch (Exception e) {
             }
+
         }
-
-
     }
 
 
@@ -377,7 +390,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
 
     @Override
     protected void onResume() {
-     //   overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        //   overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         super.onResume();
     }
 

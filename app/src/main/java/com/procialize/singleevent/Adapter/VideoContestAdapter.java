@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,6 +111,11 @@ public class VideoContestAdapter extends RecyclerView.Adapter<VideoContestAdapte
     }
 
     @Override
+    public int getItemCount() {
+        return videoContestList.size();
+    }
+
+    @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final VideoContest galleryList = videoContestList.get(position);
 
@@ -118,6 +124,9 @@ public class VideoContestAdapter extends RecyclerView.Adapter<VideoContestAdapte
 
 //        holder.videoPlayerStandard.setUp(ApiConstant.selfievideo+galleryList.getFileName()
 //                , JZVideoPlayerStandard.SCREEN_WINDOW_LIST, "");
+
+        String url = ApiConstant.selfievideo + galleryList.getThumbName();
+        Log.e("url",url);
 
         Glide.with(holder.videoPlayerStandard.getContext()).load(ApiConstant.selfievideo + galleryList.getThumbName()).into(holder.videoPlayerStandard);
 
@@ -132,10 +141,8 @@ public class VideoContestAdapter extends RecyclerView.Adapter<VideoContestAdapte
 
     }
 
-    @Override
-    public int getItemCount() {
-        return videoContestList.size();
-    }
+
+
 
     public interface VideoContestAdapterListner {
         void onContactSelected(VideoContest videoContest);

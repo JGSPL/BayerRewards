@@ -80,7 +80,7 @@ public class AgendaDetailActivity extends AppCompatActivity {
 
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
+        Util.logomethod(this, headerlogoIv);
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
@@ -160,7 +160,7 @@ public class AgendaDetailActivity extends AppCompatActivity {
                 Date ogdate = originalFormat.parse(date);
                 String day = String.valueOf(android.text.format.DateFormat.format("EEEE", ogdate));
                 String sessiondate = targetFormat.format(ogdate);
-                tvdate.setText(sessiondate+" - "+day);
+                tvdate.setText(sessiondate + " - " + day);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -195,7 +195,7 @@ public class AgendaDetailActivity extends AppCompatActivity {
             viewone.setVisibility(View.GONE);
         }
 
-        if (description != null && agenda_text_description.equalsIgnoreCase("1")) {
+        if (description != null) {
             tvdscription.setText(description);
         } else {
             tvdscription.setVisibility(View.GONE);
@@ -278,12 +278,12 @@ public class AgendaDetailActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Log.i("hit", "post submitted to API." + response.body().toString());
                     dismissProgress();
+                    ratingbar.setRating(0F);
 //                    dismissProgress();
                     DeletePostresponse(response);
                 } else {
                     dismissProgress();
 //                    dismissProgress();
-
 //                    Toast.makeText(getApplicationContext(),"Unable to process",Toast.LENGTH_SHORT).show();
                 }
             }
@@ -293,7 +293,6 @@ public class AgendaDetailActivity extends AppCompatActivity {
                 Log.e("hit", "Low network or no network");
                 dismissProgress();
 //                Toast.makeText(getApplicationContext(),"Unable to process",Toast.LENGTH_SHORT).show();
-
 //                dismissProgress();
             }
         });

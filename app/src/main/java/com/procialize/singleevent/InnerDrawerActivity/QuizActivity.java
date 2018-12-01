@@ -65,7 +65,7 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
 
 	private ConnectionDetector cd;
 
-
+	TextView questionTv;
 	private ApiConstant constant = new ApiConstant();
 
 	private RecyclerView quizNameList;
@@ -112,22 +112,22 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
 
 		foldername = getIntent().getExtras().getString("folder");
 
-
 		// Session Manager
 		session = new SessionManager(getApplicationContext());
 		accessToken = session.getUserDetails().get(SessionManager.KEY_TOKEN);
 		SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
 		event_id = prefs.getString("eventid", "1");
-		colorActive = prefs.getString("colorActive","");
-
+        colorActive = prefs.getString("colorActive","");
 
 		cd = new ConnectionDetector(getApplicationContext());
 
 		// Initialize Get Quiz URL
 		getQuizUrl = constant.baseUrl + constant.quizlist;
 
-
+		questionTv = (TextView) findViewById(R.id.questionTv);
+		questionTv.setText(foldername);
 		submit = (Button) findViewById(R.id.submit);
+
 		submit.setOnClickListener(this);
 		submit.setBackgroundColor(Color.parseColor(colorActive));
 

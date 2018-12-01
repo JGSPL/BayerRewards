@@ -307,6 +307,7 @@ public class SpeakerFragment extends Fragment implements SpeakerAdapter.SpeakerA
         speakeretail.putExtra("description", speaker.getDescription());
         speakeretail.putExtra("totalrate", speaker.getTotalRating());
         speakeretail.putExtra("profile", speaker.getProfilePic());
+        speakeretail.putExtra("mobile", speaker.getMobileNumber());
         startActivity(speakeretail);
     }
 

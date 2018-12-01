@@ -200,7 +200,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
         int resId = R.anim.layout_animation_slide_right;
         animation = AnimationUtils.loadLayoutAnimation(getContext(), resId);
-       // feedrecycler.setLayoutAnimation(animation);
+        // feedrecycler.setLayoutAnimation(animation);
 
 
         newsfeedrefresh = view.findViewById(R.id.newsfeedrefresh);
@@ -230,16 +230,15 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
             newsfeedsDBList = dbHelper.getNewsFeedDetails();
 
-            if (newsfeedsDBList.size()==0)
-            {
+            if (newsfeedsDBList.size() == 0) {
                 NewsFeedList newsFeedList = new NewsFeedList();
                 newsFeedList.setType("text");
 
                 newsfeedsDBList.add(newsFeedList);
-                feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, WallFragment_POST.this,true);
+                feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, WallFragment_POST.this, true);
 
-            }else {
-                feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, WallFragment_POST.this,false);
+            } else {
+                feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, WallFragment_POST.this, false);
                 feedAdapter.notifyDataSetChanged();
                 feedrecycler.setAdapter(feedAdapter);
                 feedrecycler.scheduleLayoutAnimation();
@@ -261,16 +260,15 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
                     newsfeedsDBList = dbHelper.getNewsFeedDetails();
 
-                    if (newsfeedsDBList.size()==0)
-                    {
+                    if (newsfeedsDBList.size() == 0) {
                         NewsFeedList newsFeedList = new NewsFeedList();
                         newsFeedList.setType("text");
 
                         newsfeedsDBList.add(newsFeedList);
-                        feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, WallFragment_POST.this,true);
+                        feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, WallFragment_POST.this, true);
 
-                    }else {
-                        feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, WallFragment_POST.this,false);
+                    } else {
+                        feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, WallFragment_POST.this, false);
                         feedAdapter.notifyDataSetChanged();
                         feedrecycler.setAdapter(feedAdapter);
                         feedrecycler.scheduleLayoutAnimation();
@@ -502,6 +500,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 //        if(!drawables[2].equals(R.drawable.ic_like)){
         if (bitmap != bitmap2) {
 
+            feed.setLikeFlag("0");
             likeimage.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_like, 0);
 //            likeimage.setBackgroundResource(R.drawable.ic_like);
             PostLike(eventid, feed.getNewsFeedId(), token);
@@ -512,8 +511,11 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
                     feed.setTotalLikes(String.valueOf(count));
                     liketext.setText(count + " Likes");
 
+                    feed.setTotalLikes(String.valueOf(count));
+
                 } else {
                     liketext.setText("0" + " Likes");
+                    feed.setTotalLikes("0");
                 }
 
             } catch (Exception e) {
@@ -521,7 +523,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
             }
 
         } else {
-
+            feed.setLikeFlag("1");
             likeimage.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_afterlike, 0);
 //            likeimage.setBackgroundResource(R.drawable.ic_afterlike);
             PostLike(eventid, feed.getNewsFeedId(), token);
@@ -532,12 +534,14 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
                 feed.setTotalLikes(String.valueOf(count));
 
                 liketext.setText(count + " Likes");
-
+                feed.setTotalLikes(String.valueOf(count));
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
         }
+
+        newsfeedList.set(position, feed);
 
 
     }
@@ -553,7 +557,8 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
         Intent comment = new Intent(getContext(), CommentActivity.class);
 
-        comment.putExtra("name", feed.getFirstName() + " " + feed.getLastName());
+        comment.putExtra("fname", feed.getFirstName());
+        comment.putExtra("lname", feed.getLastName());
         comment.putExtra("company", feed.getCompanyName());
         comment.putExtra("designation", feed.getDesignation());
 
@@ -620,10 +625,10 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
             reportuserTv.setVisibility(View.GONE);
             blockuserTv.setVisibility(View.GONE);
 
-            if(feed.getType().equalsIgnoreCase("Video")){
+            if (feed.getType().equalsIgnoreCase("Video")) {
                 editIV.setVisibility(View.GONE);
 
-            }else{
+            } else {
                 editIV.setVisibility(View.VISIBLE);
 
             }
@@ -668,7 +673,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
                     edit.putExtra("Video", feed.getMediaFile());
                     startActivity(edit);
                     dialog.dismiss();
-                }else if (feed.getType().equalsIgnoreCase("Status")) {
+                } else if (feed.getType().equalsIgnoreCase("Status")) {
                     Intent edit = new Intent(getActivity(), PostEditActivity.class);
                     edit.putExtra("for", feed.getType());
                     edit.putExtra("feedid", feed.getNewsFeedId());
@@ -952,16 +957,15 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
         newsfeedsDBList = dbHelper.getNewsFeedDetails();
 
-        if (newsfeedsDBList.size()==0)
-        {
+        if (newsfeedsDBList.size() == 0) {
             NewsFeedList newsFeedList = new NewsFeedList();
             newsFeedList.setType("text");
 
             newsfeedsDBList.add(newsFeedList);
-            feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, WallFragment_POST.this,true);
+            feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, WallFragment_POST.this, true);
 
-        }else {
-            feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, WallFragment_POST.this,false);
+        } else {
+            feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, WallFragment_POST.this, false);
             feedAdapter.notifyDataSetChanged();
             feedrecycler.setAdapter(feedAdapter);
             feedrecycler.scheduleLayoutAnimation();
@@ -1041,16 +1045,15 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 //            feedrecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
             newsfeedsDBList = dbHelper.getNewsFeedDetails();
 
-            if (newsfeedsDBList.size()==0)
-            {
+            if (newsfeedsDBList.size() == 0) {
                 NewsFeedList newsFeedList = new NewsFeedList();
                 newsFeedList.setType("text");
 
                 newsfeedsDBList.add(newsFeedList);
-                feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, WallFragment_POST.this,true);
+                feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, WallFragment_POST.this, true);
 
-            }else {
-                feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, WallFragment_POST.this,false);
+            } else {
+                feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, WallFragment_POST.this, false);
                 feedAdapter.notifyDataSetChanged();
                 feedrecycler.setAdapter(feedAdapter);
                 feedrecycler.scheduleLayoutAnimation();

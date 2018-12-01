@@ -86,26 +86,26 @@ public class QRGeneratorActivity extends AppCompatActivity {
         header= findViewById(R.id.header);
         header.setTextColor(Color.parseColor(colorActive));
         nameTv = findViewById(R.id.name);
-        nameTv.setText("Name :  " + name + " " + lname);
+        nameTv.setText(name + " " + lname);
         nameTv.setTextColor(Color.parseColor(colorActive));
 
 //      designationTv = findViewById(R.id.designation);
 //      designationTv.setText("Designation: " + designation);
 
         companyTv = findViewById(R.id.company);
-        companyTv.setText("Company : " + company);
+        companyTv.setText(company);
 
         cityTv = findViewById(R.id.city);
-        cityTv.setText("City : " + city);
+        cityTv.setText(city);
 
         emailTv = findViewById(R.id.email);
-        emailTv.setText("Email : " + email);
+        emailTv.setText(email);
 
         mobileTv = findViewById(R.id.mobile);
-        mobileTv.setText("Mobile : " + mobile);
+        mobileTv.setText(mobile);
 
         designationTv = findViewById(R.id.designation);
-        designationTv.setText("Designation : " + designation);
+        designationTv.setText(designation);
 
 
         img_qr_code_image = findViewById(R.id.img_qr_code_image);

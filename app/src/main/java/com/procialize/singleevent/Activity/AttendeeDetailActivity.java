@@ -62,18 +62,18 @@ public class AttendeeDetailActivity extends AppCompatActivity {
 
 
     String attendeeid, city, country, company, designation, description, totalrating, name, profile, mobile;
-    TextView tvname, tvcompany, tvdesignation, tvcity, tvmob,attendeetitle;
-    Button sendbtn;
+    TextView tvname, tvcompany, tvdesignation, tvcity, tvmob, attendeetitle;
+    TextView sendbtn;
     Dialog myDialog;
     APIService mAPIService;
     SessionManager sessionManager;
     String apikey;
     ImageView profileIV;
-    ProgressBar progressBar,progressBarmain;
+    ProgressBar progressBar, progressBarmain;
     String attendee_company, attendee_location, attendee_mobile, attendee_design;
     List<EventSettingList> eventSettingLists;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid,colorActive;
+    String eventid, colorActive;
     UserData userData;
     private DBHelper procializeDB;
     private SQLiteDatabase db;
@@ -87,14 +87,14 @@ public class AttendeeDetailActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     LinearLayout linearsaveandsend;
     ImageView headerlogoIv;
-    Button saveContact;
+    TextView saveContact;
     private RelativeLayout layoutTop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendee_detail);
-      //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -114,7 +114,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         Util.logomethod(this, headerlogoIv);
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
-        colorActive = prefs.getString("colorActive","");
+        colorActive = prefs.getString("colorActive", "");
 
 
         dbHelper = new DBHelper(AttendeeDetailActivity.this);
@@ -204,7 +204,13 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         if (company.equalsIgnoreCase("N A")) {
             tvcompany.setVisibility(View.GONE);
         } else if (company != null && attendee_company.equalsIgnoreCase("1")) {
-            tvcompany.setText(company);
+            if (company.equalsIgnoreCase("")) {
+                tvcompany.setVisibility(View.GONE);
+            } else if (company.equalsIgnoreCase(" ")) {
+                tvcompany.setVisibility(View.GONE);
+            } else {
+                tvcompany.setText(company);
+            }
 
         } else {
             tvcompany.setVisibility(View.GONE);
@@ -213,7 +219,14 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         if (attendee_mobile.equalsIgnoreCase("N A")) {
             tvmob.setVisibility(View.GONE);
         } else if (mobile != null && attendee_mobile.equalsIgnoreCase("1")) {
-            tvmob.setText(mobile);
+            if (mobile.equalsIgnoreCase("")) {
+                tvmob.setVisibility(View.GONE);
+            } else if (mobile.equalsIgnoreCase(" ")) {
+                tvmob.setVisibility(View.GONE);
+            } else {
+                tvmob.setText(mobile);
+            }
+
 
         } else {
             tvmob.setVisibility(View.GONE);
@@ -225,7 +238,13 @@ public class AttendeeDetailActivity extends AppCompatActivity {
                 viewtwo.setVisibility(View.GONE);
 
             } else if (designation != null && attendee_design.equalsIgnoreCase("1")) {
-                tvdesignation.setText(designation);
+                if (designation.equalsIgnoreCase("")) {
+                    tvdesignation.setVisibility(View.GONE);
+                } else if (designation.equalsIgnoreCase(" ")) {
+                    tvdesignation.setVisibility(View.GONE);
+                } else {
+                    tvdesignation.setText(designation);
+                }
             } else {
                 tvdesignation.setVisibility(View.GONE);
                 viewtwo.setVisibility(View.GONE);
@@ -238,8 +257,13 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         if (city.equalsIgnoreCase("N A")) {
             tvcity.setVisibility(View.GONE);
         } else if (city != null && attendee_location.equalsIgnoreCase("1")) {
-            tvcity.setText(city);
-
+            if (city.equalsIgnoreCase("")) {
+                tvcity.setVisibility(View.GONE);
+            } else if (city.equalsIgnoreCase(" ")) {
+                tvcity.setVisibility(View.GONE);
+            } else {
+                tvcity.setText(city);
+            }
         } else {
             tvcity.setVisibility(View.GONE);
         }
@@ -282,7 +306,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 try {
-                    addToContactList(AttendeeDetailActivity.this, name, city);
+                    addToContactList(AttendeeDetailActivity.this, name, mobile);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -372,7 +396,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
 
 
     public void PostMesssage(String eventid, String msg, String token, String attendeeid) {
-       showProgress();
+        showProgress();
 //        showProgress();
         mAPIService.SendMessagePost(token, eventid, msg, attendeeid).enqueue(new Callback<SendMessagePost>() {
             @Override
@@ -385,7 +409,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
                     posttextEt.setText("");
                     DeletePostresponse(response);
                 } else {
-                   dismissProgress();
+                    dismissProgress();
 //                    dismissProgress();
 
                     Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
@@ -394,7 +418,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<SendMessagePost> call, Throwable t) {
-               dismissProgress();
+                dismissProgress();
                 Log.e("hit", "Low network or no network");
                 Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
 
@@ -422,7 +446,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-      //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         super.onResume();
     }
 

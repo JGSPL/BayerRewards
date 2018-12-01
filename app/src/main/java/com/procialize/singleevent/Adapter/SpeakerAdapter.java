@@ -138,12 +138,12 @@ public class SpeakerAdapter extends RecyclerView.Adapter<SpeakerAdapter.MyViewHo
 
         holder.nameTv.setTextColor(Color.parseColor(colorActive));
 
-        if (speaker.getFirstName().equalsIgnoreCase("N A")) {
-            holder.nameTv.setText("");
-        } else {
+//        if (speaker.getFirstName().equalsIgnoreCase("N A")) {
+//            holder.nameTv.setText("");
+//        } else {
 
             holder.nameTv.setText(speaker.getFirstName() + " " + speaker.getLastName());
-        }
+//        }
 
         try {
             if (speaker.getCity().equalsIgnoreCase("N A")) {
@@ -156,16 +156,16 @@ public class SpeakerAdapter extends RecyclerView.Adapter<SpeakerAdapter.MyViewHo
         }
 
 
-        if (speaker.getDesignation().equalsIgnoreCase("N A")) {
-            holder.locationTv.setText("");
-        } else {
+//        if (speaker.getDesignation().equalsIgnoreCase("N A")) {
+//            holder.locationTv.setText("");
+//        } else {
             holder.locationTv.setText(speaker.getDesignation());
-        }
-        if (speaker.getCompany().equalsIgnoreCase("N A")) {
-            holder.designtionTv.setText("");
-        } else {
+//        }
+//        if (speaker.getCompany().equalsIgnoreCase("N A")) {
+//            holder.designtionTv.setText("");
+//        } else {
             holder.designtionTv.setText(speaker.getCompany());
-        }
+//        }
 
         if (speaker.getProfilePic() != null) {
 
