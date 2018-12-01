@@ -39,7 +39,7 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
 
     TextInputEditText edit_username_edit, edit_first_name_edit, edit_designation_edit, edit_company_name_edit, edit_city_edit, edit_mobile_edit, edit_email_edit;
     Button save_btn_qr;
-    String name, number, designation, company, city, email, lname,fname;
+    String name, number, designation, company, city, email, lname, fname;
     QRCodeReaderView qrCodeReaderView;
     ImageView headerlogoIv;
 
@@ -47,7 +47,7 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
     public void onCreate(Bundle state) {
         super.onCreate(state);
         setContentView(R.layout.activity_qrscan);
-       // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -64,7 +64,7 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
             }
         });
         headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
+        Util.logomethod(this, headerlogoIv);
 
         contactll = findViewById(R.id.contactll);
 
@@ -119,8 +119,43 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
 
         String parts[] = text.split("\\r?\\n");
         Log.e("text", parts[0]);
+        if (parts.length == 5) {
 
-        if (parts.length == 6) {
+            name = parts[0].substring(0, (parts[0].length()));
+            //lname = parts[1].substring(0, (parts[1].length()));
+            designation = parts[1].substring(0, (parts[1].length()));
+            email = parts[2].substring(0, (parts[2].length()));
+            number = parts[3].substring(0, (parts[3].length()));
+            company = parts[4].substring(0, (parts[4].length()));
+//            city = parts[5].substring(0, (parts[5].length()));
+
+            String[] splitStr = name.split("\\s+");
+            fname = splitStr[0] = splitStr[0];
+
+            lname = splitStr[1] = splitStr[1];
+
+            if (fname == null) {
+                fname = "";
+            }
+
+            if (lname == null) {
+                lname = "";
+            }
+
+            edit_username_edit.setText(email);
+            edit_first_name_edit.setText(fname + " " + lname);
+            edit_designation_edit.setText(designation);
+            edit_company_name_edit.setText(company);
+            edit_mobile_edit.setText(number);
+            edit_city_edit.setText(city);
+            edit_email_edit.setText(email);
+
+            if (number == null) {
+                edit_mobile_edit.setEnabled(true);
+            } else {
+                edit_mobile_edit.setEnabled(false);
+            }
+        } else if (parts.length == 6) {
 
             name = parts[0].substring(0, (parts[0].length()));
             //lname = parts[1].substring(0, (parts[1].length()));
@@ -130,8 +165,21 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
             company = parts[4].substring(0, (parts[4].length()));
             city = parts[5].substring(0, (parts[5].length()));
 
+            String[] splitStr = name.split("\\s+");
+            fname = splitStr[0] = splitStr[0];
+
+            lname = splitStr[1] = splitStr[1];
+
+            if (fname == null) {
+                fname = "";
+            }
+
+            if (lname == null) {
+                lname = "";
+            }
+
             edit_username_edit.setText(email);
-            edit_first_name_edit.setText(name);
+            edit_first_name_edit.setText(fname + " " + lname);
             edit_designation_edit.setText(designation);
             edit_company_name_edit.setText(company);
             edit_mobile_edit.setText(number);
@@ -144,7 +192,7 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
                 edit_mobile_edit.setEnabled(false);
             }
 
-        }else if (parts.length == 7) {
+        } else if (parts.length == 7) {
 //Bharat1 Rawal1
 //IOS1
 //bharat@kotakconnect.in
@@ -166,13 +214,20 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
 
             lname = splitStr[1] = splitStr[1];
 
-            edit_first_name_edit.setText(fname+" "+lname);
+            if (fname == null) {
+                fname = "";
+            }
+
+            if (lname == null) {
+                lname = "";
+            }
+
+            edit_first_name_edit.setText(fname + " " + lname);
             edit_designation_edit.setText(designation);
             edit_company_name_edit.setText(company);
             edit_mobile_edit.setText(number);
             edit_city_edit.setText(city);
             edit_email_edit.setText(email);
-
 
 
             if (number == null) {
@@ -202,9 +257,15 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
 
             lname = splitStr[1] = splitStr[1];
 
+            if (fname == null) {
+                fname = "";
+            }
 
+            if (lname == null) {
+                lname = "";
+            }
 
-            edit_first_name_edit.setText(fname+" "+lname);
+            edit_first_name_edit.setText(fname + " " + lname);
             edit_designation_edit.setText(designation);
             edit_company_name_edit.setText(company);
             edit_mobile_edit.setText(number);

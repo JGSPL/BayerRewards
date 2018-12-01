@@ -26,7 +26,7 @@ import cn.jzvd.JZVideoPlayer;
 public class QRGeneratorActivity extends AppCompatActivity {
 
     TextView nameTv, companyTv, cityTv, emailTv, mobileTv,
-            scan_id_txtTv, designationTv,header;
+            scan_id_txtTv, designationTv, header;
     SessionManager sessionManager;
     String name, designation, company, email, mobile, city, lname;
     ImageView img_qr_code_image;
@@ -41,7 +41,7 @@ public class QRGeneratorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrgeneration);
-      //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -59,10 +59,10 @@ public class QRGeneratorActivity extends AppCompatActivity {
         });
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
+        Util.logomethod(this, headerlogoIv);
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        colorActive = prefs.getString("colorActive","");
+        colorActive = prefs.getString("colorActive", "");
 
 
         sessionManager = new SessionManager(this);
@@ -78,12 +78,12 @@ public class QRGeneratorActivity extends AppCompatActivity {
         mobile = userData.get(SessionManager.KEY_MOBILE);
         city = userData.get(SessionManager.KEY_CITY);
 
-        final String fullName = name + " "+lname;
+        final String fullName = name + " " + lname;
 
 
         scan_id_txtTv = findViewById(R.id.scan_id_txt);
 
-        header= findViewById(R.id.header);
+        header = findViewById(R.id.header);
         header.setTextColor(Color.parseColor(colorActive));
         nameTv = findViewById(R.id.name);
         nameTv.setText(name + " " + lname);
@@ -123,7 +123,7 @@ public class QRGeneratorActivity extends AppCompatActivity {
                         + company + "\n"
                         + city;*/
 
-                QRcode = fullName + " " + "\n"
+                QRcode = name + " " + lname + "\n"
                         + designation + "\n"
                         + email + "\n"
                         + mobile + "\n"
@@ -174,7 +174,7 @@ public class QRGeneratorActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-       // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         super.onResume();
     }
 
