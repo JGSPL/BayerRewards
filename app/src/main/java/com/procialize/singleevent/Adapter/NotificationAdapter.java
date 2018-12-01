@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -26,7 +27,9 @@ import com.bumptech.glide.request.target.Target;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.GetterSetter.NotificationList;
 import com.procialize.singleevent.R;
+
 import org.apache.commons.lang3.StringEscapeUtils;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -51,23 +54,24 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView nameTv,dataTv,messageTV;
+        public TextView nameTv, dataTv, messageTV, txt_title;
         public ImageView profileIv;
-        Button replyBtn;
-        ImageView arrowIv,ivtype;
+        ImageView replyBtn;
+        ImageView arrowIv, ivtype;
         LinearLayout notiLin;
         private ProgressBar progressView;
 
         public MyViewHolder(View view) {
             super(view);
-            nameTv =  view.findViewById(R.id.nameTv);
-            dataTv =  view.findViewById(R.id.dataTv);
-            messageTV =  view.findViewById(R.id.messageTV);
+            nameTv = view.findViewById(R.id.nameTv);
+            dataTv = view.findViewById(R.id.dataTv);
+            messageTV = view.findViewById(R.id.messageTV);
+            txt_title = view.findViewById(R.id.txt_title);
             notiLin = view.findViewById(R.id.notiLin);
-            replyBtn =  view.findViewById(R.id.replyBtn);
+            replyBtn = view.findViewById(R.id.replyBtn);
 
-            arrowIv =  view.findViewById(R.id.arrowIv);
-            ivtype =  view.findViewById(R.id.ivtype);
+            arrowIv = view.findViewById(R.id.arrowIv);
+            ivtype = view.findViewById(R.id.ivtype);
 
             profileIv = view.findViewById(R.id.profileIV);
 
@@ -89,13 +93,14 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             });
         }
     }
+
     public NotificationAdapter(Context context, List<NotificationList> notificationLists, NotificationAdapterListner listener) {
         this.notificationLists = notificationLists;
-        this.listener=listener;
-        this.context=context;
+        this.listener = listener;
+        this.context = context;
 
         SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        colorActive = prefs.getString("colorActive","");
+        colorActive = prefs.getString("colorActive", "");
 
     }
 
@@ -111,7 +116,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final NotificationList notificationList = notificationLists.get(position);
 
-        holder.notiLin.setBackgroundColor(Color.parseColor( colorActive));
+        holder.notiLin.setBackgroundColor(Color.parseColor(colorActive));
         holder.nameTv.setTextColor(Color.parseColor(colorActive));
         int colorInt = Color.parseColor(colorActive);
 
@@ -121,9 +126,13 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.arrowIv.setImageDrawable(drawable);
 
 
-        holder.nameTv.setText(notificationList.getAttendeeFirstName()+" "+notificationList.getAttendeeLastName());
+        holder.nameTv.setText(notificationList.getAttendeeFirstName() + " " + notificationList.getAttendeeLastName());
 
-        holder.messageTV.setText(StringEscapeUtils.unescapeJava(notificationList.getNotificationContent()));
+        if (notificationList.getNotificationContent().contains(".gif")) {
+            holder.messageTV.setText("GIF");
+        } else {
+            holder.messageTV.setText(StringEscapeUtils.unescapeJava(notificationList.getNotificationContent()));
+        }
 
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -159,33 +168,33 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 }
             }).into(holder.profileIv).onLoadStarted(context.getDrawable(R.drawable.profilepic_placeholder));
 
-        }else
-        {
+        } else {
             holder.progressView.setVisibility(View.GONE);
 
         }
 
-        if (notificationList.getNotificationType().equalsIgnoreCase("Cmnt"))
-        {
-//            holder.replyBtn.setVisibility(View.VISIBLE);
+        if (notificationList.getNotificationType().equalsIgnoreCase("Cmnt")) {
+            holder.replyBtn.setVisibility(View.GONE);
             holder.arrowIv.setVisibility(View.VISIBLE);
             holder.ivtype.setImageResource(R.drawable.notifycoment);
             holder.arrowIv.setVisibility(View.VISIBLE);
             holder.arrowIv.setImageResource(R.drawable.ic_rightarrow);
-        }else if (notificationList.getNotificationType().equalsIgnoreCase("Like"))
-        {
-//            holder.replyBtn.setVisibility(View.VISIBLE);
+            holder.txt_title.setText("Commented on your post");
+        } else if (notificationList.getNotificationType().equalsIgnoreCase("Like")) {
+            holder.replyBtn.setVisibility(View.GONE);
             holder.arrowIv.setVisibility(View.VISIBLE);
             holder.ivtype.setImageResource(R.drawable.notifylike);
-            holder.arrowIv.setVisibility(View.GONE);
-        }else  if (notificationList.getNotificationType().equalsIgnoreCase("Msg"))
-        {
-//            holder.replyBtn.setVisibility(View.VISIBLE);
-            holder.arrowIv.setVisibility(View.VISIBLE);
+            holder.arrowIv.setImageResource(R.drawable.ic_rightarrow);
+            holder.txt_title.setText("Like your post");
+//            holder.arrowIv.setVisibility(View.GONE);
+        } else if (notificationList.getNotificationType().equalsIgnoreCase("Msg")) {
+            holder.replyBtn.setVisibility(View.VISIBLE);
+//            holder.arrowIv.setVisibility(View.VISIBLE);
             holder.ivtype.setImageResource(R.drawable.notifymessage);
-            holder.arrowIv.setVisibility(View.VISIBLE);
-            holder.arrowIv.setImageResource(R.drawable.messageiv);
-        }else {
+            holder.arrowIv.setVisibility(View.GONE);
+            holder.replyBtn.setBackgroundResource(R.drawable.messageiv);
+            holder.txt_title.setText("Sent you message");
+        } else {
 //            holder.replyBtn.setVisibility(View.GONE);
             holder.arrowIv.setVisibility(View.GONE);
             holder.ivtype.setImageResource(R.drawable.notifyadmin);

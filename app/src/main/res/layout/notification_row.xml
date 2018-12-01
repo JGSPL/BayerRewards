@@ -24,7 +24,7 @@
         android:elevation="@dimen/elevation"
         android:padding="5dp"
         android:translationZ="10dp"
-        android:background="@color/colorwhite"
+        android:background="@color/qnarow"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -86,7 +86,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/elevation"
                     android:text="Sent you message"
-                    android:textColor="@color/colorAccent" />
+                    android:textColor="@color/colorAccent"
+                    android:id="@+id/txt_title"/>
 
 
                 <com.procialize.singleevent.Fonts.RobotoTextview
@@ -100,17 +101,7 @@
                     android:id="@+id/dataTv" />
 
 
-                <com.procialize.singleevent.Fonts.RobotoButton
-                    android:id="@+id/replyBtn"
-                    android:text="@string/replybtn"
-                    android:visibility="gone"
-                    android:textSize="@dimen/textsizesmall"
-                    android:textColor="@color/colorwhite"
-                    android:layout_margin="@dimen/elevation"
-                    android:layout_gravity="center"
-                    android:background="@drawable/signupbutton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp" />
+
 
             </LinearLayout>
 
@@ -124,6 +115,12 @@
                 <ImageView
                     android:id="@+id/arrowIv"
                     android:src="@drawable/ic_rightarrow"
+                    android:layout_width="30dp"
+                    android:layout_height="40dp" />
+
+                <ImageView
+                    android:id="@+id/replyBtn"
+                    android:src="@drawable/messageiv"
                     android:layout_width="30dp"
                     android:layout_height="40dp" />
             </LinearLayout>

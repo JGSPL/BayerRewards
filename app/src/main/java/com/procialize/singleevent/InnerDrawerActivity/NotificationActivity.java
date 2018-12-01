@@ -256,7 +256,8 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
                 comment.putExtra("feedid", notification.getNotificationPostId());
                 comment.putExtra("type", notification.getNotificationType());
                 comment.putExtra("company", notification.getCompanyName());
-                comment.putExtra("name", notification.getAttendeeFirstName());
+                comment.putExtra("fname", notification.getAttendeeFirstName());
+                comment.putExtra("lname", notification.getAttendeeLastName());
                 comment.putExtra("profilepic", notification.getProfilePic());
                 comment.putExtra("noti_type", "Notification");
                 try {
