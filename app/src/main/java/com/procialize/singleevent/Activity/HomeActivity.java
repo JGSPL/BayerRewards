@@ -887,9 +887,9 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                     engagement_video_contest = eventSettingLists.get(i).getFieldValue();
                 } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_event_info")) {
                     side_menu_event_info = eventSettingLists.get(i).getFieldValue();
-                } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_agenda")) {
+                }/* else if (eventSettingLists.get(i).getFieldName().equals("side_menu_agenda")) {
                     side_menu_agenda = eventSettingLists.get(i).getFieldValue();
-                } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_attendee")) {
+                } */else if (eventSettingLists.get(i).getFieldName().equals("side_menu_attendee")) {
                     side_menu_attendee = eventSettingLists.get(i).getFieldValue();
                 } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_speaker")) {
                     side_menu_speaker = eventSettingLists.get(i).getFieldValue();
@@ -901,9 +901,17 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                     QA_direct = eventSettingLists.get(i).getFieldValue();
                 } else if (eventSettingLists.get(i).getFieldName().equals("agenda_conference")) {
                     agenda_conference = eventSettingLists.get(i).getFieldValue();
+                    if(agenda_conference.equalsIgnoreCase("1")){
+                        side_menu_agenda = "1";
+                    }
 
                 } else if (eventSettingLists.get(i).getFieldName().equals("agenda_vacation")) {
                     agenda_vacation = eventSettingLists.get(i).getFieldValue();
+                    if(agenda_vacation.equalsIgnoreCase("1")){
+                        side_menu_agenda = "1";
+                    }
+
+
                 }else if (eventSettingLists.get(i).getFieldName().equals("side_menu_contact_us")) {
                     side_menu_contact = eventSettingLists.get(i).getFieldValue();
                 }else if (eventSettingLists.get(i).getFieldName().equals("side_menu_email_template")) {

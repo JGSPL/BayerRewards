@@ -178,10 +178,10 @@ public class CustomMenuAdapter extends RecyclerView.Adapter<CustomMenuAdapter.My
         }*/else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_agenda")) {
             holder.nameTv.setText("Agenda");
             holder.profileIv.setImageResource(R.drawable.agenda);
-        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_contact_us")) {
+        } /*else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_contact_us")) {
             holder.nameTv.setText("Contact Us");
             holder.profileIv.setImageResource(R.drawable.contact_us);
-        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_email_template")) {
+        } */else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_email_template")) {
             holder.nameTv.setText("Email Template");
             holder.profileIv.setImageResource(R.drawable.ic_info);
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_leaderboard")) {
