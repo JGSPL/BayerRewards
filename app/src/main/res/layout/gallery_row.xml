@@ -7,11 +7,11 @@
     android:background="@drawable/galleryitembg"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="150dp">
+    android:layout_height="170dp">
     <RelativeLayout
         android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="150dp">
 
         <ImageView
             android:layout_centerInParent="true"
@@ -30,19 +30,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <com.procialize.singleevent.Fonts.RobotoTextview
-            android:id="@+id/nameTv"
-            android:gravity="center"
-            android:background="@color/trans"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
-            android:textSize="@dimen/textsizesmaller"
-            android:textColor="@color/colorwhite"
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+
     </RelativeLayout>
 
 
-
+    <com.procialize.singleevent.Fonts.RobotoTextview
+        android:id="@+id/nameTv"
+        android:gravity="center"
+        android:background="@color/inactivetab"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:textSize="@dimen/textsizesmaller"
+        android:textColor="@color/colorwhite"
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
 </LinearLayout>

@@ -73,7 +73,6 @@
                     android:id="@+id/nameTv" />
 
                 <com.procialize.singleevent.Fonts.RobotoTextview
-                    android:visibility="gone"
                     android:paddingLeft="5dp"
                     android:layout_marginTop="@dimen/margin"
                     android:textSize="@dimen/textsizesmall"

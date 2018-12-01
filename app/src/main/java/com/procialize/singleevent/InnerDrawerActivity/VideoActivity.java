@@ -313,7 +313,8 @@ public class VideoActivity extends AppCompatActivity implements VideoAdapter.Vid
                 startActivity(videoIntent);*/
                 Intent edit = new Intent(VideoActivity.this, ExoVideoActivity.class);
                 edit.putExtra("videoUrl", firstLevelFilter.getFileName());
-                edit.putExtra("title", "videoMain");
+                edit.putExtra("title", firstLevelFilter.getTitle());
+                edit.putExtra("page", "videoMain");
                 startActivity(edit);
             }
 

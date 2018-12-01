@@ -218,6 +218,7 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
         Intent intent = new Intent(VideoContestActivity.this, ExoVideoActivity.class);
         intent.putExtra("videoUrl", videoContest.getFileName());
         intent.putExtra("title", videoContest.getTitle());
+        intent.putExtra("page", "contest");
         startActivity(intent);
     }
 

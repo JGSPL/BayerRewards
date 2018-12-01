@@ -39,8 +39,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class
-SpeakerActivity extends AppCompatActivity implements SpeakerAdapter.SpeakerAdapterListner {
+public class SpeakerActivity extends AppCompatActivity implements SpeakerAdapter.SpeakerAdapterListner {
 
 
     private APIService mAPIService;
@@ -80,7 +79,7 @@ SpeakerActivity extends AppCompatActivity implements SpeakerAdapter.SpeakerAdapt
             }
         });
         headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
+        Util.logomethod(this, headerlogoIv);
 
         speakerrecycler = findViewById(R.id.speakerrecycler);
 
@@ -109,7 +108,7 @@ SpeakerActivity extends AppCompatActivity implements SpeakerAdapter.SpeakerAdapt
 
         int resId = R.anim.layout_animation_slide_right;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
-       // speakerrecycler.setLayoutAnimation(animation);
+        // speakerrecycler.setLayoutAnimation(animation);
 
 
         fetchSpeaker(token, eventid);
@@ -228,6 +227,7 @@ SpeakerActivity extends AppCompatActivity implements SpeakerAdapter.SpeakerAdapt
         speakeretail.putExtra("description", speaker.getDescription());
         speakeretail.putExtra("totalrate", speaker.getTotalRating());
         speakeretail.putExtra("profile", speaker.getProfilePic());
+        speakeretail.putExtra("mobile", speaker.getMobileNumber());
         startActivity(speakeretail);
     }
 

@@ -81,8 +81,7 @@
     <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
 
         <item name="android:textColor">@color/colorwhite</item>
-        <item name="android:background">@color/colorPrimary</item>
-        <item name="colorAccent">@color/orange</item>
+
 
     </style>
 

@@ -59,6 +59,15 @@
                 android:textStyle="bold" />
 
             <com.procialize.singleevent.Fonts.RobotoTextview
+                android:id="@+id/locationTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:text="Delhi"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textsizesmall" />
+
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/designtionTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -67,15 +76,6 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/textsizesmall" />
 
-
-            <com.procialize.singleevent.Fonts.RobotoTextview
-                android:id="@+id/locationTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:text="Delhi"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textsizesmall" />
 
         </LinearLayout>
 
@@ -87,9 +87,9 @@
             android:gravity="center">
 
             <ImageView
+                android:id="@+id/ic_rightarrow"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:id="@+id/ic_rightarrow"
 
                 android:src="@drawable/ic_rightarrow" />
 

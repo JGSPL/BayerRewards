@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 
 import com.procialize.singleevent.Activity.PollDetailActivity;
 import com.procialize.singleevent.Adapter.PollAdapter;
+import com.procialize.singleevent.Adapter.PollNewAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.GetterSetter.LivePollFetch;
@@ -43,16 +45,17 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LivePollActivity extends AppCompatActivity implements PollAdapter.PollAdapterListner {
+public class LivePollActivity extends AppCompatActivity implements PollNewAdapter.PollAdapterListner {
 
     private APIService mAPIService;
     SwipeRefreshLayout pollrefresh;
-    RecyclerView pollRv;
+    ListView pollRv;
     ProgressBar progressBar;
     List<LivePollOptionList> optionLists;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid,colorActive;
     ImageView headerlogoIv;
+    TextView emptyView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +88,7 @@ public class LivePollActivity extends AppCompatActivity implements PollAdapter.P
         headerlogoIv = findViewById(R.id.headerlogoIv);
         Util.logomethod(this,headerlogoIv);
         pollRv = findViewById(R.id.pollRv);
-        pollrefresh = findViewById(R.id.pollrefresh);
+//        pollrefresh = findViewById(R.id.pollrefresh);
         progressBar = findViewById(R.id.progressBar);
 
         TextView header = (TextView)findViewById(R.id.title);
@@ -109,8 +112,8 @@ public class LivePollActivity extends AppCompatActivity implements PollAdapter.P
 
         // use a linear layout manager
         // use a linear layout manager
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
-        pollRv.setLayoutManager(mLayoutManager);
+//        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+//        pollRv.setLayoutManager(mLayoutManager);
 
         int resId = R.anim.layout_animation_slide_right;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
@@ -119,12 +122,12 @@ public class LivePollActivity extends AppCompatActivity implements PollAdapter.P
 
         fetchPoll(token, eventid);
 
-        pollrefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                fetchPoll(token, eventid);
-            }
-        });
+//        pollrefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                fetchPoll(token, eventid);
+//            }
+//        });
     }
 
     public void fetchPoll(String token, String eventid) {
@@ -136,15 +139,15 @@ public class LivePollActivity extends AppCompatActivity implements PollAdapter.P
                 if (response.isSuccessful()) {
                     Log.i("hit", "post submitted to API." + response.body().toString());
 
-                    if (pollrefresh.isRefreshing()) {
-                        pollrefresh.setRefreshing(false);
-                    }
+//                    if (pollrefresh.isRefreshing()) {
+//                        pollrefresh.setRefreshing(false);
+//                    }
                     dismissProgress();
                     showResponse(response);
                 } else {
-                    if (pollrefresh.isRefreshing()) {
-                        pollrefresh.setRefreshing(false);
-                    }
+//                    if (pollrefresh.isRefreshing()) {
+//                        pollrefresh.setRefreshing(false);
+//                    }
                     dismissProgress();
                     Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
                 }
@@ -155,9 +158,9 @@ public class LivePollActivity extends AppCompatActivity implements PollAdapter.P
                 Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
 
                 dismissProgress();
-                if (pollrefresh.isRefreshing()) {
-                    pollrefresh.setRefreshing(false);
-                }
+//                if (pollrefresh.isRefreshing()) {
+//                    pollrefresh.setRefreshing(false);
+//                }
             }
         });
     }
@@ -165,29 +168,15 @@ public class LivePollActivity extends AppCompatActivity implements PollAdapter.P
     public void showResponse(Response<LivePollFetch> response) {
 
         // specify an adapter (see also next example)
-        if (response.body().getLivePollList().size() != 0) {
-            PollAdapter pollAdapter = new PollAdapter(this, response.body().getLivePollList(), response.body().getLivePollOptionList(), this);
-            pollAdapter.notifyDataSetChanged();
-            pollRv.setAdapter(pollAdapter);
-            pollRv.scheduleLayoutAnimation();
 
-            optionLists = response.body().getLivePollOptionList();
-        } else {
-            setContentView(R.layout.activity_empty_view);
-            ImageView imageView = findViewById(R.id.back);
-            TextView text_empty = findViewById(R.id.text_empty);
-            final ImageView headerlogoIv1 = findViewById(R.id.headerlogoIv);
-            Util.logomethod(this,headerlogoIv1);
 
-            text_empty.setText("LivePoll not available");
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-                }
-            });
+        PollNewAdapter pollAdapter = new PollNewAdapter(this, response.body().getLivePollList(), response.body().getLivePollOptionList(), this);
+        pollAdapter.notifyDataSetChanged();
+        pollRv.setAdapter(pollAdapter);
+        pollRv.setEmptyView(findViewById(android.R.id.empty));
 
-        }
+        optionLists = response.body().getLivePollOptionList();
+
     }
 
     public void showProgress() {

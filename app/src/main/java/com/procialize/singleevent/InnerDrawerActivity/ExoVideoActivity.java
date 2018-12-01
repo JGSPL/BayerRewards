@@ -1,9 +1,9 @@
 package com.procialize.singleevent.InnerDrawerActivity;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -31,7 +31,7 @@ public class ExoVideoActivity extends AppCompatActivity implements OnPreparedLis
 
     String videoUrl = "";
     String title = "";
-    String tripId = "";
+    String tripId = "",page;
     Button btn_share;
     RelativeLayout llTop;
     ImageView headerlogoIv;
@@ -43,6 +43,7 @@ public class ExoVideoActivity extends AppCompatActivity implements OnPreparedLis
         setContentView(R.layout.videoview);
         videoUrl = getIntent().getExtras().getString("videoUrl");
         title = getIntent().getExtras().getString("title");
+        page = getIntent().getExtras().getString("page");
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -58,12 +59,15 @@ public class ExoVideoActivity extends AppCompatActivity implements OnPreparedLis
                 onBackPressed();
             }
         });
+
         TextView txtIcon = (TextView) findViewById(R.id.txtIcon);
         btn_share = (Button) findViewById(R.id.btn_share);
 //        llTop = (RelativeLayout) findViewById(R.id.rlData);
+//        headerlogoIv = findViewById(R.id.headerlogoIv);
+//        headerlogoIv.setText(title);
+//        Util.logomethod(this,headerlogoIv);
         headerlogoIv = findViewById(R.id.headerlogoIv);
         Util.logomethod(this,headerlogoIv);
-
         txtIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,10 +83,10 @@ public class ExoVideoActivity extends AppCompatActivity implements OnPreparedLis
         });
 
 
-        if(title.equalsIgnoreCase("videoMain")){
-            setupVideoView(ApiConstant.folderimage+ videoUrl);
+        if (page.equalsIgnoreCase("videoMain")) {
+            setupVideoView(ApiConstant.folderimage + videoUrl);
 
-        }else{
+        } else {
             setupVideoView(ApiConstant.selfievideo + videoUrl);
 
         }
@@ -112,6 +116,9 @@ public class ExoVideoActivity extends AppCompatActivity implements OnPreparedLis
         pDialog.setMessage("Buffering...");
         // Show progressbar
         pDialog.show();
+        emVideoView.requestFocus();
+
+//        emVideoView.setVideoURI(Uri.parse(videoUrl));
 
 
         emVideoView.setOnCompletionListener(new OnCompletionListener() {

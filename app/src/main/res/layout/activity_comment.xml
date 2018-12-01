@@ -47,6 +47,7 @@
 
 
     <LinearLayout
+        android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/appBarLayout"
@@ -61,8 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:elevation="@dimen/elevation"
-                android:orientation="vertical"
-                android:translationZ="10dp">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -120,22 +120,8 @@
                                 android:padding="3dp"
                                 android:paddingLeft="5dp"
                                 android:text="@string/app_name"
-                                android:textColor="@color/black"
+                                android:textColor="@color/activetab"
                                 android:textSize="@dimen/textsizesmall" />
-
-                            <com.procialize.singleevent.Fonts.RobotoTextview
-                                android:id="@+id/designationTv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/nameTv"
-                                android:layout_toEndOf="@+id/imageView"
-                                android:maxLines="1"
-                                android:padding="3dp"
-                                android:paddingLeft="5dp"
-                                android:text="@string/app_name"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/textsizesmall" />
-
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -143,12 +129,12 @@
                                 android:orientation="horizontal">
 
                                 <com.procialize.singleevent.Fonts.RobotoTextview
-                                    android:id="@+id/companyTv"
+                                    android:id="@+id/designationTv"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_below="@+id/designationTv"
-                                    android:layout_toEndOf="@+id/imageView"
                                     android:layout_weight="3"
+                                    android:layout_below="@+id/nameTv"
+                                    android:layout_toEndOf="@+id/imageView"
                                     android:maxLines="1"
                                     android:padding="3dp"
                                     android:paddingLeft="5dp"
@@ -161,11 +147,28 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="4"
+                                    android:gravity="right"
                                     android:padding="3dp"
                                     android:text="14 Aug"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/textsizesmall" />
+
                             </LinearLayout>
+
+                            <com.procialize.singleevent.Fonts.RobotoTextview
+                                android:id="@+id/companyTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/designationTv"
+                                android:layout_toEndOf="@+id/imageView"
+
+                                android:maxLines="1"
+                                android:padding="3dp"
+                                android:paddingLeft="5dp"
+                                android:text="@string/app_name"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/textsizesmall" />
+
 
                         </LinearLayout>
 
@@ -330,9 +333,9 @@
             android:id="@+id/action_container"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@drawable/edittexthmbg"
             android:orientation="horizontal"
-            android:visibility="visible">
+            android:visibility="visible"
+            android:background="@drawable/edittexthmbg">
 
             <ImageView
                 android:id="@+id/gif"
@@ -346,7 +349,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="3"
-                android:background="@drawable/edittextborder"
+                android:background="@drawable/edittexthmbg"
                 android:imeOptions="actionSend|flagNoEnterAction"
                 android:inputType="textShortMessage|textAutoCorrect|textCapSentences|textMultiLine"
                 android:maxLines="20"
@@ -361,6 +364,7 @@
                 android:layout_weight="7"
                 android:background="@drawable/loginbutton"
                 android:text="@string/comment"
+                android:textAllCaps="false"
                 android:textColor="@color/colorwhite"
                 android:textSize="@dimen/textsizesmall" />
 

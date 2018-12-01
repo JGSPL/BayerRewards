@@ -16,6 +16,8 @@ import com.github.barteksc.pdfviewer.util.Constants;
 import com.procialize.singleevent.GetterSetter.QuizFolder;
 import com.procialize.singleevent.R;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -89,7 +91,7 @@ public class QuizFolderAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.quiz_title_txt.setText(quizList.get(position).getFolder_name());
+        holder.quiz_title_txt.setText(StringEscapeUtils.unescapeJava(quizList.get(position).getFolder_name()));
         return convertView;
     }
 

@@ -39,7 +39,7 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
 
     TextInputEditText edit_username_edit, edit_first_name_edit, edit_designation_edit, edit_company_name_edit, edit_city_edit, edit_mobile_edit, edit_email_edit;
     Button save_btn_qr;
-    String name, number, designation, company, city, email, lname;
+    String name, number, designation, company, city, email, lname,fname;
     QRCodeReaderView qrCodeReaderView;
     ImageView headerlogoIv;
 
@@ -144,7 +144,81 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
                 edit_mobile_edit.setEnabled(false);
             }
 
+        }else if (parts.length == 7) {
+//Bharat1 Rawal1
+//IOS1
+//bharat@kotakconnect.in
+//9028102910
+//procialize1
+//Pune1
+//9028102910
+//9028
+            name = parts[0].substring(0, (parts[0].length()));
+//            lname = parts[1].substring(0, (parts[1].length()));
+            designation = parts[1].substring(0, (parts[1].length()));
+            email = parts[2].substring(0, (parts[2].length()));
+            number = parts[3].substring(0, (parts[3].length()));
+            company = parts[4].substring(0, (parts[4].length()));
+            city = parts[5].substring(0, (parts[5].length()));
+
+            String[] splitStr = name.split("\\s+");
+            fname = splitStr[0] = splitStr[0];
+
+            lname = splitStr[1] = splitStr[1];
+
+            edit_first_name_edit.setText(fname+" "+lname);
+            edit_designation_edit.setText(designation);
+            edit_company_name_edit.setText(company);
+            edit_mobile_edit.setText(number);
+            edit_city_edit.setText(city);
+            edit_email_edit.setText(email);
+
+
+
+            if (number == null) {
+                edit_mobile_edit.setEnabled(true);
+            } else {
+                edit_mobile_edit.setEnabled(false);
+            }
+//            Bharat1 Rawal1
+//            IOS1
+//            bharat@kotakconnect.in
+//            9028102910
+//            procialize1
+//                    Pune1
+//            9028102910
+//            9028
+        } else if (parts.length == 8) {
+
+            name = parts[0].substring(0, (parts[0].length()));
+//            lname = parts[1].substring(0, (parts[1].length()));
+            designation = parts[1].substring(0, (parts[1].length()));
+            email = parts[2].substring(0, (parts[2].length()));
+            number = parts[3].substring(0, (parts[3].length()));
+            company = parts[4].substring(0, (parts[4].length()));
+            city = parts[5].substring(0, (parts[5].length()));
+            String[] splitStr = name.split("\\s+");
+            fname = splitStr[0] = splitStr[0];
+
+            lname = splitStr[1] = splitStr[1];
+
+
+
+            edit_first_name_edit.setText(fname+" "+lname);
+            edit_designation_edit.setText(designation);
+            edit_company_name_edit.setText(company);
+            edit_mobile_edit.setText(number);
+            edit_city_edit.setText(city);
+            edit_email_edit.setText(email);
+
+            if (number == null) {
+                edit_mobile_edit.setEnabled(true);
+            } else {
+                edit_mobile_edit.setEnabled(false);
+            }
+
         }
+
 
 
 

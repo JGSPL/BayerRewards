@@ -195,7 +195,6 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-
         <service
             android:name=".gcm.MyFirebaseMessagingService"
             android:permission="com.google.android.c2dm.permission.SEND">
@@ -212,7 +211,6 @@
 
         <!-- Goolge API Key -->
 
-
         <activity android:name=".Activity.TimeWeatherActivity" />
         <activity android:name=".Activity.CurrencyConverter" />
         <activity android:name=".Activity.InitGeneralInfoActivity" />
@@ -227,12 +225,12 @@
         <activity android:name=".InnerDrawerActivity.QADirectActivity" />
         <activity android:name=".InnerDrawerActivity.AgendaVacationActivity" />
         <activity android:name=".InnerDrawerActivity.FolderQuizActivity" />
-        <activity android:name=".InnerDrawerActivity.WeatherActivity"></activity>
-        <activity android:name=".Activity.PostActivity"></activity>
-        <activity android:name=".Activity.SelfiePost"></activity>
-        <activity android:name=".Activity.PostEditActivity"></activity>
-        <activity android:name=".Activity.ViewPDFActivity"></activity>
-
+        <activity android:name=".InnerDrawerActivity.WeatherActivity" />
+        <activity android:name=".Activity.PostActivity" />
+        <activity android:name=".Activity.SelfiePost" />
+        <activity android:name=".Activity.PostEditActivity" />
+        <activity android:name=".Activity.ViewPDFActivity" />
+        <activity android:name=".Activity.ForgotPasswordActivity"></activity>
     </application>
 
 </manifest>
