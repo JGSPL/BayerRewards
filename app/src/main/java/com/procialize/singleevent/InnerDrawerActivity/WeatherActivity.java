@@ -193,12 +193,15 @@ public class WeatherActivity extends AppCompatActivity implements WeatherAdapter
             SimpleDateFormat formatter = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss z");
             SimpleDateFormat mdyFormat = new SimpleDateFormat("dd MMM yyyy");
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm aa");
-            SimpleDateFormat dayFormat = new SimpleDateFormat("MMMM");
+            SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE");
+
+
             Date date = new Date();
             try {
                 date = formatter.parse(response.body().getDateTime());
                 System.out.println("Date is: "+date);
             } catch (ParseException e) {e.printStackTrace();}
+
 
             String dmy = mdyFormat.format(date);
             String time = timeFormat.format(date);
@@ -217,18 +220,24 @@ public class WeatherActivity extends AppCompatActivity implements WeatherAdapter
             }else if (response.body().getCurrentTempText().equalsIgnoreCase("Cloudy"))
             {
                 infoIv.setImageResource(R.drawable.cloudy);
+            }else if (response.body().getCurrentTempText().equalsIgnoreCase("Partly Cloudy"))
+            {
+                infoIv.setImageResource(R.drawable.clean);
             }else
             {
-                infoIv.setImageResource(R.drawable.sunny);
+                infoIv.setImageResource(R.drawable.clean);
             }
 
             char tmp = 0x00B0;
 
+            dayTv.setText(day);
             infoTv.setText(response.body().getCurrentTempText());
             tempTv.setText(String.valueOf(response.body().getCurrentTemp()) + tmp+"" );
-            feelTv.setText(String.valueOf(response.body().getCurrentTemp()) + tmp+"");
+            //  feelTv.setText(String.valueOf(response.body().getCurrentTemp()) + tmp+"");
             humidityTv.setText(response.body().getHumidity());
             visibilityTv.setText(response.body().getVisibility());
+            feelTv.setText(response.body().getSunrise());
+
 
             WeatherAdapter docAdapter = new WeatherAdapter(WeatherActivity.this, response.body().getForecast(),this);
             docAdapter.notifyDataSetChanged();

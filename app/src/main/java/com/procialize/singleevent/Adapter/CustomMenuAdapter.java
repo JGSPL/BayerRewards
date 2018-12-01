@@ -43,7 +43,7 @@ public class CustomMenuAdapter extends RecyclerView.Adapter<CustomMenuAdapter.My
     private CustomMenuAdapterListner listener;
     List<EventSettingList> eventSettingLists;
     String agenda_conference;
-    String agenda_vacation;
+    String side_menu_agenda;
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -73,10 +73,11 @@ public class CustomMenuAdapter extends RecyclerView.Adapter<CustomMenuAdapter.My
     }
 
 
-    public CustomMenuAdapter(Context context, List<EventMenuSettingList> eventMenuSettingLists, CustomMenuAdapterListner listener) {
+    public CustomMenuAdapter(Context context, List<EventMenuSettingList> eventMenuSettingLists, CustomMenuAdapterListner listener,String side_menu_agenda) {
         this.eventMenuSettingLists = eventMenuSettingLists;
         this.listener = listener;
         this.context = context;
+        this.side_menu_agenda = side_menu_agenda;
 
     }
 
@@ -108,7 +109,14 @@ public class CustomMenuAdapter extends RecyclerView.Adapter<CustomMenuAdapter.My
                 holder.mainLL.setVisibility(View.GONE);
                 holder.topll.setVisibility(View.GONE);
 
-            } else {
+            }else if(side_menu_agenda.equalsIgnoreCase("0")&&
+                    menuSettingList.getFieldName().equalsIgnoreCase("side_menu_agenda")){
+                holder.nameTv.setVisibility(View.GONE);
+                holder.profileIv.setVisibility(View.GONE);
+                holder.mainLL.setVisibility(View.GONE);
+                holder.topll.setVisibility(View.GONE);
+
+            }  else{
                 holder.nameTv.setVisibility(View.VISIBLE);
                 holder.profileIv.setVisibility(View.VISIBLE);
                 holder.mainLL.setVisibility(View.VISIBLE);
@@ -178,10 +186,10 @@ public class CustomMenuAdapter extends RecyclerView.Adapter<CustomMenuAdapter.My
         }*/else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_agenda")) {
             holder.nameTv.setText("Agenda");
             holder.profileIv.setImageResource(R.drawable.agenda);
-        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_contact_us")) {
+        } /*else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_contact_us")) {
             holder.nameTv.setText("Contact Us");
             holder.profileIv.setImageResource(R.drawable.contact_us);
-        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_email_template")) {
+        } */else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_email_template")) {
             holder.nameTv.setText("Email Template");
             holder.profileIv.setImageResource(R.drawable.ic_info);
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_leaderboard")) {

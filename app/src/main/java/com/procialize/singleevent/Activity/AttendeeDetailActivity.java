@@ -175,11 +175,16 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         saveContact = findViewById(R.id.saveContact);
         tvmob = findViewById(R.id.tvmob);
         layoutTop = findViewById(R.id.layoutTop);
+        LinearLayout linMsg = findViewById(R.id.linMsg);
+        LinearLayout linsave = findViewById(R.id.linsave);
+
 
         attendeetitle.setTextColor(Color.parseColor(colorActive));
         tvname.setTextColor(Color.parseColor(colorActive));
         layoutTop.setBackgroundColor(Color.parseColor(colorActive));
         saveContact.setBackgroundColor(Color.parseColor(colorActive));
+        linMsg.setBackgroundColor(Color.parseColor(colorActive));
+        linsave.setBackgroundColor(Color.parseColor(colorActive));
 
 
         sendbtn = findViewById(R.id.sendMsg);
