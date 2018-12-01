@@ -904,6 +904,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                     if(agenda_conference.equalsIgnoreCase("1")){
                         side_menu_agenda = "1";
                     }
+                    ////
 
                 } else if (eventSettingLists.get(i).getFieldName().equals("agenda_vacation")) {
                     agenda_vacation = eventSettingLists.get(i).getFieldValue();
