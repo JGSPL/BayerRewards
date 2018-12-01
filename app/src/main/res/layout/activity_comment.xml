@@ -183,41 +183,57 @@
                         android:text="Avl Cavers All Customer Segment"
                         android:textColor="@color/black"
                         android:textSize="@dimen/textsizesmall" />
-
-                    <com.procialize.singleevent.CustomTools.PixabayImageView
-                        android:id="@+id/feedimageIv"
+                    <FrameLayout
+                        android:id="@+id/frame_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginTop="-20dp"
-                        android:visibility="gone" />
+                        android:orientation="vertical">
+                        <com.procialize.singleevent.CustomTools.PixabayImageView
+                            android:id="@+id/feedimageIv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginTop="-20dp"
+                            android:visibility="gone" />
 
-                    <ProgressBar
-                        android:id="@+id/feedprogress"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:visibility="gone" />
+                        <ProgressBar
+                            android:id="@+id/feedprogress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:visibility="gone" />
 
-                    <ImageView
-                        android:id="@+id/playicon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:src="@drawable/play"
-                        android:transitionName="feedimage"
-                        android:visibility="gone" />
+                        <ImageView
+                            android:id="@+id/playicon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/play"
+                            android:transitionName="feedimage"
+                            android:visibility="gone" />
 
-                    <com.procialize.singleevent.CustomTools.MyJZVideoPlayerStandard
-                        android:id="@+id/videoplayer"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:layout_centerInParent="true"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:visibility="gone" />
+                        <com.procialize.singleevent.CustomTools.MyJZVideoPlayerStandard
+                            android:id="@+id/videoplayer"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:layout_centerInParent="true"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:visibility="gone" />
+
+
+                        <ImageView
+                            android:id="@+id/image2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/play_button_white"
+                            android:visibility="gone" />
+                    </FrameLayout>
+
+
 
 
                     <LinearLayout
