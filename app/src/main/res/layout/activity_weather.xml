@@ -52,7 +52,7 @@
         android:gravity="center"
         android:id="@+id/twTitle"
         android:padding="4sp"
-        android:textSize="@dimen/textsizesmall"
+        android:textSize="20dp"
         android:text="Time and Weather"
         />
     
@@ -62,7 +62,7 @@
         android:id="@+id/twLin"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="70dp">
 
         <LinearLayout
             android:layout_weight="1"
@@ -80,8 +80,8 @@
                 android:textColor="@color/colorwhite"
                 android:gravity="center"
                 android:padding="4sp"
-                android:textSize="@dimen/textsizenormal"
-                android:text=""
+                android:textSize="26dp"
+                android:text="Mumbai"
                 />
 
 
@@ -155,7 +155,6 @@
                 android:background="#F1F1F1"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -197,8 +196,8 @@
                                 android:textColor="#1F73BA"
                                 android:padding="4sp"
                                 android:textStyle="bold"
-                                android:textSize="35sp"
-                                android:text=""
+                                android:textSize="42sp"
+                                android:text="00"
                                 />
 
                             <LinearLayout
@@ -289,6 +288,7 @@
                         android:orientation="vertical"
                         android:layout_weight="1"
                         android:layout_width="0dp"
+                        android:layout_marginTop="10dp"
                         android:layout_height="wrap_content">
 
 
@@ -366,79 +366,79 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"/>
 
+                    <LinearLayout
+                        android:weightSum="2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.procialize.singleevent.Fonts.RobotoTextview
+                            android:layout_marginRight="0dp"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:gravity="left"
+                            android:padding="4sp"
+                            android:textSize="@dimen/textsizesmall"
+                            android:text="humidity"
+                            />
 
 
-                <LinearLayout
-                    android:weightSum="2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                        <com.procialize.singleevent.Fonts.RobotoTextview
+                            android:id="@+id/humidityTv"
+                            android:layout_marginRight="25dp"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:gravity="right"
+                            android:padding="4sp"
+                            android:textSize="@dimen/textsizesmall"
+                            android:text=""
+                            />
 
-                    <com.procialize.singleevent.Fonts.RobotoTextview
-                        android:layout_marginRight="0dp"
-                        android:layout_weight="1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:gravity="left"
-                        android:padding="4sp"
-                        android:textSize="@dimen/textsizesmall"
-                        android:text="visibility"
-                        />
+                    </LinearLayout>
 
 
-                    <com.procialize.singleevent.Fonts.RobotoTextview
-                        android:id="@+id/visibilityTv"
-                        android:layout_marginRight="25dp"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:gravity="right"
-                        android:padding="4sp"
-                        android:textSize="@dimen/textsizesmall"
-                        android:text=""
-                        />
-
-                </LinearLayout>
 
                 <View
                     android:background="@color/colorgrey"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"/>
+                    <LinearLayout
+                        android:weightSum="2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.procialize.singleevent.Fonts.RobotoTextview
+                            android:layout_marginRight="0dp"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:gravity="left"
+                            android:padding="4sp"
+                            android:textSize="@dimen/textsizesmall"
+                            android:text="visibility"
+                            />
 
 
-                <LinearLayout
-                    android:weightSum="2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                        <com.procialize.singleevent.Fonts.RobotoTextview
+                            android:id="@+id/visibilityTv"
+                            android:layout_marginRight="25dp"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:gravity="right"
+                            android:padding="4sp"
+                            android:textSize="@dimen/textsizesmall"
+                            android:text=""
+                            />
 
-                    <com.procialize.singleevent.Fonts.RobotoTextview
-                        android:layout_marginRight="0dp"
-                        android:layout_weight="1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:gravity="left"
-                        android:padding="4sp"
-                        android:textSize="@dimen/textsizesmall"
-                        android:text="humidity"
-                        />
+                    </LinearLayout>
 
 
-                    <com.procialize.singleevent.Fonts.RobotoTextview
-                        android:id="@+id/humidityTv"
-                        android:layout_marginRight="25dp"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:gravity="right"
-                        android:padding="4sp"
-                        android:textSize="@dimen/textsizesmall"
-                        android:text=""
-                        />
-
-                </LinearLayout>
 
 
                 <View
