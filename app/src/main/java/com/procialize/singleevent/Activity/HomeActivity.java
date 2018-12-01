@@ -492,6 +492,9 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                     editor.commit();
                 }
 
+                session.logoutUser();
+
+
                 Intent main = new Intent(getApplicationContext(), EventChooserActivity.class);
                 main.putExtra("email", email);
                 main.putExtra("password", password);
