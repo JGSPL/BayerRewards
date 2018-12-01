@@ -110,6 +110,9 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
         spinner = findViewById(R.id.spinner);
         progressBar = findViewById(R.id.progressBar);
 
+        TextView header = (TextView)findViewById(R.id.title);
+        header.setTextColor(Color.parseColor(colorActive));
+
         list = new ArrayList<>();
         agendaLisQAS = new ArrayList<>();
 
@@ -294,7 +297,7 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
         Button cancelbtn = myDialog.findViewById(R.id.canclebtn);
         Button ratebtn = myDialog.findViewById(R.id.ratebtn);
 
-        cancelbtn.setBackgroundColor(Color.parseColor(colorActive));
+        ratebtn.setBackgroundColor(Color.parseColor(colorActive));
         cancelbtn.setBackgroundColor(Color.parseColor(colorActive));
 
 

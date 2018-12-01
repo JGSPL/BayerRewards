@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
@@ -97,15 +98,17 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
     private VideoView displayRecordedVideo;
     private static final String SERVER_PATH = "";
     Uri capturedImageUri;
-    String MY_PREFS_NAME = "ProcializeInfo";
     String eventId;
     ImageView profileIV;
     MyApplication appDelegate;
-    ImageView headerlogoIv;
 
     String mCurrentPhotoPath;
     private String picturePath = "";
     ImageView imgPlay;
+
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String eventid,colorActive;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +118,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventId = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
 
         appDelegate = (MyApplication) getApplicationContext();
 
@@ -151,6 +155,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
         mAPIService = ApiUtils.getAPIService();
         sessionManager = new SessionManager(getApplicationContext());
         final TextView txtcount1 = (TextView) findViewById(R.id.txtcount1);
+        postbtn.setBackgroundColor(Color.parseColor(colorActive));
 
 
         // get user data from session

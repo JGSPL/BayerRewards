@@ -258,7 +258,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
+        try {
         if (city.equalsIgnoreCase("N A")) {
             tvcity.setVisibility(View.GONE);
         } else if (city != null && attendee_location.equalsIgnoreCase("1")) {
@@ -272,6 +272,10 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         } else {
             tvcity.setVisibility(View.GONE);
         }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         if (profile != null) {
             Glide.with(this).load(ApiConstant.profilepic + profile).listener(new RequestListener<Drawable>() {

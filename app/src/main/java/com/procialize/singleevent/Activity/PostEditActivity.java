@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -59,6 +60,7 @@ import com.procialize.singleevent.DbHelper.DBHelper;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.MyApplication;
+import com.procialize.singleevent.Utility.Util;
 import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -145,8 +147,10 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
     private String ImageFlag = "0";
     private String notify_id, NotifyType, wallStatus, ImageStatus;
     static final int REQUEST_TAKE_PHOTO = 1;
-    String MY_PREFS_NAME = "ProcializeInfo";
     private VideoView displayRecordedVideo;
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String eventid,colorActive;
+    ImageView headerlogoIv;
 
     @TargetApi(23)
     @Override
@@ -170,6 +174,9 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
                 appDelegate.setPostImagePath("");
             }
         });
+
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this, headerlogoIv);
         // mixpanel.track("Agenda Detail Page");
 
 
@@ -183,7 +190,9 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
 
         session = new SessionManager(getApplicationContext());
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        eventId = prefs.getString("eventid", "1");
+        eventid = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
+
         HashMap<String, String> user = session.getUserDetails();
 
 
@@ -527,7 +536,10 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
         postbtn.setOnClickListener(this);
 		procializeDB = new DBHelper(PostEditActivity.this);
 		db = procializeDB.getReadableDatabase();
-		//userData = procializeDB.getUserProfile();
+
+        postbtn.setBackgroundColor(Color.parseColor(colorActive));
+
+        //userData = procializeDB.getUserProfile();
 //
 	//	type_of_user = userData.getAttendee_type();
 

@@ -2,6 +2,11 @@ package com.procialize.singleevent.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,6 +25,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by Naushad on 10/31/2017.
  */
@@ -33,7 +40,9 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
     String newdate = "";
     private AgendaAdapterListner listener;
     AgendaDateWiseAdapter agendaDateWiseAdapter;
-
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String MY_PREFS_LOGIN = "ProcializeLogin";
+    String colorActive;
 
 
     @Override
@@ -83,6 +92,10 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
         this.context = context;
         this.listener = listener;
 //        this.tempagendaList = tempagendaList;
+
+        SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        colorActive = prefs.getString("colorActive","");
+
     }
 
     @Override
@@ -99,6 +112,12 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
 
 //        holder.nameTv.setText(agenda.getSessionName());
 //        holder.descriptionTv.setText(agenda.getSessionDescription());
+
+        holder.tvheading.setBackgroundColor(Color.parseColor(colorActive));
+
+
+
+
 
         if (!(tempagendaList.isEmpty())) {
             tempagendaList.clear();

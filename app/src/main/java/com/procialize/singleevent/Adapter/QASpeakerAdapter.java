@@ -1,6 +1,8 @@
 package com.procialize.singleevent.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,6 +35,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by Naushad on 10/31/2017.
  */
@@ -48,6 +52,9 @@ public class QASpeakerAdapter extends RecyclerView.Adapter<QASpeakerAdapter.MyVi
     String token,message;
     String QA_like_question,QA_reply_question;
     List<EventSettingList> eventSettingLists;
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String MY_PREFS_LOGIN = "ProcializeLogin";
+    String colorActive;
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTv,dateTv,QaTv,AnsTv,countTv;
         public ImageView likeIv;
@@ -88,6 +95,10 @@ public class QASpeakerAdapter extends RecyclerView.Adapter<QASpeakerAdapter.MyVi
         this.listener=listener;
         this.context=context;
         this.speakername=speakername;
+
+        SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        colorActive = prefs.getString("colorActive","");
+
     }
 
     @Override
@@ -101,6 +112,7 @@ public class QASpeakerAdapter extends RecyclerView.Adapter<QASpeakerAdapter.MyVi
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final SpeakerQuestionList question = speakerQuestionLists.get(position);
+        holder.nameTv.setTextColor(Color.parseColor(colorActive));
 
         holder.nameTv.setText(speakername);
         holder.QaTv.setText(StringEscapeUtils.unescapeJava(question.getQuestion()));

@@ -13,6 +13,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Typeface;
@@ -58,6 +59,7 @@ import com.procialize.singleevent.GetterSetter.PostTextFeed;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.MyApplication;
+import com.procialize.singleevent.Utility.Util;
 import com.procialize.singleevent.Utility.Utility;
 
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -127,14 +129,12 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
     private VideoView displayRecordedVideo;
     private static final String SERVER_PATH = "";
     Uri capturedImageUri;
-    String MY_PREFS_NAME = "ProcializeInfo";
     String eventId;
     ImageView profileIV;
     private String postMsg = "";
     String mCurrentPhotoPath;
     private String picturePath = "";
     ImageView imgPlay;
-    ImageView headerlogoIv;
     private String actionFlag;
     private ConnectionDetector cd;
     SessionManager session;
@@ -143,7 +143,9 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
     private ProgressDialog pDialog;
     File sourceFile;
     MyApplication appDelegate;
-
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String eventid,colorActive;
+    ImageView headerlogoIv;
 
     @TargetApi(23)
     @Override
@@ -164,6 +166,12 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this, headerlogoIv);
+
+
+
 
         toolbar.setNavigationOnClickListener(new OnClickListener() {
             @Override
@@ -404,6 +412,9 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
         session = new SessionManager(getApplicationContext());
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventId = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
+
+
         HashMap<String, String> user = session.getUserDetails();
 
         String profilepic = user.get(SessionManager.KEY_PIC);
@@ -424,6 +435,8 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
         displayRecordedVideo = findViewById(R.id.Upvideov);
         imgPlay = findViewById(R.id.imgPlay);
         progressbar = (ProgressBar) findViewById(R.id.progressbar);
+
+        postbtn.setBackgroundColor(Color.parseColor(colorActive));
 
         postbtn.setOnClickListener(this);
 

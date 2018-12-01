@@ -221,6 +221,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
     private void initializeview() {
 
         nameTv = findViewById(R.id.nameTv);
+        nameTv.setTextColor(Color.parseColor(colorActive));
         companyTv = findViewById(R.id.companyTv);
         designationTv = findViewById(R.id.designationTv);
         dateTv = findViewById(R.id.dateTv);

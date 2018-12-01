@@ -232,6 +232,10 @@ public class ProfileActivity extends AppCompatActivity {
         if (designation != null && edit_profile_designation.equalsIgnoreCase("1")) {
             Etdesignation.setText(designation);
         } else {
+            if (designation != null){
+                Etdesignation.setText(designation);
+
+            }
             Etdesignation.setVisibility(View.GONE);
         }
 
@@ -275,6 +279,10 @@ public class ProfileActivity extends AppCompatActivity {
                 Etlastname.setText(lname);
 
             } else {
+                if (name != null){
+                    Etfirstname.setText(name);
+                    Etlastname.setText(lname);
+                }
                 Etfirstname.setVisibility(View.GONE);
                 Etlastname.setVisibility(View.GONE);
 

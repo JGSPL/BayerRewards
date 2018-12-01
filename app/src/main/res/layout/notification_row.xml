@@ -82,6 +82,8 @@
                 <com.procialize.singleevent.Fonts.RobotoTextview
                     android:paddingLeft="5dp"
                     android:textSize="@dimen/textsizesmall"
+                    android:id="@+id/txt_msg"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/elevation"
@@ -123,6 +125,11 @@
 
                 <ImageView
                     android:id="@+id/arrowIv"
+                    android:src="@drawable/ic_rightarrow"
+                    android:layout_width="30dp"
+                    android:layout_height="40dp" />
+                <ImageView
+                    android:id="@+id/arrowIvmsg"
                     android:src="@drawable/ic_rightarrow"
                     android:layout_width="30dp"
                     android:layout_height="40dp" />

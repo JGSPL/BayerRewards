@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
@@ -99,12 +100,13 @@ public class PostEditActivityOld extends AppCompatActivity implements ProgressRe
     private VideoView displayRecordedVideo;
     private static final String SERVER_PATH = "";
     Uri capturedImageUri;
-    String MY_PREFS_NAME = "ProcializeInfo";
     String eventId, Image, Video;
     ImageView profileIV;
     String status;
     String mCurrentPhotoPath;
     ImageView imgPlay;
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String eventid,colorActive;
     ImageView headerlogoIv;
 
     @Override
@@ -115,6 +117,7 @@ public class PostEditActivityOld extends AppCompatActivity implements ProgressRe
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventId = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -146,6 +149,9 @@ public class PostEditActivityOld extends AppCompatActivity implements ProgressRe
         progressbar = findViewById(R.id.progressbar);
         mAPIService = ApiUtils.getAPIService();
         sessionManager = new SessionManager(getApplicationContext());
+
+        postbtn.setBackgroundColor(Color.parseColor(colorActive));
+
 
         final TextView txtcount1 = (TextView) findViewById(R.id.txtcount1);
 

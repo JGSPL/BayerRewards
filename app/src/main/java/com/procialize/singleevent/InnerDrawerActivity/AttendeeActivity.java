@@ -2,6 +2,7 @@ package com.procialize.singleevent.InnerDrawerActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -47,7 +48,7 @@ public class AttendeeActivity extends AppCompatActivity implements AttendeeAdapt
     AttendeeAdapter attendeeAdapter;
     private ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid;
+    String eventid, colorActive;
     ImageView headerlogoIv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,7 @@ public class AttendeeActivity extends AppCompatActivity implements AttendeeAdapt
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -83,13 +85,16 @@ public class AttendeeActivity extends AppCompatActivity implements AttendeeAdapt
         attendeefeedrefresh =  findViewById(R.id.attendeefeedrefresh);
         progressBar =  findViewById(R.id.progressBar);
 
+        TextView header = (TextView)findViewById(R.id.title);
+        header.setTextColor(Color.parseColor(colorActive));
+
         // use a linear layout manager
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         attendeerecycler.setLayoutManager(mLayoutManager);
 
         int resId = R.anim.layout_animation_slide_right;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
-        attendeerecycler.setLayoutAnimation(animation);
+        //attendeerecycler.setLayoutAnimation(animation);
 
 
 
@@ -175,7 +180,7 @@ public class AttendeeActivity extends AppCompatActivity implements AttendeeAdapt
     public void showResponse(Response<FetchAttendee> response) {
 
         // specify an adapter (see also next example)
-        if(response.body().getAttendeeList().isEmpty()) {
+        if(!(response.body().getAttendeeList().isEmpty())) {
             attendeeAdapter = new AttendeeAdapter(AttendeeActivity.this, response.body().getAttendeeList(), this);
             attendeeAdapter.notifyDataSetChanged();
             attendeerecycler.setAdapter(attendeeAdapter);

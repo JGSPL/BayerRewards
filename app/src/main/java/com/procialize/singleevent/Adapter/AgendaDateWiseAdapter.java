@@ -2,10 +2,16 @@ package com.procialize.singleevent.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,6 +24,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class AgendaDateWiseAdapter extends RecyclerView.Adapter<AgendaDateWiseAdapter.MyViewHolder> {
 
     private List<AgendaList> agendaLists;
@@ -25,11 +33,17 @@ public class AgendaDateWiseAdapter extends RecyclerView.Adapter<AgendaDateWiseAd
     String date = "";
     private AgendaAdapterListner listener;
 //    private AgendaAdapter.AgendaAdapterListner listener;
+String MY_PREFS_NAME = "ProcializeInfo";
+    String MY_PREFS_LOGIN = "ProcializeLogin";
+    String colorActive;
+
 
     public AgendaDateWiseAdapter(Context context, List<AgendaList> agendaLists, AgendaAdapterListner listener) {
         this.agendaLists = agendaLists;
         this.context = context;
         this.listener = listener;
+        SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        colorActive = prefs.getString("colorActive","");
     }
 
 
@@ -45,7 +59,15 @@ public class AgendaDateWiseAdapter extends RecyclerView.Adapter<AgendaDateWiseAd
     public void onBindViewHolder(MyViewHolder holder, int position) {
         final AgendaList agenda = agendaLists.get(position);
 
+        int colorInt = Color.parseColor(colorActive);
+
+        ColorStateList csl = ColorStateList.valueOf(colorInt);
+        Drawable drawable = DrawableCompat.wrap(holder.ic_rightarrow.getDrawable());
+        DrawableCompat.setTintList(drawable, csl);
+        holder.ic_rightarrow.setImageDrawable(drawable);
+
         holder.nameTv.setText(agenda.getSessionName());
+        holder.nameTv.setTextColor(Color.parseColor(colorActive));
         holder.descriptionTv.setText(agenda.getSessionDescription());
 
 
@@ -90,7 +112,7 @@ public class AgendaDateWiseAdapter extends RecyclerView.Adapter<AgendaDateWiseAd
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTv, dateTv, descriptionTv, tvheading;
         public LinearLayout mainLL;
-
+        public ImageView ic_rightarrow;
 
         public MyViewHolder(View view) {
             super(view);
@@ -98,6 +120,7 @@ public class AgendaDateWiseAdapter extends RecyclerView.Adapter<AgendaDateWiseAd
             dateTv = (TextView) view.findViewById(R.id.dateTv);
             descriptionTv = (TextView) view.findViewById(R.id.descriptionTv);
             tvheading = (TextView) view.findViewById(R.id.tvheading);
+            ic_rightarrow = (ImageView) view.findViewById(R.id.ic_rightarrow);
 
 
             mainLL = (LinearLayout) view.findViewById(R.id.mainLL);

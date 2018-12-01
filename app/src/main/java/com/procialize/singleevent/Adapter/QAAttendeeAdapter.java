@@ -1,6 +1,8 @@
 package com.procialize.singleevent.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,6 +36,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by Naushad on 10/31/2017.
  */
@@ -50,7 +54,9 @@ public class QAAttendeeAdapter extends RecyclerView.Adapter<QAAttendeeAdapter.My
     String token, message;
     String QA_like_question, QA_reply_question;
     List<EventSettingList> eventSettingLists;
-
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String MY_PREFS_LOGIN = "ProcializeLogin";
+    String colorActive;
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTv, dateTv, QaTv, countTv, AnsTv;
         public ImageView likeIv;
@@ -93,6 +99,10 @@ public class QAAttendeeAdapter extends RecyclerView.Adapter<QAAttendeeAdapter.My
         this.listener = listener;
         this.context = context;
         this.speakername = speakername;
+
+        SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        colorActive = prefs.getString("colorActive","");
+
     }
 
     @Override
@@ -106,7 +116,7 @@ public class QAAttendeeAdapter extends RecyclerView.Adapter<QAAttendeeAdapter.My
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final AgendaQuestion question = agendaListsfilter.get(position);
-
+        holder.nameTv.setTextColor(Color.parseColor(colorActive));
         holder.nameTv.setText(agendaListsfilter.get(position).getFirst_name() + " " + agendaListsfilter.get(position).getLast_name());
         holder.QaTv.setText(StringEscapeUtils.unescapeJava(question.getQuestion()));
         if (question.getAnswer() != null && QA_reply_question.equalsIgnoreCase("1")) {

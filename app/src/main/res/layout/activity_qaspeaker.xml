@@ -51,6 +51,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="4sp"
+        android:id="@+id/title"
         android:text="@string/qa"
         android:textColor="@color/activetab"
         android:textSize="@dimen/textsizenormal" />

@@ -3,6 +3,9 @@ package com.procialize.singleevent.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.LayerDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -49,7 +52,7 @@ public class AgendaDetailActivity extends AppCompatActivity {
     List<EventSettingList> eventSettingLists;
 
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid;
+    String eventid,colorActive;
     LinearLayout linear1, linear2, linear3;
     View viewtwo, viewone;
     RatingBar ratingbar;
@@ -84,6 +87,8 @@ public class AgendaDetailActivity extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive", "");
+
 
         mAPIService = ApiUtils.getAPIService();
         sessionManager = new SessionManager(AgendaDetailActivity.this);
@@ -124,6 +129,13 @@ public class AgendaDetailActivity extends AppCompatActivity {
         ratebtn = findViewById(R.id.ratebtn);
         ratingbar = findViewById(R.id.ratingbar);
         progressBar = findViewById(R.id.progressBar);
+
+        tvname.setBackgroundColor(Color.parseColor(colorActive));
+        ratebtn.setBackgroundColor(Color.parseColor(colorActive));
+
+        LayerDrawable stars = (LayerDrawable) ratingbar.getProgressDrawable();
+        stars.getDrawable(2).setColorFilter(Color.parseColor(colorActive),
+                PorterDuff.Mode.SRC_ATOP);
 
         ratingbar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override

@@ -1,6 +1,8 @@
 package com.procialize.singleevent.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +30,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class QADirectAdapter extends RecyclerView.Adapter<QADirectAdapter.MyViewHolder> {
 
     private List<DirectQuestion> directQuestionLists;
@@ -39,12 +43,18 @@ public class QADirectAdapter extends RecyclerView.Adapter<QADirectAdapter.MyView
     String token, message;
     String QA_like_question, QA_reply_question;
     List<EventSettingList> eventSettingLists;
-
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String MY_PREFS_LOGIN = "ProcializeLogin";
+    String colorActive;
     public QADirectAdapter(Context context, List<DirectQuestion> directQuestionLists, QADirectAdapterListner listener) {
         this.directQuestionLists = directQuestionLists;
 
         this.listener = listener;
         this.context = context;
+
+        SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        colorActive = prefs.getString("colorActive","");
+
 
     }
 
@@ -60,6 +70,7 @@ public class QADirectAdapter extends RecyclerView.Adapter<QADirectAdapter.MyView
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         final DirectQuestion question = directQuestionLists.get(position);
+        holder.nameTv.setTextColor(Color.parseColor(colorActive));
 
         holder.nameTv.setText(question.getFirst_name());
         holder.QaTv.setText(StringEscapeUtils.unescapeJava(question.getQuestion()));
