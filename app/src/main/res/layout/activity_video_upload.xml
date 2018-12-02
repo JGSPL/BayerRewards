@@ -78,9 +78,8 @@
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-
                 android:layout_marginTop="15dp">
-            <VideoView
+            <ImageView
                 android:id="@+id/videopreview"
                 android:layout_centerHorizontal="true"
                 android:layout_width="fill_parent"
@@ -93,7 +92,6 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_centerHorizontal="true"
-
                     android:layout_centerInParent="true"
                     android:src="@drawable/ic_media_play" />
             </RelativeLayout>

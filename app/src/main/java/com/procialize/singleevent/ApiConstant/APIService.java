@@ -163,6 +163,23 @@ public interface APIService {
             @Part("company_name") RequestBody company_name);
 
 
+    @POST("EditProfileSubmit")
+    @Multipart
+    Call<ProfileSave> ProfileSave(
+            @Part("api_access_token") RequestBody api_access_token,
+            @Part("first_name") RequestBody first_name,
+            @Part("last_name") RequestBody last_name,
+            @Part("description") RequestBody description,
+            @Part("city") RequestBody city,
+            @Part("country") RequestBody country,
+            @Part("mobile") RequestBody mobile,
+            @Part("attendee_type") RequestBody attendee_type,
+            @Part("designation") RequestBody designation,
+            @Part("event_id") RequestBody event_id,
+            @Part("company_name") RequestBody company_name,
+            @Part MultipartBody.Part filename);
+
+
     @POST("EditProfileFetch")
     @Multipart
     Call<ProfileSave> fetchProfileDetail(

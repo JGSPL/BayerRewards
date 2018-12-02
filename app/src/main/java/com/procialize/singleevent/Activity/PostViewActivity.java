@@ -16,6 +16,7 @@ import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.media.MediaPlayer;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -74,6 +75,8 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.media.ThumbnailUtils.createVideoThumbnail;
 
 public class PostViewActivity extends AppCompatActivity implements ProgressRequestBodyImage.UploadCallbacks, ProgressRequestBodyVideo.UploadCallbacks {
 
@@ -202,8 +205,9 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
         } else if (to.equals("video")) {
 
             typepost = "video";
-            Uploadiv.setVisibility(View.GONE);
-            displayRecordedVideo.setVisibility(View.VISIBLE);
+            Uploadiv.setVisibility(View.VISIBLE);
+            displayRecordedVideo.setVisibility(View.GONE);
+            imgPlay.setVisibility(View.VISIBLE);
             selectVideo();
         }
 
@@ -863,14 +867,18 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
             //Store the video to your server
             file = new File(pathToStoredVideo);
 
-            Uploadiv.setVisibility(View.GONE);
-            displayRecordedVideo.setVisibility(View.VISIBLE);
+            Bitmap b=ThumbnailUtils.createVideoThumbnail(pathToStoredVideo, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
+
+            Uploadiv.setVisibility(View.VISIBLE);
+            Uploadiv.setImageBitmap(b);
+            imgPlay.setVisibility(View.VISIBLE);
+            displayRecordedVideo.setVisibility(View.GONE);
 
             uri = data.getData();
 
 
-            displayRecordedVideo.setVideoURI(uri);
-            displayRecordedVideo.start();
+//            displayRecordedVideo.setVideoURI(uri);
+//            displayRecordedVideo.start();
             try {
                 if (uri != null) {
 
@@ -953,8 +961,9 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
 
                     if (data != null && data.getStringExtra("video") != null)
 
-                        Uploadiv.setVisibility(View.GONE);
-                    displayRecordedVideo.setVisibility(View.VISIBLE);
+                        Uploadiv.setVisibility(View.VISIBLE);
+                        Uploadiv.setVisibility(View.VISIBLE);
+                    displayRecordedVideo.setVisibility(View.GONE);
                     if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_TAKE_GALLERY_VIDEO) {
                         Uri selectedImageUri = data.getData();
 
@@ -965,8 +974,8 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
                         selectedImagePath = getPath(PostViewActivity.this, selectedImageUri);
                         if (selectedImagePath != null) {
 
-                            displayRecordedVideo.setVideoURI(selectedImageUri);
-                            displayRecordedVideo.start();
+//                            displayRecordedVideo.setVideoURI(selectedImageUri);
+//                            displayRecordedVideo.start();
                             if (Build.VERSION.SDK_INT > 22)
                                 selectedImagePath = ImagePath_MarshMallow.getPath(PostViewActivity.this, selectedImageUri);
                             else
@@ -975,12 +984,14 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
                             Log.d("video", "Recorded Video Path " + selectedImagePath);
                             //Store the video to your server
                             file = new File(selectedImagePath);
+                            Bitmap b=ThumbnailUtils.createVideoThumbnail(selectedImagePath, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
+                            Uploadiv.setImageBitmap(b);
                         }
                     } else if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_VIDEO_CAPTURE) {
                         uri = data.getData();
 
-                        displayRecordedVideo.setVideoURI(uri);
-                        displayRecordedVideo.start();
+//                        displayRecordedVideo.setVideoURI(uri);
+//                        displayRecordedVideo.start();
 
                         if (Build.VERSION.SDK_INT > 22)
                             pathToStoredVideo = ImagePath_MarshMallow.getPath(PostViewActivity.this, uri);
@@ -990,15 +1001,18 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
                         Log.d("video", "Recorded Video Path " + pathToStoredVideo);
                         //Store the video to your server
                         file = new File(pathToStoredVideo);
+                        Bitmap b=ThumbnailUtils.createVideoThumbnail(pathToStoredVideo, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
+                        Uploadiv.setImageBitmap(b);
                     } else if (resultCode == Activity.RESULT_OK) {
-                        Uploadiv.setVisibility(View.GONE);
-                        displayRecordedVideo.setVisibility(View.VISIBLE);
+                        Uploadiv.setVisibility(View.VISIBLE);
+                        imgPlay.setVisibility(View.VISIBLE);
+                        displayRecordedVideo.setVisibility(View.GONE);
 
                         uri = data.getData();
 
 
-                        displayRecordedVideo.setVideoURI(uri);
-                        displayRecordedVideo.start();
+//                        displayRecordedVideo.setVideoURI(uri);
+//                        displayRecordedVideo.start();
 
 
                         try {
@@ -1029,6 +1043,9 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
                                     }
                                     file = new File(pathToStoredVideo);
 
+                                    Bitmap b=ThumbnailUtils.createVideoThumbnail(pathToStoredVideo, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
+                                    Uploadiv.setImageBitmap(b);
+
                                 }
                             } else {
 
@@ -1048,6 +1065,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
             }
             file = new File(capturedImageUri.getPath());
             Uploadiv.setImageURI(capturedImageUri);
+
         } else {
 //            finish();
         }

@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -64,7 +65,7 @@ public class VideoContestUploadActivity extends AppCompatActivity {
     private String pathToStoredVideo;
     private static final String SERVER_PATH = "";
     Uri capturedImageUri;
-    private VideoView displayRecordedVideo;
+    private ImageView displayRecordedVideo;
     ImageView imgPlay;
     Button btnSubmit;
     File file = null;
@@ -159,49 +160,8 @@ public class VideoContestUploadActivity extends AppCompatActivity {
             }
         });
 
-        imgPlay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-//                post_thumbnail.setVisibility(View.GONE);
-
-                displayRecordedVideo.setVisibility(View.VISIBLE);
-
-                if (!displayRecordedVideo.isPlaying()) {
-
-                    try {
-                        // Start the MediaController
-                        imgPlay.setVisibility(View.GONE);
-                        imgPlay.setImageResource(R.drawable.ic_media_pause);
-
-                        //  mediacontrolle.setAnchorView(videoview);
-                        // Get the URL from String VideoURL
-
-                        displayRecordedVideo.start();
 
 
-                    } catch (Exception e) {
-                        Log.e("Error", e.getMessage());
-                        e.printStackTrace();
-                    }
-
-                } else {
-                    displayRecordedVideo.pause();
-                    imgPlay.setVisibility(View.VISIBLE);
-                    imgPlay.setImageResource(R.drawable.ic_media_play);
-                }
-
-            }
-        });
-
-        displayRecordedVideo.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mediaPlayer) {
-                imgPlay.setVisibility(View.VISIBLE);
-                imgPlay.setImageResource(R.drawable.ic_media_play);
-
-            }
-        });
         selectVideo();
     }
 
@@ -278,20 +238,27 @@ public class VideoContestUploadActivity extends AppCompatActivity {
 
                     finish();
                 } else {
-                    displayRecordedVideo.setVideoURI(uri);
-                    displayRecordedVideo.start();
-                    imgPlay.setVisibility(View.GONE);
+
+                    imgPlay.setVisibility(View.VISIBLE);
 
                     pathToStoredVideo = getRealPathFromURIPathVideo(uri, VideoContestUploadActivity.this);
                     Log.d("video", "Recorded Video Path " + pathToStoredVideo);
                     //Store the video to your server
                     file = new File(pathToStoredVideo);
+
+                    Bitmap b= ThumbnailUtils.createVideoThumbnail(pathToStoredVideo, MediaStore.Video.Thumbnails.MINI_KIND);
+                    displayRecordedVideo.setImageBitmap(b);
+
                 }
             } else if (resultCode == Activity.RESULT_OK && requestCode == SELECT_FILE) {
                 uri = data.getData();
-                displayRecordedVideo.setVideoURI(uri);
-                displayRecordedVideo.start();
-                imgPlay.setVisibility(View.GONE);
+
+
+
+//                displayRecordedVideo.setVideoURI(uri);
+//                displayRecordedVideo.start();
+
+                imgPlay.setVisibility(View.VISIBLE);
                 ArrayList<String> supportedMedia = new ArrayList<String>();
 
                 supportedMedia.add(".mp4");
@@ -341,7 +308,8 @@ public class VideoContestUploadActivity extends AppCompatActivity {
 
                         Log.i("android", "data is " + sec);
 
-
+                        Bitmap b= ThumbnailUtils.createVideoThumbnail(videoUrl, MediaStore.Video.Thumbnails.MINI_KIND);
+                        displayRecordedVideo.setImageBitmap(b);
                         if (sec > 15) {
                             Toast.makeText(VideoContestUploadActivity.this, "Select an video not more than 15 seconds",
                                     Toast.LENGTH_SHORT).show();
@@ -358,7 +326,7 @@ public class VideoContestUploadActivity extends AppCompatActivity {
 
 
                             // videoview.setMediaController(mediacontrolle);
-                            displayRecordedVideo.setVideoURI(video);
+
 
 
                             Bitmap bitmap = mediaMetadataRetriever.getFrameAtTime(1000000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);

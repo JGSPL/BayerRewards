@@ -3,6 +3,7 @@ package com.procialize.singleevent.Adapter;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PointF;
@@ -59,6 +60,9 @@ import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerManager;
 import cn.jzvd.JZVideoPlayerStandard;
 
+import static android.content.Context.MODE_PRIVATE;
+import static com.procialize.singleevent.Utility.Util.setTextViewDrawableColor;
+
 /**
  * Created by Naushad on 10/31/2017.
  */
@@ -77,8 +81,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
     String MY_PREFS_NAME = "ProcializeInfo";
     String MY_PREFS_LOGIN = "ProcializeLogin";
     String colorActive;
-
-
+    SharedPreferences prefs;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTv, designationTv, companyTv, dateTv, headingTv, liketext, commenttext, sharetext, img_like;
@@ -93,6 +96,10 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
 
         public MyViewHolder(View view) {
             super(view);
+
+            prefs =context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+            colorActive = prefs.getString("colorActive","");
+
 
             nameTv = view.findViewById(R.id.nameTv);
             companyTv = view.findViewById(R.id.companyTv);
@@ -412,6 +419,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
 
 
             holder.img_like.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_afterlike, 0);
+            setTextViewDrawableColor( holder.img_like,colorActive);
 
         } else {
             holder.img_like.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_like, 0);
