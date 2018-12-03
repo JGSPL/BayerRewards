@@ -59,7 +59,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
     RecyclerView notificationRv;
     //    ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid,logoImg,colorActive;
+    String eventid, logoImg, colorActive;
     private DBHelper procializeDB;
     private SQLiteDatabase db;
     private DBHelper dbHelper;
@@ -75,14 +75,14 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
-        logoImg = prefs.getString("logoImg","");
-        colorActive = prefs.getString("colorActive","");
+        logoImg = prefs.getString("logoImg", "");
+        colorActive = prefs.getString("colorActive", "");
 
 
         procializeDB = new DBHelper(NotificationActivity.this);
         db = procializeDB.getWritableDatabase();
         dbHelper = new DBHelper(NotificationActivity.this);
-     //   overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        //   overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -100,7 +100,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
         });
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
-       // Util.logomethod(this,headerlogoIv);
+        // Util.logomethod(this,headerlogoIv);
         Glide.with(this).load("http://www.procialize.info/uploads/app_logo/" + logoImg).listener(new RequestListener<Drawable>() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -138,7 +138,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
 
         int resId = R.anim.layout_animation_slide_right;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
-       // notificationRv.setLayoutAnimation(animation);
+        // notificationRv.setLayoutAnimation(animation);
 
 
         fetchNotification(token, eventid);
@@ -245,11 +245,40 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
     @Override
     protected void onResume() {
         super.onResume();
-       // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
     }
 
-/*
+    /*
+        @Override
+        public void onContactSelected(NotificationList notification) {
+            if (notification.getNotificationType() != null) {
+                db = procializeDB.getReadableDatabase();
+
+                newsfeedsDBList = dbHelper.getNewsFeedLikeandComment(notification.getNotificationPostId());
+                if (notification.getNotificationType().equalsIgnoreCase("Cmnt") || notification.getNotificationType().equalsIgnoreCase("Like")) {
+                    Intent comment = new Intent(this, CommentActivity.class);
+                    comment.putExtra("feedid", notification.getNotificationPostId());
+                    comment.putExtra("type", notification.getNotificationType());
+                    comment.putExtra("company", notification.getCompanyName());
+                    comment.putExtra("fname", notification.getAttendeeFirstName());
+                    comment.putExtra("lname", notification.getAttendeeLastName());
+                    comment.putExtra("profilepic", notification.getProfilePic());
+                    comment.putExtra("noti_type", "Notification");
+                    try {
+                        comment.putExtra("Likes", newsfeedsDBList.get(0).getTotalLikes());
+                        comment.putExtra("Comments", newsfeedsDBList.get(0).getTotalComments());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                    startActivity(comment);
+                }
+            }
+
+        }
+    */
     @Override
     public void onContactSelected(NotificationList notification) {
         if (notification.getNotificationType() != null) {
@@ -260,14 +289,33 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
                 Intent comment = new Intent(this, CommentActivity.class);
                 comment.putExtra("feedid", notification.getNotificationPostId());
                 comment.putExtra("type", notification.getNotificationType());
-                comment.putExtra("company", notification.getCompanyName());
-                comment.putExtra("fname", notification.getAttendeeFirstName());
-                comment.putExtra("lname", notification.getAttendeeLastName());
-                comment.putExtra("profilepic", notification.getProfilePic());
+
                 comment.putExtra("noti_type", "Notification");
                 try {
+                    float width = Float.parseFloat(newsfeedsDBList.get(0).getWidth());
+                    float height = Float.parseFloat(newsfeedsDBList.get(0).getHeight());
+
+                    float p1 = (float) (height / width);
+                    comment.putExtra("heading", newsfeedsDBList.get(0).getPostStatus());
+                    comment.putExtra("company", newsfeedsDBList.get(0).getCompanyName());
+                    comment.putExtra("fname", newsfeedsDBList.get(0).getFirstName());
+                    comment.putExtra("lname", newsfeedsDBList.get(0).getLastName());
+                    comment.putExtra("profilepic", newsfeedsDBList.get(0).getProfilePic());
                     comment.putExtra("Likes", newsfeedsDBList.get(0).getTotalLikes());
                     comment.putExtra("Comments", newsfeedsDBList.get(0).getTotalComments());
+                    comment.putExtra("designation", newsfeedsDBList.get(0).getDesignation());
+                    comment.putExtra("Likeflag", newsfeedsDBList.get(0).getLikeFlag());
+                    comment.putExtra("date", newsfeedsDBList.get(0).getPostDate());
+
+                    comment.putExtra("AspectRatio", p1);
+                    if (newsfeedsDBList.get(0).getType().equalsIgnoreCase("Image")) {
+                        comment.putExtra("url", ApiConstant.newsfeedwall + newsfeedsDBList.get(0).getMediaFile());
+                    } else if (newsfeedsDBList.get(0).getType().equalsIgnoreCase("Video")) {
+                        comment.putExtra("videourl", ApiConstant.newsfeedwall + newsfeedsDBList.get(0).getMediaFile());
+                        comment.putExtra("thumbImg", ApiConstant.newsfeedwall + newsfeedsDBList.get(0).getThumbImage());
+                    }
+
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -276,54 +324,6 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
                 startActivity(comment);
             }
         }
-
-    }
-*/
-@Override
-public void onContactSelected(NotificationList notification) {
-    if (notification.getNotificationType() != null) {
-        db = procializeDB.getReadableDatabase();
-
-        newsfeedsDBList = dbHelper.getNewsFeedLikeandComment(notification.getNotificationPostId());
-        if (notification.getNotificationType().equalsIgnoreCase("Cmnt") || notification.getNotificationType().equalsIgnoreCase("Like")) {
-            Intent comment = new Intent(this, CommentActivity.class);
-            comment.putExtra("feedid", notification.getNotificationPostId());
-            comment.putExtra("type", notification.getNotificationType());
-
-            comment.putExtra("noti_type", "Notification");
-            try {
-                float width = Float.parseFloat(newsfeedsDBList.get(0).getWidth());
-                float height = Float.parseFloat(newsfeedsDBList.get(0).getHeight());
-
-                float p1 = (float) (height / width);
-                comment.putExtra("heading", newsfeedsDBList.get(0).getPostStatus());
-                comment.putExtra("company", newsfeedsDBList.get(0).getCompanyName());
-                comment.putExtra("name", newsfeedsDBList.get(0).getFirstName());
-                comment.putExtra("profilepic", newsfeedsDBList.get(0).getProfilePic());
-                comment.putExtra("Likes", newsfeedsDBList.get(0).getTotalLikes());
-                comment.putExtra("Comments", newsfeedsDBList.get(0).getTotalComments());
-                comment.putExtra("designation", newsfeedsDBList.get(0).getDesignation());
-                comment.putExtra("Likeflag", newsfeedsDBList.get(0).getLikeFlag());
-                comment.putExtra("date", newsfeedsDBList.get(0).getPostDate());
-
-                comment.putExtra("AspectRatio", p1);
-                if (newsfeedsDBList.get(0).getType().equalsIgnoreCase("Image")) {
-                    comment.putExtra("url", ApiConstant.newsfeedwall + newsfeedsDBList.get(0).getMediaFile());
-                } else if (newsfeedsDBList.get(0).getType().equalsIgnoreCase("Video")) {
-                    comment.putExtra("videourl", ApiConstant.newsfeedwall + newsfeedsDBList.get(0).getMediaFile());
-                    comment.putExtra("thumbImg", ApiConstant.newsfeedwall + newsfeedsDBList.get(0).getThumbImage());
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-
-
-
-            startActivity(comment);
-        }
-    }
 
 /*
         if (notification.getNotificationType() != null) {
@@ -351,7 +351,7 @@ public void onContactSelected(NotificationList notification) {
         }
 */
 
-}
+    }
 
 
     @Override

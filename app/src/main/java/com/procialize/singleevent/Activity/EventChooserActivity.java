@@ -227,7 +227,7 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
     public void onContactSelected(UserEventList eventList) {
         String eventid = eventList.getEventId();
         eventnamestr = eventList.getName();
-        logoImg = eventList.getLogo();
+        logoImg = eventList.getHeader_logo();
         colorActive = eventList.getPrimary_color_code();
 
 

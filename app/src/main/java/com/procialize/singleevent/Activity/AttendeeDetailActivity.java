@@ -206,36 +206,48 @@ public class AttendeeDetailActivity extends AppCompatActivity {
             tvname.setVisibility(View.GONE);
         }
 
-        if (company.equalsIgnoreCase("N A")) {
-            tvcompany.setVisibility(View.GONE);
-        } else if (company != null && attendee_company.equalsIgnoreCase("1")) {
-            if (company.equalsIgnoreCase("")) {
+        try {
+            if (company.equalsIgnoreCase("N A")) {
                 tvcompany.setVisibility(View.GONE);
-            } else if (company.equalsIgnoreCase(" ")) {
-                tvcompany.setVisibility(View.GONE);
-            } else {
-                tvcompany.setText(company);
-            }
+            } else if (company != null && attendee_company.equalsIgnoreCase("1")) {
+                if (company.equalsIgnoreCase("")) {
+                    tvcompany.setVisibility(View.GONE);
+                } else if (company.equalsIgnoreCase(" ")) {
+                    tvcompany.setVisibility(View.GONE);
+                } else {
+                    tvcompany.setText(company);
+                }
 
-        } else {
+            } else {
+                tvcompany.setVisibility(View.GONE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
             tvcompany.setVisibility(View.GONE);
         }
 
-        if (attendee_mobile.equalsIgnoreCase("N A")) {
-            tvmob.setVisibility(View.GONE);
-        } else if (mobile != null && attendee_mobile.equalsIgnoreCase("1")) {
-            if (mobile.equalsIgnoreCase("")) {
+
+        try {
+            if (attendee_mobile.equalsIgnoreCase("N A")) {
                 tvmob.setVisibility(View.GONE);
-            } else if (mobile.equalsIgnoreCase(" ")) {
-                tvmob.setVisibility(View.GONE);
+            } else if (mobile != null && attendee_mobile.equalsIgnoreCase("1")) {
+                if (mobile.equalsIgnoreCase("")) {
+                    tvmob.setVisibility(View.GONE);
+                } else if (mobile.equalsIgnoreCase(" ")) {
+                    tvmob.setVisibility(View.GONE);
+                } else {
+                    tvmob.setText(mobile);
+                }
+
+
             } else {
-                tvmob.setText(mobile);
+                tvmob.setVisibility(View.GONE);
             }
-
-
-        } else {
+        } catch (Exception e) {
+            e.printStackTrace();
             tvmob.setVisibility(View.GONE);
         }
+
 
         try {
             if (designation.equalsIgnoreCase("N A")) {
@@ -255,24 +267,26 @@ public class AttendeeDetailActivity extends AppCompatActivity {
                 viewtwo.setVisibility(View.GONE);
             }
         } catch (Exception e) {
+            tvdesignation.setVisibility(View.GONE);
             e.printStackTrace();
         }
 
         try {
-        if (city.equalsIgnoreCase("N A")) {
-            tvcity.setVisibility(View.GONE);
-        } else if (city != null && attendee_location.equalsIgnoreCase("1")) {
-            if (city.equalsIgnoreCase("")) {
+            if (city.equalsIgnoreCase("N A")) {
                 tvcity.setVisibility(View.GONE);
-            } else if (city.equalsIgnoreCase(" ")) {
-                tvcity.setVisibility(View.GONE);
+            } else if (city != null && attendee_location.equalsIgnoreCase("1")) {
+                if (city.equalsIgnoreCase("")) {
+                    tvcity.setVisibility(View.GONE);
+                } else if (city.equalsIgnoreCase(" ")) {
+                    tvcity.setVisibility(View.GONE);
+                } else {
+                    tvcity.setText(city);
+                }
             } else {
-                tvcity.setText(city);
+                tvcity.setVisibility(View.GONE);
             }
-        } else {
-            tvcity.setVisibility(View.GONE);
-        }
         } catch (Exception e) {
+            tvcity.setVisibility(View.GONE);
             e.printStackTrace();
         }
 
@@ -407,7 +421,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
     public void PostMesssage(String eventid, String msg, String token, String attendeeid) {
         showProgress();
 //        showProgress();
-        mAPIService.SendMessagePost(token, eventid, msg, attendeeid).enqueue(new Callback<SendMessagePost>() {
+        mAPIService.SendMessagePost(token, eventid, msg, attendeeid, "").enqueue(new Callback<SendMessagePost>() {
             @Override
             public void onResponse(Call<SendMessagePost> call, Response<SendMessagePost> response) {
 
@@ -429,7 +443,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
             public void onFailure(Call<SendMessagePost> call, Throwable t) {
                 dismissProgress();
                 Log.e("hit", "Low network or no network");
-                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
 
 //                dismissProgress();
             }

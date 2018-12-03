@@ -230,7 +230,8 @@
         <activity android:name=".Activity.SelfiePost" />
         <activity android:name=".Activity.PostEditActivity" />
         <activity android:name=".Activity.ViewPDFActivity" />
-        <activity android:name=".Activity.ForgotPasswordActivity"></activity>
+        <activity android:name=".Activity.ForgotPasswordActivity" />
+        <activity android:name=".Activity.EmptyView2"></activity>
     </application>
 
 </manifest>

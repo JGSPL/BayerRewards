@@ -131,7 +131,7 @@
 
                     <android.support.v7.widget.AppCompatSpinner
                         android:id="@+id/firstans_list_spinner"
-                        style="@style/Spinner1"
+                        android:backgroundTint="@android:color/transparent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
@@ -141,28 +141,81 @@
 
             </LinearLayout>
         </LinearLayout>
-
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/relative"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:background="#f1f1f1"
             android:layout_weight="1"
-            android:background="@drawable/currency_btn"
-            android:gravity="center|end"
-            android:orientation="vertical">
+            android:layout_below="@+id/attendeetitle">
 
-            <Button
-                android:id="@+id/btnConverter"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:layout_marginRight="20dp"
-                android:background="#ffffff"
-                android:text="Convert"
+            <RelativeLayout
+                android:id="@+id/layoutTop"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/activetab"></RelativeLayout>
 
-                android:textAllCaps="false"
-                android:textColor="@color/activetab" />
-        </LinearLayout>
+            <RelativeLayout
+                android:id="@+id/layoutBottom"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_below="@id/layoutTop"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/agendabg">
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/layoutBottom"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="-20dp"
+                android:gravity="center|end"
+                android:adjustViewBounds="true">
+
+                <Button
+                    android:id="@+id/btnConverter"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="20dp"
+                    android:background="#ffffff"
+                    android:text="Convert"
+
+                    android:textAllCaps="false"
+                    android:textColor="@color/activetab" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+        <!--
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/currency_btn"
+                    android:gravity="center|end"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/btnConverter"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="20dp"
+                        android:background="#ffffff"
+                        android:text="Convert"
+
+                        android:textAllCaps="false"
+                        android:textColor="@color/activetab" />
+                </LinearLayout>
+        -->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -215,6 +268,7 @@
                     android:gravity="center">
 
                     <ImageView
+                        android:id="@+id/imgArrow"
                         android:layout_width="10dp"
                         android:layout_height="10dp"
                         android:src="@drawable/arrow_blue" />

@@ -67,6 +67,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -80,7 +81,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
     public ImageView profileIv;
     public ProgressBar progressView, feedprogress;
     public PixabayImageView feedimageIv;
-    String fname, lname, name, company, designation, heading, date, Likes, Likeflag, Comments, profileurl, noti_profileurl, feedurl, type, feedid, apikey, thumbImg, videourl, noti_type;
+    String fname, lname, name, company, designation, heading, date, Likes, Likeflag, Comments, profileurl, noti_profileurl, feedurl, flag, type, feedid, apikey, thumbImg, videourl, noti_type;
     ProgressDialog progress;
     private APIService mAPIService;
     private TenorApiService mAPItenorService;
@@ -138,6 +139,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
 //                Intent intent = new Intent(CommentActivity.this, HomeActivity.class);
 //                startActivity(intent);
                 finish();
+                JZVideoPlayer.releaseAllVideos();
             }
         });
 
@@ -198,6 +200,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
                 }
 
                 type = intent.getStringExtra("type");
+
 
                 feedid = intent.getStringExtra("feedid");
 
@@ -260,6 +263,12 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
         headingTv.setText(StringEscapeUtils.unescapeJava(heading));
         likeTv.setText(Likes + " Likes ");
         commentTv.setText(Comments + " Comments ");
+
+        if (noti_type.equalsIgnoreCase("Notification")) {
+            designationTv.setVisibility(View.GONE);
+        } else {
+            designationTv.setVisibility(View.VISIBLE);
+        }
 
         commentrecycler = findViewById(R.id.commentrecycler);
 
@@ -546,7 +555,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
         if (response.body().toString().length() > 0) {
 
             // specify an adapter (see also next example)
-            commentAdapter = new CommentAdapter(CommentActivity.this, response.body().getCommentDataList(), this);
+            commentAdapter = new CommentAdapter(CommentActivity.this, response.body().getCommentDataList(), this, noti_type);
             commentrecycler.setAdapter(commentAdapter);
             commentAdapter.notifyDataSetChanged();
 

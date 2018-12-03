@@ -52,6 +52,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
     String MY_PREFS_NAME = "ProcializeInfo";
     String MY_PREFS_LOGIN = "ProcializeLogin";
     String colorActive;
+    String flag;
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -97,10 +98,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
     }
 
 
-    public CommentAdapter(Context context, List<CommentDataList> commentLists, CommentAdapterListner listener) {
+    public CommentAdapter(Context context, List<CommentDataList> commentLists, CommentAdapterListner listener,String flag) {
         this.commentLists = commentLists;
         this.listener = listener;
         this.context = context;
+        this.flag = flag;
         SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         colorActive = prefs.getString("colorActive","");
 
@@ -118,6 +120,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         CommentDataList comment = commentLists.get(position);
         holder.nameTv.setTextColor(Color.parseColor(colorActive));
+
+        if(flag.equalsIgnoreCase("Notification")){
+            holder.moreIv.setVisibility(View.GONE);
+        }else {
+            holder.moreIv.setVisibility(View.VISIBLE);
+        }
 
 //        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
         holder.nameTv.setText(comment.getFirstName() + " " + comment.getLastName());
