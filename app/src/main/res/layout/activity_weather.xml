@@ -245,17 +245,6 @@
                             android:layout_width="match_parent"
                             android:orientation="horizontal"
                             android:layout_height="wrap_content">
-
-                            <com.procialize.singleevent.Fonts.RobotoTextview
-                                android:id="@+id/maxTv"
-                                android:layout_margin="3dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="#1F73BA"
-                                android:textStyle="bold"
-                                android:textSize="@dimen/textsizesmall"
-                                android:text=""
-                                />
                             <ImageView
                                 android:src="@drawable/high"
                                 android:layout_width="wrap_content"
@@ -263,7 +252,7 @@
                                 android:layout_height="wrap_content" />
 
                             <com.procialize.singleevent.Fonts.RobotoTextview
-                                android:id="@+id/minTv"
+                                android:id="@+id/maxTv"
                                 android:layout_margin="3dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -277,6 +266,18 @@
                                 android:layout_width="wrap_content"
                                 android:id="@+id/lowiv"
                                 android:layout_height="wrap_content" />
+
+
+                            <com.procialize.singleevent.Fonts.RobotoTextview
+                                android:id="@+id/minTv"
+                                android:layout_margin="3dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#1F73BA"
+                                android:textStyle="bold"
+                                android:textSize="@dimen/textsizesmall"
+                                android:text=""
+                                />
 
 
                         </LinearLayout>

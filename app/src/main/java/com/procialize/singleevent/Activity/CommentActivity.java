@@ -1379,7 +1379,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
 //            }
 
     }
-
+//
     @Override
     public void onBackPressed() {
         super.onBackPressed();

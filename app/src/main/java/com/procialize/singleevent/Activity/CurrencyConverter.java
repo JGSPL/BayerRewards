@@ -1,23 +1,18 @@
 package com.procialize.singleevent.Activity;
 
 
-import android.app.ActionBar;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -31,16 +26,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.GetterSetter.CurrencyConverterResponse;
-import com.procialize.singleevent.GetterSetter.CurrencyDropDown;
 import com.procialize.singleevent.GetterSetter.DropDownList;
-import com.procialize.singleevent.GetterSetter.GeneralInfoList;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
-
 import com.procialize.singleevent.Utility.ServiceHandler;
 import com.procialize.singleevent.Utility.Util;
 
@@ -52,16 +43,11 @@ import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static java.security.AccessController.getContext;
 
 public class CurrencyConverter extends AppCompatActivity {
 
@@ -136,6 +122,8 @@ public class CurrencyConverter extends AppCompatActivity {
         txtHeader.setTextColor(Color.parseColor(colorActive));
         btnConverter.setTextColor(Color.parseColor(colorActive));
         int colorInt = Color.parseColor(colorActive);
+
+        txtValue.setTextColor(Color.parseColor(colorActive));
 
         ColorStateList csl = ColorStateList.valueOf(colorInt);
         txtValue.setBackgroundTintList(csl);
