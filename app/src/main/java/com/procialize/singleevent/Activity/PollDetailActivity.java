@@ -19,6 +19,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -35,6 +36,7 @@ import com.procialize.singleevent.GetterSetter.LivePollSubmitFetch;
 import com.procialize.singleevent.InnerDrawerActivity.LivePollActivity;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -65,6 +67,7 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
     String token,colorActive;
     LinearLayout linView;
     RecyclerView pollGraph;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +95,9 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
                 finish();
             }
         });
+
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
 
         pollGraph = findViewById(R.id.pollGraph);
 

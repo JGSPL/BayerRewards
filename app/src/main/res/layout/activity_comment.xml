@@ -206,6 +206,7 @@
                             android:visibility="gone" />
 
                         <ImageView
+                            android:layout_gravity="center"
                             android:id="@+id/playicon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -223,14 +224,6 @@
                             android:layout_marginRight="5dp"
                             android:visibility="gone" />
 
-
-                        <ImageView
-                            android:id="@+id/image2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="@drawable/play_button_white"
-                            android:visibility="gone" />
                     </FrameLayout>
 
 

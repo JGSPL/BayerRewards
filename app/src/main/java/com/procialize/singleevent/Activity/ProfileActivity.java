@@ -260,6 +260,9 @@ public class ProfileActivity extends AppCompatActivity {
         if (description != null) {
             Etdescription.setText(description);
         } else {
+            if (description != null) {
+                Etdescription.setText(description);
+            }
             Etdescription.setVisibility(View.GONE);
             input_layout_desc.setVisibility(View.GONE);
         }
@@ -267,6 +270,9 @@ public class ProfileActivity extends AppCompatActivity {
         if (city != null && edit_profile_location.equalsIgnoreCase("1")) {
             Etcity.setText(city);
         } else {
+            if (city != null ) {
+                Etcity.setText(city);
+            }
             Etcity.setVisibility(View.GONE);
             input_layout_city.setVisibility(View.GONE);
         }
@@ -274,6 +280,9 @@ public class ProfileActivity extends AppCompatActivity {
         if (country != null && edit_profile_location.equalsIgnoreCase("1")) {
             Etcountry.setText(country);
         } else {
+            if (country != null ) {
+                Etcountry.setText(country);
+            }
             Etcountry.setVisibility(View.GONE);
             input_layout_country.setVisibility(View.GONE);
 
@@ -282,6 +291,9 @@ public class ProfileActivity extends AppCompatActivity {
         if (mobile != null && edit_profile_mobile.equalsIgnoreCase("1")) {
             Etmobile.setText(mobile);
         } else {
+            if (mobile != null) {
+                Etmobile.setText(mobile);
+            }
             Etmobile.setVisibility(View.GONE);
             input_layout_mobile.setVisibility(View.GONE);
 
@@ -291,6 +303,12 @@ public class ProfileActivity extends AppCompatActivity {
             Etcompany.setText(company);
 
         } else {
+
+            if (company != null) {
+                Etcompany.setText(company);
+
+            }
+
             Etcompany.setVisibility(View.GONE);
             input_layout_company.setVisibility(View.GONE);
         }
@@ -320,6 +338,10 @@ public class ProfileActivity extends AppCompatActivity {
         if (email != null && edit_profile_email.equalsIgnoreCase("1")) {
             Etemail.setText(email);
         } else {
+            if(email!=null){
+                Etemail.setText(email);
+
+            }
             Etemail.setVisibility(View.GONE);
             input_layout_emailid.setVisibility(View.GONE);
         }
@@ -344,6 +366,22 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             }).into(profileIV);
         } else {
+            if(profilepic!= null){
+                Glide.with(this).load(ApiConstant.profilepic + profilepic).listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        progressView.setVisibility(View.GONE);
+                        profileIV.setImageResource(R.drawable.profilepic_placeholder);
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        progressView.setVisibility(View.GONE);
+                        return false;
+                    }
+                }).into(profileIV);
+            }
             profileIV.setVisibility(View.GONE);
             txt_upload.setVisibility(View.GONE);
             progressView.setVisibility(View.GONE);

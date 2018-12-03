@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -249,7 +250,7 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
         } else {
 
             likeIv.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_afterlike));
-
+            likeIv.setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_ATOP);
             VideoContestLike(token, eventid, videoContest.getId());
 
 

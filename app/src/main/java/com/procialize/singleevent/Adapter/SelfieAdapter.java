@@ -1,6 +1,9 @@
 package com.procialize.singleevent.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +32,8 @@ import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by Naushad on 10/31/2017.
  */
@@ -40,6 +45,8 @@ public class SelfieAdapter extends RecyclerView.Adapter<SelfieAdapter.MyViewHold
     public List<SelfieList> selfieList;
     private Context context;
     private SelfieAdapterListner listener;
+    String colorActive;
+    String MY_PREFS_NAME = "ProcializeInfo";
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -103,6 +110,11 @@ public class SelfieAdapter extends RecyclerView.Adapter<SelfieAdapter.MyViewHold
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final SelfieList galleryList = selfieList.get(position);
 
+        SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        colorActive = prefs.getString("colorActive","");
+
+
+
         holder.dataTv.setText(StringEscapeUtils.unescapeJava(galleryList.getTitle()));
         holder.countTv.setText(galleryList.getTotalLikes());
         Glide.with(context).load(ApiConstant.selfieimage+galleryList.getFileName())
@@ -126,7 +138,7 @@ public class SelfieAdapter extends RecyclerView.Adapter<SelfieAdapter.MyViewHold
 
 
             holder.likeIv.setImageResource(R.drawable.ic_afterlike);
-
+            holder.likeIv.setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_ATOP);
         } else {
             holder.likeIv.setImageResource(R.drawable.ic_like);
         }

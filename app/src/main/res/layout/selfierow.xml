@@ -29,7 +29,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:background="@color/trans"
+            android:background="@color/inactivetab"
             android:padding="5dp"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
