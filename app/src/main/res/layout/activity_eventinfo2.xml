@@ -149,7 +149,7 @@
                             android:adjustViewBounds="true"
                             android:background="@drawable/image_border"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/logo" />
+                            android:src="@drawable/profilepic_placeholder" />
 
 
                     </RelativeLayout>

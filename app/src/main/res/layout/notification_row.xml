@@ -147,6 +147,13 @@
             android:textColor="@color/colorAccent"
             android:id="@+id/messageTV" />
 
+        <ImageView
+            android:id="@+id/gifiv"
+            android:paddingLeft="5dp"
+            android:layout_margin="@dimen/elevation"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+
 
     </LinearLayout>
 

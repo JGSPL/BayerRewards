@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -93,6 +94,8 @@ public class ProfileActivity extends AppCompatActivity {
     RelativeLayout linear_upload;
     String MY_PREFS_LOGIN = "ProcializeLogin";
     public static String logoImg="";
+    TextInputLayout input_layout_firstname,input_layout_lastname,input_layout_designation,input_layout_company,
+            input_layout_mobile,input_layout_desc,input_layout_city,input_layout_emailid,input_layout_country;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -202,6 +205,20 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
 
+        input_layout_firstname = findViewById(R.id.input_layout_firstname);
+        input_layout_lastname = findViewById(R.id.input_layout_lastname);
+        input_layout_designation = findViewById(R.id.input_layout_designation);
+        input_layout_company = findViewById(R.id.input_layout_company);
+        input_layout_mobile = findViewById(R.id.input_layout_mobile);
+        input_layout_desc = findViewById(R.id.input_layout_desc);
+        input_layout_city = findViewById(R.id.input_layout_city);
+        input_layout_emailid = findViewById(R.id.input_layout_emailid);
+        input_layout_country = findViewById(R.id.input_layout_country);
+
+
+
+
+
         Etfirstname = findViewById(R.id.Etfirstname);
         Etlastname = findViewById(R.id.Etlastname);
         Etdesignation = findViewById(R.id.Etdesignation);
@@ -237,31 +254,48 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
             Etdesignation.setVisibility(View.GONE);
+            input_layout_designation.setVisibility(View.GONE);
         }
 
         if (description != null) {
             Etdescription.setText(description);
         } else {
+            if (description != null) {
+                Etdescription.setText(description);
+            }
             Etdescription.setVisibility(View.GONE);
+            input_layout_desc.setVisibility(View.GONE);
         }
 
         if (city != null && edit_profile_location.equalsIgnoreCase("1")) {
             Etcity.setText(city);
         } else {
+            if (city != null ) {
+                Etcity.setText(city);
+            }
             Etcity.setVisibility(View.GONE);
+            input_layout_city.setVisibility(View.GONE);
         }
 
         if (country != null && edit_profile_location.equalsIgnoreCase("1")) {
             Etcountry.setText(country);
         } else {
+            if (country != null ) {
+                Etcountry.setText(country);
+            }
             Etcountry.setVisibility(View.GONE);
+            input_layout_country.setVisibility(View.GONE);
 
         }
 
         if (mobile != null && edit_profile_mobile.equalsIgnoreCase("1")) {
             Etmobile.setText(mobile);
         } else {
+            if (mobile != null) {
+                Etmobile.setText(mobile);
+            }
             Etmobile.setVisibility(View.GONE);
+            input_layout_mobile.setVisibility(View.GONE);
 
         }
 
@@ -269,7 +303,14 @@ public class ProfileActivity extends AppCompatActivity {
             Etcompany.setText(company);
 
         } else {
+
+            if (company != null) {
+                Etcompany.setText(company);
+
+            }
+
             Etcompany.setVisibility(View.GONE);
+            input_layout_company.setVisibility(View.GONE);
         }
 
         try {
@@ -285,6 +326,8 @@ public class ProfileActivity extends AppCompatActivity {
                 }
                 Etfirstname.setVisibility(View.GONE);
                 Etlastname.setVisibility(View.GONE);
+                input_layout_firstname.setVisibility(View.GONE);
+                input_layout_lastname.setVisibility(View.GONE);
 
             }
         } catch (Exception e) {
@@ -295,7 +338,12 @@ public class ProfileActivity extends AppCompatActivity {
         if (email != null && edit_profile_email.equalsIgnoreCase("1")) {
             Etemail.setText(email);
         } else {
+            if(email!=null){
+                Etemail.setText(email);
+
+            }
             Etemail.setVisibility(View.GONE);
+            input_layout_emailid.setVisibility(View.GONE);
         }
 
 
@@ -318,6 +366,22 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             }).into(profileIV);
         } else {
+            if(profilepic!= null){
+                Glide.with(this).load(ApiConstant.profilepic + profilepic).listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        progressView.setVisibility(View.GONE);
+                        profileIV.setImageResource(R.drawable.profilepic_placeholder);
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        progressView.setVisibility(View.GONE);
+                        return false;
+                    }
+                }).into(profileIV);
+            }
             profileIV.setVisibility(View.GONE);
             txt_upload.setVisibility(View.GONE);
             progressView.setVisibility(View.GONE);
@@ -595,7 +659,7 @@ public class ProfileActivity extends AppCompatActivity {
             });
         } else {
             mAPIService.ProfileSave(token, fstname, lstname, desc, cit, countr,
-                    mob, typ, des, evid, cmp).enqueue(new Callback<ProfileSave>() {
+                    mob, typ, des, evid, cmp,body).enqueue(new Callback<ProfileSave>() {
                 @Override
                 public void onResponse(Call<ProfileSave> call, Response<ProfileSave> response) {
                     try {

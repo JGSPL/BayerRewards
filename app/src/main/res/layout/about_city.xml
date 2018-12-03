@@ -134,7 +134,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
-            android:text="Jaipur"
+            android:text=""
             android:textColor="@color/activetab"
             android:textSize="@dimen/textsizenormal" />
 
@@ -152,7 +152,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
-            android:text="Rajsthan-India"
+            android:text=""
             android:textColor="@color/black"
             android:textSize="@dimen/textsizenormal" />
 
@@ -170,7 +170,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
             android:gravity="center"
-            android:text="eifjkfkfjkfjkfjhhhdbdfhdfbdfbhjfddfdjfdndfn"
+            android:text=""
             android:textSize="@dimen/textsizenormal" />
 
 

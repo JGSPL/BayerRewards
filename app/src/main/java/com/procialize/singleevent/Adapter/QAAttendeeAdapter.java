@@ -2,7 +2,10 @@ package com.procialize.singleevent.Adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,6 +40,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.procialize.singleevent.Utility.Util.setTextViewDrawableColor;
 
 /**
  * Created by Naushad on 10/31/2017.
@@ -171,6 +175,13 @@ public class QAAttendeeAdapter extends RecyclerView.Adapter<QAAttendeeAdapter.My
             holder.likeIv.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_like));
         } else {
             holder.likeIv.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_afterlike));
+            int colorInt = Color.parseColor(colorActive);
+
+            ColorStateList csl = ColorStateList.valueOf(colorInt);
+            Drawable drawable = DrawableCompat.wrap(holder.likeIv.getDrawable());
+            DrawableCompat.setTintList(drawable, csl);
+            holder.likeIv.setImageDrawable(drawable);
+
         }
 
 

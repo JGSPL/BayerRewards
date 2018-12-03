@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -103,20 +104,21 @@ public class GeneralInfo extends Fragment implements GeneralInfoListAdapter.Gene
 
         ImageView ic_rightarrow = (ImageView) view.findViewById(R.id.ic_rightarrow);
         ImageView ic_rightarrow1 = (ImageView) view.findViewById(R.id.ic_rightarrow1);
-        int colorInt = Color.parseColor(colorActive);
-
-        ColorStateList csl = ColorStateList.valueOf(colorInt);
-        Drawable drawable = DrawableCompat.wrap(ic_rightarrow.getDrawable());
-        DrawableCompat.setTintList(drawable, csl);
-        ic_rightarrow.setImageDrawable(drawable);
-
-
-        Drawable drawable1 = DrawableCompat.wrap(ic_rightarrow1.getDrawable());
-        DrawableCompat.setTintList(drawable1, csl);
-        ic_rightarrow1.setImageDrawable(drawable1);
+//        int colorInt = Color.parseColor(colorActive);
+//
+//        ColorStateList csl = ColorStateList.valueOf(colorInt);
+//        Drawable drawable = DrawableCompat.wrap(ic_rightarrow.getDrawable());
+//        DrawableCompat.setTintList(drawable, csl);
+//        ic_rightarrow.setImageDrawable(drawable);
 
 
+//        Drawable drawable1 = DrawableCompat.wrap(ic_rightarrow1.getDrawable());
+//        DrawableCompat.setTintList(drawable1, csl);
+//        ic_rightarrow1.setImageDrawable(drawable1);
 
+
+        ic_rightarrow.setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_ATOP);
+        ic_rightarrow1.setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_ATOP);
 
         pullrefresh = (TextView) view.findViewById(R.id.pullrefresh);
         generalInforefresh = view.findViewById(R.id.generalInforefresh);

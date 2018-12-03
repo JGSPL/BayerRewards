@@ -47,7 +47,7 @@
                 android:gravity="center"
                 android:maxLength="100"
                 android:singleLine="true"
-                android:text="Question"
+                android:text=""
                 android:textColor="@color/colorwhite"
                 android:textSize="18sp" />
         </LinearLayout>

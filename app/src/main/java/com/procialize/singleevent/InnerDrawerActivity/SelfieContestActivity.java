@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -54,6 +55,8 @@ import cn.jzvd.JZVideoPlayer;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.procialize.singleevent.Utility.Util.setTextViewDrawableColor;
 
 public class SelfieContestActivity extends AppCompatActivity implements SelfieAdapter.SelfieAdapterListner {
 
@@ -238,6 +241,8 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
 
         if (selfieList.getLikeFlag().equals("1")) {
             likeIv.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_like));
+
+
             SelfieLike(token, eventid, selfieList.getId());
 
             try {
@@ -259,7 +264,7 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
         } else {
 
             likeIv.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_afterlike));
-
+            likeIv.setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_ATOP);
             SelfieLike(token, eventid, selfieList.getId());
 
 

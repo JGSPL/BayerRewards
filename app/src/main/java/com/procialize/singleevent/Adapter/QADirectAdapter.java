@@ -2,7 +2,10 @@ package com.procialize.singleevent.Adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -138,6 +141,12 @@ public class QADirectAdapter extends RecyclerView.Adapter<QADirectAdapter.MyView
             holder.likeIv.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_like));
         } else {
             holder.likeIv.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_afterlike));
+            int colorInt = Color.parseColor(colorActive);
+
+            ColorStateList csl = ColorStateList.valueOf(colorInt);
+            Drawable drawable = DrawableCompat.wrap(holder.likeIv.getDrawable());
+            DrawableCompat.setTintList(drawable, csl);
+            holder.likeIv.setImageDrawable(drawable);
         }
 
 

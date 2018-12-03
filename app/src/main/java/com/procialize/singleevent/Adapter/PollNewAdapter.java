@@ -99,9 +99,7 @@ public class PollNewAdapter extends BaseAdapter {
     static class ViewHolder {
         public TextView nameTv;
         public ImageView imageIv;
-        public LinearLayout mainLL;
-
-    }
+        public LinearLayout mainLL;}
 
     public interface PollAdapterListner {
         void onContactSelected(LivePollList pollList);

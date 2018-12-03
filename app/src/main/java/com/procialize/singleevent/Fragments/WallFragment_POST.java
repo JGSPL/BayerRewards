@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -58,6 +61,7 @@ import com.procialize.singleevent.GetterSetter.FetchFeed;
 import com.procialize.singleevent.GetterSetter.LikeListing;
 import com.procialize.singleevent.GetterSetter.LikePost;
 import com.procialize.singleevent.GetterSetter.NewsFeedList;
+import com.procialize.singleevent.GetterSetter.ProfileSave;
 import com.procialize.singleevent.GetterSetter.ReportPost;
 import com.procialize.singleevent.GetterSetter.ReportPostHide;
 import com.procialize.singleevent.GetterSetter.ReportUser;
@@ -79,11 +83,14 @@ import java.util.List;
 
 import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.procialize.singleevent.Utility.Util.setTextViewDrawableColor;
 
 public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedAdapterListner {
     // TODO: Rename parameter arguments, choose names that match
@@ -131,6 +138,8 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
 
     private LinearLayoutManager mLayoutManager;
+    SharedPreferences prefs;
+    String colorActive;
 
     public WallFragment_POST() {
         // Required empty public constructor
@@ -177,6 +186,11 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
         token = user.get(SessionManager.KEY_TOKEN);
 
         final String profilepic = user.get(SessionManager.KEY_PIC);
+
+
+        prefs = getActivity().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        eventid = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
 
 
         eventSettingLists = sessionManager.loadEventList();
@@ -525,6 +539,9 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
         } else {
             feed.setLikeFlag("1");
             likeimage.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_afterlike, 0);
+
+            setTextViewDrawableColor(likeimage,colorActive);
+
 //            likeimage.setBackgroundResource(R.drawable.ic_afterlike);
             PostLike(eventid, feed.getNewsFeedId(), token);
 
@@ -1044,6 +1061,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
             procializeDB.insertNEwsFeedInfo(newsfeedList, db);
 //            feedrecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
             newsfeedsDBList = dbHelper.getNewsFeedDetails();
+            fetchProfileDetail(token,eventid);
 
             if (newsfeedsDBList.size() == 0) {
                 NewsFeedList newsFeedList = new NewsFeedList();
@@ -1444,6 +1462,77 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
             }
         });
+    }
+
+
+    public void fetchProfileDetail(String token, String eventid) {
+
+        RequestBody token1 = RequestBody.create(MediaType.parse("text/plain"), token);
+        RequestBody eventid1 = RequestBody.create(MediaType.parse("text/plain"), eventid);
+//        showProgress();
+        mAPIService.fetchProfileDetail(token1, eventid1).enqueue(new Callback<ProfileSave>() {
+            @Override
+            public void onResponse(Call<ProfileSave> call, Response<ProfileSave> response) {
+
+                if (response.isSuccessful()) {
+                    Log.i("hit", "post submitted to API." + response.body().toString());
+
+                    showPfResponse(response);
+//                    dismissProgress();
+//                    showResponse(response);
+                } else {
+
+
+//                    dismissProgress();
+                    Toast.makeText(getActivity(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProfileSave> call, Throwable t) {
+                Toast.makeText(getActivity(), "Low network or no network", Toast.LENGTH_SHORT).show();
+
+//                dismissProgress();
+
+            }
+        });
+    }
+
+    public void showPfResponse(Response<ProfileSave> response) {
+
+        // specify an adapter (see also next example)
+        if (response.body().getStatus().equalsIgnoreCase("success")) {
+            if (!(response.body().getUserData().equals(null))) {
+
+                try {
+                    SessionManager sessionManager = new SessionManager(getActivity());;
+
+                    String name = response.body().getUserData().getFirstName();
+                    String company = response.body().getUserData().getCompanyName();
+                    String designation = response.body().getUserData().getDesignation();
+                    String pic = response.body().getUserData().getProfilePic();
+                    String lastname = response.body().getUserData().getLastName();
+                    String city = response.body().getUserData().getCity();
+                    String mobno = response.body().getUserData().getMobile();
+                    String email = response.body().getUserData().getEmail();
+                    String country = response.body().getUserData().getCountry();
+                    String description = response.body().getUserData().getDescription();
+
+                    sessionManager.createProfileSession(name, company, designation, pic, lastname, city, description, country, email, mobno);
+
+                    feedAdapter.notifyDataSetChanged();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+            } else {
+
+            }
+        } else {
+            Toast.makeText(getActivity(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
+
+        }
     }
 
 

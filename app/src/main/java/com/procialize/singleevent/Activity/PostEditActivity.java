@@ -138,7 +138,7 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
     // Session Manager Class
     SessionManager session;
 
-    String eventId;
+
     String type_of_user;
     // Connection Detector class
     private ConnectionDetector cd;
@@ -1121,7 +1121,7 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
                 }
 
                 builder.addFormDataPart("api_access_token", accessToken);
-                builder.addFormDataPart("event_id", eventId);
+                builder.addFormDataPart("event_id", eventid);
                 builder.addFormDataPart("news_feed_id", notify_id);
 
                 builder.addFormDataPart("type", actionFlag);
@@ -1435,7 +1435,7 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
                 builder.setType(MultipartBody.FORM);
 
                 builder.addFormDataPart("api_access_token", accessToken);
-                builder.addFormDataPart("event_id", eventId);
+                builder.addFormDataPart("event_id", eventid);
                 builder.addFormDataPart("news_feed_id", notify_id);
                 //builder.addFormDataPart("user_type", "A");
                 builder.addFormDataPart("status", postMsg);

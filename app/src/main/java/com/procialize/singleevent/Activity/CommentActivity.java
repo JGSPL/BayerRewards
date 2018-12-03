@@ -72,13 +72,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.procialize.singleevent.Utility.Util.setTextViewDrawableColor;
+
 public class CommentActivity extends AppCompatActivity implements CommentAdapter.CommentAdapterListner, GifEmojiAdapter.GifEmojiAdapterListner {
 
     public TextView nameTv, designationTv, companyTv, dateTv, headingTv, likeTv, commentTv, sharetext;
     public ImageView profileIv;
     public ProgressBar progressView, feedprogress;
     public PixabayImageView feedimageIv;
-    String name, company, designation, heading, date, Likes, Likeflag, Comments, profileurl, noti_profileurl, feedurl, type, feedid, apikey, thumbImg, videourl, noti_type;
+    String fname, lname, name, company, designation, heading, date, Likes, Likeflag, Comments, profileurl, noti_profileurl, feedurl, type, feedid, apikey, thumbImg, videourl, noti_type;
     ProgressDialog progress;
     private APIService mAPIService;
     private TenorApiService mAPItenorService;
@@ -113,7 +115,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
     String news_feed_share,
             news_feed_comment,
             news_feed_like;
-    ImageView headerlogoIv,image2;
+    ImageView headerlogoIv;
     String colorActive;
 
     @Override
@@ -140,12 +142,11 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
         });
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
+        Util.logomethod(this, headerlogoIv);
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
-        colorActive = prefs.getString("colorActive","");
-
+        colorActive = prefs.getString("colorActive", "");
 
 
         Intent intent = getIntent();
@@ -163,7 +164,15 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
 
         try {
             if (intent != null) {
-                name = intent.getStringExtra("name");
+                lname = intent.getStringExtra("lname");
+                fname = intent.getStringExtra("fname");
+                if (fname == null) {
+                    fname = "";
+                }
+
+                if (lname == null) {
+                    lname = "";
+                }
                 company = intent.getStringExtra("company");
                 designation = intent.getStringExtra("designation");
                 heading = intent.getStringExtra("heading");
@@ -215,7 +224,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
     private void initializeview() {
 
         nameTv = findViewById(R.id.nameTv);
-        nameTv.setTextColor(Color.parseColor(colorActive));
+
         companyTv = findViewById(R.id.companyTv);
         designationTv = findViewById(R.id.designationTv);
         dateTv = findViewById(R.id.dateTv);
@@ -223,7 +232,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
         likeTv = findViewById(R.id.likeTv);
         commentTv = findViewById(R.id.commentTv);
         sharetext = findViewById(R.id.sharetext);
-        image2 = findViewById(R.id.image2);
+
         commentEt = findViewById(R.id.commentEt);
         searchEt = findViewById(R.id.searchEt);
         commentbtn = findViewById(R.id.commentBt);
@@ -245,7 +254,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
         feedprogress = findViewById(R.id.feedprogress);
         videoplayer = (MyJZVideoPlayerStandard) findViewById(R.id.videoplayer);
 
-        nameTv.setText(name);
+        nameTv.setText(fname + " " + lname);
         companyTv.setText(company);
         designationTv.setText(designation);
         headingTv.setText(StringEscapeUtils.unescapeJava(heading));
@@ -402,7 +411,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
 
                 if (Likeflag.equals("0")) {
                     likeTv.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_afterlike, 0);
-
+                    setTextViewDrawableColor(likeTv, colorActive);
                     Likeflag = "1";
                     PostLike(eventid, feedid, apikey);
                     Likecount("Like");
@@ -735,17 +744,29 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
 
         Button cancelbtn = myDialog.findViewById(R.id.canclebtn);
         Button ratebtn = myDialog.findViewById(R.id.ratebtn);
-        ratebtn.setText("Report User");
+        ImageView imgCancel = myDialog.findViewById(R.id.imgCancel);
+        if (from.equalsIgnoreCase("reportPost")) {
+            ratebtn.setText("Report Comment");
+        } else {
+            ratebtn.setText("Report User");
+        }
         final EditText etmsg = myDialog.findViewById(R.id.etmsg);
 
         final TextView counttv = myDialog.findViewById(R.id.counttv);
         final TextView nametv = myDialog.findViewById(R.id.nametv);
         final TextView title = myDialog.findViewById(R.id.title);
 
-        title.setText("Report User");
+        if (from.equalsIgnoreCase("reportPost")) {
+            title.setText("Report Comment");
+        } else {
+            title.setText("Report User");
+        }
 
         nametv.setText("To " + "Admin");
-
+        LinearLayout diatitle = myDialog.findViewById(R.id.diatitle);
+        diatitle.setBackgroundColor(Color.parseColor(colorActive));
+        nametv.setTextColor(Color.parseColor(colorActive));
+        ratebtn.setBackgroundColor(Color.parseColor(colorActive));
 
         etmsg.addTextChangedListener(new TextWatcher() {
             @Override
@@ -768,6 +789,12 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
 
 
         cancelbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
+        imgCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 myDialog.dismiss();
@@ -827,7 +854,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
 
         // specify an adapter (see also next example)
         if (response.body().getNewsFeedList().size() != 0) {
-            name = response.body().getNewsFeedList().get(0).getFirstName() + " " + response.body().getNewsFeedList().get(0).getFirstName();
+            name = response.body().getNewsFeedList().get(0).getFirstName() + " " + response.body().getNewsFeedList().get(0).getLastName();
             company = response.body().getNewsFeedList().get(0).getCompanyName();
             designation = response.body().getNewsFeedList().get(0).getDesignation();
             heading = response.body().getNewsFeedList().get(0).getPostStatus();
@@ -837,7 +864,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
             Comments = response.body().getNewsFeedList().get(0).getTotalComments();
             profileurl = response.body().getNewsFeedList().get(0).getProfilePic();
             type = response.body().getNewsFeedList().get(0).getType();
-          //  feedurl = response.body().getNewsFeedList().get(0).getMediaFile();
+            //  feedurl = response.body().getNewsFeedList().get(0).getMediaFile();
             feedid = response.body().getNewsFeedList().get(0).getNewsFeedId();
 
 
@@ -856,6 +883,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
                 feedurl = ApiConstant.newsfeedwall + response.body().getNewsFeedList().get(0).getMediaFile();
             } else if (type.equalsIgnoreCase("Video")) {
                 thumbImg = ApiConstant.newsfeedwall + response.body().getNewsFeedList().get(0).getThumbImage();
+                videourl = ApiConstant.newsfeedwall + response.body().getNewsFeedList().get(0).getMediaFile();
             } else {
 
             }
@@ -1178,12 +1206,13 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
 
 
     private void initiate() {
-//        nameTv.setText(name);
-//        companyTv.setText(company);
-//        designationTv.setText(designation);
-//        headingTv.setText(StringEscapeUtils.unescapeJava(heading));
-//        likeTv.setText(Likes + " Likes ");
-//        commentTv.setText(Comments + " Comments ");
+        nameTv.setText(fname + " " + lname);
+        nameTv.setTextColor(Color.parseColor(colorActive));
+        companyTv.setText(company);
+        designationTv.setText(designation);
+        headingTv.setText(StringEscapeUtils.unescapeJava(heading));
+        likeTv.setText(Likes + " Likes ");
+        commentTv.setText(Comments + " Comments ");
 
         if (date != null) {
 //            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
@@ -1207,7 +1236,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
             try {
                 Date date1 = formatter.parse(date);
 
-                DateFormat originalFormat = new SimpleDateFormat("dd MMM , yyyy KK:mm", Locale.ENGLISH);
+                DateFormat originalFormat = new SimpleDateFormat("dd MMM,KK:mm", Locale.ENGLISH);
 
                 String date = originalFormat.format(date1);
 
@@ -1224,6 +1253,8 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
         if (Likeflag != null) {
             if (Likeflag.equals("1")) {
                 likeTv.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_afterlike, 0);
+                setTextViewDrawableColor(likeTv, colorActive);
+
             } else {
                 likeTv.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_like, 0);
             }
@@ -1280,7 +1311,6 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
                 feedimageIv.setVisibility(View.VISIBLE);
                 videoplayer.setVisibility(View.GONE);
                 playicon.setVisibility(View.GONE);
-                image2.setVisibility(View.GONE);
                 Glide.with(this).load(feedurl).listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -1301,7 +1331,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
         } else if (type.equals("Video")) {
             //video
 
-           /* if (videourl != null) {
+            if (videourl != null) {
                 feedimageIv.setVisibility(View.GONE);
                 videoplayer.setVisibility(View.VISIBLE);
                 playicon.setVisibility(View.GONE);
@@ -1317,29 +1347,27 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
         } else if (type.equals("Status")) {
             feedimageIv.setVisibility(View.GONE);
             feedprogress.setVisibility(View.GONE);
-        }*/
-            if (thumbImg != null) {
-                feedimageIv.setVisibility(View.VISIBLE);
-                videoplayer.setVisibility(View.GONE);
-                playicon.setVisibility(View.GONE);
-                image2.setVisibility(View.VISIBLE);
-                Glide.with(this).load(thumbImg).listener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        feedprogress.setVisibility(View.GONE);
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        feedprogress.setVisibility(View.GONE);
-                        return false;
-                    }
-                }).into(feedimageIv).onLoadStarted(getDrawable(R.drawable.gallery_placeholder));
-            } else {
-                feedprogress.setVisibility(View.GONE);
-            }
         }
+//            if (thumbImg != null) {
+//                feedimageIv.setVisibility(View.VISIBLE);
+//                videoplayer.setVisibility(View.GONE);
+//                playicon.setVisibility(View.VISIBLE);
+//                Glide.with(this).load(thumbImg).listener(new RequestListener<Drawable>() {
+//                    @Override
+//                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+//                        feedprogress.setVisibility(View.GONE);
+//                        return false;
+//                    }
+//
+//                    @Override
+//                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+//                        feedprogress.setVisibility(View.GONE);
+//                        return false;
+//                    }
+//                }).into(feedimageIv).onLoadStarted(getDrawable(R.drawable.gallery_placeholder));
+//            } else {
+//                feedprogress.setVisibility(View.GONE);
+//            }
 
     }
 //

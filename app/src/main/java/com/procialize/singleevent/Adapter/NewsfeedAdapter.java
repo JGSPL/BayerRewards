@@ -56,6 +56,7 @@ import java.util.Locale;
 import cn.jzvd.JZVideoPlayerStandard;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.procialize.singleevent.Utility.Util.setTextViewDrawableColor;
 
 public class NewsfeedAdapter extends BaseAdapter {
 
@@ -399,6 +400,7 @@ public class NewsfeedAdapter extends BaseAdapter {
 
                 holder.img_like.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_afterlike, 0);
                 int colorInt = Color.parseColor(colorActive);
+                setTextViewDrawableColor( holder.img_like,colorActive);
 
             /*ColorStateList csl = ColorStateList.valueOf(colorInt);
             Drawable drawable = DrawableCompat.wrap(holder.img_like.getDrawableState());

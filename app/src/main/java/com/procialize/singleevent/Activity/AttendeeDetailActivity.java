@@ -297,7 +297,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         }
 
 
-        sendbtn.setOnClickListener(new View.OnClickListener() {
+        linMsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (posttextEt.getText().toString().length() > 0) {
@@ -310,7 +310,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
             }
         });
 
-        saveContact.setOnClickListener(new View.OnClickListener() {
+        linsave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

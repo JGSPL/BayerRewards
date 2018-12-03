@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -54,7 +55,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTv,dataTv,messageTV,txt_msg;
-        public ImageView profileIv;
+        public ImageView profileIv,gifiv;
         Button replyBtn;
         ImageView arrowIv,ivtype,arrowIvmsg;
         private ProgressBar progressView;
@@ -74,6 +75,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             ivtype =  view.findViewById(R.id.ivtype);
 
             profileIv = view.findViewById(R.id.profileIV);
+            gifiv = view.findViewById(R.id.gifiv);
 
             progressView = view.findViewById(R.id.progressView);
             notiLin = view.findViewById(R.id.notiLin);
@@ -131,7 +133,35 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
 
 
-        holder.messageTV.setText(StringEscapeUtils.unescapeJava(notificationList.getNotificationContent()));
+
+        if (notificationList.getNotificationContent()!=null) {
+            if (notificationList.getNotificationContent().contains("gif"))
+            {
+                holder.messageTV.setVisibility(View.VISIBLE);
+                holder.gifiv.setVisibility(View.GONE);
+                holder.messageTV.setText("GIF");
+//
+//                    Glide.with(context).load(notificationList.getNotificationContent())
+//                            .apply(RequestOptions.skipMemoryCacheOf(true))
+//                            .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE)).listener(new RequestListener<Drawable>() {
+//                        @Override
+//                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+//
+//                            return true;
+//                        }
+//
+//                        @Override
+//                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+//                            return false;
+//                        }
+//                    }).into(holder.gifiv);
+
+            }else {
+                holder.messageTV.setVisibility(View.VISIBLE);
+                holder.gifiv.setVisibility(View.GONE);
+                holder.messageTV.setText(StringEscapeUtils.unescapeJava(notificationList.getNotificationContent()));
+            }
+        }
 
         if (notificationList.getNotificationType().equalsIgnoreCase("Msg")) {
             holder.txt_msg.setText("Sent You Message");
@@ -216,7 +246,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             holder.ivtype.setImageResource(R.drawable.notifymessage);
             holder.arrowIv.setVisibility(View.GONE);
             holder.arrowIvmsg.setImageResource(R.drawable.messageiv);
-
+            holder.arrowIvmsg.setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_ATOP);
 
         }else {
 //            holder.replyBtn.setVisibility(View.GONE);

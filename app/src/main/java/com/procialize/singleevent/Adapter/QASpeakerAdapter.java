@@ -2,7 +2,10 @@ package com.procialize.singleevent.Adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -181,6 +184,14 @@ public class QASpeakerAdapter extends RecyclerView.Adapter<QASpeakerAdapter.MyVi
         }else
         {
             holder.likeIv.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_afterlike));
+
+            int colorInt = Color.parseColor(colorActive);
+
+            ColorStateList csl = ColorStateList.valueOf(colorInt);
+            Drawable drawable = DrawableCompat.wrap(holder.likeIv.getDrawable());
+            DrawableCompat.setTintList(drawable, csl);
+            holder.likeIv.setImageDrawable(drawable);
+
         }
 
 
@@ -195,7 +206,7 @@ public class QASpeakerAdapter extends RecyclerView.Adapter<QASpeakerAdapter.MyVi
     public interface QASpeakerAdapterListner {
         void onContactSelected(SpeakerQuestionList question);
 
-        void onLikeListener(View v, SpeakerQuestionList question, int position, TextView count,ImageView likeIv);
+        void onLikeListener(View v, SpeakerQuestionList question, int position, TextView count, ImageView likeIv);
 
     }
 

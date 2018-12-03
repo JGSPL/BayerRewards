@@ -259,10 +259,11 @@ public class PostEditActivityOld extends AppCompatActivity implements ProgressRe
             uri = Uri.parse(ApiConstant.newsfeedwall + Video);
 //            Uri uri = Uri.parse(TEST_URL);
             typepost = "video";
-            Uploadiv.setVisibility(View.GONE);
-            displayRecordedVideo.setVisibility(View.VISIBLE);
-            displayRecordedVideo.setVideoURI(uri);
-            displayRecordedVideo.start();
+            Uploadiv.setVisibility(View.VISIBLE);
+            imgPlay.setVisibility(View.VISIBLE);
+            displayRecordedVideo.setVisibility(View.GONE);
+//            displayRecordedVideo.setVideoURI(uri);
+//            displayRecordedVideo.start();
 
         }
 
@@ -846,12 +847,13 @@ public class PostEditActivityOld extends AppCompatActivity implements ProgressRe
 
 
             if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_VIDEO_CAPTURE) {
-                Uploadiv.setVisibility(View.GONE);
-                displayRecordedVideo.setVisibility(View.VISIBLE);
+                Uploadiv.setVisibility(View.VISIBLE);
+                imgPlay.setVisibility(View.VISIBLE);
+                displayRecordedVideo.setVisibility(View.GONE);
                 uri = data.getData();
 
-                displayRecordedVideo.setVideoURI(uri);
-                displayRecordedVideo.start();
+//                displayRecordedVideo.setVideoURI(uri);
+//                displayRecordedVideo.start();
 
                 if (Build.VERSION.SDK_INT > 22)
                     pathToStoredVideo = ImagePath_MarshMallow.getPath(PostEditActivityOld.this, uri);
@@ -861,15 +863,18 @@ public class PostEditActivityOld extends AppCompatActivity implements ProgressRe
                 Log.d("video", "Recorded Video Path " + pathToStoredVideo);
                 //Store the video to your server
                 file = new File(pathToStoredVideo);
+                Bitmap b=ThumbnailUtils.createVideoThumbnail(pathToStoredVideo, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
+                Uploadiv.setImageBitmap(b);
             } else if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_SELECT_VIDEO) {
-                Uploadiv.setVisibility(View.GONE);
-                displayRecordedVideo.setVisibility(View.VISIBLE);
+                Uploadiv.setVisibility(View.VISIBLE);
+                imgPlay.setVisibility(View.VISIBLE);
+                displayRecordedVideo.setVisibility(View.GONE);
 
                 uri = data.getData();
 
 
-                displayRecordedVideo.setVideoURI(uri);
-                displayRecordedVideo.start();
+//                displayRecordedVideo.setVideoURI(uri);
+//                displayRecordedVideo.start();
 
 //                        String[] filePathColumn = {MediaStore.Video.Media.DATA};
 //
@@ -909,6 +914,8 @@ public class PostEditActivityOld extends AppCompatActivity implements ProgressRe
                             }
                             file = new File(pathToStoredVideo);
 
+                            Bitmap b=ThumbnailUtils.createVideoThumbnail(pathToStoredVideo, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
+                            Uploadiv.setImageBitmap(b);
                         }
                     }
                 } catch (Exception e) {

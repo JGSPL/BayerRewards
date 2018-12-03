@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -108,24 +109,25 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
 
         ImageView ic_rightarrow = (ImageView) findViewById(R.id.ic_rightarrow);
         ImageView ic_arrow_we = (ImageView) findViewById(R.id.ic_arrow_we);
-        int colorInt = Color.parseColor(colorActive);
+//        int colorInt = Color.parseColor(colorActive);
+//
+//        ColorStateList csl = ColorStateList.valueOf(colorInt);
+//        Drawable drawable = DrawableCompat.wrap(ic_rightarrow.getDrawable());
+//        DrawableCompat.setTintList(drawable, csl);
+//        ic_rightarrow.setImageDrawable(drawable);
+//
+//
+//        int colorInt2 = Color.parseColor(colorActive);
+//
+//        ColorStateList csl2 = ColorStateList.valueOf(colorInt2);
+//
+//        Drawable drawable1 = DrawableCompat.wrap(ic_arrow_we.getDrawable());
+//        DrawableCompat.setTintList(drawable1, csl2);
+//        ic_arrow_we.setImageDrawable(drawable1);
 
-        ColorStateList csl = ColorStateList.valueOf(colorInt);
-        Drawable drawable = DrawableCompat.wrap(ic_rightarrow.getDrawable());
-        DrawableCompat.setTintList(drawable, csl);
-        ic_rightarrow.setImageDrawable(drawable);
 
-
-        int colorInt2 = Color.parseColor(colorActive);
-
-        ColorStateList csl2 = ColorStateList.valueOf(colorInt2);
-
-        Drawable drawable1 = DrawableCompat.wrap(ic_arrow_we.getDrawable());
-        DrawableCompat.setTintList(drawable1, csl2);
-        ic_arrow_we.setImageDrawable(drawable1);
-
-
-
+        ic_rightarrow.setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_ATOP);
+        ic_arrow_we.setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_ATOP);
 
 
         HashMap<String, String> user = sessionManager.getUserDetails();

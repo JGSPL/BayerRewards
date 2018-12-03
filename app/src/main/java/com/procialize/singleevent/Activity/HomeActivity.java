@@ -236,6 +236,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
+        tabLayout.setTabTextColors(Color.parseColor("#4D4D4D"),Color.parseColor(colorActive));
 
 
         try {
@@ -814,6 +815,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
     @Override
     protected void onResume() {
        // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+//        profiledetails();
         super.onResume();
     }
 
