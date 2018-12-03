@@ -43,6 +43,7 @@ import com.procialize.singleevent.DbHelper.ConnectionDetector;
 import com.procialize.singleevent.InnerDrawerActivity.SelfieContestActivity;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Util;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.http.HttpEntity;
@@ -112,6 +113,7 @@ public class SelfiePost extends Activity {
 
     String eventId,colorActive;
     ProgressBar progressBar;
+    ImageView headerlogoIv;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -138,6 +140,10 @@ public class SelfiePost extends Activity {
         session = new SessionManager(getApplicationContext());
 
         HashMap<String, String> user = session.getUserDetails();
+
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this, headerlogoIv);
+
 
         // apikey
         accessToken = user.get(SessionManager.KEY_TOKEN);
