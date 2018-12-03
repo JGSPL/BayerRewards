@@ -89,6 +89,9 @@ public class QRGeneratorActivity extends AppCompatActivity {
         nameTv.setText(name + " " + lname);
         nameTv.setTextColor(Color.parseColor(colorActive));
 
+        TextView txtNamehead = findViewById(R.id.txtNamehead);
+        txtNamehead.setTextColor(Color.parseColor(colorActive));
+
 //      designationTv = findViewById(R.id.designation);
 //      designationTv.setText("Designation: " + designation);
 
