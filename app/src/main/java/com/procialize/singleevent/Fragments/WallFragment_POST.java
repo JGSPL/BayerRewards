@@ -1433,6 +1433,41 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 //    }
 
     @Override
+    public void onResume()
+    {
+        super.onResume();
+        procializeDB = new DBHelper(getActivity());
+        db = procializeDB.getWritableDatabase();
+
+        //fetchFeed(token,eventid);
+        if (cd.isConnectingToInternet()) {
+            fetchFeed(token, eventid);
+        } else {
+            db = procializeDB.getReadableDatabase();
+
+            newsfeedsDBList = dbHelper.getNewsFeedDetails();
+
+            if (newsfeedsDBList.size() == 0) {
+                NewsFeedList newsFeedList = new NewsFeedList();
+                newsFeedList.setType("text");
+
+                newsfeedsDBList.add(newsFeedList);
+                feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, WallFragment_POST.this, true);
+
+            } else {
+                feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, WallFragment_POST.this, false);
+                feedAdapter.notifyDataSetChanged();
+                feedrecycler.setAdapter(feedAdapter);
+                feedrecycler.scheduleLayoutAnimation();
+            }
+
+
+        }
+    }
+
+
+
+    @Override
     public void onPause() {
         super.onPause();
 

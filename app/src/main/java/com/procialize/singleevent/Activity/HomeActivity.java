@@ -42,6 +42,7 @@ import com.bumptech.glide.request.target.Target;
 import com.procialize.singleevent.Adapter.CustomMenuAdapter;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.CustomTools.CustomViewPager;
+import com.procialize.singleevent.EmptyViewActivity;
 import com.procialize.singleevent.Fragments.AgendaFolderFragment;
 import com.procialize.singleevent.Fragments.AgendaFragment;
 import com.procialize.singleevent.Fragments.AttendeeFragment;
@@ -1015,6 +1016,9 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                 startActivity(event);
             } else if (QA_direct.equalsIgnoreCase("1")) {
                 Intent event = new Intent(this, QADirectActivity.class);
+                startActivity(event);
+            }else{
+                Intent event = new Intent(this, EmptyViewActivity.class);
                 startActivity(event);
             }
 
