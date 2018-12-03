@@ -15,6 +15,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
+        headerlogoIv=findViewById(R.id.headerlogoIv);
+
         headerlogoIv.setVisibility(View.VISIBLE);
     }
 }
