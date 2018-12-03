@@ -129,12 +129,12 @@
                                 android:orientation="horizontal">
 
                                 <com.procialize.singleevent.Fonts.RobotoTextview
-                                    android:id="@+id/designationTv"
+                                    android:id="@+id/companyTv"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="3"
                                     android:layout_below="@+id/nameTv"
                                     android:layout_toEndOf="@+id/imageView"
+                                    android:layout_weight="3"
                                     android:maxLines="1"
                                     android:padding="3dp"
                                     android:paddingLeft="5dp"
@@ -156,12 +156,11 @@
                             </LinearLayout>
 
                             <com.procialize.singleevent.Fonts.RobotoTextview
-                                android:id="@+id/companyTv"
+                                android:id="@+id/designationTv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/designationTv"
                                 android:layout_toEndOf="@+id/imageView"
-
                                 android:maxLines="1"
                                 android:padding="3dp"
                                 android:paddingLeft="5dp"
@@ -183,11 +182,13 @@
                         android:text=""
                         android:textColor="@color/black"
                         android:textSize="@dimen/textsizesmall" />
+
                     <FrameLayout
                         android:id="@+id/frame_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+
                         <com.procialize.singleevent.CustomTools.PixabayImageView
                             android:id="@+id/feedimageIv"
                             android:layout_width="match_parent"
@@ -206,11 +207,11 @@
                             android:visibility="gone" />
 
                         <ImageView
-                            android:layout_gravity="center"
                             android:id="@+id/playicon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
+                            android:layout_gravity="center"
                             android:src="@drawable/play"
                             android:transitionName="feedimage"
                             android:visibility="gone" />
@@ -225,8 +226,6 @@
                             android:visibility="gone" />
 
                     </FrameLayout>
-
-
 
 
                     <LinearLayout
@@ -342,9 +341,9 @@
             android:id="@+id/action_container"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:background="@drawable/edittexthmbg"
             android:orientation="horizontal"
-            android:visibility="visible"
-            android:background="@drawable/edittexthmbg">
+            android:visibility="visible">
 
             <ImageView
                 android:id="@+id/gif"

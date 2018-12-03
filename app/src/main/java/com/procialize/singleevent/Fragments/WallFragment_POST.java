@@ -190,7 +190,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
         prefs = getActivity().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
-        colorActive = prefs.getString("colorActive","");
+        colorActive = prefs.getString("colorActive", "");
 
 
         eventSettingLists = sessionManager.loadEventList();
@@ -540,7 +540,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
             feed.setLikeFlag("1");
             likeimage.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_afterlike, 0);
 
-            setTextViewDrawableColor(likeimage,colorActive);
+            setTextViewDrawableColor(likeimage, colorActive);
 
 //            likeimage.setBackgroundResource(R.drawable.ic_afterlike);
             PostLike(eventid, feed.getNewsFeedId(), token);
@@ -596,7 +596,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
             comment.putExtra("videourl", ApiConstant.newsfeedwall + feed.getMediaFile());
             comment.putExtra("thumbImg", ApiConstant.newsfeedwall + feed.getThumbImage());
         }
-
+        comment.putExtra("flag", "noti");
         startActivity(comment);
 
     }
@@ -1061,7 +1061,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
             procializeDB.insertNEwsFeedInfo(newsfeedList, db);
 //            feedrecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
             newsfeedsDBList = dbHelper.getNewsFeedDetails();
-            fetchProfileDetail(token,eventid);
+            fetchProfileDetail(token, eventid);
 
             if (newsfeedsDBList.size() == 0) {
                 NewsFeedList newsFeedList = new NewsFeedList();
@@ -1540,7 +1540,8 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
             if (!(response.body().getUserData().equals(null))) {
 
                 try {
-                    SessionManager sessionManager = new SessionManager(getActivity());;
+                    SessionManager sessionManager = new SessionManager(getActivity());
+                    ;
 
                     String name = response.body().getUserData().getFirstName();
                     String company = response.body().getUserData().getCompanyName();

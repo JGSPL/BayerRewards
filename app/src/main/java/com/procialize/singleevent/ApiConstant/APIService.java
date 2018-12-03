@@ -258,7 +258,10 @@ public interface APIService {
     @POST("SendMessage")
     @FormUrlEncoded
     Call<SendMessagePost> SendMessagePost(@Field("api_access_token") String api_access_token,
-                                          @Field("event_id") String event_id, @Field("message_text") String message_text, @Field("target_attendee_id") String target_attendee_id);
+                                          @Field("event_id") String event_id,
+                                          @Field("message_text") String message_text,
+                                          @Field("target_attendee_id") String target_attendee_id,
+                                          @Field("target_attendee_type") String target_attendee_type);
 
 
     @POST("EventInfoFetch")

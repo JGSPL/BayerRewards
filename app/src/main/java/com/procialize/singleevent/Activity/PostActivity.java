@@ -144,7 +144,7 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
     File sourceFile;
     MyApplication appDelegate;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid,colorActive;
+    String eventid, colorActive;
     ImageView headerlogoIv;
 
     @TargetApi(23)
@@ -169,8 +169,6 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
         Util.logomethod(this, headerlogoIv);
-
-
 
 
         toolbar.setNavigationOnClickListener(new OnClickListener() {
@@ -412,7 +410,7 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
         session = new SessionManager(getApplicationContext());
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventId = prefs.getString("eventid", "1");
-        colorActive = prefs.getString("colorActive","");
+        colorActive = prefs.getString("colorActive", "");
 
 
         HashMap<String, String> user = session.getUserDetails();
@@ -505,42 +503,48 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
 
             picturePath = appDelegate.getPostImagePath();
             // Check for Internet Connection
-            if (cd.isConnectingToInternet()) {
+            if (picturePath.equalsIgnoreCase("")) {
+                Toast.makeText(PostActivity.this,
+                        "Select Image", Toast.LENGTH_SHORT)
+                        .show();
+            } else {
+                if (cd.isConnectingToInternet()) {
 
-                if (actionFlag.equalsIgnoreCase("image")) {
-                    if (appDelegate.getPostImagePath() != null
-                            && appDelegate.getPostImagePath().length() > 0) {
+                    if (actionFlag.equalsIgnoreCase("image")) {
+                        if (appDelegate.getPostImagePath() != null
+                                && appDelegate.getPostImagePath().length() > 0) {
+                            System.out
+                                    .println("Post Image URL  inside SubmitPostTask :"
+                                            + appDelegate.getPostImagePath());
+
+                            appDelegate.setPostImagePath("");
+                            // post_status_post
+                            // .setText("What's on your mind (Not more than 500 characters)");
+                            new SubmitPostTask().execute();
+                        }
+                    } else {
                         System.out
-                                .println("Post Image URL  inside SubmitPostTask :"
+                                .println("Post Image URL  inside SubmitStatusOnlyTask :"
                                         + appDelegate.getPostImagePath());
 
-                        appDelegate.setPostImagePath("");
-                        // post_status_post
-                        // .setText("What's on your mind (Not more than 500 characters)");
-                        new SubmitPostTask().execute();
+                        if (postMsg.length() > 0) {
+                            String emoji = escapeJavaString(postMsg);
+                            // StringEscapeUtils.escapeJava(toServer);
+                            // Character strChar = postMsg.charAt(0);
+                            new SubmitStatusOnlyTask().execute(postUrl);
+
+                            // String charStr = postMsg.getText().toString();
+
+                        } else {
+                            Toast.makeText(PostActivity.this,
+                                    "Please enter status", Toast.LENGTH_SHORT)
+                                    .show();
+                        }
+
                     }
-                } else {
-                    System.out
-                            .println("Post Image URL  inside SubmitStatusOnlyTask :"
-                                    + appDelegate.getPostImagePath());
-
-                    if (postMsg.length() > 0) {
-                        String emoji = escapeJavaString(postMsg);
-                        // StringEscapeUtils.escapeJava(toServer);
-                        // Character strChar = postMsg.charAt(0);
-                        new SubmitStatusOnlyTask().execute(postUrl);
-
-                        // String charStr = postMsg.getText().toString();
-
-                    } else {
-                        Toast.makeText(PostActivity.this,
-                                "Please enter status", Toast.LENGTH_SHORT)
-                                .show();
-                    }
-
                 }
-            }
 
+            }
         }
 
     }

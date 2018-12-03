@@ -79,6 +79,7 @@ import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.Res;
 import com.procialize.singleevent.Utility.Util;
 
+import java.net.Inet4Address;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -117,7 +118,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
             engagement_selfie_contest = "0", engagement_video_contest = "0",
             news_feed_video = "0", QA_speaker = "0", QA_direct = "0", QA_session = "0", side_menu_attendee = "0", side_menu_speaker = "0", side_menu_agenda = "0",
             side_menu_general_info = "0", edit_profile_company = "0", edit_profile_designation = "0", agenda_conference = "0", agenda_vacation = "0",
-            side_menu_contact = "0", side_menu_email = "0",side_menu_leaderboard = "0";
+            side_menu_contact = "0", side_menu_email = "0", side_menu_leaderboard = "0";
     String news_feed = "0", attendee = "0", speaker = "0", agenda = "0", edit_profile = "0", general_ifo = "0";
 
 
@@ -130,7 +131,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
     TextView logout, home, contactus, eventname, switchbt, eula, privacy_policy;
     String eventnamestr;
     public static final int RequestPermissionCode = 8;
-    public static String logoImg="", colorActive ="";
+    public static String logoImg = "", colorActive = "";
     public static int activetab;
 
     private int[] tabIcons = {
@@ -143,7 +144,8 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
     private Res res;
 
-    @Override public Resources getResources() {
+    @Override
+    public Resources getResources() {
         if (res == null) {
             res = new Res(super.getResources());
         }
@@ -155,7 +157,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-      //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         if (CheckingPermissionIsEnabledOrNot()) {
 //            Toast.makeText(MainActivity.this, "All Permissions Granted Successfully", Toast.LENGTH_LONG).show();
@@ -175,10 +177,10 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "");
         eventnamestr = prefs.getString("eventnamestr", "");
-        logoImg = prefs.getString("logoImg","");
-        colorActive = prefs.getString("colorActive","");
+        logoImg = prefs.getString("logoImg", "");
+        colorActive = prefs.getString("colorActive", "");
 
-        activetab= getResources().getColor(R.color.activetab);
+        activetab = getResources().getColor(R.color.activetab);
         activetab = Color.parseColor(colorActive);
         //        SharedPreferences.Editor editor = getSharedPreferences(MY_EVENT, MODE_PRIVATE).edit();
 //        editor.putString("eventid",eventid);
@@ -237,7 +239,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
-        tabLayout.setTabTextColors(Color.parseColor("#4D4D4D"),Color.parseColor(colorActive));
+        tabLayout.setTabTextColors(Color.parseColor("#4D4D4D"), Color.parseColor(colorActive));
 
 
         try {
@@ -507,7 +509,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
         int resId = R.anim.layout_animation_slide_right;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
-      //  menurecycler.setLayoutAnimation(animation);
+        //  menurecycler.setLayoutAnimation(animation);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         menurecycler.setLayoutManager(mLayoutManager);
 
@@ -517,7 +519,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
 
         if (eventMenuSettingLists != null) {
-            customMenuAdapter = new CustomMenuAdapter(this, eventMenuSettingLists, this,side_menu_agenda);
+            customMenuAdapter = new CustomMenuAdapter(this, eventMenuSettingLists, this, side_menu_agenda);
             menurecycler.setAdapter(customMenuAdapter);
             customMenuAdapter.notifyDataSetChanged();
         }
@@ -563,7 +565,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
         View header = navigationView.getHeaderView(0);
         RelativeLayout outer = (RelativeLayout) findViewById(R.id.my);
-        RelativeLayout headerRel = (RelativeLayout)outer.findViewById(R.id.relbelo);
+        RelativeLayout headerRel = (RelativeLayout) outer.findViewById(R.id.relbelo);
 
         TextView nameTv = (TextView) outer.findViewById(R.id.nameTv);
         TextView lastNameTv = (TextView) outer.findViewById(R.id.lastNameTv);
@@ -815,7 +817,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
     @Override
     protected void onResume() {
-       // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 //        profiledetails();
         super.onResume();
     }
@@ -892,7 +894,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                     side_menu_event_info = eventSettingLists.get(i).getFieldValue();
                 }/* else if (eventSettingLists.get(i).getFieldName().equals("side_menu_agenda")) {
                     side_menu_agenda = eventSettingLists.get(i).getFieldValue();
-                } */else if (eventSettingLists.get(i).getFieldName().equals("side_menu_attendee")) {
+                } */ else if (eventSettingLists.get(i).getFieldName().equals("side_menu_attendee")) {
                     side_menu_attendee = eventSettingLists.get(i).getFieldValue();
                 } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_speaker")) {
                     side_menu_speaker = eventSettingLists.get(i).getFieldValue();
@@ -904,23 +906,23 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                     QA_direct = eventSettingLists.get(i).getFieldValue();
                 } else if (eventSettingLists.get(i).getFieldName().equals("agenda_conference")) {
                     agenda_conference = eventSettingLists.get(i).getFieldValue();
-                    if(agenda_conference.equalsIgnoreCase("1")){
+                    if (agenda_conference.equalsIgnoreCase("1")) {
                         side_menu_agenda = "1";
                     }
                     ////
 
                 } else if (eventSettingLists.get(i).getFieldName().equals("agenda_vacation")) {
                     agenda_vacation = eventSettingLists.get(i).getFieldValue();
-                    if(agenda_vacation.equalsIgnoreCase("1")){
+                    if (agenda_vacation.equalsIgnoreCase("1")) {
                         side_menu_agenda = "1";
                     }
 
 
-                }else if (eventSettingLists.get(i).getFieldName().equals("side_menu_contact_us")) {
+                } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_contact_us")) {
                     side_menu_contact = eventSettingLists.get(i).getFieldValue();
-                }else if (eventSettingLists.get(i).getFieldName().equals("side_menu_email_template")) {
+                } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_email_template")) {
                     side_menu_email = eventSettingLists.get(i).getFieldValue();
-                }else if (eventSettingLists.get(i).getFieldName().equals("side_menu_leaderboard")) {
+                } else if (eventSettingLists.get(i).getFieldName().equals("side_menu_leaderboard")) {
                     side_menu_leaderboard = eventSettingLists.get(i).getFieldValue();
                 }
 
@@ -1017,10 +1019,34 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
             } else if (QA_direct.equalsIgnoreCase("1")) {
                 Intent event = new Intent(this, QADirectActivity.class);
                 startActivity(event);
-            }else{
-                Intent event = new Intent(this, EmptyViewActivity.class);
-                startActivity(event);
+            } else {
+                setContentView(R.layout.activity_empty_view);
+                ImageView imageView = findViewById(R.id.back);
+                TextView text_empty = findViewById(R.id.text_empty);
+
+                final ImageView headerlogoIv1 = findViewById(R.id.headerlogoIv);
+                Glide.with(this).load("http://www.procialize.info/uploads/app_logo/" + logoImg).listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        headerlogoIv1.setImageResource(R.drawable.splashlogo);
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        return false;
+                    }
+                }).into(headerlogoIv1);
+                text_empty.setText("No Data Found");
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(HomeActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                    }
+                });
             }
+
 
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_engagement")) {
             Intent engagement = new Intent(this, EngagementActivity.class);
@@ -1045,8 +1071,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
             }
 
 
-        }*/
-        else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_agenda")) {
+        }*/ else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_agenda")) {
 
             if (agenda_conference.equalsIgnoreCase("1")) {
                 Intent agenda = new Intent(this, AgendaActivity.class);
@@ -1060,13 +1085,13 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_gen_info")) {
             Intent generalinfo = new Intent(this, GeneralInfoActivity.class);
             startActivity(generalinfo);
-        }else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_contact_us")) {
+        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_contact_us")) {
             Intent generalinfo = new Intent(this, WebViewActivity.class);
             startActivity(generalinfo);
-        }else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_email_template")) {
+        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_email_template")) {
             Toast.makeText(HomeActivity.this, "Coming Soon...", Toast.LENGTH_SHORT).show();
 
-        }else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_leaderboard")) {
+        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_leaderboard")) {
             Toast.makeText(HomeActivity.this, "Coming Soon...", Toast.LENGTH_SHORT).show();
 
         }

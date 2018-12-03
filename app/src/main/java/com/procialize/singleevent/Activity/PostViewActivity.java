@@ -110,18 +110,18 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
     ImageView imgPlay;
 
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid,colorActive;
+    String eventid, colorActive;
     ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_view);
-       // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventId = prefs.getString("eventid", "1");
-        colorActive = prefs.getString("colorActive","");
+        colorActive = prefs.getString("colorActive", "");
 
         appDelegate = (MyApplication) getApplicationContext();
 
@@ -146,7 +146,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
         Intent intent = getIntent();
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
+        Util.logomethod(this, headerlogoIv);
 
         postEt = findViewById(R.id.posttextEt);
         postbtn = findViewById(R.id.postbtn);
@@ -244,7 +244,6 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
         postEt.addTextChangedListener(txwatcher);
 
 
-
         postbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -273,17 +272,19 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
                             if (typepost.equals("image")) {
                                 ProgressRequestBodyImage reqFile = new ProgressRequestBodyImage(file, PostViewActivity.this);
                                 body = MultipartBody.Part.createFormData("media_file", file.getName(), reqFile);
+                                postFeed(type, token, eventid, status, body);
                             } else if (typepost.equals("video")) {
                                 ProgressRequestBodyVideo reqFile = new ProgressRequestBodyVideo(file, PostViewActivity.this);
                                 body = MultipartBody.Part.createFormData("media_file", file.getName(), reqFile);
+                                postFeed(type, token, eventid, status, body);
                             }
-                        }else{
+                        } else {
                             Toast.makeText(PostViewActivity.this, "Please Enter your Post", Toast.LENGTH_SHORT).show();
 
                         }
 
 
-                        postFeed(type, token, eventid, status, body);
+
                     }
                 } else {
                     if (typepost.equals("image")) {
@@ -294,7 +295,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
                                             + appDelegate.getPostImagePath());
 
                             appDelegate.setPostImagePath("");
-                            showProgress();
+
                             RequestBody type = RequestBody.create(MediaType.parse("text/plain"), typepost);
                             RequestBody token = RequestBody.create(MediaType.parse("text/plain"), apikey);
                             RequestBody eventid = RequestBody.create(MediaType.parse("text/plain"), eventId);
@@ -303,25 +304,25 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
 
 
                             if (file != null) {
-
+                                showProgress();
 
                                 ProgressRequestBodyImage reqFile = new ProgressRequestBodyImage(file, PostViewActivity.this);
                                 body = MultipartBody.Part.createFormData("media_file", file.getName(), reqFile);
+                                postFeed(type, token, eventid, status, body);
+
+                            } else {
+                                Toast.makeText(PostViewActivity.this, "Please Select any Image", Toast.LENGTH_SHORT).show();
+
+                            }
 
                         } else {
                             Toast.makeText(PostViewActivity.this, "Please Select any Image", Toast.LENGTH_SHORT).show();
+                            finish();
 
                         }
-
-
-                        postFeed(type, token, eventid, status, body);
-                    } else {
-                        Toast.makeText(PostViewActivity.this, "Please Select any Image", Toast.LENGTH_SHORT).show();
-                        finish();
-
                     }
-                } if (typepost.equals("video")) {
-                        showProgress();
+                    if (typepost.equals("video")) {
+
                         RequestBody type = RequestBody.create(MediaType.parse("text/plain"), typepost);
                         RequestBody token = RequestBody.create(MediaType.parse("text/plain"), apikey);
                         RequestBody eventid = RequestBody.create(MediaType.parse("text/plain"), eventId);
@@ -330,13 +331,15 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
 
 
                         if (file != null) {
+                            showProgress();
                             ProgressRequestBodyVideo reqFile = new ProgressRequestBodyVideo(file, PostViewActivity.this);
                             body = MultipartBody.Part.createFormData("media_file", file.getName(), reqFile);
+                            postFeed(type, token, eventid, status, body);
                         } else {
                             Toast.makeText(PostViewActivity.this, "Please Select any Video", Toast.LENGTH_SHORT).show();
 
                         }
-                        postFeed(type, token, eventid, status, body);
+
 
                     }
 
@@ -565,7 +568,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
-        }else{
+        } else {
             file = null;
         }
     }
@@ -654,7 +657,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
 
     private void setpic2() {
 
-        if(mCurrentPhotoPath!=null) {
+        if (mCurrentPhotoPath != null) {
 
             Uploadiv.setVisibility(View.VISIBLE);
             //selfieSubmit.setVisibility(View.VISIBLE);
@@ -671,7 +674,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
 
             Toast.makeText(PostViewActivity.this, "Image selected",
                     Toast.LENGTH_SHORT).show();
-        }else{
+        } else {
             Toast.makeText(PostViewActivity.this, "Please select any image",
                     Toast.LENGTH_SHORT).show();
         }
@@ -867,7 +870,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
             //Store the video to your server
             file = new File(pathToStoredVideo);
 
-            Bitmap b=ThumbnailUtils.createVideoThumbnail(pathToStoredVideo, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
+            Bitmap b = ThumbnailUtils.createVideoThumbnail(pathToStoredVideo, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
 
             Uploadiv.setVisibility(View.VISIBLE);
             Uploadiv.setImageBitmap(b);
@@ -962,7 +965,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
                     if (data != null && data.getStringExtra("video") != null)
 
                         Uploadiv.setVisibility(View.VISIBLE);
-                        Uploadiv.setVisibility(View.VISIBLE);
+                    Uploadiv.setVisibility(View.VISIBLE);
                     displayRecordedVideo.setVisibility(View.GONE);
                     if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_TAKE_GALLERY_VIDEO) {
                         Uri selectedImageUri = data.getData();
@@ -984,7 +987,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
                             Log.d("video", "Recorded Video Path " + selectedImagePath);
                             //Store the video to your server
                             file = new File(selectedImagePath);
-                            Bitmap b=ThumbnailUtils.createVideoThumbnail(selectedImagePath, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
+                            Bitmap b = ThumbnailUtils.createVideoThumbnail(selectedImagePath, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
                             Uploadiv.setImageBitmap(b);
                         }
                     } else if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_VIDEO_CAPTURE) {
@@ -1001,7 +1004,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
                         Log.d("video", "Recorded Video Path " + pathToStoredVideo);
                         //Store the video to your server
                         file = new File(pathToStoredVideo);
-                        Bitmap b=ThumbnailUtils.createVideoThumbnail(pathToStoredVideo, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
+                        Bitmap b = ThumbnailUtils.createVideoThumbnail(pathToStoredVideo, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
                         Uploadiv.setImageBitmap(b);
                     } else if (resultCode == Activity.RESULT_OK) {
                         Uploadiv.setVisibility(View.VISIBLE);
@@ -1043,7 +1046,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
                                     }
                                     file = new File(pathToStoredVideo);
 
-                                    Bitmap b=ThumbnailUtils.createVideoThumbnail(pathToStoredVideo, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
+                                    Bitmap b = ThumbnailUtils.createVideoThumbnail(pathToStoredVideo, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
                                     Uploadiv.setImageBitmap(b);
 
                                 }
@@ -1165,7 +1168,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
 
     @Override
     protected void onResume() {
-       // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         super.onResume();
     }
 
