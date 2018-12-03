@@ -1,21 +1,18 @@
 package com.procialize.singleevent.Activity;
 
 
-import android.app.ActionBar;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -24,20 +21,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.GetterSetter.CurrencyConverterResponse;
-import com.procialize.singleevent.GetterSetter.CurrencyDropDown;
 import com.procialize.singleevent.GetterSetter.DropDownList;
-import com.procialize.singleevent.GetterSetter.GeneralInfoList;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
-
 import com.procialize.singleevent.Utility.ServiceHandler;
 import com.procialize.singleevent.Utility.Util;
 
@@ -49,23 +43,19 @@ import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static java.security.AccessController.getContext;
 
 public class CurrencyConverter extends AppCompatActivity {
 
     Spinner firstans_list_spinner, secondans_list_spinner;
     private APIService mAPIService;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid,colorActive;
+    String eventid;
+    static String colorActive;
     List<DropDownList> list = null;
     Button btnConverter;
     String fromCurrency, toCurrency, amount, currencyDropDown = "";
@@ -104,6 +94,17 @@ public class CurrencyConverter extends AppCompatActivity {
 
         secondans_list_spinner = (Spinner) findViewById(R.id.secondans_list_spinner);
         firstans_list_spinner = (Spinner) findViewById(R.id.firstans_list_spinner);
+        RelativeLayout layoutTop = (RelativeLayout)findViewById(R.id.layoutTop) ;
+        layoutTop.setBackgroundColor(Color.parseColor(colorActive));
+
+        LinearLayout linUpper = (LinearLayout)findViewById(R.id.linUpper) ;
+        linUpper.setBackgroundColor(Color.parseColor(colorActive));
+
+
+        ImageView imgArrow = (ImageView)findViewById(R.id.imgArrow) ;
+        imgArrow.setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_ATOP);
+
+
         progressBar = findViewById(R.id.progressBar);
 
         /*econdans_list_spinner.setSelection(0, true);
@@ -120,6 +121,12 @@ public class CurrencyConverter extends AppCompatActivity {
         txtHeader = (TextView)findViewById(R.id.txtHeader);
         txtHeader.setTextColor(Color.parseColor(colorActive));
         btnConverter.setTextColor(Color.parseColor(colorActive));
+        int colorInt = Color.parseColor(colorActive);
+
+        txtValue.setTextColor(Color.parseColor(colorActive));
+
+        ColorStateList csl = ColorStateList.valueOf(colorInt);
+        txtValue.setBackgroundTintList(csl);
 
        // txtValue.setEnabled(false);
         getInfoTab();
@@ -191,7 +198,7 @@ public class CurrencyConverter extends AppCompatActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             TextView view = (TextView) super.getView(position, convertView, parent);
 //            view.setTypeface(font);
-            view.setTextColor(Color.parseColor("#0E73BA"));
+            view.setTextColor(Color.parseColor(colorActive));
 
             return view;
         }
@@ -201,7 +208,7 @@ public class CurrencyConverter extends AppCompatActivity {
         public View getDropDownView(int position, View convertView, ViewGroup parent) {
             TextView view = (TextView) super.getDropDownView(position, convertView, parent);
 //            view.setTypeface(font);
-            view.setTextColor(Color.parseColor("#0E73BA"));
+            view.setTextColor(Color.parseColor(colorActive));
             view.setPadding(15, 15, 15, 15);
             return view;
         }
@@ -225,6 +232,7 @@ public class CurrencyConverter extends AppCompatActivity {
             TextView view = (TextView) super.getView(position, convertView, parent);
 //            view.setTypeface(font);
             view.setTextColor(Color.parseColor("#ffffff"));
+            view.setBackgroundColor(Color.parseColor(colorActive));
 
             return view;
         }
@@ -235,6 +243,8 @@ public class CurrencyConverter extends AppCompatActivity {
             TextView view = (TextView) super.getDropDownView(position, convertView, parent);
 //            view.setTypeface(font);
             view.setTextColor(Color.parseColor("#ffffff"));
+            view.setBackgroundColor(Color.parseColor(colorActive));
+
             view.setPadding(15, 15, 15, 15);
             return view;
         }
