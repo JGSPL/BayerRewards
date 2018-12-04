@@ -185,7 +185,7 @@ public class SpeakerAdapter extends RecyclerView.Adapter<SpeakerAdapter.MyViewHo
                     holder.progressView.setVisibility(View.GONE);
                     return false;
                 }
-            }).into(holder.profileIv).onLoadStarted(context.getDrawable(R.drawable.profilepic_placeholder));
+            }).into(holder.profileIv);
         } else {
             holder.progressView.setVisibility(View.GONE);
             holder.profileIv.setImageResource(R.drawable.profilepic_placeholder);
@@ -196,7 +196,6 @@ public class SpeakerAdapter extends RecyclerView.Adapter<SpeakerAdapter.MyViewHo
     }
 
 
-    @Override
     public Filter getFilter() {
         return new Filter() {
             @Override
@@ -237,6 +236,7 @@ public class SpeakerAdapter extends RecyclerView.Adapter<SpeakerAdapter.MyViewHo
             }
         };
     }
+
 
     @Override
     public int getItemCount() {
