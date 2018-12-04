@@ -72,18 +72,18 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
     List<SelfieList> selfieLists;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
-    String user_id,colorActive;
+    String user_id, colorActive;
     ImageView headerlogoIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selfie_contest);
-       // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
-        colorActive = prefs.getString("colorActive","");
+        colorActive = prefs.getString("colorActive", "");
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -97,19 +97,21 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+//                onBackPressed();
+                Intent intent = new Intent(SelfieContestActivity.this, EngagementActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
+        Util.logomethod(this, headerlogoIv);
         uploadbtn = findViewById(R.id.uploadbtn);
         selfiefeedrefresh = findViewById(R.id.selfiefeedrefresh);
         selfierecycler = findViewById(R.id.selfierecycler);
-        TextView header = (TextView)findViewById(R.id.title);
+        TextView header = (TextView) findViewById(R.id.title);
         header.setTextColor(Color.parseColor(colorActive));
         uploadbtn.setBackgroundColor(Color.parseColor(colorActive));
-
 
 
         selfieLists = new ArrayList<>();
@@ -141,6 +143,8 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
             public void onClick(View v) {
                 Intent selfie = new Intent(SelfieContestActivity.this, SelfiePost.class);
                 startActivity(selfie);
+                finish();
+
             }
         });
         selfiefeedrefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -375,7 +379,7 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
 
     @Override
     protected void onResume() {
-      //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         SelfieListFetch(token, eventid);
         super.onResume();
     }

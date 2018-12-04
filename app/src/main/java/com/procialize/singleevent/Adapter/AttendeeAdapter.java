@@ -63,7 +63,7 @@ public class AttendeeAdapter extends RecyclerView.Adapter<AttendeeAdapter.MyView
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTv, locationTv, designationTv;
-        public ImageView profileIv,ic_rightarrow;
+        public ImageView profileIv, ic_rightarrow;
         public LinearLayout mainLL;
         public ProgressBar progressBar;
 
@@ -98,7 +98,7 @@ public class AttendeeAdapter extends RecyclerView.Adapter<AttendeeAdapter.MyView
         this.listener = listener;
         this.context = context;
         SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        colorActive = prefs.getString("colorActive","");
+        colorActive = prefs.getString("colorActive", "");
 
     }
 
@@ -127,30 +127,56 @@ public class AttendeeAdapter extends RecyclerView.Adapter<AttendeeAdapter.MyView
         holder.ic_rightarrow.setImageDrawable(drawable);
 
 
-        if(attendee_company.equalsIgnoreCase("0")){
-
-        }else {
-
+        try {
+            if (attendee_company.equalsIgnoreCase("0")) {
+                holder.locationTv.setVisibility(View.GONE);
+            } else {
+                if (attendee.getCompanyName().equalsIgnoreCase("N A")) {
+                    holder.locationTv.setVisibility(View.GONE);
+                }
+                if (attendee.getCompanyName().equalsIgnoreCase("")) {
+                    holder.locationTv.setVisibility(View.GONE);
+                }
+                if (attendee.getCompanyName().equalsIgnoreCase(" ")) {
+                    holder.locationTv.setVisibility(View.GONE);
+                } else {
+                    holder.locationTv.setText(attendee.getCompanyName());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            holder.locationTv.setVisibility(View.GONE);
         }
+
 
         try {
-            if (attendee_design.equalsIgnoreCase("0")){
+            if (attendee_design.equalsIgnoreCase("0")) {
                 holder.designationTv.setVisibility(View.GONE);
-            }else {
-                holder.designationTv.setVisibility(View.VISIBLE);
+            } else {
+                if (attendee.getDesignation().equalsIgnoreCase("N A")) {
+                    holder.designationTv.setVisibility(View.GONE);
+                }
+                if (attendee.getDesignation().equalsIgnoreCase("")) {
+                    holder.designationTv.setVisibility(View.GONE);
+                }
+                if (attendee.getDesignation().equalsIgnoreCase(" ")) {
+                    holder.designationTv.setVisibility(View.GONE);
+                } else {
+                    holder.designationTv.setText(attendee.getDesignation());
+                }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
+            holder.designationTv.setVisibility(View.GONE);
         }
 
 
-        if(attendee_location.equalsIgnoreCase("0")){
-            holder.locationTv.setVisibility(View.GONE);
-        }else {
-            holder.locationTv.setVisibility(View.VISIBLE);
-        }
+//        if(attendee_location.equalsIgnoreCase("0")){
+//            holder.locationTv.setVisibility(View.GONE);
+//        }else {
+//            holder.locationTv.setVisibility(View.VISIBLE);
+//        }
 
-    
 
         if (attendee.getFirstName().equalsIgnoreCase("N A")) {
             holder.nameTv.setText("");
@@ -158,23 +184,19 @@ public class AttendeeAdapter extends RecyclerView.Adapter<AttendeeAdapter.MyView
             holder.nameTv.setText(attendee.getFirstName() + " " + attendee.getLastName());
             holder.nameTv.setTextColor(Color.parseColor(colorActive));
         }
-        try {
-            if (attendee.getCity().equalsIgnoreCase("N A")) {
-                holder.locationTv.setText("");
-            } else {
-                holder.locationTv.setText(attendee.getCompanyName());
-            }
-
-            if (attendee.getDesignation().equalsIgnoreCase("N A")) {
-                holder.designationTv.setText("");
-            } else {
-                holder.designationTv.setText(attendee.getDesignation());
-            }
-
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+//        try {
+//
+//
+//            if (attendee.getDesignation().equalsIgnoreCase("N A")) {
+//                holder.designationTv.setText("");
+//            } else {
+//                holder.designationTv.setText(attendee.getDesignation());
+//            }
+//
+//
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
 
 
         if (attendee.getProfilePic() != null) {
