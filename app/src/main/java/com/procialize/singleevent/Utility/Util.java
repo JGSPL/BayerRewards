@@ -41,34 +41,52 @@ public class Util
     }
 
     public static void logomethod(final Context context, final ImageView headerlogoIv)
-    {
-        Glide.with(context).load("http://www.procialize.info/uploads/app_logo/" + HomeActivity.logoImg).listener(new RequestListener<Drawable>() {
-            @Override
-            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                headerlogoIv.setImageResource(R.drawable.splashlogo);
-                return true;
-            }
 
-            @Override
-            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                return false;
-            }
-        }).into(headerlogoIv);
+    {
+        String logoHeader = HomeActivity.logoImg;
+        if((logoHeader.equalsIgnoreCase("")) || logoHeader == null) {
+           headerlogoIv.setImageResource(R.drawable.header_logo);
+
+        }else{
+
+            Glide.with(context).load("http://www.procialize.info/uploads/app_logo/" + HomeActivity.logoImg).listener(new RequestListener<Drawable>() {
+                @Override
+                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                    headerlogoIv.setImageResource(R.drawable.splashlogo);
+                    return true;
+                }
+
+                @Override
+                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                    return false;
+                }
+            }).into(headerlogoIv);
+        }
     }
     public static void logomethod1(final Context context, final ImageView headerlogoIv)
     {
-        Glide.with(context).load("http://www.procialize.info/uploads/app_logo/" + ProfileActivity.logoImg).listener(new RequestListener<Drawable>() {
-            @Override
-            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                headerlogoIv.setImageResource(R.drawable.splashlogo);
-                return true;
-            }
+        String logoHeader = ProfileActivity.logoImg;
 
-            @Override
-            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                return false;
-            }
-        }).into(headerlogoIv);
+
+        if((logoHeader.equalsIgnoreCase("")) || logoHeader == null) {
+            headerlogoIv.setImageResource(R.drawable.header_logo);
+
+        }else{
+
+
+            Glide.with(context).load("http://www.procialize.info/uploads/app_logo/" + ProfileActivity.logoImg).listener(new RequestListener<Drawable>() {
+                @Override
+                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                    headerlogoIv.setImageResource(R.drawable.splashlogo);
+                    return true;
+                }
+
+                @Override
+                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                    return false;
+                }
+            }).into(headerlogoIv);
+        }
     }
 
 /*
