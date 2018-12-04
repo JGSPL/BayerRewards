@@ -101,18 +101,25 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
         // Util.logomethod(this,headerlogoIv);
-        Glide.with(this).load("http://www.procialize.info/uploads/app_logo/" + logoImg).listener(new RequestListener<Drawable>() {
-            @Override
-            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                headerlogoIv.setImageResource(R.drawable.splashlogo);
-                return true;
-            }
 
-            @Override
-            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                return false;
-            }
-        }).into(headerlogoIv);
+        if((logoImg.equalsIgnoreCase("")) || logoImg== null) {
+            headerlogoIv.setImageResource(R.drawable.header_logo);
+
+        }else{
+            Glide.with(this).load("http://www.procialize.info/uploads/app_logo/" + logoImg).listener(new RequestListener<Drawable>() {
+                @Override
+                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                    headerlogoIv.setImageResource(R.drawable.splashlogo);
+                    return true;
+                }
+
+                @Override
+                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                    return false;
+                }
+            }).into(headerlogoIv);
+
+        }
 
 
         TextView notyHeader = findViewById(R.id.notyHeader);
