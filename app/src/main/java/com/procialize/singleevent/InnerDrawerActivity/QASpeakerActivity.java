@@ -489,7 +489,7 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
 
     private void showLikeResponse(Response<QASpeakerFetch> response) {
 
-        if (response.body().getMsg().equalsIgnoreCase("success")) {
+        if (response.body().getStatus().equalsIgnoreCase("success")) {
 //            Toast.makeText(QASpeakerActivity.this,response.message(),Toast.LENGTH_SHORT).show();
             ArrayList<SpeakerQuestionList> speakerQuestionLists = new ArrayList<>();
             for (int j = 0; j < response.body().getSpeakerQuestionList().size(); j++) {

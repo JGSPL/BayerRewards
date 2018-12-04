@@ -168,8 +168,9 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
                 lname = "";
             }
 
-            edit_username_edit.setText(email);
-            edit_first_name_edit.setText(fname + " " + lname);
+//            edit_username_edit.setText(email);
+            edit_username_edit.setText(fname);
+            edit_first_name_edit.setText(lname);
             edit_designation_edit.setText(designation);
             edit_company_name_edit.setText(company);
             edit_mobile_edit.setText(number);
@@ -204,8 +205,9 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
                 lname = "";
             }
 
-            edit_username_edit.setText(email);
-            edit_first_name_edit.setText(fname + " " + lname);
+            edit_username_edit.setText(fname);
+            edit_first_name_edit.setText(lname);
+//            edit_first_name_edit.setText(fname + " " + lname);
             edit_designation_edit.setText(designation);
             edit_company_name_edit.setText(company);
             edit_mobile_edit.setText(number);
@@ -248,7 +250,8 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
                 lname = "";
             }
 
-            edit_first_name_edit.setText(fname + " " + lname);
+            edit_username_edit.setText(fname);
+            edit_first_name_edit.setText(lname);
             edit_designation_edit.setText(designation);
             edit_company_name_edit.setText(company);
             edit_mobile_edit.setText(number);
@@ -291,7 +294,8 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
                 lname = "";
             }
 
-            edit_first_name_edit.setText(fname + " " + lname);
+            edit_username_edit.setText(fname);
+            edit_first_name_edit.setText(lname);
             edit_designation_edit.setText(designation);
             edit_company_name_edit.setText(company);
             edit_mobile_edit.setText(number);

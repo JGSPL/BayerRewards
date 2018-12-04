@@ -3,8 +3,10 @@ package com.procialize.singleevent.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -61,8 +63,8 @@ public class ImageViewActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     ImageView headerlogoIv;
     private ConnectionDetector cd;
-
-    String imgname;
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String imgname,colorActive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +93,8 @@ public class ImageViewActivity extends AppCompatActivity {
         headerlogoIv = findViewById(R.id.headerlogoIv);
         Util.logomethod(this,headerlogoIv);
 
-
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        colorActive = prefs.getString("colorActive", "");
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Loading");
         progressDialog.setCancelable(false);
@@ -103,11 +106,13 @@ public class ImageViewActivity extends AppCompatActivity {
 
         }
 
-
+        int colorInt = Color.parseColor(colorActive);
         imageView = findViewById(R.id.webView1);
         savebtn = findViewById(R.id.savebtn);
         sharebtn = findViewById(R.id.sharebtn);
         progressBar = findViewById(R.id.progressBar);
+        savebtn.setBackgroundColor(Color.parseColor(colorActive));
+        sharebtn.setBackgroundColor(Color.parseColor(colorActive));
 
         Glide.with(this).load(url)
                 .apply(RequestOptions.skipMemoryCacheOf(true))

@@ -588,6 +588,7 @@ public class SelfiePost extends Activity {
             finish();
             Intent selfieIntent = new Intent(SelfiePost.this, SelfieContestActivity.class);
             startActivity(selfieIntent);
+            finish();
 
         }
 

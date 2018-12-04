@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.procialize.singleevent.Activity.HomeActivity;
+import com.procialize.singleevent.Activity.SelfiePost;
 import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
@@ -53,7 +55,9 @@ public class EngagementActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                Intent selfie = new Intent(EngagementActivity.this, HomeActivity.class);
+                startActivity(selfie);
+                finish();
             }
         });
 
@@ -97,6 +101,7 @@ public class EngagementActivity extends AppCompatActivity {
 
                 Intent selfie = new Intent(EngagementActivity.this, SelfieContestActivity.class);
                 startActivity(selfie);
+                finish();
             }
         });
 
@@ -106,6 +111,7 @@ public class EngagementActivity extends AppCompatActivity {
 
                 Intent videocontest = new Intent(EngagementActivity.this, VideoContestActivity.class);
                 startActivity(videocontest);
+                finish();
             }
         });
     }

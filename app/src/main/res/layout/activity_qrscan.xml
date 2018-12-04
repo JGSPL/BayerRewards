@@ -93,20 +93,20 @@
                     android:layout_height="match_parent"
                     android:layout_weight="9">
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:focusableInTouchMode="true">
+                        android:focusableInTouchMode="true"
+                        android:orientation="vertical">
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/edit_username"
                             style="@style/TextLabel"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/username"
+                            android:hint="@string/firstname"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/textsizesmall"
-                            android:visibility="gone">
+                            android:textSize="@dimen/textsizesmall">
 
                             <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                                 android:id="@+id/edit_username_edit"
@@ -125,8 +125,7 @@
                             style="@style/TextLabel"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/edit_username"
-                            android:hint="@string/firstname">
+                            android:hint="@string/lastname">
 
                             <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                                 android:id="@+id/edit_first_name_edit"
@@ -142,23 +141,60 @@
                         </android.support.design.widget.TextInputLayout>
 
                         <android.support.design.widget.TextInputLayout
-                            android:id="@+id/edit_mobile"
+                            android:id="@+id/edit_designation"
                             style="@style/TextLabel"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/edit_first_name"
-                            android:hint="@string/mobile">
+                            android:hint="@string/designation">
 
                             <com.procialize.singleevent.Fonts.RobotoTextInputEditext
-                                android:id="@+id/edit_mobile_edit"
+                                android:id="@+id/edit_designation_edit"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/edit_first_name_edit"
+                                android:layout_below="@+id/edit_company_name_edit"
                                 android:layout_centerHorizontal="true"
                                 android:layout_margin="@dimen/margin"
-                                android:editable="false"
-                                android:inputType="phone"
-                                android:minEms="20"
+                                android:inputType="textPersonName"
+                                android:paddingLeft="10dp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/textsizesmall" />
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/edit_company_name"
+                            style="@style/TextLabel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/company">
+
+                            <com.procialize.singleevent.Fonts.RobotoTextInputEditext
+                                android:id="@+id/edit_company_name_edit"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/edit_city_edit"
+                                android:layout_centerHorizontal="true"
+                                android:layout_margin="@dimen/margin"
+                                android:inputType="textPersonName"
+                                android:paddingLeft="10dp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/textsizesmall" />
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/edit_city"
+                            style="@style/TextLabel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/city">
+
+                            <com.procialize.singleevent.Fonts.RobotoTextInputEditext
+                                android:id="@+id/edit_city_edit"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/edit_email_edit"
+                                android:layout_centerHorizontal="true"
+                                android:layout_margin="@dimen/margin"
+                                android:inputType="textPersonName"
                                 android:paddingLeft="10dp"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/textsizesmall"
@@ -170,7 +206,6 @@
                             style="@style/TextLabel"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/edit_mobile"
                             android:hint="@string/hint_email">
 
                             <com.procialize.singleevent.Fonts.RobotoTextInputEditext
@@ -189,71 +224,30 @@
                         </android.support.design.widget.TextInputLayout>
 
                         <android.support.design.widget.TextInputLayout
-                            android:id="@+id/edit_city"
+                            android:id="@+id/edit_mobile"
                             style="@style/TextLabel"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/edit_email"
-                            android:hint="@string/city">
+                            android:hint="@string/mobile">
 
                             <com.procialize.singleevent.Fonts.RobotoTextInputEditext
-                                android:id="@+id/edit_city_edit"
+                                android:id="@+id/edit_mobile_edit"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/edit_email_edit"
+                                android:layout_below="@+id/edit_first_name_edit"
                                 android:layout_centerHorizontal="true"
                                 android:layout_margin="@dimen/margin"
-                                android:inputType="textPersonName"
+                                android:editable="false"
+                                android:inputType="phone"
+                                android:minEms="20"
                                 android:paddingLeft="10dp"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/textsizesmall"
                                 android:visibility="visible" />
                         </android.support.design.widget.TextInputLayout>
 
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/edit_company_name"
-                            style="@style/TextLabel"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/edit_city"
-                            android:hint="@string/company">
 
-                            <com.procialize.singleevent.Fonts.RobotoTextInputEditext
-                                android:id="@+id/edit_company_name_edit"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/edit_city_edit"
-                                android:layout_centerHorizontal="true"
-                                android:layout_margin="@dimen/margin"
-                                android:inputType="textPersonName"
-                                android:paddingLeft="10dp"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/textsizesmall" />
-                        </android.support.design.widget.TextInputLayout>
-
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/edit_designation"
-                            style="@style/TextLabel"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/edit_company_name"
-                            android:hint="@string/designation">
-
-                            <com.procialize.singleevent.Fonts.RobotoTextInputEditext
-                                android:id="@+id/edit_designation_edit"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/edit_company_name_edit"
-                                android:layout_centerHorizontal="true"
-                                android:layout_margin="@dimen/margin"
-                                android:inputType="textPersonName"
-                                android:paddingLeft="10dp"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/textsizesmall" />
-                        </android.support.design.widget.TextInputLayout>
-
-
-                    </RelativeLayout>
+                    </LinearLayout>
                 </ScrollView>
             </LinearLayout>
 
