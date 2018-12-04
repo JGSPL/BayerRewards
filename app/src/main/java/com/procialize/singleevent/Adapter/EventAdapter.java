@@ -44,7 +44,7 @@ import java.util.Locale;
 
 
 /**
- * Created by Naushad on 10/31/2017.
+ * //Created by Naushad on 10/31/2017.
  */
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder> implements Filterable {
