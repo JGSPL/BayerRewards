@@ -3,6 +3,7 @@ package com.procialize.singleevent.Adapter;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -107,12 +108,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 
 
         holder.eventnaem.setBackgroundColor(Color.parseColor(evnt.getPrimary_color_code()));
-        int colorInt = Color.parseColor(evnt.getPrimary_color_code());
+        /*int colorInt = Color.parseColor(evnt.getPrimary_color_code());
 
         ColorStateList csl = ColorStateList.valueOf(colorInt);
         Drawable drawable = DrawableCompat.wrap(holder.imgArrow.getDrawable());
         DrawableCompat.setTintList(drawable, csl);
-        holder.imgArrow.setImageDrawable(drawable);
+        holder.imgArrow.setImageDrawable(drawable);*/
+        holder.imgArrow.setColorFilter(Color.parseColor(evnt.getPrimary_color_code()), PorterDuff.Mode.SRC_ATOP);
+
 
         holder.nameTv.setText(evnt.getName());
         holder.locationTv.setText(evnt.getLocation());
