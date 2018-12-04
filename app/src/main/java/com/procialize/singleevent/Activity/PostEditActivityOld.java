@@ -312,7 +312,11 @@ public class PostEditActivityOld extends AppCompatActivity implements ProgressRe
                         ProgressRequestBodyVideo reqFile = new ProgressRequestBodyVideo(file, PostEditActivityOld.this);
                         body = MultipartBody.Part.createFormData("media_file", file.getName(), reqFile);
                     }
+
+                    postEditFeed(type, token, eventid, status, body, feedidstr);
                 } else {
+
+
 //                    if (typepost.equals("image")) {
 //                        file = new File(Image);
 //                        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), "");
@@ -327,7 +331,7 @@ public class PostEditActivityOld extends AppCompatActivity implements ProgressRe
                 }
 
 
-                postEditFeed(type, token, eventid, status, body, feedidstr);
+
 //                }
             }
         });

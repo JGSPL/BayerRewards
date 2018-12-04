@@ -2,6 +2,7 @@ package com.procialize.singleevent.InnerDrawerActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +26,8 @@ import com.procialize.singleevent.Activity.SpeakerDetailsActivity;
 import com.procialize.singleevent.Adapter.SpeakerAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
+import com.procialize.singleevent.DbHelper.ConnectionDetector;
+import com.procialize.singleevent.DbHelper.DBHelper;
 import com.procialize.singleevent.GetterSetter.Analytic;
 import com.procialize.singleevent.GetterSetter.FetchSpeaker;
 import com.procialize.singleevent.GetterSetter.SpeakerList;
@@ -33,6 +36,7 @@ import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.Util;
 
 import java.util.HashMap;
+import java.util.List;
 
 import cn.jzvd.JZVideoPlayer;
 import retrofit2.Call;
@@ -47,12 +51,15 @@ public class SpeakerActivity extends AppCompatActivity implements SpeakerAdapter
     RecyclerView speakerrecycler;
     EditText searchEt;
     SpeakerAdapter speakerAdapter;
-
+    private DBHelper procializeDB;
+    private SQLiteDatabase db;
     private ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
     ImageView headerlogoIv;
-
+    private ConnectionDetector cd;
+    private DBHelper dbHelper;
+    private List<SpeakerList> speakersDBList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +98,11 @@ public class SpeakerActivity extends AppCompatActivity implements SpeakerAdapter
 
 //        speakerrecycler.setHasFixedSize(true);
 
+        cd = new ConnectionDetector(SpeakerActivity.this);
+        dbHelper = new DBHelper(SpeakerActivity.this);
+
+        procializeDB = new DBHelper(SpeakerActivity.this);
+        db = procializeDB.getWritableDatabase();
 
         mAPIService = ApiUtils.getAPIService();
 
@@ -111,7 +123,18 @@ public class SpeakerActivity extends AppCompatActivity implements SpeakerAdapter
         // speakerrecycler.setLayoutAnimation(animation);
 
 
-        fetchSpeaker(token, eventid);
+        if (cd.isConnectingToInternet()) {
+            fetchSpeaker(token, eventid);
+        } else {
+            db = procializeDB.getReadableDatabase();
+
+            speakersDBList = dbHelper.getSpeakerDetails();
+
+            speakerAdapter = new SpeakerAdapter(SpeakerActivity.this, speakersDBList, this);
+            speakerAdapter.notifyDataSetChanged();
+            speakerrecycler.setAdapter(speakerAdapter);
+            speakerrecycler.scheduleLayoutAnimation();
+        }
 
         speakerfeedrefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -136,7 +159,11 @@ public class SpeakerActivity extends AppCompatActivity implements SpeakerAdapter
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-                speakerAdapter.getFilter().filter(s.toString());
+                try {
+                    speakerAdapter.getFilter().filter(s.toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
