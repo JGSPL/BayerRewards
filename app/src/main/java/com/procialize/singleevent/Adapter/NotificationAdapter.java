@@ -165,18 +165,39 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         if (notificationList.getNotificationType().equalsIgnoreCase("Msg")) {
             holder.txt_msg.setText("Sent You Message");
-            holder.nameTv.setText(notificationList.getAttendeeFirstName()+" "+notificationList.getAttendeeLastName());
+            String lName = notificationList.getAttendeeLastName();
+            if(lName!= null) {
+                holder.nameTv.setText(notificationList.getAttendeeFirstName() + " " + notificationList.getAttendeeLastName());
+            }else{
+                holder.nameTv.setText(notificationList.getAttendeeFirstName());
 
+            }
         } else if (notificationList.getNotificationType().equalsIgnoreCase("Like")) {
             holder.txt_msg.setText("Liked Your Post");
-            holder.nameTv.setText(notificationList.getAttendeeFirstName()+" "+notificationList.getAttendeeLastName());
+            String lName = notificationList.getAttendeeLastName();
+            if(lName!= null) {
+                holder.nameTv.setText(notificationList.getAttendeeFirstName() + " " + notificationList.getAttendeeLastName());
+            }else{
+                holder.nameTv.setText(notificationList.getAttendeeFirstName());
 
+            }
         } else if (notificationList.getNotificationType().equalsIgnoreCase("Cmnt")) {
             holder.txt_msg.setText("Commented On Your Post");
-            holder.nameTv.setText(notificationList.getAttendeeFirstName()+" "+notificationList.getAttendeeLastName());
+            String lName = notificationList.getAttendeeLastName();
+            if(lName!= null) {
+                holder.nameTv.setText(notificationList.getAttendeeFirstName() + " " + notificationList.getAttendeeLastName());
+            }else{
+                holder.nameTv.setText(notificationList.getAttendeeFirstName());
 
+            }
         }else{
-            holder.nameTv.setText(notificationList.getAttendeeFirstName()+" "+notificationList.getAttendeeLastName());
+            String lName = notificationList.getAttendeeLastName();
+            if(lName!= null) {
+                holder.nameTv.setText(notificationList.getAttendeeFirstName() + " " + notificationList.getAttendeeLastName());
+            }else{
+                holder.nameTv.setText(notificationList.getAttendeeFirstName());
+
+            }
 
         }
 
