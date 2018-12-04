@@ -599,6 +599,12 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
         if (requestCode == 2 && resultCode == RESULT_OK
                 && null != data) {
 
+//            if (data == null) {
+//                Intent intent1 = new Intent(PostActivity.this, HomeActivity.class);
+//                startActivity(intent1);
+//                finish();
+//            } else {
+
             postEt.setHint("Say something about this photo");
 
             Uploadiv.setVisibility(View.VISIBLE);
@@ -627,6 +633,7 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
                     Toast.LENGTH_SHORT).show();
 
             cursor.close();
+//            }
         } else if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             setpic2();
 
@@ -714,6 +721,10 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
                 //Store the video to your server
                 file = new File(selectedImagePath);
             }
+        } else {
+            Intent intent1 = new Intent(PostActivity.this, HomeActivity.class);
+            startActivity(intent1);
+            finish();
         }
         if (data != null) {
             Uri selectedMediaUri = data.getData();
