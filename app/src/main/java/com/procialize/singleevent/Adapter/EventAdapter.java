@@ -110,7 +110,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
         holder.eventnaem.setBackgroundColor(Color.parseColor(evnt.getPrimary_color_code()));
         /*int colorInt = Color.parseColor(evnt.getPrimary_color_code());
 
-        ColorStateList csl = ColorStateList.valueOf(colorInt);
+        //ColorStateList csl = ColorStateList.valueOf(colorInt);
         Drawable drawable = DrawableCompat.wrap(holder.imgArrow.getDrawable());
         DrawableCompat.setTintList(drawable, csl);
         holder.imgArrow.setImageDrawable(drawable);*/
