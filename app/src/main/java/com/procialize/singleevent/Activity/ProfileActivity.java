@@ -199,7 +199,7 @@ public class ProfileActivity extends AppCompatActivity {
         String email = user.get(SessionManager.KEY_EMAIL);
 
 
-        Log.d("Profile Pic", profilepic);
+        //Log.d("Profile Pic", profilepic);
         eventSettingLists = sessionManager.loadEventList();
 
         if (eventSettingLists.size() != 0) {

@@ -663,6 +663,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                 }
             }).into(profileIV).onLoadStarted(getDrawable(R.drawable.profilepic_placeholder));
         } else {
+            profileIV.setImageResource(R.drawable.profilepic_placeholder);
             progressView.setVisibility(View.GONE);
         }
 
