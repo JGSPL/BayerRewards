@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
@@ -29,6 +30,7 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -776,6 +778,25 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         }
         if (general_ifo.equalsIgnoreCase("1")) {
             adapter.addFragment(new GeneralInfo(), "General Info");
+        }
+        if(news_feed.equalsIgnoreCase("1") && agenda.equalsIgnoreCase("0") &&
+                attendee.equalsIgnoreCase("0") && speaker.equalsIgnoreCase("0") &&
+                general_ifo.equalsIgnoreCase("0")){
+            adapter.addFragment(new WallFragment_POST(), "News Feed");
+            tabLayout = (TabLayout) findViewById(R.id.tabs);
+            AppBarLayout appTab = findViewById(R.id.appTab);
+            appTab.setElevation(0);
+            LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    10.0f
+            );
+
+            viewPager.setLayoutParams(param);
+            appTab.setVisibility(View.GONE);
+            tabLayout.setVisibility(View.GONE);
+
+
         }
         viewPager.setAdapter(adapter);
     }

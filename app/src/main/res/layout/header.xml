@@ -144,9 +144,9 @@
 
                 <ImageView
                     android:id="@+id/editIv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/edit_prof" />
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/edit_profile_icon" />
 
             </LinearLayout>
 
