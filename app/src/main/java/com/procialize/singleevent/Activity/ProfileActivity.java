@@ -97,6 +97,8 @@ public class ProfileActivity extends AppCompatActivity {
     TextInputLayout input_layout_firstname,input_layout_lastname,input_layout_designation,input_layout_company,
             input_layout_mobile,input_layout_desc,input_layout_city,input_layout_emailid,input_layout_country;
 
+    RelativeLayout relative;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -214,6 +216,7 @@ public class ProfileActivity extends AppCompatActivity {
         input_layout_city = findViewById(R.id.input_layout_city);
         input_layout_emailid = findViewById(R.id.input_layout_emailid);
         input_layout_country = findViewById(R.id.input_layout_country);
+        relative = findViewById(R.id.relative);
 
 
 
@@ -350,6 +353,7 @@ public class ProfileActivity extends AppCompatActivity {
         if (profilepic != null && edit_profile_pic.equalsIgnoreCase("1")) {
             profileIV.setVisibility(View.VISIBLE);
             txt_upload.setVisibility(View.VISIBLE);
+            relative.setVisibility(View.VISIBLE);
 
             Glide.with(this).load(ApiConstant.profilepic + profilepic).listener(new RequestListener<Drawable>() {
                 @Override
@@ -382,6 +386,7 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 }).into(profileIV);
             }
+            relative.setVisibility(View.GONE);
             profileIV.setVisibility(View.GONE);
             txt_upload.setVisibility(View.GONE);
             progressView.setVisibility(View.GONE);
