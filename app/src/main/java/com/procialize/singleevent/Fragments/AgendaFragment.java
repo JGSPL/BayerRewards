@@ -267,7 +267,7 @@ public class AgendaFragment extends Fragment implements AgendaAdapter.AgendaAdap
                     if (agendafeedrefresh.isRefreshing()) {
                         agendafeedrefresh.setRefreshing(false);
                     }
-                    Toast.makeText(getContext(),"Unable to process",Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getContext(),"Unable to process",Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -278,7 +278,7 @@ public class AgendaFragment extends Fragment implements AgendaAdapter.AgendaAdap
                 if (agendafeedrefresh.isRefreshing()) {
                     agendafeedrefresh.setRefreshing(false);
                 }
-                Toast.makeText(getContext(),"Unable to process",Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getContext(),"Unable to process",Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -328,13 +328,13 @@ public class AgendaFragment extends Fragment implements AgendaAdapter.AgendaAdap
 
                 } else {
 
-                    Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Analytic> call, Throwable t) {
-                Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
 
             }
         });

@@ -243,14 +243,14 @@ public class SpeakerFragment extends Fragment implements SpeakerAdapter.SpeakerA
                     if (speakerfeedrefresh.isRefreshing()) {
                         speakerfeedrefresh.setRefreshing(false);
                     }
-                    Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<FetchSpeaker> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
-                Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
 
                 hideProgress();
                 if (speakerfeedrefresh.isRefreshing()) {
@@ -363,13 +363,13 @@ public class SpeakerFragment extends Fragment implements SpeakerAdapter.SpeakerA
 
                 } else {
 
-                    Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Analytic> call, Throwable t) {
-                Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
 
             }
         });

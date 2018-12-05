@@ -938,14 +938,14 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
                     if (newsfeedrefresh.isRefreshing()) {
                         newsfeedrefresh.setRefreshing(false);
                     }
-                    Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<FetchFeed> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
-                Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
 
                 if (progressBar.getVisibility() == View.VISIBLE) {
                     progressBar.setVisibility(View.GONE);
@@ -1025,14 +1025,14 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
                     if (newsfeedrefresh.isRefreshing()) {
                         newsfeedrefresh.setRefreshing(false);
                     }
-                    Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<FetchFeed> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
-                Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
 
                 if (progressBar.getVisibility() == View.VISIBLE) {
                     progressBar.setVisibility(View.GONE);
@@ -1106,7 +1106,9 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
                     showPostlikeresponse(response);
                 } else {
 //                    dismissProgress();
-                    Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),response.body().getMsg(), Toast.LENGTH_SHORT).show();
+
+                    // Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1114,7 +1116,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
             public void onFailure(Call<LikePost> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
 //                dismissProgress();
-                Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -1143,8 +1145,9 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
                     DeletePostresponse(response, position);
                 } else {
 //                    dismissProgress();
+                    //Toast.makeText(getContext(),response.body().getMsg(), Toast.LENGTH_SHORT).show();
 
-                    Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1189,8 +1192,9 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
                     ReportPostHideresponse(response, position);
                 } else {
 //                    dismissProgress();
+                    Toast.makeText(getContext(),response.body().getMsg(), Toast.LENGTH_SHORT).show();
 
-                    Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1235,8 +1239,9 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
                     ReportPostresponse(response);
                 } else {
 //                    dismissProgress();
+                    Toast.makeText(getContext(),response.body().getMsg(), Toast.LENGTH_SHORT).show();
 
-                    Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1278,8 +1283,9 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
                     ReportUserresponse(response);
                 } else {
 //                    dismissProgress();
+                    Toast.makeText(getContext(),response.body().getMsg(), Toast.LENGTH_SHORT).show();
 
-                    Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1322,7 +1328,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
                 } else {
 //                    dismissProgress();
 
-                    Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1487,13 +1493,13 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
                 } else {
 
-                    Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Analytic> call, Throwable t) {
-                Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -1525,7 +1531,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
             @Override
             public void onFailure(Call<ProfileSave> call, Throwable t) {
-                Toast.makeText(getActivity(), "Low network or no network", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getActivity(), "Low network or no network", Toast.LENGTH_SHORT).show();
 
 //                dismissProgress();
 

@@ -223,7 +223,7 @@ public class GeneralInfo extends Fragment implements GeneralInfoListAdapter.Gene
 
                 } else {
                    dismissProgress();
-                    Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -231,7 +231,7 @@ public class GeneralInfo extends Fragment implements GeneralInfoListAdapter.Gene
             public void onFailure(Call<GeneralInfoList> call, Throwable t) {
                 dismissProgress();
                 Log.e("hit", "Unable to submit post to API.");
-                Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
                 if (generalInforefresh.isRefreshing()) {
                     generalInforefresh.setRefreshing(false);
                 }
@@ -267,13 +267,13 @@ public class GeneralInfo extends Fragment implements GeneralInfoListAdapter.Gene
 
                 } else {
 
-                    Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Analytic> call, Throwable t) {
-                Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
 
             }
         });

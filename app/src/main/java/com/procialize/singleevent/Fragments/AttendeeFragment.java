@@ -235,14 +235,14 @@ public class AttendeeFragment extends Fragment implements AttendeeAdapter.Attend
                     if (attendeefeedrefresh.isRefreshing()) {
                         attendeefeedrefresh.setRefreshing(false);
                     }
-                    Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<FetchAttendee> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
-                Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.GONE);
 
                 if (attendeefeedrefresh.isRefreshing()) {

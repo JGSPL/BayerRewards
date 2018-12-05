@@ -659,7 +659,7 @@ public class ProfileActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<ProfileSave> call, Throwable t) {
                     Log.e("hit", "Low network or no network");
-                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
@@ -711,7 +711,7 @@ public class ProfileActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<ProfileSave> call, Throwable t) {
                     Log.e("hit", "Low network or no network");
-                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -951,13 +951,13 @@ public class ProfileActivity extends AppCompatActivity {
 
                 } else {
 
-                    Toast.makeText(ProfileActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(ProfileActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Analytic> call, Throwable t) {
-                Toast.makeText(ProfileActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(ProfileActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
 
             }
         });

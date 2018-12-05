@@ -937,14 +937,14 @@ public class FeedFragment extends Fragment implements FeedAdapter.FeedAdapterLis
                     if (newsfeedrefresh.isRefreshing()) {
                         newsfeedrefresh.setRefreshing(false);
                     }
-                    Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<FetchFeed> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
-                Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
 
                 if (progressBar.getVisibility() == View.VISIBLE) {
                     progressBar.setVisibility(View.GONE);
@@ -1008,14 +1008,14 @@ public class FeedFragment extends Fragment implements FeedAdapter.FeedAdapterLis
                     if (newsfeedrefresh.isRefreshing()) {
                         newsfeedrefresh.setRefreshing(false);
                     }
-                    Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                 //   Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<FetchFeed> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
-                Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
 
                 if (progressBar.getVisibility() == View.VISIBLE) {
                     progressBar.setVisibility(View.GONE);
@@ -1073,7 +1073,7 @@ public class FeedFragment extends Fragment implements FeedAdapter.FeedAdapterLis
                     showPostlikeresponse(response);
                 } else {
 //                    dismissProgress();
-                    Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1081,7 +1081,7 @@ public class FeedFragment extends Fragment implements FeedAdapter.FeedAdapterLis
             public void onFailure(Call<LikePost> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
 //                dismissProgress();
-                Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -1111,7 +1111,7 @@ public class FeedFragment extends Fragment implements FeedAdapter.FeedAdapterLis
                 } else {
 //                    dismissProgress();
 
-                    Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1156,7 +1156,7 @@ public class FeedFragment extends Fragment implements FeedAdapter.FeedAdapterLis
                 } else {
 //                    dismissProgress();
 
-                    Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1201,7 +1201,7 @@ public class FeedFragment extends Fragment implements FeedAdapter.FeedAdapterLis
                 } else {
 //                    dismissProgress();
 
-                    Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1244,7 +1244,7 @@ public class FeedFragment extends Fragment implements FeedAdapter.FeedAdapterLis
                 } else {
 //                    dismissProgress();
 
-                    Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1287,7 +1287,7 @@ public class FeedFragment extends Fragment implements FeedAdapter.FeedAdapterLis
                 } else {
 //                    dismissProgress();
 
-                    Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1339,7 +1339,7 @@ public class FeedFragment extends Fragment implements FeedAdapter.FeedAdapterLis
             public void onFailure(Call<LikeListing> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
 //                dismissProgress();
-                Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
 
             }
         });

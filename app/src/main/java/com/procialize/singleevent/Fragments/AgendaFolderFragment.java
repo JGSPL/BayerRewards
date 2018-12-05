@@ -112,6 +112,8 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
     static LinearLayout tab_text;
     TextView txtname;
     WebView webView;
+    SharedPreferences prefs;
+    static String colorActive;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -125,6 +127,8 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
 
         SharedPreferences prefs = getActivity().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive", "");
+
         mAPIService = ApiUtils.getAPIService();
 
         SessionManager sessionManager = new SessionManager(getContext());
@@ -542,6 +546,8 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
     private static View createTabView(final Context context, final String text, final String text1) {
         View view = LayoutInflater.from(context).inflate(R.layout.agenda_tabs_bg, null);
 
+        LinearLayout linTab = (LinearLayout)view.findViewById(R.id.linTab);
+        linTab.setBackgroundColor(Color.parseColor(colorActive));
         TextView tv = (TextView) view.findViewById(R.id.tabsText);
         TextView tv1 = (TextView) view.findViewById(R.id.tabsecondText);
         tab_text = (LinearLayout) view.findViewById(R.id.tab_text);
@@ -704,7 +710,7 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
 //				if (agendafeedrefresh.isRefreshing()) {
 //					agendafeedrefresh.setRefreshing(false);
 //				}
-                Toast.makeText(getContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
 
             }
         });
