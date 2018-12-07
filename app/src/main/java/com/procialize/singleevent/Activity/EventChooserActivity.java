@@ -94,6 +94,9 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
             @Override
             public void onClick(View v) {
                 session.logoutUser();
+             //   SharedPreferences.Editor pref = getSharedPreferences("PROFILE_PICTURE", MODE_PRIVATE).edit();
+             ///   pref.clear();
+
                 Intent intent = new Intent(EventChooserActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();

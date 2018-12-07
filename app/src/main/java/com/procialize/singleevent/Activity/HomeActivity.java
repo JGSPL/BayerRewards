@@ -427,6 +427,9 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
             public void onClick(View v) {
 
                 session.logoutUser();
+                SharedPreferences.Editor pref = getSharedPreferences("PROFILE_PICTURE", MODE_PRIVATE).edit();
+                pref.clear();
+
 //                SharedPreferences settings = getSharedPreferences(MY_PREFS_LOGIN, 0);
 //                if (settings.contains("loginfirst")) {
 //                    SharedPreferences.Editor editor = settings.edit();
@@ -497,6 +500,10 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                     editor.remove("eventid");
                     editor.commit();
                 }
+
+               // SharedPreferences.Editor pref = getSharedPreferences("PROFILE_PICTURE", MODE_PRIVATE).edit();
+               // pref.clear();
+
 
                 session.logoutUser();
 

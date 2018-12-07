@@ -81,7 +81,9 @@ import static android.media.ThumbnailUtils.createVideoThumbnail;
 public class PostViewActivity extends AppCompatActivity implements ProgressRequestBodyImage.UploadCallbacks, ProgressRequestBodyVideo.UploadCallbacks {
 
     EditText postEt;
-    Button postbtn;
+   // Button postbtn;
+    TextView postbtn;
+
     APIService mAPIService;
     ProgressBar progressbar;
     SessionManager sessionManager;
@@ -158,7 +160,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
         mAPIService = ApiUtils.getAPIService();
         sessionManager = new SessionManager(getApplicationContext());
         final TextView txtcount1 = (TextView) findViewById(R.id.txtcount1);
-        postbtn.setBackgroundColor(Color.parseColor(colorActive));
+       // postbtn.setBackgroundColor(Color.parseColor(colorActive));
 
 
         // get user data from session
@@ -266,6 +268,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
                         RequestBody status = RequestBody.create(MediaType.parse("text/plain"), StringEscapeUtils.escapeJava(data));
                         MultipartBody.Part body = null;
 
+                        postFeed(type, token, eventid, status, body);
 
                         if (file != null) {
 
@@ -278,11 +281,11 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
                                 body = MultipartBody.Part.createFormData("media_file", file.getName(), reqFile);
                                 postFeed(type, token, eventid, status, body);
                             }
-                        } else {
+                        }/* else {
 
                             Toast.makeText(PostViewActivity.this, "Please Enter your Post", Toast.LENGTH_SHORT).show();
 
-                        }
+                        }*/
 
 
                     }

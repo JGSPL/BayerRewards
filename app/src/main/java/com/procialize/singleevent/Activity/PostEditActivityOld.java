@@ -81,7 +81,7 @@ import retrofit2.Response;
 public class PostEditActivityOld extends AppCompatActivity implements ProgressRequestBodyImage.UploadCallbacks, ProgressRequestBodyVideo.UploadCallbacks {
 
     EditText postEt;
-    Button postbtn;
+    TextView postbtn;
     APIService mAPIService;
     ProgressBar progressbar;
     SessionManager sessionManager;
@@ -150,7 +150,7 @@ public class PostEditActivityOld extends AppCompatActivity implements ProgressRe
         mAPIService = ApiUtils.getAPIService();
         sessionManager = new SessionManager(getApplicationContext());
 
-        postbtn.setBackgroundColor(Color.parseColor(colorActive));
+       // postbtn.setBackgroundColor(Color.parseColor(colorActive));
 
 
         final TextView txtcount1 = (TextView) findViewById(R.id.txtcount1);

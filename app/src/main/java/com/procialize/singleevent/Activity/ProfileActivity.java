@@ -350,25 +350,29 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
 
-        if (profilepic != null && edit_profile_pic.equalsIgnoreCase("1")) {
+        if ( edit_profile_pic.equalsIgnoreCase("1")) {
             profileIV.setVisibility(View.VISIBLE);
             txt_upload.setVisibility(View.VISIBLE);
             relative.setVisibility(View.VISIBLE);
+            if(profilepic != null) {
+                Glide.with(this).load(ApiConstant.profilepic + profilepic).listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        progressView.setVisibility(View.GONE);
+                        profileIV.setImageResource(R.drawable.profilepic_placeholder);
+                        return true;
+                    }
 
-            Glide.with(this).load(ApiConstant.profilepic + profilepic).listener(new RequestListener<Drawable>() {
-                @Override
-                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                    progressView.setVisibility(View.GONE);
-                    profileIV.setImageResource(R.drawable.profilepic_placeholder);
-                    return true;
-                }
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        progressView.setVisibility(View.GONE);
+                        return false;
+                    }
+                }).into(profileIV);
+            }else{
+                profileIV.setImageResource(R.drawable.profilepic_placeholder);
 
-                @Override
-                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                    progressView.setVisibility(View.GONE);
-                    return false;
-                }
-            }).into(profileIV);
+            }
         } else {
             if(profilepic!= null){
                 Glide.with(this).load(ApiConstant.profilepic + profilepic).listener(new RequestListener<Drawable>() {
@@ -493,6 +497,9 @@ public class ProfileActivity extends AppCompatActivity {
                     String country = response.body().getUserData().getCountry();
                     String description = response.body().getUserData().getDescription();
 
+                    SharedPreferences.Editor pref = getSharedPreferences("PROFILE_PICTURE", MODE_PRIVATE).edit();
+                    pref.clear();
+
                     sessionManager.createProfileSession(name, company, designation, pic, lastname, city, description, country, email, mobno);
 
                     initializeView();
@@ -581,6 +588,8 @@ public class ProfileActivity extends AppCompatActivity {
         } else {
             SharedPreferences pref = getSharedPreferences("PROFILE_PICTURE", MODE_PRIVATE);
             String prof_pic = pref.getString("profile", "");
+           // String prof_pic = user.get(SessionManager.KEY_PIC);
+
             if (prof_pic != null) {
                 if (!prof_pic.equals("")) {
                     file = new File(prof_pic);

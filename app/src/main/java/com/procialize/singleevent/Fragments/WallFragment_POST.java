@@ -46,6 +46,7 @@ import com.procialize.singleevent.Activity.ImageViewActivity;
 import com.procialize.singleevent.Activity.LikeDetailActivity;
 import com.procialize.singleevent.Activity.PostEditActivity;
 import com.procialize.singleevent.Activity.PostEditActivityOld;
+import com.procialize.singleevent.Activity.PostViewActivity;
 import com.procialize.singleevent.Adapter.LikeAdapter;
 import com.procialize.singleevent.Adapter.NewsfeedAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;

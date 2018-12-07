@@ -225,7 +225,7 @@ public class NewsfeedAdapter extends BaseAdapter {
                     @Override
                     public void onClick(View v) {
 
-                        Intent postview = new Intent(context, PostActivity.class);
+                        Intent postview = new Intent(context, PostViewActivity.class);
                         postview.putExtra("for", "text");
                         context.startActivity(postview);
 //                getActivity().finish();
@@ -237,7 +237,7 @@ public class NewsfeedAdapter extends BaseAdapter {
                     public void onClick(View v) {
 
                         if (holder.txtfeedRv.getVisibility() == View.VISIBLE) {
-                            Intent postview = new Intent(context, PostActivity.class);
+                            Intent postview = new Intent(context, PostViewActivity.class);
                             postview.putExtra("for", "text");
                             context.startActivity(postview);
                         } else if (holder.imagefeedRv.getVisibility() == View.VISIBLE) {
@@ -289,7 +289,7 @@ public class NewsfeedAdapter extends BaseAdapter {
                     @Override
                     public void onClick(View v) {
 
-                        Intent postview = new Intent(context, PostActivity.class);
+                        Intent postview = new Intent(context, PostViewActivity.class);
                         postview.putExtra("for", "text");
                         context.startActivity(postview);
 //                getActivity().finish();
@@ -301,7 +301,7 @@ public class NewsfeedAdapter extends BaseAdapter {
                     public void onClick(View v) {
 
                         if (holder.txtfeedRv.getVisibility() == View.VISIBLE) {
-                            Intent postview = new Intent(context, PostActivity.class);
+                            Intent postview = new Intent(context, PostViewActivity.class);
                             postview.putExtra("for", "text");
                             context.startActivity(postview);
                         } else if (holder.imagefeedRv.getVisibility() == View.VISIBLE) {
@@ -419,7 +419,8 @@ public class NewsfeedAdapter extends BaseAdapter {
             try {
                 Date date1 = formatter.parse(feed.getPostDate());
 
-                DateFormat originalFormat = new SimpleDateFormat("dd MMM , HH:mm", Locale.UK);
+                //DateFormat originalFormat = new SimpleDateFormat("dd MMM , HH:mm", Locale.UK);
+                DateFormat originalFormat = new SimpleDateFormat("dd MMM HH:mm", Locale.UK);
 
                 String date = originalFormat.format(date1);
 

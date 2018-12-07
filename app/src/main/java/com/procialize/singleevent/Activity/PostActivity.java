@@ -109,14 +109,14 @@ import static org.apache.http.HttpVersion.HTTP_1_1;
 
 public class PostActivity extends AppCompatActivity implements OnClickListener {
     EditText postEt;
-    Button postbtn;
+    TextView postbtn;
     APIService mAPIService;
     ProgressBar progressbar;
     SessionManager sessionManager;
     String apikey = "";
     RequestBody fbody = null;
     String to;
-    ScaledImageView Uploadiv;
+    ImageView Uploadiv;
     String typepost;
     String userChoosenTask;
     File file;
@@ -428,13 +428,13 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
 
         postEt = findViewById(R.id.posttextEt);
         postbtn = findViewById(R.id.postbtn);
-        Uploadiv = findViewById(R.id.Uploadiv);
+        Uploadiv =  findViewById(R.id.Uploadiv);
         profileIV = findViewById(R.id.profileIV);
         displayRecordedVideo = findViewById(R.id.Upvideov);
         imgPlay = findViewById(R.id.imgPlay);
         progressbar = (ProgressBar) findViewById(R.id.progressbar);
 
-        postbtn.setBackgroundColor(Color.parseColor(colorActive));
+       // postbtn.setBackgroundColor(Color.parseColor(colorActive));
 
         postbtn.setOnClickListener(this);
 
@@ -503,11 +503,11 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
 
             picturePath = appDelegate.getPostImagePath();
             // Check for Internet Connection
-            if (picturePath.equalsIgnoreCase("")) {
+           /* if (picturePath.equalsIgnoreCase("")) {
                 Toast.makeText(PostActivity.this,
                         "Select Image", Toast.LENGTH_SHORT)
                         .show();
-            } else {
+            } else {*/
                 if (cd.isConnectingToInternet()) {
 
                     if (actionFlag.equalsIgnoreCase("image")) {
@@ -521,6 +521,10 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
                             // post_status_post
                             // .setText("What's on your mind (Not more than 500 characters)");
                             new SubmitPostTask().execute();
+                        }else{
+                            Toast.makeText(PostActivity.this,
+                                    "Select Image", Toast.LENGTH_SHORT)
+                                    .show();
                         }
                     } else {
                         System.out
@@ -544,7 +548,7 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
                     }
                 }
 
-            }
+           // }
         }
 
     }

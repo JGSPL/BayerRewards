@@ -129,7 +129,7 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
 
     private String picturePath = "";
     EditText postEt;
-    Button postbtn;
+    TextView postbtn;
     MyApplication appDelegate;
     ImageView Uploadiv;
     // Access Token Variable
@@ -537,7 +537,7 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
 		procializeDB = new DBHelper(PostEditActivity.this);
 		db = procializeDB.getReadableDatabase();
 
-        postbtn.setBackgroundColor(Color.parseColor(colorActive));
+     //   postbtn.setBackgroundColor(Color.parseColor(colorActive));
 
         //userData = procializeDB.getUserProfile();
 //

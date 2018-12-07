@@ -28,7 +28,9 @@
                 android:layout_height="80px"
                 android:layout_centerInParent="true"
                 android:layout_margin="5dp"
+                android:background="@drawable/border"
                 android:adjustViewBounds="true"
+                android:src="@drawable/profilepic_placeholder"
                 android:scaleType="centerCrop" />
 
 
@@ -39,6 +41,7 @@
                 android:gravity="center_vertical"
                 android:hint="@string/whatsmind"
                 android:textSize="@dimen/textsizesmall"
+                android:textColorHint="@color/black"
                 android:textColor="@color/black"/>
         </LinearLayout>
 
@@ -123,7 +126,10 @@
         android:id="@+id/feedll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginLeft="12dp"
         android:background="@drawable/newsfeedrowbg"
         android:orientation="vertical">
 
@@ -162,8 +168,8 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:layout_weight="6"
+                android:layout_marginTop="10dp"
+                android:layout_weight="5.75"
                 android:orientation="vertical">
 
                 <com.procialize.singleevent.Fonts.RobotoTextview
@@ -203,16 +209,29 @@
 
             </LinearLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2">
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
 
-                <LinearLayout
+                android:layout_weight="2.25">
+                <com.procialize.singleevent.Fonts.RobotoTextview
+                    android:id="@+id/dateTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="14 Aug 12:40"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginRight="5dp"
+                    android:gravity="right"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -225,24 +244,16 @@
 
                     <ImageView
                         android:id="@+id/moreIV"
-                        android:layout_width="30dp"
+                        android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:padding="5dp"
+                        android:padding="2dp"
                         android:src="@drawable/ic_more" />
 
                 </LinearLayout>
 
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
-                    android:id="@+id/dateTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="14 Aug"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textsizesmaller" />
 
-            </RelativeLayout>
+            </LinearLayout>
 
         </LinearLayout>
 
