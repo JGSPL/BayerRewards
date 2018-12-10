@@ -50,7 +50,7 @@
         android:gravity="top"
         android:orientation="vertical">
 
-        <com.procialize.vivo_app.Fonts.RobotoTextview
+        <com.procialize.singleevent.Fonts.RobotoTextview
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,26 +59,29 @@
             android:padding="5dp"
             android:textColor="@color/activetab"
             android:textSize="18sp" />
+
         <RelativeLayout
             android:id="@+id/relative"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/attendeetitle">
+            android:layout_below="@+id/speakertitle"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp">
 
             <RelativeLayout
                 android:id="@+id/layoutTop"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:background="@color/activetab"></RelativeLayout>
+                android:background="@color/colorPrimary"></RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/layoutBottom"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="160dp"
                 android:layout_below="@id/layoutTop"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/quiz_graph">
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/quiz_header">Po
 
             </RelativeLayout>
 
@@ -91,34 +94,17 @@
                 android:layout_marginBottom="-40dp"
                 android:adjustViewBounds="true">
 
-                <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                <ImageView
                     android:id="@+id/profileIV"
                     android:layout_width="96dp"
                     android:layout_height="96dp"
                     android:layout_centerInParent="true"
-                    android:adjustViewBounds="true"
-
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/quiz_logo" />
+                    android:background="@drawable/livepollroundback"
+                    android:src="@drawable/quizlogo" />
 
 
             </RelativeLayout>
         </RelativeLayout>
-
-
-        <!--
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="220dp"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-
-                        android:background="@drawable/quiz_header"/>
-
-                </LinearLayout>
-        -->
 
         <ListView
             android:id="@+id/quiz_list"
@@ -129,7 +115,7 @@
             android:dividerHeight="5dp"
             android:smoothScrollbar="true" />
 
-        <com.procialize.vivo_app.Fonts.RobotoTextview
+        <com.procialize.singleevent.Fonts.RobotoTextview
             android:id="@android:id/empty"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

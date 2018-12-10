@@ -3,11 +3,11 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.procialize.vivo_app"
+        applicationId "com.procialize.singleevent"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0.0"
+        versionCode 2
+        versionName "1.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
@@ -110,7 +110,6 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.5.0'
     implementation "org.apache.httpcomponents:httpcore:4.4.5"
     implementation "org.apache.httpcomponents:httpmime:4.3.6"
-    implementation 'com.afollestad.material-dialogs:core:0.8.5.9'
     implementation 'info.guardianproject.netcipher:netcipher:1.2'
     compile 'com.afollestad.material-dialogs:core:0.8.5.9'
 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context="com.procialize.vivo_app.InnerDrawerActivity.QRScanActivity">
+    tools:context="com.procialize.singleevent.InnerDrawerActivity.QRScanActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -69,14 +69,14 @@
                 android:layout_weight="1"
                 android:gravity="center">
 
-                <com.procialize.vivo_app.Fonts.RobotoTextview
+                <com.procialize.singleevent.Fonts.RobotoTextview
                     android:id="@+id/signup_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin"
                     android:layout_marginTop="@dimen/margin"
                     android:text="@string/createcontact"
-                    android:textColor="@color/activetab"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/textsizenormal"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -93,23 +93,22 @@
                     android:layout_height="match_parent"
                     android:layout_weight="9">
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:focusableInTouchMode="true">
+                        android:focusableInTouchMode="true"
+                        android:orientation="vertical">
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/edit_username"
                             style="@style/TextLabel"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/username"
-                            android:textColor="@color/colorwhite"
-                            android:textSize="@dimen/textsizesmall"
-                            android:theme="@style/EditTextHint"
-                            android:visibility="gone">
+                            android:hint="@string/firstname"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/textsizesmall">
 
-                            <com.procialize.vivo_app.Fonts.RobotoTextInputEditext
+                            <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                                 android:id="@+id/edit_username_edit"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -117,7 +116,7 @@
                                 android:layout_margin="@dimen/margin"
                                 android:inputType="textPersonName"
                                 android:paddingLeft="10dp"
-                                android:textColor="@color/colorwhite"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/textsizesmall" />
                         </android.support.design.widget.TextInputLayout>
 
@@ -126,11 +125,9 @@
                             style="@style/TextLabel"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:theme="@style/EditTextHint"
-                            android:layout_below="@+id/edit_username"
-                            android:hint="@string/firstname">
+                            android:hint="@string/lastname">
 
-                            <com.procialize.vivo_app.Fonts.RobotoTextInputEditext
+                            <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                                 android:id="@+id/edit_first_name_edit"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -139,21 +136,18 @@
                                 android:layout_margin="@dimen/margin"
                                 android:inputType="textPersonName"
                                 android:paddingLeft="10dp"
-                                android:textColor="@color/colorwhite"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/textsizesmall" />
                         </android.support.design.widget.TextInputLayout>
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/edit_designation"
                             style="@style/TextLabel"
-                            android:theme="@style/EditTextHint"
-
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/edit_first_name"
                             android:hint="@string/designation">
 
-                            <com.procialize.vivo_app.Fonts.RobotoTextInputEditext
+                            <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                                 android:id="@+id/edit_designation_edit"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -162,7 +156,7 @@
                                 android:layout_margin="@dimen/margin"
                                 android:inputType="textPersonName"
                                 android:paddingLeft="10dp"
-                                android:textColor="@color/colorwhite"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/textsizesmall" />
                         </android.support.design.widget.TextInputLayout>
 
@@ -171,11 +165,9 @@
                             style="@style/TextLabel"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:theme="@style/EditTextHint"
-                            android:layout_below="@+id/edit_designation"
                             android:hint="@string/company">
 
-                            <com.procialize.vivo_app.Fonts.RobotoTextInputEditext
+                            <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                                 android:id="@+id/edit_company_name_edit"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -184,7 +176,7 @@
                                 android:layout_margin="@dimen/margin"
                                 android:inputType="textPersonName"
                                 android:paddingLeft="10dp"
-                                android:textColor="@color/colorwhite"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/textsizesmall" />
                         </android.support.design.widget.TextInputLayout>
 
@@ -193,11 +185,9 @@
                             style="@style/TextLabel"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:theme="@style/EditTextHint"
-                            android:layout_below="@+id/edit_company_name"
                             android:hint="@string/city">
 
-                            <com.procialize.vivo_app.Fonts.RobotoTextInputEditext
+                            <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                                 android:id="@+id/edit_city_edit"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -206,20 +196,19 @@
                                 android:layout_margin="@dimen/margin"
                                 android:inputType="textPersonName"
                                 android:paddingLeft="10dp"
-                                android:textColor="@color/colorwhite"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/textsizesmall"
                                 android:visibility="visible" />
                         </android.support.design.widget.TextInputLayout>
+
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/edit_email"
                             style="@style/TextLabel"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:theme="@style/EditTextHint"
-                            android:layout_below="@+id/edit_city"
                             android:hint="@string/hint_email">
 
-                            <com.procialize.vivo_app.Fonts.RobotoTextInputEditext
+                            <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                                 android:id="@+id/edit_email_edit"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -229,22 +218,19 @@
                                 android:inputType="textEmailAddress"
                                 android:minEms="20"
                                 android:paddingLeft="10dp"
-                                android:textColor="@color/colorwhite"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/textsizesmall"
                                 android:visibility="visible" />
                         </android.support.design.widget.TextInputLayout>
-
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/edit_mobile"
                             style="@style/TextLabel"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:theme="@style/EditTextHint"
-                            android:layout_below="@+id/edit_email"
                             android:hint="@string/mobile">
 
-                            <com.procialize.vivo_app.Fonts.RobotoTextInputEditext
+                            <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                                 android:id="@+id/edit_mobile_edit"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -255,17 +241,13 @@
                                 android:inputType="phone"
                                 android:minEms="20"
                                 android:paddingLeft="10dp"
-                                android:textColor="@color/colorwhite"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/textsizesmall"
                                 android:visibility="visible" />
                         </android.support.design.widget.TextInputLayout>
 
 
-
-
-
-
-                    </RelativeLayout>
+                    </LinearLayout>
                 </ScrollView>
             </LinearLayout>
 
@@ -276,7 +258,7 @@
                 android:elevation="@dimen/elevation"
                 android:gravity="center">
 
-                <com.procialize.vivo_app.Fonts.RobotoButton
+                <com.procialize.singleevent.Fonts.RobotoButton
                     android:id="@+id/save_btn_qr"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
@@ -287,17 +269,17 @@
                     android:gravity="center"
                     android:minHeight="40dp"
                     android:text="@string/save"
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorwhite"
                     android:textSize="@dimen/textsizesmall"
                     android:textStyle="normal" />
 
-                <com.procialize.vivo_app.Fonts.RobotoButton
+                <com.procialize.singleevent.Fonts.RobotoButton
                     android:id="@+id/cancel_btn_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/loginbutton"
                     android:text="@string/cancel"
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorwhite"
                     android:textSize="@dimen/textsizesmall"
                     android:textStyle="bold"
                     android:visibility="gone" />

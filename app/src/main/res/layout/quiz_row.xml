@@ -11,11 +11,12 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/agendabg"
+        android:layout_height="50dp"
+        android:id="@+id/linQuiz"
+        android:background="@color/activetab"
         android:gravity="center"
-        android:minHeight="60dp"
         android:orientation="horizontal"
+        android:minHeight="40dp"
         android:weightSum="10" >
 
         <LinearLayout
@@ -38,16 +39,16 @@
 
             <!-- Video Title -->
 
-            <com.procialize.vivo_app.Fonts.RobotoTextview
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/video_title_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dip"
-                android:gravity="left"
+                android:gravity="center"
                 android:maxLength="100"
                 android:singleLine="true"
-                android:text="Question"
-                android:textColor="@color/activetab"
+                android:text=""
+                android:textColor="@color/colorwhite"
                 android:textSize="18sp" />
         </LinearLayout>
 
@@ -59,8 +60,8 @@
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:background="@drawable/ic_rightarrow"
+                android:layout_height="wrap_content"
+                android:background="@drawable/right_arrow1"
                 android:visibility="visible" />
         </LinearLayout>
     </LinearLayout>

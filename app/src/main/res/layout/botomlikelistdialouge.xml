@@ -4,7 +4,7 @@
     android:layout_height="wrap_content">
 
 
-    <com.procialize.vivo_app.Fonts.RobotoTextview
+    <com.procialize.singleevent.Fonts.RobotoTextview
         android:text="@string/hint_likeby"
         android:textStyle="bold"
         android:textColor="@color/black"

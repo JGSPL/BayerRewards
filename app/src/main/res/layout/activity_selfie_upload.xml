@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context="com.procialize.vivo_app.InnerDrawerActivity.SelfieUploadActivity">
+    tools:context="com.procialize.singleevent.InnerDrawerActivity.SelfieUploadActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -56,8 +56,14 @@
             android:visibility="gone"
             android:orientation="vertical">
 
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-            <com.procialize.vivo_app.Fonts.RobotoTextview
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/txtTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -77,7 +83,7 @@
                 android:scaleType="centerCrop" />
 
 
-            <com.procialize.vivo_app.Fonts.RobotoTextInputEditext
+            <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                 android:id="@+id/editTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -85,31 +91,31 @@
                 android:hint="@string/caption"
                 android:minEms="20"
                 android:padding="15dp"
-                android:background="@drawable/newsfeedrowbg"
+                android:background="@color/colorwhite"
                 android:singleLine="true"
                 android:focusableInTouchMode="true"
                 android:gravity="left|center"
-                android:textColor="@color/colorwhite"
-                android:textColorHint="@color/colorwhite"
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/inactivetab"
                 android:textSize="@dimen/textsizenormal"
                 android:visibility="visible"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="15dp" />
 
-            <com.procialize.vivo_app.Fonts.RobotoButton
+            <com.procialize.singleevent.Fonts.RobotoButton
                 android:id="@+id/btnSubmit"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:alpha="1"
-                android:background="@drawable/bg_login"
+                android:background="@drawable/loginbutton"
                 android:elevation="4dp"
                 android:gravity="center"
                 android:minHeight="40dp"
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center"
                 android:text="@string/submit"
-                android:textColor="@color/black"
+                android:textColor="@color/colorwhite"
                 android:textSize="@dimen/textsizenormal"
                 android:textAllCaps="false"
                 android:textStyle="normal" />

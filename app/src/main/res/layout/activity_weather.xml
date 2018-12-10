@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/background"
     tools:context=".InnerDrawerActivity.WeatherActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -32,12 +31,13 @@
             android:minHeight="?attr/actionBarSize">
 
             <ImageView
+                android:id="@+id/headerlogoIv"
                 android:layout_marginLeft="-10dp"
                 android:layout_width="150dp"
                 android:contentDescription=" "
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/header_logo"/>
+                android:src="@drawable/splashlogo"/>
 
         </android.support.v7.widget.Toolbar>
 
@@ -45,22 +45,24 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <com.procialize.vivo_app.Fonts.RobotoTextview
+    <com.procialize.singleevent.Fonts.RobotoTextview
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/activetab"
+        android:textColor="#1F73BA"
         android:gravity="center"
+        android:id="@+id/twTitle"
         android:padding="4sp"
-        android:textSize="@dimen/textsizesmall"
+        android:textSize="20dp"
         android:text="Time and Weather"
         />
     
     <LinearLayout
-        android:background="@color/activetab"
+        android:background="#1F73BA"
         android:weightSum="2"
+        android:id="@+id/twLin"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="70dp">
 
         <LinearLayout
             android:layout_weight="1"
@@ -70,7 +72,7 @@
             android:layout_height="match_parent">
 
 
-            <com.procialize.vivo_app.Fonts.RobotoTextview
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/cityTv"
                 android:layout_marginLeft="25dp"
                 android:layout_width="wrap_content"
@@ -78,12 +80,12 @@
                 android:textColor="@color/colorwhite"
                 android:gravity="center"
                 android:padding="4sp"
-                android:textSize="@dimen/textsizenormal"
-                android:text=""
+                android:textSize="26dp"
+                android:text="Mumbai"
                 />
 
 
-            <com.procialize.vivo_app.Fonts.RobotoTextview
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/countryTv"
                 android:layout_marginLeft="25dp"
                 android:layout_width="wrap_content"
@@ -105,7 +107,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent">
 
-            <com.procialize.vivo_app.Fonts.RobotoTextview
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/dateTv"
                 android:layout_marginRight="25dp"
                 android:layout_width="wrap_content"
@@ -118,7 +120,7 @@
                 />
 
 
-            <com.procialize.vivo_app.Fonts.RobotoTextview
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/timeTv"
                 android:layout_marginRight="25dp"
                 android:layout_width="wrap_content"
@@ -137,22 +139,22 @@
 
     </LinearLayout>
 
-    <android.support.v4.widget.NestedScrollView
+   <!-- <android.support.v4.widget.NestedScrollView
         android:fillViewport="true"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent">-->
 
             <LinearLayout
                 android:orientation="vertical"
-                android:background="@color/inactivetab"
+                android:background="#F1F1F1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -169,16 +171,16 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content">
 
-                        <com.procialize.vivo_app.Fonts.RobotoTextview
+                        <com.procialize.singleevent.Fonts.RobotoTextview
                             android:id="@+id/dayTv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/activetab"
+                            android:textColor="#1F73BA"
                             android:padding="4sp"
                             android:layout_marginTop="10dp"
                             android:textStyle="bold"
                             android:textSize="@dimen/textsizesmall"
-                            android:text="Day"
+                            android:text=""
                             />
 
                         <LinearLayout
@@ -187,15 +189,15 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
-                            <com.procialize.vivo_app.Fonts.RobotoTextview
+                            <com.procialize.singleevent.Fonts.RobotoTextview
                                 android:id="@+id/tempTv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/activetab"
+                                android:textColor="#1F73BA"
                                 android:padding="4sp"
                                 android:textStyle="bold"
-                                android:textSize="35sp"
-                                android:text=""
+                                android:textSize="42sp"
+                                android:text="00"
                                 />
 
                             <LinearLayout
@@ -210,23 +212,23 @@
                                     android:layout_height="0dp">
 
                                 </LinearLayout>
-                                <com.procialize.vivo_app.Fonts.RobotoTextview
+                                <com.procialize.singleevent.Fonts.RobotoTextview
                                     android:id="@+id/cTv"
                                     android:layout_weight="1.25"
                                     android:layout_width="wrap_content"
                                     android:layout_height="0dp"
-                                    android:textColor="@color/activetab"
+                                    android:textColor="#1F73BA"
                                     android:textStyle="bold"
                                     android:textSize="@dimen/textsizesmall"
                                     android:text="C"
                                     />
 
-                                <com.procialize.vivo_app.Fonts.RobotoTextview
+                                <com.procialize.singleevent.Fonts.RobotoTextview
                                     android:id="@+id/fTv"
                                     android:layout_weight="1.25"
                                     android:layout_width="wrap_content"
                                     android:layout_height="0dp"
-                                    android:textColor="@color/activetab"
+                                    android:textColor="#1F73BA"
                                     android:textStyle="bold"
                                     android:visibility="invisible"
                                     android:textSize="@dimen/textsizesmall"
@@ -241,33 +243,42 @@
                         <LinearLayout
                             android:gravity="center"
                             android:layout_width="match_parent"
+                            android:orientation="horizontal"
                             android:layout_height="wrap_content">
+                            <ImageView
+                                android:src="@drawable/high"
+                                android:layout_width="wrap_content"
+                                android:id="@+id/highiv"
+                                android:layout_height="wrap_content" />
 
-                            <com.procialize.vivo_app.Fonts.RobotoTextview
+                            <com.procialize.singleevent.Fonts.RobotoTextview
                                 android:id="@+id/maxTv"
                                 android:layout_margin="3dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/activetab"
+                                android:textColor="#1F73BA"
                                 android:textStyle="bold"
-                                android:drawableTint="@color/activetab"
-                                android:drawableLeft="@drawable/high"
                                 android:textSize="@dimen/textsizesmall"
-                                android:text="00"
+                                android:text=""
                                 />
-                            <com.procialize.vivo_app.Fonts.RobotoTextview
+                            <ImageView
+                                android:src="@drawable/low"
+                                android:layout_width="wrap_content"
+                                android:id="@+id/lowiv"
+                                android:layout_height="wrap_content" />
+
+
+                            <com.procialize.singleevent.Fonts.RobotoTextview
                                 android:id="@+id/minTv"
                                 android:layout_margin="3dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/activetab"
+                                android:textColor="#1F73BA"
                                 android:textStyle="bold"
-                                android:drawableTint="@color/activetab"
-
                                 android:textSize="@dimen/textsizesmall"
-                                android:drawableLeft="@drawable/low"
                                 android:text=""
                                 />
+
 
                         </LinearLayout>
 
@@ -278,6 +289,7 @@
                         android:orientation="vertical"
                         android:layout_weight="1"
                         android:layout_width="0dp"
+                        android:layout_marginTop="10dp"
                         android:layout_height="wrap_content">
 
 
@@ -287,11 +299,11 @@
                             android:layout_width="100dp"
                             android:layout_height="100dp" />
 
-                        <com.procialize.vivo_app.Fonts.RobotoTextview
+                        <com.procialize.singleevent.Fonts.RobotoTextview
                             android:id="@+id/infoTv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/activetab"
+                            android:textColor="#1F73BA"
                             android:padding="4sp"
                             android:textStyle="bold"
                             android:textSize="@dimen/textsizesmall"
@@ -302,17 +314,33 @@
 
 
                 </LinearLayout>
+            </LinearLayout>
+
+    <android.support.v4.widget.NestedScrollView
+                    android:fillViewport="true"
+                    android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:background="#F1F1F1"
+
+                    android:layout_height="match_parent">
                 <LinearLayout
                     android:weightSum="2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.procialize.vivo_app.Fonts.RobotoTextview
+                    <com.procialize.singleevent.Fonts.RobotoTextview
                         android:layout_marginRight="0dp"
                         android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorwhite"
+                        android:textColor="@color/black"
                         android:gravity="left"
                         android:padding="4sp"
                         android:textSize="@dimen/textsizesmall"
@@ -320,13 +348,13 @@
                         />
 
 
-                    <com.procialize.vivo_app.Fonts.RobotoTextview
+                    <com.procialize.singleevent.Fonts.RobotoTextview
                         android:id="@+id/indexTv"
                         android:layout_marginRight="25dp"
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorwhite"
+                        android:textColor="@color/black"
                         android:gravity="right"
                         android:padding="4sp"
                         android:textSize="@dimen/textsizesmall"
@@ -339,97 +367,97 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"/>
 
+                    <LinearLayout
+                        android:weightSum="2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.procialize.singleevent.Fonts.RobotoTextview
+                            android:layout_marginRight="0dp"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:gravity="left"
+                            android:padding="4sp"
+                            android:textSize="@dimen/textsizesmall"
+                            android:text="humidity"
+                            />
 
 
-                <LinearLayout
-                    android:weightSum="2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                        <com.procialize.singleevent.Fonts.RobotoTextview
+                            android:id="@+id/humidityTv"
+                            android:layout_marginRight="25dp"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:gravity="right"
+                            android:padding="4sp"
+                            android:textSize="@dimen/textsizesmall"
+                            android:text=""
+                            />
 
-                    <com.procialize.vivo_app.Fonts.RobotoTextview
-                        android:layout_marginRight="0dp"
-                        android:layout_weight="1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorwhite"
-                        android:gravity="left"
-                        android:padding="4sp"
-                        android:textSize="@dimen/textsizesmall"
-                        android:text="visibility"
-                        />
+                    </LinearLayout>
 
-
-                    <com.procialize.vivo_app.Fonts.RobotoTextview
-                        android:id="@+id/visibilityTv"
-                        android:layout_marginRight="25dp"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorwhite"
-                        android:gravity="right"
-                        android:padding="4sp"
-                        android:textSize="@dimen/textsizesmall"
-                        android:text=""
-                        />
-
-                </LinearLayout>
-
-                <View
-                    android:background="@color/colorgrey"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
-
-
-                <LinearLayout
-                    android:weightSum="2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.procialize.vivo_app.Fonts.RobotoTextview
-                        android:layout_marginRight="0dp"
-                        android:layout_weight="1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorwhite"
-                        android:gravity="left"
-                        android:padding="4sp"
-                        android:textSize="@dimen/textsizesmall"
-                        android:text="humidity"
-                        />
-
-
-                    <com.procialize.vivo_app.Fonts.RobotoTextview
-                        android:id="@+id/humidityTv"
-                        android:layout_marginRight="25dp"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorwhite"
-                        android:gravity="right"
-                        android:padding="4sp"
-                        android:textSize="@dimen/textsizesmall"
-                        android:text=""
-                        />
-
-                </LinearLayout>
 
 
                 <View
                     android:background="@color/colorgrey"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"/>
+                    <LinearLayout
+                        android:weightSum="2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.procialize.singleevent.Fonts.RobotoTextview
+                            android:layout_marginRight="0dp"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:gravity="left"
+                            android:padding="4sp"
+                            android:textSize="@dimen/textsizesmall"
+                            android:text="visibility"
+                            />
+
+
+                        <com.procialize.singleevent.Fonts.RobotoTextview
+                            android:id="@+id/visibilityTv"
+                            android:layout_marginRight="25dp"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:gravity="right"
+                            android:padding="4sp"
+                            android:textSize="@dimen/textsizesmall"
+                            android:text=""
+                            />
+
+                    </LinearLayout>
+
+
+
+
+                <View
+                    android:background="@color/colorgrey"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
 
                 <LinearLayout
                     android:weightSum="2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.procialize.vivo_app.Fonts.RobotoTextview
+                    <com.procialize.singleevent.Fonts.RobotoTextview
                         android:layout_marginRight="0dp"
                         android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorwhite"
+                        android:textColor="@color/black"
                         android:gravity="left"
                         android:padding="4sp"
                         android:textSize="@dimen/textsizesmall"
@@ -437,13 +465,13 @@
                         />
 
 
-                    <com.procialize.vivo_app.Fonts.RobotoTextview
+                    <com.procialize.singleevent.Fonts.RobotoTextview
                         android:id="@+id/feelTv"
                         android:layout_marginRight="25dp"
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorwhite"
+                        android:textColor="@color/black"
                         android:gravity="right"
                         android:padding="4sp"
                         android:textSize="@dimen/textsizesmall"
@@ -454,11 +482,13 @@
                 <View
                     android:background="@color/colorgrey"
                     android:layout_width="match_parent"
+                    android:layout_marginBottom="10dp"
                     android:layout_height="1dp"/>
 
 
 
-            </LinearLayout>
+
+
 
 
 

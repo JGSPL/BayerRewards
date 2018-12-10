@@ -6,7 +6,7 @@
     android:background="@drawable/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.procialize.vivo_app.InnerDrawerActivity.FeedBackActivity">
+    tools:context="com.procialize.singleevent.InnerDrawerActivity.FeedBackActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -45,7 +45,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <com.procialize.vivo_app.Fonts.RobotoTextview
+    <com.procialize.singleevent.Fonts.RobotoTextview
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
@@ -56,7 +56,7 @@
         android:text="@string/refresh"
         />
 
-    <com.procialize.vivo_app.Fonts.RobotoTextview
+    <com.procialize.singleevent.Fonts.RobotoTextview
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/activetab"
@@ -67,39 +67,28 @@
         android:text="@string/livepol"
         />
 
-<!--
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:orientation="vertical">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            android:background="@drawable/live_poll_header1"/>
-
-    </LinearLayout>
--->
     <RelativeLayout
         android:id="@+id/relative"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/attendeetitle">
+        android:layout_below="@+id/speakertitle"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp">
 
         <RelativeLayout
             android:id="@+id/layoutTop"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:background="@color/activetab"></RelativeLayout>
+            android:background="@color/colorPrimary"></RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/layoutBottom"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="160dp"
             android:layout_below="@id/layoutTop"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/live_poll_graph">
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/live_poll_header">
 
         </RelativeLayout>
 
@@ -112,14 +101,12 @@
             android:layout_marginBottom="-40dp"
             android:adjustViewBounds="true">
 
-            <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            <ImageView
                 android:id="@+id/profileIV"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_centerInParent="true"
-                android:adjustViewBounds="true"
-
-                android:scaleType="centerCrop"
+                android:background="@drawable/livepollroundback"
                 android:src="@drawable/live_poll_logo" />
 
 
@@ -127,23 +114,83 @@
     </RelativeLayout>
 
 
-    <ProgressBar
+<!--
+    <RelativeLayout
+        android:id="@+id/relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title">
+    <RelativeLayout
+        android:id="@+id/layoutTop"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/activetab"></RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutBottom"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/layoutTop"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/agendabg">
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/layoutBottom"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="-40dp"
+        android:adjustViewBounds="true">
+
+        <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/image_border"
+            android:src="@drawable/live_poll_logo" />
+
+
+    </RelativeLayout>
+</RelativeLayout>
+-->
+
+
+
+
+<ProgressBar
         android:id="@+id/progressBar"
         android:visibility="gone"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <LinearLayout
         android:id="@+id/pollrefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ListView
             android:id="@+id/pollRv"
-            android:padding="5dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:divider="@color/black"
+            android:dividerHeight="0px"
+            android:smoothScrollbar="true"
+            android:layout_margin="10dp">
 
-        </android.support.v7.widget.RecyclerView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+        </ListView>
+
+        <com.procialize.singleevent.Fonts.RobotoTextview
+            android:id="@android:id/empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|center_horizontal"
+            android:text="No active Poll"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+    </LinearLayout>
 </LinearLayout>

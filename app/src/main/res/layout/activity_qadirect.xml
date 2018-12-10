@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context="com.procialize.vivo_app.InnerDrawerActivity.QAAttendeeActivity">
+    tools:context="com.procialize.singleevent.InnerDrawerActivity.QAAttendeeActivity">
 
 
     <android.support.design.widget.AppBarLayout
@@ -46,16 +46,16 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <com.procialize.vivo_app.Fonts.RobotoTextview
+    <com.procialize.singleevent.Fonts.RobotoTextview
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="4sp"
-        android:text="Ask Vivo"
-        android:textColor="@color/activetab"
+        android:text="@string/qadirect"
+        android:textColor="@color/black"
         android:textSize="@dimen/textsizenormal" />
 
-    <com.procialize.vivo_app.Fonts.RobotoButton
+    <com.procialize.singleevent.Fonts.RobotoButton
         android:id="@+id/postbtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -63,11 +63,11 @@
         android:layout_marginLeft="@dimen/margin"
         android:layout_marginRight="@dimen/margin"
         android:layout_marginTop="@dimen/margin"
-        android:background="@drawable/bg_login"
+        android:background="@drawable/speakerbtnbg"
         android:gravity="center"
         android:padding="5dp"
         android:text="@string/postquestion"
-        android:textColor="@color/black"
+        android:textColor="@color/colorwhite"
         android:textSize="@dimen/textsizesmall"
         android:textAllCaps="false"/>
 

@@ -9,7 +9,7 @@
         android:id="@+id/mainLL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/speakerbtnbg"
+        android:background="#1F73BA"
         android:elevation="@dimen/elevation"
         android:orientation="horizontal"
         android:translationZ="@dimen/elevation">
@@ -22,7 +22,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <com.procialize.vivo_app.Fonts.RobotoTextview
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/nameTv"
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -34,7 +34,7 @@
                 android:textColor="@color/colorwhite"
                 android:textSize="@dimen/textsizesmall" />
 
-            <com.procialize.vivo_app.Fonts.RobotoTextview
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/dateTv"
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -47,7 +47,7 @@
                 android:textSize="@dimen/textsizesmall" />
 
 
-            <com.procialize.vivo_app.Fonts.RobotoTextview
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/typev"
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -70,7 +70,7 @@
 
 
 
-            <com.procialize.vivo_app.Fonts.RobotoTextview
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/maxTv"
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -82,7 +82,7 @@
                 android:textColor="@color/colorwhite"
                 android:textSize="@dimen/textsizesmall" />
 
-            <com.procialize.vivo_app.Fonts.RobotoTextview
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/minTv"
                 android:layout_weight="1"
                 android:layout_width="0dp"

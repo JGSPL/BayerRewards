@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context="com.procialize.vivo_app.InnerDrawerActivity.SelfieContestActivity">
+    tools:context="com.procialize.singleevent.InnerDrawerActivity.SelfieContestActivity">
 
 
     <android.support.design.widget.AppBarLayout
@@ -52,50 +52,26 @@
         android:orientation="vertical">
 
 
-        <com.procialize.vivo_app.Fonts.RobotoTextview
+        <com.procialize.singleevent.Fonts.RobotoTextview
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
             android:text="@string/video"
+            android:id="@+id/title"
             android:textColor="@color/activetab"
             android:textSize="@dimen/textsizenormal" />
-        <LinearLayout
+
+        <com.procialize.singleevent.Fonts.RobotoButton
             android:id="@+id/uploadbtn"
-            android:layout_width="250dp"
-            android:layout_marginTop="10dp"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:background="@drawable/bg_login"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_upload"
-                />
-            <com.procialize.vivo_app.Fonts.RobotoTextview
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Upload"
-                android:padding="5dp"
-                android:layout_marginLeft="10dp"
-                android:textColor="@color/black"/>
-        </LinearLayout>
-
-
-        <!--
-                <com.procialize.vivo_app.Fonts.RobotoButton
-                    android:id="@+id/uploadbtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_margin="3dp"
-                    android:background="@drawable/loginbutton"
-                    android:padding="2dp"
-                    android:text="@string/upload"
-                    android:textColor="@color/colorwhite" />
-        -->
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_margin="3dp"
+            android:background="@drawable/loginbutton"
+            android:padding="2dp"
+            android:text="@string/upload"
+            android:textColor="@color/colorwhite" />
 
 
         <ProgressBar

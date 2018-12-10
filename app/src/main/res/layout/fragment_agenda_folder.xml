@@ -18,13 +18,13 @@
             android:src="@drawable/logo"
             android:visibility="gone" />
 
-        <com.procialize.vivo_app.CustomTools.AutoScrollViewPager
+        <com.procialize.singleevent.CustomTools.AutoScrollViewPager
             android:id="@+id/pagerimage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp">
 
-        </com.procialize.vivo_app.CustomTools.AutoScrollViewPager>
+        </com.procialize.singleevent.CustomTools.AutoScrollViewPager>
     </LinearLayout>
 
     <LinearLayout
@@ -56,7 +56,7 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <com.procialize.vivo_app.Fonts.RobotoTextview
+                <com.procialize.singleevent.Fonts.RobotoTextview
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

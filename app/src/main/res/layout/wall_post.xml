@@ -3,22 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/background"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/pullrefresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
         android:alpha="0.8"
         android:gravity="center"
         android:text="Pull Down to Refresh"
-        android:textColor="@color/colorwhite"
+        android:textColor="#000"
         android:textSize="10sp"
-        android:visibility="visible"
-        android:layout_marginTop="2dp"/>
-
-
+        android:visibility="visible" />
 
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -31,8 +28,11 @@
             android:id="@+id/feedrecycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:dividerHeight="0dp"
-            android:smoothScrollbar="true" />
+            android:divider="@color/black"
+            android:dividerHeight="0px"
+            android:smoothScrollbar="true"
+            android:layout_margin="10dp"
+            />
 
         <ProgressBar
             android:id="@+id/progressBar"

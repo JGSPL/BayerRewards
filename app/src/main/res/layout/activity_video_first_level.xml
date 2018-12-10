@@ -6,7 +6,7 @@
     android:background="@drawable/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.procialize.vivo_app.InnerDrawerActivity.FeedBackActivity">
+    tools:context="com.procialize.singleevent.InnerDrawerActivity.FeedBackActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -46,7 +46,7 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <com.procialize.vivo_app.Fonts.RobotoTextview
+    <com.procialize.singleevent.Fonts.RobotoTextview
         android:id="@+id/tvname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,6 +54,7 @@
         android:gravity="center"
         android:padding="4sp"
         android:textSize="@dimen/textsizenormal"
+
         android:text="@string/video"
         />
 

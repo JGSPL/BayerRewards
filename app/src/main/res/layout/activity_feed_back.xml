@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context="com.procialize.vivo_app.InnerDrawerActivity.FeedBackActivity">
+    tools:context="com.procialize.singleevent.InnerDrawerActivity.FeedBackActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -45,21 +45,22 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <com.procialize.vivo_app.Fonts.RobotoTextview
+    <com.procialize.singleevent.Fonts.RobotoTextview
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="4sp"
         android:text="@string/refresh"
-        android:textColor="@color/colorwhite"
+        android:textColor="@color/black"
         android:textSize="@dimen/textsizesmall" />
 
-    <com.procialize.vivo_app.Fonts.RobotoTextview
+    <com.procialize.singleevent.Fonts.RobotoTextview
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="4sp"
         android:text="Survey"
+        android:id="@+id/title"
         android:textColor="@color/activetab"
         android:textSize="@dimen/textsizenormal" />
 

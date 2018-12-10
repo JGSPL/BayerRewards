@@ -19,11 +19,11 @@
             android:src="@drawable/logo"
             android:visibility="gone" />
 
-        <com.procialize.vivo_app.CustomTools.AutoScrollViewPager
+        <com.procialize.singleevent.CustomTools.AutoScrollViewPager
             android:id="@+id/pagerimage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="0dp"></com.procialize.vivo_app.CustomTools.AutoScrollViewPager>
+            android:layout_margin="0dp"></com.procialize.singleevent.CustomTools.AutoScrollViewPager>
     </LinearLayout>
 
     <LinearLayout
@@ -56,14 +56,14 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <com.procialize.vivo_app.Fonts.RobotoTextview
+                <com.procialize.singleevent.Fonts.RobotoTextview
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="Date"
-                    android:textColor="@color/colorwhite"
+                    android:textColor="@color/black"
                     android:textSize="18sp" />
 
                 <HorizontalScrollView
@@ -77,8 +77,8 @@
                         android:id="@android:id/tabs"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
-                        android:gravity="center_horizontal" />
+                        android:gravity="center_horizontal"
+                        />
                 </HorizontalScrollView>
             </LinearLayout>
 
@@ -94,12 +94,12 @@
                     android:orientation="vertical">
 
 
-                    <com.procialize.vivo_app.Fonts.RobotoTextview
+                    <com.procialize.singleevent.Fonts.RobotoTextview
                         android:id="@+id/txtname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="15dp"
-                        android:textColor="@color/colorwhite"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/textsizenormal"
                         android:textStyle="bold" />
 

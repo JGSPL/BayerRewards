@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context="com.procialize.vivo_app.Activity.SpeakerDetailsActivity">
+    tools:context="com.procialize.singleevent.Activity.SpeakerDetailsActivity">
 
 
     <android.support.design.widget.AppBarLayout
@@ -45,7 +45,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <com.procialize.vivo_app.Fonts.RobotoTextview
+    <com.procialize.singleevent.Fonts.RobotoTextview
         android:id="@+id/speakertitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -116,7 +116,7 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <com.procialize.vivo_app.Fonts.RobotoTextview
+        <com.procialize.singleevent.Fonts.RobotoTextview
             android:id="@+id/tvname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -133,7 +133,7 @@
             android:layout_marginRight="10dp"
             android:background="@color/linecolor" />
 
-        <com.procialize.vivo_app.Fonts.RobotoTextview
+        <com.procialize.singleevent.Fonts.RobotoTextview
             android:id="@+id/tvdesignation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -149,7 +149,7 @@
             android:layout_marginRight="10dp"
             android:background="@color/linecolor" />
 
-        <com.procialize.vivo_app.Fonts.RobotoTextview
+        <com.procialize.singleevent.Fonts.RobotoTextview
             android:id="@+id/tvcompany"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -166,8 +166,25 @@
             android:background="@color/linecolor" />
 
 
-        <com.procialize.vivo_app.Fonts.RobotoTextview
+        <com.procialize.singleevent.Fonts.RobotoTextview
             android:id="@+id/tvcity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textsizesmall" />
+
+        <View
+            android:id="@+id/viewfour"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/linecolor" />
+
+
+        <com.procialize.singleevent.Fonts.RobotoTextview
+            android:id="@+id/tvmobile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
@@ -197,7 +214,7 @@
                 android:layout_gravity="center"
                 android:orientation="vertical">
 
-                <com.procialize.vivo_app.Fonts.RobotoTextview
+                <com.procialize.singleevent.Fonts.RobotoTextview
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -216,7 +233,7 @@
                     android:theme="@style/RatingBar" />
             </LinearLayout>
 
-            <com.procialize.vivo_app.Fonts.RobotoButton
+            <com.procialize.singleevent.Fonts.RobotoButton
                 android:id="@+id/ratebtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -228,7 +245,7 @@
 
         </LinearLayout>
 
-        <com.procialize.vivo_app.Fonts.RobotoTextview
+        <com.procialize.singleevent.Fonts.RobotoTextview
             android:id="@+id/txtrate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

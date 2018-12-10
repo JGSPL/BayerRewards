@@ -2,20 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_margin="3dp"
-    android:background="@drawable/agendabg"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <LinearLayout
         android:gravity="center"
-        android:background="@drawable/speakerbtnbg"
+        android:id="@+id/notiLin"
+        android:background="#1F73BA"
         android:orientation="vertical"
-        android:layout_width="50dp"
+        android:layout_width="60dp"
         android:layout_height="match_parent">
         <ImageView
             android:id="@+id/ivtype"
-            android:layout_width="30dp"
-            android:layout_height="30dp" />
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
 
     </LinearLayout>
 
@@ -24,7 +24,7 @@
         android:elevation="@dimen/elevation"
         android:padding="5dp"
         android:translationZ="10dp"
-        android:layout_marginRight="10dp"
+        android:background="@color/colorwhite"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -40,15 +40,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content">
 
-                <com.procialize.vivo_app.CustomTools.RoundCornersImageView
+                <ImageView
                     android:layout_centerInParent="true"
-                    android:adjustViewBounds="true"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/profileIV"
-                    android:scaleType="centerCrop"
                     android:layout_alignParentTop="true"
                     android:src="@drawable/profilepic_placeholder"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"/>
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"/>
 
                 <ProgressBar
                     android:layout_alignParentTop="true"
@@ -69,7 +68,7 @@
                 android:layout_height="wrap_content">
 
 
-                <com.procialize.vivo_app.Fonts.RobotoTextview
+                <com.procialize.singleevent.Fonts.RobotoTextview
                     android:paddingLeft="5dp"
                     android:textSize="@dimen/textsizenormal"
                     android:layout_width="wrap_content"
@@ -77,41 +76,41 @@
                     android:layout_alignStart="@+id/designationTv"
                     android:layout_alignTop="@+id/imageView"
                     android:text=""
-                    android:textColor="@color/activetab"
+                    android:textColor="@color/black"
                     android:id="@+id/nameTv" />
 
-                <com.procialize.vivo_app.Fonts.RobotoTextview
+                <com.procialize.singleevent.Fonts.RobotoTextview
                     android:paddingLeft="5dp"
+                    android:textSize="@dimen/textsizesmall"
                     android:id="@+id/txt_msg"
 
-                    android:textSize="@dimen/textsizesmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/elevation"
                     android:text="Sent you message"
-                    android:textColor="@color/colorwhite" />
+                    android:textColor="@color/colorAccent" />
 
 
-                <com.procialize.vivo_app.Fonts.RobotoTextview
+                <com.procialize.singleevent.Fonts.RobotoTextview
                     android:paddingLeft="5dp"
                     android:textSize="@dimen/textsizesmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text=""
                     android:layout_margin="@dimen/elevation"
-                    android:textColor="@color/colorwhite"
+                    android:textColor="@color/colorAccent"
                     android:id="@+id/dataTv" />
 
 
-                <com.procialize.vivo_app.Fonts.RobotoButton
+                <com.procialize.singleevent.Fonts.RobotoButton
                     android:id="@+id/replyBtn"
                     android:text="@string/replybtn"
                     android:visibility="gone"
                     android:textSize="@dimen/textsizesmall"
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorwhite"
                     android:layout_margin="@dimen/elevation"
                     android:layout_gravity="center"
-                    android:background="@drawable/bg_login"
+                    android:background="@drawable/signupbutton"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp" />
 
@@ -134,20 +133,26 @@
                     android:src="@drawable/ic_rightarrow"
                     android:layout_width="30dp"
                     android:layout_height="40dp" />
-
             </LinearLayout>
 
 
         </LinearLayout>
-        <com.procialize.vivo_app.Fonts.RobotoTextview
+        <com.procialize.singleevent.Fonts.RobotoTextview
             android:paddingLeft="5dp"
             android:textSize="@dimen/textsizesmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/elevation"
             android:text=""
-            android:textColor="@color/colorwhite"
+            android:textColor="@color/colorAccent"
             android:id="@+id/messageTV" />
+
+        <ImageView
+            android:id="@+id/gifiv"
+            android:paddingLeft="5dp"
+            android:layout_margin="@dimen/elevation"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
 
 
     </LinearLayout>

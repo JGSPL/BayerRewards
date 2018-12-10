@@ -27,14 +27,14 @@
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_centerInParent="true"
-            android:progressTint="@color/inactivetab"
+            android:progressTint="@color/orange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <com.procialize.vivo_app.Fonts.RobotoTextview
+        <com.procialize.singleevent.Fonts.RobotoTextview
             android:id="@+id/nameTv"
             android:gravity="center"
-            android:background="@color/activetab"
+            android:background="@color/trans"
             android:paddingTop="2dp"
             android:paddingBottom="2dp"
             android:textSize="@dimen/textsizesmaller"

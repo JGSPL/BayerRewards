@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context="com.procialize.vivo_app.Activity.CommentActivity">
+    tools:context="com.procialize.singleevent.Activity.CommentActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -47,6 +47,7 @@
 
 
     <LinearLayout
+        android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/appBarLayout"
@@ -61,8 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:elevation="@dimen/elevation"
-                android:orientation="vertical"
-                android:translationZ="10dp">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -84,7 +84,7 @@
                             android:layout_weight="2"
                             android:gravity="center">
 
-                            <com.procialize.vivo_app.CustomTools.RoundCornersImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                            <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                                 android:id="@+id/profileIV"
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
@@ -110,7 +110,7 @@
                             android:gravity="center_vertical"
                             android:orientation="vertical">
 
-                            <com.procialize.vivo_app.Fonts.RobotoTextview
+                            <com.procialize.singleevent.Fonts.RobotoTextview
                                 android:id="@+id/nameTv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -119,102 +119,113 @@
                                 android:maxLines="1"
                                 android:padding="3dp"
                                 android:paddingLeft="5dp"
-                                android:text="@string/app_name"
+                                android:text=""
                                 android:textColor="@color/activetab"
                                 android:textSize="@dimen/textsizesmall" />
-
-                            <com.procialize.vivo_app.Fonts.RobotoTextview
-                                android:id="@+id/designationTv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/nameTv"
-                                android:layout_toEndOf="@+id/imageView"
-                                android:maxLines="1"
-                                android:padding="3dp"
-                                android:paddingLeft="5dp"
-                                android:text="@string/app_name"
-                                android:textColor="@color/colorwhite"
-                                android:textSize="@dimen/textsizesmall" />
-
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
 
-                                <com.procialize.vivo_app.Fonts.RobotoTextview
+                                <com.procialize.singleevent.Fonts.RobotoTextview
                                     android:id="@+id/companyTv"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_below="@+id/designationTv"
+                                    android:layout_below="@+id/nameTv"
                                     android:layout_toEndOf="@+id/imageView"
                                     android:layout_weight="3"
                                     android:maxLines="1"
                                     android:padding="3dp"
                                     android:paddingLeft="5dp"
-                                    android:text="@string/app_name"
-                                    android:textColor="@color/colorwhite"
+                                    android:text=""
+                                    android:textColor="@color/black"
                                     android:textSize="@dimen/textsizesmall" />
 
-                                <com.procialize.vivo_app.Fonts.RobotoTextview
+                                <com.procialize.singleevent.Fonts.RobotoTextview
                                     android:id="@+id/dateTv"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="4"
+                                    android:gravity="right"
                                     android:padding="3dp"
-                                    android:text="14 Aug"
-                                    android:textColor="@color/colorwhite"
+                                    android:text=""
+                                    android:textColor="@color/black"
                                     android:textSize="@dimen/textsizesmall" />
+
                             </LinearLayout>
+
+                            <com.procialize.singleevent.Fonts.RobotoTextview
+                                android:id="@+id/designationTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/designationTv"
+                                android:layout_toEndOf="@+id/imageView"
+                                android:maxLines="1"
+                                android:padding="3dp"
+                                android:paddingLeft="5dp"
+                                android:text=""
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/textsizesmall" />
+
 
                         </LinearLayout>
 
 
                     </LinearLayout>
 
-                    <com.procialize.vivo_app.Fonts.RobotoTextview
+                    <com.procialize.singleevent.Fonts.RobotoTextview
                         android:id="@+id/headingTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingLeft="15dp"
-                        android:text="Avl Cavers All Customer Segment"
-                        android:textColor="@color/colorwhite"
+                        android:text=""
+                        android:textColor="@color/black"
                         android:textSize="@dimen/textsizesmall" />
 
-                    <com.procialize.vivo_app.CustomTools.PixabayImageView
-                        android:id="@+id/feedimageIv"
+                    <FrameLayout
+                        android:id="@+id/frame_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginTop="-20dp"
-                        android:visibility="gone" />
+                        android:orientation="vertical">
 
-                    <ProgressBar
-                        android:id="@+id/feedprogress"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:visibility="gone" />
+                        <com.procialize.singleevent.CustomTools.PixabayImageView
+                            android:id="@+id/feedimageIv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginTop="-20dp"
+                            android:visibility="gone" />
 
-                    <ImageView
-                        android:id="@+id/playicon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:src="@drawable/play"
-                        android:transitionName="feedimage"
-                        android:visibility="gone" />
+                        <ProgressBar
+                            android:id="@+id/feedprogress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:visibility="gone" />
 
-                    <com.procialize.vivo_app.CustomTools.MyJZVideoPlayerStandard
-                        android:id="@+id/videoplayer"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:layout_centerInParent="true"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:visibility="gone" />
+                        <ImageView
+                            android:id="@+id/playicon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_gravity="center"
+                            android:src="@drawable/play"
+                            android:transitionName="feedimage"
+                            android:visibility="gone" />
+
+                        <com.procialize.singleevent.CustomTools.MyJZVideoPlayerStandard
+                            android:id="@+id/videoplayer"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:layout_centerInParent="true"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:visibility="gone" />
+
+                    </FrameLayout>
 
 
                     <LinearLayout
@@ -231,7 +242,7 @@
                             android:gravity="center"
                             android:orientation="horizontal">
 
-                            <com.procialize.vivo_app.Fonts.RobotoTextview
+                            <com.procialize.singleevent.Fonts.RobotoTextview
                                 android:id="@+id/likeTv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -239,7 +250,7 @@
                                 android:drawableRight="@drawable/ic_like"
                                 android:gravity="center"
                                 android:text="0 Like"
-                                android:textColor="@color/activetab"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/textsizesmall" />
 
                         </LinearLayout>
@@ -247,7 +258,7 @@
                         <View
                             android:layout_width="1dp"
                             android:layout_height="25dp"
-                            android:background="@color/black" />
+                            android:background="@color/colorPrimaryDark" />
 
                         <LinearLayout
                             android:id="@+id/linearcomment"
@@ -257,7 +268,7 @@
                             android:gravity="center"
                             android:orientation="horizontal">
 
-                            <com.procialize.vivo_app.Fonts.RobotoTextview
+                            <com.procialize.singleevent.Fonts.RobotoTextview
                                 android:id="@+id/commentTv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -265,7 +276,7 @@
                                 android:drawableRight="@drawable/ic_comment"
                                 android:gravity="center"
                                 android:text="0 Comments"
-                                android:textColor="@color/activetab"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/textsizesmall" />
 
                         </LinearLayout>
@@ -273,7 +284,7 @@
                         <View
                             android:layout_width="1dp"
                             android:layout_height="25dp"
-                            android:background="@color/black" />
+                            android:background="@color/colorPrimaryDark" />
 
                         <LinearLayout
                             android:id="@+id/linearshare"
@@ -283,7 +294,7 @@
                             android:gravity="center"
                             android:orientation="horizontal">
 
-                            <com.procialize.vivo_app.Fonts.RobotoTextview
+                            <com.procialize.singleevent.Fonts.RobotoTextview
                                 android:id="@+id/sharetext"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -291,7 +302,7 @@
                                 android:drawableRight="@drawable/ic_share"
                                 android:gravity="center"
                                 android:text="Share"
-                                android:textColor="@color/activetab"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/textsizesmall" />
 
                         </LinearLayout>
@@ -340,22 +351,20 @@
                 android:layout_height="50dp"
                 android:src="@drawable/gif" />
 
-            <com.procialize.vivo_app.Fonts.RobotoEditext
+            <com.procialize.singleevent.Fonts.RobotoEditext
                 android:id="@+id/commentEt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="3"
-                android:background="@color/colorwhite"
+                android:background="@drawable/edittexthmbg"
                 android:imeOptions="actionSend|flagNoEnterAction"
                 android:inputType="textShortMessage|textAutoCorrect|textCapSentences|textMultiLine"
                 android:maxLines="20"
-                android:hint=""
                 android:padding="5dp"
-                android:textColorHint="@color/black"
                 android:textColor="@color/black" />
 
-            <com.procialize.vivo_app.Fonts.RobotoButton
+            <com.procialize.singleevent.Fonts.RobotoButton
                 android:id="@+id/commentBt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -363,7 +372,8 @@
                 android:layout_weight="7"
                 android:background="@drawable/loginbutton"
                 android:text="@string/comment"
-                android:textColor="@color/black"
+                android:textAllCaps="false"
+                android:textColor="@color/colorwhite"
                 android:textSize="@dimen/textsizesmall" />
 
 
@@ -408,7 +418,7 @@
                     android:padding="5dp"
                     android:src="@drawable/ic_back" />
 
-                <com.procialize.vivo_app.Fonts.RobotoEditext
+                <com.procialize.singleevent.Fonts.RobotoEditext
                     android:id="@+id/searchEt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context="com.procialize.vivo_app.InnerDrawerActivity.QAAttendeeActivity">
+    tools:context="com.procialize.singleevent.InnerDrawerActivity.QAAttendeeActivity">
 
 
     <android.support.design.widget.AppBarLayout
@@ -46,17 +46,18 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <com.procialize.vivo_app.Fonts.RobotoTextview
+    <com.procialize.singleevent.Fonts.RobotoTextview
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="4sp"
         android:text="@string/qa"
+        android:id="@+id/title"
         android:textColor="@color/activetab"
         android:textSize="@dimen/textsizenormal" />
 
 
-    <com.procialize.vivo_app.Fonts.RobotoTextview
+    <com.procialize.singleevent.Fonts.RobotoTextview
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin"
@@ -76,7 +77,7 @@
 
     </Spinner>
 
-    <com.procialize.vivo_app.Fonts.RobotoButton
+    <com.procialize.singleevent.Fonts.RobotoButton
         android:id="@+id/postbtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -11,7 +11,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <com.procialize.vivo_app.Fonts.RobotoTextview
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/editIV"
                 android:gravity="center"
                 android:padding="@dimen/padding"
@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"/>
 
-            <com.procialize.vivo_app.Fonts.RobotoTextview
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/deleteTv"
                 android:gravity="center"
                 android:padding="@dimen/padding"
@@ -41,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"/>
 
-            <com.procialize.vivo_app.Fonts.RobotoTextview
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/reportTv"
                 android:gravity="center"
                 android:padding="@dimen/padding"
@@ -57,7 +57,7 @@
                 android:layout_height="0.5dp"/>
 
 
-            <com.procialize.vivo_app.Fonts.RobotoTextview
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/hideTv"
                 android:gravity="center"
                 android:padding="@dimen/padding"
@@ -72,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"/>
 
-            <com.procialize.vivo_app.Fonts.RobotoTextview
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/reportuserTv"
                 android:gravity="center"
                 android:padding="@dimen/padding"
@@ -87,7 +87,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"/>
 
-            <com.procialize.vivo_app.Fonts.RobotoTextview
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/blockuserTv"
                 android:gravity="center"
                 android:padding="@dimen/padding"
@@ -102,7 +102,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"/>
 
-            <com.procialize.vivo_app.Fonts.RobotoTextview
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/cancelTv"
                 android:gravity="center"
                 android:padding="@dimen/padding"

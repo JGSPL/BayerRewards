@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context="com.procialize.vivo_app.Fragments.FeedFragment">
+    tools:context="com.procialize.singleevent.Fragments.FeedFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -23,7 +23,7 @@
             android:focusableInTouchMode="true">
 
 
-            <com.procialize.vivo_app.Fonts.RobotoTextview
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/pullrefresh"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
                 android:gravity="center"
                 android:padding="@dimen/padding"
                 android:text="@string/refresh"
-                android:textColor="@color/colorwhite"
+                android:textColor="@color/black"
                 android:textSize="@dimen/textsizesmall" />
 
             <LinearLayout
@@ -55,14 +55,13 @@
                     android:src="@drawable/profilepic_placeholder" />
 
 
-                <com.procialize.vivo_app.Fonts.RobotoTextview
+                <com.procialize.singleevent.Fonts.RobotoTextview
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:gravity="center_vertical"
                     android:hint="@string/whatsmind"
                     android:padding="4dp"
-                    android:textColorHint="@color/colorwhite"
                     android:textSize="@dimen/textsizenormal" />
             </LinearLayout>
 
@@ -74,7 +73,7 @@
                 android:layout_margin="@dimen/margin"
                 android:background="@drawable/linearlayoutbg"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="5dp">
 
                 <RelativeLayout
                     android:id="@+id/txtfeedRv"
@@ -94,7 +93,7 @@
                     android:id="@+id/viewone"
                     android:layout_width="1dp"
                     android:layout_height="30dp"
-                    android:background="@color/black" />
+                    android:background="@color/colorwhite" />
 
                 <RelativeLayout
                     android:id="@+id/imagefeedRv"
@@ -114,7 +113,7 @@
                     android:id="@+id/viewteo"
                     android:layout_width="1dp"
                     android:layout_height="30dp"
-                    android:background="@color/black" />
+                    android:background="@color/colorwhite" />
 
                 <RelativeLayout
                     android:id="@+id/videofeedRv"

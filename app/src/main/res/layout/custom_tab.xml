@@ -6,13 +6,13 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <com.procialize.vivo_app.Fonts.RobotoTextview
+    <com.procialize.singleevent.Fonts.RobotoTextview
         android:textSize="@dimen/textsizesmall"
         android:textColor="@color/colorwhite"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    </com.procialize.vivo_app.Fonts.RobotoTextview>
+    </com.procialize.singleevent.Fonts.RobotoTextview>
 
     <ImageView
         android:layout_width="wrap_content"

@@ -3,8 +3,8 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/colorAccent</item>
         <item name="colorAccent">@color/colorAccent</item>
 
 
@@ -40,30 +40,20 @@
 
     <style name="TextAppearence.App.TextInputLayout" parent="@android:style/TextAppearance">
 
-        <item name="android:textColorHint">@color/colorwhite</item>
+        <item name="android:textColorHint">@color/colorPrimary</item>
         <item name="android:textSize">@dimen/textsizesmall</item>
-        <item name="colorAccent">@color/colorwhite</item>
-        <item name="colorControlNormal">@color/colorwhite</item>
-        <item name="colorControlActivated">@color/colorwhite</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="colorControlNormal">@color/colorPrimaryDark</item>
+        <item name="colorControlActivated">@color/orange</item>
     </style>
-
-    <style name="EditTextHint" parent="Widget.Design.TextInputLayout">
-        <item name="colorAccent">@color/colorwhite</item>
-        <item name="android:textColor">@color/colorwhite</item>
-        <item name="android:textColorHint">@color/colorwhite</item>
-        <item name="colorControlNormal">@color/colorwhite</item>
-        <item name="colorControlActivated">@color/colorwhite</item>
-        <item name="colorControlHighlight">@color/colorwhite</item>
-    </style>
-
 
     <style name="TextLabel" parent="TextAppearance.AppCompat">
         <!-- Hint color and label color in FALSE state -->
-        <item name="android:textColorHint">@color/colorwhite</item>
+        <item name="android:textColorHint">@color/colorPrimary</item>
         <item name="android:textSize">@dimen/textsizesmall</item>
-        <item name="colorAccent">@color/colorwhite</item>
-        <item name="colorControlNormal">@color/colorwhite</item>
-        <item name="colorControlActivated">@color/colorwhite</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="colorControlNormal">@color/colorPrimaryDark</item>
+        <item name="colorControlActivated">@color/orange</item>
     </style>
 
     <style name="Base.Widget.Design.TabLayout" parent="android:Widget">
@@ -80,19 +70,18 @@
     <style name="MyCustomTabText" parent="TextAppearance.AppCompat.Button">
         <item name="android:textSize">10sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/activetab</item>
+        <item name="android:textColor">@android:color/black</item>
         <item name="android:textAllCaps">false</item>
     </style>
 
     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
-        <item name="color">@color/activetab</item>
+        <item name="color">@color/black</item>
     </style>
 
     <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
 
         <item name="android:textColor">@color/colorwhite</item>
-        <item name="android:background">@color/colorPrimary</item>
-        <item name="colorAccent">@color/orange</item>
+
 
     </style>
 
@@ -111,6 +100,7 @@
         <item name="android:colorPrimary">#00397F</item>
         <item name="android:colorAccent">@color/colorPrimary</item>
     </style>
+
     <style name="MyRadioButtonStyle" parent="@android:style/Widget.CompoundButton.RadioButton">
         <item name="android:button">@drawable/radio</item>
     </style>
@@ -126,15 +116,6 @@
         <item name="backgroundTint">#f1f1f1</item>
         <item name="background">@color/activetab</item>
         <item name="android:textColor">@color/colorwhite</item>
-
-    </style>
-    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
-
-        <item name="colorAccent">#ff0000</item>
-
-        <item name="android:textColor">#ff0000</item>
-
-        <item name="android:textColorHint">#ff0000</item>
 
     </style>
 

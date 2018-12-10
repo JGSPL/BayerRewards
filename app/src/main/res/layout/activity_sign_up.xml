@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context="com.procialize.vivo_app.Activity.SignUpActivity">
+    tools:context="com.procialize.singleevent.Activity.SignUpActivity">
 
 
   <android.support.v4.widget.NestedScrollView
@@ -19,7 +19,7 @@
           android:layout_height="match_parent">
 
 
-          <com.procialize.vivo_app.Fonts.RobotoTextview
+          <com.procialize.singleevent.Fonts.RobotoTextview
               android:id="@+id/textView8"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
-          <com.procialize.vivo_app.Fonts.RobotoTextview
+          <com.procialize.singleevent.Fonts.RobotoTextview
               android:id="@+id/textView9"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
                   android:textColor="@color/black"
                   android:textColorHint="@color/black">
 
-                  <com.procialize.vivo_app.Fonts.RobotoTextInputEditext
+                  <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                       android:id="@+id/input_email"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
                   android:textColor="@color/black"
                   android:textColorHint="@color/black">
 
-                  <com.procialize.vivo_app.Fonts.RobotoTextInputEditext
+                  <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                       android:id="@+id/input_firstname"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
@@ -121,7 +121,7 @@
                   android:textColor="@color/black"
                   android:textColorHint="@color/black">
 
-                  <com.procialize.vivo_app.Fonts.RobotoTextInputEditext
+                  <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                       android:id="@+id/input_lastname"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
@@ -142,7 +142,7 @@
                   android:textColor="@color/black"
                   android:textColorHint="@color/black">
 
-                  <com.procialize.vivo_app.Fonts.RobotoTextInputEditext
+                  <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                       android:id="@+id/input_designation"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
@@ -163,7 +163,7 @@
                   android:textColor="@color/black"
                   android:textColorHint="@color/black">
 
-                  <com.procialize.vivo_app.Fonts.RobotoTextInputEditext
+                  <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                       android:id="@+id/input_company"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
@@ -185,7 +185,7 @@
                   android:textColor="@color/black"
                   android:textColorHint="@color/black">
 
-                  <com.procialize.vivo_app.Fonts.RobotoTextInputEditext
+                  <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                       android:id="@+id/input_city"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
@@ -205,7 +205,7 @@
                   android:textColor="@color/black"
                   android:textColorHint="@color/black">
 
-                  <com.procialize.vivo_app.Fonts.RobotoTextInputEditext
+                  <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                       android:id="@+id/input_mobile"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
@@ -221,7 +221,7 @@
               </android.support.design.widget.TextInputLayout>
           </LinearLayout>
 
-          <com.procialize.vivo_app.Fonts.RobotoButton
+          <com.procialize.singleevent.Fonts.RobotoButton
               android:id="@+id/signupbtn"
               android:layout_margin="15dp"
               android:background="@drawable/signupbutton"

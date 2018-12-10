@@ -6,7 +6,7 @@
     android:background="@drawable/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.procialize.vivo_app.InnerDrawerActivity.EngagementActivity">
+    tools:context="com.procialize.singleevent.InnerDrawerActivity.EngagementActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -46,12 +46,13 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <com.procialize.vivo_app.Fonts.RobotoTextview
+    <com.procialize.singleevent.Fonts.RobotoTextview
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:textColor="@color/activetab"
         android:textSize="@dimen/textsizebigger"
         android:text="@string/engagement"
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -78,12 +79,11 @@
                 android:layout_height="150dp"
                 android:orientation="horizontal">
 
-                <com.procialize.vivo_app.Fonts.RobotoTextview
+                <com.procialize.singleevent.Fonts.RobotoTextview
                     android:id="@+id/selfieTv"
-                    android:background="@color/activetab"
-                    android:gravity="left"
-                    android:paddingLeft="10dp"
-                    android:textColor="@color/black"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
+                    android:textColor="@color/colorwhite"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
@@ -109,16 +109,14 @@
                 android:orientation="horizontal"
                 >
 
-                <com.procialize.vivo_app.Fonts.RobotoTextview
+                <com.procialize.singleevent.Fonts.RobotoTextview
                     android:id="@+id/videoTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:gravity="left"
-                    android:paddingLeft="10dp"
-
-                    android:textColor="@color/black"
-                    android:background="@color/activetab"
+                    android:gravity="center"
+                    android:textColor="@color/colorwhite"
+                    android:background="@color/colorPrimary"
                     android:text="Video Engagement"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 

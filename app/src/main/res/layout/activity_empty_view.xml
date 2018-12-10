@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context="com.procialize.vivo_app.Fragments.FeedFragment">
+    tools:context="com.procialize.singleevent.Fragments.FeedFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -61,13 +61,13 @@
         </android.support.design.widget.AppBarLayout>
 
 
-        <com.procialize.vivo_app.Fonts.RobotoTextview
+        <com.procialize.singleevent.Fonts.RobotoTextview
             android:id="@+id/text_empty"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="No Data Found"
-            android:textColor="@color/colorwhite"
+            android:textColor="@color/black"
             android:textSize="@dimen/textsizenormal" />
     </RelativeLayout>
 

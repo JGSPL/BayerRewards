@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context="com.procialize.vivo_app.InnerDrawerActivity.SelfieUploadActivity">
+    tools:context="com.procialize.singleevent.InnerDrawerActivity.SelfieUploadActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -57,14 +57,20 @@
             android:orientation="vertical"
             android:visibility="gone">
 
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-            <com.procialize.vivo_app.Fonts.RobotoTextview
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/txtTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Preview"
-                android:textColor="@color/activetab"
+                android:textColor="@color/black"
                 android:textSize="@dimen/textsizenormal"
                 android:textStyle="bold" />
 
@@ -72,9 +78,8 @@
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-
                 android:layout_marginTop="15dp">
-            <VideoView
+            <ImageView
                 android:id="@+id/videopreview"
                 android:layout_centerHorizontal="true"
                 android:layout_width="fill_parent"
@@ -87,20 +92,19 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_centerHorizontal="true"
-
                     android:layout_centerInParent="true"
                     android:src="@drawable/ic_media_play" />
             </RelativeLayout>
 
 
-            <com.procialize.vivo_app.Fonts.RobotoTextInputEditext
+            <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                 android:id="@+id/editTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/newsfeedrowbg"
+                android:background="@drawable/edittextfeedbg"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:gravity="left|center"
@@ -108,25 +112,25 @@
                 android:minEms="20"
                 android:padding="15dp"
                 android:singleLine="true"
-                android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/black"
                 android:textSize="@dimen/textsizenormal"
                 android:visibility="visible" />
 
-            <com.procialize.vivo_app.Fonts.RobotoButton
+            <com.procialize.singleevent.Fonts.RobotoButton
                 android:id="@+id/btnSubmit"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:alpha="1"
-                android:background="@drawable/bg_login"
+                android:background="@drawable/loginbutton"
                 android:elevation="4dp"
                 android:gravity="center"
                 android:minHeight="40dp"
                 android:text="Submit"
                 android:textAllCaps="false"
-                android:textColor="@color/black"
+                android:textColor="@color/colorwhite"
                 android:textSize="@dimen/textsizenormal"
                 android:textStyle="normal" />
 

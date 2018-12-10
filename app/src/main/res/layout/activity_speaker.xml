@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@drawable/background"
-    tools:context="com.procialize.vivo_app.Fragments.SpeakerFragment">
+    tools:context="com.procialize.singleevent.Fragments.SpeakerFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -47,7 +47,7 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <com.procialize.vivo_app.Fonts.RobotoTextview
+    <com.procialize.singleevent.Fonts.RobotoTextview
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
@@ -57,7 +57,7 @@
         android:text="@string/refresh"
         />
 
-    <com.procialize.vivo_app.Fonts.RobotoTextview
+    <com.procialize.singleevent.Fonts.RobotoTextview
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/activetab"
@@ -68,7 +68,7 @@
         />
 
 
-    <com.procialize.vivo_app.Fonts.RobotoTextInputEditext
+    <com.procialize.singleevent.Fonts.RobotoTextInputEditext
         android:background="@drawable/edittexthmbg"
         android:id="@+id/searchEt"
         android:layout_margin="@dimen/margin"

@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "158537856289",
-    "firebase_url": "https://vivoapp-219910.firebaseio.com",
-    "project_id": "vivoapp-219910",
-    "storage_bucket": "vivoapp-219910.appspot.com"
+    "project_number": "321746269511",
+    "firebase_url": "https://procializeevents.firebaseio.com",
+    "project_id": "procializeevents",
+    "storage_bucket": "procializeevents.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:158537856289:android:5134d48f7b7ec108",
+        "mobilesdk_app_id": "1:321746269511:android:9b6074a64b9965e6",
         "android_client_info": {
-          "package_name": "com.procialize.vivo_app"
+          "package_name": "com.procialize.singleevent"
         }
       },
       "oauth_client": [
         {
-          "client_id": "158537856289-ov3a23uuspa4rf7g1h6f3flj99tqat2p.apps.googleusercontent.com",
+          "client_id": "321746269511-g4aetlcaro5krmse1grp35s4qp2r2u4p.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDX-vVqRDQivTSJh5lGpEvOr4q-qa6NiyM"
+          "current_key": "AIzaSyALeU4GcoDm3ubuVfqLua3Cx8OHIvyYxmE"
         }
       ],
       "services": {

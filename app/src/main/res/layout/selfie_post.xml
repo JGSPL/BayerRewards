@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context="com.procialize.vivo_app.InnerDrawerActivity.SelfieUploadActivity">
+    tools:context="com.procialize.singleevent.InnerDrawerActivity.SelfieUploadActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -57,7 +57,15 @@
             android:orientation="vertical">
 
 
-            <com.procialize.vivo_app.Fonts.RobotoTextview
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/txtTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -77,7 +85,7 @@
                 android:scaleType="centerCrop" />
 
 
-            <com.procialize.vivo_app.Fonts.RobotoTextInputEditext
+            <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                 android:id="@+id/editTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -97,7 +105,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="15dp" />
 
-            <com.procialize.vivo_app.Fonts.RobotoButton
+            <com.procialize.singleevent.Fonts.RobotoButton
                 android:id="@+id/btnSubmit"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"

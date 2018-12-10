@@ -1,47 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/mainLL"
-    android:gravity="bottom"
-    android:background="@drawable/galleryitembg"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_margin="3dp"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="150dp">
+    android:layout_height="200dp"
+    android:layout_margin="3dp"
+    android:background="@drawable/galleryitembg"
+    android:gravity="bottom"
+    android:orientation="vertical">
+
     <RelativeLayout
-        android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
 
         <ImageView
-            android:layout_centerInParent="true"
-            android:layout_alignParentBottom="true"
             android:id="@+id/imageIv"
-            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="3dp"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
-            android:layout_width="match_parent"
-            android:layout_height="100dp" />
+            android:layout_marginTop="3dp"
+            android:scaleType="centerCrop" />
 
         <ProgressBar
-            android:layout_centerInParent="true"
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
 
-        <com.procialize.vivo_app.Fonts.RobotoTextview
+        <com.procialize.singleevent.Fonts.RobotoTextview
             android:id="@+id/nameTv"
-            android:gravity="center"
-            android:background="@color/trans"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
-            android:textSize="@dimen/textsizesmaller"
-            android:textColor="@color/colorwhite"
-            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@color/inactivetab"
+            android:gravity="center"
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp"
+            android:textColor="@color/colorwhite"
+            android:textSize="@dimen/textsizesmaller" />
     </RelativeLayout>
-
 
 
 </LinearLayout>

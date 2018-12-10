@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.procialize.vivo_app.InnerDrawerActivity.SelfieContestActivity">
+    tools:context="com.procialize.singleevent.InnerDrawerActivity.SelfieContestActivity">
 
 
     <android.support.design.widget.AppBarLayout
@@ -52,51 +52,28 @@
         android:layout_height="match_parent">
 
 
-        <com.procialize.vivo_app.Fonts.RobotoTextview
+        <com.procialize.singleevent.Fonts.RobotoTextview
             android:layout_margin="5dp"
             android:layout_gravity="center"
             android:textSize="@dimen/textsizenormal"
             android:textColor="@color/activetab"
             android:text="@string/selfie"
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-<!--
-        <com.procialize.vivo_app.Fonts.RobotoButton
+        <com.procialize.singleevent.Fonts.RobotoButton
+            android:id="@+id/uploadbtn"
             android:layout_margin="3dp"
-            android:layout_gravity="center"
-            android:textColor="@color/black"
+            android:layout_gravity="right"
+            android:textColor="@color/colorwhite"
             android:text="@string/upload"
-            android:drawableLeft="@drawable/ic_upload"
             android:background="@drawable/loginbutton"
             android:padding="2dp"
-            android:layout_width="250dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textAllCaps="false"/>
--->
-        <LinearLayout
-            android:id="@+id/uploadbtn"
-            android:layout_width="250dp"
-            android:layout_marginTop="10dp"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:background="@drawable/bg_login"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_upload"
-                />
-            <com.procialize.vivo_app.Fonts.RobotoTextview
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Upload"
-                android:padding="5dp"
-                android:layout_marginLeft="10dp"
-                android:textColor="@color/black"/>
-        </LinearLayout>
 
 
         <ProgressBar

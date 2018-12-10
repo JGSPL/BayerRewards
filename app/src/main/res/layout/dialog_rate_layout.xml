@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.procialize.vivo_app.Fonts.RobotoTextview
+        <com.procialize.singleevent.Fonts.RobotoTextview
             android:padding="5dp"
             android:textSize="@dimen/textsizenormal"
             android:textColor="@color/black"
@@ -47,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.procialize.vivo_app.Fonts.RobotoButton
+                <com.procialize.singleevent.Fonts.RobotoButton
                     android:layout_width="0dp"
                     android:id="@+id/ratebtn"
                     android:elevation="@dimen/elevation"
@@ -59,7 +59,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content" />
 
-                <com.procialize.vivo_app.Fonts.RobotoButton
+                <com.procialize.singleevent.Fonts.RobotoButton
                     android:layout_width="0dp"
                     android:id="@+id/canclebtn"
                     android:elevation="@dimen/elevation"

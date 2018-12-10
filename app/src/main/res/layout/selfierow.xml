@@ -29,18 +29,18 @@
         <LinearLayout
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:background="@color/trans"
+            android:background="@color/inactivetab"
             android:padding="5dp"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
-            <com.procialize.vivo_app.Fonts.RobotoTextview
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/countTv"
                 android:gravity="center"
                 android:padding="2dp"
                 android:textSize="@dimen/textsizesmaller"
-                android:textColor="@color/activetab"
+                android:textColor="@color/colorwhite"
                 android:layout_alignParentBottom="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.procialize.vivo_app.Fonts.RobotoTextview
+            <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/dataTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:padding="2dp"
-                android:textColor="@color/activetab"
+                android:textColor="@color/colorwhite"
                 android:textSize="@dimen/textsizesmaller" />
 
         </LinearLayout>
@@ -71,7 +71,6 @@
             android:src="@drawable/ic_more"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

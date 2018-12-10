@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context="com.procialize.vivo_app.Activity.PollDetailActivity">
+    tools:context="com.procialize.singleevent.Activity.PollDetailActivity">
 
 
     <android.support.design.widget.AppBarLayout
@@ -47,7 +47,14 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <com.procialize.vivo_app.Fonts.RobotoTextview
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.procialize.singleevent.Fonts.RobotoTextview
         android:id="@+id/txt_quiz"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -58,7 +65,7 @@
         android:textColor="@color/activetab"
         android:textSize="@dimen/textsizenormal" />
 
-    <com.procialize.vivo_app.Fonts.RobotoTextview
+    <com.procialize.singleevent.Fonts.RobotoTextview
         android:id="@+id/questionTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -85,7 +92,7 @@
         android:layout_margin="@dimen/margin"
         android:gravity="center">
 
-        <com.procialize.vivo_app.Fonts.RobotoButton
+        <com.procialize.singleevent.Fonts.RobotoButton
             android:id="@+id/subBtn"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
