@@ -600,15 +600,13 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
 //            startActivity(intent1);
 //            finish();
 //        } else {
-        if (requestCode == 2 && resultCode == RESULT_OK
-                && null != data) {
+        if (requestCode == 2 && resultCode == RESULT_OK && data.getData() !=null) {
 
 //            if (data == null) {
 //                Intent intent1 = new Intent(PostActivity.this, HomeActivity.class);
 //                startActivity(intent1);
 //                finish();
 //            } else {
-
             postEt.setHint("Say something about this photo");
 
             Uploadiv.setVisibility(View.VISIBLE);
