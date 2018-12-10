@@ -343,6 +343,7 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
                     }
                 })
                 .positiveText("CHOOSE")
+                .cancelable(false)
                 .show();
     }
 
@@ -357,6 +358,9 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
 
             cameraTask(pos);
 
+        }else
+        {
+            finish();
         }
 
     }
@@ -707,6 +711,9 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
             setpic2();
 
             // setPic();
+        }else
+        {
+            finish();
         }
 
 

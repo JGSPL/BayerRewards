@@ -1,6 +1,7 @@
 package com.procialize.singleevent.Utility;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -31,7 +32,6 @@ import java.util.regex.Pattern;
 
 public class Util
 {
-
     public static  void setTextViewDrawableColor(TextView textView, String color) {
         for (Drawable drawable : textView.getCompoundDrawables()) {
             if (drawable != null) {
@@ -146,4 +146,7 @@ public class Util
         }
         return bitmap;
     }
+
+
+
 }
