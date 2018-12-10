@@ -28,7 +28,6 @@
                 android:layout_height="80px"
                 android:layout_centerInParent="true"
                 android:layout_margin="5dp"
-                android:background="@drawable/border"
                 android:adjustViewBounds="true"
                 android:src="@drawable/profilepic_placeholder"
                 android:scaleType="centerCrop" />
@@ -218,12 +217,14 @@
                 android:layout_weight="2.25">
                 <com.procialize.singleevent.Fonts.RobotoTextview
                     android:id="@+id/dateTv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text=""
+                    android:layout_marginRight="5dp"
                     android:textColor="@color/black"
-                    android:textSize="12sp" />
+                    android:textSize="10sp"
+                    android:gravity="right"/>
 
 
                 <LinearLayout

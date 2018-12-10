@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -46,7 +47,7 @@ import retrofit2.Response;
 public class SpeakerDetailsActivity extends AppCompatActivity {
 
     String speakerid, city, country, company, designation, description, totalrating, name, profile, mobile;
-    TextView tvname, tvcompany, tvdesignation, tvcity, speakertitle, tvmobile;
+    TextView tvdesc, tvname, tvcompany, tvdesignation, tvcity, speakertitle, tvmobile;
     ImageView profileIV;
     Button ratebtn;
     APIService mAPIService;
@@ -59,7 +60,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
     ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid, colorActive;
-    View viewthree, viewtwo, viewone;
+    View viewthree, viewtwo, viewone, viewfive;
     RelativeLayout ratinglayout, layoutTop;
     RatingBar ratingbar;
     ImageView headerlogoIv;
@@ -127,6 +128,8 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
 
         SubmitAnalytics(apikey, eventid, "", "", "speakerDetail");
         tvname = findViewById(R.id.tvname);
+        tvdesc = findViewById(R.id.tvdesc);
+        tvdesc.setMovementMethod(new ScrollingMovementMethod());
         tvcompany = findViewById(R.id.tvcompany);
         tvdesignation = findViewById(R.id.tvdesignation);
         tvmobile = findViewById(R.id.tvmobile);
@@ -135,6 +138,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         profileIV = findViewById(R.id.profileIV);
         viewone = findViewById(R.id.viewone);
         viewtwo = findViewById(R.id.viewtwo);
+        viewfive = findViewById(R.id.viewfive);
         viewthree = findViewById(R.id.viewthree);
         ratinglayout = findViewById(R.id.ratinglayout);
         ratingbar = findViewById(R.id.ratingbar);
@@ -163,6 +167,20 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
             tvname.setVisibility(View.GONE);
         }
 
+        if (description != null) {
+            if (description.equalsIgnoreCase("")) {
+                tvdesc.setVisibility(View.GONE);
+                viewfive.setVisibility(View.GONE);
+            } else if (description.equalsIgnoreCase(" ")) {
+                tvdesc.setVisibility(View.GONE);
+                viewfive.setVisibility(View.GONE);
+            } else {
+                tvdesc.setText(description);
+            }
+        } else {
+            tvdesc.setVisibility(View.GONE);
+            viewfive.setVisibility(View.GONE);
+        }
 
         if (company != null && speaker_company.equalsIgnoreCase("1")) {
             if (company.equalsIgnoreCase("")) {
