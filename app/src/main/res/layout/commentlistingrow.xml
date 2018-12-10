@@ -63,7 +63,7 @@
 
                 <com.procialize.singleevent.Fonts.RobotoTextview
                     android:paddingLeft="5dp"
-                    android:textSize="@dimen/textsizenormal"
+                    android:textSize="@dimen/textsizesmall"
                     android:layout_alignParentTop="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
 
                 <com.procialize.singleevent.Fonts.RobotoTextview
                     android:paddingLeft="5dp"
-                    android:layout_marginTop="@dimen/margin"
+                    android:layout_marginTop="2dp"
                     android:textSize="@dimen/textsizesmall"
                     android:id="@+id/commentTv"
                     android:layout_width="wrap_content"
@@ -85,6 +85,7 @@
                 <com.procialize.singleevent.Fonts.RobotoTextview
                     android:paddingLeft="5dp"
                     android:textSize="@dimen/textsizesmall"
+                    android:layout_marginTop="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/commentTv"
