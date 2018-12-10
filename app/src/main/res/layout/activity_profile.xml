@@ -80,7 +80,9 @@
                         android:id="@+id/layoutTop"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
-                        android:background="@color/activetab"></RelativeLayout>
+                        android:background="@color/activetab">
+
+                    </RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/layoutBottom"
