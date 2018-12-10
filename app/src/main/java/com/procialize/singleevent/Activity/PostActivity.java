@@ -262,6 +262,7 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
                     }
                 })
                 .positiveText("CHOOSE")
+                .cancelable(false)
                 .show();
     }
 
@@ -274,6 +275,8 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
 
             cameraTask(pos);
 
+        }else {
+            finish();
         }
 
     }
@@ -600,15 +603,13 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
 //            startActivity(intent1);
 //            finish();
 //        } else {
-        if (requestCode == 2 && resultCode == RESULT_OK && data.getData() !=null) {
-
+        if (requestCode == 2 && resultCode == RESULT_OK && data.getData()!=null) {
 //            if (data == null) {
 //                Intent intent1 = new Intent(PostActivity.this, HomeActivity.class);
 //                startActivity(intent1);
 //                finish();
 //            } else {
             postEt.setHint("Say something about this photo");
-
             Uploadiv.setVisibility(View.VISIBLE);
 
             Uri selectedImage = data.getData();
@@ -681,8 +682,6 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
 
 
 //                                    pathToStoredVideo = getRealPathFromURIPathVideo(data.getData(),PostViewActivity.this);
-
-
                         if (Build.VERSION.SDK_INT > 22) {
                             pathToStoredVideo = ImagePath_MarshMallow.getPath(PostActivity.this, uri);
                             Log.d("video", "Recorded Video Path " + pathToStoredVideo);
@@ -724,8 +723,8 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
                 file = new File(selectedImagePath);
             }
         } else {
-            Intent intent1 = new Intent(PostActivity.this, HomeActivity.class);
-            startActivity(intent1);
+//            Intent intent1 = new Intent(PostActivity.this, HomeActivity.class);
+//            startActivity(intent1);
             finish();
         }
         if (data != null) {
@@ -822,11 +821,11 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
                     }
                 }
             }
-        }/* else {
-            Intent intent1 = new Intent(PostActivity.this, HomeActivity.class);
-            startActivity(intent1);
+        } else {
+//            Intent intent1 = new Intent(PostActivity.this, HomeActivity.class);
+//            startActivity(intent1);
             finish();
-        }*/
+        }
 //        }
     }
 

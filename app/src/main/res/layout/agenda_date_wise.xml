@@ -12,11 +12,9 @@
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:background="@drawable/agendabg"
-        android:elevation="@dimen/elevation"
         android:gravity="center"
         android:orientation="horizontal"
         android:padding="5dp"
-        android:translationZ="@dimen/elevation"
         android:weightSum="10">
 
 
