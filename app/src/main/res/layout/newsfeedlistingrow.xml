@@ -179,7 +179,7 @@
                     android:layout_alignStart="@+id/designationTv"
                     android:layout_alignTop="@+id/imageView"
                     android:paddingLeft="5dp"
-                    android:text="@string/app_name"
+                    android:text=""
                     android:textColor="@color/activetab"
                     android:textSize="15dp"
                     android:textStyle="bold" />
@@ -191,7 +191,7 @@
                     android:layout_below="@+id/nameTv"
                     android:layout_toEndOf="@+id/imageView"
                     android:paddingLeft="5dp"
-                    android:text="@string/app_name"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/textsizesmall" />
 
@@ -203,7 +203,7 @@
                     android:layout_below="@+id/designationTv"
                     android:layout_toEndOf="@+id/imageView"
                     android:paddingLeft="5dp"
-                    android:text="@string/app_name"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/textsizesmall" />
 
@@ -221,7 +221,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="14 Aug 12:40"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="12sp" />
 
@@ -263,7 +263,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
             android:paddingLeft="15dp"
-            android:text="Avl Cavers All Customer Segment"
+            android:text=""
             android:textColor="@color/black"
             android:textSize="@dimen/textsizesmall" />
 
