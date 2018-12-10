@@ -52,7 +52,7 @@ public class AgendaDetailActivity extends AppCompatActivity {
     List<EventSettingList> eventSettingLists;
 
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid,colorActive;
+    String eventid, colorActive;
     LinearLayout linear1, linear2, linear3;
     View viewtwo, viewone;
     RatingBar ratingbar;
@@ -208,7 +208,17 @@ public class AgendaDetailActivity extends AppCompatActivity {
         }
 
         if (description != null) {
-            tvdscription.setText(description);
+            if (description.equalsIgnoreCase("")) {
+                tvdscription.setVisibility(View.GONE);
+                linear3.setVisibility(View.GONE);
+                viewtwo.setVisibility(View.GONE);
+            } else if (description.equalsIgnoreCase(" ")) {
+                tvdscription.setVisibility(View.GONE);
+                linear3.setVisibility(View.GONE);
+                viewtwo.setVisibility(View.GONE);
+            } else {
+                tvdscription.setText(description);
+            }
         } else {
             tvdscription.setVisibility(View.GONE);
             linear3.setVisibility(View.GONE);
