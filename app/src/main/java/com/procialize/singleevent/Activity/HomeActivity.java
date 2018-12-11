@@ -501,8 +501,8 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                     editor.commit();
                 }
 
-               // SharedPreferences.Editor pref = getSharedPreferences("PROFILE_PICTURE", MODE_PRIVATE).edit();
-               // pref.clear();
+                // SharedPreferences.Editor pref = getSharedPreferences("PROFILE_PICTURE", MODE_PRIVATE).edit();
+                // pref.clear();
 
 
                 session.logoutUser();
@@ -637,22 +637,25 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         String profilepic = user.get(SessionManager.KEY_PIC);
 
         if (edit_profile_company.equalsIgnoreCase("0")) {
-            compantyTv.setVisibility(View.GONE);
+//            compantyTv.setVisibility(View.GONE);
+            compantyTv.setText("");
         } else {
             compantyTv.setVisibility(View.VISIBLE);
+            compantyTv.setText(company);
         }
 
         if (edit_profile_designation.equalsIgnoreCase("0")) {
-            designationTv.setVisibility(View.GONE);
+//            designationTv.setVisibility(View.GONE);
+            designationTv.setText("");
         } else {
             designationTv.setVisibility(View.VISIBLE);
+            designationTv.setText(designation);
         }
 
 
         nameTv.setText(name + " " + lname);
 //        lastNameTv.setText(lname);
-        designationTv.setText(designation);
-        compantyTv.setText(company);
+
 
         if (profilepic != null) {
             Glide.with(this).load(ApiConstant.profilepic + profilepic).listener(new RequestListener<Drawable>() {
@@ -787,9 +790,9 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         if (general_ifo.equalsIgnoreCase("1")) {
             adapter.addFragment(new GeneralInfo(), "General Info");
         }
-        if(news_feed.equalsIgnoreCase("1") && agenda.equalsIgnoreCase("0") &&
+        if (news_feed.equalsIgnoreCase("1") && agenda.equalsIgnoreCase("0") &&
                 attendee.equalsIgnoreCase("0") && speaker.equalsIgnoreCase("0") &&
-                general_ifo.equalsIgnoreCase("0")){
+                general_ifo.equalsIgnoreCase("0")) {
             adapter.addFragment(new WallFragment_POST(), "News Feed");
             tabLayout = (TabLayout) findViewById(R.id.tabs);
             AppBarLayout appTab = findViewById(R.id.appTab);

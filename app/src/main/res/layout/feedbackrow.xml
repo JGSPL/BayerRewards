@@ -4,8 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_margin="10dp"
-    android:background="@drawable/pollquizrow"
-
+    android:background="@color/qnarow"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp">
 
@@ -14,10 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="10"
-        android:elevation="@dimen/elevation"
         android:padding="10dp"
-        android:orientation="horizontal"
-        android:translationZ="@dimen/elevation">
+        android:orientation="horizontal">
 
 
         <LinearLayout
@@ -39,7 +36,7 @@
                 android:paddingLeft="10dp"
                 android:paddingTop="5dp"
                 android:text="Abheejit Saxena"
-                android:textColor="@color/black"
+                android:textColor="@color/colorwhite"
                 android:textSize="@dimen/textsizenormal" />
 
         </LinearLayout>
@@ -51,9 +48,9 @@
 
             <ImageView
                 android:id="@+id/ic_rightarrow"
-                android:src="@drawable/ic_rightarrow"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp" />
+                android:src="@drawable/right_arrow1"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
 
         </LinearLayout>
 

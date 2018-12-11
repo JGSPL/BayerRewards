@@ -25,7 +25,6 @@
             android:contentInsetLeft="0dp"
             android:contentInsetRight="0dp"
             android:contentInsetStart="0dp"
-            android:elevation="@dimen/elevation"
             android:minHeight="?attr/actionBarSize"
             app:contentInsetEnd="0dp"
             app:contentInsetLeft="0dp"
@@ -81,7 +80,6 @@
         android:layout_below="@+id/questionTv"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:elevation="@dimen/elevation"
         android:orientation="vertical"
         />
 
@@ -98,7 +96,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:background="@drawable/signupbutton"
-            android:elevation="@dimen/elevation"
             android:gravity="center"
             android:text="@string/submit"
             android:textColor="@color/colorwhite"

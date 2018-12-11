@@ -9,7 +9,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:background="#7898a9"
-        android:elevation="@dimen/elevation"
         android:orientation="vertical"
         android:translationZ="@dimen/elevation">
 

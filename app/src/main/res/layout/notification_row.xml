@@ -14,8 +14,8 @@
         android:layout_height="match_parent">
         <ImageView
             android:id="@+id/ivtype"
-            android:layout_width="20dp"
-            android:layout_height="20dp" />
+            android:layout_width="23dp"
+            android:layout_height="23dp" />
 
     </LinearLayout>
 
@@ -24,7 +24,7 @@
         android:elevation="@dimen/elevation"
         android:padding="5dp"
         android:translationZ="10dp"
-        android:background="@color/colorwhite"
+        android:background="@color/qnarow"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -46,16 +46,16 @@
                     android:id="@+id/profileIV"
                     android:layout_alignParentTop="true"
                     android:src="@drawable/profilepic_placeholder"
-                    android:layout_width="96dp"
-                    android:layout_height="96dp"/>
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"/>
 
                 <ProgressBar
                     android:layout_alignParentTop="true"
                     android:layout_centerInParent="true"
                     android:visibility="visible"
                     android:id="@+id/progressView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="60dp"
+                    android:layout_height="60dp" />
 
 
             </RelativeLayout>
@@ -70,7 +70,7 @@
 
                 <com.procialize.singleevent.Fonts.RobotoTextview
                     android:paddingLeft="5dp"
-                    android:textSize="@dimen/textsizesmall"
+                    android:textSize="17sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignStart="@+id/designationTv"

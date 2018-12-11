@@ -83,7 +83,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
     private DBHelper dbHelper;
     String getattendee;
     EditText posttextEt;
-    View viewtwo, viewthree, viewone;
+    View viewtwo, viewthree, viewone,viewtfour;
     ProgressDialog progressDialog;
     LinearLayout linearsaveandsend;
     ImageView headerlogoIv;
@@ -171,6 +171,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         viewtwo = findViewById(R.id.viewtwo);
         viewthree = findViewById(R.id.viewthree);
         viewone = findViewById(R.id.viewone);
+        viewtfour = findViewById(R.id.viewtfour);
         linearsaveandsend = findViewById(R.id.linearsaveandsend);
         saveContact = findViewById(R.id.saveContact);
         tvmob = findViewById(R.id.tvmob);
@@ -209,21 +210,26 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         try {
             if (company.equalsIgnoreCase("N A")) {
                 tvcompany.setVisibility(View.GONE);
+                viewthree.setVisibility(View.GONE);
             } else if (company != null && attendee_company.equalsIgnoreCase("1")) {
                 if (company.equalsIgnoreCase("")) {
                     tvcompany.setVisibility(View.GONE);
+                    viewthree.setVisibility(View.GONE);
                 } else if (company.equalsIgnoreCase(" ")) {
                     tvcompany.setVisibility(View.GONE);
+                    viewthree.setVisibility(View.GONE);
                 } else {
                     tvcompany.setText(company);
                 }
 
             } else {
                 tvcompany.setVisibility(View.GONE);
+                viewthree.setVisibility(View.GONE);
             }
         } catch (Exception e) {
             e.printStackTrace();
             tvcompany.setVisibility(View.GONE);
+            viewthree.setVisibility(View.GONE);
         }
 
 
@@ -257,8 +263,10 @@ public class AttendeeDetailActivity extends AppCompatActivity {
             } else if (designation != null && attendee_design.equalsIgnoreCase("1")) {
                 if (designation.equalsIgnoreCase("")) {
                     tvdesignation.setVisibility(View.GONE);
+                    viewtwo.setVisibility(View.GONE);
                 } else if (designation.equalsIgnoreCase(" ")) {
                     tvdesignation.setVisibility(View.GONE);
+                    viewtwo.setVisibility(View.GONE);
                 } else {
                     tvdesignation.setText(designation);
                 }
@@ -274,19 +282,24 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         try {
             if (city.equalsIgnoreCase("N A")) {
                 tvcity.setVisibility(View.GONE);
+                viewtfour.setVisibility(View.GONE);
             } else if (city != null && attendee_location.equalsIgnoreCase("1")) {
                 if (city.equalsIgnoreCase("")) {
                     tvcity.setVisibility(View.GONE);
+                    viewtfour.setVisibility(View.GONE);
                 } else if (city.equalsIgnoreCase(" ")) {
                     tvcity.setVisibility(View.GONE);
+                    viewtfour.setVisibility(View.GONE);
                 } else {
                     tvcity.setText(city);
                 }
             } else {
                 tvcity.setVisibility(View.GONE);
+                viewtfour.setVisibility(View.GONE);
             }
         } catch (Exception e) {
             tvcity.setVisibility(View.GONE);
+            viewtfour.setVisibility(View.GONE);
             e.printStackTrace();
         }
 

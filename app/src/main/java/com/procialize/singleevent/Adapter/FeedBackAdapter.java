@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.procialize.singleevent.GetterSetter.SurveyList;
@@ -38,11 +39,13 @@ public class FeedBackAdapter extends RecyclerView.Adapter<FeedBackAdapter.MyView
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTv;
         ImageView ic_rightarrow;
+        LinearLayout mainLL;
 
         public MyViewHolder(View view) {
             super(view);
             nameTv = (TextView) view.findViewById(R.id.nameTv);
-            ic_rightarrow = (ImageView)view.findViewById(R.id.ic_rightarrow);
+            ic_rightarrow = (ImageView) view.findViewById(R.id.ic_rightarrow);
+            mainLL = (LinearLayout) view.findViewById(R.id.mainLL);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -54,13 +57,13 @@ public class FeedBackAdapter extends RecyclerView.Adapter<FeedBackAdapter.MyView
     }
 
 
-    public FeedBackAdapter(Context context, List<SurveyList> speakerList,FeedBackAdapterListner listener) {
+    public FeedBackAdapter(Context context, List<SurveyList> speakerList, FeedBackAdapterListner listener) {
         this.surveyLists = speakerList;
-        this.listener=listener;
-        this.context=context;
+        this.listener = listener;
+        this.context = context;
 
         SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        colorActive = prefs.getString("colorActive","");
+        colorActive = prefs.getString("colorActive", "");
 
     }
 
@@ -76,14 +79,16 @@ public class FeedBackAdapter extends RecyclerView.Adapter<FeedBackAdapter.MyView
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final SurveyList survey = surveyLists.get(position);
         int colorInt = Color.parseColor(colorActive);
+        int color2= Color.parseColor("#ffffff");
 
-        ColorStateList csl = ColorStateList.valueOf(colorInt);
+        ColorStateList csl = ColorStateList.valueOf(color2);
         Drawable drawable = DrawableCompat.wrap(holder.ic_rightarrow.getDrawable());
         DrawableCompat.setTintList(drawable, csl);
         holder.ic_rightarrow.setImageDrawable(drawable);
 
 
         holder.nameTv.setText(survey.getName());
+        holder.mainLL.setBackgroundColor(colorInt);
 
     }
 

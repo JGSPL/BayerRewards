@@ -174,12 +174,13 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
                             height
                     );
 
+
                     LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.FILL_PARENT,
                             LinearLayout.LayoutParams.WRAP_CONTENT
                     );
-                    p.setMargins(5, 5, 5, 5);
-                    rdbtn.setPadding(10, 5, 10, 5);
+                    p.setMargins(15, 5, 5, 5);
+                    rdbtn.setPadding(10, 15, 20, 15);
                     rdbtn.setLayoutParams(p);
                     rdbtn.setTag(quizSpecificOptionListnew.get(i - 1).getOptionId());
 
@@ -191,6 +192,7 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
                     if (checkArray[position] != null) {
                         if (rdbtn.getText().toString().equalsIgnoreCase(checkArray[position])) {
                             rdbtn.setChecked(true);
+
                         }
                     }
 
@@ -314,8 +316,8 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
                             LinearLayout.LayoutParams.FILL_PARENT,
                             LinearLayout.LayoutParams.WRAP_CONTENT
                     );
-                    p.setMargins(5, 5, 5, 5);
-
+                    p.setMargins(15, 5, 5, 5);
+                    rdbtn.setPadding(10, 15, 20, 15);
                     rdbtn.setLayoutParams(p);
                     rdbtn.setTag(quizSpecificOptionListnew.get(i - 1).getOptionId());
 
@@ -464,16 +466,16 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
 //                    .findViewById(R.id.textno);
 
 
-            Typeface typeFace = Typeface.createFromAsset(activity.getAssets(),
-                    "Roboto-Light.ttf");
+            typeFace = Typeface.createFromAsset(activity.getAssets(),
+                    "DINPro-Light_13935.ttf");
 
             Typeface typeFace1 = Typeface.createFromAsset(activity.getAssets(),
-                    "Roboto-Light.ttf");
-            quiz_title_txt.setTypeface(typeFace1);
+                    "DINPro-Light_13935.ttf");
+//            quiz_title_txt.setTypeface(typeFace1);
 //            quiz_question_distruct.setTypeface(typeFace);
 //            ans_edit.setTypeface(typeFace);
 //            textno.setTypeface(typeFace);
-            textno1.setTypeface(typeFace);
+//            textno1.setTypeface(typeFace);
 
 //            viewGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 //                @Override

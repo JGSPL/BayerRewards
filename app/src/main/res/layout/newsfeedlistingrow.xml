@@ -40,7 +40,6 @@
                 android:gravity="center_vertical"
                 android:hint="@string/whatsmind"
                 android:textSize="@dimen/textsizesmall"
-                android:textColorHint="@color/black"
                 android:textColor="@color/black"/>
         </LinearLayout>
 

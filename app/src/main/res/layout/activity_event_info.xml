@@ -23,7 +23,6 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colortoolbar"
-            android:elevation="@dimen/elevation"
             android:contentInsetLeft="0dp"
             android:contentInsetStart="0dp"
             app:contentInsetLeft="0dp"
@@ -183,7 +182,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="4"
-        android:elevation="@dimen/elevation"
         android:gravity="center"
         android:orientation="vertical">
 

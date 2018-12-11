@@ -23,7 +23,6 @@
             android:contentInsetLeft="0dp"
             android:contentInsetRight="0dp"
             android:contentInsetStart="0dp"
-            android:elevation="@dimen/elevation"
             android:minHeight="?attr/actionBarSize">
 
             <ImageView

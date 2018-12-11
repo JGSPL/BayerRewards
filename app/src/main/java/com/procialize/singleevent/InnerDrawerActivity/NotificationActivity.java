@@ -99,27 +99,9 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
             }
         });
 
+
         headerlogoIv = findViewById(R.id.headerlogoIv);
-        // Util.logomethod(this,headerlogoIv);
-
-        if((logoImg.equalsIgnoreCase("")) || logoImg== null) {
-            headerlogoIv.setImageResource(R.drawable.header_logo);
-
-        }else{
-            Glide.with(this).load("http://www.procialize.info/uploads/app_logo/" + logoImg).listener(new RequestListener<Drawable>() {
-                @Override
-                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                    headerlogoIv.setImageResource(R.drawable.splashlogo);
-                    return true;
-                }
-
-                @Override
-                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                    return false;
-                }
-            }).into(headerlogoIv);
-
-        }
+        Util.logomethod(this,headerlogoIv);
 
 
         TextView notyHeader = findViewById(R.id.notyHeader);
@@ -209,20 +191,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
                 setContentView(R.layout.activity_empty_view);
                 ImageView imageView = findViewById(R.id.back);
                 TextView text_empty = findViewById(R.id.text_empty);
-
-                final ImageView headerlogoIv1 = findViewById(R.id.headerlogoIv);
-                Glide.with(this).load("http://www.procialize.info/uploads/app_logo/" + logoImg).listener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        headerlogoIv1.setImageResource(R.drawable.splashlogo);
-                        return true;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        return false;
-                    }
-                }).into(headerlogoIv1);
+                Util.logomethod(this,headerlogoIv);
                 text_empty.setText("Notification not available");
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override

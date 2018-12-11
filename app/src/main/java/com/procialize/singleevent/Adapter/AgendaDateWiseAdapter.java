@@ -73,8 +73,8 @@ String MY_PREFS_NAME = "ProcializeInfo";
 
         try {
 
-            SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss", Locale.ENGLISH);
-            SimpleDateFormat targetFormat = new SimpleDateFormat("dd MMM yyyy kk:mm");
+            SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.UK);
+            SimpleDateFormat targetFormat = new SimpleDateFormat("dd MMM yyyy hh:mm");
 
             Date startdate = originalFormat.parse(agenda.getSessionStartTime());
             Date enddate = originalFormat.parse(agenda.getSessionEndTime());

@@ -2,16 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:background="@drawable/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical"
     tools:context="com.procialize.singleevent.InnerDrawerActivity.FeedBackActivity">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/appBarLayout"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
 
@@ -20,25 +20,25 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colortoolbar"
-            android:elevation="@dimen/elevation"
-            android:contentInsetLeft="0dp"
-            android:contentInsetStart="0dp"
-            app:contentInsetLeft="0dp"
-            app:contentInsetStart="0dp"
-            android:contentInsetRight="0dp"
             android:contentInsetEnd="0dp"
-            app:contentInsetRight="0dp"
+            android:contentInsetLeft="0dp"
+            android:contentInsetRight="0dp"
+            android:contentInsetStart="0dp"
+            android:elevation="@dimen/elevation"
+            android:minHeight="?attr/actionBarSize"
             app:contentInsetEnd="0dp"
-            android:minHeight="?attr/actionBarSize">
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp">
 
             <ImageView
                 android:id="@+id/headerlogoIv"
-                android:layout_marginLeft="-10dp"
                 android:layout_width="150dp"
-                android:contentDescription=" "
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/header_logo"/>
+                android:layout_marginLeft="-10dp"
+                android:contentDescription=" "
+                android:src="@drawable/header_logo" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -46,42 +46,44 @@
     </android.support.design.widget.AppBarLayout>
 
     <com.procialize.singleevent.Fonts.RobotoTextview
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:gravity="center"
-        android:padding="@dimen/padding"
-        android:textSize="@dimen/textsizesmall"
-        android:text="@string/refresh"
-        />
-
-    <com.procialize.singleevent.Fonts.RobotoTextview
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/activetab"
-        android:gravity="center"
         android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
         android:padding="4sp"
-        android:textSize="@dimen/textsizenormal"
         android:text="Video"
-        />
+        android:textColor="@color/activetab"
+        android:textSize="@dimen/textsizenormal" />
 
+    <TextView
+        android:id="@+id/pullrefresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:alpha="0.8"
+        android:gravity="center"
+        android:text="Pull Down to Refresh"
+        android:textColor="@color/inactivetab"
+        android:textSize="10sp"
+        android:visibility="visible" />
 
     <ProgressBar
-        android:visibility="gone"
-        android:layout_gravity="center"
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/videoRvrefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/videoRv"
-            android:padding="10dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="10dp">
 
         </android.support.v7.widget.RecyclerView>
     </android.support.v4.widget.SwipeRefreshLayout>

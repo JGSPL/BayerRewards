@@ -118,7 +118,7 @@ public class QADirectAdapter extends RecyclerView.Adapter<QADirectAdapter.MyView
         try {
             Date date1 = formatter.parse(question.getCreated());
 
-            DateFormat originalFormat = new SimpleDateFormat("dd MMM , yyyy KK:mm", Locale.ENGLISH);
+            DateFormat originalFormat = new SimpleDateFormat("dd MMM yyyy HH:mm", Locale.UK);
 
             String date = originalFormat.format(date1);
 

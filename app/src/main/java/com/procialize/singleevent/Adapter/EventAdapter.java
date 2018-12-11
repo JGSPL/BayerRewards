@@ -126,7 +126,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
             Date date1 = formatter.parse(evnt.getEventStart());
             Date date2 = formatter.parse(evnt.getEvent_end());
 
-            DateFormat originalFormat = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
+            DateFormat originalFormat = new SimpleDateFormat("dd MMM yyyy", Locale.UK);
 
             String date = originalFormat.format(date1);
             String date3 = originalFormat.format(date2);
