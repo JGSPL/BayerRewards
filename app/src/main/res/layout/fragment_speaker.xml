@@ -2,49 +2,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/background"
+    android:orientation="vertical"
     tools:context="com.procialize.singleevent.Fragments.SpeakerFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <com.procialize.singleevent.Fonts.RobotoTextview
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:gravity="center"
-        android:padding="@dimen/padding"
-        android:textSize="@dimen/textsizesmall"
-        android:text="@string/refresh"
-        />
-
     <com.procialize.singleevent.Fonts.RobotoTextInputEditext
-        android:background="@drawable/edittexthmbg"
         android:id="@+id/searchEt"
-        android:layout_margin="@dimen/margin"
-        android:hint="@string/search_speaker_here"
-        android:textSize="@dimen/textsizesmall"
-        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"/>
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edittexthmbg"
+        android:hint="@string/search_speaker_here"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textsizesmall" />
+
+    <TextView
+        android:id="@+id/pullrefresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alpha="0.8"
+        android:gravity="center"
+        android:text="Pull Down to Refresh"
+        android:textColor="@color/inactivetab"
+        android:textSize="10sp"
+        android:visibility="visible"
+        android:layout_margin="5dp"/>
+
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:visibility="gone"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/speakerfeedrefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/speakerrecycler"
-            android:scrollbars="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
 

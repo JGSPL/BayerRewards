@@ -85,19 +85,7 @@ public class DocumentsActivity extends AppCompatActivity implements DocumentsAda
         });
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
-       // Util.logomethod(this,headerlogoIv);
-        Glide.with(this).load("http://www.procialize.info/uploads/app_logo/" + logoImg).listener(new RequestListener<Drawable>() {
-            @Override
-            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                headerlogoIv.setImageResource(R.drawable.splashlogo);
-                return true;
-            }
-
-            @Override
-            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                return false;
-            }
-        }).into(headerlogoIv);
+        Util.logomethod(this,headerlogoIv);
 
         docRv = findViewById(R.id.docRv);
 
@@ -191,8 +179,8 @@ public class DocumentsActivity extends AppCompatActivity implements DocumentsAda
                 setContentView(R.layout.activity_empty_view);
                 ImageView imageView = findViewById(R.id.back);
                 TextView text_empty = findViewById(R.id.text_empty);
-                final ImageView headerlogoIv1 = findViewById(R.id.headerlogoIv);
-                Util.logomethod(this,headerlogoIv1);
+                headerlogoIv = findViewById(R.id.headerlogoIv);
+                Util.logomethod(this, headerlogoIv);
 
                 text_empty.setText("Document not available");
                 imageView.setOnClickListener(new View.OnClickListener() {

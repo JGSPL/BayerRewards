@@ -22,7 +22,6 @@
             android:layout_margin="5dp"
             android:background="@drawable/agendabg"
             android:drawableRight="@drawable/ic_rightarrow"
-            android:elevation="10dp"
             android:gravity="center"
             android:padding="10dp"
             android:text="CURRENCY CONVERTOR"

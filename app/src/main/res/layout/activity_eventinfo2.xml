@@ -76,7 +76,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="0.8"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -84,9 +84,7 @@
                 android:id="@+id/event_info_heading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:gravity="center"
-                android:padding="2dp"
                 android:text="@string/eventInfo"
                 android:textColor="@color/activetab"
                 android:textSize="18sp"

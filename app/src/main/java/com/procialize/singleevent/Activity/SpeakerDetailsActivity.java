@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
@@ -64,6 +65,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
     RelativeLayout ratinglayout, layoutTop;
     RatingBar ratingbar;
     ImageView headerlogoIv;
+    Typeface typeface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +97,8 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         headerlogoIv = findViewById(R.id.headerlogoIv);
         Util.logomethod(this, headerlogoIv);
 
+        typeface = Typeface.createFromAsset(getAssets(),
+                "DINPro-Regular.ttf");
 
         mAPIService = ApiUtils.getAPIService();
         sessionManager = new SessionManager(SpeakerDetailsActivity.this);
@@ -130,6 +134,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         tvname = findViewById(R.id.tvname);
         tvdesc = findViewById(R.id.tvdesc);
         tvdesc.setMovementMethod(new ScrollingMovementMethod());
+        tvdesc.setTypeface(typeface);
         tvcompany = findViewById(R.id.tvcompany);
         tvdesignation = findViewById(R.id.tvdesignation);
         tvmobile = findViewById(R.id.tvmobile);

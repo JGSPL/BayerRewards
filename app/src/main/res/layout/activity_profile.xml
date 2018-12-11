@@ -8,45 +8,43 @@
     android:orientation="vertical"
     tools:context="com.procialize.singleevent.Activity.ProfileActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-
-    </android.support.design.widget.AppBarLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colortoolbar"
-            android:contentInsetEnd="0dp"
-            android:contentInsetLeft="0dp"
-            android:contentInsetRight="0dp"
-            android:contentInsetStart="0dp"
-            android:elevation="@dimen/elevation"
-            android:minHeight="?attr/actionBarSize"
-            app:contentInsetEnd="0dp"
-            app:contentInsetLeft="0dp"
-            app:contentInsetRight="0dp"
-            app:contentInsetStart="0dp">
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            <ImageView
-                android:id="@+id/headerlogoIv"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="-10dp"
-                android:contentDescription=" " />
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colortoolbar"
+                android:contentInsetEnd="0dp"
+                android:contentInsetLeft="0dp"
+                android:contentInsetRight="0dp"
+                android:contentInsetStart="0dp"
+                android:minHeight="?attr/actionBarSize"
+                app:contentInsetEnd="0dp"
+                app:contentInsetLeft="0dp"
+                app:contentInsetRight="0dp"
+                app:contentInsetStart="0dp">
 
-        </android.support.v7.widget.Toolbar>
+                <ImageView
+                    android:id="@+id/headerlogoIv"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="-10dp"
+                    android:contentDescription=" " />
+
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -87,9 +85,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_below="@id/layoutTop"
-                        android:background="@drawable/agendabg"
+                        android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp">
+                        android:background="@drawable/agendabg">
 
                     </RelativeLayout>
 
@@ -144,8 +142,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/agendabg"
-                    android:orientation="vertical"
-                    >
+                    android:orientation="vertical">
 
 
                     <android.support.design.widget.TextInputLayout
@@ -154,9 +151,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:textColorHint="@color/trans"
                         android:paddingLeft="10dp"
-                        android:paddingRight="10dp">
+                        android:paddingRight="10dp"
+                        android:textColorHint="@color/trans">
 
                         <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                             android:id="@+id/Etfirstname"
@@ -175,9 +172,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:textColorHint="@color/trans"
                         android:paddingLeft="10dp"
-                        android:paddingRight="10dp">
+                        android:paddingRight="10dp"
+                        android:textColorHint="@color/trans">
 
                         <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                             android:id="@+id/Etlastname"
@@ -196,9 +193,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:textColorHint="@color/trans"
                         android:paddingLeft="10dp"
-                        android:paddingRight="10dp">
+                        android:paddingRight="10dp"
+                        android:textColorHint="@color/trans">
 
                         <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                             android:id="@+id/Etdesignation"
@@ -217,9 +214,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:textColorHint="@color/trans"
                         android:paddingLeft="10dp"
-                        android:paddingRight="10dp">
+                        android:paddingRight="10dp"
+                        android:textColorHint="@color/trans">
 
                         <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                             android:id="@+id/Etcompany"
@@ -237,9 +234,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:textColorHint="@color/trans"
                         android:paddingLeft="10dp"
-                        android:paddingRight="10dp">
+                        android:paddingRight="10dp"
+                        android:textColorHint="@color/trans">
 
                         <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                             android:id="@+id/Etmobile"
@@ -258,10 +255,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:textColorHint="@color/trans"
-                        android:visibility="gone"
                         android:paddingLeft="10dp"
-                        android:paddingRight="10dp">
+                        android:paddingRight="10dp"
+                        android:textColorHint="@color/trans"
+                        android:visibility="gone">
 
                         <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                             android:id="@+id/Etdescription"
@@ -280,9 +277,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:textColorHint="@color/trans"
                         android:paddingLeft="10dp"
-                        android:paddingRight="10dp">
+                        android:paddingRight="10dp"
+                        android:textColorHint="@color/trans">
 
                         <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                             android:id="@+id/Etcity"
@@ -300,9 +297,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:textColorHint="@color/trans"
                         android:paddingLeft="10dp"
-                        android:paddingRight="10dp">
+                        android:paddingRight="10dp"
+                        android:textColorHint="@color/trans">
 
                         <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                             android:id="@+id/Etemail"
@@ -320,10 +317,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:textColorHint="@color/trans"
-                        android:visibility="gone"
                         android:paddingLeft="10dp"
-                        android:paddingRight="10dp">
+                        android:paddingRight="10dp"
+                        android:textColorHint="@color/trans"
+                        android:visibility="gone">
 
                         <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                             android:id="@+id/Etcountry"

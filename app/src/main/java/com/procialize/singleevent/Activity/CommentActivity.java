@@ -1245,7 +1245,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
             try {
                 Date date1 = formatter.parse(date);
 
-                DateFormat originalFormat = new SimpleDateFormat("dd MMM,KK:mm", Locale.ENGLISH);
+                DateFormat originalFormat = new SimpleDateFormat("dd MMM,HH:mm", Locale.UK);
 
                 String date = originalFormat.format(date1);
 

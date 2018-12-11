@@ -79,7 +79,7 @@ public class VideoContestUploadActivity extends AppCompatActivity {
     private static final int REQUEST_VIDEO_CAPTURE = 300;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventId,colorActive;
+    String eventId, colorActive;
     String angle = "0";
     ImageView headerlogoIv;
 
@@ -89,7 +89,7 @@ public class VideoContestUploadActivity extends AppCompatActivity {
         setContentView(R.layout.activity_video_upload);
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventId = prefs.getString("eventid", "1");
-        colorActive = prefs.getString("colorActive","");
+        colorActive = prefs.getString("colorActive", "");
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -120,7 +120,7 @@ public class VideoContestUploadActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         sessionManager = new SessionManager(this);
 
-        TextView header = (TextView)findViewById(R.id.txtTitle);
+        TextView header = (TextView) findViewById(R.id.txtTitle);
         header.setTextColor(Color.parseColor(colorActive));
 
 
@@ -136,30 +136,29 @@ public class VideoContestUploadActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String data = editTitle.getText().toString();
-                if (data.equals("")) {
-                    Toast.makeText(VideoContestUploadActivity.this, "Enter Caption", Toast.LENGTH_SHORT).show();
-
-                } else {
-                    showProgress();
-
-
-                    RequestBody token = RequestBody.create(MediaType.parse("text/plain"), apikey);
-                    RequestBody eventid = RequestBody.create(MediaType.parse("text/plain"), eventId);
-                    RequestBody status = RequestBody.create(MediaType.parse("text/plain"), StringEscapeUtils.escapeJava(data));
-                    MultipartBody.Part body = null;
-
-                    if (file != null) {
-
-                        RequestBody reqFile = RequestBody.create(MediaType.parse("video/*"), file);
-                        body = MultipartBody.Part.createFormData("video_file", file.getName(), reqFile);
-                    }
+//                if (data.equals("")) {
+//                    Toast.makeText(VideoContestUploadActivity.this, "Enter Caption", Toast.LENGTH_SHORT).show();
+//
+//                } else {
+                showProgress();
 
 
-                    PostVideoContest(token, eventid, status, body);
+                RequestBody token = RequestBody.create(MediaType.parse("text/plain"), apikey);
+                RequestBody eventid = RequestBody.create(MediaType.parse("text/plain"), eventId);
+                RequestBody status = RequestBody.create(MediaType.parse("text/plain"), StringEscapeUtils.escapeJava(data));
+                MultipartBody.Part body = null;
+
+                if (file != null) {
+
+                    RequestBody reqFile = RequestBody.create(MediaType.parse("video/*"), file);
+                    body = MultipartBody.Part.createFormData("video_file", file.getName(), reqFile);
                 }
+
+
+                PostVideoContest(token, eventid, status, body);
+//                }
             }
         });
-
 
 
         selectVideo();
@@ -246,13 +245,12 @@ public class VideoContestUploadActivity extends AppCompatActivity {
                     //Store the video to your server
                     file = new File(pathToStoredVideo);
 
-                    Bitmap b= ThumbnailUtils.createVideoThumbnail(pathToStoredVideo, MediaStore.Video.Thumbnails.MINI_KIND);
+                    Bitmap b = ThumbnailUtils.createVideoThumbnail(pathToStoredVideo, MediaStore.Video.Thumbnails.MINI_KIND);
                     displayRecordedVideo.setImageBitmap(b);
 
                 }
             } else if (resultCode == Activity.RESULT_OK && requestCode == SELECT_FILE) {
                 uri = data.getData();
-
 
 
 //                displayRecordedVideo.setVideoURI(uri);
@@ -308,7 +306,7 @@ public class VideoContestUploadActivity extends AppCompatActivity {
 
                         Log.i("android", "data is " + sec);
 
-                        Bitmap b= ThumbnailUtils.createVideoThumbnail(videoUrl, MediaStore.Video.Thumbnails.MINI_KIND);
+                        Bitmap b = ThumbnailUtils.createVideoThumbnail(videoUrl, MediaStore.Video.Thumbnails.MINI_KIND);
                         displayRecordedVideo.setImageBitmap(b);
                         if (sec > 15) {
                             Toast.makeText(VideoContestUploadActivity.this, "Select an video not more than 15 seconds",
@@ -326,7 +324,6 @@ public class VideoContestUploadActivity extends AppCompatActivity {
 
 
                             // videoview.setMediaController(mediacontrolle);
-
 
 
                             Bitmap bitmap = mediaMetadataRetriever.getFrameAtTime(1000000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);

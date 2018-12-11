@@ -294,7 +294,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
         try {
             Date date1 = formatter.parse(feed.getPostDate());
 
-            DateFormat originalFormat = new SimpleDateFormat("dd MMM , KK:mm", Locale.ENGLISH);
+            DateFormat originalFormat = new SimpleDateFormat("dd MMM , HH:mm", Locale.UK);
 
             String date = originalFormat.format(date1);
 

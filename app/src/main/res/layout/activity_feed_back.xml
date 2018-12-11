@@ -45,24 +45,27 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <com.procialize.singleevent.Fonts.RobotoTextview
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="4sp"
-        android:text="@string/refresh"
-        android:textColor="@color/black"
-        android:textSize="@dimen/textsizesmall" />
 
     <com.procialize.singleevent.Fonts.RobotoTextview
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="4sp"
         android:text="Survey"
-        android:id="@+id/title"
         android:textColor="@color/activetab"
         android:textSize="@dimen/textsizenormal" />
+
+    <TextView
+        android:id="@+id/pullrefresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alpha="0.8"
+        android:gravity="center"
+        android:text="Pull Down to Refresh"
+        android:textColor="@color/inactivetab"
+        android:textSize="10sp"
+        android:visibility="visible" />
 
     <ProgressBar
         android:id="@+id/progressBar"
