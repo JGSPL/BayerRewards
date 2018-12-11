@@ -55,8 +55,8 @@ public class EngagementActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent selfie = new Intent(EngagementActivity.this, HomeActivity.class);
-                startActivity(selfie);
+//                Intent selfie = new Intent(EngagementActivity.this, HomeActivity.class);
+//                startActivity(selfie);
                 finish();
             }
         });

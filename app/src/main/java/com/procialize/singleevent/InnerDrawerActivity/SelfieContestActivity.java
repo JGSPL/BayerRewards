@@ -98,8 +98,8 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
             @Override
             public void onClick(View v) {
 //                onBackPressed();
-                Intent intent = new Intent(SelfieContestActivity.this, EngagementActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(SelfieContestActivity.this, EngagementActivity.class);
+//                startActivity(intent);
                 finish();
             }
         });

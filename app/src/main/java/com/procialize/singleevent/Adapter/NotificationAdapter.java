@@ -54,25 +54,25 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     String colorActive;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView nameTv,dataTv,messageTV,txt_msg;
-        public ImageView profileIv,gifiv;
+        public TextView nameTv, dataTv, messageTV, txt_msg;
+        public ImageView profileIv, gifiv;
         Button replyBtn;
-        ImageView arrowIv,ivtype,arrowIvmsg;
+        ImageView arrowIv, ivtype, arrowIvmsg;
         private ProgressBar progressView;
         LinearLayout notiLin;
 
         public MyViewHolder(View view) {
             super(view);
-            nameTv =  view.findViewById(R.id.nameTv);
-            dataTv =  view.findViewById(R.id.dataTv);
-            messageTV =  view.findViewById(R.id.messageTV);
+            nameTv = view.findViewById(R.id.nameTv);
+            dataTv = view.findViewById(R.id.dataTv);
+            messageTV = view.findViewById(R.id.messageTV);
             txt_msg = view.findViewById(R.id.txt_msg);
 
-            replyBtn =  view.findViewById(R.id.replyBtn);
+            replyBtn = view.findViewById(R.id.replyBtn);
 
-            arrowIv =  view.findViewById(R.id.arrowIv);
-            arrowIvmsg= view.findViewById(R.id.arrowIvmsg);
-            ivtype =  view.findViewById(R.id.ivtype);
+            arrowIv = view.findViewById(R.id.arrowIv);
+            arrowIvmsg = view.findViewById(R.id.arrowIvmsg);
+            ivtype = view.findViewById(R.id.ivtype);
 
             profileIv = view.findViewById(R.id.profileIV);
             gifiv = view.findViewById(R.id.gifiv);
@@ -97,12 +97,13 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             });
         }
     }
+
     public NotificationAdapter(Context context, List<NotificationList> notificationLists, NotificationAdapterListner listener) {
         this.notificationLists = notificationLists;
-        this.listener=listener;
-        this.context=context;
+        this.listener = listener;
+        this.context = context;
         SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        colorActive = prefs.getString("colorActive","");
+        colorActive = prefs.getString("colorActive", "");
     }
 
     @Override
@@ -132,11 +133,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.arrowIvmsg.setImageDrawable(drawable1);
 
 
-
-
-        if (notificationList.getNotificationContent()!=null) {
-            if (notificationList.getNotificationContent().contains("gif"))
-            {
+        if (notificationList.getNotificationContent() != null) {
+            if (notificationList.getNotificationContent().contains("gif")) {
                 holder.messageTV.setVisibility(View.VISIBLE);
                 holder.gifiv.setVisibility(View.GONE);
                 holder.messageTV.setText("GIF");
@@ -156,7 +154,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 //                        }
 //                    }).into(holder.gifiv);
 
-            }else {
+            } else {
                 holder.messageTV.setVisibility(View.VISIBLE);
                 holder.gifiv.setVisibility(View.GONE);
                 holder.messageTV.setText(StringEscapeUtils.unescapeJava(notificationList.getNotificationContent()));
@@ -166,35 +164,36 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         if (notificationList.getNotificationType().equalsIgnoreCase("Msg")) {
             holder.txt_msg.setText("Sent You Message");
             String lName = notificationList.getAttendeeLastName();
-            if(lName!= null) {
+            if (lName != null) {
                 holder.nameTv.setText(notificationList.getAttendeeFirstName() + " " + notificationList.getAttendeeLastName());
-            }else{
+            } else {
                 holder.nameTv.setText(notificationList.getAttendeeFirstName());
 
             }
         } else if (notificationList.getNotificationType().equalsIgnoreCase("Like")) {
             holder.txt_msg.setText("Liked Your Post");
+            holder.messageTV.setVisibility(View.GONE);
             String lName = notificationList.getAttendeeLastName();
-            if(lName!= null) {
+            if (lName != null) {
                 holder.nameTv.setText(notificationList.getAttendeeFirstName() + " " + notificationList.getAttendeeLastName());
-            }else{
+            } else {
                 holder.nameTv.setText(notificationList.getAttendeeFirstName());
 
             }
         } else if (notificationList.getNotificationType().equalsIgnoreCase("Cmnt")) {
             holder.txt_msg.setText("Commented On Your Post");
             String lName = notificationList.getAttendeeLastName();
-            if(lName!= null) {
+            if (lName != null) {
                 holder.nameTv.setText(notificationList.getAttendeeFirstName() + " " + notificationList.getAttendeeLastName());
-            }else{
+            } else {
                 holder.nameTv.setText(notificationList.getAttendeeFirstName());
 
             }
-        }else{
+        } else {
             String lName = notificationList.getAttendeeLastName();
-            if(lName!= null) {
+            if (lName != null) {
                 holder.nameTv.setText(notificationList.getAttendeeFirstName() + " " + notificationList.getAttendeeLastName());
-            }else{
+            } else {
                 holder.nameTv.setText(notificationList.getAttendeeFirstName());
 
             }
@@ -235,22 +234,19 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 }
             }).into(holder.profileIv).onLoadStarted(context.getDrawable(R.drawable.profilepic_placeholder));
 
-        }else
-        {
+        } else {
             holder.progressView.setVisibility(View.GONE);
 
         }
 
-        if (notificationList.getNotificationType().equalsIgnoreCase("Cmnt"))
-        {
+        if (notificationList.getNotificationType().equalsIgnoreCase("Cmnt")) {
 //            holder.replyBtn.setVisibility(View.VISIBLE);
             holder.arrowIv.setVisibility(View.VISIBLE);
             holder.arrowIvmsg.setVisibility(View.GONE);
             holder.ivtype.setImageResource(R.drawable.notifycoment);
             holder.arrowIv.setVisibility(View.VISIBLE);
             holder.arrowIv.setImageResource(R.drawable.ic_rightarrow);
-        }else if (notificationList.getNotificationType().equalsIgnoreCase("Like"))
-        {
+        } else if (notificationList.getNotificationType().equalsIgnoreCase("Like")) {
 //            holder.replyBtn.setVisibility(View.VISIBLE);
             holder.arrowIv.setVisibility(View.VISIBLE);
 
@@ -258,8 +254,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
             holder.ivtype.setImageResource(R.drawable.notifylike);
             holder.arrowIv.setImageResource(R.drawable.ic_rightarrow);
-        }else  if (notificationList.getNotificationType().equalsIgnoreCase("Msg"))
-        {
+        } else if (notificationList.getNotificationType().equalsIgnoreCase("Msg")) {
 //            holder.replyBtn.setVisibility(View.VISIBLE);
             //holder.arrowIv.setVisibility(View.VISIBLE);
             holder.arrowIvmsg.setVisibility(View.VISIBLE);
@@ -269,7 +264,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             holder.arrowIvmsg.setImageResource(R.drawable.messageiv);
             holder.arrowIvmsg.setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_ATOP);
 
-        }else {
+        } else {
 //            holder.replyBtn.setVisibility(View.GONE);
             holder.arrowIv.setVisibility(View.GONE);
             holder.arrowIvmsg.setVisibility(View.GONE);

@@ -104,8 +104,8 @@
             android:background="@drawable/travel_bg"
             android:orientation="vertical"
             android:layout_weight="5"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_marginBottom="5dp">
 
             <ListView
