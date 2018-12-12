@@ -143,7 +143,7 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
             public void onClick(View v) {
                 Intent selfie = new Intent(SelfieContestActivity.this, SelfiePost.class);
                 startActivity(selfie);
-                finish();
+//                finish();
 
             }
         });
