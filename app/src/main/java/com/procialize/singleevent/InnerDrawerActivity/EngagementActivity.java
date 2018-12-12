@@ -55,8 +55,8 @@ public class EngagementActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent selfie = new Intent(EngagementActivity.this, HomeActivity.class);
-                startActivity(selfie);
+//                Intent selfie = new Intent(EngagementActivity.this, HomeActivity.class);
+//                startActivity(selfie);
                 finish();
             }
         });
@@ -101,7 +101,7 @@ public class EngagementActivity extends AppCompatActivity {
 
                 Intent selfie = new Intent(EngagementActivity.this, SelfieContestActivity.class);
                 startActivity(selfie);
-                finish();
+//                finish();
             }
         });
 
@@ -111,7 +111,7 @@ public class EngagementActivity extends AppCompatActivity {
 
                 Intent videocontest = new Intent(EngagementActivity.this, VideoContestActivity.class);
                 startActivity(videocontest);
-                finish();
+//                finish();
             }
         });
     }

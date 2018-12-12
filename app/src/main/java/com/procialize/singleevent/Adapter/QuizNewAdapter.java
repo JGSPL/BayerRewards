@@ -156,6 +156,7 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
             for (int row = 0; row < 1; row++) {
                 LinearLayout ll = new LinearLayout(activity);
                 ll.setOrientation(LinearLayout.VERTICAL);
+                ll.setPadding(5,5,5,5);
 
                 //  holder.viewGroup.removeAllViews();
                 //	if(flag==0)
@@ -176,10 +177,11 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
 
 
                     LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.FILL_PARENT,
+                            LinearLayout.LayoutParams.MATCH_PARENT,
                             LinearLayout.LayoutParams.WRAP_CONTENT
                     );
-                    p.setMargins(15, 5, 5, 5);
+                    p.setMargins(0, 5, 0, 10);
+
                     rdbtn.setPadding(10, 15, 20, 15);
                     rdbtn.setLayoutParams(p);
                     rdbtn.setTag(quizSpecificOptionListnew.get(i - 1).getOptionId());
@@ -294,7 +296,7 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
             for (int row = 0; row < 1; row++) {
                 LinearLayout ll = new LinearLayout(activity);
                 ll.setOrientation(LinearLayout.VERTICAL);
-
+                ll.setPadding(5,5,5,5);
                 //  holder.viewGroup.removeAllViews();
                 //	if(flag==0)
                 for (int i = 1; i < number; i++) {
@@ -313,10 +315,10 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
                     );
 
                     LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.FILL_PARENT,
+                            LinearLayout.LayoutParams.MATCH_PARENT,
                             LinearLayout.LayoutParams.WRAP_CONTENT
                     );
-                    p.setMargins(15, 5, 5, 5);
+                    p.setMargins(0, 5, 0, 10);
                     rdbtn.setPadding(10, 15, 20, 15);
                     rdbtn.setLayoutParams(p);
                     rdbtn.setTag(quizSpecificOptionListnew.get(i - 1).getOptionId());

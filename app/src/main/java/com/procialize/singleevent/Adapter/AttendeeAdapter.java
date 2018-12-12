@@ -140,6 +140,7 @@ public class AttendeeAdapter extends RecyclerView.Adapter<AttendeeAdapter.MyView
                 if (attendee.getCompanyName().equalsIgnoreCase(" ")) {
                     holder.locationTv.setVisibility(View.GONE);
                 } else {
+                    holder.locationTv.setVisibility(View.VISIBLE);
                     holder.locationTv.setText(attendee.getCompanyName());
                 }
             }
@@ -162,6 +163,7 @@ public class AttendeeAdapter extends RecyclerView.Adapter<AttendeeAdapter.MyView
                 if (attendee.getDesignation().equalsIgnoreCase(" ")) {
                     holder.designationTv.setVisibility(View.GONE);
                 } else {
+                    holder.designationTv.setVisibility(View.VISIBLE);
                     holder.designationTv.setText(attendee.getDesignation());
                 }
             }

@@ -212,9 +212,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
+            android:layout_height="match_parent">
 
             <com.procialize.singleevent.Fonts.RobotoEditext
                 android:id="@+id/posttextEt"
@@ -242,13 +240,12 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/linMsg"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:layout_weight="5"
-                android:id="@+id/linMsg"
-
                 android:background="@drawable/loginbutton"
                 android:gravity="center"
                 android:orientation="horizontal">
@@ -261,22 +258,22 @@
                     android:layout_margin="@dimen/margin"
                     android:background="@color/activetab"
                     android:drawableLeft="@drawable/messega"
+                    android:drawablePadding="10dp"
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="@string/sendmsg"
                     android:textAllCaps="false"
                     android:textColor="@color/colorwhite"
-                    android:textSize="@dimen/textsizesmall"
-                    android:drawablePadding="10dp"/>
+                    android:textSize="@dimen/textsizesmall" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linsave"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:layout_weight="5"
-                android:id="@+id/linsave"
                 android:background="@drawable/loginbutton"
                 android:gravity="center"
                 android:orientation="horizontal">
@@ -289,13 +286,13 @@
                     android:layout_margin="@dimen/margin"
                     android:background="@color/activetab"
                     android:drawableLeft="@drawable/save"
+                    android:drawablePadding="10dp"
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="Save Contact"
                     android:textAllCaps="false"
                     android:textColor="@color/colorwhite"
-                    android:textSize="@dimen/textsizesmall"
-                    android:drawablePadding="10dp"/>
+                    android:textSize="@dimen/textsizesmall" />
             </LinearLayout>
         </LinearLayout>
 

@@ -111,7 +111,7 @@
         <com.procialize.singleevent.Fonts.RobotoButton
             android:id="@+id/subBtn"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="50dp"
             android:layout_gravity="bottom"
             android:background="@color/activetab"
             android:text="Submit"

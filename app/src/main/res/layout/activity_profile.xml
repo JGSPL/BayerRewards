@@ -18,7 +18,8 @@
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:elevation="0dp">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -33,7 +34,8 @@
                 app:contentInsetEnd="0dp"
                 app:contentInsetLeft="0dp"
                 app:contentInsetRight="0dp"
-                app:contentInsetStart="0dp">
+                app:contentInsetStart="0dp"
+               android:elevation="0dp" >
 
                 <ImageView
                     android:id="@+id/headerlogoIv"
@@ -147,13 +149,13 @@
 
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/input_layout_firstname"
-                        style="@style/TextAppearence.App.TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:textColorHint="@color/trans">
+                        android:textColorHint="@color/trans"
+                        android:backgroundTint="@color/linecolor">
 
                         <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                             android:id="@+id/Etfirstname"
@@ -168,13 +170,13 @@
 
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/input_layout_lastname"
-                        style="@style/TextAppearence.App.TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:textColorHint="@color/trans">
+                        android:textColorHint="@color/trans"
+                        android:backgroundTint="@color/linecolor">
 
                         <com.procialize.singleevent.Fonts.RobotoTextInputEditext
                             android:id="@+id/Etlastname"
@@ -189,7 +191,7 @@
 
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/input_layout_designation"
-                        style="@style/TextAppearence.App.TextInputLayout"
+                        android:backgroundTint="@color/linecolor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -210,7 +212,7 @@
 
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/input_layout_company"
-                        style="@style/TextAppearence.App.TextInputLayout"
+                        android:backgroundTint="@color/linecolor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -230,7 +232,7 @@
 
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/input_layout_mobile"
-                        style="@style/TextAppearence.App.TextInputLayout"
+                        android:backgroundTint="@color/linecolor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -251,7 +253,7 @@
 
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/input_layout_desc"
-                        style="@style/TextAppearence.App.TextInputLayout"
+                        android:backgroundTint="@color/linecolor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -273,7 +275,7 @@
 
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/input_layout_city"
-                        style="@style/TextAppearence.App.TextInputLayout"
+                        android:backgroundTint="@color/linecolor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -293,7 +295,7 @@
 
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/input_layout_emailid"
-                        style="@style/TextAppearence.App.TextInputLayout"
+                        android:backgroundTint="@color/linecolor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -313,7 +315,7 @@
 
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/input_layout_country"
-                        style="@style/TextAppearence.App.TextInputLayout"
+                        android:backgroundTint="@color/linecolor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
