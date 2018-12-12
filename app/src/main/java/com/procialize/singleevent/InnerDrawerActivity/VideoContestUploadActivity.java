@@ -79,7 +79,7 @@ public class VideoContestUploadActivity extends AppCompatActivity {
     private static final int REQUEST_VIDEO_CAPTURE = 300;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventId, colorActive;
+    String eventId,colorActive;
     String angle = "0";
     ImageView headerlogoIv;
 
@@ -89,7 +89,7 @@ public class VideoContestUploadActivity extends AppCompatActivity {
         setContentView(R.layout.activity_video_upload);
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventId = prefs.getString("eventid", "1");
-        colorActive = prefs.getString("colorActive", "");
+        colorActive = prefs.getString("colorActive","");
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -120,7 +120,7 @@ public class VideoContestUploadActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         sessionManager = new SessionManager(this);
 
-        TextView header = (TextView) findViewById(R.id.txtTitle);
+        TextView header = (TextView)findViewById(R.id.txtTitle);
         header.setTextColor(Color.parseColor(colorActive));
 
 
@@ -136,29 +136,30 @@ public class VideoContestUploadActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String data = editTitle.getText().toString();
-//                if (data.equals("")) {
-//                    Toast.makeText(VideoContestUploadActivity.this, "Enter Caption", Toast.LENGTH_SHORT).show();
-//
-//                } else {
-                showProgress();
+                if (data.equals("")) {
+                    Toast.makeText(VideoContestUploadActivity.this, "Enter Caption", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    showProgress();
 
 
-                RequestBody token = RequestBody.create(MediaType.parse("text/plain"), apikey);
-                RequestBody eventid = RequestBody.create(MediaType.parse("text/plain"), eventId);
-                RequestBody status = RequestBody.create(MediaType.parse("text/plain"), StringEscapeUtils.escapeJava(data));
-                MultipartBody.Part body = null;
+                    RequestBody token = RequestBody.create(MediaType.parse("text/plain"), apikey);
+                    RequestBody eventid = RequestBody.create(MediaType.parse("text/plain"), eventId);
+                    RequestBody status = RequestBody.create(MediaType.parse("text/plain"), StringEscapeUtils.escapeJava(data));
+                    MultipartBody.Part body = null;
 
-                if (file != null) {
+                    if (file != null) {
 
-                    RequestBody reqFile = RequestBody.create(MediaType.parse("video/*"), file);
-                    body = MultipartBody.Part.createFormData("video_file", file.getName(), reqFile);
+                        RequestBody reqFile = RequestBody.create(MediaType.parse("video/*"), file);
+                        body = MultipartBody.Part.createFormData("video_file", file.getName(), reqFile);
+                    }
+
+
+                    PostVideoContest(token, eventid, status, body);
                 }
-
-
-                PostVideoContest(token, eventid, status, body);
-//                }
             }
         });
+
 
 
         selectVideo();
@@ -217,147 +218,153 @@ public class VideoContestUploadActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (data != null) {
-            llData.setVisibility(View.VISIBLE);
+
+            if (data.getData()!=null)
+            {
+                llData.setVisibility(View.VISIBLE);
 //            Uri selectedMediaUri = (Uri) data.getExtras().get("data");
-            Uri selectedMediaUri = data.getData();
+                Uri selectedMediaUri = data.getData();
 //            if (selectedMediaUri.toString().contains("video")) {
 
 
-            displayRecordedVideo.setVisibility(View.VISIBLE);
+                displayRecordedVideo.setVisibility(View.VISIBLE);
 
-            if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_VIDEO_CAPTURE) {
-                uri = data.getData();
-                MediaPlayer mp = MediaPlayer.create(this, uri);
-                int duration = mp.getDuration();
-                mp.release();
+                if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_VIDEO_CAPTURE) {
+                    uri = data.getData();
+                    MediaPlayer mp = MediaPlayer.create(this, uri);
+                    int duration = mp.getDuration();
+                    mp.release();
 
-                if ((duration / 1000) > 15) {
-                    // Show Your Messages
-                    Toast.makeText(VideoContestUploadActivity.this, "Please select video length less than 15 sec", Toast.LENGTH_SHORT).show();
+                    if ((duration / 1000) > 15) {
+                        // Show Your Messages
+                        Toast.makeText(VideoContestUploadActivity.this, "Please select video length less than 15 sec", Toast.LENGTH_SHORT).show();
 
-                    finish();
-                } else {
+                        finish();
+                    } else {
 
-                    imgPlay.setVisibility(View.VISIBLE);
+                        imgPlay.setVisibility(View.VISIBLE);
 
-                    pathToStoredVideo = getRealPathFromURIPathVideo(uri, VideoContestUploadActivity.this);
-                    Log.d("video", "Recorded Video Path " + pathToStoredVideo);
-                    //Store the video to your server
-                    file = new File(pathToStoredVideo);
+                        pathToStoredVideo = getRealPathFromURIPathVideo(uri, VideoContestUploadActivity.this);
+                        Log.d("video", "Recorded Video Path " + pathToStoredVideo);
+                        //Store the video to your server
+                        file = new File(pathToStoredVideo);
 
-                    Bitmap b = ThumbnailUtils.createVideoThumbnail(pathToStoredVideo, MediaStore.Video.Thumbnails.MINI_KIND);
-                    displayRecordedVideo.setImageBitmap(b);
+                        Bitmap b= ThumbnailUtils.createVideoThumbnail(pathToStoredVideo, MediaStore.Video.Thumbnails.MINI_KIND);
+                        displayRecordedVideo.setImageBitmap(b);
 
-                }
-            } else if (resultCode == Activity.RESULT_OK && requestCode == SELECT_FILE) {
-                uri = data.getData();
+                    }
+                } else if (resultCode == Activity.RESULT_OK && requestCode == SELECT_FILE) {
+                    uri = data.getData();
+
 
 
 //                displayRecordedVideo.setVideoURI(uri);
 //                displayRecordedVideo.start();
 
-                imgPlay.setVisibility(View.VISIBLE);
-                ArrayList<String> supportedMedia = new ArrayList<String>();
+                    imgPlay.setVisibility(View.VISIBLE);
+                    ArrayList<String> supportedMedia = new ArrayList<String>();
 
-                supportedMedia.add(".mp4");
-                supportedMedia.add(".mov");
-                supportedMedia.add(".3gp");
+                    supportedMedia.add(".mp4");
+                    supportedMedia.add(".mov");
+                    supportedMedia.add(".3gp");
 
 
-                videoUrl = ScalingUtilities.getPath(VideoContestUploadActivity.this, data.getData());
+                    videoUrl = ScalingUtilities.getPath(VideoContestUploadActivity.this, data.getData());
 //                    pathToStoredVideo = getRealPathFromURIPathVideo(uri, VideoContestUploadActivity.this);
-                videoFile = new File(videoUrl);
+                    videoFile = new File(videoUrl);
 
-                String fileExtnesion = videoUrl.substring(videoUrl.lastIndexOf("."));
+                    String fileExtnesion = videoUrl.substring(videoUrl.lastIndexOf("."));
 
-                MediaMetadataRetriever m = new MediaMetadataRetriever();
+                    MediaMetadataRetriever m = new MediaMetadataRetriever();
 
-                m.setDataSource(videoFile.getAbsolutePath());
-                Bitmap thumbnail = m.getFrameAtTime();
+                    m.setDataSource(videoFile.getAbsolutePath());
+                    Bitmap thumbnail = m.getFrameAtTime();
 
-                if (Build.VERSION.SDK_INT >= 17) {
-                    angle = m.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION);
+                    if (Build.VERSION.SDK_INT >= 17) {
+                        angle = m.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION);
 
-                    //  Log.e("Rotation", s);
-                }
-                if (supportedMedia.contains(fileExtnesion)) {
+                        //  Log.e("Rotation", s);
+                    }
+                    if (supportedMedia.contains(fileExtnesion)) {
 
 
-                    long file_size = Integer.parseInt(String.valueOf(videoFile.length()));
+                        long file_size = Integer.parseInt(String.valueOf(videoFile.length()));
 //                long fileMb = AudioPost.bytesToMeg(file_size);
 
 
-                    //if (fileMb >= 16)
-                    // Toast.makeText(VideoPost.this, "Upload a video not more than 15 MB in size",
-                    //        Toast.LENGTH_SHORT).show();
+                        //if (fileMb >= 16)
+                        // Toast.makeText(VideoPost.this, "Upload a video not more than 15 MB in size",
+                        //        Toast.LENGTH_SHORT).show();
 
-                    //  else {
-                    try {
-                        MediaPlayer mplayer = new MediaPlayer();
-                        mplayer.reset();
-                        mplayer.setDataSource(videoUrl);
-                        mplayer.prepare();
+                        //  else {
+                        try {
+                            MediaPlayer mplayer = new MediaPlayer();
+                            mplayer.reset();
+                            mplayer.setDataSource(videoUrl);
+                            mplayer.prepare();
 
-                        long totalFileDuration = mplayer.getDuration();
-                        Log.i("android", "data is " + totalFileDuration);
-
-
-                        int sec = (int) ((totalFileDuration / (1000)));
-
-                        Log.i("android", "data is " + sec);
-
-                        Bitmap b = ThumbnailUtils.createVideoThumbnail(videoUrl, MediaStore.Video.Thumbnails.MINI_KIND);
-                        displayRecordedVideo.setImageBitmap(b);
-                        if (sec > 15) {
-                            Toast.makeText(VideoContestUploadActivity.this, "Select an video not more than 15 seconds",
-                                    Toast.LENGTH_SHORT).show();
-                            finish();
-
-                        } else {
+                            long totalFileDuration = mplayer.getDuration();
+                            Log.i("android", "data is " + totalFileDuration);
 
 
-                            llData.setVisibility(View.VISIBLE);
-                            MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
-                            mediaMetadataRetriever.setDataSource(videoUrl);
+                            int sec = (int) ((totalFileDuration / (1000)));
 
-                            Uri video = Uri.parse(videoUrl);
+                            Log.i("android", "data is " + sec);
+
+                            Bitmap b= ThumbnailUtils.createVideoThumbnail(videoUrl, MediaStore.Video.Thumbnails.MINI_KIND);
+                            displayRecordedVideo.setImageBitmap(b);
+                            if (sec > 15) {
+                                Toast.makeText(VideoContestUploadActivity.this, "Select an video not more than 15 seconds",
+                                        Toast.LENGTH_SHORT).show();
+                                finish();
+
+                            } else {
 
 
-                            // videoview.setMediaController(mediacontrolle);
+                                llData.setVisibility(View.VISIBLE);
+                                MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
+                                mediaMetadataRetriever.setDataSource(videoUrl);
+
+                                Uri video = Uri.parse(videoUrl);
 
 
-                            Bitmap bitmap = mediaMetadataRetriever.getFrameAtTime(1000000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
-                            file = createDirectoryAndSaveFile(bitmap);
+                                // videoview.setMediaController(mediacontrolle);
+
+
+
+                                Bitmap bitmap = mediaMetadataRetriever.getFrameAtTime(1000000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
+                                file = createDirectoryAndSaveFile(bitmap);
 
 
 //                                post_thumbnail.setImageBitmap(bitmap);
 //                                imgPlay.setVisibility(View.VISIBLE);
 //                                post_thumbnail.setVisibility(View.VISIBLE);
 
-                            Toast.makeText(VideoContestUploadActivity.this, "Video selected",
-                                    Toast.LENGTH_SHORT).show();
+                                Toast.makeText(VideoContestUploadActivity.this, "Video selected",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+
+
+                            Log.i("android", "exception is " + e.getLocalizedMessage() + " " + e.getStackTrace());
+
                         }
-                    } catch (Exception e) {
 
 
-                        Log.i("android", "exception is " + e.getLocalizedMessage() + " " + e.getStackTrace());
+                    } else {
+
+
+                        Toast.makeText(VideoContestUploadActivity.this, "Only .mp4,.mov,.3gp File formats allowed ", Toast.LENGTH_SHORT).show();
 
                     }
-
-
-                } else {
-
-
-                    Toast.makeText(VideoContestUploadActivity.this, "Only .mp4,.mov,.3gp File formats allowed ", Toast.LENGTH_SHORT).show();
-
                 }
+            }else {
+                finish();
             }
 
 //            }
 
         } else {
-            Intent intent = new Intent(VideoContestUploadActivity.this, VideoContestActivity.class);
-            startActivity(intent);
             finish();
         }
 

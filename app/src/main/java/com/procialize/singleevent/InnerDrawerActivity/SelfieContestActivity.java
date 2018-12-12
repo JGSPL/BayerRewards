@@ -98,8 +98,8 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
             @Override
             public void onClick(View v) {
 //                onBackPressed();
-//                Intent intent = new Intent(SelfieContestActivity.this, EngagementActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(SelfieContestActivity.this, EngagementActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -143,8 +143,6 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
             public void onClick(View v) {
                 Intent selfie = new Intent(SelfieContestActivity.this, SelfiePost.class);
                 startActivity(selfie);
-//                finish();
-
             }
         });
         selfiefeedrefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
