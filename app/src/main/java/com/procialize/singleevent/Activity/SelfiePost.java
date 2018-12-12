@@ -586,10 +586,12 @@ public class SelfiePost extends Activity {
 
         } else if (resultCode == RESULT_CANCELED) {
             finish();
-            Intent selfieIntent = new Intent(SelfiePost.this, SelfieContestActivity.class);
-            startActivity(selfieIntent);
+//            Intent selfieIntent = new Intent(SelfiePost.this, SelfieContestActivity.class);
+//            startActivity(selfieIntent);
+//            finish();
+        }else
+        {
             finish();
-
         }
 
         /*if (requestCode == 1 && resultCode == RESULT_OK
