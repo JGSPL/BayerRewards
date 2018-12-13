@@ -216,7 +216,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
         // apikey
         apikey = user.get(SessionManager.KEY_TOKEN);
 
-        final TextWatcher txwatcher = new TextWatcher() {
+               final TextWatcher txwatcher = new TextWatcher() {
 
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start,

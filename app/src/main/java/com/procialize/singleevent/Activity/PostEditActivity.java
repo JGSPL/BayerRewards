@@ -549,12 +549,44 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
 
         // Initialize Constant Class Reference
         constant = new ApiConstant();
+        final TextView txtcount1 = (TextView) findViewById(R.id.txtcount1);
+
 
         // User Image URL
 //        senderImageURL = ApiConstant.newsfeedwall + ;
 
         // Post Status & Image URL
         postUrl = ApiConstant.baseUrl + "EditNewsFeed";
+
+        final TextWatcher txwatcher = new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start,
+                                          int count, int after) {
+                int tick = start + after;
+                if (tick < 128) {
+                    int remaining = 500 - tick;
+                    // txtcount1.setText(String.valueOf(remaining));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+                txtcount1.setText(String.valueOf(500 - s.length()));
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+                // TODO Auto-generated method stub
+                System.out.print("Hello");
+            }
+        };
+
+        postEt.addTextChangedListener(txwatcher);
+
 
 //        Picasso.with(this).load(senderImageURL)
 //                .placeholder(R.drawable.profilepic_placeholder)
