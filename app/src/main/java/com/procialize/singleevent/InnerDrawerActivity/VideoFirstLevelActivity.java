@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,16 +55,18 @@ public class VideoFirstLevelActivity extends AppCompatActivity implements VideoF
     List<FirstLevelFilter> filtergallerylists;
     String foldernamenew;
     ImageView headerlogoIv;
-    String eventid,colorActive;
+    String eventid, colorActive;
     String MY_PREFS_NAME = "ProcializeInfo";
     private APIService mAPIService;
     ProgressDialog progressDialog;
+    ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_first_level);
 
-      //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
@@ -71,7 +74,7 @@ public class VideoFirstLevelActivity extends AppCompatActivity implements VideoF
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
-        colorActive = prefs.getString("colorActive","");
+        colorActive = prefs.getString("colorActive", "");
 
         mAPIService = ApiUtils.getAPIService();
         SessionManager sessionManager = new SessionManager(this);
@@ -88,7 +91,7 @@ public class VideoFirstLevelActivity extends AppCompatActivity implements VideoF
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        progressDialog=new ProgressDialog(this,R.style.MyAlertDialogStyle);
+        progressDialog = new ProgressDialog(this);
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -112,14 +115,15 @@ public class VideoFirstLevelActivity extends AppCompatActivity implements VideoF
 
         videoRv = findViewById(R.id.videoRv);
         tvname = findViewById(R.id.tvname);
+        progressBar = findViewById(R.id.progressBar);
         tvname.setTextColor(Color.parseColor(colorActive));
 
 
         // use a linear layout manager
 
-        progressDialog.setTitle("Fetching Vides");
-        progressDialog.setMessage("Processing.....");
-        progressDialog.show();
+//        progressDialog.setTitle("Fetching Vides");
+//        progressDialog.setMessage("Processing.....");
+//        progressDialog.show();
 
         fetchVideo(token, eventid);
 
@@ -291,7 +295,7 @@ public class VideoFirstLevelActivity extends AppCompatActivity implements VideoF
 
 
     public void fetchVideo(String token, String eventid) {
-
+        showProgress();
         mAPIService.VideoFetchListFetch(token, eventid).enqueue(new Callback<VideoFetchListFetch>() {
             @Override
             public void onResponse(Call<VideoFetchListFetch> call, Response<VideoFetchListFetch> response) {
@@ -301,59 +305,54 @@ public class VideoFirstLevelActivity extends AppCompatActivity implements VideoF
 
                     showResponse(response);
                 } else {
-
-
+                    dismissProgress();
                     Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<VideoFetchListFetch> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
+                dismissProgress();
+//                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
 
             }
         });
     }
 
 
+    public void showResponse(Response<VideoFetchListFetch> response) {
+
+        dismissProgress();
+        // specify an adapter (see also next example)
+        if (response.body().getVideoList().size() != 0) {
+
+            videoLists = response.body().getVideoList();
+            folderLists = response.body().getVideoFolderList();
 
 
-
-        public void showResponse (Response < VideoFetchListFetch > response) {
-
-
-            // specify an adapter (see also next example)
-            if (response.body().getVideoList().size() != 0) {
-
-                videoLists = response.body().getVideoList();
-                folderLists = response.body().getVideoFolderList();
+            Object[] params = {this, videoLists, folderLists, filtergallerylists};
+            new TestAsync().execute(params);
 
 
-                Object[] params = {this,videoLists,folderLists,filtergallerylists};
-                new TestAsync().execute(params);
+        } else {
+            Toast.makeText(getApplicationContext(), "No Video Available", Toast.LENGTH_SHORT).show();
 
-
-
-                } else {
-                    Toast.makeText(getApplicationContext(), "No Video Available", Toast.LENGTH_SHORT).show();
-
-                }
         }
+    }
 
 
-
-
-    class TestAsync extends AsyncTask<Object, Void, List<FirstLevelFilter>>
-    {
+    class TestAsync extends AsyncTask<Object, Void, List<FirstLevelFilter>> {
         String TAG = getClass().getSimpleName();
         Context context;
 
-        protected void onPreExecute (){
+        protected void onPreExecute() {
             super.onPreExecute();
-            Log.d(TAG + " PreExceute","On pre Exceute......");
+            Log.d(TAG + " PreExceute", "On pre Exceute......");
+            showProgress();
         }
 
         protected List<FirstLevelFilter> doInBackground(Object... params) {
+
 
             context = (Context) params[0];
 
@@ -398,10 +397,10 @@ public class VideoFirstLevelActivity extends AppCompatActivity implements VideoF
                         }
                     }
                 }
-
-
+//                dismissProgress();
 
             } else {
+//                dismissProgress();
                 Toast.makeText(getApplicationContext(), "No Video Found", Toast.LENGTH_SHORT).show();
             }
             return filtergallerylists;
@@ -413,13 +412,12 @@ public class VideoFirstLevelActivity extends AppCompatActivity implements VideoF
 
             filtergallerylists = filtergallerylistsdemp;
             setrv(filtergallerylistsdemp);
-
+            dismissProgress();
             super.onPostExecute(filtergallerylists);
         }
     }
 
-    public void setrv(List<FirstLevelFilter> filtergallerylist)
-    {
+    public void setrv(List<FirstLevelFilter> filtergallerylist) {
         int columns = 2;
         videoRv.setLayoutManager(new GridLayoutManager(VideoFirstLevelActivity.this, columns));
 
@@ -428,14 +426,26 @@ public class VideoFirstLevelActivity extends AppCompatActivity implements VideoF
 //        videoRv.setLayoutAnimation(animation);
 
 
-        VideoFirstLevelAdapter galleryAdapter = new VideoFirstLevelAdapter(VideoFirstLevelActivity.this, filtergallerylist,this);
+        VideoFirstLevelAdapter galleryAdapter = new VideoFirstLevelAdapter(VideoFirstLevelActivity.this, filtergallerylist, this);
         videoRv.setAdapter(galleryAdapter);
         galleryAdapter.notifyDataSetChanged();
 //        videoRv.scheduleLayoutAnimation();
-        if (progressDialog != null)
-            progressDialog.cancel();
+//        if (progressDialog != null)
+//            progressDialog.cancel();
 
 
+    }
+
+    public void showProgress() {
+        if (progressBar.getVisibility() == View.GONE) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void dismissProgress() {
+        if (progressBar.getVisibility() == View.VISIBLE) {
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
 }

@@ -34,7 +34,6 @@
                 android:contentInsetLeft="0dp"
                 android:contentInsetRight="0dp"
                 android:contentInsetStart="0dp"
-                android:elevation="@dimen/elevation"
                 android:minHeight="?attr/actionBarSize"
                 app:contentInsetEnd="0dp"
                 app:contentInsetLeft="0dp"
@@ -87,16 +86,19 @@
                     android:textColor="@color/activetab"
                     android:textSize="@dimen/textsizenormal" />
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <TextView
                     android:id="@+id/pullrefresh"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/header"
+                    android:layout_marginTop="2dp"
+                    android:alpha="0.8"
                     android:gravity="center"
-                    android:padding="@dimen/padding"
-                    android:text="@string/refresh"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textsizesmall" />
+                    android:text="Pull Down to Refresh"
+                    android:textColor="@color/inactivetab"
+                    android:textSize="10sp"
+                    android:visibility="visible" />
+
 
                 <LinearLayout
                     android:id="@+id/linearlayout"
@@ -124,17 +126,19 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:visibility="gone" />
+
                     <LinearLayout
                         android:id="@+id/general_info_cur"
                         android:layout_width="match_parent"
-                        android:orientation="horizontal"
-                        android:weightSum="10"
+                        android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:background="@drawable/agendabg"
                         android:gravity="center"
                         android:minHeight="60dp"
+                        android:orientation="horizontal"
                         android:visibility="gone"
-                        android:layout_height="wrap_content">
+                        android:weightSum="10">
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -144,24 +148,26 @@
                                 android:id="@+id/abtcurency_tv"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
                                 android:drawablePadding="10dp"
                                 android:gravity="left|center"
                                 android:padding="5dp"
-                                android:layout_marginLeft="5dp"
-                                android:textColor="@color/activetab"
                                 android:text="Currency Converter"
-                                android:textAllCaps="false"/>
+                                android:textAllCaps="false"
+                                android:textColor="@color/activetab" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1">
+
                             <ImageView
-                                android:src="@drawable/ic_rightarrow"
-                                android:layout_width="wrap_content"
-                                android:background="@drawable/agendabg"
                                 android:id="@+id/ic_rightarrow"
-                                android:layout_height="30dp" />
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:background="@drawable/agendabg"
+                                android:src="@drawable/ic_rightarrow" />
 
                         </LinearLayout>
 
@@ -188,14 +194,15 @@
                     <LinearLayout
                         android:id="@+id/general_info_wea"
                         android:layout_width="match_parent"
-                        android:orientation="horizontal"
-                        android:weightSum="10"
+                        android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:background="@drawable/agendabg"
                         android:gravity="center"
                         android:minHeight="60dp"
+                        android:orientation="horizontal"
                         android:visibility="gone"
-                        android:layout_height="wrap_content">
+                        android:weightSum="10">
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -205,30 +212,31 @@
                                 android:id="@+id/weather_tv"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
                                 android:drawablePadding="10dp"
                                 android:gravity="left|center"
                                 android:padding="5dp"
-                                android:layout_marginLeft="5dp"
-                                android:textColor="@color/activetab"
                                 android:text="Time &amp; Weather"
-                                android:textAllCaps="false"/>
+                                android:textAllCaps="false"
+                                android:textColor="@color/activetab" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1">
+
                             <ImageView
-                                android:src="@drawable/ic_rightarrow"
+                                android:id="@+id/ic_arrow_we"
                                 android:layout_width="wrap_content"
 
-                                android:id="@+id/ic_arrow_we"
-                                android:layout_height="30dp" />
+                                android:layout_height="30dp"
+                                android:src="@drawable/ic_rightarrow" />
 
                         </LinearLayout>
 
 
                     </LinearLayout>
-
 
 
                     <!--
@@ -253,7 +261,9 @@
                         android:id="@+id/general_item_list"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:scrollbars="vertical">
+                        android:scrollbars="vertical"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp">
 
                     </android.support.v7.widget.RecyclerView>
 

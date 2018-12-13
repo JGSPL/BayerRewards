@@ -1,5 +1,6 @@
 package com.procialize.singleevent.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -98,6 +99,7 @@ public class ProfileActivity extends AppCompatActivity {
             input_layout_mobile,input_layout_desc,input_layout_city,input_layout_emailid,input_layout_country;
 
     RelativeLayout relative;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -562,6 +564,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     public void saveProfile() {
 
+        Showprogress(this,"Loading.......");
+
         HashMap<String, String> user = sessionManager.getUserDetails();
 
         final String api_token = user.get(SessionManager.KEY_TOKEN);
@@ -625,6 +629,8 @@ public class ProfileActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<ProfileSave> call, Response<ProfileSave> response) {
                     try {
+
+                        Dismissprogress();
                         if (response.body().getStatus().equals("success")) {
                             Log.i("hit", "post submitted to API." + response.body().toString());
 
@@ -661,12 +667,14 @@ public class ProfileActivity extends AppCompatActivity {
 //                        finish();
                         }
                     } catch (Exception e) {
+                        Dismissprogress();
                         e.printStackTrace();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ProfileSave> call, Throwable t) {
+                    Dismissprogress();
                     Log.e("hit", "Low network or no network");
                    // Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
@@ -677,6 +685,7 @@ public class ProfileActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<ProfileSave> call, Response<ProfileSave> response) {
                     try {
+                        Dismissprogress();
                         if (response.body().getStatus().equals("success")) {
                             Log.i("hit", "post submitted to API." + response.body().toString());
 
@@ -713,12 +722,14 @@ public class ProfileActivity extends AppCompatActivity {
 //                        finish();
                         }
                     } catch (Exception e) {
+                        Dismissprogress();
                         e.printStackTrace();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ProfileSave> call, Throwable t) {
+                    Dismissprogress();
                     Log.e("hit", "Low network or no network");
                     //Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
@@ -970,6 +981,25 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void Showprogress(Context context,String message)
+    {
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage(message);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setProgress(0);
+        progressDialog.show();
+    }
+
+
+    private void Dismissprogress()
+    {
+        if(progressDialog.isShowing())
+        {
+            progressDialog.dismiss();
+        }
     }
 
 }

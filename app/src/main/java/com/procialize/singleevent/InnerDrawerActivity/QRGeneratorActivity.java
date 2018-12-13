@@ -26,7 +26,7 @@ import cn.jzvd.JZVideoPlayer;
 public class QRGeneratorActivity extends AppCompatActivity {
 
     TextView nameTv, companyTv, cityTv, emailTv, mobileTv,
-            scan_id_txtTv, designationTv, header;
+            scan_id_txtTv, designationTv, header,scantxt;
     SessionManager sessionManager;
     String name, designation, company, email, mobile, city, lname;
     ImageView img_qr_code_image;
@@ -82,6 +82,7 @@ public class QRGeneratorActivity extends AppCompatActivity {
 
 
         scan_id_txtTv = findViewById(R.id.scan_id_txt);
+        scantxt = findViewById(R.id.scantxt);
 
         header = findViewById(R.id.header);
         header.setTextColor(Color.parseColor(colorActive));
@@ -90,7 +91,8 @@ public class QRGeneratorActivity extends AppCompatActivity {
         nameTv.setTextColor(Color.parseColor(colorActive));
 
         TextView txtNamehead = findViewById(R.id.txtNamehead);
-        txtNamehead.setTextColor(Color.parseColor(colorActive));
+//        txtNamehead.setTextColor(Color.parseColor(colorActive));
+        scantxt.setTextColor(Color.parseColor(colorActive));
 
 //      designationTv = findViewById(R.id.designation);
 //      designationTv.setText("Designation: " + designation);

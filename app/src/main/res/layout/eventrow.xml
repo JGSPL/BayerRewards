@@ -9,14 +9,12 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:background="#7898a9"
-        android:elevation="@dimen/elevation"
-        android:orientation="vertical"
-        android:translationZ="@dimen/elevation">
+        android:orientation="vertical">
 
         <com.procialize.singleevent.Fonts.RobotoTextview
             android:id="@+id/eventnaem"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:background="@color/activetab"
             android:gravity="center"
             android:padding="5dp"
@@ -104,8 +102,8 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:id="@+id/imgArrow"
                     android:src="@drawable/ic_rightarrow" />
 

@@ -30,7 +30,7 @@ public class RobotoButton extends Button {
     }
 
     public void init() {
-        Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "DINPro-Regular.ttf");
+        Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "DINPro-Light_13935.ttf");
         setTypeface(tf ,1);
 
     }

@@ -81,6 +81,7 @@ public class DocumentsAdapter extends RecyclerView.Adapter<DocumentsAdapter.MyVi
         holder.ic_rightarrow.setImageDrawable(drawable);
 
         holder.nameTv.setText(survey.getTitle());
+        holder.nameTv.setTextColor(colorInt);
     }
 
     @Override

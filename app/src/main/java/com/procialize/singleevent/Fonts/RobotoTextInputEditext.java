@@ -31,7 +31,7 @@ public class RobotoTextInputEditext extends TextInputEditText {
     }
 
     public void init() {
-        Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "DINPro-Regular.ttf");
+        Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "DINPro-Light_13935.ttf");
         setTypeface(tf ,1);
 
     }

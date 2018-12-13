@@ -3,20 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginBottom="5dp">
 
     <LinearLayout
         android:id="@+id/mainLL"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_marginTop="5dp"
         android:background="@drawable/agendabg"
-        android:elevation="@dimen/elevation"
         android:gravity="center"
         android:orientation="horizontal"
         android:padding="5dp"
-        android:translationZ="@dimen/elevation"
         android:weightSum="10">
 
 
@@ -72,8 +70,8 @@
 
             <ImageView
                 android:id="@+id/ic_rightarrow"
-                android:layout_width="50dp"
-                android:layout_height="30dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/ic_rightarrow" />
 
         </LinearLayout>

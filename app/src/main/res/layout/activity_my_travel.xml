@@ -24,7 +24,6 @@
             android:contentInsetLeft="0dp"
             android:contentInsetRight="0dp"
             android:contentInsetStart="0dp"
-            android:elevation="@dimen/elevation"
             android:minHeight="?attr/actionBarSize"
             app:contentInsetEnd="0dp"
             app:contentInsetLeft="0dp"
@@ -56,61 +55,74 @@
         android:visibility="gone" />
 
     <com.procialize.singleevent.Fonts.RobotoTextview
+        android:id="@+id/travelHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/travelHeader"
+        android:layout_margin="10dp"
         android:gravity="center"
         android:padding="@dimen/padding"
         android:text="Travel Desk"
         android:textColor="@color/activetab"
-        android:textSize="@dimen/textsizenormal"
-        android:layout_margin="10dp"/>
+        android:textSize="@dimen/textsizenormal" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
-        <ImageView
+
+        <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_weight="5">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/travel_header" />
+
+        </LinearLayout>
+
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+        <!--<android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/travelRvrefresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/travel_bg"
+            android:orientation="vertical"
+            android:layout_weight="5"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/travel_header"/>
+            android:layout_marginBottom="5dp">
 
+            <ListView
+                android:id="@+id/travelRv"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"></ListView>
+
+            <!-- </android.support.v4.widget.SwipeRefreshLayout>-->
+            <com.procialize.singleevent.Fonts.RobotoTextview
+                android:id="@android:id/empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="Tickets will be uploaded shortly"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
     </LinearLayout>
-
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone" />
-
-    <!--<android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/travelRvrefresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">-->
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/travel_bg"
-        android:orientation="vertical">
-
-        <ListView
-            android:id="@+id/travelRv"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"></ListView>
-
-   <!-- </android.support.v4.widget.SwipeRefreshLayout>-->
-    <com.procialize.singleevent.Fonts.RobotoTextview
-        android:id="@android:id/empty"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="Tickets will be uploaded shortly"
-        android:textColor="@color/black"
-        android:textSize="18sp" />
-</LinearLayout>
 </LinearLayout>

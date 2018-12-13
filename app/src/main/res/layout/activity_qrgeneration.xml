@@ -74,15 +74,16 @@
         android:gravity="center"
         android:text="Scan ID Card"
         android:textColor="@color/black"
-        android:textSize="@dimen/textsizebigger"
+        android:textSize="@dimen/textsizenormal"
         android:textStyle="bold"
-        android:visibility="gone" />
+        />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/scantxt"
-        android:background="@color/qnarow">
+        android:background="@color/qnarow"
+        android:layout_margin="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -99,7 +100,7 @@
                 android:gravity="center|center_horizontal"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.procialize.singleevent.Fonts.RobotoTextview
                     android:id="@+id/txtNamehead"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -131,7 +132,7 @@
                 android:gravity="center|center_horizontal"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.procialize.singleevent.Fonts.RobotoTextview
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
@@ -161,7 +162,7 @@
                 android:gravity="center|center_horizontal"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.procialize.singleevent.Fonts.RobotoTextview
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
@@ -191,7 +192,7 @@
                 android:gravity="center|center_horizontal"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.procialize.singleevent.Fonts.RobotoTextview
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
@@ -221,7 +222,7 @@
                 android:gravity="center|center_horizontal"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.procialize.singleevent.Fonts.RobotoTextview
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
@@ -250,7 +251,7 @@
                 android:gravity="center|center_horizontal"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.procialize.singleevent.Fonts.RobotoTextview
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
@@ -281,7 +282,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_gravity="left"
-        android:background="@color/qnarow"
         android:gravity="center"
         android:padding="10dp"
         android:text="Powered By Procialize"

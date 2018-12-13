@@ -52,7 +52,7 @@ public class AgendaDetailActivity extends AppCompatActivity {
     List<EventSettingList> eventSettingLists;
 
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid,colorActive;
+    String eventid, colorActive;
     LinearLayout linear1, linear2, linear3;
     View viewtwo, viewone;
     RatingBar ratingbar;
@@ -166,7 +166,7 @@ public class AgendaDetailActivity extends AppCompatActivity {
 
         if (date != null) {
             try {
-                SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+                SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.UK);
                 SimpleDateFormat targetFormat = new SimpleDateFormat("dd MMMM");
 
                 Date ogdate = originalFormat.parse(date);
@@ -185,8 +185,8 @@ public class AgendaDetailActivity extends AppCompatActivity {
 
         if (starttime != null && endtime != null) {
             try {
-                SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss", Locale.ENGLISH);
-                SimpleDateFormat targetFormat = new SimpleDateFormat("kk:mm aa");
+                SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.UK);
+                SimpleDateFormat targetFormat = new SimpleDateFormat("hh:mm aa");
 
                 Date startdate = originalFormat.parse(starttime);
                 Date enddate = originalFormat.parse(endtime);
@@ -208,7 +208,17 @@ public class AgendaDetailActivity extends AppCompatActivity {
         }
 
         if (description != null) {
-            tvdscription.setText(description);
+            if (description.equalsIgnoreCase("")) {
+                tvdscription.setVisibility(View.GONE);
+                linear3.setVisibility(View.GONE);
+                viewtwo.setVisibility(View.GONE);
+            } else if (description.equalsIgnoreCase(" ")) {
+                tvdscription.setVisibility(View.GONE);
+                linear3.setVisibility(View.GONE);
+                viewtwo.setVisibility(View.GONE);
+            } else {
+                tvdscription.setText(description);
+            }
         } else {
             tvdscription.setVisibility(View.GONE);
             linear3.setVisibility(View.GONE);
@@ -283,7 +293,7 @@ public class AgendaDetailActivity extends AppCompatActivity {
     public void PostRate(String eventid, String rating, String token, String speakerid) {
         showProgress();
 //        showProgress();
-        mAPIService.RatingSessionPost(token, eventid, speakerid, rating).enqueue(new Callback<RatingSessionPost>() {
+        mAPIService.RatingSessionPost(token, eventid, speakerid, rating,"").enqueue(new Callback<RatingSessionPost>() {
             @Override
             public void onResponse(Call<RatingSessionPost> call, Response<RatingSessionPost> response) {
 

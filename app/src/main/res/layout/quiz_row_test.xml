@@ -6,31 +6,32 @@
     android:layout_margin="5dp"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="3dp" >
-    >
+    android:padding="3dp">
+
 
     <LinearLayout
         android:id="@+id/raiolayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="top"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:orientation="horizontal">
 
             <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/textno1"
-                android:textColor="@color/activetab"
-                android:textStyle="bold"
-                android:padding="2dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"/>
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:textColor="@color/activetab"
+                android:textStyle="bold"
+                android:visibility="gone" />
 
             <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/quiz_question"
@@ -38,11 +39,9 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="@color/activetab"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textSize="15sp" />
 
         </LinearLayout>
-
 
 
         <RadioGroup

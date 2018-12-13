@@ -69,17 +69,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/black" />
-
-    <com.procialize.singleevent.Fonts.RobotoTextview
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="@dimen/padding"
-        android:text="@string/refresh"
-        android:textColor="@color/black"
-        android:textSize="@dimen/textsizesmall" />
-
+        android:background="@color/linecolor" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -101,6 +91,17 @@
         android:textColor="@color/black"
         android:textSize="@dimen/textsizesmall" />
 
+    <TextView
+        android:id="@+id/pullrefresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:alpha="0.8"
+        android:gravity="center"
+        android:text="Pull Down to Refresh"
+        android:textColor="@color/inactivetab"
+        android:textSize="10sp"
+        android:visibility="visible" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/eventrefresh"

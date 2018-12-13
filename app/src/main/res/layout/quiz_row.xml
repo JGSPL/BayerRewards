@@ -3,27 +3,26 @@
     android:id="@+id/agenda_list_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-
+    android:layout_marginTop="10dp"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="3dp" >
+    android:padding="3dp">
 
     <LinearLayout
+        android:id="@+id/linQuiz"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/linQuiz"
         android:background="@color/activetab"
         android:gravity="center"
-        android:orientation="horizontal"
         android:minHeight="40dp"
-        android:weightSum="10" >
+        android:orientation="horizontal"
+        android:weightSum="10">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.5"
-            android:gravity="center" >
+            android:gravity="center">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -35,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="7"
             android:gravity="center|left"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <!-- Video Title -->
 
@@ -56,11 +55,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.5"
-            android:gravity="center" >
+            android:gravity="center">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:background="@drawable/right_arrow1"
                 android:visibility="visible" />
         </LinearLayout>

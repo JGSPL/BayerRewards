@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="50dp"
     android:orientation="vertical"
-    android:layout_margin="10dp"
-    android:background="@drawable/pollquizrow"
-
+    android:background="@color/qnarow"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp">
 
     <LinearLayout
         android:id="@+id/mainLL"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:weightSum="10"
-        android:elevation="@dimen/elevation"
         android:padding="10dp"
-        android:orientation="horizontal"
-        android:translationZ="@dimen/elevation">
+        android:orientation="horizontal">
 
 
         <LinearLayout
@@ -30,16 +26,12 @@
             <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/nameTv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/designationTv"
-                android:layout_alignTop="@+id/imageView"
-                android:drawablePadding="5dp"
+                android:layout_height="match_parent"
                 android:gravity="center|center_vertical"
                 android:paddingBottom="5dp"
                 android:paddingLeft="10dp"
-                android:paddingTop="5dp"
                 android:text="Abheejit Saxena"
-                android:textColor="@color/black"
+                android:textColor="@color/colorwhite"
                 android:textSize="@dimen/textsizenormal" />
 
         </LinearLayout>
@@ -51,9 +43,9 @@
 
             <ImageView
                 android:id="@+id/ic_rightarrow"
-                android:src="@drawable/ic_rightarrow"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp" />
+                android:src="@drawable/right_arrow1"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
 
         </LinearLayout>
 

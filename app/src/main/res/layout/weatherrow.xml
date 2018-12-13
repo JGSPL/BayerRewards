@@ -2,31 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_margin="10dp">
+    android:layout_margin="10dp"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/mainLL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#1F73BA"
-        android:elevation="@dimen/elevation"
-        android:orientation="horizontal"
-        android:translationZ="@dimen/elevation">
+        android:orientation="horizontal">
 
 
         <LinearLayout
-            android:weightSum="5"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="5">
 
             <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/nameTv"
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:drawablePadding="5dp"
                 android:gravity="center"
                 android:padding="5dp"
@@ -36,9 +34,9 @@
 
             <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/dateTv"
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:drawablePadding="5dp"
                 android:gravity="center"
                 android:padding="5dp"
@@ -49,9 +47,9 @@
 
             <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/typev"
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:drawablePadding="5dp"
                 android:gravity="center"
                 android:padding="5dp"
@@ -60,21 +58,20 @@
                 android:textSize="9sp" />
 
             <ImageView
-                android:visibility="gone"
                 android:id="@+id/imageIv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:src="@drawable/sunny"
-                android:layout_width="0dp"
-                android:layout_height="match_parent" />
-
+                android:visibility="gone" />
 
 
             <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/maxTv"
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:drawablePadding="5dp"
                 android:gravity="center"
                 android:padding="5dp"
@@ -84,9 +81,9 @@
 
             <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/minTv"
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:drawablePadding="5dp"
                 android:gravity="center"
                 android:padding="5dp"

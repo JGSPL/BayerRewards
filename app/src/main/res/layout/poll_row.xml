@@ -6,7 +6,7 @@
     <LinearLayout
         android:id="@+id/mainLL"
         android:background="@color/activetab"
-        android:layout_margin="5dp"
+        android:layout_margin="8dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -20,14 +20,13 @@
             android:layout_height="match_parent">
 
             <com.procialize.singleevent.Fonts.RobotoTextview
-                android:drawablePadding="5dp"
-                android:drawableRight="@drawable/right_arrow1"
                 android:textSize="14sp"
                 android:padding="5dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="7"
                 android:layout_alignStart="@+id/designationTv"
                 android:layout_alignTop="@+id/imageView"
                 android:text="="
@@ -35,6 +34,19 @@
                 android:id="@+id/nameTv"
                 android:textAlignment="center"/>
 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/ic_rightarrow"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/right_arrow1" />
+
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

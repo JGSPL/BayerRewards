@@ -2,29 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:background="@android:color/transparent"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
     android:orientation="horizontal">
 
 
-
-        <com.procialize.singleevent.Fonts.RobotoTextview
-            android:id="@+id/tvheading"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text=""
-            android:textColor="@color/colorwhite"
-            android:textSize="20dp"
-            android:background="@color/activetab"/>
+    <com.procialize.singleevent.Fonts.RobotoTextview
+        android:id="@+id/tvheading"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="@color/activetab"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@color/colorwhite"
+        android:textSize="20dp"
+        android:layout_marginBottom="3dp"/>
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_agenda"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"></android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent" />
 
 
 </LinearLayout>
