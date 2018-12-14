@@ -60,8 +60,8 @@
                 android:id="@+id/progressBar"
                 android:visibility="gone"
                 android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
 
             <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/txtTitle"

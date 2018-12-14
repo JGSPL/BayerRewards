@@ -41,6 +41,7 @@ import com.procialize.singleevent.GetterSetter.ProfileSave;
 import com.procialize.singleevent.GetterSetter.QADirectFetch;
 import com.procialize.singleevent.GetterSetter.QASessionFetch;
 import com.procialize.singleevent.GetterSetter.QASpeakerFetch;
+import com.procialize.singleevent.GetterSetter.QRPost;
 import com.procialize.singleevent.GetterSetter.QuizFetch;
 import com.procialize.singleevent.GetterSetter.QuizSubmitFetch;
 import com.procialize.singleevent.GetterSetter.RatingSessionPost;
@@ -186,6 +187,15 @@ public interface APIService {
             @Part("api_access_token") RequestBody api_access_token,
             @Part("event_id") RequestBody event_id);
 
+    @POST("QRScanDataPost")
+    @FormUrlEncoded
+    Call<QRPost> QRScanDataPost(@Field("api_access_token") String api_access_token,
+                                @Field("event_id") String event_id,
+                                @Field("first_name") String first_name,
+                                @Field("last_name") String last_name,
+                                @Field("contact_number") String contact_number,
+                                @Field("email") String email);
+
 
     @POST("NewsFeedFetch")
     @FormUrlEncoded
@@ -252,7 +262,7 @@ public interface APIService {
     @POST("RateSession")
     @FormUrlEncoded
     Call<RatingSessionPost> RatingSessionPost(@Field("api_access_token") String api_access_token,
-                                              @Field("event_id") String event_id, @Field("target_id") String target_id, @Field("rating") String rating,@Field("comment") String comment);
+                                              @Field("event_id") String event_id, @Field("target_id") String target_id, @Field("rating") String rating, @Field("comment") String comment);
 
 
     @POST("SendMessage")

@@ -10,7 +10,7 @@
         android:id="@+id/notiLin"
         android:background="#1F73BA"
         android:orientation="vertical"
-        android:layout_width="60dp"
+        android:layout_width="50dp"
         android:layout_height="match_parent">
         <ImageView
             android:id="@+id/ivtype"
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content">
             <RelativeLayout
                 android:gravity="top"
-                android:layout_weight="2"
+                android:layout_weight="1.5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content">
 
@@ -46,16 +46,16 @@
                     android:id="@+id/profileIV"
                     android:layout_alignParentTop="true"
                     android:src="@drawable/profilepic_placeholder"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"/>
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"/>
 
                 <ProgressBar
                     android:layout_alignParentTop="true"
                     android:layout_centerInParent="true"
                     android:visibility="visible"
                     android:id="@+id/progressView"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp" />
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
 
 
             </RelativeLayout>
@@ -70,7 +70,7 @@
 
                 <com.procialize.singleevent.Fonts.RobotoTextview
                     android:paddingLeft="5dp"
-                    android:textSize="17sp"
+                    android:textSize="@dimen/textsizesmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignStart="@+id/designationTv"
@@ -85,7 +85,6 @@
                     android:id="@+id/txt_msg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/elevation"
                     android:text="Sent you message"
                     android:textColor="@color/colorAccent" />
 
@@ -96,7 +95,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text=""
-                    android:layout_margin="@dimen/elevation"
                     android:textColor="@color/colorAccent"
                     android:id="@+id/dataTv" />
 
@@ -107,7 +105,6 @@
                     android:visibility="gone"
                     android:textSize="@dimen/textsizesmall"
                     android:textColor="@color/colorwhite"
-                    android:layout_margin="@dimen/elevation"
                     android:layout_gravity="center"
                     android:background="@drawable/signupbutton"
                     android:layout_width="wrap_content"

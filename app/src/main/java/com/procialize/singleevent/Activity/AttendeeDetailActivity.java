@@ -17,8 +17,12 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -42,8 +46,10 @@ import com.procialize.singleevent.DbHelper.DBHelper;
 import com.procialize.singleevent.GetterSetter.AttendeeList;
 import com.procialize.singleevent.GetterSetter.EventSettingList;
 
+import com.procialize.singleevent.GetterSetter.QRPost;
 import com.procialize.singleevent.GetterSetter.SendMessagePost;
 import com.procialize.singleevent.GetterSetter.UserData;
+import com.procialize.singleevent.InnerDrawerActivity.QRScanActivity;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.Util;
@@ -70,7 +76,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
     String apikey;
     ImageView profileIV;
     ProgressBar progressBar, progressBarmain;
-    String attendee_company, attendee_location, attendee_mobile, attendee_design;
+    String attendee_company, attendee_location, attendee_mobile, attendee_design, attendee_save_contact, attendee_message;
     List<EventSettingList> eventSettingLists;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid, colorActive;
@@ -116,7 +122,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         eventid = prefs.getString("eventid", "1");
         colorActive = prefs.getString("colorActive", "");
 
-
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         dbHelper = new DBHelper(AttendeeDetailActivity.this);
         db = dbHelper.getWritableDatabase();
 
@@ -187,6 +193,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         linMsg.setBackgroundColor(Color.parseColor(colorActive));
         linsave.setBackgroundColor(Color.parseColor(colorActive));
 
+//        posttextEt.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
         sendbtn = findViewById(R.id.sendMsg);
         sendbtn.setBackgroundColor(Color.parseColor(colorActive));
@@ -195,9 +202,33 @@ public class AttendeeDetailActivity extends AppCompatActivity {
             sendbtn.setVisibility(View.GONE);
             linearsaveandsend.setVisibility(View.GONE);
         } else {
-            sendbtn.setVisibility(View.VISIBLE);
-            linearsaveandsend.setVisibility(View.VISIBLE);
+            if (attendee_message.equalsIgnoreCase("1")) {
+                sendbtn.setVisibility(View.VISIBLE);
+                linearsaveandsend.setVisibility(View.VISIBLE);
+            } else {
+                sendbtn.setVisibility(View.GONE);
+                linearsaveandsend.setVisibility(View.GONE);
+            }
         }
+
+        if (attendee_message.equalsIgnoreCase("0")) {
+            posttextEt.setVisibility(View.GONE);
+            linMsg.setVisibility(View.GONE);
+            sendbtn.setVisibility(View.GONE);
+        } else {
+            posttextEt.setVisibility(View.VISIBLE);
+            linMsg.setVisibility(View.VISIBLE);
+            sendbtn.setVisibility(View.VISIBLE);
+        }
+
+        if (attendee_save_contact.equalsIgnoreCase("0")) {
+            linsave.setVisibility(View.GONE);
+            saveContact.setVisibility(View.GONE);
+        } else {
+            linsave.setVisibility(View.VISIBLE);
+            saveContact.setVisibility(View.VISIBLE);
+        }
+
 
         if (name.equalsIgnoreCase("N A")) {
             tvname.setVisibility(View.GONE);
@@ -379,6 +410,10 @@ public class AttendeeDetailActivity extends AppCompatActivity {
                 attendee_design = eventSettingLists.get(i).getFieldValue();
             } else if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("attendee_designation")) {
                 attendee_design = eventSettingLists.get(i).getFieldValue();
+            } else if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("attendee_save_contact")) {
+                attendee_save_contact = eventSettingLists.get(i).getFieldValue();
+            } else if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("attendee_message")) {
+                attendee_message = eventSettingLists.get(i).getFieldValue();
             }
         }
     }
@@ -448,6 +483,9 @@ public class AttendeeDetailActivity extends AppCompatActivity {
 
     public void PostMesssage(String eventid, String msg, String token, String attendeeid) {
         showProgress();
+        InputMethodManager imm = (InputMethodManager) getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(posttextEt.getWindowToken(), 0);
 //        showProgress();
         mAPIService.SendMessagePost(token, eventid, msg, attendeeid, "").enqueue(new Callback<SendMessagePost>() {
             @Override
@@ -502,7 +540,9 @@ public class AttendeeDetailActivity extends AppCompatActivity {
     }
 
     public void addToContactList(Context context, String strDisplayName, String strNumber) throws Exception {
-
+        InputMethodManager imm = (InputMethodManager) getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(posttextEt.getWindowToken(), 0);
         ArrayList<ContentProviderOperation> cntProOper = new ArrayList<>();
         int contactIndex = cntProOper.size();//ContactSize
         ContentResolver contactHelper = context.getContentResolver();

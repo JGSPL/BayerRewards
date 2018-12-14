@@ -198,4 +198,6 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
     public interface AgendaAdapterListner {
         void onContactSelected(AgendaList agendaList);
     }
+
+
 }

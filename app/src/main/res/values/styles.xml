@@ -76,7 +76,7 @@
         <item name="android:textSize">10sp</item>
         <item name="android:textColor">@android:color/black</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:fontFamily">DINPro-Light_13935.ttf</item>
+        <item name="android:fontFamily">DINPro-Light_13935</item>
     </style>
 
     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">

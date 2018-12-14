@@ -46,11 +46,13 @@
         <LinearLayout
             android:id="@+id/mainLLpost"
             android:layout_width="match_parent"
-            android:layout_height="80px"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/mindTv"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/margin"
             android:layout_marginRight="@dimen/margin"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:background="@drawable/linearlayoutbg"
             android:gravity="center"
             android:orientation="horizontal">
