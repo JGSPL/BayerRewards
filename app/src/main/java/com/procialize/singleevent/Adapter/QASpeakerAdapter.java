@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.GetterSetter.EventSettingList;
@@ -44,7 +45,7 @@ import static android.content.Context.MODE_PRIVATE;
  * Created by Naushad on 10/31/2017.
  */
 
-public class QASpeakerAdapter extends RecyclerView.Adapter<QASpeakerAdapter.MyViewHolder>{
+public class QASpeakerAdapter extends RecyclerView.Adapter<QASpeakerAdapter.MyViewHolder> {
 
     private List<SpeakerQuestionList> speakerQuestionLists;
     private List<QuestionSpeakerList> questionSpeakerLists;
@@ -52,27 +53,28 @@ public class QASpeakerAdapter extends RecyclerView.Adapter<QASpeakerAdapter.MyVi
     private QASpeakerAdapterListner listener;
     private String speakername;
     private APIService mAPIService;
-    String token,message;
-    String QA_like_question,QA_reply_question;
+    String token, message;
+    String QA_like_question, QA_reply_question;
     List<EventSettingList> eventSettingLists;
     String MY_PREFS_NAME = "ProcializeInfo";
     String MY_PREFS_LOGIN = "ProcializeLogin";
     String colorActive;
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView nameTv,dateTv,QaTv,AnsTv,countTv;
+        public TextView nameTv, dateTv, QaTv, AnsTv, countTv;
         public ImageView likeIv;
         LinearLayout likeLL;
 
         public MyViewHolder(View view) {
             super(view);
-            nameTv =  view.findViewById(R.id.nameTv);
-            dateTv =  view.findViewById(R.id.dateTv);
-            QaTv =  view.findViewById(R.id.QaTv);
-            AnsTv =  view.findViewById(R.id.AnsTv);
-            countTv =  view.findViewById(R.id.countTv);
-            likeLL =  view.findViewById(R.id.likeLL);
+            nameTv = view.findViewById(R.id.nameTv);
+            dateTv = view.findViewById(R.id.dateTv);
+            QaTv = view.findViewById(R.id.QaTv);
+            AnsTv = view.findViewById(R.id.AnsTv);
+            countTv = view.findViewById(R.id.countTv);
+            likeLL = view.findViewById(R.id.likeLL);
 
-            likeIv =  view.findViewById(R.id.likeIv);
+            likeIv = view.findViewById(R.id.likeIv);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -85,7 +87,7 @@ public class QASpeakerAdapter extends RecyclerView.Adapter<QASpeakerAdapter.MyVi
             likeLL.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onLikeListener(v,speakerQuestionLists.get(getAdapterPosition()),getAdapterPosition(),countTv,likeIv);
+                    listener.onLikeListener(v, speakerQuestionLists.get(getAdapterPosition()), getAdapterPosition(), countTv, likeIv);
                 }
             });
         }
@@ -95,12 +97,12 @@ public class QASpeakerAdapter extends RecyclerView.Adapter<QASpeakerAdapter.MyVi
     public QASpeakerAdapter(Context context, List<SpeakerQuestionList> speakerQuestionLists, List<QuestionSpeakerList> questionSpeakerLists, QASpeakerAdapterListner listener, String speakername) {
         this.speakerQuestionLists = speakerQuestionLists;
         this.questionSpeakerLists = questionSpeakerLists;
-        this.listener=listener;
-        this.context=context;
-        this.speakername=speakername;
+        this.listener = listener;
+        this.context = context;
+        this.speakername = speakername;
 
         SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        colorActive = prefs.getString("colorActive","");
+        colorActive = prefs.getString("colorActive", "");
 
     }
 
@@ -117,21 +119,19 @@ public class QASpeakerAdapter extends RecyclerView.Adapter<QASpeakerAdapter.MyVi
         final SpeakerQuestionList question = speakerQuestionLists.get(position);
         holder.nameTv.setTextColor(Color.parseColor(colorActive));
 
-        holder.nameTv.setText(speakername);
+        holder.nameTv.setText(question.getFirstName() + " " + question.getLastName());
         holder.QaTv.setText(StringEscapeUtils.unescapeJava(question.getQuestion()));
 
 
-
-        if (question.getAnswer()!=null && QA_reply_question.equalsIgnoreCase("1")) {
-            if(!question.getAnswer().equalsIgnoreCase("null")) {
-                holder.AnsTv.setText("Ans :- "+StringEscapeUtils.unescapeJava(question.getAnswer()));
-            }else
-            {
+        if (question.getAnswer() != null && QA_reply_question.equalsIgnoreCase("1")) {
+            if (!question.getAnswer().equalsIgnoreCase("null")) {
+                holder.AnsTv.setText("Ans :- " + StringEscapeUtils.unescapeJava(question.getAnswer()));
+            } else {
                 holder.AnsTv.setVisibility(View.GONE);
             }
         }
 
-        holder.countTv.setText(question.getTotalLikes()+ " Likes");
+        holder.countTv.setText(question.getTotalLikes() + " Likes");
 
         mAPIService = ApiUtils.getAPIService();
 
@@ -143,11 +143,9 @@ public class QASpeakerAdapter extends RecyclerView.Adapter<QASpeakerAdapter.MyVi
         token = user.get(SessionManager.KEY_TOKEN);
 
 
-
         eventSettingLists = sessionManager.loadEventList();
 
-        if (eventSettingLists.size()!=0)
-        {
+        if (eventSettingLists.size() != 0) {
             applysetting(eventSettingLists);
         }
 
@@ -167,22 +165,17 @@ public class QASpeakerAdapter extends RecyclerView.Adapter<QASpeakerAdapter.MyVi
         }
 
 
-
-        if (QA_like_question.equalsIgnoreCase("1"))
-        {
+        if (QA_like_question.equalsIgnoreCase("1")) {
             holder.likeLL.setVisibility(View.VISIBLE);
-        }else
-        {
+        } else {
             holder.likeLL.setVisibility(View.GONE);
 
         }
 
 
-        if (question.getLikeFlag().equals("0"))
-        {
+        if (question.getLikeFlag().equals("0")) {
             holder.likeIv.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_like));
-        }else
-        {
+        } else {
             holder.likeIv.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_afterlike));
 
             int colorInt = Color.parseColor(colorActive);
@@ -193,7 +186,6 @@ public class QASpeakerAdapter extends RecyclerView.Adapter<QASpeakerAdapter.MyVi
             holder.likeIv.setImageDrawable(drawable);
 
         }
-
 
 
     }
@@ -213,15 +205,11 @@ public class QASpeakerAdapter extends RecyclerView.Adapter<QASpeakerAdapter.MyVi
 
     private void applysetting(List<EventSettingList> eventSettingLists) {
 
-        for (int i=0;i<eventSettingLists.size();i++)
-        {
+        for (int i = 0; i < eventSettingLists.size(); i++) {
 
-            if (eventSettingLists.get(i).getFieldName().equals("Q&A_like_question"))
-            {
+            if (eventSettingLists.get(i).getFieldName().equals("Q&A_like_question")) {
                 QA_like_question = eventSettingLists.get(i).getFieldValue();
-            }
-            else if (eventSettingLists.get(i).getFieldName().equals("Q&A_reply_question"))
-            {
+            } else if (eventSettingLists.get(i).getFieldName().equals("Q&A_reply_question")) {
                 QA_reply_question = eventSettingLists.get(i).getFieldValue();
             }
         }

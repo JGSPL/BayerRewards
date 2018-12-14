@@ -14,6 +14,7 @@
     <string name="travel">My Travel</string>
     <string name="notification">Notifications</string>
     <string name="qa"><![CDATA[Q & A]]> Session</string>
+    <string name="qaspeaker"><![CDATA[Q & A]]> Speaker</string>
     <string name="qadirect"><![CDATA[Q & A]]> Direct</string>
     <string name="gallery">Gallery</string>
     <string name="video">Videos Engagement</string>

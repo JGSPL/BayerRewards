@@ -269,13 +269,13 @@ public class ProfileActivity extends AppCompatActivity {
 
         if (description != null) {
             Etdescription.setText(description);
-            Etdescription.setVisibility(View.VISIBLE);
-            input_layout_desc.setVisibility(View.VISIBLE);
+            Etdescription.setVisibility(View.GONE);
+            input_layout_desc.setVisibility(View.GONE);
         } else {
             if (description != null) {
                 Etdescription.setText(description);
-                Etdescription.setVisibility(View.VISIBLE);
-                input_layout_desc.setVisibility(View.VISIBLE);
+                Etdescription.setVisibility(View.GONE);
+                input_layout_desc.setVisibility(View.GONE);
             }
             Etdescription.setVisibility(View.GONE);
             input_layout_desc.setVisibility(View.GONE);

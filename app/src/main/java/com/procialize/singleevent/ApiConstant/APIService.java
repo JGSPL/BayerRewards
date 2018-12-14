@@ -381,7 +381,7 @@ public interface APIService {
     @FormUrlEncoded
     Call<QASpeakerFetch> QASpeakerPost(@Field("api_access_token") String api_access_token,
                                        @Field("event_id") String event_id, @Field("question") String question,
-                                       @Field("speaker_name") String speaker_name, @Field("session_id") String session_id);
+                                       @Field("speaker_id") String speaker_id);
 
     @POST("QADirectPost")
     @FormUrlEncoded

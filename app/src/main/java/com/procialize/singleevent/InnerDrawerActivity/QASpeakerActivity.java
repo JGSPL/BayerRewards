@@ -356,7 +356,7 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
                 if (etmsg.getText().toString().length() > 0) {
 
                     String msg = StringEscapeUtils.escapeJava(etmsg.getText().toString());
-                    PostQuetion(token, eventid, msg, Selectedspeaker, SelectedspeakerId);
+                    PostQuetion(token, eventid, msg,  SelectedspeakerId);
                 } else {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(QASpeakerActivity.this);
                     builder.setTitle("");
@@ -377,8 +377,8 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
         });
     }
 
-    private void PostQuetion(final String token, final String eventid, String msg, String selectedspeaker, String selectedspeakerId) {
-        mAPIService.QASpeakerPost(token, eventid, msg, selectedspeaker, selectedspeakerId).enqueue(new Callback<QASpeakerFetch>() {
+    private void PostQuetion(final String token, final String eventid, String msg, String selectedspeakerId) {
+        mAPIService.QASpeakerPost(token, eventid, msg,  selectedspeakerId).enqueue(new Callback<QASpeakerFetch>() {
             @Override
             public void onResponse(Call<QASpeakerFetch> call, Response<QASpeakerFetch> response) {
 
