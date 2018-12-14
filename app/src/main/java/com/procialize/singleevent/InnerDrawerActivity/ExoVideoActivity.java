@@ -2,7 +2,9 @@ package com.procialize.singleevent.InnerDrawerActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
@@ -35,7 +37,8 @@ public class ExoVideoActivity extends AppCompatActivity implements OnPreparedLis
     Button btn_share;
     RelativeLayout llTop;
     ImageView headerlogoIv;
-
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String eventid,colorActive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,10 @@ public class ExoVideoActivity extends AppCompatActivity implements OnPreparedLis
         videoUrl = getIntent().getExtras().getString("videoUrl");
         title = getIntent().getExtras().getString("title");
         page = getIntent().getExtras().getString("page");
+
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        eventid = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive","");
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -74,6 +81,13 @@ public class ExoVideoActivity extends AppCompatActivity implements OnPreparedLis
                 finish();
             }
         });
+
+        TextView txtTitle = (TextView)findViewById(R.id.txtTitle);
+        if(title!=null){
+            txtTitle.setText(title);
+            txtTitle.setTextColor(Color.parseColor(colorActive));
+
+        }
 
         btn_share.setOnClickListener(new View.OnClickListener() {
             @Override
