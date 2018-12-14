@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -67,6 +68,8 @@ public class QAAttendeeActivity extends AppCompatActivity implements QAAttendeeA
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid,colorActive;
     ImageView headerlogoIv;
+    TextView txtEmpty;
+    LinearLayout linUpper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +109,8 @@ public class QAAttendeeActivity extends AppCompatActivity implements QAAttendeeA
         spinner = findViewById(R.id.spinner);
         progressBar = findViewById(R.id.progressBar);
         postbtn.setBackgroundColor(Color.parseColor(colorActive));
+        txtEmpty = findViewById(R.id.txtEmpty);
+        linUpper = findViewById(R.id.linUpper);
 
         list = new ArrayList<>();
         agendaLisQAS = new ArrayList<>();
@@ -243,13 +248,24 @@ public class QAAttendeeActivity extends AppCompatActivity implements QAAttendeeA
                     }
                 }
 
-                if (!(response.body().getAgendaList().isEmpty())) {
+                if (!(agendaQuestions.isEmpty())) {
+                    //txtEmpty.setVisibility(View.GONE);
+                    linUpper.setBackground(getResources().getDrawable(R.drawable.close_icon));
+
                     qaAttendeeAdapter = new QAAttendeeAdapter(QAAttendeeActivity.this, agendaQuestions, response.body().getAgendaList(), this, Selectedspeaker);
                     qaAttendeeAdapter.notifyDataSetChanged();
                     qaRv.setAdapter(qaAttendeeAdapter);
                     qaRv.scheduleLayoutAnimation();
                 } else {
-                    setContentView(R.layout.activity_empty_view);
+                    linUpper.setBackground(getResources().getDrawable(R.drawable.noqna));
+
+                    // txtEmpty.setVisibility(View.VISIBLE);
+                    qaAttendeeAdapter = new QAAttendeeAdapter(QAAttendeeActivity.this, agendaQuestions, response.body().getAgendaList(), this, Selectedspeaker);
+                    qaAttendeeAdapter.notifyDataSetChanged();
+                    qaRv.setAdapter(qaAttendeeAdapter);
+                    qaRv.scheduleLayoutAnimation();
+
+                    /*setContentView(R.layout.activity_empty_view);
                     ImageView imageView = findViewById(R.id.back);
                     TextView text_empty = findViewById(R.id.text_empty);
                     text_empty.setText("Q&A not available");
@@ -258,7 +274,7 @@ public class QAAttendeeActivity extends AppCompatActivity implements QAAttendeeA
                         public void onClick(View v) {
                             finish();
                         }
-                    });
+                    });*/
                 }
             }
 
@@ -311,6 +327,8 @@ public class QAAttendeeActivity extends AppCompatActivity implements QAAttendeeA
         } else {
 
             likeIv.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_afterlike));
+           likeIv.setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_ATOP);
+
 
             QALike(token, eventid, question.getId(), question.getSessionId());
 
@@ -491,13 +509,43 @@ public class QAAttendeeActivity extends AppCompatActivity implements QAAttendeeA
                 }
             }
 
-            qaAttendeeAdapter = new QAAttendeeAdapter(QAAttendeeActivity.this, agendaQuestions, response.body().getAgendaList(), this, Selectedspeaker);
+            if (!(agendaQuestions.isEmpty())) {
+              //  txtEmpty.setVisibility(View.GONE);
+                linUpper.setBackground(getResources().getDrawable(R.drawable.close_icon));
+
+                qaAttendeeAdapter = new QAAttendeeAdapter(QAAttendeeActivity.this, agendaQuestions, response.body().getAgendaList(), this, Selectedspeaker);
+                qaAttendeeAdapter.notifyDataSetChanged();
+                qaRv.setAdapter(qaAttendeeAdapter);
+                qaRv.scheduleLayoutAnimation();
+            } else {
+               // txtEmpty.setVisibility(View.VISIBLE);
+                linUpper.setBackground(getResources().getDrawable(R.drawable.noqna));
+
+                qaAttendeeAdapter = new QAAttendeeAdapter(QAAttendeeActivity.this, agendaQuestions, response.body().getAgendaList(), this, Selectedspeaker);
+                qaAttendeeAdapter.notifyDataSetChanged();
+                qaRv.setAdapter(qaAttendeeAdapter);
+                qaRv.scheduleLayoutAnimation();
+
+                    /*setContentView(R.layout.activity_empty_view);
+                    ImageView imageView = findViewById(R.id.back);
+                    TextView text_empty = findViewById(R.id.text_empty);
+                    text_empty.setText("Q&A not available");
+                    imageView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            finish();
+                        }
+                    });*/
+            }
+
+           /* qaAttendeeAdapter = new QAAttendeeAdapter(QAAttendeeActivity.this, agendaQuestions, response.body().getAgendaList(), this, Selectedspeaker);
             qaAttendeeAdapter.notifyDataSetChanged();
-            qaRv.setAdapter(qaAttendeeAdapter);
+            qaRv.setAdapter(qaAttendeeAdapter);*/
 //            qaRv.scheduleLayoutAnimation();
 //            Toast.makeText(QAAttendeeActivity.this, response.message(), Toast.LENGTH_SHORT).show();
 
         } else {
+
             Toast.makeText(QAAttendeeActivity.this, response.message(), Toast.LENGTH_SHORT).show();
         }
     }

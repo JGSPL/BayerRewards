@@ -586,6 +586,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         eventname = outer.findViewById(R.id.eventname);
         eventname.setTextColor(Color.parseColor(colorActive));
         headerRel.setBackgroundColor(Color.parseColor(colorActive));
+        outer.setBackgroundColor(Color.parseColor(colorActive));
 
         eventname.setText(eventnamestr);
 

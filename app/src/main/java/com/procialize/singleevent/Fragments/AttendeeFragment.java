@@ -332,4 +332,11 @@ public class AttendeeFragment extends Fragment implements AttendeeAdapter.Attend
         JZVideoPlayer.releaseAllVideos();
 
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
+    }
 }

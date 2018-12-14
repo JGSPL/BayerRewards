@@ -7,6 +7,8 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.PointF;
 import android.provider.ContactsContract;
 import android.support.design.widget.TextInputEditText;
@@ -23,12 +25,20 @@ import android.widget.Toast;
 
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
 import com.procialize.singleevent.Activity.ProfileActivity;
+import com.procialize.singleevent.ApiConstant.APIService;
+import com.procialize.singleevent.ApiConstant.ApiUtils;
+import com.procialize.singleevent.GetterSetter.QRPost;
 import com.procialize.singleevent.R;
+import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.Util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import cn.jzvd.JZVideoPlayer;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 //import ezvcard.Ezvcard;
 //import ezvcard.VCard;
 
@@ -43,7 +53,9 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
     String name, number, designation, company, city, email, lname, fname;
     QRCodeReaderView qrCodeReaderView;
     ImageView headerlogoIv;
-
+    private APIService mAPIService;
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String eventid,colorActive;
     @Override
     public void onCreate(Bundle state) {
         super.onCreate(state);
@@ -66,7 +78,7 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
         });
         headerlogoIv = findViewById(R.id.headerlogoIv);
         Util.logomethod(this, headerlogoIv);
-
+        mAPIService = ApiUtils.getAPIService();
         contactll = findViewById(R.id.contactll);
 
         edit_username_edit = findViewById(R.id.edit_username_edit);
@@ -98,8 +110,17 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
 
         // Use this function to set back camera preview
         qrCodeReaderView.setBackCamera();
+        SessionManager sessionManager = new SessionManager(this);
 
+        HashMap<String, String> user = sessionManager.getUserDetails();
 
+        // token
+        final String token = user.get(SessionManager.KEY_TOKEN);
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        eventid = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive", "");
+        int colorInt = Color.parseColor(colorActive);
+        save_btn_qr.setBackgroundColor(colorInt);
         save_btn_qr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,6 +146,7 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
                     Toast.makeText(QRScanActivity.this, "Enter City Name", Toast.LENGTH_SHORT).show();
                 } else {
                     try {
+                        QRScanPost(token, eventid, fname, lname, edit_mobile_edit.getText().toString(), email);
                         addToContactList(QRScanActivity.this, edit_first_name_edit.getText().toString(), edit_mobile_edit.getText().toString(),edit_email_edit.getText().toString(),
                                 edit_designation_edit.getText().toString(),edit_company_name_edit.getText().toString(),
                                 edit_city_edit.getText().toString());
@@ -358,7 +380,42 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
         qrCodeReaderView.stopCamera();
     }
 
+    public void QRScanPost(String token, String eventid, String first_name, String last_name, String contact_number, String email) {
 
+        mAPIService.QRScanDataPost(token, eventid, first_name, last_name, contact_number, email).enqueue(new Callback<QRPost>() {
+            @Override
+            public void onResponse(Call<QRPost> call, Response<QRPost> response) {
+
+                if (response.isSuccessful()) {
+                    Log.i("hit", "post submitted to API." + response.body().toString());
+
+                    showResponse(response);
+                } else {
+
+                    Toast.makeText(QRScanActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<QRPost> call, Throwable t) {
+                Log.e("hit", "Unable to submit post to API.");
+
+                Toast.makeText(QRScanActivity.this, "Low network or no network", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+    public void showResponse(Response<QRPost> response) {
+        if (response.body().getStatus().equalsIgnoreCase("success")) {
+            /*Toast.makeText(QRScanActivity.this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(QRScanActivity.this, QRScanActivity.class);
+            startActivity(intent);*/
+        } else {
+
+        }
+
+    }
 //    @Override
 //    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 //

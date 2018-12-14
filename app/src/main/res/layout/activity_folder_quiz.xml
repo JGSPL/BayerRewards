@@ -54,8 +54,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center|center_horizontal"
-            android:text="Quiz"
             android:padding="5dp"
+            android:text="Quiz"
             android:textColor="@color/activetab"
             android:textSize="18sp" />
 
@@ -64,8 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/speakertitle"
-            android:layout_marginBottom="20dp"
-            >
+            android:layout_marginBottom="20dp">
 
             <RelativeLayout
                 android:id="@+id/layoutTop"
@@ -80,7 +79,7 @@
                 android:layout_below="@id/layoutTop"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                android:background="@drawable/quiz_header">Po
+                android:background="@drawable/quiz_header">
 
             </RelativeLayout>
 
@@ -98,7 +97,6 @@
                     android:layout_width="96dp"
                     android:layout_height="96dp"
                     android:layout_centerInParent="true"
-                    android:background="@drawable/livepollroundback"
                     android:src="@drawable/quizlogo" />
 
 

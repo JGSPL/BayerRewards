@@ -250,6 +250,7 @@ public class ProfileActivity extends AppCompatActivity {
         layoutTop.setBackgroundColor(Color.parseColor(colorActive));
 
         savebtn.setBackgroundColor(Color.parseColor(colorActive));
+        txt_upload.setTextColor(Color.parseColor(colorActive));
 
 
         profileIV = findViewById(R.id.profileIV);
@@ -258,9 +259,13 @@ public class ProfileActivity extends AppCompatActivity {
 
         if (designation != null && edit_profile_designation.equalsIgnoreCase("1")) {
             Etdesignation.setText(designation);
+            Etdesignation.setVisibility(View.VISIBLE);
+            input_layout_designation.setVisibility(View.VISIBLE);
         } else {
             if (designation != null){
                 Etdesignation.setText(designation);
+                Etdesignation.setVisibility(View.VISIBLE);
+                input_layout_designation.setVisibility(View.VISIBLE);
 
             }
             Etdesignation.setVisibility(View.GONE);
@@ -269,9 +274,13 @@ public class ProfileActivity extends AppCompatActivity {
 
         if (description != null) {
             Etdescription.setText(description);
+            Etdescription.setVisibility(View.GONE);
+            input_layout_desc.setVisibility(View.GONE);
         } else {
             if (description != null) {
                 Etdescription.setText(description);
+                Etdescription.setVisibility(View.GONE);
+                input_layout_desc.setVisibility(View.GONE);
             }
             Etdescription.setVisibility(View.GONE);
             input_layout_desc.setVisibility(View.GONE);
@@ -279,9 +288,13 @@ public class ProfileActivity extends AppCompatActivity {
 
         if (city != null && edit_profile_location.equalsIgnoreCase("1")) {
             Etcity.setText(city);
+            Etcity.setVisibility(View.VISIBLE);
+            input_layout_city.setVisibility(View.VISIBLE);
         } else {
             if (city != null ) {
                 Etcity.setText(city);
+                Etcity.setVisibility(View.VISIBLE);
+                input_layout_city.setVisibility(View.VISIBLE);
             }
             Etcity.setVisibility(View.GONE);
             input_layout_city.setVisibility(View.GONE);
@@ -289,9 +302,13 @@ public class ProfileActivity extends AppCompatActivity {
 
         if (country != null && edit_profile_location.equalsIgnoreCase("1")) {
             Etcountry.setText(country);
+            Etcountry.setVisibility(View.VISIBLE);
+            input_layout_country.setVisibility(View.VISIBLE);
         } else {
             if (country != null ) {
                 Etcountry.setText(country);
+                Etcountry.setVisibility(View.VISIBLE);
+                input_layout_country.setVisibility(View.VISIBLE);
             }
             Etcountry.setVisibility(View.GONE);
             input_layout_country.setVisibility(View.GONE);
@@ -300,9 +317,13 @@ public class ProfileActivity extends AppCompatActivity {
 
         if (mobile != null && edit_profile_mobile.equalsIgnoreCase("1")) {
             Etmobile.setText(mobile);
+            Etmobile.setVisibility(View.VISIBLE);
+            input_layout_mobile.setVisibility(View.VISIBLE);
         } else {
             if (mobile != null) {
                 Etmobile.setText(mobile);
+                Etmobile.setVisibility(View.VISIBLE);
+                input_layout_mobile.setVisibility(View.VISIBLE);
             }
             Etmobile.setVisibility(View.GONE);
             input_layout_mobile.setVisibility(View.GONE);
@@ -311,11 +332,15 @@ public class ProfileActivity extends AppCompatActivity {
 
         if (company != null && edit_profile_company.equalsIgnoreCase("1")) {
             Etcompany.setText(company);
+            Etcompany.setVisibility(View.VISIBLE);
+            input_layout_company.setVisibility(View.VISIBLE);
 
         } else {
 
             if (company != null) {
                 Etcompany.setText(company);
+                Etcompany.setVisibility(View.VISIBLE);
+                input_layout_company.setVisibility(View.VISIBLE);
 
             }
 
@@ -328,11 +353,19 @@ public class ProfileActivity extends AppCompatActivity {
 
                 Etfirstname.setText(name);
                 Etlastname.setText(lname);
+                Etfirstname.setVisibility(View.VISIBLE);
+                Etlastname.setVisibility(View.VISIBLE);
+                input_layout_firstname.setVisibility(View.VISIBLE);
+                input_layout_lastname.setVisibility(View.VISIBLE);
 
             } else {
                 if (name != null){
                     Etfirstname.setText(name);
                     Etlastname.setText(lname);
+                    Etfirstname.setVisibility(View.VISIBLE);
+                    Etlastname.setVisibility(View.VISIBLE);
+                    input_layout_firstname.setVisibility(View.VISIBLE);
+                    input_layout_lastname.setVisibility(View.VISIBLE);
                 }
                 Etfirstname.setVisibility(View.GONE);
                 Etlastname.setVisibility(View.GONE);
@@ -347,9 +380,13 @@ public class ProfileActivity extends AppCompatActivity {
 
         if (email != null && edit_profile_email.equalsIgnoreCase("1")) {
             Etemail.setText(email);
+            Etemail.setVisibility(View.VISIBLE);
+            input_layout_emailid.setVisibility(View.VISIBLE);
         } else {
             if(email!=null){
                 Etemail.setText(email);
+                Etemail.setVisibility(View.VISIBLE);
+                input_layout_emailid.setVisibility(View.VISIBLE);
 
             }
             Etemail.setVisibility(View.GONE);

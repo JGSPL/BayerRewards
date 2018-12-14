@@ -207,7 +207,8 @@
             android:textColor="@color/black"
             android:textSize="@dimen/textsizesmall"
             android:scrollbars="vertical"
-            android:maxLines="10"/>
+            android:maxLines="10"
+            android:fadeScrollbars="false"/>
 
     </LinearLayout>
 

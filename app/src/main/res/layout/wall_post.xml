@@ -5,7 +5,7 @@
     android:background="@drawable/background"
     android:orientation="vertical">
 
-    <TextView
+    <com.procialize.singleevent.Fonts.RobotoTextview
         android:id="@+id/pullrefresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,12 +32,12 @@
             android:dividerHeight="0px"
             android:smoothScrollbar="true"
             android:layout_margin="10dp"
-            />
+            android:fadeScrollbars="false"/>
 
         <ProgressBar
             android:id="@+id/progressBar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_centerInParent="true"
             android:visibility="gone" />
 

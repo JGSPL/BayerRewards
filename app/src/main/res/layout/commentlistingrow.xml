@@ -4,8 +4,6 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:elevation="@dimen/elevation"
-        android:translationZ="@dimen/elevation"
         android:background="@drawable/newsfeedrowbg"
         android:layout_margin="@dimen/margin"
         android:orientation="vertical"
@@ -16,33 +14,32 @@
             android:id="@+id/textcommentContainer"
             android:layout_margin="@dimen/margin"
             android:orientation="horizontal"
-            android:weightSum="10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
 
             <RelativeLayout
                 android:gravity="center"
-                android:layout_weight="3"
+                android:layout_weight="2"
                 android:layout_width="0dp"
                 android:layout_height="match_parent">
 
                 <ImageView
                     xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/profileIV"
-                    android:layout_centerInParent="true"
                     android:src="@drawable/profilepic_placeholder"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:adjustViewBounds="true"
-                    android:scaleType="centerCrop"/>
+                    android:scaleType="centerCrop"
+                    android:layout_alignParentLeft="true"/>
 
                 <ProgressBar
                     android:visibility="visible"
-                    android:layout_centerInParent="true"
                     android:id="@+id/progressView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"/>
 
 
             </RelativeLayout>
@@ -114,8 +111,8 @@
             android:layout_below="@+id/nameTv"
             android:visibility="gone"
             android:id="@+id/progressViewgif"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
+            android:layout_width="20dp"
+            android:layout_height="20dp" />
 
     </LinearLayout>
 

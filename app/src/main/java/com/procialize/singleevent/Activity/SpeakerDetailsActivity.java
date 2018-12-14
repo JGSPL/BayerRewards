@@ -61,7 +61,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
     ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid, colorActive;
-    View viewthree, viewtwo, viewone, viewfive;
+    View viewthree, viewtwo, viewone, viewfive,viewfour;
     RelativeLayout ratinglayout, layoutTop;
     RatingBar ratingbar;
     ImageView headerlogoIv;
@@ -145,6 +145,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         viewtwo = findViewById(R.id.viewtwo);
         viewfive = findViewById(R.id.viewfive);
         viewthree = findViewById(R.id.viewthree);
+        viewfour = findViewById(R.id.viewfour);
         ratinglayout = findViewById(R.id.ratinglayout);
         ratingbar = findViewById(R.id.ratingbar);
         layoutTop = findViewById(R.id.layoutTop);
@@ -214,12 +215,14 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         if (city != null && speaker_location.equalsIgnoreCase("1")) {
             if (city.equalsIgnoreCase("")) {
                 tvcity.setVisibility(View.GONE);
+                viewfour.setVisibility(View.GONE);
             } else {
                 tvcity.setText(city);
             }
 
         } else {
             tvcity.setVisibility(View.GONE);
+            viewfour.setVisibility(View.GONE);
         }
 
         if (mobile != null && speaker_mobile.equalsIgnoreCase("1")) {

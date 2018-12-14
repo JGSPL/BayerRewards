@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -62,6 +63,7 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
     RecyclerView qaRv;
     public QADirectAdapter qaAttendeeAdapter;
     ImageView headerlogoIv;
+    LinearLayout linUpper;
 
 
     @Override
@@ -80,6 +82,7 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
         qaRvrefresh = findViewById(R.id.qaRvrefresh);
         postbtn = findViewById(R.id.postbtn);
         qaRv = findViewById(R.id.qaRv);
+        linUpper = findViewById(R.id.linUpper);
 
         postbtn.setBackgroundColor(Color.parseColor(colorActive));
 
@@ -178,13 +181,33 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
                     myDialog.dismiss();
                 }
             }
+            if (!(response.body().getQa_question().isEmpty())) {
+                //  txtEmpty.setVisibility(View.GONE);
+                linUpper.setBackground(getResources().getDrawable(R.drawable.close_icon));
 
-
-//            if (!(response.body().getQa_question().isEmpty())) {
                 qaAttendeeAdapter = new QADirectAdapter(QADirectActivity.this, response.body().getQa_question(), this);
                 qaAttendeeAdapter.notifyDataSetChanged();
                 qaRv.setAdapter(qaAttendeeAdapter);
                 qaRv.scheduleLayoutAnimation();
+            } else {
+                // txtEmpty.setVisibility(View.VISIBLE);
+                linUpper.setBackground(getResources().getDrawable(R.drawable.noqna));
+
+                qaAttendeeAdapter = new QADirectAdapter(QADirectActivity.this, response.body().getQa_question(), this);
+                qaAttendeeAdapter.notifyDataSetChanged();
+                qaRv.setAdapter(qaAttendeeAdapter);
+                qaRv.scheduleLayoutAnimation();
+
+
+            }
+
+
+
+//            if (!(response.body().getQa_question().isEmpty())) {
+               /* qaAttendeeAdapter = new QADirectAdapter(QADirectActivity.this, response.body().getQa_question(), this);
+                qaAttendeeAdapter.notifyDataSetChanged();
+                qaRv.setAdapter(qaAttendeeAdapter);
+                qaRv.scheduleLayoutAnimation();*/
 //            } else {
 //                setContentView(R.layout.activity_empty_view);
 //                ImageView imageView = findViewById(R.id.back);
@@ -369,6 +392,7 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
         } else {
 
             likeIv.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_afterlike));
+            likeIv.setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_ATOP);
 
             QALike(token, eventid, question.getId());
 
@@ -418,12 +442,30 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
         if (response.body().getStatus().equalsIgnoreCase("success")) {
 //            Toast.makeText(QASpeakerActivity.this,response.message(),Toast.LENGTH_SHORT).show();
 //            ArrayList<DirectQuestion> speakerQuestionLists = new ArrayList<>();
+            if (!(response.body().getQa_question().isEmpty())) {
+                //  txtEmpty.setVisibility(View.GONE);
+                linUpper.setBackground(getResources().getDrawable(R.drawable.close_icon));
+
+                qaAttendeeAdapter = new QADirectAdapter(QADirectActivity.this, response.body().getQa_question(), this);
+                qaAttendeeAdapter.notifyDataSetChanged();
+                qaRv.setAdapter(qaAttendeeAdapter);
+                qaRv.scheduleLayoutAnimation();
+            } else {
+                // txtEmpty.setVisibility(View.VISIBLE);
+                linUpper.setBackground(getResources().getDrawable(R.drawable.qnadi));
+
+                qaAttendeeAdapter = new QADirectAdapter(QADirectActivity.this, response.body().getQa_question(), this);
+                qaAttendeeAdapter.notifyDataSetChanged();
+                qaRv.setAdapter(qaAttendeeAdapter);
+                qaRv.scheduleLayoutAnimation();
 
 
-            qaAttendeeAdapter = new QADirectAdapter(QADirectActivity.this, response.body().getQa_question(), this);
+            }
+
+           /* qaAttendeeAdapter = new QADirectAdapter(QADirectActivity.this, response.body().getQa_question(), this);
             qaAttendeeAdapter.notifyDataSetChanged();
             qaRv.setAdapter(qaAttendeeAdapter);
-            qaRv.scheduleLayoutAnimation();
+            qaRv.scheduleLayoutAnimation();*/
         } else {
             Toast.makeText(QADirectActivity.this, response.message(), Toast.LENGTH_SHORT).show();
         }

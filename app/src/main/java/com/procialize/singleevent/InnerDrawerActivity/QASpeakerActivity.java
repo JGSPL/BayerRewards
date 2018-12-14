@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -72,6 +73,7 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid, colorActive;
     ImageView headerlogoIv;
+    LinearLayout linUpper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +111,8 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
         qaRvrefresh = findViewById(R.id.qaRvrefresh);
         spinner = findViewById(R.id.spinner);
         progressBar = findViewById(R.id.progressBar);
+        linUpper = findViewById(R.id.linUpper);
+
 
         TextView header = (TextView)findViewById(R.id.title);
         header.setTextColor(Color.parseColor(colorActive));
@@ -242,8 +246,28 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
                         speakerQuestionLists.add(response.body().getSpeakerQuestionList().get(j));
                     }
                 }
+                if (!(speakerQuestionLists.isEmpty())) {
+                    //  txtEmpty.setVisibility(View.GONE);
+                    linUpper.setBackground(getResources().getDrawable(R.drawable.close_icon));
 
-                if (!(response.body().getQuestionSpeakerList().isEmpty())) {
+                    qaSpeakerAdapter = new QASpeakerAdapter(QASpeakerActivity.this, speakerQuestionLists, response.body().getQuestionSpeakerList(), this, Selectedspeaker);
+                    qaSpeakerAdapter.notifyDataSetChanged();
+                    qaRv.setAdapter(qaSpeakerAdapter);
+                    qaRv.scheduleLayoutAnimation();
+                } else {
+                    // txtEmpty.setVisibility(View.VISIBLE);
+                    linUpper.setBackground(getResources().getDrawable(R.drawable.noqna));
+
+                    qaSpeakerAdapter = new QASpeakerAdapter(QASpeakerActivity.this, speakerQuestionLists, response.body().getQuestionSpeakerList(), this, Selectedspeaker);
+                    qaSpeakerAdapter.notifyDataSetChanged();
+                    qaRv.setAdapter(qaSpeakerAdapter);
+                    qaRv.scheduleLayoutAnimation();
+
+
+                }
+
+
+                /*if (!(response.body().getQuestionSpeakerList().isEmpty())) {
                     qaSpeakerAdapter = new QASpeakerAdapter(QASpeakerActivity.this, speakerQuestionLists, response.body().getQuestionSpeakerList(), this, Selectedspeaker);
                     qaSpeakerAdapter.notifyDataSetChanged();
                     qaRv.setAdapter(qaSpeakerAdapter);
@@ -259,7 +283,7 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
                             finish();
                         }
                     });
-                }
+                }*/
             }
 
 
@@ -356,7 +380,7 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
                 if (etmsg.getText().toString().length() > 0) {
 
                     String msg = StringEscapeUtils.escapeJava(etmsg.getText().toString());
-                    PostQuetion(token, eventid, msg, Selectedspeaker, SelectedspeakerId);
+                    PostQuetion(token, eventid, msg,  SelectedspeakerId);
                 } else {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(QASpeakerActivity.this);
                     builder.setTitle("");
@@ -377,8 +401,8 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
         });
     }
 
-    private void PostQuetion(final String token, final String eventid, String msg, String selectedspeaker, String selectedspeakerId) {
-        mAPIService.QASpeakerPost(token, eventid, msg, selectedspeaker, selectedspeakerId).enqueue(new Callback<QASpeakerFetch>() {
+    private void PostQuetion(final String token, final String eventid, String msg, String selectedspeakerId) {
+        mAPIService.QASpeakerPost(token, eventid, msg,  selectedspeakerId).enqueue(new Callback<QASpeakerFetch>() {
             @Override
             public void onResponse(Call<QASpeakerFetch> call, Response<QASpeakerFetch> response) {
 
@@ -442,6 +466,7 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
         } else {
 
             likeIv.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_afterlike));
+            likeIv.setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_ATOP);
 
             QALike(token, eventid, question.getId(), question.getSpeakerId());
 
@@ -498,10 +523,29 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
                     speakerQuestionLists.add(response.body().getSpeakerQuestionList().get(j));
                 }
             }
+            if (!(speakerQuestionLists.isEmpty())) {
+                //  txtEmpty.setVisibility(View.GONE);
+                linUpper.setBackground(getResources().getDrawable(R.drawable.close_icon));
 
-            qaSpeakerAdapter = new QASpeakerAdapter(QASpeakerActivity.this, speakerQuestionLists, response.body().getQuestionSpeakerList(), this, Selectedspeaker);
+                qaSpeakerAdapter = new QASpeakerAdapter(QASpeakerActivity.this, speakerQuestionLists, response.body().getQuestionSpeakerList(), this, Selectedspeaker);
+                qaSpeakerAdapter.notifyDataSetChanged();
+                qaRv.setAdapter(qaSpeakerAdapter);
+                qaRv.scheduleLayoutAnimation();
+            } else {
+                // txtEmpty.setVisibility(View.VISIBLE);
+                linUpper.setBackground(getResources().getDrawable(R.drawable.noqna));
+
+                qaSpeakerAdapter = new QASpeakerAdapter(QASpeakerActivity.this, speakerQuestionLists, response.body().getQuestionSpeakerList(), this, Selectedspeaker);
+                qaSpeakerAdapter.notifyDataSetChanged();
+                qaRv.setAdapter(qaSpeakerAdapter);
+                qaRv.scheduleLayoutAnimation();
+
+            }
+
+
+           /* qaSpeakerAdapter = new QASpeakerAdapter(QASpeakerActivity.this, speakerQuestionLists, response.body().getQuestionSpeakerList(), this, Selectedspeaker);
             qaSpeakerAdapter.notifyDataSetChanged();
-            qaRv.setAdapter(qaSpeakerAdapter);
+            qaRv.setAdapter(qaSpeakerAdapter);*/
         } else {
             Toast.makeText(QASpeakerActivity.this, response.message(), Toast.LENGTH_SHORT).show();
         }

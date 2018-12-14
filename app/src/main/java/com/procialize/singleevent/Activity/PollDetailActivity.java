@@ -64,7 +64,7 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
     String eventid;
     ViewGroup viewGroup;
     List<RadioButton> radios;
-    String token,colorActive;
+    String token, colorActive;
     LinearLayout linView;
     RecyclerView pollGraph;
     ImageView headerlogoIv;
@@ -76,7 +76,7 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
-        colorActive = prefs.getString("colorActive","");
+        colorActive = prefs.getString("colorActive", "");
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -97,7 +97,7 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
         });
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
+        Util.logomethod(this, headerlogoIv);
 
         pollGraph = findViewById(R.id.pollGraph);
 
@@ -305,7 +305,7 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
          * "#FF9800", "#1B5E20" };
          */
 
-        String[] color = {"#112F7A", "#0E73BA", "#04696E", "#00A89C", "#000000", "#4D4D4D", "#949494","#112F7A", "#0E73BA", "#04696E", "#00A89C", "#000000"};
+        String[] color = {"#112F7A", "#0E73BA", "#04696E", "#00A89C", "#000000", "#4D4D4D", "#949494", "#112F7A", "#0E73BA", "#04696E", "#00A89C", "#000000"};
 
         Float totalUser = 0.0f;
 
@@ -360,7 +360,7 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
                     FrameLayout fl = new FrameLayout(this);
 
                     ll.setOrientation(LinearLayout.HORIZONTAL);
-                    ll.setPadding(10, 10, 10, 10);
+                    ll.setPadding(5, 10, 5, 10);
 
                     LinearLayout ll2 = new LinearLayout(this);
                     ll2.setOrientation(LinearLayout.HORIZONTAL);
@@ -376,7 +376,6 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
                     rdbtn.setOnClickListener(this);
 
 
-
                     if (replyFlag.equalsIgnoreCase("1")) {
 
                         rdbtn.setClickable(false);
@@ -384,8 +383,8 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
 
                     } else {
 
-                        if (i == 1)
-                            rdbtn.setChecked(true);
+//                        if (i == 1)
+//                            rdbtn.setChecked(true);
                     }
 
                     radios.add(rdbtn);
@@ -396,7 +395,7 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
                             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                     rprms.setMargins(5, 5, 5, 5);
 
-                    Float weight = 0.0f;
+                    Float weight = 1.0f;
 
                     if (replyFlag.equalsIgnoreCase("1")) {
 
@@ -420,28 +419,51 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
                     rpms2.setMargins(5, 5, 5, 5);
 
 
-                    ll.setBackgroundResource(R.drawable.agenda_bg);
-                    ll.setWeightSum(100);
+//                    ll.setBackgroundResource(R.drawable.agenda_bg);
+                    ll.setWeightSum(weight);
                     ll.setLayoutParams(rprms);
 
                     l3.setLayoutParams(rprms);
-                    ll.setPadding(10,10,10,10);
-                    l3.setWeightSum(100);
+                    ll.setPadding(5, 10, 5, 10);
+                    l3.setWeightSum(weight);
 
                     // ll2.setBackgroundColor(Color.parseColor(color[i]));
                     ll2.setLayoutParams(rpms2);
+
 
                     FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
                             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
                     params.gravity = Gravity.CENTER;
-
                     rprmsRdBtn = new LinearLayout.LayoutParams(
                             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                     rprms.setMargins(5, 5, 5, 5);
+
                     rdbtn.setLayoutParams(rprmsRdBtn);
-                    rdbtn.setButtonDrawable(R.drawable.radio_buttontoggle_first);
+                    if (Build.VERSION.SDK_INT >= 21) {
+
+                        ColorStateList colorStateList = new ColorStateList(
+                                new int[][]{
+
+                                        new int[]{-android.R.attr.state_checked}, //disabled
+                                        new int[]{android.R.attr.state_checked} //enabled
+                                },
+                                new int[]{
+
+                                        Color.parseColor("#4d4d4d")//disabled
+                                        , Color.parseColor(colorActive)//enabled
+
+                                }
+                        );
+
+
+                        rdbtn.setButtonTintList(colorStateList);//set the color tint list
+                        rdbtn.invalidate(); //could not be necessary
+                    }
+//                    rdbtn.setButtonDrawable(R.drawable.radio_buttontoggle_first);
+                    rdbtn.setBackgroundResource(R.drawable.agenda_bg);
                     l3.addView(ll2, rpms2);
+
 
                     fl.addView(l3, rprms);
                     fl.addView(rdbtn, rprmsRdBtn);

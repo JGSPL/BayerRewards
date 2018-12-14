@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.RecyclerView;
@@ -153,7 +154,7 @@ public class QAAttendeeAdapter extends RecyclerView.Adapter<QAAttendeeAdapter.My
         try {
             Date date1 = formatter.parse(question.getCreated());
 
-            DateFormat originalFormat = new SimpleDateFormat("dd MMM yyyy HH:mm", Locale.UK);
+            DateFormat originalFormat = new SimpleDateFormat("dd MMM HH:mm", Locale.UK);
 
             String date = originalFormat.format(date1);
 
@@ -175,12 +176,7 @@ public class QAAttendeeAdapter extends RecyclerView.Adapter<QAAttendeeAdapter.My
             holder.likeIv.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_like));
         } else {
             holder.likeIv.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_afterlike));
-            int colorInt = Color.parseColor(colorActive);
-
-            ColorStateList csl = ColorStateList.valueOf(colorInt);
-            Drawable drawable = DrawableCompat.wrap(holder.likeIv.getDrawable());
-            DrawableCompat.setTintList(drawable, csl);
-            holder.likeIv.setImageDrawable(drawable);
+            holder.likeIv.setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_ATOP);
 
         }
 

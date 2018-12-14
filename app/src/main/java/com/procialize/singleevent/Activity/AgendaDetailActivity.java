@@ -5,12 +5,15 @@ import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.LayerDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -117,6 +120,9 @@ public class AgendaDetailActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        Typeface typeFace = Typeface.createFromAsset(getAssets(),
+                "DINPro-Regular.ttf");
+
         tvname = findViewById(R.id.tvname);
         tvdate = findViewById(R.id.tvdate);
         tvtime = findViewById(R.id.tvtime);
@@ -132,6 +138,8 @@ public class AgendaDetailActivity extends AppCompatActivity {
 
         tvname.setBackgroundColor(Color.parseColor(colorActive));
         ratebtn.setBackgroundColor(Color.parseColor(colorActive));
+        tvdscription.setTypeface(typeFace);
+        tvdscription.setMovementMethod(new ScrollingMovementMethod());
 
         LayerDrawable stars = (LayerDrawable) ratingbar.getProgressDrawable();
         stars.getDrawable(2).setColorFilter(Color.parseColor(colorActive),
@@ -299,7 +307,7 @@ public class AgendaDetailActivity extends AppCompatActivity {
     public void PostRate(String eventid, String rating, String token, String speakerid) {
         showProgress();
 //        showProgress();
-        mAPIService.RatingSessionPost(token, eventid, speakerid, rating,"").enqueue(new Callback<RatingSessionPost>() {
+        mAPIService.RatingSessionPost(token, eventid, speakerid, rating, "").enqueue(new Callback<RatingSessionPost>() {
             @Override
             public void onResponse(Call<RatingSessionPost> call, Response<RatingSessionPost> response) {
 
