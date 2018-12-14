@@ -32,8 +32,8 @@ public class AgendaDateWiseAdapter extends RecyclerView.Adapter<AgendaDateWiseAd
     private Context context;
     String date = "";
     private AgendaAdapterListner listener;
-//    private AgendaAdapter.AgendaAdapterListner listener;
-String MY_PREFS_NAME = "ProcializeInfo";
+    //    private AgendaAdapter.AgendaAdapterListner listener;
+    String MY_PREFS_NAME = "ProcializeInfo";
     String MY_PREFS_LOGIN = "ProcializeLogin";
     String colorActive;
 
@@ -43,7 +43,7 @@ String MY_PREFS_NAME = "ProcializeInfo";
         this.context = context;
         this.listener = listener;
         SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        colorActive = prefs.getString("colorActive","");
+        colorActive = prefs.getString("colorActive", "");
     }
 
 
@@ -74,21 +74,22 @@ String MY_PREFS_NAME = "ProcializeInfo";
         try {
 
             SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.UK);
-            SimpleDateFormat targetFormat = new SimpleDateFormat("dd MMM yyyy hh:mm");
+            SimpleDateFormat targetFormat = new SimpleDateFormat("hh:mm aa");
 
             Date startdate = originalFormat.parse(agenda.getSessionStartTime());
             Date enddate = originalFormat.parse(agenda.getSessionEndTime());
-
+//            String timestart = String.valueOf(android.text.format.DateFormat.format("EEEE", startdate));
+//            String timeend = String.valueOf(android.text.format.DateFormat.format("EEEE", enddate));
             String startdatestr = targetFormat.format(startdate);
             String enddatestr = targetFormat.format(enddate);
 
 
-            holder.dateTv.setText(startdatestr + " - " + enddatestr);
+            holder.dateTv.setText(startdatestr +" - " + enddatestr );
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        holder. mainLL.setOnClickListener(new View.OnClickListener() {
+        holder.mainLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent agendadetail = new Intent(context, AgendaDetailActivity.class);
@@ -124,7 +125,6 @@ String MY_PREFS_NAME = "ProcializeInfo";
 
 
             mainLL = (LinearLayout) view.findViewById(R.id.mainLL);
-
 
 
 //            itemView.setOnClickListener(new View.OnClickListener() {

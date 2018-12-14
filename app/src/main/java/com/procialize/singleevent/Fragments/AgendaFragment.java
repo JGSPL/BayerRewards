@@ -18,6 +18,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
 import com.procialize.singleevent.Activity.AgendaDetailActivity;
 import com.procialize.singleevent.Adapter.AgendaAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
@@ -49,12 +50,12 @@ import static android.content.Context.MODE_PRIVATE;
  * Use the {@link AgendaFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AgendaFragment extends Fragment implements AgendaAdapter.AgendaAdapterListner{
+public class AgendaFragment extends Fragment implements AgendaAdapter.AgendaAdapterListner {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private List<AgendaList> tempagendaList=new ArrayList<AgendaList>();
+    private List<AgendaList> tempagendaList = new ArrayList<AgendaList>();
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -112,7 +113,7 @@ public class AgendaFragment extends Fragment implements AgendaAdapter.AgendaAdap
         // Inflate the layout for this fragment
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_agenda, container, false);
-        agendarecycler =  view.findViewById(R.id.agendarecycler);
+        agendarecycler = view.findViewById(R.id.agendarecycler);
         agendafeedrefresh = view.findViewById(R.id.agendafeedrefresh);
         progressBar = view.findViewById(R.id.progressBar);
 
@@ -135,7 +136,6 @@ public class AgendaFragment extends Fragment implements AgendaAdapter.AgendaAdap
         eventid = prefs.getString("eventid", "1");
 
 
-
         mAPIService = ApiUtils.getAPIService();
 
         SessionManager sessionManager = new SessionManager(getContext());
@@ -143,17 +143,17 @@ public class AgendaFragment extends Fragment implements AgendaAdapter.AgendaAdap
         HashMap<String, String> user = sessionManager.getUserDetails();
 
         // token
-         token = user.get(SessionManager.KEY_TOKEN);
+        token = user.get(SessionManager.KEY_TOKEN);
 
         if (cd.isConnectingToInternet()) {
 
             fetchAgenda(token, eventid);
-        }else{
+        } else {
             db = procializeDB.getReadableDatabase();
 
             agendaDBList = dbHelper.getAgendaDetails();
             // specify an adapter (see also next example)
-            AgendaAdapter agendaAdapter = new AgendaAdapter(getActivity(),agendaDBList,this);
+            AgendaAdapter agendaAdapter = new AgendaAdapter(getActivity(), agendaDBList, this);
             agendaAdapter.notifyDataSetChanged();
             agendarecycler.setAdapter(agendaAdapter);
             agendarecycler.scheduleLayoutAnimation();
@@ -170,12 +170,12 @@ public class AgendaFragment extends Fragment implements AgendaAdapter.AgendaAdap
                 if (cd.isConnectingToInternet()) {
 
                     fetchAgenda(token, eventid);
-                }else{
+                } else {
                     db = procializeDB.getReadableDatabase();
 
                     agendaDBList = dbHelper.getAgendaDetails();
                     // specify an adapter (see also next example)
-                    AgendaAdapter agendaAdapter = new AgendaAdapter(getActivity(),agendaDBList, AgendaFragment.this);
+                    AgendaAdapter agendaAdapter = new AgendaAdapter(getActivity(), agendaDBList, AgendaFragment.this);
                     agendaAdapter.notifyDataSetChanged();
                     agendarecycler.setAdapter(agendaAdapter);
                     agendarecycler.scheduleLayoutAnimation();
@@ -203,12 +203,12 @@ public class AgendaFragment extends Fragment implements AgendaAdapter.AgendaAdap
     public void onContactSelected(AgendaList agenda) {
         Intent agendadetail = new Intent(getContext(), AgendaDetailActivity.class);
 
-        agendadetail.putExtra("id",agenda.getSessionId());
-        agendadetail.putExtra("date",agenda.getSessionDate());
-        agendadetail.putExtra("name",agenda.getSessionName());
-        agendadetail.putExtra("description",agenda.getSessionDescription());
-        agendadetail.putExtra("starttime",agenda.getSessionStartTime());
-        agendadetail.putExtra("endtime",agenda.getSessionEndTime());
+        agendadetail.putExtra("id", agenda.getSessionId());
+        agendadetail.putExtra("date", agenda.getSessionDate());
+        agendadetail.putExtra("name", agenda.getSessionName());
+        agendadetail.putExtra("description", agenda.getSessionDescription());
+        agendadetail.putExtra("starttime", agenda.getSessionStartTime());
+        agendadetail.putExtra("endtime", agenda.getSessionEndTime());
 
         startActivity(agendadetail);
 
@@ -249,11 +249,11 @@ public class AgendaFragment extends Fragment implements AgendaAdapter.AgendaAdap
 
     public void fetchAgenda(String token, String eventid) {
         progressBar.setVisibility(View.VISIBLE);
-        mAPIService.AgendaFetchPost(token,eventid).enqueue(new Callback<FetchAgenda>() {
+        mAPIService.AgendaFetchPost(token, eventid).enqueue(new Callback<FetchAgenda>() {
             @Override
             public void onResponse(Call<FetchAgenda> call, Response<FetchAgenda> response) {
 
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     Log.i("hit", "post submitted to API." + response.body().toString());
                     progressBar.setVisibility(View.GONE);
 
@@ -261,13 +261,12 @@ public class AgendaFragment extends Fragment implements AgendaAdapter.AgendaAdap
                         agendafeedrefresh.setRefreshing(false);
                     }
                     showResponse(response);
-                }else
-                {
+                } else {
                     progressBar.setVisibility(View.GONE);
                     if (agendafeedrefresh.isRefreshing()) {
                         agendafeedrefresh.setRefreshing(false);
                     }
-                   // Toast.makeText(getContext(),"Unable to process",Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getContext(),"Unable to process",Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -278,29 +277,34 @@ public class AgendaFragment extends Fragment implements AgendaAdapter.AgendaAdap
                 if (agendafeedrefresh.isRefreshing()) {
                     agendafeedrefresh.setRefreshing(false);
                 }
-               // Toast.makeText(getContext(),"Unable to process",Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getContext(),"Unable to process",Toast.LENGTH_SHORT).show();
 
             }
         });
     }
 
     public void showResponse(Response<FetchAgenda> response) {
-        String date = "";
-        for(int i=0;i<response.body().getAgendaList().size();i++){
-            if(response.body().getAgendaList().get(i).getSessionDate().equalsIgnoreCase(date)){
-                date = response.body().getAgendaList().get(i).getSessionDate();
-                tempagendaList.add(response.body().getAgendaList().get(i));
-            }else {
-                date = response.body().getAgendaList().get(i).getSessionDate();
+        try {
+            String date = "";
+            for (int i = 0; i < response.body().getAgendaList().size(); i++) {
+                if (response.body().getAgendaList().get(i).getSessionDate().equalsIgnoreCase(date)) {
+                    date = response.body().getAgendaList().get(i).getSessionDate();
+                    tempagendaList.add(response.body().getAgendaList().get(i));
+                } else {
+                    date = response.body().getAgendaList().get(i).getSessionDate();
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
 
         agendaList = response.body().getAgendaList();
         procializeDB.clearAgendaTable();
         procializeDB.insertAgendaInfo(agendaList, db);
 
         // specify an adapter (see also next example)
-        AgendaAdapter agendaAdapter = new AgendaAdapter(getActivity(),response.body().getAgendaList(),this);
+        AgendaAdapter agendaAdapter = new AgendaAdapter(getActivity(), response.body().getAgendaList(), this);
         agendaAdapter.notifyDataSetChanged();
         agendarecycler.setAdapter(agendaAdapter);
         agendarecycler.scheduleLayoutAnimation();
@@ -328,16 +332,32 @@ public class AgendaFragment extends Fragment implements AgendaAdapter.AgendaAdap
 
                 } else {
 
-                   // Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Analytic> call, Throwable t) {
-               // Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getActivity(), "Unable to process", Toast.LENGTH_SHORT).show();
 
             }
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        db = procializeDB.getReadableDatabase();
+
+        agendaDBList = dbHelper.getAgendaDetails();
+        // specify an adapter (see also next example)
+        AgendaAdapter agendaAdapter = new AgendaAdapter(getActivity(), agendaDBList, this);
+        agendaAdapter.notifyDataSetChanged();
+        agendarecycler.setAdapter(agendaAdapter);
+        agendarecycler.scheduleLayoutAnimation();
+        progressBar.setVisibility(View.GONE);
+
+
+    }
 }

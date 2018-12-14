@@ -156,7 +156,7 @@ public class QASpeakerAdapter extends RecyclerView.Adapter<QASpeakerAdapter.MyVi
         try {
             Date date1 = formatter.parse(question.getCreated());
 
-            DateFormat originalFormat = new SimpleDateFormat("dd MMM yyyy HH:mm", Locale.UK);
+            DateFormat originalFormat = new SimpleDateFormat("dd MMM HH:mm", Locale.UK);
 
             String date = originalFormat.format(date1);
 

@@ -84,7 +84,7 @@
         android:layout_marginBottom="@dimen/margin"
         android:layout_marginLeft="@dimen/margin"
         android:layout_marginRight="@dimen/margin"
-        android:background="@drawable/speakerbtnbg"
+        android:background="@color/activetab"
         android:gravity="center"
         android:padding="5dp"
         android:text="@string/postquestion"
@@ -94,8 +94,8 @@
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_gravity="center"
         android:visibility="gone" />
 

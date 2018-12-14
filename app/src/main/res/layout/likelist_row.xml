@@ -9,11 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin"
-        android:background="@drawable/pollquizrow"
-        android:elevation="@dimen/elevation"
+        android:background="@color/qnarow"
         android:orientation="horizontal"
-        android:padding="5dp"
-        android:translationZ="@dimen/elevation">
+        android:padding="5dp">
 
 
         <LinearLayout
@@ -38,7 +36,7 @@
                 android:text="Abheejit Saxena"
                 android:textColor="@color/activetab"
                 android:textSize="@dimen/textsizenormal"
-                android:textAlignment="center"/>
+                android:textAlignment="textStart"/>
 
         </LinearLayout>
 

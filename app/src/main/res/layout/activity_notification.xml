@@ -57,7 +57,7 @@
         android:text="@string/notification"
         />
 
-    <TextView
+    <com.procialize.singleevent.Fonts.RobotoTextview
         android:id="@+id/pullrefresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -74,8 +74,8 @@
         android:visibility="gone"
         android:id="@+id/progressBar"
         android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="20dp"
+        android:layout_height="20dp" />
 
 
     <android.support.v4.widget.SwipeRefreshLayout

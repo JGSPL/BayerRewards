@@ -18,6 +18,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -142,7 +143,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
                 JZVideoPlayer.releaseAllVideos();
             }
         });
-
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         headerlogoIv = findViewById(R.id.headerlogoIv);
         Util.logomethod(this, headerlogoIv);
 
@@ -256,6 +257,8 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
         progressView = findViewById(R.id.progressView);
         feedprogress = findViewById(R.id.feedprogress);
         videoplayer = (MyJZVideoPlayerStandard) findViewById(R.id.videoplayer);
+
+
 
         nameTv.setText(fname + " " + lname);
         companyTv.setText(company);

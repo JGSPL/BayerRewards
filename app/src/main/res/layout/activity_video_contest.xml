@@ -71,13 +71,14 @@
             android:background="@drawable/loginbutton"
             android:padding="2dp"
             android:text="@string/upload"
+            android:textAllCaps="false"
             android:textColor="@color/colorwhite" />
 
 
         <ProgressBar
             android:id="@+id/progressBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_gravity="center"
             android:visibility="gone" />
 

@@ -353,56 +353,64 @@ public class VideoFirstLevelActivity extends AppCompatActivity implements VideoF
 
         protected List<FirstLevelFilter> doInBackground(Object... params) {
 
+            try {
+                context = (Context) params[0];
 
-            context = (Context) params[0];
+                try {
+                    if (foldername.contains("/")) {
+                        String[] parts = foldername.split("/");
+                        String part1 = parts[0];
+                        String part2 = parts[1];
+                        tvname.setText(part2);
+                    } else {
+                        tvname.setText(foldername);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-            if (foldername.contains("/")) {
-                String[] parts = foldername.split("/");
-                String part1 = parts[0];
-                String part2 = parts[1];
-                tvname.setText(part2);
-            } else {
-                tvname.setText(foldername);
-            }
 
+                if (folderLists.size() != 0 || videoLists.size() != 0) {
+                    if (folderLists.size() != 0) {
+                        for (int i = 0; i < folderLists.size(); i++) {
+                            if (folderLists.get(i).getFolderName() != null) {
+                                if (folderLists.get(i).getFolderName().contains(foldername + "/")) {
+                                    FirstLevelFilter firstLevelFilter = new FirstLevelFilter();
 
-            if (folderLists.size() != 0 || videoLists.size() != 0) {
-                if (folderLists.size() != 0) {
-                    for (int i = 0; i < folderLists.size(); i++) {
-                        if (folderLists.get(i).getFolderName() != null) {
-                            if (folderLists.get(i).getFolderName().contains(foldername + "/")) {
-                                FirstLevelFilter firstLevelFilter = new FirstLevelFilter();
-
-                                firstLevelFilter.setTitle(folderLists.get(i).getFolderName());
-                                firstLevelFilter.setFolderName(folderLists.get(i).getFolderName());
-                                firstLevelFilter.setFileName(ApiConstant.folderimage + folderLists.get(i).getFolderImage());
-                                filtergallerylists.add(firstLevelFilter);
+                                    firstLevelFilter.setTitle(folderLists.get(i).getFolderName());
+                                    firstLevelFilter.setFolderName(folderLists.get(i).getFolderName());
+                                    firstLevelFilter.setFileName(ApiConstant.folderimage + folderLists.get(i).getFolderImage());
+                                    filtergallerylists.add(firstLevelFilter);
+                                }
                             }
                         }
                     }
-                }
 
-                if (videoLists.size() != 0) {
+                    if (videoLists.size() != 0) {
 
-                    for (int i = 0; i < videoLists.size(); i++) {
-                        if (videoLists.get(i).getFolderName() != null) {
-                            if (videoLists.get(i).getFolderName().equals(foldername)) {
-                                FirstLevelFilter firstLevelFilter = new FirstLevelFilter();
+                        for (int i = 0; i < videoLists.size(); i++) {
+                            if (videoLists.get(i).getFolderName() != null) {
+                                if (videoLists.get(i).getFolderName().equals(foldername)) {
+                                    FirstLevelFilter firstLevelFilter = new FirstLevelFilter();
 
-                                firstLevelFilter.setTitle(videoLists.get(i).getTitle());
-                                firstLevelFilter.setFolderName(videoLists.get(i).getFolderName());
-                                firstLevelFilter.setFileName(videoLists.get(i).getVideoUrl());
-                                filtergallerylists.add(firstLevelFilter);
+                                    firstLevelFilter.setTitle(videoLists.get(i).getTitle());
+                                    firstLevelFilter.setFolderName(videoLists.get(i).getFolderName());
+                                    firstLevelFilter.setFileName(videoLists.get(i).getVideoUrl());
+                                    filtergallerylists.add(firstLevelFilter);
+                                }
                             }
                         }
                     }
-                }
 //                dismissProgress();
 
-            } else {
+                } else {
 //                dismissProgress();
-                Toast.makeText(getApplicationContext(), "No Video Found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "No Video Found", Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+
             return filtergallerylists;
         }
 

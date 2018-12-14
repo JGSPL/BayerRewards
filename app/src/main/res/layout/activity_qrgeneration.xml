@@ -76,215 +76,220 @@
         android:textColor="@color/black"
         android:textSize="@dimen/textsizenormal"
         android:textStyle="bold"
-        />
+        android:visibility="gone" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/scantxt"
-        android:background="@color/qnarow"
-        android:layout_margin="5dp">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/scantxt">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-
             android:orientation="vertical"
             android:padding="15dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="center|center_horizontal"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:background="@color/qnarow"
+                android:orientation="vertical">
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
-                    android:id="@+id/txtNamehead"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="Name :"
-                    android:textColor="@color/edit_corner" />
+                    android:layout_margin="10dp"
+                    android:gravity="center|center_horizontal"
+                    android:orientation="horizontal">
+
+                    <com.procialize.singleevent.Fonts.RobotoTextview
+                        android:id="@+id/txtNamehead"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="Name :"
+                        android:textColor="@color/trans" />
 
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
-                    android:id="@+id/name"
-                    android:layout_width="0dp"
+                    <com.procialize.singleevent.Fonts.RobotoTextview
+                        android:id="@+id/name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_weight="5"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/edit_corner" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_weight="5"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:layout_margin="10dp"
+                    android:gravity="center|center_horizontal"
+                    android:orientation="horizontal">
+
+                    <com.procialize.singleevent.Fonts.RobotoTextview
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="Designation :"
+                        android:textColor="@color/trans" />
+
+                    <com.procialize.singleevent.Fonts.RobotoTextview
+                        android:id="@+id/designation"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_weight="5"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/edit_corner" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center|center_horizontal"
+                    android:orientation="horizontal">
+
+                    <com.procialize.singleevent.Fonts.RobotoTextview
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="Company :"
+                        android:textColor="@color/trans" />
+
+                    <com.procialize.singleevent.Fonts.RobotoTextview
+                        android:id="@+id/company"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_weight="5"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/edit_corner" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center|center_horizontal"
+                    android:orientation="horizontal">
+
+                    <com.procialize.singleevent.Fonts.RobotoTextview
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="City :"
+                        android:textColor="@color/trans" />
+
+                    <com.procialize.singleevent.Fonts.RobotoTextview
+                        android:id="@+id/city"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_weight="5"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/edit_corner" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center|center_horizontal"
+                    android:orientation="horizontal">
+
+                    <com.procialize.singleevent.Fonts.RobotoTextview
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="Email :"
+                        android:textColor="@color/trans" />
+
+                    <com.procialize.singleevent.Fonts.RobotoTextview
+                        android:id="@+id/email"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_weight="5"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/edit_corner" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center|center_horizontal"
+                    android:orientation="horizontal">
+
+                    <com.procialize.singleevent.Fonts.RobotoTextview
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="Mobile :"
+                        android:textColor="@color/trans" />
+
+                    <com.procialize.singleevent.Fonts.RobotoTextview
+                        android:id="@+id/mobile"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_weight="5"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/edit_corner" />
-
-            <LinearLayout
+            <com.procialize.singleevent.Fonts.RobotoTextview
+                android:id="@+id/powerdby"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="center|center_horizontal"
-                android:orientation="horizontal">
-
-                <com.procialize.singleevent.Fonts.RobotoTextview
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="Designation :"
-                    android:textColor="@color/edit_corner" />
-
-                <com.procialize.singleevent.Fonts.RobotoTextview
-                    android:id="@+id/designation"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_weight="5"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/edit_corner" />
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="center|center_horizontal"
-                android:orientation="horizontal">
-
-                <com.procialize.singleevent.Fonts.RobotoTextview
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="Company :"
-                    android:textColor="@color/edit_corner" />
-
-                <com.procialize.singleevent.Fonts.RobotoTextview
-                    android:id="@+id/company"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_weight="5"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/edit_corner" />
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="center|center_horizontal"
-                android:orientation="horizontal">
-
-                <com.procialize.singleevent.Fonts.RobotoTextview
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="City :"
-                    android:textColor="@color/edit_corner" />
-
-                <com.procialize.singleevent.Fonts.RobotoTextview
-                    android:id="@+id/city"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_weight="5"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/edit_corner" />
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="center|center_horizontal"
-                android:orientation="horizontal">
-
-                <com.procialize.singleevent.Fonts.RobotoTextview
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="Email :"
-                    android:textColor="@color/edit_corner" />
-
-                <com.procialize.singleevent.Fonts.RobotoTextview
-                    android:id="@+id/email"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_weight="5"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/edit_corner" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="center|center_horizontal"
-                android:orientation="horizontal">
-
-                <com.procialize.singleevent.Fonts.RobotoTextview
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="Mobile :"
-                    android:textColor="@color/edit_corner" />
-
-                <com.procialize.singleevent.Fonts.RobotoTextview
-                    android:id="@+id/mobile"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_weight="5"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/edit_corner" />
+                android:layout_gravity="left"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Powered By Procialize"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
         </LinearLayout>
+
+
     </ScrollView>
 
-    <com.procialize.singleevent.Fonts.RobotoTextview
-        android:id="@+id/powerdby"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="left"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="Powered By Procialize"
-        android:textColor="@color/black"
-        android:textSize="12sp" />
+
 </RelativeLayout>
