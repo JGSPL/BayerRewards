@@ -32,7 +32,7 @@
             android:dividerHeight="0px"
             android:smoothScrollbar="true"
             android:layout_margin="10dp"
-            />
+            android:fadeScrollbars="false"/>
 
         <ProgressBar
             android:id="@+id/progressBar"

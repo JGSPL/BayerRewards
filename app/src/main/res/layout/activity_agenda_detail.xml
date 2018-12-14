@@ -167,7 +167,8 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/textsizesmall"
                 android:scrollbars="vertical"
-                android:maxLines="6"/>
+                android:maxLines="6"
+                android:fadeScrollbars="false"/>
         </LinearLayout>
     </LinearLayout>
 
