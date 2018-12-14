@@ -15,12 +15,12 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.procialize.singleevent.Activity.PdfViewerActivity;
 import com.procialize.singleevent.Activity.ViewPDFActivity;
 import com.procialize.singleevent.Adapter.MyTravelAdapter;
 import com.procialize.singleevent.Adapter.MyTravelAdapterList;
@@ -35,18 +35,21 @@ import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.Util;
 
 import java.util.HashMap;
+import java.util.List;
 
 import cn.jzvd.JZVideoPlayer;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MyTravelActivity extends AppCompatActivity implements MyTravelAdapterList.MyTravelAdapterListner {
+public class MyTravelActivity extends AppCompatActivity implements MyTravelAdapter.MyTravelAdapterListner {
 
 
     private APIService mAPIService;
-    //    SwipeRefreshLayout travelRvrefresh;
-    ListView travelRv;
+        SwipeRefreshLayout travelRvrefresh;
+   // ListView travelRv;
+     RecyclerView travelRv;
+
     ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid, colorActive;
@@ -84,7 +87,7 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelAdapt
         Util.logomethod(this, headerlogoIv);
 
         travelRv = findViewById(R.id.travelRv);
-//        travelRvrefresh = findViewById(R.id.travelRvrefresh);
+        travelRvrefresh = findViewById(R.id.travelRvrefresh);
         progressBar = findViewById(R.id.progressBar);
 
         TextView travelHeader = findViewById(R.id.travelHeader);
@@ -102,7 +105,7 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelAdapt
 
         // use a linear layout manager
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
-//        travelRv.setLayoutManager(mLayoutManager);
+       travelRv.setLayoutManager(mLayoutManager);
 
         int resId = R.anim.layout_animation_slide_right;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
@@ -110,12 +113,11 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelAdapt
 
         fetchTravel(token, eventid);
 
-//        travelRvrefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                fetchTravel(token, eventid);
-//            }
-//        });
+        travelRvrefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchTravel(token, eventid);            }
+        });
 
     }
 
@@ -129,16 +131,16 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelAdapt
                 if (response.isSuccessful()) {
                     Log.i("hit", "post submitted to API." + response.body().toString());
 
-//                    if (travelRvrefresh.isRefreshing()) {
-//                        travelRvrefresh.setRefreshing(false);
-//                    }
+                    if (travelRvrefresh.isRefreshing()) {
+                        travelRvrefresh.setRefreshing(false);
+                    }
                     dismissProgress();
                     showResponse(response);
                 } else {
 
-//                    if (travelRvrefresh.isRefreshing()) {
-//                        travelRvrefresh.setRefreshing(false);
-//                    }
+                    if (travelRvrefresh.isRefreshing()) {
+                        travelRvrefresh.setRefreshing(false);
+                    }
                     dismissProgress();
                     Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
                 }
@@ -149,9 +151,9 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelAdapt
                 Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
 
                 dismissProgress();
-//                if (travelRvrefresh.isRefreshing()) {
-//                    travelRvrefresh.setRefreshing(false);
-//                }
+                if (travelRvrefresh.isRefreshing()) {
+                    travelRvrefresh.setRefreshing(false);
+                }
             }
         });
     }
@@ -159,11 +161,35 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelAdapt
     public void showResponse(Response<TravelListFetch> response) {
 
         // specify an adapter (see also next example)
+        LinearLayout linUpper = (LinearLayout)findViewById(R.id.linUpper);
         if (response.body().getStatus().equalsIgnoreCase("success")) {
-            MyTravelAdapterList travelAdapter = new MyTravelAdapterList(MyTravelActivity.this, response.body().getTravelList(), this);
-            travelRv.setAdapter(travelAdapter);
-//            travelRv.scheduleLayoutAnimation();
-            travelRv.setEmptyView(findViewById(android.R.id.empty));
+            List<TravelList> travelLists = response.body().getTravelList();
+            if(travelLists.size()==0){
+                //travelRv.setVisibility(View.GONE);
+               // linUpper.setBackground(getResources().getDrawable(R.drawable.noticket));
+                 travelRvrefresh.setVisibility(View.VISIBLE);
+                MyTravelAdapter travelAdapter = new MyTravelAdapter(this, response.body().getTravelList(), this);
+                travelAdapter.notifyDataSetChanged();
+
+                travelRv.setAdapter(travelAdapter);
+                //travelRvrefresh.setAdapter(travelAdapter);
+
+                travelRv.scheduleLayoutAnimation();
+                //TextView txtEmpty = (TextView)findViewById(R.id.txtEmpty);
+                //txtEmpty.setVisibility(View.VISIBLE);
+            }else {
+                linUpper.setBackground(getResources().getDrawable(R.drawable.travel_bg));
+
+                // MyTravelAdapterList travelAdapter = new MyTravelAdapterList(MyTravelActivity.this, response.body().getTravelList(), this);
+                MyTravelAdapter travelAdapter = new MyTravelAdapter(this, response.body().getTravelList(), this);
+                travelAdapter.notifyDataSetChanged();
+
+                travelRv.setAdapter(travelAdapter);
+                //travelRvrefresh.setAdapter(travelAdapter);
+
+            travelRv.scheduleLayoutAnimation();
+                // travelRv.setEmptyView(findViewById(android.R.id.empty));
+            }
 
         } else {
             Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();

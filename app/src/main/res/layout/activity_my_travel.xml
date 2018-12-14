@@ -52,13 +52,19 @@
         android:text="@string/refresh"
         android:textColor="@color/black"
         android:textSize="@dimen/textsizesmall"
+        android:visibility="visible" />
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:visibility="gone" />
 
     <com.procialize.singleevent.Fonts.RobotoTextview
         android:id="@+id/travelHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="0dp"
         android:gravity="center"
         android:padding="@dimen/padding"
         android:text="Travel Desk"
@@ -86,43 +92,56 @@
         </LinearLayout>
 
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center"
-            android:visibility="gone" />
 
-        <!--<android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/travelRvrefresh"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">-->
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@drawable/travel_bg"
             android:orientation="vertical"
+            android:id="@+id/linUpper"
             android:layout_weight="5"
+            android:background="@drawable/noticket"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="5dp">
 
-            <ListView
+           <!-- <ListView
                 android:id="@+id/travelRv"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"></ListView>
+                android:padding="10dp"></ListView>-->
+            <android.support.v4.widget.SwipeRefreshLayout
+                       android:id="@+id/travelRvrefresh"
+                       android:layout_width="fill_parent"
 
-            <!-- </android.support.v4.widget.SwipeRefreshLayout>-->
+                       android:layout_height="match_parent">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/travelRv"
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                </android.support.v7.widget.RecyclerView>
+
+
+            </android.support.v4.widget.SwipeRefreshLayout>
+<!--
             <com.procialize.singleevent.Fonts.RobotoTextview
-                android:id="@android:id/empty"
+                android:id="@+id/txtEmpty"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical|center_horizontal"
+                android:visibility="gone"
+                android:gravity="center"
+
                 android:text="Tickets will be uploaded shortly"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
+-->
+
+
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -181,7 +181,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
             }
         } else if (notificationList.getNotificationType().equalsIgnoreCase("Cmnt")) {
-            holder.txt_msg.setText("Commented On Your Post");
+            holder.txt_msg.setText("commented on your post");
             String lName = notificationList.getAttendeeLastName();
             if (lName != null) {
                 holder.nameTv.setText(notificationList.getAttendeeFirstName() + " " + notificationList.getAttendeeLastName());
