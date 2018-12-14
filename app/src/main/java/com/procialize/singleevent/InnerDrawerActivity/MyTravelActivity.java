@@ -21,7 +21,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.procialize.singleevent.Activity.PdfViewerActivity;
 import com.procialize.singleevent.Activity.ViewPDFActivity;
 import com.procialize.singleevent.Adapter.MyTravelAdapter;
 import com.procialize.singleevent.Adapter.MyTravelAdapterList;
