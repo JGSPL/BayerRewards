@@ -61,6 +61,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
 
     ImageView logoIv;
     TextView nameTv, dateTv, cityTv, eventvenu, event_desc;
+    View view;
     private APIService mAPIService;
     private GoogleMap map;
     LatLng position;
@@ -121,6 +122,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
         cityTv = findViewById(R.id.cityTv);
         eventvenu = findViewById(R.id.eventvenu);
         event_desc = findViewById(R.id.event_desc);
+        view = findViewById(R.id.view);
         progressbar = findViewById(R.id.progressbar);
         back = findViewById(R.id.back);
         linMap = findViewById(R.id.linMap);
@@ -267,9 +269,12 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
 
                         event_desc.setVisibility(View.VISIBLE);
                         eventvenu.setVisibility(View.VISIBLE);
+                        view.setVisibility(View.VISIBLE);
+
                     } else {
                         event_desc.setVisibility(View.GONE);
                         eventvenu.setVisibility(View.GONE);
+                        view.setVisibility(View.GONE);
                     }
                     eventvenu.setText("Venue:- " + response.body().getEventList().get(0).getEventLocation());
                     event_desc.setText(response.body().getEventList().get(0).getEventDescription());

@@ -62,8 +62,9 @@
         android:layout_marginTop="20dp"
         android:background="@color/activetab"
         android:paddingBottom="10dp"
-        android:paddingLeft="90dp"
+        android:paddingLeft="20dp"
         android:paddingTop="10dp"
+        android:paddingRight="10dp"
         android:text=""
         android:textColor="@color/colorwhite"
         android:textSize="@dimen/textsizenormal" />
@@ -157,14 +158,17 @@
                 android:layout_marginLeft="20dp"
                 android:src="@drawable/desc" />
 
-            <com.procialize.singleevent.Fonts.RobotoTextview
+            <TextView
                 android:id="@+id/tvdscription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="30dp"
                 android:textColor="@color/black"
-                android:textSize="@dimen/textsizesmall" />
+                android:textSize="@dimen/textsizesmall"
+                android:scrollbars="vertical"
+                android:maxLines="6"
+                android:fadeScrollbars="false"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -226,8 +230,9 @@
             android:layout_below="@+id/linear_bottom"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
             android:text="*Rating can be done only when the session starts"
             android:textColor="@color/inactivetab"
-            android:visibility="invisible"/>
+            android:visibility="gone"/>
     </RelativeLayout>
 </RelativeLayout>

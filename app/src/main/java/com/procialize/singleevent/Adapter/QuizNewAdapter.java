@@ -3,8 +3,10 @@ package com.procialize.singleevent.Adapter;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -73,8 +75,7 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
         ansArray = new String[quizList.size()];
 
         SharedPreferences prefs = activity.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        colorActive = prefs.getString("colorActive","");
-
+        colorActive = prefs.getString("colorActive", "");
 
 
     }
@@ -156,7 +157,7 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
             for (int row = 0; row < 1; row++) {
                 LinearLayout ll = new LinearLayout(activity);
                 ll.setOrientation(LinearLayout.VERTICAL);
-                ll.setPadding(5,5,5,5);
+
 
                 //  holder.viewGroup.removeAllViews();
                 //	if(flag==0)
@@ -169,20 +170,40 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
                     rdbtn.setTextColor(Color.BLACK);
                     rdbtn.setTextSize(14);
                     rdbtn.setBackgroundResource(R.drawable.agenda_bg);
-                    rdbtn.setButtonDrawable(R.drawable.radio_buttontoggle_first);
+
+//                    rdbtn.setButtonDrawable(R.drawable.radio_buttontoggle_first);
+
+                    if (Build.VERSION.SDK_INT >= 21) {
+
+                        ColorStateList colorStateList = new ColorStateList(
+                                new int[][]{
+
+                                        new int[]{-android.R.attr.state_checked}, //disabled
+                                        new int[]{android.R.attr.state_checked} //enabled
+                                },
+                                new int[]{
+
+                                        Color.parseColor("#4d4d4d")//disabled
+                                        , Color.parseColor(colorActive) //enabled
+
+                                }
+                        );
+
+
+                        rdbtn.setButtonTintList(colorStateList);//set the color tint list
+                        rdbtn.invalidate(); //could not be necessary
+                    }
                     RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(
-                            width,
-                            height
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT
                     );
 
-
+                    params.setMargins(0, 10, 0, 10);
                     LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.MATCH_PARENT,
-                            LinearLayout.LayoutParams.WRAP_CONTENT
-                    );
-                    p.setMargins(0, 5, 0, 10);
+                            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//                    p.setMargins(0, 20, 0, 10);
 
-                    rdbtn.setPadding(10, 15, 20, 15);
+//                    rdbtn.setPadding(0, 10, 0, 10);
                     rdbtn.setLayoutParams(p);
                     rdbtn.setTag(quizSpecificOptionListnew.get(i - 1).getOptionId());
 
@@ -198,7 +219,13 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
                         }
                     }
 
-                    holder.viewGroup.addView(rdbtn);
+//                    if (i == 1) {
+//                        rdbtn.setChecked(true);
+//                    } else {
+//                        rdbtn.setChecked(false);
+//                    }
+                    holder.viewGroup.addView(rdbtn, params);
+
 
                     flag = 1;
                 }
@@ -296,7 +323,7 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
             for (int row = 0; row < 1; row++) {
                 LinearLayout ll = new LinearLayout(activity);
                 ll.setOrientation(LinearLayout.VERTICAL);
-                ll.setPadding(5,5,5,5);
+
                 //  holder.viewGroup.removeAllViews();
                 //	if(flag==0)
                 for (int i = 1; i < number; i++) {
@@ -308,18 +335,38 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
                     rdbtn.setTextColor(Color.BLACK);
                     rdbtn.setTextSize(9);
                     rdbtn.setBackgroundResource(R.drawable.agenda_bg);
-                    rdbtn.setButtonDrawable(R.drawable.radio_buttontoggle_first);
+
+//                    rdbtn.setButtonDrawable(R.drawable.radio_buttontoggle_first);
+                    if (Build.VERSION.SDK_INT >= 21) {
+
+                        ColorStateList colorStateList = new ColorStateList(
+                                new int[][]{
+
+                                        new int[]{-android.R.attr.state_checked}, //disabled
+                                        new int[]{android.R.attr.state_checked} //enabled
+                                },
+                                new int[]{
+
+                                        Color.parseColor("#4d4d4d")
+                                        , Color.parseColor(colorActive)//enabled
+
+                                }
+                        );
+
+
+                        rdbtn.setButtonTintList(colorStateList);//set the color tint list
+                        rdbtn.invalidate(); //could not be necessary
+                    }
                     RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(
-                            width,
-                            height
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT
                     );
 
+                    params.setMargins(0, 10, 0, 10);
                     LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.MATCH_PARENT,
-                            LinearLayout.LayoutParams.WRAP_CONTENT
-                    );
-                    p.setMargins(0, 5, 0, 10);
-                    rdbtn.setPadding(10, 15, 20, 15);
+                            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//                    p.setMargins(0, 20, 0, 10);
+//                    rdbtn.setPadding(0, 10, 0, 10);
                     rdbtn.setLayoutParams(p);
                     rdbtn.setTag(quizSpecificOptionListnew.get(i - 1).getOptionId());
 
@@ -333,8 +380,12 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
                             rdbtn.setChecked(true);
                         }
                     }
-
-                    holder.viewGroup.addView(rdbtn);
+//                    if (i == 1) {
+//                        rdbtn.setChecked(true);
+//                    } else {
+//                        rdbtn.setChecked(false);
+//                    }
+                    holder.viewGroup.addView(rdbtn, params);
 
                     flag = 1;
                 }

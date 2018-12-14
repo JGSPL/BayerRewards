@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -356,7 +357,7 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
                 if (etmsg.getText().toString().length() > 0) {
 
                     String msg = StringEscapeUtils.escapeJava(etmsg.getText().toString());
-                    PostQuetion(token, eventid, msg, Selectedspeaker, SelectedspeakerId);
+                    PostQuetion(token, eventid, msg,  SelectedspeakerId);
                 } else {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(QASpeakerActivity.this);
                     builder.setTitle("");
@@ -377,8 +378,8 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
         });
     }
 
-    private void PostQuetion(final String token, final String eventid, String msg, String selectedspeaker, String selectedspeakerId) {
-        mAPIService.QASpeakerPost(token, eventid, msg, selectedspeaker, selectedspeakerId).enqueue(new Callback<QASpeakerFetch>() {
+    private void PostQuetion(final String token, final String eventid, String msg, String selectedspeakerId) {
+        mAPIService.QASpeakerPost(token, eventid, msg,  selectedspeakerId).enqueue(new Callback<QASpeakerFetch>() {
             @Override
             public void onResponse(Call<QASpeakerFetch> call, Response<QASpeakerFetch> response) {
 
@@ -442,6 +443,7 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
         } else {
 
             likeIv.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_afterlike));
+            likeIv.setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_ATOP);
 
             QALike(token, eventid, question.getId(), question.getSpeakerId());
 

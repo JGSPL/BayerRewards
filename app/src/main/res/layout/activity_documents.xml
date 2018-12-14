@@ -55,7 +55,7 @@
         android:textColor="@color/activetab"
         android:textSize="@dimen/textsizenormal" />
 
-    <TextView
+    <com.procialize.singleevent.Fonts.RobotoTextview
         android:id="@+id/pullrefresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

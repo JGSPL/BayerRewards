@@ -51,7 +51,7 @@
         android:gravity="center"
         android:padding="4sp"
         android:id="@+id/title"
-        android:text="@string/qa"
+        android:text="@string/qaspeaker"
         android:textColor="@color/activetab"
         android:textSize="@dimen/textsizenormal" />
 
@@ -60,7 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin"
-        android:text="Select Session"
+        android:text="Select Speaker"
         android:textColor="@color/black"
         android:textSize="@dimen/textsizesmall" />
 
@@ -85,7 +85,8 @@
         android:padding="5dp"
         android:text="@string/postquestion"
         android:textColor="@color/colorwhite"
-        android:textSize="@dimen/textsizesmall" />
+        android:textSize="@dimen/textsizesmall"
+        android:textAllCaps="false"/>
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -93,6 +94,17 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:visibility="gone" />
+
+    <com.procialize.singleevent.Fonts.RobotoTextview
+        android:id="@+id/pullrefresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alpha="0.8"
+        android:gravity="center"
+        android:text="Pull Down to Refresh"
+        android:textColor="@color/inactivetab"
+        android:textSize="10sp"
+        android:visibility="visible" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/qaRvrefresh"

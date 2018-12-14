@@ -170,7 +170,7 @@ public class SpeakerAdapter extends RecyclerView.Adapter<SpeakerAdapter.MyViewHo
         if (speaker.getProfilePic() != null) {
 
 
-            Glide.with(context).load(ApiConstant.speaker + speaker.getProfilePic())
+            Glide.with(context).load(ApiConstant.profilepic + speaker.getProfilePic())
                     .apply(RequestOptions.skipMemoryCacheOf(true))
                     .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE)).listener(new RequestListener<Drawable>() {
                 @Override
