@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -442,6 +443,7 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
         } else {
 
             likeIv.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_afterlike));
+            likeIv.setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_ATOP);
 
             QALike(token, eventid, question.getId(), question.getSpeakerId());
 
