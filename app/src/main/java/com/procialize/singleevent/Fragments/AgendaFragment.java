@@ -1,6 +1,7 @@
 package com.procialize.singleevent.Fragments;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
@@ -348,16 +349,27 @@ public class AgendaFragment extends Fragment implements AgendaAdapter.AgendaAdap
     public void onResume() {
         super.onResume();
 
-        db = procializeDB.getReadableDatabase();
+        if (cd.isConnectingToInternet()) {
 
-        agendaDBList = dbHelper.getAgendaDetails();
-        // specify an adapter (see also next example)
-        AgendaAdapter agendaAdapter = new AgendaAdapter(getActivity(), agendaDBList, this);
-        agendaAdapter.notifyDataSetChanged();
-        agendarecycler.setAdapter(agendaAdapter);
-        agendarecycler.scheduleLayoutAnimation();
-        progressBar.setVisibility(View.GONE);
+            fetchAgenda(token, eventid);
+        } else {
+            db = procializeDB.getReadableDatabase();
+
+            agendaDBList = dbHelper.getAgendaDetails();
+            // specify an adapter (see also next example)
+            AgendaAdapter agendaAdapter = new AgendaAdapter(getActivity(), agendaDBList, this);
+            agendaAdapter.notifyDataSetChanged();
+            agendarecycler.setAdapter(agendaAdapter);
+            agendarecycler.scheduleLayoutAnimation();
+            progressBar.setVisibility(View.GONE);
+
+            if (agendafeedrefresh.isRefreshing()) {
+                agendafeedrefresh.setRefreshing(false);
+            }
+        }
 
 
     }
+
+
 }

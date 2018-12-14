@@ -32,7 +32,7 @@
                 android:text="="
                 android:textColor="@color/colorwhite"
                 android:id="@+id/nameTv"
-                android:textAlignment="center"/>
+                android:textAlignment="textStart"/>
 
             <LinearLayout
                 android:layout_width="0dp"

@@ -174,7 +174,7 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelAdapt
                 travelRv.setAdapter(travelAdapter);
                 //travelRvrefresh.setAdapter(travelAdapter);
 
-                travelRv.scheduleLayoutAnimation();
+//                travelRv.scheduleLayoutAnimation();
                 //TextView txtEmpty = (TextView)findViewById(R.id.txtEmpty);
                 //txtEmpty.setVisibility(View.VISIBLE);
             }else {
@@ -187,7 +187,7 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelAdapt
                 travelRv.setAdapter(travelAdapter);
                 //travelRvrefresh.setAdapter(travelAdapter);
 
-            travelRv.scheduleLayoutAnimation();
+//            travelRv.scheduleLayoutAnimation();
                 // travelRv.setEmptyView(findViewById(android.R.id.empty));
             }
 
