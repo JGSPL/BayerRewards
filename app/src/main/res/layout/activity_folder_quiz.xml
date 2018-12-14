@@ -79,7 +79,7 @@
                 android:layout_below="@id/layoutTop"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                android:background="@drawable/quiz_header">Po
+                android:background="@drawable/quiz_header">
 
             </RelativeLayout>
 

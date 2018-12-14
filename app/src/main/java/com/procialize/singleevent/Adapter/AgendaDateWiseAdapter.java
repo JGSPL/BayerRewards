@@ -110,6 +110,8 @@ public class AgendaDateWiseAdapter extends RecyclerView.Adapter<AgendaDateWiseAd
         return agendaLists.size();
     }
 
+
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTv, dateTv, descriptionTv, tvheading;
         public LinearLayout mainLL;
