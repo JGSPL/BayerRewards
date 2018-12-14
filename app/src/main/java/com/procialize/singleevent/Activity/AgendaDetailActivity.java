@@ -149,7 +149,10 @@ public class AgendaDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (ratingval > 0) {
-                    PostRate(eventid, String.valueOf(ratingval), apikey, agendaid);
+
+                    String rate = String.valueOf(ratingval);
+
+                    PostRate(eventid,rate , apikey, agendaid);
                 } else {
                     Toast.makeText(AgendaDetailActivity.this, "Please Select Something", Toast.LENGTH_SHORT).show();
 
@@ -280,7 +283,10 @@ public class AgendaDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (ratingval > 0) {
-                    PostRate(eventid, String.valueOf(ratingval), apikey, agendaid);
+
+                    String rate = String.valueOf(ratingval);
+
+                    PostRate(eventid,rate , apikey, agendaid);
                 } else {
                     Toast.makeText(AgendaDetailActivity.this, "Please Select Something", Toast.LENGTH_SHORT).show();
 
@@ -306,15 +312,16 @@ public class AgendaDetailActivity extends AppCompatActivity {
                 } else {
                     dismissProgress();
 //                    dismissProgress();
-//                    Toast.makeText(getApplicationContext(),"Unable to process",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),response.message(),Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<RatingSessionPost> call, Throwable t) {
                 Log.e("hit", "Low network or no network");
+                Log.e("hit", t.getMessage());
                 dismissProgress();
-//                Toast.makeText(getApplicationContext(),"Unable to process",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Please try again",Toast.LENGTH_SHORT).show();
 //                dismissProgress();
             }
         });
@@ -322,18 +329,22 @@ public class AgendaDetailActivity extends AppCompatActivity {
 
     private void DeletePostresponse(Response<RatingSessionPost> response) {
 
-        if (response.body().getStatus().equalsIgnoreCase("Success")) {
+        if(response.body()!=null) {
+            if (response.body().getStatus().equalsIgnoreCase("Success")) {
 
-            Log.e("post", "success");
+                Log.e("post", "success");
 
 //            myDialog.dismiss();
-            Toast.makeText(this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
 
-            SubmitAnalytics(apikey, eventid, "", "", "rating");
-        } else {
-            Log.e("post", "fail");
+                SubmitAnalytics(apikey, eventid, "", "", "rating");
+            } else {
+                Log.e("post", "fail");
 //            myDialog.dismiss();
 //            Toast.makeText(this,response.body().getMsg(),Toast.LENGTH_SHORT).show();
+            }
+        }else{
+
         }
     }
 

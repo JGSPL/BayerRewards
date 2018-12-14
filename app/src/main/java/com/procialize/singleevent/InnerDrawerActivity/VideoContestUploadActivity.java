@@ -29,7 +29,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import com.procialize.singleevent.Activity.HomeActivity;
 import com.procialize.singleevent.Activity.PostViewActivity;
@@ -58,6 +57,9 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import tcking.github.com.giraffeplayer2.GiraffePlayer;
+import tcking.github.com.giraffeplayer2.VideoInfo;
+import tcking.github.com.giraffeplayer2.VideoView;
 
 public class VideoContestUploadActivity extends AppCompatActivity {
 
@@ -82,6 +84,7 @@ public class VideoContestUploadActivity extends AppCompatActivity {
     String eventId,colorActive;
     String angle = "0";
     ImageView headerlogoIv;
+    VideoView video_view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,8 +114,13 @@ public class VideoContestUploadActivity extends AppCompatActivity {
         Util.logomethod(this, headerlogoIv);
 
 
+
+
+
         displayRecordedVideo = findViewById(R.id.videopreview);
         btnSubmit = findViewById(R.id.btnSubmit);
+        video_view = findViewById(R.id.video_view);
+
 
         btnSubmit.setBackgroundColor(Color.parseColor(colorActive));
         editTitle = findViewById(R.id.editTitle);
@@ -131,6 +139,20 @@ public class VideoContestUploadActivity extends AppCompatActivity {
 
         // apikey
         apikey = user.get(SessionManager.KEY_TOKEN);
+
+
+        imgPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                imgPlay.setVisibility(View.GONE);
+                displayRecordedVideo.setVisibility(View.GONE);
+                video_view.setVisibility(View.VISIBLE);
+
+              video_view.getPlayer().start();
+
+            }
+        });
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -251,6 +273,8 @@ public class VideoContestUploadActivity extends AppCompatActivity {
 
                         Bitmap b= ThumbnailUtils.createVideoThumbnail(pathToStoredVideo, MediaStore.Video.Thumbnails.MINI_KIND);
                         displayRecordedVideo.setImageBitmap(b);
+                        video_view.setVideoPath(pathToStoredVideo);
+
 
                     }
                 } else if (resultCode == Activity.RESULT_OK && requestCode == SELECT_FILE) {
@@ -313,6 +337,7 @@ public class VideoContestUploadActivity extends AppCompatActivity {
 
                             Bitmap b= ThumbnailUtils.createVideoThumbnail(videoUrl, MediaStore.Video.Thumbnails.MINI_KIND);
                             displayRecordedVideo.setImageBitmap(b);
+                            video_view.setVideoPath(pathToStoredVideo);
                             if (sec > 15) {
                                 Toast.makeText(VideoContestUploadActivity.this, "Select an video not more than 15 seconds",
                                         Toast.LENGTH_SHORT).show();
@@ -336,9 +361,9 @@ public class VideoContestUploadActivity extends AppCompatActivity {
                                 file = createDirectoryAndSaveFile(bitmap);
 
 
-//                                post_thumbnail.setImageBitmap(bitmap);
-//                                imgPlay.setVisibility(View.VISIBLE);
-//                                post_thumbnail.setVisibility(View.VISIBLE);
+                                displayRecordedVideo.setImageBitmap(bitmap);
+                                imgPlay.setVisibility(View.VISIBLE);
+                                video_view.setVideoPath(pathToStoredVideo);
 
                                 Toast.makeText(VideoContestUploadActivity.this, "Video selected",
                                         Toast.LENGTH_SHORT).show();

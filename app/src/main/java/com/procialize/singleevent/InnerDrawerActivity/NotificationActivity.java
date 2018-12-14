@@ -298,6 +298,26 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
 
 
                 startActivity(comment);
+            }else if(notification.getNotificationType().equalsIgnoreCase("Msg"))
+            {
+
+                attendeeDBList = dbHelper.getAttendeeDetailsId(notification.getAttendeeId());
+
+                Intent attendeetail = new Intent(this, AttendeeDetailActivity.class);
+                attendeetail.putExtra("id", notification.getAttendeeId());
+                attendeetail.putExtra("name", notification.getAttendeeFirstName() + " " + notification.getAttendeeLastName());
+                attendeetail.putExtra("city", attendeeDBList.get(0).getCity());
+                attendeetail.putExtra("country", attendeeDBList.get(0).getCountry());
+                attendeetail.putExtra("company", notification.getCompanyName());
+                attendeetail.putExtra("designation", notification.getDesignation());
+                attendeetail.putExtra("description", attendeeDBList.get(0).getDescription());
+                attendeetail.putExtra("profile", notification.getProfilePic());
+
+
+//                speakeretail.putExtra("totalrate",attendee.getTotalRating());
+                startActivity(attendeetail);
+
+
             }
         }
 

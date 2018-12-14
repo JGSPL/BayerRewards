@@ -644,7 +644,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
             blockuserTv.setVisibility(View.GONE);
 
             if (feed.getType().equalsIgnoreCase("Video")) {
-                editIV.setVisibility(View.GONE);
+                editIV.setVisibility(View.VISIBLE);
 
             } else {
                 editIV.setVisibility(View.VISIBLE);
@@ -676,7 +676,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 //                edit.putExtra("feedid", feed.getNewsFeedId());
 //                edit.putExtra("status", feed.getPostStatus());
                 if (feed.getType().equalsIgnoreCase("Image")) {
-                    Intent editimage = new Intent(getActivity(), PostEditActivity.class);
+                    Intent editimage = new Intent(getActivity(), PostEditActivityOld.class);
                     editimage.putExtra("for", feed.getType());
                     editimage.putExtra("feedid", feed.getNewsFeedId());
                     editimage.putExtra("status", feed.getPostStatus());
@@ -692,7 +692,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
                     startActivity(edit);
                     dialog.dismiss();
                 } else if (feed.getType().equalsIgnoreCase("Status")) {
-                    Intent edit = new Intent(getActivity(), PostEditActivity.class);
+                    Intent edit = new Intent(getActivity(), PostEditActivityOld.class);
                     edit.putExtra("for", feed.getType());
                     edit.putExtra("feedid", feed.getNewsFeedId());
                     edit.putExtra("status", feed.getPostStatus());

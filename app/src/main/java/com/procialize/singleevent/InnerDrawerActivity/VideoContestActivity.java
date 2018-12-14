@@ -408,7 +408,7 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
 
     public void DeleteVideo(String eventid, String selfieid, String token, final int position) {
 //        showProgress();
-        mAPIService.ReportVideoContestHide(token, eventid, selfieid).enqueue(new Callback<ReportVideoContestHide>() {
+        mAPIService.DeleteVideoContest(token, eventid, selfieid).enqueue(new Callback<ReportVideoContestHide>() {
             @Override
             public void onResponse(Call<ReportVideoContestHide> call, Response<ReportVideoContestHide> response) {
 

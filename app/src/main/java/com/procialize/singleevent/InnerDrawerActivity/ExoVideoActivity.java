@@ -21,13 +21,15 @@ import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Utility.Util;
 
+import tcking.github.com.giraffeplayer2.VideoView;
+
 
 /**
  * Created by HP-PC on 11-08-2016.
  */
-public class ExoVideoActivity extends AppCompatActivity implements OnPreparedListener {
+public class ExoVideoActivity extends AppCompatActivity {
 
-    EMVideoView emVideoView;
+    VideoView emVideoView;
 
     String videoUrl = "";
     String title = "";
@@ -103,34 +105,10 @@ public class ExoVideoActivity extends AppCompatActivity implements OnPreparedLis
 
 
     private void setupVideoView(final String videoUrl) {
-        emVideoView = (EMVideoView) findViewById(R.id.video_view);
-        emVideoView.setOnPreparedListener(ExoVideoActivity.this);
 
-        //For now we just picked an arbitrary item to play.  More can be found at
-        //https://archive.org/details/more_animation
-        emVideoView.setVideoURI(Uri.parse(videoUrl));
-
-        pDialog = new ProgressDialog(ExoVideoActivity.this);
-        // Set progressbar title
-        // Set progressbar message
-        pDialog.setMessage("Buffering...");
-        // Show progressbar
-        pDialog.show();
-        emVideoView.requestFocus();
-
-//        emVideoView.setVideoURI(Uri.parse(videoUrl));
-
-
-        emVideoView.setOnCompletionListener(new OnCompletionListener() {
-            @Override
-            public void onCompletion() {
-                //finish();
-                emVideoView.setVideoURI(Uri.parse(videoUrl));
-
-
-            }
-        });
-
+        emVideoView = (VideoView) findViewById(R.id.video_view);
+        emVideoView.setVisibility(View.VISIBLE);
+        emVideoView.setVideoPath(videoUrl).getPlayer().start();
 
     }
 
@@ -138,7 +116,6 @@ public class ExoVideoActivity extends AppCompatActivity implements OnPreparedLis
         Intent share = new Intent(Intent.ACTION_SEND);
         share.setType("text/plain");
         share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-
         // Add data to the intent, the receiving app will decide
         // what to do with it.
         share.putExtra(Intent.EXTRA_SUBJECT, data);
@@ -147,65 +124,56 @@ public class ExoVideoActivity extends AppCompatActivity implements OnPreparedLis
         startActivity(Intent.createChooser(share, "Share link!"));
     }
 
-   /* @Override
-    public void onPrepared() {
-        //Starts the video playback as soon as it is ready
-        emVideoView.start();
-
-        llTop.setVisibility(View.GONE);
-        emVideoView.setVisibility(View.VISIBLE);
-
-
-    }*/
-
-
-
-
-    /*private void hide() {
-
-        SlideOutUpAnimator slideOutUpAnimator = new SlideOutUpAnimator();
-        slideOutUpAnimator.prepare(rlTop);
-        slideOutUpAnimator.setDuration(1500);
-
-        slideOutUpAnimator.animate();
-
-    }
-
-    private void show() {
-        rlTop.setVisibility(View.VISIBLE);
-        SlideInDownAnimator slideInDownAnimator = new SlideInDownAnimator();
-        slideInDownAnimator.prepare(rlTop);
-        slideInDownAnimator.setDuration(1500);
-
-        slideInDownAnimator.animate();
-
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                hide();
-            }
-        }, Constants.SPLASH_TIME);
-
-
-    }*/
+//   /* @Override
+//    public void onPrepared() {
+//        //Starts the video playback as soon as it is ready
+//        emVideoView.start();
+//
+//        llTop.setVisibility(View.GONE);
+//        emVideoView.setVisibility(View.VISIBLE);
+//
+//
+//    }*/
+//
+//
+//
+//
+//    /*private void hide() {
+//
+//        SlideOutUpAnimator slideOutUpAnimator = new SlideOutUpAnimator();
+//        slideOutUpAnimator.prepare(rlTop);
+//        slideOutUpAnimator.setDuration(1500);
+//
+//        slideOutUpAnimator.animate();
+//
+//    }
+//
+//    private void show() {
+//        rlTop.setVisibility(View.VISIBLE);
+//        SlideInDownAnimator slideInDownAnimator = new SlideInDownAnimator();
+//        slideInDownAnimator.prepare(rlTop);
+//        slideInDownAnimator.setDuration(1500);
+//
+//        slideInDownAnimator.animate();
+//
+//        final Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                hide();
+//            }
+//        }, Constants.SPLASH_TIME);
+//
+//
+//    }*/
 
     ProgressDialog pDialog;
 
 
-    @Override
-    public void onPrepared() {
-        pDialog.dismiss();
-        emVideoView.start();
-
-//        llTop.setVisibility(View.GONE);
-        emVideoView.setVisibility(View.VISIBLE);
-    }
 
     @Override
     protected void onPause() {
         super.onPause();
-        emVideoView.pause();
     }
 }
 

@@ -5,11 +5,16 @@ import android.app.ProgressDialog;
 import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
 import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -73,7 +78,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
     String attendee_company, attendee_location, attendee_mobile, attendee_design;
     List<EventSettingList> eventSettingLists;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid, colorActive;
+    String eventid, colorActive,eventnamestr;
     UserData userData;
     private DBHelper procializeDB;
     private SQLiteDatabase db;
@@ -116,6 +121,8 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         eventid = prefs.getString("eventid", "1");
         colorActive = prefs.getString("colorActive", "");
 
+        eventnamestr = prefs.getString("eventnamestr", "");
+
 
         dbHelper = new DBHelper(AttendeeDetailActivity.this);
         db = dbHelper.getWritableDatabase();
@@ -136,6 +143,8 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         // apikey
         apikey = user.get(SessionManager.KEY_TOKEN);
         getattendee = user.get(SessionManager.KEY_ID);
+
+
 
         eventSettingLists = sessionManager.loadEventList();
 
@@ -503,44 +512,24 @@ public class AttendeeDetailActivity extends AppCompatActivity {
 
     public void addToContactList(Context context, String strDisplayName, String strNumber) throws Exception {
 
-        ArrayList<ContentProviderOperation> cntProOper = new ArrayList<>();
-        int contactIndex = cntProOper.size();//ContactSize
-        ContentResolver contactHelper = context.getContentResolver();
+        // Get android phone contact content provider uri.
+        //Uri addContactsUri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
+        // Below uri can avoid java.lang.UnsupportedOperationException: URI: content://com.android.contacts/data/phones error.
+        Uri addContactsUri = ContactsContract.Data.CONTENT_URI;
 
-        cntProOper.add(ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI)//Step1
-                .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, null)
-                .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null).build());
+        // Add an empty contact and get the generated id.
+        long rowContactId = getRawContactId();
 
-        //Display name will be inserted in ContactsContract.Data table
-        cntProOper.add(ContentProviderOperation.newInsert(android.provider.ContactsContract.Data.CONTENT_URI)//Step2
-                .withValueBackReference(android.provider.ContactsContract.Data.RAW_CONTACT_ID, contactIndex)
-                .withValue(android.provider.ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
-                .withValue(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, strDisplayName) // Name of the contact
-                .build());
+        // Add contact name data.
+        insertContactDisplayName(addContactsUri, rowContactId, strDisplayName);
 
-//        for (String s : strNumber) {
-//            //Mobile number will be inserted in ContactsContract.Data table
-//            cntProOper.add(ContentProviderOperation.newInsert(android.provider.ContactsContract.Data.CONTENT_URI)//Step 3
-//                    .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, contactIndex)
-//                    .withValue(android.provider.ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
-//                    .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, s) // Number to be added
-//                    .withValue(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE).build()); //Type like HOME, MOBILE etc
-//        }
+        insertContactNotes(addContactsUri, rowContactId, strDisplayName);
 
-        cntProOper.add(ContentProviderOperation.newInsert(android.provider.ContactsContract.Data.CONTENT_URI)//Step 3
-                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, contactIndex)
-                .withValue(android.provider.ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
-                .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, strNumber) // Number to be added
-                .withValue(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE).build());
+        insertContactPhoneNumber(addContactsUri, rowContactId, strNumber, strDisplayName);
 
-        ContentProviderResult[] s = context.getContentResolver().applyBatch(ContactsContract.AUTHORITY, cntProOper); //apply above data insertion into contacts list
+        Toast.makeText(getApplicationContext(),"New contact has been added, go back to previous page to see it in contacts list." , Toast.LENGTH_LONG).show();
 
-        for (ContentProviderResult r : s) {
-            Log.i("hey", "addToContactList: " + r.uri);
-        }
-
-        Toast.makeText(this, "Contact Save Successfully", Toast.LENGTH_SHORT).show();
-        finish();
+//        finish();
 
 
     }
@@ -556,4 +545,88 @@ public class AttendeeDetailActivity extends AppCompatActivity {
             progressBarmain.setVisibility(View.GONE);
         }
     }
+
+
+    // Insert newly created contact display name.
+    private void insertContactDisplayName(Uri addContactsUri, long rawContactId, String displayName) {
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(ContactsContract.Data.RAW_CONTACT_ID, rawContactId);
+
+        // Each contact must has an mime type to avoid java.lang.IllegalArgumentException: mimetype is required error.
+        contentValues.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE);
+
+        // Put contact display name value.
+        contentValues.put(ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME, displayName);
+
+        //Notes
+        contentValues.put(ContactsContract.CommonDataKinds.Note.NOTE, "Met At "+eventnamestr);
+
+
+        getContentResolver().insert(addContactsUri, contentValues);
+    }
+
+    private void insertContactNotes(Uri addContactsUri, long rawContactId, String displayName) {
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(ContactsContract.Data.RAW_CONTACT_ID, rawContactId);
+
+        // Each contact must has an mime type to avoid java.lang.IllegalArgumentException: mimetype is required error.
+        contentValues.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE);
+
+        //Notes
+        contentValues.put(ContactsContract.CommonDataKinds.Note.NOTE, "Met At "+eventnamestr);
+
+        getContentResolver().insert(addContactsUri, contentValues);
+    }
+
+
+        private void insertContactPhoneNumber(Uri addContactsUri, long rawContactId, String phoneNumber, String strDisplayName)
+    {
+        // Create a ContentValues object.
+        ContentValues contentValues = new ContentValues();
+
+        // Each contact must has an id to avoid java.lang.IllegalArgumentException: raw_contact_id is required error.
+        contentValues.put(ContactsContract.Data.RAW_CONTACT_ID, rawContactId);
+
+        // Each contact must has an mime type to avoid java.lang.IllegalArgumentException: mimetype is required error.
+        contentValues.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
+
+        // Put phone number value.
+        contentValues.put(ContactsContract.CommonDataKinds.Phone.NUMBER, phoneNumber);
+
+        // Calculate phone type by user selection.
+        int phoneContactType = ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE;
+
+//        if("home".equalsIgnoreCase(phoneTypeStr))
+//        {
+//            phoneContactType = ContactsContract.CommonDataKinds.Phone.TYPE_HOME;
+//        }else if("mobile".equalsIgnoreCase(phoneTypeStr))
+//        {
+//            phoneContactType = ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE;
+//        }else if("work".equalsIgnoreCase(phoneTypeStr))
+//        {
+//            phoneContactType = ContactsContract.CommonDataKinds.Phone.TYPE_WORK;
+//        }
+        // Put phone type value.
+        contentValues.put(ContactsContract.CommonDataKinds.Phone.TYPE, phoneContactType);
+
+        // Insert new contact data into phone contact list.
+        getContentResolver().insert(addContactsUri, contentValues);
+
+
+    }
+
+    private long getRawContactId()
+    {
+        // Inser an empty contact.
+        ContentValues contentValues = new ContentValues();
+        Uri rawContactUri = getContentResolver().insert(ContactsContract.RawContacts.CONTENT_URI, contentValues);
+        // Get the newly created contact raw id.
+        long ret = ContentUris.parseId(rawContactUri);
+        return ret;
+    }
+
+
+
 }

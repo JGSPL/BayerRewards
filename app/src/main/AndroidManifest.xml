@@ -16,7 +16,7 @@
 
     <application
         android:name=".Utility.MyApplication"
-        android:allowBackup="false"
+        android:allowBackup="true"
         android:icon="@drawable/app_icon"
         android:label="@string/app_name"
         android:largeHeap="true"
@@ -48,6 +48,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
         <activity
             android:name=".Activity.LoginActivity"
             android:screenOrientation="portrait">
@@ -211,27 +217,27 @@
 
         <!-- Goolge API Key -->
 
-        <activity android:name=".Activity.TimeWeatherActivity" />
-        <activity android:name=".Activity.CurrencyConverter" />
-        <activity android:name=".Activity.InitGeneralInfoActivity" />
-        <activity android:name=".InnerDrawerActivity.GeneralInfoActivity" />
-        <activity android:name=".InnerDrawerActivity.SelfieContentActivityNew" />
-        <activity android:name=".Activity.LikeDetailActivity" />
-        <activity android:name=".InnerDrawerActivity.ExoVideoActivity" />
-        <activity android:name=".Activity.EULAActivity" />
-        <activity android:name=".Activity.PrivacyPolicy" />
-        <activity android:name=".EmptyViewActivity" />
-        <activity android:name=".Utility.ImageCropActivity" />
-        <activity android:name=".InnerDrawerActivity.QADirectActivity" />
-        <activity android:name=".InnerDrawerActivity.AgendaVacationActivity" />
-        <activity android:name=".InnerDrawerActivity.FolderQuizActivity" />
-        <activity android:name=".InnerDrawerActivity.WeatherActivity" />
-        <activity android:name=".Activity.PostActivity" />
-        <activity android:name=".Activity.SelfiePost" />
-        <activity android:name=".Activity.PostEditActivity" />
-        <activity android:name=".Activity.ViewPDFActivity" />
-        <activity android:name=".Activity.ForgotPasswordActivity" />
-        <activity android:name=".Activity.EmptyView2"></activity>
+        <activity android:name=".Activity.TimeWeatherActivity" android:screenOrientation="portrait" />
+        <activity android:name=".Activity.CurrencyConverter" android:screenOrientation="portrait" />
+        <activity android:name=".Activity.InitGeneralInfoActivity" android:screenOrientation="portrait" />
+        <activity android:name=".InnerDrawerActivity.GeneralInfoActivity" android:screenOrientation="portrait" />
+        <activity android:name=".InnerDrawerActivity.SelfieContentActivityNew" android:screenOrientation="portrait" />
+        <activity android:name=".Activity.LikeDetailActivity" android:screenOrientation="portrait" />
+        <activity android:name=".InnerDrawerActivity.ExoVideoActivity" android:screenOrientation="portrait" />
+        <activity android:name=".Activity.EULAActivity" android:screenOrientation="portrait" />
+        <activity android:name=".Activity.PrivacyPolicy" android:screenOrientation="portrait" />
+        <activity android:name=".EmptyViewActivity" android:screenOrientation="portrait" />
+        <activity android:name=".Utility.ImageCropActivity" android:screenOrientation="portrait" />
+        <activity android:name=".InnerDrawerActivity.QADirectActivity" android:screenOrientation="portrait" />
+        <activity android:name=".InnerDrawerActivity.AgendaVacationActivity" android:screenOrientation="portrait" />
+        <activity android:name=".InnerDrawerActivity.FolderQuizActivity" android:screenOrientation="portrait" />
+        <activity android:name=".InnerDrawerActivity.WeatherActivity" android:screenOrientation="portrait" />
+        <activity android:name=".Activity.PostActivity" android:screenOrientation="portrait" />
+        <activity android:name=".Activity.SelfiePost" android:screenOrientation="portrait" />
+        <activity android:name=".Activity.PostEditActivity" android:screenOrientation="portrait" />
+        <activity android:name=".Activity.ViewPDFActivity" android:screenOrientation="portrait" />
+        <activity android:name=".Activity.ForgotPasswordActivity" android:screenOrientation="portrait" />
+        <activity android:name=".Activity.EmptyView2" android:screenOrientation="portrait" />
     </application>
 
 </manifest>
