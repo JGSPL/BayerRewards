@@ -307,7 +307,7 @@ public class AgendaDetailActivity extends AppCompatActivity {
     public void PostRate(String eventid, String rating, String token, String speakerid) {
         showProgress();
 //        showProgress();
-        mAPIService.RatingSessionPost(token, eventid, speakerid, rating, "").enqueue(new Callback<RatingSessionPost>() {
+        mAPIService.RatingSessionPost(token, eventid, speakerid, rating, "","session").enqueue(new Callback<RatingSessionPost>() {
             @Override
             public void onResponse(Call<RatingSessionPost> call, Response<RatingSessionPost> response) {
 

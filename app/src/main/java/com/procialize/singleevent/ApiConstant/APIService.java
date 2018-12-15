@@ -262,7 +262,9 @@ public interface APIService {
     @POST("RateSession")
     @FormUrlEncoded
     Call<RatingSessionPost> RatingSessionPost(@Field("api_access_token") String api_access_token,
-                                              @Field("event_id") String event_id, @Field("target_id") String target_id, @Field("rating") String rating, @Field("comment") String comment);
+                                              @Field("event_id") String event_id, @Field("target_id") String target_id, @Field("rating") String rating,
+                                              @Field("comment") String comment,
+                                              @Field("feedback_type") String feedback_type);
 
 
     @POST("SendMessage")
