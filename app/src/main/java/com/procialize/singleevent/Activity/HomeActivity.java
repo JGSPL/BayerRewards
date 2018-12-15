@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -26,6 +27,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
@@ -41,9 +43,14 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.procialize.singleevent.Adapter.AgendaAdapter;
 import com.procialize.singleevent.Adapter.CustomMenuAdapter;
+import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
+import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.CustomTools.CustomViewPager;
+import com.procialize.singleevent.DbHelper.ConnectionDetector;
+import com.procialize.singleevent.DbHelper.DBHelper;
 import com.procialize.singleevent.EmptyViewActivity;
 import com.procialize.singleevent.Fragments.AgendaFolderFragment;
 import com.procialize.singleevent.Fragments.AgendaFragment;
@@ -52,8 +59,10 @@ import com.procialize.singleevent.Fragments.AttendeeFragment;
 import com.procialize.singleevent.Fragments.GeneralInfo;
 import com.procialize.singleevent.Fragments.SpeakerFragment;
 import com.procialize.singleevent.Fragments.WallFragment_POST;
+import com.procialize.singleevent.GetterSetter.AgendaList;
 import com.procialize.singleevent.GetterSetter.EventMenuSettingList;
 import com.procialize.singleevent.GetterSetter.EventSettingList;
+import com.procialize.singleevent.GetterSetter.FetchAgenda;
 import com.procialize.singleevent.InnerDrawerActivity.AgendaActivity;
 import com.procialize.singleevent.InnerDrawerActivity.AgendaVacationActivity;
 import com.procialize.singleevent.InnerDrawerActivity.AttendeeActivity;
@@ -87,6 +96,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import cn.jzvd.JZVideoPlayerStandard;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.READ_CONTACTS;
@@ -111,7 +123,9 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
     List<EventMenuSettingList> eventMenuSettingLists;
     HashMap<String, String> eventlist;
     ImageView headerlogoIv;
-
+    private APIService mAPIService;
+    private SQLiteDatabase db;
+    private ConnectionDetector cd;
     String side_menu = "0", side_menu_my_travel = "0", side_menu_notification = "0", side_menu_display_qr = "0", side_menu_qr_scanner = "0",
             side_menu_quiz = "0", side_menu_live_poll = "0", side_menu_survey = "0",
             side_menu_feedback = "0", side_menu_gallery_video = "0", gallery_video_native = "0", gallery_video_youtube = "0",
@@ -122,12 +136,13 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
             side_menu_general_info = "0", edit_profile_company = "0", edit_profile_designation = "0", agenda_conference = "0", agenda_vacation = "0",
             side_menu_contact = "0", side_menu_email = "0", side_menu_leaderboard = "0";
     String news_feed = "0", attendee = "0", speaker = "0", agenda = "0", edit_profile = "0", general_ifo = "0";
-
-
+    private List<AgendaList> agendaList;
+    private List<AgendaList> agendaDBList;
+    private List<AgendaList> tempagendaList = new ArrayList<AgendaList>();
     String MY_PREFS_NAME = "ProcializeInfo";
     String MY_PREFS_LOGIN = "ProcializeLogin";
     String MY_EVENT = "EventId";
-    String eventid;
+    String eventid,token;
     String email, password;
     CustomMenuAdapter customMenuAdapter;
     TextView logout, home, contactus, eventname, switchbt, eula, privacy_policy;
@@ -135,6 +150,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
     public static final int RequestPermissionCode = 8;
     public static String logoImg = "", colorActive = "";
     public static int activetab;
+    private DBHelper procializeDB;
 
     private int[] tabIcons = {
             R.drawable.ic_newsfeed,
@@ -145,7 +161,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
     };
 
     private Res res;
-
+    private DBHelper dbHelper;
     @Override
     public Resources getResources() {
         if (res == null) {
@@ -181,7 +197,12 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         eventnamestr = prefs.getString("eventnamestr", "");
         logoImg = prefs.getString("logoImg", "");
         colorActive = prefs.getString("colorActive", "");
+        SessionManager sessionManager = new SessionManager(this);
 
+        HashMap<String, String> user1 = sessionManager.getUserDetails();
+
+        // token
+        token = user1.get(SessionManager.KEY_TOKEN);
         activetab = getResources().getColor(R.color.activetab);
         activetab = Color.parseColor(colorActive);
         //        SharedPreferences.Editor editor = getSharedPreferences(MY_EVENT, MODE_PRIVATE).edit();
@@ -203,10 +224,15 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 //        editor.putString("loginfirst", "1");
 //        editor.apply();
 
+        mAPIService = ApiUtils.getAPIService();
         session = new SessionManager(getApplicationContext());
         eventSettingLists = new ArrayList<>();
         eventMenuSettingLists = new ArrayList<>();
+        cd = new ConnectionDetector(this);
+        dbHelper = new DBHelper(this);
 
+        procializeDB = new DBHelper(this);
+        db = procializeDB.getWritableDatabase();
         // get user data from session
         HashMap<String, String> user = session.getUserDetails();
 
@@ -270,6 +296,13 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this, color); //tabselected color
                         tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+
+                        if(tab.getText().equals("Agenda")) {
+                            if (cd.isConnectingToInternet()) {
+
+                                fetchAgenda(token, eventid);
+                            }
+                        }
                     }
 
                     @Override
@@ -306,6 +339,13 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this, color); //tabselected color
                         tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+
+                        if(tab.getText().equals("Agenda")) {
+                            if (cd.isConnectingToInternet()) {
+
+                                fetchAgenda(token, eventid);
+                            }
+                        }
                     }
 
                     @Override
@@ -341,6 +381,13 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this, color); //tabselected color
                         tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+
+                        if(tab.getText().equals("Agenda")) {
+                            if (cd.isConnectingToInternet()) {
+
+                                fetchAgenda(token, eventid);
+                            }
+                        }
                     }
 
                     @Override
@@ -373,6 +420,13 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this, color); //tabselected color
                         tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+
+                        if(tab.getText().equals("Agenda")){
+                            if (cd.isConnectingToInternet()) {
+
+                                fetchAgenda(token, eventid);
+                            }
+                        }
                     }
 
                     @Override
@@ -394,6 +448,9 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+
         //Initializing NavigationView
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         menurecycler = navigationView.findViewById(R.id.menurecycler);
@@ -797,7 +854,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
             adapter.addFragment(new WallFragment_POST(), "News Feed");
             tabLayout = (TabLayout) findViewById(R.id.tabs);
             AppBarLayout appTab = findViewById(R.id.appTab);
-            appTab.setElevation(0);
+//            appTab.setElevation(0);
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -1195,5 +1252,55 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         }
     }
 
+
+    public void fetchAgenda(String token, String eventid) {
+
+        mAPIService.AgendaFetchPost(token, eventid).enqueue(new Callback<FetchAgenda>() {
+            @Override
+            public void onResponse(Call<FetchAgenda> call, Response<FetchAgenda> response) {
+
+                if (response.isSuccessful()) {
+                    Log.i("hit", "post submitted to API." + response.body().toString());
+
+                    showResponse(response);
+                } else {
+
+                    // Toast.makeText(getContext(),"Unable to process",Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FetchAgenda> call, Throwable t) {
+                Log.e("hit", "Unable to submit post to API.");
+
+                // Toast.makeText(getContext(),"Unable to process",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+
+    public void showResponse(Response<FetchAgenda> response) {
+        try {
+            String date = "";
+            for (int i = 0; i < response.body().getAgendaList().size(); i++) {
+                if (response.body().getAgendaList().get(i).getSessionDate().equalsIgnoreCase(date)) {
+                    date = response.body().getAgendaList().get(i).getSessionDate();
+                    tempagendaList.add(response.body().getAgendaList().get(i));
+                } else {
+                    date = response.body().getAgendaList().get(i).getSessionDate();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        agendaList = response.body().getAgendaList();
+        procializeDB.clearAgendaTable();
+        procializeDB.insertAgendaInfo(agendaList, db);
+
+
+    }
 
 }

@@ -48,7 +48,7 @@ import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.Util;
 import com.procialize.singleevent.Utility.Utility;
-import com.yalantis.ucrop.UCrop;
+
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -870,12 +870,12 @@ public class ProfileActivity extends AppCompatActivity {
             }
             else if (requestCode == REQUEST_CAMERA) {
                 onCaptureImageResult(data);
-            }else if (requestCode == UCrop.REQUEST_CROP) {
+            }/*else if (requestCode == UCrop.REQUEST_CROP) {
                 final Uri resultUri = UCrop.getOutput(data);
                 onSelectFromCropResult(resultUri);
             } else if (resultCode == UCrop.RESULT_ERROR) {
                 final Throwable cropError = UCrop.getError(data);
-            }
+            }*/
         }
     }
 
@@ -905,10 +905,10 @@ public class ProfileActivity extends AppCompatActivity {
             // CALL THIS METHOD TO GET THE URI FROM THE BITMAP
             tempUri = getImageUri(getApplicationContext(), thumbnail);
 
-            UCrop.of(tempUri, Uri.parse(destination.getAbsolutePath()))
-                    .withAspectRatio(4, 3)
-                    .withMaxResultSize(200, 200)
-                    .start(this);
+//            UCrop.of(tempUri, Uri.parse(destination.getAbsolutePath()))
+//                    .withAspectRatio(4, 3)
+//                    .withMaxResultSize(200, 200)
+//                    .start(this);
 
             // CALL THIS METHOD TO GET THE ACTUAL PATH
             file = new File(getRealPathFromURI(tempUri));
@@ -929,10 +929,10 @@ public class ProfileActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            UCrop.of(tempUri, Uri.parse(destination.getAbsolutePath()))
-                    .withAspectRatio(4, 3)
-                    .withMaxResultSize(200, 200)
-                    .start(this);
+//            UCrop.of(tempUri, Uri.parse(destination.getAbsolutePath()))
+//                    .withAspectRatio(4, 3)
+//                    .withMaxResultSize(200, 200)
+//                    .start(this);
         }
 
 //        profileIV.setImageURI(tempUri);
@@ -978,11 +978,11 @@ public class ProfileActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-                UCrop.of(tempUri, Uri.parse(destination.getAbsolutePath()))
-                        .withAspectRatio(4, 3)
-                        .withMaxResultSize(200, 200)
-                        .start(this);
+//
+//                UCrop.of(tempUri, Uri.parse(destination.getAbsolutePath()))
+//                        .withAspectRatio(4, 3)
+//                        .withMaxResultSize(200, 200)
+//                        .start(this);
 
             } catch (IOException e) {
                 e.printStackTrace();

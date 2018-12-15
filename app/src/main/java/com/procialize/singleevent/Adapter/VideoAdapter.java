@@ -128,7 +128,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
             }
 
         } else {
-            holder.mainLL.setBackgroundResource(R.drawable.folder);
+            holder.imageIv.setBackgroundResource(R.drawable.folder_back);
             Glide.with(context).load(videoList.getFileName())
                     .apply(RequestOptions.skipMemoryCacheOf(true))
                     .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE)).listener(new RequestListener<Drawable>() {

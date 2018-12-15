@@ -115,7 +115,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyViewHo
         {
 
         }else {
-            holder.mainLL.setBackgroundResource(R.drawable.folder);
+            holder.imageIv.setBackgroundResource(R.drawable.folder_back);
         }
 
 

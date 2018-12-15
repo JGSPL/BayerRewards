@@ -338,15 +338,16 @@
             android:id="@+id/action_container"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@drawable/edittexthmbg"
+            android:background="@drawable/gifbackground"
             android:orientation="horizontal"
             android:visibility="visible">
 
             <ImageView
                 android:id="@+id/gif"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/gif" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/gif"
+                android:layout_gravity="center"/>
 
             <com.procialize.singleevent.Fonts.RobotoEditext
                 android:id="@+id/commentEt"

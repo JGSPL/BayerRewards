@@ -1,6 +1,8 @@
 package com.procialize.singleevent.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +25,8 @@ import com.procialize.singleevent.InnerDrawerActivity.GalleryFirstLevelActivity;
 import com.procialize.singleevent.R;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by Naushad on 10/31/2017.
  */
@@ -34,7 +38,8 @@ public class GalleryFirstLevelAdapter extends RecyclerView.Adapter<GalleryFirstL
     private List<FirstLevelFilter> filtergallerylists;
     private Context context;
     private GalleryFirstLevelAdapterListener listener;
-
+    String colorActive;
+    String MY_PREFS_NAME = "ProcializeInfo";
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTv;
@@ -66,12 +71,14 @@ public class GalleryFirstLevelAdapter extends RecyclerView.Adapter<GalleryFirstL
         this.filtergallerylists = filtergallerylists;
         this.listener=listener;
         this.context=context;
+        SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        colorActive = prefs.getString("colorActive","");
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.gallery_row, parent, false);
+                .inflate(R.layout.gallery_first_level, parent, false);
 
         return new MyViewHolder(itemView);
     }
@@ -92,7 +99,7 @@ public class GalleryFirstLevelAdapter extends RecyclerView.Adapter<GalleryFirstL
             holder.nameTv.setText(galleryList.getTitle());
 //        }
 
-
+        holder.nameTv.setBackgroundColor(Color.parseColor(colorActive));
         Glide.with(context).load(galleryList.getFileName())
                 .apply(RequestOptions.skipMemoryCacheOf(true))
                 .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE)).listener(new RequestListener<Drawable>() {
@@ -113,7 +120,7 @@ public class GalleryFirstLevelAdapter extends RecyclerView.Adapter<GalleryFirstL
         {
 
         }else {
-            holder.mainLL.setBackgroundResource(R.drawable.folder);
+            holder.imageIv.setBackgroundResource(R.drawable.folder_back);
         }
 
     }
