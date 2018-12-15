@@ -126,13 +126,12 @@
                                 android:orientation="horizontal">
 
                                 <com.procialize.singleevent.Fonts.RobotoTextview
-                                    android:id="@+id/companyTv"
+                                    android:id="@+id/designationTv"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_below="@+id/nameTv"
                                     android:layout_toEndOf="@+id/imageView"
-                                    android:layout_weight="3"
-                                    android:maxLines="1"
+                                    android:layout_weight="6"
                                     android:padding="3dp"
                                     android:paddingLeft="5dp"
                                     android:text=""
@@ -153,7 +152,7 @@
                             </LinearLayout>
 
                             <com.procialize.singleevent.Fonts.RobotoTextview
-                                android:id="@+id/designationTv"
+                                android:id="@+id/companyTv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/designationTv"
@@ -163,7 +162,8 @@
                                 android:paddingLeft="5dp"
                                 android:text=""
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/textsizesmall" />
+                                android:textSize="@dimen/textsizesmall"
+                                android:visibility="gone"/>
 
 
                         </LinearLayout>

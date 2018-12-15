@@ -15,24 +15,13 @@
         android:background="@color/activetab"
         android:gravity="center"
         android:minHeight="40dp"
-        android:orientation="horizontal"
-        android:weightSum="10">
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1.5"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="7"
+            android:layout_weight="9"
             android:gravity="center|left"
             android:orientation="vertical">
 
@@ -40,15 +29,15 @@
 
             <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/video_title_txt"
+                android:textSize="14sp"
+                android:padding="5dp"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dip"
-                android:gravity="center"
-                android:maxLength="100"
-                android:singleLine="true"
-                android:text=""
+                android:text="="
                 android:textColor="@color/colorwhite"
-                android:textSize="18sp" />
+                android:textAlignment="textStart"/>
         </LinearLayout>
 
         <LinearLayout

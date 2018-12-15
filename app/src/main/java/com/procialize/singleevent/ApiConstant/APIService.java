@@ -511,6 +511,12 @@ public interface APIService {
                                                         @Field("event_id") String event_id,
                                                         @Field("selfie_id") String selfie_id);
 
+    @POST("DeleteVideoContest")
+    @FormUrlEncoded
+    Call<ReportVideoContestHide> DeleteVideoContest(@Field("api_access_token") String api_access_token,
+                                                        @Field("event_id") String event_id,
+                                                        @Field("selfie_id") String selfie_id);
+
 
     @POST("ReportVideoContest")
     @FormUrlEncoded

@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.PointF;
 import android.provider.ContactsContract;
 import android.support.design.widget.TextInputEditText;
@@ -54,7 +55,7 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
     ImageView headerlogoIv;
     private APIService mAPIService;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid;
+    String eventid,colorActive;
     @Override
     public void onCreate(Bundle state) {
         super.onCreate(state);
@@ -117,7 +118,9 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
         final String token = user.get(SessionManager.KEY_TOKEN);
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
-
+        colorActive = prefs.getString("colorActive", "");
+        int colorInt = Color.parseColor(colorActive);
+        save_btn_qr.setBackgroundColor(colorInt);
         save_btn_qr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -170,22 +170,7 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
 
 
 
-//        try {
-//
-//            SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss", Locale.ENGLISH);
-//            SimpleDateFormat targetFormat = new SimpleDateFormat("dd MMM yyyy kk:mm");
-//
-//            Date startdate = originalFormat.parse(agenda.getSessionStartTime());
-//            Date enddate = originalFormat.parse(agenda.getSessionEndTime());
-//
-//            String startdatestr = targetFormat.format(startdate);
-//            String enddatestr = targetFormat.format(enddate);
-//
-//
-//            holder.dateTv.setText(startdatestr + " - " + enddatestr);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+
 
 
     }

@@ -5,11 +5,16 @@ import android.app.ProgressDialog;
 import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
 import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -17,12 +22,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -46,10 +47,8 @@ import com.procialize.singleevent.DbHelper.DBHelper;
 import com.procialize.singleevent.GetterSetter.AttendeeList;
 import com.procialize.singleevent.GetterSetter.EventSettingList;
 
-import com.procialize.singleevent.GetterSetter.QRPost;
 import com.procialize.singleevent.GetterSetter.SendMessagePost;
 import com.procialize.singleevent.GetterSetter.UserData;
-import com.procialize.singleevent.InnerDrawerActivity.QRScanActivity;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.Util;
@@ -76,10 +75,10 @@ public class AttendeeDetailActivity extends AppCompatActivity {
     String apikey;
     ImageView profileIV;
     ProgressBar progressBar, progressBarmain;
-    String attendee_company, attendee_location, attendee_mobile, attendee_design, attendee_save_contact, attendee_message;
+    String attendee_company, attendee_location, attendee_mobile, attendee_design;
     List<EventSettingList> eventSettingLists;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid, colorActive;
+    String eventid, colorActive,eventnamestr;
     UserData userData;
     private DBHelper procializeDB;
     private SQLiteDatabase db;
@@ -122,7 +121,9 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         eventid = prefs.getString("eventid", "1");
         colorActive = prefs.getString("colorActive", "");
 
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        eventnamestr = prefs.getString("eventnamestr", "");
+
+
         dbHelper = new DBHelper(AttendeeDetailActivity.this);
         db = dbHelper.getWritableDatabase();
 
@@ -142,6 +143,8 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         // apikey
         apikey = user.get(SessionManager.KEY_TOKEN);
         getattendee = user.get(SessionManager.KEY_ID);
+
+
 
         eventSettingLists = sessionManager.loadEventList();
 
@@ -193,7 +196,6 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         linMsg.setBackgroundColor(Color.parseColor(colorActive));
         linsave.setBackgroundColor(Color.parseColor(colorActive));
 
-//        posttextEt.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
         sendbtn = findViewById(R.id.sendMsg);
         sendbtn.setBackgroundColor(Color.parseColor(colorActive));
@@ -202,33 +204,9 @@ public class AttendeeDetailActivity extends AppCompatActivity {
             sendbtn.setVisibility(View.GONE);
             linearsaveandsend.setVisibility(View.GONE);
         } else {
-            if (attendee_message.equalsIgnoreCase("1")) {
-                sendbtn.setVisibility(View.VISIBLE);
-                linearsaveandsend.setVisibility(View.VISIBLE);
-            } else {
-                sendbtn.setVisibility(View.GONE);
-                linearsaveandsend.setVisibility(View.GONE);
-            }
-        }
-
-        if (attendee_message.equalsIgnoreCase("0")) {
-            posttextEt.setVisibility(View.GONE);
-            linMsg.setVisibility(View.GONE);
-            sendbtn.setVisibility(View.GONE);
-        } else {
-            posttextEt.setVisibility(View.VISIBLE);
-            linMsg.setVisibility(View.VISIBLE);
             sendbtn.setVisibility(View.VISIBLE);
+            linearsaveandsend.setVisibility(View.VISIBLE);
         }
-
-        if (attendee_save_contact.equalsIgnoreCase("0")) {
-            linsave.setVisibility(View.GONE);
-            saveContact.setVisibility(View.GONE);
-        } else {
-            linsave.setVisibility(View.VISIBLE);
-            saveContact.setVisibility(View.VISIBLE);
-        }
-
 
         if (name.equalsIgnoreCase("N A")) {
             tvname.setVisibility(View.GONE);
@@ -410,10 +388,6 @@ public class AttendeeDetailActivity extends AppCompatActivity {
                 attendee_design = eventSettingLists.get(i).getFieldValue();
             } else if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("attendee_designation")) {
                 attendee_design = eventSettingLists.get(i).getFieldValue();
-            } else if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("attendee_save_contact")) {
-                attendee_save_contact = eventSettingLists.get(i).getFieldValue();
-            } else if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("attendee_message")) {
-                attendee_message = eventSettingLists.get(i).getFieldValue();
             }
         }
     }
@@ -483,9 +457,6 @@ public class AttendeeDetailActivity extends AppCompatActivity {
 
     public void PostMesssage(String eventid, String msg, String token, String attendeeid) {
         showProgress();
-        InputMethodManager imm = (InputMethodManager) getSystemService(
-                Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(posttextEt.getWindowToken(), 0);
 //        showProgress();
         mAPIService.SendMessagePost(token, eventid, msg, attendeeid, "").enqueue(new Callback<SendMessagePost>() {
             @Override
@@ -540,47 +511,25 @@ public class AttendeeDetailActivity extends AppCompatActivity {
     }
 
     public void addToContactList(Context context, String strDisplayName, String strNumber) throws Exception {
-        InputMethodManager imm = (InputMethodManager) getSystemService(
-                Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(posttextEt.getWindowToken(), 0);
-        ArrayList<ContentProviderOperation> cntProOper = new ArrayList<>();
-        int contactIndex = cntProOper.size();//ContactSize
-        ContentResolver contactHelper = context.getContentResolver();
 
-        cntProOper.add(ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI)//Step1
-                .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, null)
-                .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null).build());
+        // Get android phone contact content provider uri.
+        //Uri addContactsUri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
+        // Below uri can avoid java.lang.UnsupportedOperationException: URI: content://com.android.contacts/data/phones error.
+        Uri addContactsUri = ContactsContract.Data.CONTENT_URI;
 
-        //Display name will be inserted in ContactsContract.Data table
-        cntProOper.add(ContentProviderOperation.newInsert(android.provider.ContactsContract.Data.CONTENT_URI)//Step2
-                .withValueBackReference(android.provider.ContactsContract.Data.RAW_CONTACT_ID, contactIndex)
-                .withValue(android.provider.ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
-                .withValue(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, strDisplayName) // Name of the contact
-                .build());
+        // Add an empty contact and get the generated id.
+        long rowContactId = getRawContactId();
 
-//        for (String s : strNumber) {
-//            //Mobile number will be inserted in ContactsContract.Data table
-//            cntProOper.add(ContentProviderOperation.newInsert(android.provider.ContactsContract.Data.CONTENT_URI)//Step 3
-//                    .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, contactIndex)
-//                    .withValue(android.provider.ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
-//                    .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, s) // Number to be added
-//                    .withValue(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE).build()); //Type like HOME, MOBILE etc
-//        }
+        // Add contact name data.
+        insertContactDisplayName(addContactsUri, rowContactId, strDisplayName);
 
-        cntProOper.add(ContentProviderOperation.newInsert(android.provider.ContactsContract.Data.CONTENT_URI)//Step 3
-                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, contactIndex)
-                .withValue(android.provider.ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
-                .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, strNumber) // Number to be added
-                .withValue(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE).build());
+        insertContactNotes(addContactsUri, rowContactId, strDisplayName);
 
-        ContentProviderResult[] s = context.getContentResolver().applyBatch(ContactsContract.AUTHORITY, cntProOper); //apply above data insertion into contacts list
+        insertContactPhoneNumber(addContactsUri, rowContactId, strNumber, strDisplayName);
 
-        for (ContentProviderResult r : s) {
-            Log.i("hey", "addToContactList: " + r.uri);
-        }
+        Toast.makeText(getApplicationContext(),"New contact has been added, go back to previous page to see it in contacts list." , Toast.LENGTH_LONG).show();
 
-        Toast.makeText(this, "Contact Save Successfully", Toast.LENGTH_SHORT).show();
-        finish();
+//        finish();
 
 
     }
@@ -596,4 +545,88 @@ public class AttendeeDetailActivity extends AppCompatActivity {
             progressBarmain.setVisibility(View.GONE);
         }
     }
+
+
+    // Insert newly created contact display name.
+    private void insertContactDisplayName(Uri addContactsUri, long rawContactId, String displayName) {
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(ContactsContract.Data.RAW_CONTACT_ID, rawContactId);
+
+        // Each contact must has an mime type to avoid java.lang.IllegalArgumentException: mimetype is required error.
+        contentValues.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE);
+
+        // Put contact display name value.
+        contentValues.put(ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME, displayName);
+
+        //Notes
+        contentValues.put(ContactsContract.CommonDataKinds.Note.NOTE, "Met At "+eventnamestr);
+
+
+        getContentResolver().insert(addContactsUri, contentValues);
+    }
+
+    private void insertContactNotes(Uri addContactsUri, long rawContactId, String displayName) {
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(ContactsContract.Data.RAW_CONTACT_ID, rawContactId);
+
+        // Each contact must has an mime type to avoid java.lang.IllegalArgumentException: mimetype is required error.
+        contentValues.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE);
+
+        //Notes
+        contentValues.put(ContactsContract.CommonDataKinds.Note.NOTE, "Met At "+eventnamestr);
+
+        getContentResolver().insert(addContactsUri, contentValues);
+    }
+
+
+        private void insertContactPhoneNumber(Uri addContactsUri, long rawContactId, String phoneNumber, String strDisplayName)
+    {
+        // Create a ContentValues object.
+        ContentValues contentValues = new ContentValues();
+
+        // Each contact must has an id to avoid java.lang.IllegalArgumentException: raw_contact_id is required error.
+        contentValues.put(ContactsContract.Data.RAW_CONTACT_ID, rawContactId);
+
+        // Each contact must has an mime type to avoid java.lang.IllegalArgumentException: mimetype is required error.
+        contentValues.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
+
+        // Put phone number value.
+        contentValues.put(ContactsContract.CommonDataKinds.Phone.NUMBER, phoneNumber);
+
+        // Calculate phone type by user selection.
+        int phoneContactType = ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE;
+
+//        if("home".equalsIgnoreCase(phoneTypeStr))
+//        {
+//            phoneContactType = ContactsContract.CommonDataKinds.Phone.TYPE_HOME;
+//        }else if("mobile".equalsIgnoreCase(phoneTypeStr))
+//        {
+//            phoneContactType = ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE;
+//        }else if("work".equalsIgnoreCase(phoneTypeStr))
+//        {
+//            phoneContactType = ContactsContract.CommonDataKinds.Phone.TYPE_WORK;
+//        }
+        // Put phone type value.
+        contentValues.put(ContactsContract.CommonDataKinds.Phone.TYPE, phoneContactType);
+
+        // Insert new contact data into phone contact list.
+        getContentResolver().insert(addContactsUri, contentValues);
+
+
+    }
+
+    private long getRawContactId()
+    {
+        // Inser an empty contact.
+        ContentValues contentValues = new ContentValues();
+        Uri rawContactUri = getContentResolver().insert(ContactsContract.RawContacts.CONTENT_URI, contentValues);
+        // Get the newly created contact raw id.
+        long ret = ContentUris.parseId(rawContactUri);
+        return ret;
+    }
+
+
+
 }

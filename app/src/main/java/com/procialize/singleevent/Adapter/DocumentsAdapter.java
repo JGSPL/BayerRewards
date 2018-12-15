@@ -11,9 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.procialize.singleevent.GetterSetter.DocumentList;
 import com.procialize.singleevent.R;
+
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -34,13 +37,14 @@ public class DocumentsAdapter extends RecyclerView.Adapter<DocumentsAdapter.MyVi
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTv;
         ImageView ic_rightarrow;
-
+        LinearLayout mainLL;
 
 
         public MyViewHolder(View view) {
             super(view);
             nameTv = (TextView) view.findViewById(R.id.nameTv);
             ic_rightarrow = (ImageView) view.findViewById(R.id.ic_rightarrow);
+            mainLL = (LinearLayout) view.findViewById(R.id.mainLL);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -53,12 +57,12 @@ public class DocumentsAdapter extends RecyclerView.Adapter<DocumentsAdapter.MyVi
     }
 
 
-    public DocumentsAdapter(Context context, List<DocumentList> docList,DocumentsAdapterListner listener) {
+    public DocumentsAdapter(Context context, List<DocumentList> docList, DocumentsAdapterListner listener) {
         this.docLists = docList;
-        this.listener=listener;
-        this.context=context;
+        this.listener = listener;
+        this.context = context;
         SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        colorActive = prefs.getString("colorActive","");
+        colorActive = prefs.getString("colorActive", "");
 
     }
 
@@ -75,13 +79,13 @@ public class DocumentsAdapter extends RecyclerView.Adapter<DocumentsAdapter.MyVi
 
         int colorInt = Color.parseColor(colorActive);
 
-        ColorStateList csl = ColorStateList.valueOf(colorInt);
-        Drawable drawable = DrawableCompat.wrap(holder.ic_rightarrow.getDrawable());
-        DrawableCompat.setTintList(drawable, csl);
-        holder.ic_rightarrow.setImageDrawable(drawable);
-
+//        ColorStateList csl = ColorStateList.valueOf(colorInt);
+//        Drawable drawable = DrawableCompat.wrap(holder.ic_rightarrow.getDrawable());
+//        DrawableCompat.setTintList(drawable, csl);
+//        holder.ic_rightarrow.setImageDrawable(drawable);
+        holder.mainLL.setBackgroundColor(colorInt);
         holder.nameTv.setText(survey.getTitle());
-        holder.nameTv.setTextColor(colorInt);
+
     }
 
     @Override
