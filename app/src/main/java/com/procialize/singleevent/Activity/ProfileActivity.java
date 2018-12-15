@@ -48,7 +48,7 @@ import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.Util;
 import com.procialize.singleevent.Utility.Utility;
-
+import com.yalantis.ucrop.UCrop;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -93,31 +93,32 @@ public class ProfileActivity extends AppCompatActivity {
     public static final int RequestPermissionCode = 8;
     String eventnamestr;
     String profilepic;
-    String api_token,colorActive;
+    String api_token, colorActive;
     TextView txt_upload;
     ImageView headerlogoIv;
     RelativeLayout linear_upload;
     String MY_PREFS_LOGIN = "ProcializeLogin";
-    public static String logoImg="";
-    TextInputLayout input_layout_firstname,input_layout_lastname,input_layout_designation,input_layout_company,
-            input_layout_mobile,input_layout_desc,input_layout_city,input_layout_emailid,input_layout_country;
+    public static String logoImg = "";
+    TextInputLayout input_layout_firstname, input_layout_lastname, input_layout_designation, input_layout_company,
+            input_layout_mobile, input_layout_desc, input_layout_city, input_layout_emailid, input_layout_country;
 
     RelativeLayout relative;
     ProgressDialog progressDialog;
 
-    String mCurrentPhotoPath ="";
+    String mCurrentPhotoPath = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-       // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "");
         eventnamestr = prefs.getString("eventnamestr", "");
-        logoImg = prefs.getString("logoImg","");
-        colorActive = prefs.getString("colorActive","");
+        logoImg = prefs.getString("logoImg", "");
+        colorActive = prefs.getString("colorActive", "");
 
         SharedPreferences.Editor editorlogin = getSharedPreferences(MY_PREFS_LOGIN, MODE_PRIVATE).edit();
         editorlogin.putString("loginfirst", "1").commit();
@@ -146,7 +147,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
         headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod1(this,headerlogoIv);
+        Util.logomethod1(this, headerlogoIv);
 
         mAPIService = ApiUtils.getAPIService();
 
@@ -226,9 +227,6 @@ public class ProfileActivity extends AppCompatActivity {
         relative = findViewById(R.id.relative);
 
 
-
-
-
         Etfirstname = findViewById(R.id.Etfirstname);
         Etlastname = findViewById(R.id.Etlastname);
         Etdesignation = findViewById(R.id.Etdesignation);
@@ -243,10 +241,10 @@ public class ProfileActivity extends AppCompatActivity {
         txt_upload = findViewById(R.id.txt_upload);
         linear_upload = findViewById(R.id.linear_upload);
 
-        TextView header = (TextView)findViewById(R.id.title);
+        TextView header = (TextView) findViewById(R.id.title);
         header.setTextColor(Color.parseColor(colorActive));
 
-        RelativeLayout layoutTop = (RelativeLayout)findViewById(R.id.layoutTop);
+        RelativeLayout layoutTop = (RelativeLayout) findViewById(R.id.layoutTop);
         layoutTop.setBackgroundColor(Color.parseColor(colorActive));
 
         savebtn.setBackgroundColor(Color.parseColor(colorActive));
@@ -262,7 +260,7 @@ public class ProfileActivity extends AppCompatActivity {
             Etdesignation.setVisibility(View.VISIBLE);
             input_layout_designation.setVisibility(View.VISIBLE);
         } else {
-            if (designation != null){
+            if (designation != null) {
                 Etdesignation.setText(designation);
                 Etdesignation.setVisibility(View.VISIBLE);
                 input_layout_designation.setVisibility(View.VISIBLE);
@@ -291,7 +289,7 @@ public class ProfileActivity extends AppCompatActivity {
             Etcity.setVisibility(View.VISIBLE);
             input_layout_city.setVisibility(View.VISIBLE);
         } else {
-            if (city != null ) {
+            if (city != null) {
                 Etcity.setText(city);
                 Etcity.setVisibility(View.VISIBLE);
                 input_layout_city.setVisibility(View.VISIBLE);
@@ -305,7 +303,7 @@ public class ProfileActivity extends AppCompatActivity {
             Etcountry.setVisibility(View.VISIBLE);
             input_layout_country.setVisibility(View.VISIBLE);
         } else {
-            if (country != null ) {
+            if (country != null) {
                 Etcountry.setText(country);
                 Etcountry.setVisibility(View.VISIBLE);
                 input_layout_country.setVisibility(View.VISIBLE);
@@ -359,7 +357,7 @@ public class ProfileActivity extends AppCompatActivity {
                 input_layout_lastname.setVisibility(View.VISIBLE);
 
             } else {
-                if (name != null){
+                if (name != null) {
                     Etfirstname.setText(name);
                     Etlastname.setText(lname);
                     Etfirstname.setVisibility(View.VISIBLE);
@@ -383,7 +381,7 @@ public class ProfileActivity extends AppCompatActivity {
             Etemail.setVisibility(View.VISIBLE);
             input_layout_emailid.setVisibility(View.VISIBLE);
         } else {
-            if(email!=null){
+            if (email != null) {
                 Etemail.setText(email);
                 Etemail.setVisibility(View.VISIBLE);
                 input_layout_emailid.setVisibility(View.VISIBLE);
@@ -394,11 +392,11 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
 
-        if ( edit_profile_pic.equalsIgnoreCase("1")) {
+        if (edit_profile_pic.equalsIgnoreCase("1")) {
             profileIV.setVisibility(View.VISIBLE);
             txt_upload.setVisibility(View.VISIBLE);
             relative.setVisibility(View.VISIBLE);
-            if(profilepic != null) {
+            if (profilepic != null) {
                 Glide.with(this).load(ApiConstant.profilepic + profilepic).listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -413,12 +411,12 @@ public class ProfileActivity extends AppCompatActivity {
                         return false;
                     }
                 }).into(profileIV);
-            }else{
+            } else {
                 profileIV.setImageResource(R.drawable.profilepic_placeholder);
 
             }
         } else {
-            if(profilepic!= null){
+            if (profilepic != null) {
                 Glide.with(this).load(ApiConstant.profilepic + profilepic).listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -606,7 +604,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     public void saveProfile() {
 
-        Showprogress(this,"Loading.......");
+        Showprogress(this, "Loading.......");
 
         HashMap<String, String> user = sessionManager.getUserDetails();
 
@@ -634,7 +632,7 @@ public class ProfileActivity extends AppCompatActivity {
         } else {
             SharedPreferences pref = getSharedPreferences("PROFILE_PICTURE", MODE_PRIVATE);
             String prof_pic = pref.getString("profile", "");
-           // String prof_pic = user.get(SessionManager.KEY_PIC);
+            // String prof_pic = user.get(SessionManager.KEY_PIC);
 
             if (prof_pic != null) {
                 if (!prof_pic.equals("")) {
@@ -718,12 +716,12 @@ public class ProfileActivity extends AppCompatActivity {
                 public void onFailure(Call<ProfileSave> call, Throwable t) {
                     Dismissprogress();
                     Log.e("hit", "Low network or no network");
-                   // Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
             mAPIService.ProfileSave(token, fstname, lstname, desc, cit, countr,
-                    mob, typ, des, evid, cmp,body).enqueue(new Callback<ProfileSave>() {
+                    mob, typ, des, evid, cmp, body).enqueue(new Callback<ProfileSave>() {
                 @Override
                 public void onResponse(Call<ProfileSave> call, Response<ProfileSave> response) {
                     try {
@@ -867,90 +865,93 @@ public class ProfileActivity extends AppCompatActivity {
         if (resultCode == this.RESULT_OK) {
             if (requestCode == SELECT_FILE) {
                 onSelectFromGalleryResult(data);
-            }
-            else if (requestCode == REQUEST_CAMERA) {
+            } else if (requestCode == REQUEST_CAMERA) {
                 onCaptureImageResult(data);
-            }/*else if (requestCode == UCrop.REQUEST_CROP) {
+            } else if (requestCode == UCrop.REQUEST_CROP) {
                 final Uri resultUri = UCrop.getOutput(data);
                 onSelectFromCropResult(resultUri);
             } else if (resultCode == UCrop.RESULT_ERROR) {
                 final Throwable cropError = UCrop.getError(data);
-            }*/
+            }
         }
     }
 
     private void onCaptureImageResult(Intent data) {
-        Uri tempUri;
-        if(data.getData()!=null) {
-            Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+        try {
+            Uri tempUri;
+            if (data.getData() != null) {
+                Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
 
-            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-            thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
 
-            File destination = new File(Environment.getExternalStorageDirectory(),
-                    System.currentTimeMillis() + ".jpg");
-            FileOutputStream fo;
-            try {
-                destination.createNewFile();
-                fo = new FileOutputStream(destination);
-                fo.write(bytes.toByteArray());
-                fo.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+                File destination = new File(Environment.getExternalStorageDirectory(),
+                        System.currentTimeMillis() + ".jpg");
+                FileOutputStream fo;
+                try {
+                    destination.createNewFile();
+                    fo = new FileOutputStream(destination);
+                    fo.write(bytes.toByteArray());
+                    fo.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+                // CALL THIS METHOD TO GET THE URI FROM THE BITMAP
+                tempUri = getImageUri(getApplicationContext(), thumbnail);
+
+                UCrop.of(tempUri, Uri.parse(destination.getAbsolutePath()))
+                        .withAspectRatio(4, 3)
+                        .withMaxResultSize(200, 200)
+                        .start(this);
+
+                // CALL THIS METHOD TO GET THE ACTUAL PATH
+                file = new File(getRealPathFromURI(tempUri));
+            } else {
+                file = new File(mCurrentPhotoPath);
+
+                tempUri = Uri.fromFile(file);
+
+                File destination = new File(Environment.getExternalStorageDirectory(),
+                        System.currentTimeMillis() + ".jpg");
+                FileOutputStream fo;
+                try {
+                    destination.createNewFile();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                UCrop.of(tempUri, Uri.parse(destination.getAbsolutePath()))
+                        .withAspectRatio(4, 3)
+                        .withMaxResultSize(200, 200)
+                        .start(this);
             }
-
-
-            // CALL THIS METHOD TO GET THE URI FROM THE BITMAP
-            tempUri = getImageUri(getApplicationContext(), thumbnail);
-
-//            UCrop.of(tempUri, Uri.parse(destination.getAbsolutePath()))
-//                    .withAspectRatio(4, 3)
-//                    .withMaxResultSize(200, 200)
-//                    .start(this);
-
-            // CALL THIS METHOD TO GET THE ACTUAL PATH
-            file = new File(getRealPathFromURI(tempUri));
-        }else
-        {
-            file = new File(mCurrentPhotoPath);
-
-            tempUri = Uri.fromFile(file);
-
-            File destination = new File(Environment.getExternalStorageDirectory(),
-                    System.currentTimeMillis() + ".jpg");
-            FileOutputStream fo;
-            try {
-                destination.createNewFile();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-//            UCrop.of(tempUri, Uri.parse(destination.getAbsolutePath()))
-//                    .withAspectRatio(4, 3)
-//                    .withMaxResultSize(200, 200)
-//                    .start(this);
-        }
 
 //        profileIV.setImageURI(tempUri);
 
-        Glide.with(this).load(tempUri).listener(new RequestListener<Drawable>() {
-            @Override
-            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                progressView.setVisibility(View.GONE);
-                profileIV.setImageResource(R.drawable.profilepic_placeholder);
-                return true;
-            }
+            Glide.with(this).load(tempUri).listener(new RequestListener<Drawable>() {
+                @Override
+                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                    progressView.setVisibility(View.GONE);
+                    profileIV.setImageResource(R.drawable.profilepic_placeholder);
+                    return true;
+                }
 
-            @Override
-            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                progressView.setVisibility(View.GONE);
-                return false;
-            }
-        }).into(profileIV);
+                @Override
+                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                    progressView.setVisibility(View.GONE);
+                    return false;
+                }
+            }).into(profileIV);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
     }
 
@@ -978,11 +979,11 @@ public class ProfileActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-//
-//                UCrop.of(tempUri, Uri.parse(destination.getAbsolutePath()))
-//                        .withAspectRatio(4, 3)
-//                        .withMaxResultSize(200, 200)
-//                        .start(this);
+
+                UCrop.of(tempUri, Uri.parse(destination.getAbsolutePath()))
+                        .withAspectRatio(4, 3)
+                        .withMaxResultSize(200, 200)
+                        .start(this);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -1067,7 +1068,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-       // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         super.onResume();
     }
 
@@ -1144,20 +1145,19 @@ public class ProfileActivity extends AppCompatActivity {
 
                 } else {
 
-                   // Toast.makeText(ProfileActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(ProfileActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Analytic> call, Throwable t) {
-               // Toast.makeText(ProfileActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(ProfileActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
 
             }
         });
     }
 
-    private void Showprogress(Context context,String message)
-    {
+    private void Showprogress(Context context, String message) {
         progressDialog = new ProgressDialog(context);
         progressDialog.setCancelable(false);
         progressDialog.setMessage(message);
@@ -1167,10 +1167,8 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-    private void Dismissprogress()
-    {
-        if(progressDialog.isShowing())
-        {
+    private void Dismissprogress() {
+        if (progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
     }

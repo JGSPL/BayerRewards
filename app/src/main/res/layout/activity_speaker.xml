@@ -84,7 +84,7 @@
         android:visibility="gone"
         android:layout_gravity="center"
         android:layout_width="20dp"
-        android:layout_height="20dp" />
+        android:layout_height="20dp" android:background="@drawable/loader"/>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/speakerfeedrefresh"

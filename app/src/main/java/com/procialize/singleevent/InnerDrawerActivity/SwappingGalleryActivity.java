@@ -1,5 +1,10 @@
 package com.procialize.singleevent.InnerDrawerActivity;
 
+import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,6 +37,9 @@ public class SwappingGalleryActivity extends AppCompatActivity implements SwipeI
     ViewPager pager;
     ImageView right,left,backIv;
     ImageView headerlogoIv;
+    String colorActive;
+    String MY_PREFS_NAME = "ProcializeInfo";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +56,8 @@ public class SwappingGalleryActivity extends AppCompatActivity implements SwipeI
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
         Util.logomethod(this,headerlogoIv);
-
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        colorActive = prefs.getString("colorActive","");
 
         backIv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +84,15 @@ public class SwappingGalleryActivity extends AppCompatActivity implements SwipeI
         swipepagerAdapter.notifyDataSetChanged();
 
         indexset(name);
+        int colorInt = Color.parseColor(colorActive);
+        ColorStateList csl = ColorStateList.valueOf(colorInt);
+        Drawable drawable = DrawableCompat.wrap(right.getDrawable());
+        DrawableCompat.setTintList(drawable, csl);
+        right.setImageDrawable(drawable);
+
+        Drawable drawable1 = DrawableCompat.wrap(left.getDrawable());
+        DrawableCompat.setTintList(drawable1, csl);
+        left.setImageDrawable(drawable1);
 
         right.setOnClickListener(new View.OnClickListener() {
             @Override

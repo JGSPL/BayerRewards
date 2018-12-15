@@ -52,7 +52,7 @@
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/appBarLayout"/>
+        android:layout_below="@+id/appBarLayout" android:background="@drawable/loader"/>
 
     <com.procialize.singleevent.Fonts.RobotoTextview
         android:id="@+id/tvname"

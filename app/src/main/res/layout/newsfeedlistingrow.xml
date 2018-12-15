@@ -51,21 +51,21 @@
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/margin"
             android:layout_marginRight="@dimen/margin"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:background="@drawable/linearlayoutbg"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
 
             <RelativeLayout
                 android:id="@+id/txtfeedRv"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
                 android:layout_weight="1">
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="40dp"
                     android:padding="2dp"
                     android:layout_centerInParent="true"
                     android:src="@drawable/post_status" />
@@ -81,14 +81,13 @@
             <RelativeLayout
                 android:id="@+id/imagefeedRv"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
                 android:layout_weight="1">
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="40dp"
                     android:padding="2dp"
-
                     android:layout_centerInParent="true"
                     android:src="@drawable/post_image" />
 
@@ -103,12 +102,12 @@
             <RelativeLayout
                 android:id="@+id/videofeedRv"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
                 android:layout_weight="1">
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="40dp"
                     android:padding="2dp"
 
                     android:layout_centerInParent="true"
@@ -382,7 +381,7 @@
                     android:id="@+id/commenttext"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawablePadding="2dp"
+                    android:drawablePadding="3dp"
                     android:drawableRight="@drawable/ic_comment"
                     android:gravity="center"
                     android:text="0 Comments"

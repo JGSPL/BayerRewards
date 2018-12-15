@@ -51,7 +51,7 @@
         android:layout_height="20dp"
         android:layout_below="@+id/appBarLayout"
         android:layout_gravity="center"
-        android:visibility="gone" />
+        android:visibility="gone" android:background="@drawable/loader"/>
 
     <ScrollView
         android:layout_width="match_parent"
