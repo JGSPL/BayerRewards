@@ -1,6 +1,7 @@
 package com.procialize.singleevent.Fragments;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -157,7 +158,7 @@ public class AgendaFragment extends Fragment implements AgendaAdapter.AgendaAdap
             AgendaAdapter agendaAdapter = new AgendaAdapter(getActivity(), agendaDBList, this);
             agendaAdapter.notifyDataSetChanged();
             agendarecycler.setAdapter(agendaAdapter);
-            agendarecycler.scheduleLayoutAnimation();
+//            agendarecycler.scheduleLayoutAnimation();
             progressBar.setVisibility(View.GONE);
 
             if (agendafeedrefresh.isRefreshing()) {
@@ -367,7 +368,6 @@ public class AgendaFragment extends Fragment implements AgendaAdapter.AgendaAdap
                 agendafeedrefresh.setRefreshing(false);
             }
         }
-
 
     }
 
