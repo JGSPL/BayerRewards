@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -161,7 +162,7 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelAdapt
     public void showResponse(Response<TravelListFetch> response) {
 
         // specify an adapter (see also next example)
-        LinearLayout linUpper = (LinearLayout)findViewById(R.id.linUpper);
+        RelativeLayout linUpper = (RelativeLayout) findViewById(R.id.linUpper);
         if (response.body().getStatus().equalsIgnoreCase("success")) {
             List<TravelList> travelLists = response.body().getTravelList();
             if(travelLists.size()==0){
@@ -174,11 +175,11 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelAdapt
                 travelRv.setAdapter(travelAdapter);
                 //travelRvrefresh.setAdapter(travelAdapter);
 
-//                travelRv.scheduleLayoutAnimation();
-                //TextView txtEmpty = (TextView)findViewById(R.id.txtEmpty);
-                //txtEmpty.setVisibility(View.VISIBLE);
+                travelRv.scheduleLayoutAnimation();
+                TextView txtEmpty = (TextView)findViewById(R.id.txtEmpty);
+                txtEmpty.setVisibility(View.VISIBLE);
             }else {
-                linUpper.setBackground(getResources().getDrawable(R.drawable.travel_bg));
+               // linUpper.setBackground(getResources().getDrawable(R.drawable.travel_bg));
 
                 // MyTravelAdapterList travelAdapter = new MyTravelAdapterList(MyTravelActivity.this, response.body().getTravelList(), this);
                 MyTravelAdapter travelAdapter = new MyTravelAdapter(this, response.body().getTravelList(), this);
@@ -187,7 +188,7 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelAdapt
                 travelRv.setAdapter(travelAdapter);
                 //travelRvrefresh.setAdapter(travelAdapter);
 
-//            travelRv.scheduleLayoutAnimation();
+            travelRv.scheduleLayoutAnimation();
                 // travelRv.setEmptyView(findViewById(android.R.id.empty));
             }
 
