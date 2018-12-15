@@ -1,7 +1,9 @@
 package com.procialize.singleevent.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.MediaMetadataRetriever;
 import android.media.ThumbnailUtils;
@@ -40,6 +42,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static android.content.Context.MODE_PRIVATE;
 import static com.procialize.singleevent.Utility.Util.getYoutubeVideoIdFromUrl;
 import static com.procialize.singleevent.Utility.Util.retriveVideoFrameFromVideo;
 
@@ -53,6 +56,8 @@ public class VideoFirstLevelAdapter extends RecyclerView.Adapter<VideoFirstLevel
     private Context context;
     private VideoFirstLevelAdapterListner listener;
     String videoId;
+    String colorActive;
+    String MY_PREFS_NAME = "ProcializeInfo";
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTv;
@@ -82,12 +87,14 @@ public class VideoFirstLevelAdapter extends RecyclerView.Adapter<VideoFirstLevel
         this.videoLists = galleryLists;
         this.listener = listener;
         this.context = context;
+        SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        colorActive = prefs.getString("colorActive", "");
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.video_row, parent, false);
+                .inflate(R.layout.video_gallery_first_level, parent, false);
 
         return new MyViewHolder(itemView);
     }
@@ -97,7 +104,7 @@ public class VideoFirstLevelAdapter extends RecyclerView.Adapter<VideoFirstLevel
         final FirstLevelFilter videoList = videoLists.get(position);
 
         holder.nameTv.setText(videoList.getTitle());
-
+        holder.nameTv.setBackgroundColor(Color.parseColor(colorActive));
         if (videoList.getFileName().contains("youtu")) {
 
             String CurrentString = videoList.getFileName();
@@ -153,7 +160,6 @@ public class VideoFirstLevelAdapter extends RecyclerView.Adapter<VideoFirstLevel
     public interface VideoFirstLevelAdapterListner {
         void onContactSelected(FirstLevelFilter firstLevelFilter);
     }
-
 
 
 }

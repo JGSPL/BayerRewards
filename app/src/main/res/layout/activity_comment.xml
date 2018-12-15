@@ -96,7 +96,8 @@
                                 android:layout_height="80dp"
                                 android:layout_centerInParent="true"
                                 android:layout_gravity="center"
-                                android:visibility="gone" />
+                                android:visibility="gone"
+                                android:background="@drawable/loader"/>
 
                         </RelativeLayout>
 
@@ -201,7 +202,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:visibility="gone" />
+                            android:visibility="gone" android:background="@drawable/loader"/>
 
                         <ImageView
                             android:id="@+id/playicon"
@@ -312,7 +313,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:visibility="gone" />
+                    android:visibility="gone" android:background="@drawable/loader"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/commentrecycler"
@@ -391,7 +392,7 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:indeterminateTint="@color/colorPrimary"
-                android:visibility="visible" />
+                android:visibility="visible" android:background="@drawable/loader"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/gifrecycler"

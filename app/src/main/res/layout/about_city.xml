@@ -63,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:visibility="gone" />
+        android:visibility="gone" android:background="@drawable/loader"/>
 
     <RelativeLayout
         android:id="@+id/relative"
@@ -113,7 +113,7 @@
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_centerInParent="true"
-                android:visibility="gone"/>
+                android:visibility="gone" android:background="@drawable/loader"/>
 
         </RelativeLayout>
     </RelativeLayout>
