@@ -50,12 +50,26 @@
         android:layout_centerInParent="true"
         android:layout_marginTop="10dp"
         android:gravity="center">
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:text=""
+            android:textSize="20sp"
+            android:visibility="visible" />
+
 
 
         <tcking.github.com.giraffeplayer2.VideoView
             android:id="@+id/video_view"
             android:background="@android:color/transparent"
             android:visibility="gone"
+            android:layout_below="@+id/txtTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

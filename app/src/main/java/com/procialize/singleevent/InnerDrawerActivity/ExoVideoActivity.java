@@ -41,7 +41,7 @@ public class ExoVideoActivity extends AppCompatActivity {
     ImageView headerlogoIv;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid,colorActive;
-
+    TextView txtTitle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,10 +84,13 @@ public class ExoVideoActivity extends AppCompatActivity {
             }
         });
 
-        TextView txtTitle = (TextView)findViewById(R.id.txtTitle);
-        if(title!=null){
+         txtTitle = (TextView)findViewById(R.id.txtTitle);
+        if(!(title==null) || title != null || !(title.equalsIgnoreCase("null"))){
             txtTitle.setText(title);
             txtTitle.setTextColor(Color.parseColor(colorActive));
+
+        }else{
+            txtTitle.setText(" ");
 
         }
 
