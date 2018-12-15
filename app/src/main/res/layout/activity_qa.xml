@@ -110,18 +110,8 @@
         android:layout_gravity="center"
         android:visibility="gone" />
 
-    <com.procialize.singleevent.Fonts.RobotoTextview
-        android:id="@+id/txtEmpty"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:gravity="center"
 
-        android:text="No Question Posted yet"
-        android:textColor="@color/black"
-        android:textSize="18sp" />
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -140,5 +130,16 @@
 
         </android.support.v7.widget.RecyclerView>
     </android.support.v4.widget.SwipeRefreshLayout>
-    </LinearLayout>
+        <com.procialize.singleevent.Fonts.RobotoTextview
+            android:id="@+id/txtEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:text="No Question Posted yet"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
 </LinearLayout>

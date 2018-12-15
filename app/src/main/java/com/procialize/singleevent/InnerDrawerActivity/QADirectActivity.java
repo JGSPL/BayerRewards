@@ -24,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,8 +64,8 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
     RecyclerView qaRv;
     public QADirectAdapter qaAttendeeAdapter;
     ImageView headerlogoIv;
-    LinearLayout linUpper;
-
+    RelativeLayout linUpper;
+    TextView txtEmpty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +84,8 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
         postbtn = findViewById(R.id.postbtn);
         qaRv = findViewById(R.id.qaRv);
         linUpper = findViewById(R.id.linUpper);
+         txtEmpty = (TextView)findViewById(R.id.txtEmpty);
+
 
         postbtn.setBackgroundColor(Color.parseColor(colorActive));
 
@@ -183,15 +186,15 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
             }
             if (!(response.body().getQa_question().isEmpty())) {
                 //  txtEmpty.setVisibility(View.GONE);
-                linUpper.setBackground(getResources().getDrawable(R.drawable.close_icon));
+                //linUpper.setBackground(getResources().getDrawable(R.drawable.close_icon));
 
                 qaAttendeeAdapter = new QADirectAdapter(QADirectActivity.this, response.body().getQa_question(), this);
                 qaAttendeeAdapter.notifyDataSetChanged();
                 qaRv.setAdapter(qaAttendeeAdapter);
                 qaRv.scheduleLayoutAnimation();
             } else {
-                // txtEmpty.setVisibility(View.VISIBLE);
-                linUpper.setBackground(getResources().getDrawable(R.drawable.noqna));
+                 txtEmpty.setVisibility(View.VISIBLE);
+                //linUpper.setBackground(getResources().getDrawable(R.drawable.noqna));
 
                 qaAttendeeAdapter = new QADirectAdapter(QADirectActivity.this, response.body().getQa_question(), this);
                 qaAttendeeAdapter.notifyDataSetChanged();
@@ -442,17 +445,18 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
         if (response.body().getStatus().equalsIgnoreCase("success")) {
 //            Toast.makeText(QASpeakerActivity.this,response.message(),Toast.LENGTH_SHORT).show();
 //            ArrayList<DirectQuestion> speakerQuestionLists = new ArrayList<>();
+
             if (!(response.body().getQa_question().isEmpty())) {
-                //  txtEmpty.setVisibility(View.GONE);
-                linUpper.setBackground(getResources().getDrawable(R.drawable.close_icon));
+                  txtEmpty.setVisibility(View.GONE);
+                //linUpper.setBackground(getResources().getDrawable(R.drawable.close_icon));
 
                 qaAttendeeAdapter = new QADirectAdapter(QADirectActivity.this, response.body().getQa_question(), this);
                 qaAttendeeAdapter.notifyDataSetChanged();
                 qaRv.setAdapter(qaAttendeeAdapter);
                 qaRv.scheduleLayoutAnimation();
             } else {
-                // txtEmpty.setVisibility(View.VISIBLE);
-                linUpper.setBackground(getResources().getDrawable(R.drawable.qnadi));
+                 txtEmpty.setVisibility(View.VISIBLE);
+               // linUpper.setBackground(getResources().getDrawable(R.drawable.qnadi));
 
                 qaAttendeeAdapter = new QADirectAdapter(QADirectActivity.this, response.body().getQa_question(), this);
                 qaAttendeeAdapter.notifyDataSetChanged();

@@ -96,13 +96,13 @@
 
 
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
             android:id="@+id/linUpper"
             android:layout_weight="5"
-            android:background="@drawable/noticket"
+            android:background="@drawable/travel_bg"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="5dp">
@@ -128,20 +128,20 @@
 
 
             </android.support.v4.widget.SwipeRefreshLayout>
-<!--
+
             <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/txtEmpty"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="gone"
                 android:gravity="center"
-
+                android:layout_centerInParent="true"
                 android:text="Tickets will be uploaded shortly"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
--->
 
 
-        </LinearLayout>
+
+        </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

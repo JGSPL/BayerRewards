@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -69,7 +70,7 @@ public class QAAttendeeActivity extends AppCompatActivity implements QAAttendeeA
     String eventid,colorActive;
     ImageView headerlogoIv;
     TextView txtEmpty;
-    LinearLayout linUpper;
+    RelativeLayout linUpper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -249,17 +250,17 @@ public class QAAttendeeActivity extends AppCompatActivity implements QAAttendeeA
                 }
 
                 if (!(agendaQuestions.isEmpty())) {
-                    //txtEmpty.setVisibility(View.GONE);
-                    linUpper.setBackground(getResources().getDrawable(R.drawable.close_icon));
+                    txtEmpty.setVisibility(View.GONE);
+                   // linUpper.setBackground(getResources().getDrawable(R.drawable.close_icon));
 
                     qaAttendeeAdapter = new QAAttendeeAdapter(QAAttendeeActivity.this, agendaQuestions, response.body().getAgendaList(), this, Selectedspeaker);
                     qaAttendeeAdapter.notifyDataSetChanged();
                     qaRv.setAdapter(qaAttendeeAdapter);
                     qaRv.scheduleLayoutAnimation();
                 } else {
-                    linUpper.setBackground(getResources().getDrawable(R.drawable.noqna));
+                   // linUpper.setBackground(getResources().getDrawable(R.drawable.noqna));
 
-                    // txtEmpty.setVisibility(View.VISIBLE);
+                     txtEmpty.setVisibility(View.VISIBLE);
                     qaAttendeeAdapter = new QAAttendeeAdapter(QAAttendeeActivity.this, agendaQuestions, response.body().getAgendaList(), this, Selectedspeaker);
                     qaAttendeeAdapter.notifyDataSetChanged();
                     qaRv.setAdapter(qaAttendeeAdapter);
@@ -510,16 +511,16 @@ public class QAAttendeeActivity extends AppCompatActivity implements QAAttendeeA
             }
 
             if (!(agendaQuestions.isEmpty())) {
-              //  txtEmpty.setVisibility(View.GONE);
-                linUpper.setBackground(getResources().getDrawable(R.drawable.close_icon));
+                txtEmpty.setVisibility(View.GONE);
+                //linUpper.setBackground(getResources().getDrawable(R.drawable.close_icon));
 
                 qaAttendeeAdapter = new QAAttendeeAdapter(QAAttendeeActivity.this, agendaQuestions, response.body().getAgendaList(), this, Selectedspeaker);
                 qaAttendeeAdapter.notifyDataSetChanged();
                 qaRv.setAdapter(qaAttendeeAdapter);
                 qaRv.scheduleLayoutAnimation();
             } else {
-               // txtEmpty.setVisibility(View.VISIBLE);
-                linUpper.setBackground(getResources().getDrawable(R.drawable.noqna));
+                txtEmpty.setVisibility(View.VISIBLE);
+                //linUpper.setBackground(getResources().getDrawable(R.drawable.noqna));
 
                 qaAttendeeAdapter = new QAAttendeeAdapter(QAAttendeeActivity.this, agendaQuestions, response.body().getAgendaList(), this, Selectedspeaker);
                 qaAttendeeAdapter.notifyDataSetChanged();
