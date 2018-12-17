@@ -220,7 +220,7 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelAdapt
     @Override
     public void onContactSelected(TravelList travel) {
         Intent pdfview = new Intent(this, ViewPDFActivity.class);
-        pdfview.putExtra("url", "https://www.procialize.info/uploads/travel_gallery/" + travel.getFileName());
+        pdfview.putExtra("url", ApiConstant.imgURL+"uploads/travel_gallery/" + travel.getFileName());
         startActivity(pdfview);
     }
 
