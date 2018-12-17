@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorwhite"
+        app:elevation="0dp"
         android:id="@+id/appBarLayout">
 
 
@@ -39,6 +40,10 @@
                 android:src="@drawable/header_logo"/>
 
         </android.support.v7.widget.Toolbar>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/linecolor"/>
 
 
     </android.support.design.widget.AppBarLayout>
