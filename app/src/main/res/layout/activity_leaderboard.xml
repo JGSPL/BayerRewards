@@ -12,6 +12,7 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:elevation="0dp"        
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
 
@@ -42,10 +43,14 @@
 
         </android.support.v7.widget.Toolbar>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/linecolor"/>
 
     </android.support.design.widget.AppBarLayout>
 
-    <com.procialize.vivo_app.Fonts.RobotoTextview
+    <com.procialize.singleevent.Fonts.RobotoTextview
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -54,7 +59,7 @@
         android:textColor="@color/colorwhite"
         android:textSize="@dimen/textsizesmall" />
 
-    <com.procialize.vivo_app.Fonts.RobotoTextview
+    <com.procialize.singleevent.Fonts.RobotoTextview
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -85,7 +90,7 @@
 
         </android.support.v7.widget.RecyclerView>
 
-        <com.procialize.vivo_app.Fonts.RobotoTextview
+        <com.procialize.singleevent.Fonts.RobotoTextview
             android:id="@+id/empty_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
