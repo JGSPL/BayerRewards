@@ -168,7 +168,6 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelAdapt
             if(travelLists.size()==0){
                 //travelRv.setVisibility(View.GONE);
                // linUpper.setBackground(getResources().getDrawable(R.drawable.noticket));
-                 travelRvrefresh.setVisibility(View.VISIBLE);
                 MyTravelAdapter travelAdapter = new MyTravelAdapter(this, response.body().getTravelList(), this);
                 travelAdapter.notifyDataSetChanged();
 
@@ -179,6 +178,8 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelAdapt
                 TextView txtEmpty = (TextView)findViewById(R.id.txtEmpty);
                 txtEmpty.setVisibility(View.VISIBLE);
             }else {
+                TextView txtEmpty = (TextView)findViewById(R.id.txtEmpty);
+                txtEmpty.setVisibility(View.GONE);
                // linUpper.setBackground(getResources().getDrawable(R.drawable.travel_bg));
 
                 // MyTravelAdapterList travelAdapter = new MyTravelAdapterList(MyTravelActivity.this, response.body().getTravelList(), this);

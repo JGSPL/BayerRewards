@@ -302,20 +302,36 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
             {
 
                 attendeeDBList = dbHelper.getAttendeeDetailsId(notification.getAttendeeId());
+                if(attendeeDBList.size()>0) {
 
-                Intent attendeetail = new Intent(this, AttendeeDetailActivity.class);
-                attendeetail.putExtra("id", notification.getAttendeeId());
-                attendeetail.putExtra("name", notification.getAttendeeFirstName() + " " + notification.getAttendeeLastName());
-                attendeetail.putExtra("city", attendeeDBList.get(0).getCity());
-                attendeetail.putExtra("country", attendeeDBList.get(0).getCountry());
-                attendeetail.putExtra("company", notification.getCompanyName());
-                attendeetail.putExtra("designation", notification.getDesignation());
-                attendeetail.putExtra("description", attendeeDBList.get(0).getDescription());
-                attendeetail.putExtra("profile", notification.getProfilePic());
+                    Intent attendeetail = new Intent(this, AttendeeDetailActivity.class);
+                    attendeetail.putExtra("id", notification.getAttendeeId());
+                    attendeetail.putExtra("name", notification.getAttendeeFirstName() + " " + notification.getAttendeeLastName());
+                    attendeetail.putExtra("city", attendeeDBList.get(0).getCity());
+                    attendeetail.putExtra("country", attendeeDBList.get(0).getCountry());
+                    attendeetail.putExtra("company", notification.getCompanyName());
+                    attendeetail.putExtra("designation", notification.getDesignation());
+                    attendeetail.putExtra("description", attendeeDBList.get(0).getDescription());
+                    attendeetail.putExtra("profile", notification.getProfilePic());
 
 
 //                speakeretail.putExtra("totalrate",attendee.getTotalRating());
-                startActivity(attendeetail);
+                    startActivity(attendeetail);
+                }else{
+                    Intent attendeetail = new Intent(this, AttendeeDetailActivity.class);
+                    attendeetail.putExtra("id", notification.getAttendeeId());
+                    attendeetail.putExtra("name", notification.getAttendeeFirstName() + " " + notification.getAttendeeLastName());
+                    attendeetail.putExtra("city", "");
+                    attendeetail.putExtra("country", "");
+                    attendeetail.putExtra("company", notification.getCompanyName());
+                    attendeetail.putExtra("designation", notification.getDesignation());
+                    attendeetail.putExtra("description", "");
+                    attendeetail.putExtra("profile", notification.getProfilePic());
+
+
+//                speakeretail.putExtra("totalrate",attendee.getTotalRating());
+                    startActivity(attendeetail);
+                }
 
 
             }
@@ -366,20 +382,36 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
 //                speakeretail.putExtra("totalrate",attendee.getTotalRating());
         startActivity(attendeetail);*/
         attendeeDBList = dbHelper.getAttendeeDetailsId(notificationList.getAttendeeId());
+        if(attendeeDBList.size()>0) {
 
-        Intent attendeetail = new Intent(this, AttendeeDetailActivity.class);
-        attendeetail.putExtra("id", notificationList.getAttendeeId());
-        attendeetail.putExtra("name", notificationList.getAttendeeFirstName() + " " + notificationList.getAttendeeLastName());
-        attendeetail.putExtra("city", attendeeDBList.get(0).getCity());
-        attendeetail.putExtra("country", attendeeDBList.get(0).getCountry());
-        attendeetail.putExtra("company", notificationList.getCompanyName());
-        attendeetail.putExtra("designation", notificationList.getDesignation());
-        attendeetail.putExtra("description", attendeeDBList.get(0).getDescription());
-        attendeetail.putExtra("profile", notificationList.getProfilePic());
+            Intent attendeetail = new Intent(this, AttendeeDetailActivity.class);
+            attendeetail.putExtra("id", notificationList.getAttendeeId());
+            attendeetail.putExtra("name", notificationList.getAttendeeFirstName() + " " + notificationList.getAttendeeLastName());
+            attendeetail.putExtra("city", attendeeDBList.get(0).getCity());
+            attendeetail.putExtra("country", attendeeDBList.get(0).getCountry());
+            attendeetail.putExtra("company", notificationList.getCompanyName());
+            attendeetail.putExtra("designation", notificationList.getDesignation());
+            attendeetail.putExtra("description", attendeeDBList.get(0).getDescription());
+            attendeetail.putExtra("profile", notificationList.getProfilePic());
 
 
 //                speakeretail.putExtra("totalrate",attendee.getTotalRating());
-        startActivity(attendeetail);
+            startActivity(attendeetail);
+        }else{
+            Intent attendeetail = new Intent(this, AttendeeDetailActivity.class);
+            attendeetail.putExtra("id", notificationList.getAttendeeId());
+            attendeetail.putExtra("name", notificationList.getAttendeeFirstName() + " " + notificationList.getAttendeeLastName());
+            attendeetail.putExtra("city", "");
+            attendeetail.putExtra("country", "");
+            attendeetail.putExtra("company", notificationList.getCompanyName());
+            attendeetail.putExtra("designation", notificationList.getDesignation());
+            attendeetail.putExtra("description", "");
+            attendeetail.putExtra("profile", notificationList.getProfilePic());
+
+
+//                speakeretail.putExtra("totalrate",attendee.getTotalRating());
+            startActivity(attendeetail);
+        }
 
     }
 
