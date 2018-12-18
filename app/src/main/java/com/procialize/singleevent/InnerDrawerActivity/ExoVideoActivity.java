@@ -105,6 +105,9 @@ public class ExoVideoActivity extends AppCompatActivity {
         if (page.equalsIgnoreCase("videoMain")) {
             setupVideoView(ApiConstant.folderimage + videoUrl);
 
+        }else if(page.equalsIgnoreCase("travel")){
+            setupVideoView(ApiConstant.imgURL + "uploads/travel_gallery/" + videoUrl);
+
         } else {
             setupVideoView(ApiConstant.selfievideo + videoUrl);
 

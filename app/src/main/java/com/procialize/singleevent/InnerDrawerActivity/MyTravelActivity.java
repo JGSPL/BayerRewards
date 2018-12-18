@@ -219,9 +219,17 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelAdapt
 
     @Override
     public void onContactSelected(TravelList travel) {
-        Intent pdfview = new Intent(this, ViewPDFActivity.class);
-        pdfview.putExtra("url", ApiConstant.imgURL+"uploads/travel_gallery/" + travel.getFileName());
-        startActivity(pdfview);
+        if(travel.getType().equalsIgnoreCase("video")){
+            Intent intent = new Intent(MyTravelActivity.this, ExoVideoActivity.class);
+            intent.putExtra("videoUrl", travel.getFileName());
+            intent.putExtra("title", travel.getTitle());
+            intent.putExtra("page", "travel");
+            startActivity(intent);
+        }else {
+            Intent pdfview = new Intent(this, ViewPDFActivity.class);
+            pdfview.putExtra("url", ApiConstant.imgURL + "uploads/travel_gallery/" + travel.getFileName());
+            startActivity(pdfview);
+        }
     }
 
     @Override

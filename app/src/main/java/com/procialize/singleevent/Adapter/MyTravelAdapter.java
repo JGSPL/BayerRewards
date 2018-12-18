@@ -39,7 +39,7 @@ public class MyTravelAdapter extends RecyclerView.Adapter<MyTravelAdapter.MyView
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTv;
-        ImageView ic_rightarrow;
+        ImageView ic_rightarrow,imgTvel;
         LinearLayout linTicket;
 
 
@@ -48,6 +48,8 @@ public class MyTravelAdapter extends RecyclerView.Adapter<MyTravelAdapter.MyView
             nameTv = (TextView) view.findViewById(R.id.nameTv);
             ic_rightarrow = (ImageView) view.findViewById(R.id.ic_rightarrow);
             linTicket = (LinearLayout) view.findViewById(R.id.linTicket);
+
+            imgTvel = (ImageView) view.findViewById(R.id.imgTvel);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -90,6 +92,13 @@ public class MyTravelAdapter extends RecyclerView.Adapter<MyTravelAdapter.MyView
         holder.ic_rightarrow.setImageDrawable(drawable);
 
         holder.nameTv.setText(travel.getTitle());
+
+        if(travel.getType().equalsIgnoreCase("video")){
+            holder.imgTvel.setBackgroundResource(R.drawable.travel_video);
+        }else{
+            holder.imgTvel.setBackgroundResource(R.drawable.tickets);
+
+        }
     }
 
     @Override
