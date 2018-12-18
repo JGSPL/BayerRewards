@@ -1,6 +1,9 @@
 package com.procialize.singleevent.Activity;
 
 
+import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -67,7 +70,15 @@ public class PdfViewerActivity extends AppCompatActivity {
         });
         headerlogoIv = findViewById(R.id.headerlogoIv);
         Util.logomethod(this,headerlogoIv);
-        WebSettings settings = webview.getSettings();
+
+        webview.getSettings().setLoadsImagesAutomatically(true);
+        webview.getSettings().setJavaScriptEnabled(true);
+        webview.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+        webview.setBackgroundColor(Color.TRANSPARENT);
+        webview.setWebViewClient(new CustomWebViewClient());
+        webview.clearCache(true);
+        //webview.loadUrl(url);
+       /* WebSettings settings = webview.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setLoadWithOverviewMode(true);
         settings.setUseWideViewPort(true);
@@ -85,7 +96,7 @@ public class PdfViewerActivity extends AppCompatActivity {
         } else {
             webview.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
-
+*/
 
         webview.setWebChromeClient(new WebChromeClient() {
 
@@ -106,6 +117,39 @@ public class PdfViewerActivity extends AppCompatActivity {
 
         webview.loadUrl(url);
     }
+
+    private class CustomWebViewClient extends WebViewClient {
+
+
+        public void onPageFinished(WebView view, String url) {
+            if (progressBar.getVisibility() == View.VISIBLE) {
+                progressBar.setVisibility(View.GONE);
+            }
+        }
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
+            if (url.startsWith("tel:")) {
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse(url));
+                startActivity(intent);
+                view.clearCache(true);
+                view.reload();
+                return true;
+            }else if (url.startsWith("mailto:")) {
+                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"));
+                startActivity(intent);
+                view.clearCache(true);
+                view.reload();
+                return true;
+            }
+
+            view.clearCache(true);
+            view.loadUrl(url);
+            return true;
+        }
+    }
+
 
     public void SubmitAnalytics(String token, String eventid, String target_attendee_id, String target_attendee_type, String analytic_type) {
 

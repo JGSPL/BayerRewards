@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 
 import com.procialize.singleevent.Activity.PdfViewerActivity;
+import com.procialize.singleevent.Activity.ViewPDFActivity;
 import com.procialize.singleevent.Adapter.FeedBackAdapter;
 
 import com.procialize.singleevent.ApiConstant.APIService;
