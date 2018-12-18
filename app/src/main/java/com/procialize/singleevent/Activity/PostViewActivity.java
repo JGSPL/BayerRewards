@@ -11,7 +11,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
@@ -33,7 +32,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -76,8 +74,6 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.media.ThumbnailUtils.createVideoThumbnail;
 
 public class PostViewActivity extends AppCompatActivity implements ProgressRequestBodyImage.UploadCallbacks, ProgressRequestBodyVideo.UploadCallbacks {
 
@@ -157,10 +153,10 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
         profileIV = findViewById(R.id.profileIV);
         displayRecordedVideo = findViewById(R.id.Upvideov);
         imgPlay = findViewById(R.id.imgPlay);
-        progressbar = (ProgressBar) findViewById(R.id.progressbar);
+        progressbar = findViewById(R.id.progressbar);
         mAPIService = ApiUtils.getAPIService();
         sessionManager = new SessionManager(getApplicationContext());
-        final TextView txtcount1 = (TextView) findViewById(R.id.txtcount1);
+        final TextView txtcount1 = findViewById(R.id.txtcount1);
        // postbtn.setBackgroundColor(Color.parseColor(colorActive));
 
 
@@ -857,7 +853,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
             if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
                 setpic2();
 
-            } else if (resultCode == this.RESULT_OK && requestCode == SELECT_FILE && data.getData()!=null) {
+            } else if (resultCode == RESULT_OK && requestCode == SELECT_FILE && data.getData() != null) {
 
                 onSelectFromGalleryResult(data);
 
@@ -991,7 +987,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
                             Uploadiv.setVisibility(View.VISIBLE);
                             displayRecordedVideo.setVisibility(View.GONE);
 
-                            if (resultCode == this.RESULT_OK) {
+                            if (resultCode == RESULT_OK) {
                                 if (requestCode == SELECT_FILE)
                                     onSelectFromGalleryResult(data);
 
@@ -1122,8 +1118,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
                 }else {
                     finish();
                 }
-            }
-        else if (resultCode == this.RESULT_OK && requestCode == REQUEST_CAMERA) {
+            } else if (resultCode == RESULT_OK && requestCode == REQUEST_CAMERA) {
 
                 if (Uploadiv.getVisibility() == View.GONE) {
                     Uploadiv.setVisibility(View.VISIBLE);

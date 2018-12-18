@@ -9,14 +9,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.media.ExifInterface;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -36,10 +33,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,15 +42,11 @@ import android.widget.VideoView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
-
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.CustomTools.ImagePath_MarshMallow;
 import com.procialize.singleevent.CustomTools.PicassoTrustAll;
-import com.procialize.singleevent.CustomTools.ProgressRequestBodyVideo;
-import com.procialize.singleevent.CustomTools.ScaledImageView;
 import com.procialize.singleevent.DbHelper.ConnectionDetector;
-import com.procialize.singleevent.GetterSetter.PostTextFeed;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.MyApplication;
@@ -99,8 +90,6 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
 
 import static com.procialize.singleevent.Utility.ScalingUtilities.getPath;
 import static org.apache.http.HttpVersion.HTTP_1_1;
@@ -437,7 +426,7 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
         profileIV = findViewById(R.id.profileIV);
         displayRecordedVideo = findViewById(R.id.Upvideov);
         imgPlay = findViewById(R.id.imgPlay);
-        progressbar = (ProgressBar) findViewById(R.id.progressbar);
+        progressbar = findViewById(R.id.progressbar);
 
        // postbtn.setBackgroundColor(Color.parseColor(colorActive));
 
