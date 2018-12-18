@@ -3,7 +3,7 @@
     android:id="@+id/mainLL"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_margin="5dp"
     android:background="@drawable/galleryitembg"
     android:gravity="bottom"
     android:orientation="vertical">
@@ -23,7 +23,7 @@
             android:src="@drawable/foldertop" />
 
 
-        <ImageView
+        <com.procialize.singleevent.CustomTools.RoundRectCornerImageView
             android:id="@+id/imageIv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

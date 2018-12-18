@@ -192,6 +192,7 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
                 qaAttendeeAdapter.notifyDataSetChanged();
                 qaRv.setAdapter(qaAttendeeAdapter);
                 qaRv.scheduleLayoutAnimation();
+                txtEmpty.setVisibility(View.GONE);
             } else {
                  txtEmpty.setVisibility(View.VISIBLE);
                 //linUpper.setBackground(getResources().getDrawable(R.drawable.noqna));

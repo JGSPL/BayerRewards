@@ -66,7 +66,8 @@
         android:layout_height="200dp"
         android:layout_below="@+id/header"
         android:layout_gravity="center"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:contentDescription=" " />
 
     <com.procialize.singleevent.Fonts.RobotoTextview
@@ -75,7 +76,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/img_qr_code_image"
         android:layout_gravity="left"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:gravity="center"
         android:text="Scan ID Card"
         android:textColor="@color/black"
@@ -94,7 +96,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:orientation="vertical"
-            android:padding="15dp">
+            android:padding="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -280,21 +282,22 @@
 
             </LinearLayout>
 
-            <com.procialize.singleevent.Fonts.RobotoTextview
-                android:id="@+id/powerdby"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="Powered By Procialize"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
+
 
         </LinearLayout>
 
 
     </ScrollView>
-
+    <com.procialize.singleevent.Fonts.RobotoTextview
+        android:id="@+id/powerdby"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Powered By Procialize"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

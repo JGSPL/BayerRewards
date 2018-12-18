@@ -2,25 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:orientation="vertical"
-    android:background="@color/qnarow"
     android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp">
+    android:background="@color/qnarow"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/mainLL"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="10"
+        android:orientation="horizontal"
         android:padding="10dp"
-        android:orientation="horizontal">
+        android:weightSum="10">
+
 
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
             android:layout_weight="9"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <com.procialize.singleevent.Fonts.RobotoTextview
@@ -35,17 +35,18 @@
                 android:textSize="@dimen/textsizesmall" />
 
         </LinearLayout>
+
         <LinearLayout
-            android:gravity="center"
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
 
             <ImageView
                 android:id="@+id/ic_rightarrow"
-                android:src="@drawable/right_arrow1"
                 android:layout_width="20dp"
-                android:layout_height="20dp" />
+                android:layout_height="20dp"
+                android:src="@drawable/right_arrow1" />
 
         </LinearLayout>
 

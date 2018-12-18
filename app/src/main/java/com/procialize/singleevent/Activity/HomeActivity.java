@@ -142,7 +142,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
     String MY_PREFS_NAME = "ProcializeInfo";
     String MY_PREFS_LOGIN = "ProcializeLogin";
     String MY_EVENT = "EventId";
-    String eventid,token;
+    String eventid, token;
     String email, password;
     CustomMenuAdapter customMenuAdapter;
     TextView logout, home, contactus, eventname, switchbt, eula, privacy_policy;
@@ -162,6 +162,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
     private Res res;
     private DBHelper dbHelper;
+
     @Override
     public Resources getResources() {
         if (res == null) {
@@ -297,7 +298,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this, color); //tabselected color
                         tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
 
-                        if(tab.getText().equals("Agenda")) {
+                        if (tab.getText().equals("Agenda")) {
                             if (cd.isConnectingToInternet()) {
 
                                 fetchAgenda(token, eventid);
@@ -340,7 +341,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this, color); //tabselected color
                         tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
 
-                        if(tab.getText().equals("Agenda")) {
+                        if (tab.getText().equals("Agenda")) {
                             if (cd.isConnectingToInternet()) {
 
                                 fetchAgenda(token, eventid);
@@ -382,7 +383,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this, color); //tabselected color
                         tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
 
-                        if(tab.getText().equals("Agenda")) {
+                        if (tab.getText().equals("Agenda")) {
                             if (cd.isConnectingToInternet()) {
 
                                 fetchAgenda(token, eventid);
@@ -421,7 +422,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this, color); //tabselected color
                         tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
 
-                        if(tab.getText().equals("Agenda")){
+                        if (tab.getText().equals("Agenda")) {
                             if (cd.isConnectingToInternet()) {
 
                                 fetchAgenda(token, eventid);
@@ -448,7 +449,6 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
 
         //Initializing NavigationView
@@ -1110,31 +1110,34 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                 Intent event = new Intent(this, QADirectActivity.class);
                 startActivity(event);
             } else {
-                setContentView(R.layout.activity_empty_view);
-                ImageView imageView = findViewById(R.id.back);
-                TextView text_empty = findViewById(R.id.text_empty);
 
-                final ImageView headerlogoIv1 = findViewById(R.id.headerlogoIv);
-                Glide.with(this).load("http://www.procialize.info/uploads/app_logo/" + logoImg).listener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        headerlogoIv1.setImageResource(R.drawable.splashlogo);
-                        return true;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        return false;
-                    }
-                }).into(headerlogoIv1);
-                text_empty.setText("No Data Found");
-                imageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(HomeActivity.this, HomeActivity.class);
-                        startActivity(intent);
-                    }
-                });
+                Intent intent = new Intent(HomeActivity.this, EmptyViewActivity.class);
+                startActivity(intent);
+//                setContentView(R.layout.activity_empty_view);
+//                ImageView imageView = findViewById(R.id.back);
+//                TextView text_empty = findViewById(R.id.text_empty);
+//
+//                final ImageView headerlogoIv1 = findViewById(R.id.headerlogoIv);
+//                Glide.with(this).load("http://www.procialize.info/uploads/app_logo/" + logoImg).listener(new RequestListener<Drawable>() {
+//                    @Override
+//                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+//                        headerlogoIv1.setImageResource(R.drawable.splashlogo);
+//                        return true;
+//                    }
+//
+//                    @Override
+//                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+//                        return false;
+//                    }
+//                }).into(headerlogoIv1);
+//                text_empty.setText("No Data Found");
+//                imageView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Intent intent = new Intent(HomeActivity.this, HomeActivity.class);
+//                        startActivity(intent);
+//                    }
+//                });
             }
 
 

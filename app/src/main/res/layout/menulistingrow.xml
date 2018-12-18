@@ -39,7 +39,8 @@
             android:layout_height="match_parent"
             android:layout_weight="8"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:id="@+id/relative">
 
             <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/nameTv"

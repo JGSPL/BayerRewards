@@ -191,12 +191,15 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         if (company != null && speaker_company.equalsIgnoreCase("1")) {
             if (company.equalsIgnoreCase("")) {
                 tvcompany.setVisibility(View.GONE);
+                viewtwo.setVisibility(View.GONE);
             } else {
                 tvcompany.setText(company);
+                viewtwo.setVisibility(View.VISIBLE);
             }
 
         } else {
             tvcompany.setVisibility(View.GONE);
+            viewtwo.setVisibility(View.GONE);
         }
 
         if (designation != null && speaker_designation.equalsIgnoreCase("1")) {
@@ -236,7 +239,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
             tvmobile.setVisibility(View.GONE);
         }
         if (profile != null) {
-            Glide.with(this).load(ApiConstant.speaker + profile).listener(new RequestListener<Drawable>() {
+            Glide.with(this).load(ApiConstant.profilepic + profile).listener(new RequestListener<Drawable>() {
                 @Override
                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                     progressBar.setVisibility(View.GONE);

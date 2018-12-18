@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -1153,9 +1154,15 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
 
 
     public void showProgress() {
+        Resources res = getResources();
+        Drawable drawable = res.getDrawable(R.drawable.progrssdialogback);
         postbtn.setEnabled(false);
         postEt.setEnabled(false);
         progressbar.setVisibility(View.VISIBLE);
+        progressbar.setProgress(0);   // Main Progress
+        progressbar.setSecondaryProgress(100); // Secondary Progress
+        progressbar.setMax(100); // Maximum Progress
+        progressbar.setProgressDrawable(drawable);
 
     }
 
