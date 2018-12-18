@@ -27,7 +27,7 @@ import java.util.List;
 
 import cn.jzvd.JZVideoPlayer;
 
-public class SwappingGalleryActivity extends AppCompatActivity implements SwipeImageAdapter.SwipeImageAdapterListner{
+public class SwappingGalleryActivity extends AppCompatActivity implements SwipeImageAdapter.SwipeImageAdapterListner {
 
     String name;
     List<FirstLevelFilter> firstLevelFilters;
@@ -35,7 +35,7 @@ public class SwappingGalleryActivity extends AppCompatActivity implements SwipeI
     SwipepagerAdapter swipepagerAdapter;
     RecyclerView recyclerView;
     ViewPager pager;
-    ImageView right,left,backIv;
+    ImageView right, left, backIv;
     ImageView headerlogoIv;
     String colorActive;
     String MY_PREFS_NAME = "ProcializeInfo";
@@ -55,9 +55,9 @@ public class SwappingGalleryActivity extends AppCompatActivity implements SwipeI
         backIv = findViewById(R.id.backIv);
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
+        Util.logomethod(this, headerlogoIv);
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        colorActive = prefs.getString("colorActive","");
+        colorActive = prefs.getString("colorActive", "");
 
         backIv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,15 +73,16 @@ public class SwappingGalleryActivity extends AppCompatActivity implements SwipeI
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
         //recyclerView.setLayoutAnimation(animation);
 
-        swipeImageAdapter = new SwipeImageAdapter(this,firstLevelFilters,this);
+        swipeImageAdapter = new SwipeImageAdapter(this, firstLevelFilters, this);
         recyclerView.setAdapter(swipeImageAdapter);
         swipeImageAdapter.notifyDataSetChanged();
 
 
 
-        swipepagerAdapter = new SwipepagerAdapter(this,firstLevelFilters);
+        swipepagerAdapter = new SwipepagerAdapter(this, firstLevelFilters);
         pager.setAdapter(swipepagerAdapter);
         swipepagerAdapter.notifyDataSetChanged();
+
 
         indexset(name);
         int colorInt = Color.parseColor(colorActive);
@@ -98,17 +99,16 @@ public class SwappingGalleryActivity extends AppCompatActivity implements SwipeI
             @Override
             public void onClick(View view) {
 
-                try{
+                try {
 
-                    int position = pager.getCurrentItem() +1;
+                    int position = pager.getCurrentItem() + 1;
 
-                    if (position<=firstLevelFilters.size())
-                    {
+                    if (position <= firstLevelFilters.size()) {
                         pager.setCurrentItem(position);
+                        recyclerView.scrollToPosition(position);
                     }
 
-                }catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -119,17 +119,16 @@ public class SwappingGalleryActivity extends AppCompatActivity implements SwipeI
             @Override
             public void onClick(View view) {
 
-                try{
+                try {
 
-                    int position = pager.getCurrentItem() -1;
+                    int position = pager.getCurrentItem() - 1;
 
-                    if (position>=0)
-                    {
+                    if (position >= 0) {
                         pager.setCurrentItem(position);
+                        recyclerView.scrollToPosition(position);
                     }
 
-                }catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -148,12 +147,9 @@ public class SwappingGalleryActivity extends AppCompatActivity implements SwipeI
 
     }
 
-    public void indexset(String name)
-    {
-        for (int j=0;j<firstLevelFilters.size();j++)
-        {
-            if (firstLevelFilters.get(j).getFileName().equalsIgnoreCase(name))
-            {
+    public void indexset(String name) {
+        for (int j = 0; j < firstLevelFilters.size(); j++) {
+            if (firstLevelFilters.get(j).getFileName().equalsIgnoreCase(name)) {
                 pager.setCurrentItem(j);
             }
         }

@@ -86,7 +86,12 @@ public class SwipepagerAdapter extends PagerAdapter {
         cd = new ConnectionDetector(context);
         final FirstLevelFilter firstLevelFilter = images.get(position);
 
-        img = firstLevelFilter.getFileName().substring(58, 60);
+        try {
+            img = firstLevelFilter.getFileName().substring(58, 60);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         ImageView myImage = (ImageView) myImageLayout.findViewById(R.id.image);
         TextView name = (TextView) myImageLayout.findViewById(R.id.name);
         LinearLayout linMsg = (LinearLayout) myImageLayout.findViewById(R.id.linMsg);
