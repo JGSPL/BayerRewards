@@ -878,7 +878,7 @@ public class ProfileActivity extends AppCompatActivity {
     private void onCaptureImageResult(Intent data) {
         try {
             Uri tempUri;
-            if (data.getData() != null) {
+            if (data != null) {
                 Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
 
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
