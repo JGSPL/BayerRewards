@@ -676,7 +676,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 //                edit.putExtra("feedid", feed.getNewsFeedId());
 //                edit.putExtra("status", feed.getPostStatus());
                 if (feed.getType().equalsIgnoreCase("Image")) {
-                    Intent editimage = new Intent(getActivity(), PostEditActivityOld.class);
+                    Intent editimage = new Intent(getActivity(), PostEditActivity.class);
                     editimage.putExtra("for", feed.getType());
                     editimage.putExtra("feedid", feed.getNewsFeedId());
                     editimage.putExtra("status", feed.getPostStatus());
@@ -684,19 +684,19 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
                     startActivity(editimage);
                     dialog.dismiss();
                 } else if (feed.getType().equalsIgnoreCase("Video")) {
-                    Intent edit = new Intent(getActivity(), PostEditActivityOld.class);
+                    Intent edit = new Intent(getActivity(), PostEditActivity.class);
                     edit.putExtra("for", feed.getType());
                     edit.putExtra("feedid", feed.getNewsFeedId());
                     edit.putExtra("status", feed.getPostStatus());
                     edit.putExtra("Video", feed.getMediaFile());
+                    edit.putExtra("Image", feed.getThumbImage());
                     startActivity(edit);
                     dialog.dismiss();
                 } else if (feed.getType().equalsIgnoreCase("Status")) {
-                    Intent edit = new Intent(getActivity(), PostEditActivityOld.class);
+                    Intent edit = new Intent(getActivity(), PostEditActivity.class);
                     edit.putExtra("for", feed.getType());
                     edit.putExtra("feedid", feed.getNewsFeedId());
                     edit.putExtra("status", feed.getPostStatus());
-                    edit.putExtra("Video", feed.getMediaFile());
                     startActivity(edit);
                     dialog.dismiss();
                 }

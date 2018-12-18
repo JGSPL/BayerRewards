@@ -120,7 +120,7 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
     String typepost;
     String userChoosenTask;
     File file;
-    private int REQUEST_CAMERA = 0, SELECT_FILE = 1, REQUEST_TAKE_PHOTO = 2, REQUEST_TAKE_GALLERY_VIDEO = 3;
+    private int REQUEST_CAMERA = 0, REQUEST_TAKE_GALLERY = 1, REQUEST_TAKE_PHOTO = 2, REQUEST_TAKE_GALLERY_VIDEO = 3;
     private static final int REQUEST_VIDEO_CAPTURE = 300;
     private static final int READ_REQUEST_CODE = 200;
     private Uri uri;
@@ -146,6 +146,7 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid, colorActive;
     ImageView headerlogoIv;
+    TextView txtcount;
 
     @TargetApi(23)
     @Override
@@ -397,7 +398,7 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
 
 
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, 2);
+        startActivityForResult(intent, REQUEST_TAKE_GALLERY);
 
 
     }
@@ -430,6 +431,7 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
 
 
         postEt = findViewById(R.id.posttextEt);
+        txtcount = findViewById(R.id.txtcount);
         postbtn = findViewById(R.id.postbtn);
         Uploadiv =  findViewById(R.id.Uploadiv);
         profileIV = findViewById(R.id.profileIV);
@@ -440,6 +442,37 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
        // postbtn.setBackgroundColor(Color.parseColor(colorActive));
 
         postbtn.setOnClickListener(this);
+
+
+        final TextWatcher txwatcher = new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start,
+                                          int count, int after) {
+                int tick = start + after;
+                if (tick < 128) {
+                    int remaining = 500 - tick;
+                    // txtcount1.setText(String.valueOf(remaining));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+                txtcount.setText(String.valueOf(500 - s.length())+"/");
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+                // TODO Auto-generated method stub
+                System.out.print("Hello");
+            }
+        };
+
+        postEt.addTextChangedListener(txwatcher);
+
 
 
         // Initialize Constant Class Reference
@@ -603,231 +636,270 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
 //            startActivity(intent1);
 //            finish();
 //        } else {
-        if (requestCode == 2 && resultCode == RESULT_OK && data!=null) {
+
+        if (data != null) {
+            if(data.getData()!=null)
+            {
+                if (requestCode == REQUEST_TAKE_GALLERY && resultCode == RESULT_OK && data!=null)
+                {
 //            if (data == null) {
 //                Intent intent1 = new Intent(PostActivity.this, HomeActivity.class);
 //                startActivity(intent1);
 //                finish();
 //            } else {
-            postEt.setHint("Say something about this photo");
-            Uploadiv.setVisibility(View.VISIBLE);
+                    postEt.setHint("Say something about this photo");
+                    Uploadiv.setVisibility(View.VISIBLE);
 
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                    Uri selectedImage = data.getData();
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
-            Cursor cursor = getContentResolver().query(selectedImage,
-                    filePathColumn, null, null, null);
-            cursor.moveToFirst();
+                    Cursor cursor = getContentResolver().query(selectedImage,
+                            filePathColumn, null, null, null);
+                    cursor.moveToFirst();
 
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String picturePath = cursor.getString(columnIndex);
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    String picturePath = cursor.getString(columnIndex);
 
-            String compressedImagePath = compressImage(picturePath);
-            appDelegate.setPostImagePath(compressedImagePath);
+                    String compressedImagePath = compressImage(picturePath);
+                    appDelegate.setPostImagePath(compressedImagePath);
 
-            // PicassoTrustAll.getInstance(this).load(compressedImagePath).into(post_thumbnail);
-            Glide.with(this).load(compressedImagePath).into(Uploadiv);
+                    // PicassoTrustAll.getInstance(this).load(compressedImagePath).into(post_thumbnail);
+                    Glide.with(this).load(compressedImagePath).into(Uploadiv);
 
 
-            // PicassoTrustAll.getInstance(PostActivity.this).load(compressedImagePath)
-            // .into(post_thumbnail);
+                    // PicassoTrustAll.getInstance(PostActivity.this).load(compressedImagePath)
+                    // .into(post_thumbnail);
 
-            Toast.makeText(PostActivity.this, "Image selected",
-                    Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PostActivity.this, "Image selected",
+                            Toast.LENGTH_SHORT).show();
 
-            cursor.close();
+                    cursor.close();
 //            }
-        } else if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            setpic2();
+                } else if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+                    setpic2();
 
-            // setPic();
-        } else if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_VIDEO_CAPTURE) {
-            uri = data.getData();
+                    // setPic();
+                } else if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_VIDEO_CAPTURE) {
+                    uri = data.getData();
 
-            displayRecordedVideo.setVideoURI(uri);
-            displayRecordedVideo.start();
+                    displayRecordedVideo.setVideoURI(uri);
+                    displayRecordedVideo.start();
 
-            if (Build.VERSION.SDK_INT > 22)
-                pathToStoredVideo = ImagePath_MarshMallow.getPath(PostActivity.this, uri);
-            else
-                //else we will get path directly
-                pathToStoredVideo = uri.getPath();
-            Log.d("video", "Recorded Video Path " + pathToStoredVideo);
-            //Store the video to your server
-            file = new File(pathToStoredVideo);
+                    if (Build.VERSION.SDK_INT > 22)
+                        pathToStoredVideo = ImagePath_MarshMallow.getPath(PostActivity.this, uri);
+                    else
+                        //else we will get path directly
+                        pathToStoredVideo = uri.getPath();
+                    Log.d("video", "Recorded Video Path " + pathToStoredVideo);
+                    //Store the video to your server
+                    file = new File(pathToStoredVideo);
 
-            Uploadiv.setVisibility(View.GONE);
-            displayRecordedVideo.setVisibility(View.VISIBLE);
+                    Uploadiv.setVisibility(View.GONE);
+                    displayRecordedVideo.setVisibility(View.VISIBLE);
 
-            uri = data.getData();
+                    uri = data.getData();
 
 
-            displayRecordedVideo.setVideoURI(uri);
-            displayRecordedVideo.start();
-            try {
-                if (uri != null) {
+                    displayRecordedVideo.setVideoURI(uri);
+                    displayRecordedVideo.start();
+                    try {
+                        if (uri != null) {
 
-                    MediaPlayer mp = MediaPlayer.create(this, uri);
-                    int duration = mp.getDuration();
-                    mp.release();
+                            MediaPlayer mp = MediaPlayer.create(this, uri);
+                            int duration = mp.getDuration();
+                            mp.release();
 
-                    if ((duration / 1000) > 15) {
-                        // Show Your Messages
-                        Toast.makeText(PostActivity.this, "Please select video length less than 15 sec", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(PostActivity.this, HomeActivity.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        //Store the video to your server
+                            if ((duration / 1000) > 15) {
+                                // Show Your Messages
+                                Toast.makeText(PostActivity.this, "Please select video length less than 15 sec", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(PostActivity.this, HomeActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                //Store the video to your server
 
 
 //                                    pathToStoredVideo = getRealPathFromURIPathVideo(data.getData(),PostViewActivity.this);
-                        if (Build.VERSION.SDK_INT > 22) {
-                            pathToStoredVideo = ImagePath_MarshMallow.getPath(PostActivity.this, uri);
-                            Log.d("video", "Recorded Video Path " + pathToStoredVideo);
+                                if (Build.VERSION.SDK_INT > 22) {
+                                    pathToStoredVideo = ImagePath_MarshMallow.getPath(PostActivity.this, uri);
+                                    Log.d("video", "Recorded Video Path " + pathToStoredVideo);
+                                } else {
+                                    //else we will get path directly
+                                    pathToStoredVideo = uri.getPath();
+
+                                    Log.d("video", "Recorded Video Path " + pathToStoredVideo);
+                                }
+                                file = new File(pathToStoredVideo);
+
+                            }
                         } else {
-                            //else we will get path directly
-                            pathToStoredVideo = uri.getPath();
 
-                            Log.d("video", "Recorded Video Path " + pathToStoredVideo);
                         }
-                        file = new File(pathToStoredVideo);
-
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } else {
 
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+                } else if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_TAKE_GALLERY_VIDEO) {
+                    Uri selectedMediaUri = data.getData();
+                    if (selectedMediaUri != null) {
+                        if (selectedMediaUri.toString().contains("video")) {
 
-        } else if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_TAKE_GALLERY_VIDEO) {
-            Uri selectedImageUri = data.getData();
+                            if (data != null && data.getStringExtra("video") != null)
 
-            // OI FILE Manager
-            selectedImagePath = selectedImageUri.getPath();
+                                Uploadiv.setVisibility(View.GONE);
+                            displayRecordedVideo.setVisibility(View.VISIBLE);
+                            if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_TAKE_GALLERY_VIDEO) {
+                                Uri selectedImageUri = data.getData();
 
-            // MEDIA GALLERY
-            selectedImagePath = getPath(PostActivity.this, selectedImageUri);
-            if (selectedImagePath != null) {
+                                // OI FILE Manager
+                                selectedImagePath = selectedImageUri.getPath();
 
-                displayRecordedVideo.setVideoURI(selectedImageUri);
-                displayRecordedVideo.start();
-                if (Build.VERSION.SDK_INT > 22)
-                    selectedImagePath = ImagePath_MarshMallow.getPath(PostActivity.this, selectedImageUri);
-                else
-                    //else we will get path directly
-                    selectedImagePath = uri.getPath();
-                Log.d("video", "Recorded Video Path " + selectedImagePath);
-                //Store the video to your server
-                file = new File(selectedImagePath);
-            }
-        } else if (data != null) {
-         if(data.getData() !=null)
-         {
-             Uri selectedMediaUri = data.getData();
-             if (selectedMediaUri != null) {
-                 if (selectedMediaUri.toString().contains("video")) {
+                                // MEDIA GALLERY
+                                selectedImagePath = getPath(PostActivity.this, selectedImageUri);
+                                uri = selectedImageUri;
+                                if (selectedImagePath != null) {
 
-                     if (data != null && data.getStringExtra("video") != null)
+                                    displayRecordedVideo.setVideoURI(selectedImageUri);
+                                    displayRecordedVideo.start();
+                                    try {
+                                        if (uri != null) {
 
-                         Uploadiv.setVisibility(View.GONE);
-                     displayRecordedVideo.setVisibility(View.VISIBLE);
-                     if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_TAKE_GALLERY_VIDEO) {
-                         Uri selectedImageUri = data.getData();
+                                            MediaPlayer mp = MediaPlayer.create(this, uri);
+                                            int duration = mp.getDuration();
+                                            mp.release();
 
-                         // OI FILE Manager
-                         selectedImagePath = selectedImageUri.getPath();
-
-                         // MEDIA GALLERY
-                         selectedImagePath = getPath(PostActivity.this, selectedImageUri);
-                         if (selectedImagePath != null) {
-
-                             displayRecordedVideo.setVideoURI(selectedImageUri);
-                             displayRecordedVideo.start();
-                             if (Build.VERSION.SDK_INT > 22)
-                                 selectedImagePath = ImagePath_MarshMallow.getPath(PostActivity.this, selectedImageUri);
-                             else
-                                 //else we will get path directly
-                                 selectedImagePath = uri.getPath();
-                             Log.d("video", "Recorded Video Path " + selectedImagePath);
-                             //Store the video to your server
-                             file = new File(selectedImagePath);
-                         }
-                     } else if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_VIDEO_CAPTURE) {
-                         uri = data.getData();
-
-                         displayRecordedVideo.setVideoURI(uri);
-                         displayRecordedVideo.start();
-
-                         if (Build.VERSION.SDK_INT > 22)
-                             pathToStoredVideo = ImagePath_MarshMallow.getPath(PostActivity.this, uri);
-                         else
-                             //else we will get path directly
-                             pathToStoredVideo = uri.getPath();
-                         Log.d("video", "Recorded Video Path " + pathToStoredVideo);
-                         //Store the video to your server
-                         file = new File(pathToStoredVideo);
-                     } else if (resultCode == Activity.RESULT_OK) {
-                         Uploadiv.setVisibility(View.GONE);
-                         displayRecordedVideo.setVisibility(View.VISIBLE);
-
-                         uri = data.getData();
+                                            if ((duration / 1000) > 15) {
+                                                // Show Your Messages
+                                                Toast.makeText(PostActivity.this, "Please select video length less than 15 sec", Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(PostActivity.this, HomeActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            } else {
+                                                //Store the video to your server
 
 
-                         displayRecordedVideo.setVideoURI(uri);
-                         displayRecordedVideo.start();
+//                                    pathToStoredVideo = getRealPathFromURIPathVideo(data.getData(),PostViewActivity.this);
+                                                if (Build.VERSION.SDK_INT > 22) {
+                                                    pathToStoredVideo = ImagePath_MarshMallow.getPath(PostActivity.this, uri);
+                                                    Log.d("video", "Recorded Video Path " + pathToStoredVideo);
+                                                } else {
+                                                    //else we will get path directly
+                                                    pathToStoredVideo = uri.getPath();
+
+                                                    Log.d("video", "Recorded Video Path " + pathToStoredVideo);
+                                                }
+                                                file = new File(pathToStoredVideo);
+
+                                            }
+                                        } else {
+
+                                        }
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            } else if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_VIDEO_CAPTURE) {
+                                uri = data.getData();
+
+                                displayRecordedVideo.setVideoURI(uri);
+                                displayRecordedVideo.start();
+
+                                try {
+                                    if (uri != null) {
+
+                                        MediaPlayer mp = MediaPlayer.create(this, uri);
+                                        int duration = mp.getDuration();
+                                        mp.release();
+
+                                        if ((duration / 1000) > 15) {
+                                            // Show Your Messages
+                                            Toast.makeText(PostActivity.this, "Please select video length less than 15 sec", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(PostActivity.this, HomeActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        } else {
+                                            //Store the video to your server
 
 
-                         try {
-                             if (uri != null) {
+//                                    pathToStoredVideo = getRealPathFromURIPathVideo(data.getData(),PostViewActivity.this);
+                                            if (Build.VERSION.SDK_INT > 22) {
+                                                pathToStoredVideo = ImagePath_MarshMallow.getPath(PostActivity.this, uri);
+                                                Log.d("video", "Recorded Video Path " + pathToStoredVideo);
+                                            } else {
+                                                //else we will get path directly
+                                                pathToStoredVideo = uri.getPath();
 
-                                 MediaPlayer mp = MediaPlayer.create(this, uri);
-                                 int duration = mp.getDuration();
-                                 mp.release();
+                                                Log.d("video", "Recorded Video Path " + pathToStoredVideo);
+                                            }
+                                            file = new File(pathToStoredVideo);
 
-                                 if ((duration / 1000) > 15) {
-                                     // Show Your Messages
-                                     Toast.makeText(PostActivity.this, "Please select video length less than 15 sec", Toast.LENGTH_SHORT).show();
-                                 } else {
-                                     //Store the video to your server
+                                        }
+                                    } else {
+
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            } else if (resultCode == Activity.RESULT_OK) {
+                                Uploadiv.setVisibility(View.GONE);
+                                displayRecordedVideo.setVisibility(View.VISIBLE);
+
+                                uri = data.getData();
+
+
+                                displayRecordedVideo.setVideoURI(uri);
+                                displayRecordedVideo.start();
+
+
+                                try {
+                                    if (uri != null) {
+
+                                        MediaPlayer mp = MediaPlayer.create(this, uri);
+                                        int duration = mp.getDuration();
+                                        mp.release();
+
+                                        if ((duration / 1000) > 15) {
+                                            // Show Your Messages
+                                            Toast.makeText(PostActivity.this, "Please select video length less than 15 sec", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            //Store the video to your server
 
 
 //                                    pathToStoredVideo = getRealPathFromURIPathVideo(data.getData(),PostViewActivity.this);
 
 
-                                     if (Build.VERSION.SDK_INT > 22) {
-                                         pathToStoredVideo = ImagePath_MarshMallow.getPath(PostActivity.this, uri);
-                                         Log.d("video", "Recorded Video Path " + pathToStoredVideo);
-                                     } else {
-                                         //else we will get path directly
-                                         pathToStoredVideo = uri.getPath();
+                                            if (Build.VERSION.SDK_INT > 22) {
+                                                pathToStoredVideo = ImagePath_MarshMallow.getPath(PostActivity.this, uri);
+                                                Log.d("video", "Recorded Video Path " + pathToStoredVideo);
+                                            } else {
+                                                //else we will get path directly
+                                                pathToStoredVideo = uri.getPath();
 
-                                         Log.d("video", "Recorded Video Path " + pathToStoredVideo);
-                                     }
-                                     file = new File(pathToStoredVideo);
+                                                Log.d("video", "Recorded Video Path " + pathToStoredVideo);
+                                            }
+                                            file = new File(pathToStoredVideo);
 
-                                 }
-                             } else {
+                                        }
+                                    } else {
 
-                             }
-                         } catch (Exception e) {
-                             e.printStackTrace();
-                         }
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
 
-                     }
-                 }
-             }
-         }else
-         {
-             finish();
-         }
-        } else {
-//            Intent intent1 = new Intent(PostActivity.this, HomeActivity.class);
-//            startActivity(intent1);
-            finish();
+                            }
+                        }
+                    }
+                }
+
+            }else  if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+                setpic2();
+            }
+            }else  if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+            setpic2();
         }
 //        }
+
     }
 
     private File createImageFile() throws IOException {

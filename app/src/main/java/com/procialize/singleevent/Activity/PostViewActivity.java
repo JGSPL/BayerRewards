@@ -937,14 +937,43 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
 
                     displayRecordedVideo.setVideoURI(selectedImageUri);
                     displayRecordedVideo.start();
-                    if (Build.VERSION.SDK_INT > 22)
-                        selectedImagePath = ImagePath_MarshMallow.getPath(PostViewActivity.this, selectedImageUri);
-                    else
-                        //else we will get path directly
-                        selectedImagePath = uri.getPath();
-                    Log.d("video", "Recorded Video Path " + selectedImagePath);
-                    //Store the video to your server
-                    file = new File(selectedImagePath);
+                    uri = selectedImageUri;
+                    try {
+                        if (uri != null) {
+
+                            MediaPlayer mp = MediaPlayer.create(this, uri);
+                            int duration = mp.getDuration();
+                            mp.release();
+
+                            if ((duration / 1000) > 15) {
+                                // Show Your Messages
+                                Toast.makeText(PostViewActivity.this, "Please select video length less than 15 sec", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(PostViewActivity.this, HomeActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                //Store the video to your server
+
+
+//                                    pathToStoredVideo = getRealPathFromURIPathVideo(data.getData(),PostViewActivity.this);
+                                if (Build.VERSION.SDK_INT > 22) {
+                                    pathToStoredVideo = ImagePath_MarshMallow.getPath(PostViewActivity.this, uri);
+                                    Log.d("video", "Recorded Video Path " + pathToStoredVideo);
+                                } else {
+                                    //else we will get path directly
+                                    pathToStoredVideo = uri.getPath();
+
+                                    Log.d("video", "Recorded Video Path " + pathToStoredVideo);
+                                }
+                                file = new File(pathToStoredVideo);
+
+                            }
+                        } else {
+
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }else{
                 finish();
@@ -986,14 +1015,44 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
 
 //                            displayRecordedVideo.setVideoURI(selectedImageUri);
 //                            displayRecordedVideo.start();
-                                    if (Build.VERSION.SDK_INT > 22)
-                                        selectedImagePath = ImagePath_MarshMallow.getPath(PostViewActivity.this, selectedImageUri);
-                                    else
-                                        //else we will get path directly
-                                        selectedImagePath = uri.getPath();
-                                    Log.d("video", "Recorded Video Path " + selectedImagePath);
-                                    //Store the video to your server
-                                    file = new File(selectedImagePath);
+                                    uri = selectedImageUri;
+                                    try {
+                                        if (uri != null) {
+
+                                            MediaPlayer mp = MediaPlayer.create(this, uri);
+                                            int duration = mp.getDuration();
+                                            mp.release();
+
+                                            if ((duration / 1000) > 15) {
+                                                // Show Your Messages
+                                                Toast.makeText(PostViewActivity.this, "Please select video length less than 15 sec", Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(PostViewActivity.this, HomeActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            } else {
+                                                //Store the video to your server
+
+
+//                                    pathToStoredVideo = getRealPathFromURIPathVideo(data.getData(),PostViewActivity.this);
+                                                if (Build.VERSION.SDK_INT > 22) {
+                                                    pathToStoredVideo = ImagePath_MarshMallow.getPath(PostViewActivity.this, uri);
+                                                    Log.d("video", "Recorded Video Path " + pathToStoredVideo);
+                                                } else {
+                                                    //else we will get path directly
+                                                    pathToStoredVideo = uri.getPath();
+
+                                                    Log.d("video", "Recorded Video Path " + pathToStoredVideo);
+                                                }
+                                                file = new File(pathToStoredVideo);
+
+                                            }
+                                        } else {
+
+                                        }
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+
                                     Bitmap b = ThumbnailUtils.createVideoThumbnail(selectedImagePath, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
                                     Uploadiv.setImageBitmap(b);
                                 }

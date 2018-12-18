@@ -49,6 +49,7 @@ import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.CustomTools.CustomViewPager;
+import com.procialize.singleevent.CustomTools.MyJZVideoPlayerStandard;
 import com.procialize.singleevent.DbHelper.ConnectionDetector;
 import com.procialize.singleevent.DbHelper.DBHelper;
 import com.procialize.singleevent.EmptyViewActivity;
@@ -95,6 +96,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import cn.jzvd.JZMediaInterface;
 import cn.jzvd.JZVideoPlayerStandard;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -1024,24 +1026,34 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
-        builder.setTitle("Exit");
-        builder.setMessage("Are you sure you want to exit?");
-        builder.setNegativeButton("NO",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,
-                                        int which) {
-                        dialog.dismiss();
-                    }
-                });
-        builder.setPositiveButton("YES",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,
-                                        int which) {
-                        finish();
-                    }
-                });
-        builder.show();
+
+        boolean check = MyJZVideoPlayerStandard.backPress();
+
+        if(check==true)
+        {
+            MyJZVideoPlayerStandard.goOnPlayOnPause();
+            MyJZVideoPlayerStandard.quitFullscreenOrTinyWindow();
+        }else {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+            builder.setTitle("Exit");
+            builder.setMessage("Are you sure you want to exit?");
+            builder.setNegativeButton("NO",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,
+                                            int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            builder.setPositiveButton("YES",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,
+                                            int which) {
+                            finish();
+                        }
+                    });
+            builder.show();
+        }
     }
 
 

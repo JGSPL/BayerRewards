@@ -904,7 +904,7 @@ public class ProfileActivity extends AppCompatActivity {
                 tempUri = getImageUri(getApplicationContext(), thumbnail);
 
                 UCrop.of(tempUri, Uri.parse(destination.getAbsolutePath()))
-                        .withAspectRatio(4, 3)
+                        .withAspectRatio(2, 2)
                         .withMaxResultSize(200, 200)
                         .start(this);
 
@@ -927,7 +927,7 @@ public class ProfileActivity extends AppCompatActivity {
                 }
 
                 UCrop.of(tempUri, Uri.parse(destination.getAbsolutePath()))
-                        .withAspectRatio(4, 3)
+                        .withAspectRatio(2, 2)
                         .withMaxResultSize(200, 200)
                         .start(this);
             }
@@ -981,7 +981,7 @@ public class ProfileActivity extends AppCompatActivity {
                 }
 
                 UCrop.of(tempUri, Uri.parse(destination.getAbsolutePath()))
-                        .withAspectRatio(4, 3)
+                        .withAspectRatio(2, 2)
                         .withMaxResultSize(200, 200)
                         .start(this);
 
