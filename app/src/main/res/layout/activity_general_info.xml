@@ -135,11 +135,10 @@
                     <LinearLayout
                         android:id="@+id/general_info_cur"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:layout_margin="5dp"
                         android:background="@drawable/agendabg"
                         android:gravity="center"
-                        android:minHeight="60dp"
                         android:orientation="horizontal"
                         android:visibility="gone"
                         android:weightSum="10">
@@ -152,14 +151,15 @@
                             <com.procialize.singleevent.Fonts.RobotoTextview
                                 android:id="@+id/abtcurency_tv"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
                                 android:layout_marginLeft="5dp"
                                 android:drawablePadding="10dp"
                                 android:gravity="left|center"
                                 android:padding="5dp"
                                 android:text="Currency Converter"
                                 android:textAllCaps="false"
-                                android:textColor="@color/activetab" />
+                                android:textColor="@color/activetab"
+                                android:textSize="@dimen/textsizesmall"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -169,8 +169,8 @@
 
                             <ImageView
                                 android:id="@+id/ic_rightarrow"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
                                 android:background="@drawable/agendabg"
                                 android:src="@drawable/ic_rightarrow" />
 
@@ -199,11 +199,10 @@
                     <LinearLayout
                         android:id="@+id/general_info_wea"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:layout_margin="5dp"
                         android:background="@drawable/agendabg"
                         android:gravity="center"
-                        android:minHeight="60dp"
                         android:orientation="horizontal"
                         android:visibility="gone"
                         android:weightSum="10">
@@ -216,14 +215,15 @@
                             <com.procialize.singleevent.Fonts.RobotoTextview
                                 android:id="@+id/weather_tv"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
                                 android:layout_marginLeft="5dp"
                                 android:drawablePadding="10dp"
                                 android:gravity="left|center"
                                 android:padding="5dp"
                                 android:text="Time &amp; Weather"
                                 android:textAllCaps="false"
-                                android:textColor="@color/activetab" />
+                                android:textColor="@color/activetab"
+                                android:textSize="@dimen/textsizesmall"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -233,9 +233,9 @@
 
                             <ImageView
                                 android:id="@+id/ic_arrow_we"
-                                android:layout_width="wrap_content"
+                                android:layout_width="20dp"
 
-                                android:layout_height="30dp"
+                                android:layout_height="20dp"
                                 android:src="@drawable/ic_rightarrow" />
 
                         </LinearLayout>

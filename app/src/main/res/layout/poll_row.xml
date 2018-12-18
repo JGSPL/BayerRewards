@@ -1,38 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/mainLL"
-        android:background="@color/activetab"
-        android:layout_margin="8dp"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/activetab"
+        android:orientation="horizontal">
 
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <com.procialize.singleevent.Fonts.RobotoTextview
-                android:textSize="14sp"
-                android:padding="5dp"
-                android:layout_gravity="center"
-                android:gravity="center"
+                android:id="@+id/nameTv"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
-                android:layout_weight="7"
                 android:layout_alignStart="@+id/designationTv"
                 android:layout_alignTop="@+id/imageView"
+                android:layout_gravity="center"
+                android:layout_weight="7"
+                android:gravity="left|center"
+                android:padding="5dp"
                 android:text="="
                 android:textColor="@color/colorwhite"
-                android:id="@+id/nameTv"
-                android:textAlignment="textStart"/>
+                android:textSize="14sp"
+                android:maxLines="1"
+                android:ellipsize="end"/>
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -50,7 +53,6 @@
         </LinearLayout>
 
     </LinearLayout>
-
 
 
 </LinearLayout>

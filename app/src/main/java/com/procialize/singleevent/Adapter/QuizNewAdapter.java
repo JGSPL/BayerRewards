@@ -198,7 +198,7 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
                             ViewGroup.LayoutParams.WRAP_CONTENT
                     );
 
-                    params.setMargins(0, 10, 0, 10);
+                    params.setMargins(0, 5, 0, 5);
                     LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
                             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 //                    p.setMargins(0, 20, 0, 10);
@@ -362,7 +362,7 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
                             ViewGroup.LayoutParams.WRAP_CONTENT
                     );
 
-                    params.setMargins(0, 10, 0, 10);
+                    params.setMargins(0, 5, 0, 5);
                     LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
                             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 //                    p.setMargins(0, 20, 0, 10);

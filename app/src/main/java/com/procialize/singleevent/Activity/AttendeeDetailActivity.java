@@ -24,6 +24,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -78,7 +79,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
     String attendee_company, attendee_location, attendee_mobile, attendee_design;
     List<EventSettingList> eventSettingLists;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid, colorActive,eventnamestr;
+    String eventid, colorActive, eventnamestr;
     UserData userData;
     private DBHelper procializeDB;
     private SQLiteDatabase db;
@@ -123,7 +124,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
 
         eventnamestr = prefs.getString("eventnamestr", "");
 
-
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         dbHelper = new DBHelper(AttendeeDetailActivity.this);
         db = dbHelper.getWritableDatabase();
 
@@ -143,7 +144,6 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         // apikey
         apikey = user.get(SessionManager.KEY_TOKEN);
         getattendee = user.get(SessionManager.KEY_ID);
-
 
 
         eventSettingLists = sessionManager.loadEventList();
@@ -527,7 +527,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
 
         insertContactPhoneNumber(addContactsUri, rowContactId, strNumber, strDisplayName);
 
-        Toast.makeText(getApplicationContext(),"New contact has been added, go back to previous page to see it in contacts list." , Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "New contact has been added, go back to previous page to see it in contacts list.", Toast.LENGTH_LONG).show();
 
 //        finish();
 
@@ -560,7 +560,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         contentValues.put(ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME, displayName);
 
         //Notes
-        contentValues.put(ContactsContract.CommonDataKinds.Note.NOTE, "Met At "+eventnamestr);
+        contentValues.put(ContactsContract.CommonDataKinds.Note.NOTE, "Met At " + eventnamestr);
 
 
         getContentResolver().insert(addContactsUri, contentValues);
@@ -575,14 +575,13 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         contentValues.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE);
 
         //Notes
-        contentValues.put(ContactsContract.CommonDataKinds.Note.NOTE, "Met At "+eventnamestr);
+        contentValues.put(ContactsContract.CommonDataKinds.Note.NOTE, "Met At " + eventnamestr);
 
         getContentResolver().insert(addContactsUri, contentValues);
     }
 
 
-        private void insertContactPhoneNumber(Uri addContactsUri, long rawContactId, String phoneNumber, String strDisplayName)
-    {
+    private void insertContactPhoneNumber(Uri addContactsUri, long rawContactId, String phoneNumber, String strDisplayName) {
         // Create a ContentValues object.
         ContentValues contentValues = new ContentValues();
 
@@ -617,8 +616,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
 
     }
 
-    private long getRawContactId()
-    {
+    private long getRawContactId() {
         // Inser an empty contact.
         ContentValues contentValues = new ContentValues();
         Uri rawContactUri = getContentResolver().insert(ContactsContract.RawContacts.CONTENT_URI, contentValues);
@@ -626,7 +624,6 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         long ret = ContentUris.parseId(rawContactUri);
         return ret;
     }
-
 
 
 }

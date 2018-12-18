@@ -12,6 +12,7 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,11 +51,13 @@ public class CustomMenuAdapter extends RecyclerView.Adapter<CustomMenuAdapter.My
         public TextView nameTv, locationTv, designationTv;
         public ImageView profileIv;
         public LinearLayout mainLL,topll;
+        RelativeLayout relative;
 
         public MyViewHolder(View view) {
             super(view);
             nameTv = view.findViewById(R.id.nameTv);
             locationTv = view.findViewById(R.id.locationTv);
+            relative = view.findViewById(R.id.relative);
             designationTv = view.findViewById(R.id.designationTv);
             topll = view.findViewById(R.id.topll);
             profileIv = view.findViewById(R.id.profileIV);
@@ -100,6 +103,7 @@ public class CustomMenuAdapter extends RecyclerView.Adapter<CustomMenuAdapter.My
             holder.nameTv.setVisibility(View.GONE);
             holder.profileIv.setVisibility(View.GONE);
             holder.mainLL.setVisibility(View.GONE);
+            holder.relative.setVisibility(View.GONE);
 
 
         } else {
@@ -108,6 +112,7 @@ public class CustomMenuAdapter extends RecyclerView.Adapter<CustomMenuAdapter.My
                 holder.profileIv.setVisibility(View.GONE);
                 holder.mainLL.setVisibility(View.GONE);
                 holder.topll.setVisibility(View.GONE);
+                holder.relative.setVisibility(View.GONE);
 
             }else if(side_menu_agenda.equalsIgnoreCase("0")&&
                     menuSettingList.getFieldName().equalsIgnoreCase("side_menu_agenda")){
@@ -115,12 +120,14 @@ public class CustomMenuAdapter extends RecyclerView.Adapter<CustomMenuAdapter.My
                 holder.profileIv.setVisibility(View.GONE);
                 holder.mainLL.setVisibility(View.GONE);
                 holder.topll.setVisibility(View.GONE);
+                holder.relative.setVisibility(View.GONE);
 
             }  else{
                 holder.nameTv.setVisibility(View.VISIBLE);
                 holder.profileIv.setVisibility(View.VISIBLE);
                 holder.mainLL.setVisibility(View.VISIBLE);
                 holder.topll.setVisibility(View.VISIBLE);
+                holder.relative.setVisibility(View.VISIBLE);
 
             }
         }

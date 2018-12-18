@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_margin="3dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="3dp"
+    android:orientation="horizontal">
 
     <LinearLayout
-        android:gravity="center"
         android:id="@+id/notiLin"
-        android:background="#1F73BA"
-        android:orientation="vertical"
         android:layout_width="50dp"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#1F73BA"
+        android:gravity="center"
+        android:orientation="vertical">
+
         <ImageView
             android:id="@+id/ivtype"
             android:layout_width="23dp"
@@ -21,134 +22,135 @@
 
     <LinearLayout
         android:id="@+id/mainLL"
-        android:elevation="@dimen/elevation"
-        android:padding="5dp"
-        android:translationZ="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/qnarow"
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:padding="5dp">
 
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <RelativeLayout
-                android:gravity="top"
-                android:layout_weight="1.5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_centerInParent="true"
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:gravity="top">
+
+                <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/profileIV"
-                    android:layout_alignParentTop="true"
-                    android:src="@drawable/profilepic_placeholder"
                     android:layout_width="50dp"
-                    android:layout_height="50dp"/>
+                    android:layout_height="50dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/profilepic_placeholder" />
 
                 <ProgressBar
-                    android:layout_alignParentTop="true"
-                    android:layout_centerInParent="true"
-                    android:visibility="visible"
                     android:id="@+id/progressView"
                     android:layout_width="20dp"
-                    android:layout_height="20dp" android:background="@drawable/loader"/>
+                    android:layout_height="20dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/loader"
+                    android:visibility="visible" />
 
 
             </RelativeLayout>
 
             <LinearLayout
-                android:orientation="vertical"
-                android:gravity="center_vertical"
-                android:layout_weight="5"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
 
                 <com.procialize.singleevent.Fonts.RobotoTextview
-                    android:paddingLeft="5dp"
-                    android:textSize="@dimen/textsizesmall"
+                    android:id="@+id/nameTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignStart="@+id/designationTv"
                     android:layout_alignTop="@+id/imageView"
+                    android:paddingLeft="5dp"
                     android:text=""
                     android:textColor="@color/black"
-                    android:id="@+id/nameTv" />
+                    android:textSize="@dimen/textsizesmall" />
 
                 <com.procialize.singleevent.Fonts.RobotoTextview
-                    android:paddingLeft="5dp"
-                    android:textSize="@dimen/textsizesmall"
                     android:id="@+id/txt_msg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
                     android:text="Sent you message"
-                    android:textColor="@color/colorAccent" />
-
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/textsizesmall" />
 
                 <com.procialize.singleevent.Fonts.RobotoTextview
-                    android:paddingLeft="5dp"
-                    android:textSize="@dimen/textsizesmall"
+                    android:id="@+id/messageTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/elevation"
+                    android:paddingLeft="5dp"
                     android:text=""
                     android:textColor="@color/colorAccent"
-                    android:id="@+id/dataTv" />
+                    android:textSize="@dimen/textsizesmall" />
+
+                <com.procialize.singleevent.Fonts.RobotoTextview
+                    android:id="@+id/dataTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:text=""
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/textsizesmall" />
 
 
                 <com.procialize.singleevent.Fonts.RobotoButton
                     android:id="@+id/replyBtn"
-                    android:text="@string/replybtn"
-                    android:visibility="gone"
-                    android:textSize="@dimen/textsizesmall"
-                    android:textColor="@color/colorwhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
                     android:layout_gravity="center"
                     android:background="@drawable/signupbutton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp" />
+                    android:text="@string/replybtn"
+                    android:textColor="@color/colorwhite"
+                    android:textSize="@dimen/textsizesmall"
+                    android:visibility="gone" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_weight="1"
                 android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:layout_height="match_parent">
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/arrowIv"
-                    android:src="@drawable/ic_rightarrow"
                     android:layout_width="20dp"
-                    android:layout_height="20dp" />
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_rightarrow" />
+
                 <ImageView
                     android:id="@+id/arrowIvmsg"
-                    android:src="@drawable/ic_rightarrow"
                     android:layout_width="20dp"
-                    android:layout_height="20dp" />
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_rightarrow" />
             </LinearLayout>
 
 
         </LinearLayout>
-        <com.procialize.singleevent.Fonts.RobotoTextview
-            android:paddingLeft="5dp"
-            android:textSize="@dimen/textsizesmall"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/elevation"
-            android:text=""
-            android:textColor="@color/colorAccent"
-            android:id="@+id/messageTV" />
+
 
         <ImageView
             android:id="@+id/gifiv"
-            android:paddingLeft="5dp"
-            android:layout_margin="@dimen/elevation"
             android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_height="100dp"
+            android:layout_margin="@dimen/elevation"
+            android:paddingLeft="5dp" />
 
 
     </LinearLayout>
