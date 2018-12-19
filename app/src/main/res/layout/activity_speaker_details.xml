@@ -102,8 +102,8 @@
 
             <ProgressBar
                 android:id="@+id/progressBar"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_centerInParent="true" android:background="@drawable/loader"/>
 
         </RelativeLayout>

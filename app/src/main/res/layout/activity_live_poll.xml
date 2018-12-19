@@ -12,8 +12,8 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="0dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="0dp">
 
 
         <android.support.v7.widget.Toolbar
@@ -42,10 +42,11 @@
                 android:src="@drawable/header_logo" />
 
         </android.support.v7.widget.Toolbar>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/linecolor"/>
+            android:background="@color/linecolor" />
 
 
     </android.support.design.widget.AppBarLayout>
@@ -74,8 +75,7 @@
         android:id="@+id/relative"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/speakertitle"
-        android:layout_marginBottom="20dp">
+        android:layout_below="@+id/speakertitle">
 
         <RelativeLayout
             android:id="@+id/layoutTop"
@@ -83,16 +83,17 @@
             android:layout_height="80dp"
             android:background="@color/colorPrimary"></RelativeLayout>
 
-        <RelativeLayout
+        <ImageView
             android:id="@+id/layoutBottom"
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_width="wrap_content"
+            android:layout_height="155dp"
             android:layout_below="@id/layoutTop"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:background="@drawable/live_poll_header">
+            android:src="@drawable/live_poll_header"
+            android:background="@color/colorgrey">
 
-        </RelativeLayout>
+        </ImageView>
 
 
         <RelativeLayout

@@ -28,14 +28,21 @@ public class MyJZVideoPlayerStandard extends JZVideoPlayerStandard {
 
     @Override
     public void onClick(View v) {
-        super.onClick(v);
-        int i = v.getId();
-        if (i == cn.jzvd.R.id.fullscreen) {
-            if (currentScreen == SCREEN_WINDOW_FULLSCREEN) {
-                //click quit fullscreen
-            } else {
-                //click goto fullscreen
+
+        try {
+            super.onClick(v);
+            int i = v.getId();
+            if (i == cn.jzvd.R.id.fullscreen) {
+                if (currentScreen == SCREEN_WINDOW_FULLSCREEN) {
+                    //click quit fullscreen
+                } else {
+                    //click goto fullscreen
+                }
             }
+        }catch (Exception e)
+        {
+            startVideo();
+            e.printStackTrace();
         }
     }
 

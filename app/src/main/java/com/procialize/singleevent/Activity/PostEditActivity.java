@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -19,6 +20,8 @@ import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
+import android.media.MediaPlayer;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -28,6 +31,7 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -53,6 +57,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
+import com.procialize.singleevent.CustomTools.ImagePath_MarshMallow;
 import com.procialize.singleevent.CustomTools.PicassoTrustAll;
 import com.procialize.singleevent.CustomTools.ScaledImageView;
 import com.procialize.singleevent.DbHelper.ConnectionDetector;
@@ -61,6 +66,7 @@ import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.MyApplication;
 import com.procialize.singleevent.Utility.Util;
+import com.procialize.singleevent.Utility.Utility;
 import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -115,15 +121,16 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
     private DBHelper procializeDB;
     private SQLiteDatabase db;
     private ApiConstant constant;
-    File sourceFile;
-    String profilepic;
+    File sourceFile,file;
+    String profilepic,pathToStoredVideo,selectedImagePath;
     private String postUrl = "";
     ImageView imgPlay;
     private String senderImageURL = "";
     ProgressBar progressbar;
     private String actionFlag;
 
-    private static int RESULT_LOAD_IMAGE = 1;
+    private static int REQUEST_VIDEO_CAPTURE = 100;
+    private static int REQUEST_TAKE_GALLERY_VIDEO = 100;
 
     private String postMsg = "";
 
@@ -145,13 +152,14 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
     //	private UserProfile userData;
 //	MixpanelAPI mixpanel;
     private String ImageFlag = "0";
-    private String notify_id, NotifyType, wallStatus, ImageStatus;
+    private String notify_id, NotifyType, wallStatus, ImageStatus,videosttus;
     static final int REQUEST_TAKE_PHOTO = 1;
     private VideoView displayRecordedVideo;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid,colorActive;
     ImageView headerlogoIv;
-
+    String userChoosenTask;
+    Uri uri;
     @TargetApi(23)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,6 +195,7 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
 //        NotifyType = getIntent().getExtras().getString("NotificationType");
         wallStatus = getIntent().getExtras().getString("status");
         ImageStatus = getIntent().getExtras().getString("Image");
+        videosttus = getIntent().getExtras().getString("Video");
 
         session = new SessionManager(getApplicationContext());
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
@@ -247,6 +256,36 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
 
             }
 
+
+        }else if (actionFlag.equalsIgnoreCase("video")) {
+
+            Uri uri = Uri.parse(ApiConstant.newsfeedwall + videosttus);
+//            Uri uri = Uri.parse(TEST_URL);
+            Uploadiv.setVisibility(View.VISIBLE);
+            imgPlay.setVisibility(View.VISIBLE);
+            displayRecordedVideo.setVisibility(View.GONE);
+            displayRecordedVideo.setVideoURI(uri);
+            postEt.setText(StringEscapeUtils.unescapeJava(wallStatus));
+
+            if (ImageStatus != null) {
+                Glide.with(this).load(ApiConstant.newsfeedwall + videosttus).listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        Uploadiv.setImageResource(R.drawable.profilepic_placeholder);
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        return false;
+                    }
+                }).into(Uploadiv).onLoadStarted(getDrawable(R.drawable.profilepic_placeholder));
+            } else {
+                Uploadiv.setImageResource(R.drawable.profilepic_placeholder);
+
+            }
+
+//            displayRecordedVideo.start();
 
         }
 
@@ -314,6 +353,9 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
 						startActivityForResult(i, RESULT_LOAD_IMAGE);
 					}
 */
+                }else if (actionFlag.equalsIgnoreCase("Video"))
+                {
+                    selectVideo();
                 }
 
 
@@ -322,6 +364,60 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
 
 
     }
+
+
+    private void selectVideo() {
+        final CharSequence[] items = {"Take Video", "Choose from Library",
+                "Cancel"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Add Video!");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                boolean result = Utility.checkPermission(PostEditActivity.this);
+
+                if (items[item].equals("Choose from Library")) {
+                    userChoosenTask = "Choose from Library";
+                    if (result)
+                        videogalleryIntent();
+
+                } else if (items[item].equals("Take Video")) {
+                    userChoosenTask = "Take Video";
+                    if (result) {
+                        Intent videoCaptureIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                        videoCaptureIntent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 15);
+//                        videoCaptureIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1); //0 means low & 1 means high
+                        if (videoCaptureIntent.resolveActivity(getPackageManager()) != null) {
+                            startActivityForResult(videoCaptureIntent, REQUEST_VIDEO_CAPTURE);
+                        }
+                    }
+                } else if (items[item].equals("Cancel")) {
+                    dialog.dismiss();
+                    Intent intent = new Intent(PostEditActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
+        builder.setCancelable(false);
+        builder.show();
+    }
+
+    private void videogalleryIntent() {
+//        Intent intent = new Intent();
+//        intent.setType("*/*");
+//        intent.putExtra(Intent.EXTRA_MIME_TYPES, new String[]{"video/*"});
+//        intent.setAction(Intent.ACTION_GET_CONTENT);//
+//        startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
+
+        Intent intent = new Intent(
+                Intent.ACTION_PICK,
+                MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("video/*");
+        startActivityForResult(intent, REQUEST_TAKE_GALLERY_VIDEO);
+    }
+
 
     public void showAlert(int res) {
 
@@ -743,8 +839,121 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
             setpic2();
 
             // setPic();
-        }else
-        {
+        } else if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_VIDEO_CAPTURE && data.getData()!=null) {
+            uri = data.getData();
+
+            displayRecordedVideo.setVideoURI(uri);
+            displayRecordedVideo.start();
+
+            if (Build.VERSION.SDK_INT > 22)
+                pathToStoredVideo = ImagePath_MarshMallow.getPath(PostEditActivity.this, uri);
+            else
+                //else we will get path directly
+                pathToStoredVideo = uri.getPath();
+            Log.d("video", "Recorded Video Path " + pathToStoredVideo);
+            //Store the video to your server
+            file = new File(pathToStoredVideo);
+
+            Bitmap b = ThumbnailUtils.createVideoThumbnail(pathToStoredVideo, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
+
+            Uploadiv.setVisibility(View.VISIBLE);
+            Uploadiv.setImageBitmap(b);
+            imgPlay.setVisibility(View.VISIBLE);
+            displayRecordedVideo.setVisibility(View.GONE);
+
+            uri = data.getData();
+//            displayRecordedVideo.setVideoURI(uri);
+//            displayRecordedVideo.start();
+            try {
+                if (uri != null) {
+
+                    MediaPlayer mp = MediaPlayer.create(this, uri);
+                    int duration = mp.getDuration();
+                    mp.release();
+
+                    if ((duration / 1000) > 15) {
+                        // Show Your Messages
+                        Toast.makeText(PostEditActivity.this, "Please select video length less than 15 sec", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(PostEditActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        //Store the video to your server
+
+
+//                                    pathToStoredVideo = getRealPathFromURIPathVideo(data.getData(),PostViewActivity.this);
+
+
+                        if (Build.VERSION.SDK_INT > 22) {
+                            pathToStoredVideo = ImagePath_MarshMallow.getPath(PostEditActivity.this, uri);
+                            Log.d("video", "Recorded Video Path " + pathToStoredVideo);
+                        } else {
+                            //else we will get path directly
+                            pathToStoredVideo = uri.getPath();
+
+                            Log.d("video", "Recorded Video Path " + pathToStoredVideo);
+                        }
+                        file = new File(pathToStoredVideo);
+
+                    }
+                } else {
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_TAKE_GALLERY_VIDEO && data.getData()!=null) {
+            Uri selectedImageUri = data.getData();
+
+            // OI FILE Manager
+            selectedImagePath = selectedImageUri.getPath();
+
+            // MEDIA GALLERY
+            selectedImagePath = getPath(PostEditActivity.this, selectedImageUri);
+            if (selectedImagePath != null) {
+
+                displayRecordedVideo.setVideoURI(selectedImageUri);
+                displayRecordedVideo.start();
+                uri = selectedImageUri;
+                try {
+                    if (uri != null) {
+
+                        MediaPlayer mp = MediaPlayer.create(this, uri);
+                        int duration = mp.getDuration();
+                        mp.release();
+
+                        if ((duration / 1000) > 15) {
+                            // Show Your Messages
+                            Toast.makeText(PostEditActivity.this, "Please select video length less than 15 sec", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(PostEditActivity.this, HomeActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            //Store the video to your server
+
+
+//                                    pathToStoredVideo = getRealPathFromURIPathVideo(data.getData(),PostViewActivity.this);
+                            if (Build.VERSION.SDK_INT > 22) {
+                                pathToStoredVideo = ImagePath_MarshMallow.getPath(PostEditActivity.this, uri);
+                                Log.d("video", "Recorded Video Path " + pathToStoredVideo);
+                            } else {
+                                //else we will get path directly
+                                pathToStoredVideo = uri.getPath();
+
+                                Log.d("video", "Recorded Video Path " + pathToStoredVideo);
+                            }
+                            file = new File(pathToStoredVideo);
+
+                        }
+                    } else {
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }else{
             finish();
         }
 
@@ -904,6 +1113,15 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
 
         return filename;
 
+    }
+
+    public String getPath(Context context, Uri uri) {
+        String[] projection = {MediaStore.Video.Media.DATA};
+        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+//        cursor.moveToFirst();
+        int idx = cursor.getColumnIndex(MediaStore.Video.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(idx);
     }
 
     public String getFilename() {
@@ -1131,6 +1349,7 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
                 //Log.d("TAG", "File...::::" + sourceFile + " : " + sourceFile.exists());
 
                 final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/*");
+                final MediaType MEDIA_TYPE_VIDEO = MediaType.parse("video/*");
 
                 String filename = picturePath.substring(picturePath.lastIndexOf("/") + 1);
 
@@ -1157,12 +1376,17 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
                     if (picturePath != null && !(picturePath.equalsIgnoreCase(""))) {
                         builder.addFormDataPart("media_file", filename, RequestBody.create(MEDIA_TYPE_PNG, sourceFile));
                     }
+                }else
+                if(ImageFlag.equalsIgnoreCase("0")) {
+
+                    if (file != null) {
+                        builder.addFormDataPart("media_file", filename, RequestBody.create(MEDIA_TYPE_VIDEO, file));
+                    }
                 }
 
                 builder.addFormDataPart("api_access_token", accessToken);
                 builder.addFormDataPart("event_id", eventid);
                 builder.addFormDataPart("news_feed_id", notify_id);
-
                 builder.addFormDataPart("type", actionFlag);
                 builder.addFormDataPart("status", postMsg);
 

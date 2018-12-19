@@ -27,7 +27,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -208,7 +207,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         //Log.d("Profile Pic", profilepic);
-        eventSettingLists = sessionManager.loadEventList();
+        eventSettingLists = SessionManager.loadEventList();
 
         if (eventSettingLists.size() != 0) {
             applysetting(eventSettingLists);
@@ -241,10 +240,10 @@ public class ProfileActivity extends AppCompatActivity {
         txt_upload = findViewById(R.id.txt_upload);
         linear_upload = findViewById(R.id.linear_upload);
 
-        TextView header = (TextView) findViewById(R.id.title);
+        TextView header = findViewById(R.id.title);
         header.setTextColor(Color.parseColor(colorActive));
 
-        RelativeLayout layoutTop = (RelativeLayout) findViewById(R.id.layoutTop);
+        RelativeLayout layoutTop = findViewById(R.id.layoutTop);
         layoutTop.setBackgroundColor(Color.parseColor(colorActive));
 
         savebtn.setBackgroundColor(Color.parseColor(colorActive));
@@ -862,7 +861,7 @@ public class ProfileActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == this.RESULT_OK) {
+        if (resultCode == RESULT_OK) {
             if (requestCode == SELECT_FILE) {
                 onSelectFromGalleryResult(data);
             } else if (requestCode == REQUEST_CAMERA) {
@@ -879,7 +878,7 @@ public class ProfileActivity extends AppCompatActivity {
     private void onCaptureImageResult(Intent data) {
         try {
             Uri tempUri;
-            if (data.getData() != null) {
+            if (data != null) {
                 Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
 
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -904,7 +903,7 @@ public class ProfileActivity extends AppCompatActivity {
                 tempUri = getImageUri(getApplicationContext(), thumbnail);
 
                 UCrop.of(tempUri, Uri.parse(destination.getAbsolutePath()))
-                        .withAspectRatio(4, 3)
+                        .withAspectRatio(2, 2)
                         .withMaxResultSize(200, 200)
                         .start(this);
 
@@ -927,7 +926,7 @@ public class ProfileActivity extends AppCompatActivity {
                 }
 
                 UCrop.of(tempUri, Uri.parse(destination.getAbsolutePath()))
-                        .withAspectRatio(4, 3)
+                        .withAspectRatio(2, 2)
                         .withMaxResultSize(200, 200)
                         .start(this);
             }
@@ -981,7 +980,7 @@ public class ProfileActivity extends AppCompatActivity {
                 }
 
                 UCrop.of(tempUri, Uri.parse(destination.getAbsolutePath()))
-                        .withAspectRatio(4, 3)
+                        .withAspectRatio(2, 2)
                         .withMaxResultSize(200, 200)
                         .start(this);
 

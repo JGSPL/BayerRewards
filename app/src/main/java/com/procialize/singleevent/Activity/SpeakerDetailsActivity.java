@@ -231,12 +231,17 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         if (mobile != null && speaker_mobile.equalsIgnoreCase("1")) {
             if (mobile.equalsIgnoreCase("")) {
                 tvmobile.setVisibility(View.GONE);
+                viewfour.setVisibility(View.GONE);
+                viewfive.setVisibility(View.GONE);
             } else {
                 tvmobile.setText(mobile);
+                viewfour.setVisibility(View.VISIBLE);
             }
 
         } else {
             tvmobile.setVisibility(View.GONE);
+            viewfour.setVisibility(View.GONE);
+            viewfive.setVisibility(View.GONE);
         }
         if (profile != null) {
             Glide.with(this).load(ApiConstant.profilepic + profile).listener(new RequestListener<Drawable>() {

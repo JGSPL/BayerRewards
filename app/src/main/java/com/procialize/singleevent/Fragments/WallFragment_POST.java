@@ -6,9 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -46,7 +43,6 @@ import com.procialize.singleevent.Activity.ImageViewActivity;
 import com.procialize.singleevent.Activity.LikeDetailActivity;
 import com.procialize.singleevent.Activity.PostEditActivity;
 import com.procialize.singleevent.Activity.PostEditActivityOld;
-import com.procialize.singleevent.Activity.PostViewActivity;
 import com.procialize.singleevent.Adapter.LikeAdapter;
 import com.procialize.singleevent.Adapter.NewsfeedAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
@@ -71,7 +67,6 @@ import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
-
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -194,7 +189,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
         colorActive = prefs.getString("colorActive", "");
 
 
-        eventSettingLists = sessionManager.loadEventList();
+        eventSettingLists = SessionManager.loadEventList();
 
         if (eventSettingLists.size() != 0) {
             applysetting(eventSettingLists);
@@ -303,7 +298,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
             @Override
             public void onMovedToScrapHeap(View view) {
                 // Safety net
-                JZVideoPlayerStandard videoView = (JZVideoPlayerStandard) view.findViewById(R.id.videoplayer);
+                JZVideoPlayerStandard videoView = view.findViewById(R.id.videoplayer);
                 try {
 
                     if (videoView != null) {
@@ -490,7 +485,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
             Intent imageview = new Intent(getContext(), ImageViewActivity.class);
             imageview.putExtra("url", ApiConstant.newsfeedwall + feed.getMediaFile());
             ActivityOptionsCompat options = ActivityOptionsCompat.
-                    makeSceneTransitionAnimation(getActivity(), (View) ivProfile, "profile");
+                    makeSceneTransitionAnimation(getActivity(), ivProfile, "profile");
             startActivity(imageview, options.toBundle());
         }
 //        else if (feed.getType().equals("Video")) {
@@ -571,7 +566,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
         float width = Float.parseFloat(feed.getWidth());
         float height = Float.parseFloat(feed.getHeight());
 
-        float p1 = (float) (height / width);
+        float p1 = height / width;
 
         Intent comment = new Intent(getContext(), CommentActivity.class);
 
@@ -676,7 +671,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 //                edit.putExtra("feedid", feed.getNewsFeedId());
 //                edit.putExtra("status", feed.getPostStatus());
                 if (feed.getType().equalsIgnoreCase("Image")) {
-                    Intent editimage = new Intent(getActivity(), PostEditActivityOld.class);
+                    Intent editimage = new Intent(getActivity(), PostEditActivity.class);
                     editimage.putExtra("for", feed.getType());
                     editimage.putExtra("feedid", feed.getNewsFeedId());
                     editimage.putExtra("status", feed.getPostStatus());
@@ -684,19 +679,19 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
                     startActivity(editimage);
                     dialog.dismiss();
                 } else if (feed.getType().equalsIgnoreCase("Video")) {
-                    Intent edit = new Intent(getActivity(), PostEditActivityOld.class);
+                    Intent edit = new Intent(getActivity(), PostEditActivity.class);
                     edit.putExtra("for", feed.getType());
                     edit.putExtra("feedid", feed.getNewsFeedId());
                     edit.putExtra("status", feed.getPostStatus());
                     edit.putExtra("Video", feed.getMediaFile());
+                    edit.putExtra("Image", feed.getThumbImage());
                     startActivity(edit);
                     dialog.dismiss();
                 } else if (feed.getType().equalsIgnoreCase("Status")) {
-                    Intent edit = new Intent(getActivity(), PostEditActivityOld.class);
+                    Intent edit = new Intent(getActivity(), PostEditActivity.class);
                     edit.putExtra("for", feed.getType());
                     edit.putExtra("feedid", feed.getNewsFeedId());
                     edit.putExtra("status", feed.getPostStatus());
-                    edit.putExtra("Video", feed.getMediaFile());
                     startActivity(edit);
                     dialog.dismiss();
                 }
@@ -1548,7 +1543,6 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
                 try {
                     SessionManager sessionManager = new SessionManager(getActivity());
-                    ;
 
                     String name = response.body().getUserData().getFirstName();
                     String company = response.body().getUserData().getCompanyName();

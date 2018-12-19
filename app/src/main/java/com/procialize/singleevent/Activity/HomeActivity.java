@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
@@ -23,7 +24,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -43,19 +43,18 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.procialize.singleevent.Adapter.AgendaAdapter;
 import com.procialize.singleevent.Adapter.CustomMenuAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.CustomTools.CustomViewPager;
+import com.procialize.singleevent.CustomTools.MyJZVideoPlayerStandard;
 import com.procialize.singleevent.DbHelper.ConnectionDetector;
 import com.procialize.singleevent.DbHelper.DBHelper;
 import com.procialize.singleevent.EmptyViewActivity;
 import com.procialize.singleevent.Fragments.AgendaFolderFragment;
 import com.procialize.singleevent.Fragments.AgendaFragment;
 import com.procialize.singleevent.Fragments.AttendeeFragment;
-
 import com.procialize.singleevent.Fragments.GeneralInfo;
 import com.procialize.singleevent.Fragments.SpeakerFragment;
 import com.procialize.singleevent.Fragments.WallFragment_POST;
@@ -69,7 +68,6 @@ import com.procialize.singleevent.InnerDrawerActivity.AttendeeActivity;
 import com.procialize.singleevent.InnerDrawerActivity.DocumentsActivity;
 import com.procialize.singleevent.InnerDrawerActivity.EngagementActivity;
 import com.procialize.singleevent.InnerDrawerActivity.EventInfoActivity;
-
 import com.procialize.singleevent.InnerDrawerActivity.FeedBackActivity;
 import com.procialize.singleevent.InnerDrawerActivity.FolderQuizActivity;
 import com.procialize.singleevent.InnerDrawerActivity.GalleryActivity;
@@ -82,7 +80,6 @@ import com.procialize.singleevent.InnerDrawerActivity.QADirectActivity;
 import com.procialize.singleevent.InnerDrawerActivity.QASpeakerActivity;
 import com.procialize.singleevent.InnerDrawerActivity.QRGeneratorActivity;
 import com.procialize.singleevent.InnerDrawerActivity.QRScanActivity;
-import com.procialize.singleevent.InnerDrawerActivity.QuizActivity;
 import com.procialize.singleevent.InnerDrawerActivity.SpeakerActivity;
 import com.procialize.singleevent.InnerDrawerActivity.VideoActivity;
 import com.procialize.singleevent.R;
@@ -90,7 +87,6 @@ import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.Res;
 import com.procialize.singleevent.Utility.Util;
 
-import java.net.Inet4Address;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -243,15 +239,15 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
 
         if (session != null) {
-            eventSettingLists = session.loadEventList();
-            eventMenuSettingLists = session.loadMenuEventList();
+            eventSettingLists = SessionManager.loadEventList();
+            eventMenuSettingLists = SessionManager.loadMenuEventList();
             Setting(eventSettingLists);
         }
 
     }
 
     private void afterSettingView() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -261,11 +257,11 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         headerlogoIv = findViewById(R.id.headerlogoIv);
         Util.logomethod(this, headerlogoIv);
 
-        viewPager = (CustomViewPager) findViewById(R.id.viewpager);
+        viewPager = findViewById(R.id.viewpager);
         viewPager.setPagingEnabled(false);
         setupViewPager(viewPager);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
         tabLayout.setTabTextColors(Color.parseColor("#4D4D4D"), Color.parseColor(colorActive));
@@ -452,7 +448,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
 
         //Initializing NavigationView
-        navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        navigationView = findViewById(R.id.navigation_view);
         menurecycler = navigationView.findViewById(R.id.menurecycler);
         logout = navigationView.findViewById(R.id.logout);
         home = navigationView.findViewById(R.id.home);
@@ -617,7 +613,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
 
         // Initializing Drawer Layout and ActionBarToggle
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        drawerLayout = findViewById(R.id.drawer);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.openDrawer, R.string.closeDrawer) {
 
             @Override
@@ -652,15 +648,15 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
     public void profiledetails() {
 
         View header = navigationView.getHeaderView(0);
-        RelativeLayout outer = (RelativeLayout) findViewById(R.id.my);
-        RelativeLayout headerRel = (RelativeLayout) outer.findViewById(R.id.relbelo);
+        RelativeLayout outer = findViewById(R.id.my);
+        RelativeLayout headerRel = outer.findViewById(R.id.relbelo);
 
-        TextView nameTv = (TextView) outer.findViewById(R.id.nameTv);
-        TextView lastNameTv = (TextView) outer.findViewById(R.id.lastNameTv);
-        TextView designationTv = (TextView) outer.findViewById(R.id.designationTv);
-        TextView compantyTv = (TextView) outer.findViewById(R.id.compantyTv);
-        final ImageView profileIV = (ImageView) outer.findViewById(R.id.profileIV);
-        final ProgressBar progressView = (ProgressBar) outer.findViewById(R.id.progressView);
+        TextView nameTv = outer.findViewById(R.id.nameTv);
+        TextView lastNameTv = outer.findViewById(R.id.lastNameTv);
+        TextView designationTv = outer.findViewById(R.id.designationTv);
+        TextView compantyTv = outer.findViewById(R.id.compantyTv);
+        final ImageView profileIV = outer.findViewById(R.id.profileIV);
+        final ProgressBar progressView = outer.findViewById(R.id.progressView);
 
         eventname = outer.findViewById(R.id.eventname);
         eventname.setTextColor(Color.parseColor(colorActive));
@@ -874,7 +870,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                 attendee.equalsIgnoreCase("0") && speaker.equalsIgnoreCase("0") &&
                 general_ifo.equalsIgnoreCase("0")) {
             adapter.addFragment(new WallFragment_POST(), "News Feed");
-            tabLayout = (TabLayout) findViewById(R.id.tabs);
+            tabLayout = findViewById(R.id.tabs);
             AppBarLayout appTab = findViewById(R.id.appTab);
 //            appTab.setElevation(0);
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
@@ -1046,24 +1042,34 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
-        builder.setTitle("Exit");
-        builder.setMessage("Are you sure you want to exit?");
-        builder.setNegativeButton("NO",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,
-                                        int which) {
-                        dialog.dismiss();
-                    }
-                });
-        builder.setPositiveButton("YES",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,
-                                        int which) {
-                        finish();
-                    }
-                });
-        builder.show();
+
+        boolean check = MyJZVideoPlayerStandard.backPress();
+
+        if(check==true)
+        {
+            MyJZVideoPlayerStandard.goOnPlayOnPause();
+            MyJZVideoPlayerStandard.quitFullscreenOrTinyWindow();
+        }else {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+            builder.setTitle("Exit");
+            builder.setMessage("Are you sure you want to exit?");
+            builder.setNegativeButton("NO",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,
+                                            int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            builder.setPositiveButton("YES",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,
+                                            int which) {
+                            finish();
+                        }
+                    });
+            builder.show();
+        }
     }
 
 
