@@ -266,21 +266,9 @@ public class AgendaFragment extends Fragment implements AgendaAdapter.AgendaAdap
                         agendafeedrefresh.setRefreshing(false);
                     }
                     if(response.body().getMsg().equalsIgnoreCase("Invalid Token!")){
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                        builder.setTitle("Message");
-                        builder.setMessage(response.body().getMsg());
-
-                        builder.setPositiveButton("YES",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,
-                                                        int which) {
-                                        //sessionManager.logoutUser();
-                                        Intent main = new Intent(getContext(), LoginActivity.class);
-                                        startActivity(main);
-                                        getActivity().finish();
-                                    }
-                                });
-                        builder.show();
+                        Intent main = new Intent(getContext(), LoginActivity.class);
+                        startActivity(main);
+                        getActivity().finish();
                     }else {
 
                         showResponse(response);

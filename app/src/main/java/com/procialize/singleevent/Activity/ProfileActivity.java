@@ -560,6 +560,13 @@ public class ProfileActivity extends AppCompatActivity {
             } else {
 
             }
+            if(response.body().getMsg().equalsIgnoreCase("Invalid Token!")){
+                sessionManager.logoutUser();
+                Intent main = new Intent(ProfileActivity.this, LoginActivity.class);
+                startActivity(main);
+                finish();
+
+            }
         } else {
             Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
 
@@ -733,6 +740,13 @@ public class ProfileActivity extends AppCompatActivity {
                 public void onResponse(Call<ProfileSave> call, Response<ProfileSave> response) {
                     try {
                         Dismissprogress();
+                        if(response.body().getMsg().equalsIgnoreCase("Invalid Token!")){
+                            sessionManager.logoutUser();
+                            Intent main = new Intent(ProfileActivity.this, LoginActivity.class);
+                            startActivity(main);
+                            finish();
+
+                        }
                         if (response.body().getStatus().equals("success")) {
                             Log.i("hit", "post submitted to API." + response.body().toString());
 
