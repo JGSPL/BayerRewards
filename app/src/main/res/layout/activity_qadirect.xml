@@ -57,7 +57,7 @@
         android:padding="4sp"
         android:text="@string/qadirect"
         android:textColor="@color/black"
-        android:textSize="@dimen/textsizenormal" />
+        android:textSize="@dimen/textsizesmall" />
 
     <com.procialize.singleevent.Fonts.RobotoButton
         android:id="@+id/postbtn"

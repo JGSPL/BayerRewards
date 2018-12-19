@@ -57,7 +57,7 @@
         android:textColor="@color/activetab"
         android:gravity="center"
         android:padding="4sp"
-        android:textSize="@dimen/textsizenormal"
+        android:textSize="@dimen/textsizesmall"
         android:text="@string/gallery"
         />
 

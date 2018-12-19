@@ -23,6 +23,7 @@ import com.bumptech.glide.request.target.Target;
 import com.procialize.singleevent.Activity.EventChooserActivity;
 import com.procialize.singleevent.Activity.HomeActivity;
 import com.procialize.singleevent.Activity.ProfileActivity;
+import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.R;
 
 import java.util.HashMap;
@@ -30,9 +31,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class Util
-{
-    public static  void setTextViewDrawableColor(TextView textView, String color) {
+public class Util {
+    public static void setTextViewDrawableColor(TextView textView, String color) {
         for (Drawable drawable : textView.getCompoundDrawables()) {
             if (drawable != null) {
                 drawable.setColorFilter(new PorterDuffColorFilter(Color.parseColor(color), PorterDuff.Mode.SRC_IN));
@@ -44,15 +44,15 @@ public class Util
 
     {
         String logoHeader = HomeActivity.logoImg;
-        if((logoHeader.equalsIgnoreCase("")) || logoHeader == null) {
-           headerlogoIv.setImageResource(R.drawable.header_logo);
+        if ((logoHeader.equalsIgnoreCase("")) || logoHeader == null) {
+            headerlogoIv.setImageResource(R.drawable.header_logo);
 
-        }else{
+        } else {
 
-            Glide.with(context).load("http://www.procialize.info/uploads/app_logo/" + HomeActivity.logoImg).listener(new RequestListener<Drawable>() {
+            Glide.with(context).load(ApiConstant.imgURL + "uploads/app_logo/" + HomeActivity.logoImg).listener(new RequestListener<Drawable>() {
                 @Override
                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                    headerlogoIv.setImageResource(R.drawable.splashlogo);
+                    headerlogoIv.setImageResource(R.drawable.header_logo);
                     return true;
                 }
 
@@ -63,21 +63,21 @@ public class Util
             }).into(headerlogoIv);
         }
     }
-    public static void logomethod1(final Context context, final ImageView headerlogoIv)
-    {
+
+    public static void logomethod1(final Context context, final ImageView headerlogoIv) {
         String logoHeader = ProfileActivity.logoImg;
 
 
-        if((logoHeader.equalsIgnoreCase("")) || logoHeader == null) {
+        if ((logoHeader.equalsIgnoreCase("")) || logoHeader == null) {
             headerlogoIv.setImageResource(R.drawable.header_logo);
 
-        }else{
+        } else {
 
 
-            Glide.with(context).load("http://www.procialize.info/uploads/app_logo/" + ProfileActivity.logoImg).listener(new RequestListener<Drawable>() {
+            Glide.with(context).load(ApiConstant.imgURL + "uploads/app_logo/" + ProfileActivity.logoImg).listener(new RequestListener<Drawable>() {
                 @Override
                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                    headerlogoIv.setImageResource(R.drawable.splashlogo);
+                    headerlogoIv.setImageResource(R.drawable.header_logo);
                     return true;
                 }
 
@@ -146,7 +146,6 @@ public class Util
         }
         return bitmap;
     }
-
 
 
 }

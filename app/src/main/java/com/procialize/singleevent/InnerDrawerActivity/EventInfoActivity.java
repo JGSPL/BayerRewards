@@ -77,7 +77,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
     LinearLayout linMap;
 
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid,colorActive;
+    String eventid, colorActive;
     ImageView headerlogoIv;
 
 
@@ -89,7 +89,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
-        colorActive = prefs.getString("colorActive","");
+        colorActive = prefs.getString("colorActive", "");
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -127,12 +127,12 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
         back = findViewById(R.id.back);
         linMap = findViewById(R.id.linMap);
 
-        TextView header = (TextView)findViewById(R.id.event_info_heading);
+        TextView header = (TextView) findViewById(R.id.event_info_heading);
         header.setTextColor(Color.parseColor(colorActive));
         nameTv.setTextColor(Color.parseColor(colorActive));
 
 
-        RelativeLayout layoutTop = (RelativeLayout)findViewById(R.id.layoutTop);
+        RelativeLayout layoutTop = (RelativeLayout) findViewById(R.id.layoutTop);
         layoutTop.setBackgroundColor(Color.parseColor(colorActive));
 
 
@@ -278,7 +278,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
                     }
                     eventvenu.setText("Venue:- " + response.body().getEventList().get(0).getEventLocation());
                     event_desc.setText(response.body().getEventList().get(0).getEventDescription());
-                    String image_final_url = /*ApiConstant.baseUrl*/"https://www.procialize.info/uploads/app_logo/" + response.body().getEventList().get(0).getLogo();
+                    String image_final_url = ApiConstant.imgURL + "uploads/app_logo/" + response.body().getEventList().get(0).getLogo();
 
 //                Glide.with(getApplicationContext()).load(image_final_url).into(logoIv).onLoadStarted(getDrawable(R.drawable.logo));
                     Glide.with(getApplicationContext()).load(image_final_url)

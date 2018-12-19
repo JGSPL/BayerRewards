@@ -62,7 +62,7 @@
             android:padding="5dp"
             android:text="Quiz"
             android:textColor="@color/activetab"
-            android:textSize="18sp" />
+            android:textSize="@dimen/textsizesmall" />
 
         <RelativeLayout
             android:id="@+id/relative"

@@ -69,7 +69,7 @@
         android:padding="@dimen/padding"
         android:text="@string/livepol"
         android:textColor="@color/activetab"
-        android:textSize="@dimen/textsizenormal" />
+        android:textSize="@dimen/textsizesmall" />
 
     <RelativeLayout
         android:id="@+id/relative"

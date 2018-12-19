@@ -71,13 +71,12 @@ public class NewsfeedAdapter extends BaseAdapter {
     HashMap<String, String> user;
     private LayoutInflater inflater;
     final String profilepic;
-    String news_feed_post = "1", news_feed_images = "1", news_feed_video = "1";
+    String news_feed_post = "1", news_feed_images = "1", news_feed_video = "1", designatio = "1", company = "1";
     String topMgmtFlag;
     Boolean value;
     String MY_PREFS_NAME = "ProcializeInfo";
     String MY_PREFS_LOGIN = "ProcializeLogin";
     String colorActive;
-
 
 
     public NewsfeedAdapter(Context con, List<NewsFeedList> feedLists, FeedAdapterListner listener, Boolean value) {
@@ -91,8 +90,7 @@ public class NewsfeedAdapter extends BaseAdapter {
         profilepic = user.get(SessionManager.KEY_PIC);
         topMgmtFlag = sessionManager.getSkipFlag();
         SharedPreferences prefs = con.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        colorActive = prefs.getString("colorActive","");
-
+        colorActive = prefs.getString("colorActive", "");
 
 
     }
@@ -210,8 +208,7 @@ public class NewsfeedAdapter extends BaseAdapter {
 
         if (position == 0) {
 
-            if (value==true)
-            {
+            if (value == true) {
                 if (topMgmtFlag.equalsIgnoreCase("1")) {
                     holder.post_layout.setVisibility(RelativeLayout.VISIBLE);
 
@@ -275,8 +272,7 @@ public class NewsfeedAdapter extends BaseAdapter {
 //                getActivity().finish();
                     }
                 });
-            }else
-            {
+            } else {
                 if (topMgmtFlag.equalsIgnoreCase("1")) {
                     holder.post_layout.setVisibility(RelativeLayout.VISIBLE);
 
@@ -352,8 +348,20 @@ public class NewsfeedAdapter extends BaseAdapter {
             holder.nameTv.setText(feed.getFirstName() + " " + feed.getLastName());
         }
 
-        holder.companyTv.setText(feed.getCompanyName());
-        holder.designationTv.setText(feed.getDesignation());
+        if(designatio.equalsIgnoreCase("0")){
+            holder.designationTv.setVisibility(View.GONE);
+        }else {
+            holder.designationTv.setText(feed.getDesignation());
+            holder.designationTv.setVisibility(View.VISIBLE);
+        }
+
+        if(company.equalsIgnoreCase("0")){
+            holder.companyTv.setVisibility(View.GONE);
+        }else {
+            holder.companyTv.setText(feed.getCompanyName());
+            holder.companyTv.setVisibility(View.VISIBLE);
+        }
+
         holder.headingTv.setText(StringEscapeUtils.unescapeJava(feed.getPostStatus()));
         holder.liketext.setText(feed.getTotalLikes() + " Likes ");
         holder.commenttext.setText(feed.getTotalComments() + " Comments ");
@@ -393,14 +401,14 @@ public class NewsfeedAdapter extends BaseAdapter {
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
-        if(feed.getLikeFlag()!=null) {
+        if (feed.getLikeFlag() != null) {
             if (feed.getLikeFlag().equals("1")) {
 
                 // holder.img_like.setBackgroundResource(R.drawable.ic_afterlike);
 
                 holder.img_like.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_afterlike, 0);
                 int colorInt = Color.parseColor(colorActive);
-                setTextViewDrawableColor( holder.img_like,colorActive);
+                setTextViewDrawableColor(holder.img_like, colorActive);
 
             /*ColorStateList csl = ColorStateList.valueOf(colorInt);
             Drawable drawable = DrawableCompat.wrap(holder.img_like.getDrawableState());
@@ -414,7 +422,7 @@ public class NewsfeedAdapter extends BaseAdapter {
             }
         }
 
-        if(feed.getPostDate()!=null) {
+        if (feed.getPostDate() != null) {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             try {
                 Date date1 = formatter.parse(feed.getPostDate());
@@ -706,7 +714,7 @@ public class NewsfeedAdapter extends BaseAdapter {
 
     static class ViewHolder {
         public TextView nameTv, designationTv, companyTv, dateTv, headingTv, liketext, commenttext, sharetext, img_like;
-        private LinearLayout likeTv, commentTv, shareTv, mindTv, mainLLpost, post_layout,feedll;
+        private LinearLayout likeTv, commentTv, shareTv, mindTv, mainLLpost, post_layout, feedll;
         public ImageView img_vol, img_playback;
         public ProgressBar progressView, feedprogress;
         public ScaledImageView feedimageIv, profileIv, profilestatus;
@@ -847,6 +855,12 @@ public class NewsfeedAdapter extends BaseAdapter {
             }
             if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("news_feed_images")) {
                 news_feed_images = eventSettingLists.get(i).getFieldValue();
+            }
+            if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("edit_profile_designation")) {
+                designatio = eventSettingLists.get(i).getFieldValue();
+            }
+            if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("edit_profile_company")) {
+                company = eventSettingLists.get(i).getFieldValue();
             }
         }
     }

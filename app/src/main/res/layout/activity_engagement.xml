@@ -55,7 +55,7 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:textColor="@color/activetab"
-        android:textSize="@dimen/textsizenormal"
+        android:textSize="@dimen/textsizesmall"
         android:text="@string/engagement"
         android:id="@+id/title"
         android:layout_width="match_parent"
