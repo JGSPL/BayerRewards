@@ -59,7 +59,7 @@
         android:padding="4sp"
         android:text="Survey"
         android:textColor="@color/activetab"
-        android:textSize="@dimen/textsizenormal" />
+        android:textSize="@dimen/textsizesmall" />
 
     <com.procialize.singleevent.Fonts.RobotoTextview
         android:id="@+id/pullrefresh"
@@ -88,7 +88,10 @@
             android:id="@+id/feedbackRv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp">
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="10dp">
 
         </android.support.v7.widget.RecyclerView>
     </android.support.v4.widget.SwipeRefreshLayout>

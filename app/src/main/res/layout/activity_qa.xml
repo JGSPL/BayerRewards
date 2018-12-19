@@ -59,7 +59,7 @@
         android:text="@string/qa"
         android:id="@+id/title"
         android:textColor="@color/activetab"
-        android:textSize="@dimen/textsizenormal" />
+        android:textSize="@dimen/textsizesmall" />
 
 
     <com.procialize.singleevent.Fonts.RobotoTextview

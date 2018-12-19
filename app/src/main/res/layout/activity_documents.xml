@@ -58,13 +58,13 @@
         android:text="@string/documents"
         android:id="@+id/title"
         android:textColor="@color/activetab"
-        android:textSize="@dimen/textsizenormal" />
+        android:textSize="@dimen/textsizesmall" />
 
     <com.procialize.singleevent.Fonts.RobotoTextview
         android:id="@+id/pullrefresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="4dp"
         android:alpha="0.8"
         android:gravity="center"
         android:text="Pull Down to Refresh"
@@ -89,7 +89,10 @@
             android:id="@+id/docRv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp">
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="4dp">
 
         </android.support.v7.widget.RecyclerView>
 

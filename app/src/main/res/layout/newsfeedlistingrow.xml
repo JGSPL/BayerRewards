@@ -195,7 +195,8 @@
                     android:paddingLeft="5dp"
                     android:text=""
                     android:textColor="@color/black"
-                    android:textSize="@dimen/textsizesmall" />
+                    android:textSize="@dimen/textsizesmall"
+                    android:visibility="gone"/>
 
 
                 <com.procialize.singleevent.Fonts.RobotoTextview

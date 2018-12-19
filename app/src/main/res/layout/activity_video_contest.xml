@@ -65,7 +65,7 @@
             android:text="@string/video"
             android:id="@+id/title"
             android:textColor="@color/activetab"
-            android:textSize="@dimen/textsizenormal" />
+            android:textSize="@dimen/textsizesmall" />
 
         <com.procialize.singleevent.Fonts.RobotoButton
             android:id="@+id/uploadbtn"
@@ -77,7 +77,8 @@
             android:padding="2dp"
             android:text="@string/upload"
             android:textAllCaps="false"
-            android:textColor="@color/colorwhite" />
+            android:textColor="@color/colorwhite"
+            android:textSize="@dimen/textsizesmall"/>
 
 
         <ProgressBar
