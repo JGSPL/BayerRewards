@@ -498,8 +498,16 @@ public class ProfileActivity extends AppCompatActivity {
 
                 if (response.isSuccessful()) {
                     Log.i("hit", "post submitted to API." + response.body().toString());
+                    if(response.body().getMsg().equalsIgnoreCase("Invalid Token!")){
+                        sessionManager.logoutUser();
+                        Intent main = new Intent(ProfileActivity.this, LoginActivity.class);
+                        startActivity(main);
+                        finish();
 
-                    showResponse(response);
+                    }else {
+
+                        showResponse(response);
+                    }
 //                    dismissProgress();
 //                    showResponse(response);
                 } else {

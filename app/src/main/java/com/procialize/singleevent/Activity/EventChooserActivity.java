@@ -172,7 +172,14 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
                 if (response.isSuccessful()) {
                     Log.i("hit", "post submitted to API." + response.body().toString());
                     dismissProgress();
-                    showResponse(response);
+                    if(response.body().getMsg().equalsIgnoreCase("Invalid Token!")){
+                        Intent main = new Intent(EventChooserActivity.this, LoginActivity.class);
+                        startActivity(main);
+                        finish();
+
+                    }else {
+                        showResponse(response);
+                    }
                 } else {
                     dismissProgress();
                     Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
