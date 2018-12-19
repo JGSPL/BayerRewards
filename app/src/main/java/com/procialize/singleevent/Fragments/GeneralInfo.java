@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.procialize.singleevent.Activity.CurrencyConverter;
 import com.procialize.singleevent.Activity.InitGeneralInfoActivity;
+import com.procialize.singleevent.Activity.LoginActivity;
 import com.procialize.singleevent.Activity.TimeWeatherActivity;
 import com.procialize.singleevent.Adapter.GeneralInfoListAdapter;
 import com.procialize.singleevent.Adapter.MyAdapter;
@@ -72,6 +73,7 @@ public class GeneralInfo extends Fragment implements GeneralInfoListAdapter.Gene
     LinearLayout insertPoint;
     String MY_PREFS_NAME = "ProcializeInfo";
     String colorActive;
+    SessionManager sessionManager;
 
 
 
@@ -86,6 +88,7 @@ public class GeneralInfo extends Fragment implements GeneralInfoListAdapter.Gene
         SharedPreferences prefs1 = getActivity().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         colorActive = prefs1.getString("colorActive","");
 
+        sessionManager = new SessionManager(getContext());
 
         weather_tv = (TextView) view.findViewById(R.id.weather_tv);
         abtcurency_tv = (TextView) view.findViewById(R.id.abtcurency_tv);
@@ -207,13 +210,22 @@ public class GeneralInfo extends Fragment implements GeneralInfoListAdapter.Gene
 
                 if (response.body().getStatus().equals("success")) {
                    dismissProgress();
-                    Log.i("hit", "post submitted to API." + response.body().toString());
-                    generalinfoLists = response.body().getInfoList();
+                    if(response.body().getMsg().equalsIgnoreCase("Invalid Token!")){
+                        sessionManager.logoutUser();
+                        Intent main = new Intent(getContext(), LoginActivity.class);
+                        startActivity(main);
+                        getActivity().finish();
+
+                    }else {
+
+                        Log.i("hit", "post submitted to API." + response.body().toString());
+                        generalinfoLists = response.body().getInfoList();
 
 
-                    generalInfoListAdapter = new GeneralInfoListAdapter(getActivity(), generalinfoLists, GeneralInfo.this);
-                    generalInfoListAdapter.notifyDataSetChanged();
-                    general_item_list.setAdapter(generalInfoListAdapter);
+                        generalInfoListAdapter = new GeneralInfoListAdapter(getActivity(), generalinfoLists, GeneralInfo.this);
+                        generalInfoListAdapter.notifyDataSetChanged();
+                        general_item_list.setAdapter(generalInfoListAdapter);
+                    }
 
 
                     if (generalInforefresh.isRefreshing()) {

@@ -3,6 +3,7 @@ package com.procialize.singleevent.Fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -22,6 +24,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.procialize.singleevent.Activity.AgendaDetailActivity;
+import com.procialize.singleevent.Activity.LoginActivity;
 import com.procialize.singleevent.Adapter.AgendaAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
@@ -262,7 +265,26 @@ public class AgendaFragment extends Fragment implements AgendaAdapter.AgendaAdap
                     if (agendafeedrefresh.isRefreshing()) {
                         agendafeedrefresh.setRefreshing(false);
                     }
-                    showResponse(response);
+                    if(response.body().getMsg().equalsIgnoreCase("Invalid Token!")){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder.setTitle("Message");
+                        builder.setMessage(response.body().getMsg());
+
+                        builder.setPositiveButton("YES",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int which) {
+                                        //sessionManager.logoutUser();
+                                        Intent main = new Intent(getContext(), LoginActivity.class);
+                                        startActivity(main);
+                                        getActivity().finish();
+                                    }
+                                });
+                        builder.show();
+                    }else {
+
+                        showResponse(response);
+                    }
                 } else {
                     progressBar.setVisibility(View.GONE);
                     if (agendafeedrefresh.isRefreshing()) {

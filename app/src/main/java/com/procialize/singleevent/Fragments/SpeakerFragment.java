@@ -1,6 +1,7 @@
 package com.procialize.singleevent.Fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -22,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.procialize.singleevent.Activity.LoginActivity;
 import com.procialize.singleevent.Activity.SpeakerDetailsActivity;
 import com.procialize.singleevent.Adapter.SpeakerAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
@@ -78,6 +81,7 @@ public class SpeakerFragment extends Fragment implements SpeakerAdapter.SpeakerA
     private List<SpeakerList> speakerList;
     private List<SpeakerList> speakersDBList;
     private DBHelper dbHelper;
+    SessionManager sessionManager;
 
     String eventid;
     String MY_PREFS_NAME = "ProcializeInfo";
@@ -130,6 +134,7 @@ public class SpeakerFragment extends Fragment implements SpeakerAdapter.SpeakerA
 
         cd = new ConnectionDetector(getActivity());
         dbHelper = new DBHelper(getActivity());
+        sessionManager = new SessionManager(getContext());
 
         procializeDB = new DBHelper(getActivity());
         db = procializeDB.getWritableDatabase();
@@ -236,7 +241,25 @@ public class SpeakerFragment extends Fragment implements SpeakerAdapter.SpeakerA
                     if (speakerfeedrefresh.isRefreshing()) {
                         speakerfeedrefresh.setRefreshing(false);
                     }
-                    showResponse(response);
+                    if(response.body().getMsg().equalsIgnoreCase("Invalid Token!")){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder.setTitle("Message");
+                        builder.setMessage(response.body().getMsg());
+
+                        builder.setPositiveButton("Exit",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int which) {
+                                        sessionManager.logoutUser();
+                                        Intent main = new Intent(getContext(), LoginActivity.class);
+                                        startActivity(main);
+                                        getActivity().finish();
+                                    }
+                                });
+                        builder.show();
+                    }else {
+                        showResponse(response);
+                    }
                 } else {
 
                     hideProgress();

@@ -23,4 +23,15 @@ public class FetchAgenda {
         this.agendaList = agendaList;
     }
 
+    @SerializedName("msg")
+    @Expose
+    private String msg;
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
 }

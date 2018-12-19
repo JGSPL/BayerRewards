@@ -2,6 +2,7 @@ package com.procialize.singleevent.Fragments;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
@@ -17,6 +18,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -39,8 +41,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.procialize.singleevent.Activity.CommentActivity;
+import com.procialize.singleevent.Activity.HomeActivity;
 import com.procialize.singleevent.Activity.ImageViewActivity;
 import com.procialize.singleevent.Activity.LikeDetailActivity;
+import com.procialize.singleevent.Activity.LoginActivity;
 import com.procialize.singleevent.Activity.PostEditActivity;
 import com.procialize.singleevent.Activity.PostEditActivityOld;
 import com.procialize.singleevent.Adapter.LikeAdapter;
@@ -131,7 +135,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
     private final String KEY_RECYCLER_STATE = "recycler_state";
     private int mScrollState = AbsListView.OnScrollListener.SCROLL_STATE_IDLE;
     private static Bundle mBundleRecyclerViewState;
-
+    SessionManager sessionManager;
 
     private LinearLayoutManager mLayoutManager;
     SharedPreferences prefs;
@@ -174,7 +178,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
         // Inflate the layout for this fragment
         mAPIService = ApiUtils.getAPIService();
 
-        SessionManager sessionManager = new SessionManager(getContext());
+        sessionManager = new SessionManager(getContext());
 
         user = sessionManager.getUserDetails();
 
@@ -926,6 +930,8 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
                     }
 
                     showfetchFeedLikeResponse(response);
+
+
                 } else {
 
                     if (progressBar.getVisibility() == View.VISIBLE) {
@@ -1010,9 +1016,17 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
                     if (progressBar.getVisibility() == View.VISIBLE) {
                         progressBar.setVisibility(View.GONE);
                     }
+                    if(response.body().getMsg().equalsIgnoreCase("Invalid Token!")){
+                        sessionManager.logoutUser();
+                        Intent main = new Intent(getContext(), LoginActivity.class);
+                        startActivity(main);
+                        getActivity().finish();
+
+                    }else {
 
 
-                    showResponse(response);
+                        showResponse(response);
+                    }
                 } else {
 
                     if (progressBar.getVisibility() == View.VISIBLE) {
@@ -1514,7 +1528,15 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
                 if (response.isSuccessful()) {
                     Log.i("hit", "post submitted to API." + response.body().toString());
 
-                    showPfResponse(response);
+                    if(response.body().getMsg().equalsIgnoreCase("Invalid Token!")){
+                        sessionManager.logoutUser();
+                        Intent main = new Intent(getContext(), LoginActivity.class);
+                        startActivity(main);
+                        getActivity().finish();
+                    }else {
+
+                        showPfResponse(response);
+                    }
 //                    dismissProgress();
 //                    showResponse(response);
                 } else {
