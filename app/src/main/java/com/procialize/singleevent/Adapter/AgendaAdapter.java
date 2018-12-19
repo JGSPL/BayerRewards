@@ -28,7 +28,7 @@ import java.util.Locale;
 import static android.content.Context.MODE_PRIVATE;
 
 /**
- * Created by Naushad on 10/31/2017.
+ * Created by preet on 10/31/2017.
  */
 
 public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHolder> implements AgendaDateWiseAdapter.AgendaAdapterListner {
