@@ -180,7 +180,10 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
             String[] splitStr = name.split("\\s+");
             fname = splitStr[0] = splitStr[0];
 
-            lname = splitStr[1] = splitStr[1];
+           // lname = splitStr[1] = splitStr[1];
+            lname=name.substring(name.lastIndexOf(""),name.length());
+
+
 
             if (fname == null) {
                 fname = "";
