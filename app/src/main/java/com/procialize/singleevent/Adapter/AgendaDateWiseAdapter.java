@@ -56,6 +56,12 @@ public class AgendaDateWiseAdapter extends RecyclerView.Adapter<AgendaDateWiseAd
     }
 
     @Override
+    public int getItemCount() {
+        return agendaLists.size();
+    }
+
+
+    @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         final AgendaList agenda = agendaLists.get(position);
 
@@ -105,11 +111,6 @@ public class AgendaDateWiseAdapter extends RecyclerView.Adapter<AgendaDateWiseAd
         });
     }
 
-    @Override
-    public int getItemCount() {
-        return agendaLists.size();
-    }
-
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -119,14 +120,14 @@ public class AgendaDateWiseAdapter extends RecyclerView.Adapter<AgendaDateWiseAd
 
         public MyViewHolder(View view) {
             super(view);
-            nameTv = (TextView) view.findViewById(R.id.nameTv);
-            dateTv = (TextView) view.findViewById(R.id.dateTv);
-            descriptionTv = (TextView) view.findViewById(R.id.descriptionTv);
-            tvheading = (TextView) view.findViewById(R.id.tvheading);
-            ic_rightarrow = (ImageView) view.findViewById(R.id.ic_rightarrow);
+            nameTv = view.findViewById(R.id.nameTv);
+            dateTv = view.findViewById(R.id.dateTv);
+            descriptionTv = view.findViewById(R.id.descriptionTv);
+            tvheading = view.findViewById(R.id.tvheading);
+            ic_rightarrow = view.findViewById(R.id.ic_rightarrow);
 
 
-            mainLL = (LinearLayout) view.findViewById(R.id.mainLL);
+            mainLL = view.findViewById(R.id.mainLL);
 
 
 //            itemView.setOnClickListener(new View.OnClickListener() {

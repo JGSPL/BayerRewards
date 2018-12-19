@@ -38,6 +38,12 @@ public class MyJZVideoPlayerStandard extends JZVideoPlayerStandard {
                 } else {
                     //click goto fullscreen
                 }
+            } else if (i == cn.jzvd.R.id.back) {
+                MyJZVideoPlayerStandard.goOnPlayOnPause();
+                MyJZVideoPlayerStandard.quitFullscreenOrTinyWindow();
+            } else if (i == cn.jzvd.R.id.back_tiny) {
+                MyJZVideoPlayerStandard.goOnPlayOnPause();
+                MyJZVideoPlayerStandard.quitFullscreenOrTinyWindow();
             }
         }catch (Exception e)
         {

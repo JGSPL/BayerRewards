@@ -12,12 +12,6 @@ public class ApiConstant {
     //UAT URL
     public static String baseUrl = "https://www.procialize.live/procialize/API/event_api_call/";
 
-    //Applogo URL UAT
-    public static String app_logo = "https://www.procialize.live/";
-
-    //Applogo URL prod
-//    public static String app_logo = "https://www.procialize.info/";
-
     //imag&Video prod
 //    public static String imgURL="https://www.procialize.info/";
 //

@@ -3,10 +3,7 @@ package com.procialize.singleevent.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,7 +25,7 @@ import java.util.Locale;
 import static android.content.Context.MODE_PRIVATE;
 
 /**
- * Created by preet on 10/31/2017.
+ * Created by Naushad on 10/31/2017.
  */
 
 public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHolder> implements AgendaDateWiseAdapter.AgendaAdapterListner {
@@ -59,31 +56,9 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
         context.startActivity(agendadetail);
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvheading;
-        /*nameTv, dateTv, descriptionTv, */
-        public LinearLayout mainLL;
-        public RecyclerView recycler_agenda;
-
-        public MyViewHolder(View view) {
-            super(view);
-//            nameTv = (TextView) view.findViewById(R.id.nameTv);
-//            dateTv = (TextView) view.findViewById(R.id.dateTv);
-//            descriptionTv = (TextView) view.findViewById(R.id.descriptionTv);
-            tvheading = (TextView) view.findViewById(R.id.tvheading);
-            recycler_agenda = (RecyclerView) view.findViewById(R.id.recycler_agenda);
-
-            mainLL = (LinearLayout) view.findViewById(R.id.mainLL);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // send selected contact in callback
-                    listener.onContactSelected(agendaLists.get(getAdapterPosition()));
-                }
-            });
-
-        }
+    @Override
+    public int getItemCount() {
+        return agendaLists.size();
     }
 
 
@@ -99,14 +74,6 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.agendaistingrow, parent, false);
-
-        return new MyViewHolder(itemView);
-    }
-
-    @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final AgendaList agenda = agendaLists.get(position);
 
@@ -114,9 +81,6 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
 //        holder.descriptionTv.setText(agenda.getSessionDescription());
 
         holder.tvheading.setBackgroundColor(Color.parseColor(colorActive));
-
-       // date = agenda.getSessionDate();
-
 
 
         if (!(tempagendaList.isEmpty())) {
@@ -133,9 +97,7 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
             date = agenda.getSessionDate();
 
             try {
-                //SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.UK);
-                SimpleDateFormat originalFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.UK);
-
+                SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.UK);
                 SimpleDateFormat targetFormat = new SimpleDateFormat(" dd\nMMM");
                 Date date = originalFormat.parse(agenda.getSessionDate());
                 String sessiondate = targetFormat.format(date);
@@ -169,18 +131,44 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
         agendaDateWiseAdapter = new AgendaDateWiseAdapter(context, tempagendaList,this);
         agendaDateWiseAdapter.notifyDataSetChanged();
         holder.recycler_agenda.setAdapter(agendaDateWiseAdapter);
-
-
-
-
-
-
     }
+
 
     @Override
-    public int getItemCount() {
-        return agendaLists.size();
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.agendaistingrow, parent, false);
+
+        return new MyViewHolder(itemView);
     }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public TextView tvheading;
+        /*nameTv, dateTv, descriptionTv, */
+        public LinearLayout mainLL;
+        public RecyclerView recycler_agenda;
+
+        public MyViewHolder(View view) {
+            super(view);
+//            nameTv = (TextView) view.findViewById(R.id.nameTv);
+//            dateTv = (TextView) view.findViewById(R.id.dateTv);
+//            descriptionTv = (TextView) view.findViewById(R.id.descriptionTv);
+            tvheading = view.findViewById(R.id.tvheading);
+            recycler_agenda = view.findViewById(R.id.recycler_agenda);
+
+            mainLL = view.findViewById(R.id.mainLL);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // send selected contact in callback
+                    listener.onContactSelected(agendaLists.get(getAdapterPosition()));
+                }
+            });
+
+        }
+    }
+
 
     public interface AgendaAdapterListner {
         void onContactSelected(AgendaList agendaList);
