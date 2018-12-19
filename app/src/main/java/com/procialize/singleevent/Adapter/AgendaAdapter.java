@@ -28,7 +28,7 @@ import java.util.Locale;
 import static android.content.Context.MODE_PRIVATE;
 
 /**
- * Created by Naushad on 10/31/2017.
+ * Created by preet on 10/31/2017.
  */
 
 public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHolder> implements AgendaDateWiseAdapter.AgendaAdapterListner {
@@ -115,7 +115,7 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
 
         holder.tvheading.setBackgroundColor(Color.parseColor(colorActive));
 
-
+       // date = agenda.getSessionDate();
 
 
 
@@ -133,7 +133,9 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
             date = agenda.getSessionDate();
 
             try {
-                SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.UK);
+                //SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.UK);
+                SimpleDateFormat originalFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.UK);
+
                 SimpleDateFormat targetFormat = new SimpleDateFormat(" dd\nMMM");
                 Date date = originalFormat.parse(agenda.getSessionDate());
                 String sessiondate = targetFormat.format(date);

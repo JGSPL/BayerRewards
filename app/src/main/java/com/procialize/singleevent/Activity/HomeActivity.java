@@ -141,7 +141,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
     String eventid, token;
     String email, password;
     CustomMenuAdapter customMenuAdapter;
-    TextView logout, home, contactus, eventname, switchbt, eula, privacy_policy;
+    TextView logout, home, contactus, eventname, switchbt, eula, privacy_policy,eventInfo,notification;
     String eventnamestr;
     public static final int RequestPermissionCode = 8;
     public static String logoImg = "", colorActive = "";
@@ -455,6 +455,9 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         contactus = navigationView.findViewById(R.id.contactus);
         switchbt = navigationView.findViewById(R.id.switchbt);
         privacy_policy = navigationView.findViewById(R.id.privacy_policy);
+        eventInfo = navigationView.findViewById(R.id.eventInfo);
+        notification = navigationView.findViewById(R.id.notification);
+
         eula = navigationView.findViewById(R.id.eula);
 
 //        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -515,6 +518,25 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
             }
         });
+        eventInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent main = new Intent(getApplicationContext(), EventInfoActivity.class);
+                startActivity(main);
+
+            }
+        });
+        notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent main = new Intent(getApplicationContext(), NotificationActivity.class);
+                startActivity(main);
+
+            }
+        });
+
 
         eula.setOnClickListener(new View.OnClickListener() {
             @Override

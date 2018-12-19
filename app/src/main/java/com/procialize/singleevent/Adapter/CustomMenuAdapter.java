@@ -122,6 +122,14 @@ public class CustomMenuAdapter extends RecyclerView.Adapter<CustomMenuAdapter.My
                 holder.topll.setVisibility(View.GONE);
                 holder.relative.setVisibility(View.GONE);
 
+            } else if(menuSettingList.getFieldName().equalsIgnoreCase("side_menu_event_info")||
+                    menuSettingList.getFieldName().equalsIgnoreCase("side_menu_notification")){
+                holder.nameTv.setVisibility(View.GONE);
+                holder.profileIv.setVisibility(View.GONE);
+                holder.mainLL.setVisibility(View.GONE);
+                holder.topll.setVisibility(View.GONE);
+                holder.relative.setVisibility(View.GONE);
+
             }  else{
                 holder.nameTv.setVisibility(View.VISIBLE);
                 holder.profileIv.setVisibility(View.VISIBLE);
@@ -135,10 +143,10 @@ public class CustomMenuAdapter extends RecyclerView.Adapter<CustomMenuAdapter.My
         if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_my_travel")) {
             holder.nameTv.setText("My Travel");
             holder.profileIv.setImageResource(R.drawable.ic_travel);
-        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_notification")) {
+        } /*else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_notification")) {
             holder.nameTv.setText("Notifications");
             holder.profileIv.setImageResource(R.drawable.notification_icon);
-        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_display_qr")) {
+        }*/ else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_display_qr")) {
             holder.nameTv.setText("Qr Badge");
             holder.profileIv.setImageResource(R.drawable.qr_badge);
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_qr_scanner")) {
@@ -165,10 +173,10 @@ public class CustomMenuAdapter extends RecyclerView.Adapter<CustomMenuAdapter.My
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_document")) {
             holder.nameTv.setText("Documents");
             holder.profileIv.setImageResource(R.drawable.ic_documents);
-        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_event_info")) {
+        } /*else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_event_info")) {
             holder.nameTv.setText("Event Info");
             holder.profileIv.setImageResource(R.drawable.ic_info);
-        } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_q&a")) {
+        } */else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_q&a")) {
             holder.nameTv.setText("Q & A");
             holder.profileIv.setImageResource(R.drawable.ic_question);
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_engagement")) {
