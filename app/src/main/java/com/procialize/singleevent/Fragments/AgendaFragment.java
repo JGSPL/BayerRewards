@@ -1,9 +1,7 @@
 package com.procialize.singleevent.Fragments;
 
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,17 +9,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.procialize.singleevent.Activity.AgendaDetailActivity;
 import com.procialize.singleevent.Activity.LoginActivity;
@@ -80,7 +77,7 @@ public class AgendaFragment extends Fragment implements AgendaAdapter.AgendaAdap
     String eventid;
     String MY_PREFS_NAME = "ProcializeInfo";
     String token;
-
+    int rcstate;
     public AgendaFragment() {
         // Required empty public constructor
     }
@@ -118,6 +115,7 @@ public class AgendaFragment extends Fragment implements AgendaAdapter.AgendaAdap
         // Inflate the layout for this fragment
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_agenda, container, false);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         agendarecycler = view.findViewById(R.id.agendarecycler);
         agendafeedrefresh = view.findViewById(R.id.agendafeedrefresh);
         progressBar = view.findViewById(R.id.progressBar);
@@ -328,6 +326,9 @@ public class AgendaFragment extends Fragment implements AgendaAdapter.AgendaAdap
     public void onPause() {
         super.onPause();
 
+        agendarecycler.setAddStatesFromChildren(true);
+        agendarecycler.setDuplicateParentStateEnabled(true);
+        agendarecycler.setHasTransientState(true);
         JZVideoPlayer.releaseAllVideos();
 
     }
@@ -356,10 +357,11 @@ public class AgendaFragment extends Fragment implements AgendaAdapter.AgendaAdap
         });
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
-
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         if (cd.isConnectingToInternet()) {
 
             fetchAgenda(token, eventid);
@@ -368,7 +370,7 @@ public class AgendaFragment extends Fragment implements AgendaAdapter.AgendaAdap
 
             agendaDBList = dbHelper.getAgendaDetails();
             // specify an adapter (see also next example)
-            AgendaAdapter agendaAdapter = new AgendaAdapter(getActivity(), agendaDBList, this);
+            AgendaAdapter agendaAdapter = new AgendaAdapter(getActivity(), agendaDBList, AgendaFragment.this);
             agendaAdapter.notifyDataSetChanged();
             agendarecycler.setAdapter(agendaAdapter);
             agendarecycler.scheduleLayoutAnimation();
@@ -378,7 +380,12 @@ public class AgendaFragment extends Fragment implements AgendaAdapter.AgendaAdap
                 agendafeedrefresh.setRefreshing(false);
             }
         }
+    }
 
+    @Override
+    public void onAttach(Context context) {
+        Log.e("vr", "attach");
+        super.onAttach(context);
     }
 
 

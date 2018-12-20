@@ -29,8 +29,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -290,16 +292,16 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                         JZVideoPlayerStandard.releaseAllVideos();
                         String string = colorActive;
                         int color = Color.parseColor(string);
-
+                        InputMethodManager imm = (InputMethodManager) HomeActivity.this.getSystemService(INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(tabLayout.getWindowToken(), 0);
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this, color); //tabselected color
                         tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
 
-                        if (tab.getText().equals("Agenda")) {
-                            if (cd.isConnectingToInternet()) {
-
-                                fetchAgenda(token, eventid);
-                            }
-                        }
+//                        if (tab.getText().equals("Agenda")) {
+//                            if (cd.isConnectingToInternet()) {
+//                                fetchAgenda(token, eventid);
+//                            }
+//                        }
                     }
 
                     @Override
@@ -307,6 +309,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
                         String string1 = "#4D4D4D";
                         int color1 = Color.parseColor(string1);
+                        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this,color1);//tabunselected color
                         tab.getIcon().setColorFilter(color1, PorterDuff.Mode.SRC_IN);
@@ -333,16 +336,17 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                         JZVideoPlayerStandard.releaseAllVideos();
                         String string = colorActive;
                         int color = Color.parseColor(string);
+                        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this, color); //tabselected color
                         tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
 
-                        if (tab.getText().equals("Agenda")) {
-                            if (cd.isConnectingToInternet()) {
-
-                                fetchAgenda(token, eventid);
-                            }
-                        }
+//                        if (tab.getText().equals("Agenda")) {
+//                            if (cd.isConnectingToInternet()) {
+//
+//                                fetchAgenda(token, eventid);
+//                            }
+//                        }
                     }
 
                     @Override
@@ -350,6 +354,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
                         String string1 = "#4D4D4D";
                         int color1 = Color.parseColor(string1);
+                        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this,color1);//tabunselected color
                         tab.getIcon().setColorFilter(color1, PorterDuff.Mode.SRC_IN);
@@ -375,16 +380,17 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                         JZVideoPlayerStandard.releaseAllVideos();
                         String string = colorActive;
                         int color = Color.parseColor(string);
+                        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this, color); //tabselected color
                         tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
 
-                        if (tab.getText().equals("Agenda")) {
-                            if (cd.isConnectingToInternet()) {
-
-                                fetchAgenda(token, eventid);
-                            }
-                        }
+//                        if (tab.getText().equals("Agenda")) {
+//                            if (cd.isConnectingToInternet()) {
+//
+//                                fetchAgenda(token, eventid);
+//                            }
+//                        }
                     }
 
                     @Override
@@ -392,6 +398,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
                         String string1 = "#4D4D4D";
                         int color1 = Color.parseColor(string1);
+                        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this,color1);//tabunselected color
                         tab.getIcon().setColorFilter(color1, PorterDuff.Mode.SRC_IN);
@@ -414,20 +421,22 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                         JZVideoPlayerStandard.releaseAllVideos();
                         String string = colorActive;
                         int color = Color.parseColor(string);
+                        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this, color); //tabselected color
                         tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
 
-                        if (tab.getText().equals("Agenda")) {
-                            if (cd.isConnectingToInternet()) {
-
-                                fetchAgenda(token, eventid);
-                            }
-                        }
+//                        if (tab.getText().equals("Agenda")) {
+//                            if (cd.isConnectingToInternet()) {
+//
+//                                fetchAgenda(token, eventid);
+//                            }
+//                        }
                     }
 
                     @Override
                     public void onTabUnselected(TabLayout.Tab tab) {
+                        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
 //                       String string1 = "#7898a9";
 //                       int color1 = Color.parseColor(string1);

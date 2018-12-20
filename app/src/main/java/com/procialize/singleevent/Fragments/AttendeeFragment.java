@@ -1,7 +1,5 @@
 package com.procialize.singleevent.Fragments;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -18,11 +15,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.procialize.singleevent.Activity.AttendeeDetailActivity;
 import com.procialize.singleevent.Activity.LoginActivity;
@@ -34,11 +31,9 @@ import com.procialize.singleevent.DbHelper.DBHelper;
 import com.procialize.singleevent.GetterSetter.AttendeeList;
 import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.GetterSetter.FetchAttendee;
-
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -125,6 +120,10 @@ public class AttendeeFragment extends Fragment implements AttendeeAdapter.Attend
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_attendee, container, false);
+
+
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
         attendeerecycler = view.findViewById(R.id.attendeerecycler);
         searchEt = view.findViewById(R.id.searchEt);
         attendeefeedrefresh = view.findViewById(R.id.attendeefeedrefresh);
@@ -348,7 +347,7 @@ public class AttendeeFragment extends Fragment implements AttendeeAdapter.Attend
     @Override
     public void onResume() {
         super.onResume();
-
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
     }
 }

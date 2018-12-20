@@ -56,10 +56,6 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
         context.startActivity(agendadetail);
     }
 
-    @Override
-    public int getItemCount() {
-        return agendaLists.size();
-    }
 
 
     public AgendaAdapter(Context context, List<AgendaList> agendaLists, AgendaAdapterListner listener) {
@@ -74,6 +70,12 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
     }
 
     @Override
+    public int getItemCount() {
+        return agendaLists.size();
+    }
+
+
+    @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final AgendaList agenda = agendaLists.get(position);
 
@@ -81,7 +83,6 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
 //        holder.descriptionTv.setText(agenda.getSessionDescription());
 
         holder.tvheading.setBackgroundColor(Color.parseColor(colorActive));
-
 
         if (!(tempagendaList.isEmpty())) {
             tempagendaList.clear();
@@ -168,7 +169,6 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
 
         }
     }
-
 
     public interface AgendaAdapterListner {
         void onContactSelected(AgendaList agendaList);

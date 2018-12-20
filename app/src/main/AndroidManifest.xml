@@ -32,15 +32,19 @@
 
         <activity
             android:name=".Activity.MainActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.HomeActivity"
+            android:windowSoftInputMode="stateHidden|adjustNothing"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.ProfileActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.SplashActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,6 +55,7 @@
 
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
@@ -63,6 +68,7 @@
         </activity>
         <activity
             android:name=".Activity.SignUpActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -70,28 +76,36 @@
         </activity>
         <activity
             android:name=".Activity.CommentActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.PostViewActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.VideoViewActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="sensor" />
         <activity
             android:name=".Activity.ImageViewActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.SpeakerDetailsActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.AttendeeDetailActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait"
             />
         <activity
             android:name=".Activity.AgendaDetailActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".InnerDrawerActivity.EventInfoActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -99,96 +113,127 @@
         </activity>
         <activity
             android:name=".InnerDrawerActivity.FeedBackActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.PdfViewerActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".InnerDrawerActivity.DocumentsActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".InnerDrawerActivity.MyTravelActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".InnerDrawerActivity.QRGeneratorActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="sensorPortrait" />
         <activity
             android:name=".InnerDrawerActivity.QRScanActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".InnerDrawerActivity.NotificationActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".InnerDrawerActivity.GalleryActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".InnerDrawerActivity.VideoActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".InnerDrawerActivity.LivePollActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.PollDetailActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".InnerDrawerActivity.QuizActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.QuizDetailActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".InnerDrawerActivity.QAAttendeeActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".InnerDrawerActivity.QASpeakerActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".InnerDrawerActivity.EngagementActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".InnerDrawerActivity.GalleryFirstLevelActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".InnerDrawerActivity.VideoFirstLevelActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".InnerDrawerActivity.SelfieContestActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".InnerDrawerActivity.VideoContestActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".InnerDrawerActivity.SelfieUploadActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".InnerDrawerActivity.VideoContestUploadActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".InnerDrawerActivity.SwappingGalleryActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".InnerDrawerActivity.SwappingSelfieActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".CustomTools.DocumentViewerActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".InnerDrawerActivity.AgendaActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".InnerDrawerActivity.SpeakerActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.EventChooserActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.PostEditActivityOld"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.WebViewActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".InnerDrawerActivity.AttendeeActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
 
         <provider
@@ -217,27 +262,90 @@
 
         <!-- Goolge API Key -->
 
-        <activity android:name=".Activity.TimeWeatherActivity" android:screenOrientation="portrait" />
-        <activity android:name=".Activity.CurrencyConverter" android:screenOrientation="portrait" />
-        <activity android:name=".Activity.InitGeneralInfoActivity" android:screenOrientation="portrait" />
-        <activity android:name=".InnerDrawerActivity.GeneralInfoActivity" android:screenOrientation="portrait" />
-        <activity android:name=".InnerDrawerActivity.SelfieContentActivityNew" android:screenOrientation="portrait" />
-        <activity android:name=".Activity.LikeDetailActivity" android:screenOrientation="portrait" />
-        <activity android:name=".InnerDrawerActivity.ExoVideoActivity" android:screenOrientation="portrait" />
-        <activity android:name=".Activity.EULAActivity" android:screenOrientation="portrait" />
-        <activity android:name=".Activity.PrivacyPolicy" android:screenOrientation="portrait" />
-        <activity android:name=".EmptyViewActivity" android:screenOrientation="portrait" />
-        <activity android:name=".Utility.ImageCropActivity" android:screenOrientation="portrait" />
-        <activity android:name=".InnerDrawerActivity.QADirectActivity" android:screenOrientation="portrait" />
-        <activity android:name=".InnerDrawerActivity.AgendaVacationActivity" android:screenOrientation="portrait" />
-        <activity android:name=".InnerDrawerActivity.FolderQuizActivity" android:screenOrientation="portrait" />
-        <activity android:name=".InnerDrawerActivity.WeatherActivity" android:screenOrientation="portrait" />
-        <activity android:name=".Activity.PostActivity" android:screenOrientation="portrait" />
-        <activity android:name=".Activity.SelfiePost" android:screenOrientation="portrait" />
-        <activity android:name=".Activity.PostEditActivity" android:screenOrientation="portrait" />
-        <activity android:name=".Activity.ViewPDFActivity" android:screenOrientation="portrait" />
-        <activity android:name=".Activity.ForgotPasswordActivity" android:screenOrientation="portrait" />
-        <activity android:name=".Activity.EmptyView2" android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.TimeWeatherActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".Activity.CurrencyConverter"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".Activity.InitGeneralInfoActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".InnerDrawerActivity.GeneralInfoActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".InnerDrawerActivity.SelfieContentActivityNew"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".Activity.LikeDetailActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".InnerDrawerActivity.ExoVideoActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".Activity.EULAActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".Activity.PrivacyPolicy"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".EmptyViewActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".Utility.ImageCropActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".InnerDrawerActivity.QADirectActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".InnerDrawerActivity.AgendaVacationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".InnerDrawerActivity.FolderQuizActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".InnerDrawerActivity.WeatherActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".Activity.PostActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".Activity.SelfiePost"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".Activity.PostEditActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".Activity.ViewPDFActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".Activity.ForgotPasswordActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".Activity.EmptyView2"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
     </application>
 
 </manifest>

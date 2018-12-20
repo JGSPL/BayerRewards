@@ -1,7 +1,5 @@
 package com.procialize.singleevent.Fragments;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -18,11 +15,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.procialize.singleevent.Activity.LoginActivity;
 import com.procialize.singleevent.Activity.SpeakerDetailsActivity;
@@ -36,7 +33,6 @@ import com.procialize.singleevent.GetterSetter.FetchSpeaker;
 import com.procialize.singleevent.GetterSetter.SpeakerList;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
-
 
 import java.util.HashMap;
 import java.util.List;
@@ -124,6 +120,8 @@ public class SpeakerFragment extends Fragment implements SpeakerAdapter.SpeakerA
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_speaker, container, false);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
         speakerrecycler = view.findViewById(R.id.speakerrecycler);
 
         speakerfeedrefresh = view.findViewById(R.id.speakerfeedrefresh);
@@ -385,5 +383,11 @@ public class SpeakerFragment extends Fragment implements SpeakerAdapter.SpeakerA
 
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        super.onResume();
     }
 }

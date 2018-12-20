@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,17 +13,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-
 import com.procialize.singleevent.Activity.AgendaDetailActivity;
 import com.procialize.singleevent.Adapter.AgendaListAdapter;
 import com.procialize.singleevent.DbHelper.DBHelper;
 import com.procialize.singleevent.GetterSetter.Agenda;
-
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +31,6 @@ public class AgendaListFragment extends Fragment {
 	private DBHelper dbHelper;
 	private AgendaListAdapter adapter;
 	private String sessionDate;
-
-
 
 	// Session Manager Class
 	SessionManager session;
@@ -89,7 +81,7 @@ public class AgendaListFragment extends Fragment {
 		agendaDBList = new ArrayList<Agenda>();
 		agendaOneList = new ArrayList<Agenda>();
 
-		agendaList = (ListView) getActivity().findViewById(R.id.agenda_list);
+		agendaList = getActivity().findViewById(R.id.agenda_list);
 		agendaList.setScrollingCacheEnabled(false);
 		agendaList.setAnimationCacheEnabled(false);
 //		agendaDBList = dbHelper.getAgendaList();
