@@ -247,14 +247,12 @@
     <!--android:layout_height="50dp" />-->
 
 
-    <ProgressBar
+    <com.procialize.singleevent.CustomTools.CircleDisplay
         android:id="@+id/progressbar"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_below="@+id/ll"
-        android:layout_centerInParent="true"
-        android:layout_margin="10dp"
-        android:visibility="gone"
-        android:background="@drawable/loader"/>
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"/>
 
 </RelativeLayout>

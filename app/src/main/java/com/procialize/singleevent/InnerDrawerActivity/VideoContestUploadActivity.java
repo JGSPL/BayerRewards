@@ -5,9 +5,11 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.media.ThumbnailUtils;
@@ -34,6 +36,7 @@ import com.procialize.singleevent.Activity.HomeActivity;
 import com.procialize.singleevent.Activity.PostViewActivity;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
+import com.procialize.singleevent.CustomTools.CircleDisplay;
 import com.procialize.singleevent.GetterSetter.PostSelfie;
 import com.procialize.singleevent.GetterSetter.PostVideoSelfie;
 import com.procialize.singleevent.R;
@@ -76,7 +79,7 @@ public class VideoContestUploadActivity extends AppCompatActivity {
     String apikey;
     TextInputEditText editTitle;
     APIService mAPIService;
-    ProgressBar progressBar;
+    CircleDisplay progressbar;
     String userChoosenTask;
     private static final int REQUEST_VIDEO_CAPTURE = 300;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
@@ -125,7 +128,7 @@ public class VideoContestUploadActivity extends AppCompatActivity {
         btnSubmit.setBackgroundColor(Color.parseColor(colorActive));
         editTitle = findViewById(R.id.editTitle);
         imgPlay = (ImageView) findViewById(R.id.imgPlay);
-        progressBar = findViewById(R.id.progressBar);
+        progressbar = findViewById(R.id.progressbar);
         sessionManager = new SessionManager(this);
 
         TextView header = (TextView)findViewById(R.id.txtTitle);
@@ -453,16 +456,29 @@ public class VideoContestUploadActivity extends AppCompatActivity {
     }
 
     public void showProgress() {
-        if (progressBar.getVisibility() == View.GONE) {
-            progressBar.setVisibility(View.VISIBLE);
-        }
+
+        progressbar.setVisibility(View.VISIBLE);
+        progressbar.setAnimDuration(4000);
+        progressbar.setValueWidthPercent(25f);
+        progressbar.setFormatDigits(1);
+        progressbar.setDimAlpha(80);
+        progressbar.setTouchEnabled(true);
+        progressbar.setUnit("%");
+        progressbar.setStepSize(0.5f);
+        progressbar.setTextSize(15);
+        progressbar.setColor(Color.parseColor(colorActive));
+        progressbar.showValue(90f, 100f, true);
+
     }
 
     public void dismissProgress() {
-        if (progressBar.getVisibility() == View.VISIBLE) {
-            progressBar.setVisibility(View.GONE);
+
+        if (progressbar.getVisibility() == View.VISIBLE) {
+            progressbar.setVisibility(View.GONE);
         }
+
     }
+
 
     public static File createDirectoryAndSaveFile(Bitmap imageToSave) throws IOException {
 

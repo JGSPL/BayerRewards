@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,6 +16,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -39,6 +41,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
+import com.procialize.singleevent.CustomTools.CircleDisplay;
 import com.procialize.singleevent.DbHelper.ConnectionDetector;
 import com.procialize.singleevent.InnerDrawerActivity.SelfieContestActivity;
 import com.procialize.singleevent.R;
@@ -112,7 +115,7 @@ public class SelfiePost extends Activity {
     String name = "";
 
     String eventId,colorActive;
-    ProgressBar progressBar;
+    CircleDisplay progressbar;
     ImageView headerlogoIv;
 
     @Override
@@ -124,7 +127,7 @@ public class SelfiePost extends Activity {
         editName = (EditText) findViewById(R.id.editTitle);
         btnSubmit = (Button) findViewById(R.id.btnSubmit);
         txtTitle = (TextView) findViewById(R.id.txtTitle);
-        progressBar =  findViewById(R.id.progressBar);
+        progressbar =  findViewById(R.id.progressbar);
 
 
 //        Typeface typeFace = Typeface.createFromAsset(getAssets(), "fonts/FuturaStd-Medium.ttf");
@@ -1133,15 +1136,28 @@ public class SelfiePost extends Activity {
     }
 
     public void showProgress() {
-        if (progressBar.getVisibility() == View.GONE) {
-            progressBar.setVisibility(View.VISIBLE);
-        }
+
+        progressbar.setVisibility(View.VISIBLE);
+        progressbar.setAnimDuration(4000);
+        progressbar.setValueWidthPercent(25f);
+        progressbar.setFormatDigits(1);
+        progressbar.setDimAlpha(80);
+        progressbar.setTouchEnabled(true);
+        progressbar.setUnit("%");
+        progressbar.setStepSize(0.5f);
+        progressbar.setTextSize(15);
+        progressbar.setColor(Color.parseColor(colorActive));
+        progressbar.showValue(90f, 100f, true);
+
     }
 
     public void dismissProgress() {
-        if (progressBar.getVisibility() == View.VISIBLE) {
-            progressBar.setVisibility(View.GONE);
+
+        if (progressbar.getVisibility() == View.VISIBLE) {
+            progressbar.setVisibility(View.GONE);
         }
+
     }
+
 
 }

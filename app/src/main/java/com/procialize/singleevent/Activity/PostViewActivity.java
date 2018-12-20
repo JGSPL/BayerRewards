@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
@@ -47,6 +48,7 @@ import com.bumptech.glide.request.target.Target;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
+import com.procialize.singleevent.CustomTools.CircleDisplay;
 import com.procialize.singleevent.CustomTools.ImagePath_MarshMallow;
 import com.procialize.singleevent.CustomTools.ProgressRequestBodyImage;
 import com.procialize.singleevent.CustomTools.ProgressRequestBodyVideo;
@@ -82,7 +84,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
     TextView postbtn;
 
     APIService mAPIService;
-    ProgressBar progressbar;
+    CircleDisplay progressbar;
     SessionManager sessionManager;
     String apikey = "";
     RequestBody fbody = null;
@@ -1213,10 +1215,16 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
         postbtn.setEnabled(false);
         postEt.setEnabled(false);
         progressbar.setVisibility(View.VISIBLE);
-        progressbar.setProgress(0);   // Main Progress
-        progressbar.setSecondaryProgress(100); // Secondary Progress
-        progressbar.setMax(100); // Maximum Progress
-        progressbar.setProgressDrawable(drawable);
+        progressbar.setAnimDuration(4000);
+        progressbar.setValueWidthPercent(25f);
+        progressbar.setFormatDigits(1);
+        progressbar.setDimAlpha(80);
+        progressbar.setTouchEnabled(true);
+        progressbar.setUnit("%");
+        progressbar.setStepSize(0.5f);
+        progressbar.setTextSize(15);
+        progressbar.setColor(Color.parseColor(colorActive));
+        progressbar.showValue(90f, 100f, true);
 
     }
 
@@ -1237,20 +1245,21 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
 
     @Override
     public void onProgressUpdate(int percentage) {
-        progressbar.setProgress(percentage);
+        Log.e("per",String.valueOf(percentage));
+//        progressbar.showValue(99f, 100f, true);
 
     }
 
     @Override
     public void onError() {
-        progressbar.setProgress(100);
+        progressbar.showValue(100f, 100f, true);
 
         dismissProgress();
     }
 
     @Override
     public void onFinish() {
-        progressbar.setProgress(100);
+        progressbar.showValue(100f, 100f, true);
     }
 
 

@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -52,6 +54,7 @@ import com.procialize.singleevent.Adapter.NewsfeedAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
+import com.procialize.singleevent.CustomTools.CircleDisplay;
 import com.procialize.singleevent.DbHelper.ConnectionDetector;
 import com.procialize.singleevent.DbHelper.DBHelper;
 import com.procialize.singleevent.GetterSetter.Analytic;
@@ -103,7 +106,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
     private String mParam2;
 
     private APIService mAPIService;
-    ProgressBar progressBar;
+    CircleDisplay progressbar;
     ListView feedrecycler;
     SwipeRefreshLayout newsfeedrefresh;
     private FeedFragment.OnFragmentInteractionListener mListener;
@@ -205,7 +208,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
         View view = inflater.inflate(R.layout.wall_post, container, false);
 
         feedrecycler = view.findViewById(R.id.feedrecycler);
-        progressBar = view.findViewById(R.id.progressBar);
+        progressbar = view.findViewById(R.id.progressbar);
 
 
 //        feedrecycler.setHasFixedSize(true);
@@ -908,99 +911,9 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
     }
 
 
-    public void fetchFeedLike(String token, String eventid) {
-
-        if (progressBar.getVisibility() == View.GONE) {
-            progressBar.setVisibility(View.VISIBLE);
-        }
-
-        mAPIService.FeedFetchPost(token, eventid).enqueue(new Callback<FetchFeed>() {
-            @Override
-            public void onResponse(Call<FetchFeed> call, Response<FetchFeed> response) {
-
-                if (response.isSuccessful()) {
-                    Log.i("hit", "post submitted to API." + response.body().toString());
-
-                    if (newsfeedrefresh.isRefreshing()) {
-                        newsfeedrefresh.setRefreshing(false);
-                    }
-
-                    if (progressBar.getVisibility() == View.VISIBLE) {
-                        progressBar.setVisibility(View.GONE);
-                    }
-
-                    showfetchFeedLikeResponse(response);
-
-
-                } else {
-
-                    if (progressBar.getVisibility() == View.VISIBLE) {
-                        progressBar.setVisibility(View.GONE);
-                    }
-                    if (newsfeedrefresh.isRefreshing()) {
-                        newsfeedrefresh.setRefreshing(false);
-                    }
-                   // Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<FetchFeed> call, Throwable t) {
-                Log.e("hit", "Unable to submit post to API.");
-              //  Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
-
-                if (progressBar.getVisibility() == View.VISIBLE) {
-                    progressBar.setVisibility(View.GONE);
-                }
-                if (newsfeedrefresh.isRefreshing()) {
-                    newsfeedrefresh.setRefreshing(false);
-                }
-            }
-        });
-    }
-
-    public void showfetchFeedLikeResponse(Response<FetchFeed> response) {
-
-//        SessionManager sessionManager = new SessionManager(getContext());
-//
-//        String name = response.body().getNewsFeedList().get(0).getFirstName()+" "+response.body().getNewsFeedList().get(0).getLastName();
-//        String designation=response.body().getNewsFeedList().get(0).getDesignation();
-//        String company = response.body().getNewsFeedList().get(0).getCompanyName();
-//        String pic = response.body().getNewsFeedList().get(0).getProfilePic();
-//
-//        sessionManager.createProfileSession(name,company,designation,pic);
-
-        newsfeedList = response.body().getNewsFeedList();
-        procializeDB.clearNewsFeedTable();
-        procializeDB.insertNEwsFeedInfo(newsfeedList, db);
-
-        newsfeedsDBList = dbHelper.getNewsFeedDetails();
-
-        if (newsfeedsDBList.size() == 0) {
-            NewsFeedList newsFeedList = new NewsFeedList();
-            newsFeedList.setType("text");
-
-            newsfeedsDBList.add(newsFeedList);
-            feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, WallFragment_POST.this, true);
-
-        } else {
-            feedAdapter = new NewsfeedAdapter(getActivity(), newsfeedsDBList, WallFragment_POST.this, false);
-            feedAdapter.notifyDataSetChanged();
-            feedrecycler.setAdapter(feedAdapter);
-            feedrecycler.scheduleLayoutAnimation();
-        }
-
-//        feedAdapter.setHasStableIds(true);
-        feedrecycler.setAdapter(feedAdapter);
-
-    }
-
-
     public void fetchFeed(String token, String eventid) {
 
-        if (progressBar.getVisibility() == View.GONE) {
-            progressBar.setVisibility(View.VISIBLE);
-        }
+        showProgress();
 
         mAPIService.FeedFetchPost(token, eventid).enqueue(new Callback<FetchFeed>() {
             @Override
@@ -1013,9 +926,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
                         newsfeedrefresh.setRefreshing(false);
                     }
 
-                    if (progressBar.getVisibility() == View.VISIBLE) {
-                        progressBar.setVisibility(View.GONE);
-                    }
+                    dismissProgress();
                     if(response.body().getMsg().equalsIgnoreCase("Invalid Token!")){
                         sessionManager.logoutUser();
                         Intent main = new Intent(getContext(), LoginActivity.class);
@@ -1029,9 +940,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
                     }
                 } else {
 
-                    if (progressBar.getVisibility() == View.VISIBLE) {
-                        progressBar.setVisibility(View.GONE);
-                    }
+                    dismissProgress();
                     if (newsfeedrefresh.isRefreshing()) {
                         newsfeedrefresh.setRefreshing(false);
                     }
@@ -1042,11 +951,9 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
             @Override
             public void onFailure(Call<FetchFeed> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
-              //  Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
 
-                if (progressBar.getVisibility() == View.VISIBLE) {
-                    progressBar.setVisibility(View.GONE);
-                }
+                dismissProgress();
                 if (newsfeedrefresh.isRefreshing()) {
                     newsfeedrefresh.setRefreshing(false);
                 }
@@ -1249,7 +1156,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
                     ReportPostresponse(response);
                 } else {
 //                    dismissProgress();
-                    Toast.makeText(getContext(),response.body().getMsg(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
 
                     //Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 }
@@ -1338,7 +1245,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
                 } else {
 //                    dismissProgress();
 
-                    Toast.makeText(getContext(),response.body().getMsg(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1482,7 +1389,6 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
     }
 
 
-
     @Override
     public void onPause() {
         super.onPause();
@@ -1594,5 +1500,26 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
         }
     }
 
+    public void showProgress() {
+        progressbar.setVisibility(View.VISIBLE);
+        progressbar.setAnimDuration(4000);
+        progressbar.setValueWidthPercent(25f);
+        progressbar.setFormatDigits(1);
+        progressbar.setDimAlpha(80);
+        progressbar.setTouchEnabled(true);
+        progressbar.setUnit("%");
+        progressbar.setStepSize(0.5f);
+        progressbar.setTextSize(15);
+        progressbar.setColor(Color.parseColor(colorActive));
+        progressbar.showValue(90f, 100f, true);
 
+    }
+
+    public void dismissProgress() {
+
+        if (progressbar.getVisibility() == View.VISIBLE) {
+            progressbar.setVisibility(View.GONE);
+        }
+
+    }
 }

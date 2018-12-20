@@ -8,12 +8,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -44,6 +47,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
+import com.procialize.singleevent.CustomTools.CircleDisplay;
 import com.procialize.singleevent.CustomTools.ImagePath_MarshMallow;
 import com.procialize.singleevent.CustomTools.PicassoTrustAll;
 import com.procialize.singleevent.DbHelper.ConnectionDetector;
@@ -100,7 +104,7 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
     EditText postEt;
     TextView postbtn;
     APIService mAPIService;
-    ProgressBar progressbar;
+    CircleDisplay progressbar;
     SessionManager sessionManager;
     String apikey = "";
     RequestBody fbody = null;
@@ -1750,9 +1754,21 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
     }
 
     public void showProgress() {
+        Resources res = getResources();
+        Drawable drawable = res.getDrawable(R.drawable.progrssdialogback);
         postbtn.setEnabled(false);
         postEt.setEnabled(false);
         progressbar.setVisibility(View.VISIBLE);
+        progressbar.setAnimDuration(4000);
+        progressbar.setValueWidthPercent(25f);
+        progressbar.setFormatDigits(1);
+        progressbar.setDimAlpha(80);
+        progressbar.setTouchEnabled(true);
+        progressbar.setUnit("%");
+        progressbar.setStepSize(0.5f);
+        progressbar.setTextSize(15);
+        progressbar.setColor(Color.parseColor(colorActive));
+        progressbar.showValue(90f, 100f, true);
 
     }
 

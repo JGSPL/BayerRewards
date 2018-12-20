@@ -12,8 +12,8 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="0dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="0dp">
 
 
         <android.support.v7.widget.Toolbar
@@ -39,31 +39,33 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="-10dp"
                 android:contentDescription=" "
-                android:visibility="gone"
-                android:src="@drawable/header_logo" />
+                android:src="@drawable/header_logo"
+                android:visibility="gone" />
+
             <com.procialize.singleevent.Fonts.RobotoTextview
                 android:layout_width="wrap_content"
-                android:text="Post To Wall"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
 
-                android:textColor="@color/black"
-                android:layout_height="wrap_content"/>
+                android:text="Post To Wall"
+                android:textColor="@color/black" />
 
             <com.procialize.singleevent.Fonts.RobotoTextview
                 android:id="@+id/postbtn"
                 android:layout_width="wrap_content"
-                android:text="Post"
+                android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginRight="10dp"
 
-                android:textColor="@color/black"
-                android:layout_height="wrap_content"/>
+                android:text="Post"
+                android:textColor="@color/black" />
 
         </android.support.v7.widget.Toolbar>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/linecolor"/>
+            android:background="@color/linecolor" />
 
 
     </android.support.design.widget.AppBarLayout>
@@ -74,8 +76,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/appBarLayout"
         android:layout_marginTop="5dp"
-        android:weightSum="10"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="10">
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -89,12 +91,11 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_centerHorizontal="true"
-                android:adjustViewBounds="true"
                 android:layout_marginTop="7dp"
+                android:adjustViewBounds="true"
                 android:background="@drawable/border"
-                android:src="@drawable/profilepic_placeholder"
                 android:scaleType="centerCrop"
-                />
+                android:src="@drawable/profilepic_placeholder" />
 
 
         </RelativeLayout>
@@ -104,25 +105,25 @@
             android:layout_height="match_parent"
             android:layout_weight="8">
 
-<!--
-            <com.procialize.singleevent.Fonts.RobotoEditext
-                android:id="@+id/posttextEt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_margin="@dimen/margin"
-                android:background="@drawable/edittextfeedbg"
-                android:gravity="top|left"
-                android:hint="@string/whatsmind"
-                android:imeOptions="actionSend|flagNoEnterAction"
-                android:inputType="textShortMessage|textAutoCorrect|textCapSentences|textMultiLine"
-                android:maxLength="500"
-                android:maxLines="5"
-                android:minLines="2"
-                android:padding="10dp"
-                android:scrollbars="vertical"
-                android:textSize="@dimen/textsizenormal" />
--->
+            <!--
+                        <com.procialize.singleevent.Fonts.RobotoEditext
+                            android:id="@+id/posttextEt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_margin="@dimen/margin"
+                            android:background="@drawable/edittextfeedbg"
+                            android:gravity="top|left"
+                            android:hint="@string/whatsmind"
+                            android:imeOptions="actionSend|flagNoEnterAction"
+                            android:inputType="textShortMessage|textAutoCorrect|textCapSentences|textMultiLine"
+                            android:maxLength="500"
+                            android:maxLines="5"
+                            android:minLines="2"
+                            android:padding="10dp"
+                            android:scrollbars="vertical"
+                            android:textSize="@dimen/textsizenormal" />
+            -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -132,30 +133,31 @@
                     android:id="@+id/posttextEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="80dp"
                     android:layout_centerInParent="true"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="12dp"
                     android:background="@drawable/border"
                     android:gravity="top|left"
                     android:hint="@string/whatsmind"
-                    android:textColorHint="@color/black"
                     android:imeOptions="actionSend|flagNoEnterAction"
                     android:inputType="textShortMessage|textAutoCorrect|textCapSentences|textMultiLine"
                     android:maxLength="500"
                     android:maxLines="5"
+                    android:minHeight="80dp"
                     android:minLines="2"
                     android:padding="10dp"
                     android:scrollbars="vertical"
+                    android:textColorHint="@color/black"
                     android:textSize="16sp" />
+
                 <LinearLayout
                     android:id="@+id/lincounter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
                     android:layout_marginLeft="10dp"
+                    android:gravity="right"
                     android:orientation="horizontal">
 
                     <TextView
@@ -184,11 +186,11 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/ll"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
 
         <ImageView
@@ -198,8 +200,8 @@
             android:layout_margin="10dp"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
-            android:visibility="gone"
-            />
+            android:visibility="gone" />
+
         <ImageView
             android:id="@+id/imgPlay"
             android:layout_width="50dp"
@@ -207,7 +209,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerInParent="true"
             android:src="@drawable/ic_media_play"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -218,9 +220,9 @@
                 android:id="@+id/Upvideov"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:layout_centerHorizontal="true"
-                android:layout_centerInParent="true"/>
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
 
 
         </RelativeLayout>
@@ -235,9 +237,9 @@
         android:layout_margin="10dp"
         android:background="@drawable/loginbutton"
         android:text="@string/post"
-        android:visibility="gone"
         android:textColor="@color/colorwhite"
-        android:textSize="@dimen/textsizesmall" />
+        android:textSize="@dimen/textsizesmall"
+        android:visibility="gone" />
 
     <!--<ProgressBar-->
     <!--android:id="@+id/progressbar"-->
@@ -248,19 +250,12 @@
     <!--android:layout_height="50dp" />-->
 
 
-    <ProgressBar
+    <com.procialize.singleevent.CustomTools.CircleDisplay
         android:id="@+id/progressbar"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_below="@+id/ll"
-        android:layout_centerInParent="true"
-        android:layout_margin="10dp"
-        android:visibility="gone"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:progressDrawable="@drawable/progrssdialogback"
-        android:secondaryProgress="100"
-        android:indeterminate="false"
-        android:max="100"
-        android:progress="50"/>
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"/>
 
 </RelativeLayout>

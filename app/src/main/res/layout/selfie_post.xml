@@ -57,12 +57,13 @@
             android:orientation="vertical">
 
 
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:visibility="gone"
-                android:layout_gravity="center"
-                android:layout_width="20dp"
-                android:layout_height="20dp" />
+            <com.procialize.singleevent.CustomTools.CircleDisplay
+                android:id="@+id/progressbar"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:visibility="gone"/>
 
 
             <com.procialize.singleevent.Fonts.RobotoTextview
