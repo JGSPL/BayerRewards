@@ -234,21 +234,10 @@ public class AttendeeFragment extends Fragment implements AttendeeAdapter.Attend
                         attendeefeedrefresh.setRefreshing(false);
                     }
                     if(response.body().getMsg().equalsIgnoreCase("Invalid Token!")){
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                        builder.setTitle("Message");
-                        builder.setMessage(response.body().getMsg());
-
-                        builder.setPositiveButton("Exit",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,
-                                                        int which) {
-                                        sessionManager.logoutUser();
-                                        Intent main = new Intent(getContext(), LoginActivity.class);
-                                        startActivity(main);
-                                        getActivity().finish();
-                                    }
-                                });
-                        builder.show();
+                        sessionManager.logoutUser();
+                        Intent main = new Intent(getContext(), LoginActivity.class);
+                        startActivity(main);
+                        getActivity().finish();
                     }else {
                         showResponse(response);
                     }
