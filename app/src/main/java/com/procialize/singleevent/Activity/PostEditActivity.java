@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -57,6 +58,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
+import com.procialize.singleevent.CustomTools.CircleDisplay;
 import com.procialize.singleevent.CustomTools.ImagePath_MarshMallow;
 import com.procialize.singleevent.CustomTools.PicassoTrustAll;
 import com.procialize.singleevent.CustomTools.ScaledImageView;
@@ -126,7 +128,7 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
     private String postUrl = "";
     ImageView imgPlay;
     private String senderImageURL = "";
-    ProgressBar progressbar;
+    CircleDisplay progressbar;
     private String actionFlag;
 
     private static int REQUEST_VIDEO_CAPTURE = 100;
@@ -632,7 +634,7 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
         profileIV = findViewById(R.id.profileIV);
         displayRecordedVideo = findViewById(R.id.Upvideov);
         imgPlay = findViewById(R.id.imgPlay);
-        progressbar = (ProgressBar) findViewById(R.id.progressbar);
+        progressbar =  findViewById(R.id.progressbar);
         postbtn.setOnClickListener(this);
 		procializeDB = new DBHelper(PostEditActivity.this);
 		db = procializeDB.getReadableDatabase();
@@ -1984,15 +1986,31 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
     }
 
     public void showProgress() {
-        if (progressbar.getVisibility() == View.GONE) {
-            progressbar.setVisibility(View.VISIBLE);
-        }
+        Resources res = getResources();
+        Drawable drawable = res.getDrawable(R.drawable.progrssdialogback);
+        postbtn.setEnabled(false);
+        postEt.setEnabled(false);
+        progressbar.setVisibility(View.VISIBLE);
+        progressbar.setAnimDuration(4000);
+        progressbar.setValueWidthPercent(25f);
+        progressbar.setFormatDigits(1);
+        progressbar.setDimAlpha(80);
+        progressbar.setTouchEnabled(true);
+        progressbar.setUnit("%");
+        progressbar.setStepSize(0.5f);
+        progressbar.setTextSize(15);
+        progressbar.setColor(Color.parseColor(colorActive));
+        progressbar.showValue(90f, 100f, true);
+
     }
 
     public void dismissProgress() {
+        postbtn.setEnabled(true);
+        postEt.setEnabled(true);
         if (progressbar.getVisibility() == View.VISIBLE) {
             progressbar.setVisibility(View.GONE);
         }
+
     }
 
 
