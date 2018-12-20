@@ -51,12 +51,12 @@ import retrofit2.Response;
 public class GeneralInfoActivity extends AppCompatActivity implements GeneralInfoListAdapter.GeneralInfoListener {
 
     List<EventSettingList> eventSettingLists;
-    TextView weather_tv, abtcurency_tv, about_hotel, pullrefresh,genHeader;
+    TextView weather_tv, abtcurency_tv, about_hotel, pullrefresh, genHeader;
     private APIService mAPIService;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid;
     List<InfoList> generalinfoLists;
-    LinearLayout linearlayout,general_info_cur,general_info_wea;
+    LinearLayout linearlayout, general_info_cur, general_info_wea;
     SwipeRefreshLayout generalInforefresh;
     LinearLayout.LayoutParams params;
     TextView textView;
@@ -64,8 +64,9 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
     GeneralInfoListAdapter generalInfoListAdapter;
     RecyclerView general_item_list;
     ProgressBar progressBar;
-    String api_token,colorActive;
+    String api_token, colorActive;
     ImageView headerlogoIv;
+    String gen_info_all_data = "0", gen_info_currency_converter = "0", gen_info_weather = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +82,7 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
         pullrefresh = (TextView) findViewById(R.id.pullrefresh);
         generalInforefresh = findViewById(R.id.generalInforefresh);
         general_item_list = findViewById(R.id.general_item_list);
-        genHeader=findViewById(R.id.header);
+        genHeader = findViewById(R.id.header);
 
         back = findViewById(R.id.back);
         progressBar = findViewById(R.id.progressBar);
@@ -91,7 +92,7 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
         mAPIService = ApiUtils.getAPIService();
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
-        colorActive = prefs.getString("colorActive","");
+        colorActive = prefs.getString("colorActive", "");
 
 
         params = new LinearLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
@@ -135,28 +136,44 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
         api_token = user.get(SessionManager.KEY_TOKEN);
         SubmitAnalytics(api_token, eventid, "", "", "generalInfo");
 
-//                    generalInfoAdapter.scheduleLayoutAnimation();
-        for (int i = 0; i < eventSettingLists.size(); i++) {
-            String eventName = eventSettingLists.get(i).getFieldName();
-            String eventValue = eventSettingLists.get(i).getFieldValue();
+        Setting(eventSettingLists);
 
-            if (eventName.equalsIgnoreCase("gen_info_weather")) {
-                if (eventValue.equalsIgnoreCase("1")) {
-                    weather_tv.setVisibility(View.VISIBLE);
-                    general_info_wea.setVisibility(View.VISIBLE);
+        if (gen_info_all_data.equalsIgnoreCase("1")) {
+            general_item_list.setVisibility(View.VISIBLE);
+        } else {
+            general_item_list.setVisibility(View.GONE);
+        }
 
-                }
+        if (gen_info_weather.equalsIgnoreCase("1")) {
+            weather_tv.setVisibility(View.VISIBLE);
+            general_info_wea.setVisibility(View.VISIBLE);
 
-            }
+        }
 
-            if (eventName.equalsIgnoreCase("gen_info_currency_converter")) {
-                if (eventValue.equalsIgnoreCase("1")) {
-                    abtcurency_tv.setVisibility(View.VISIBLE);
-                    general_info_cur.setVisibility(View.VISIBLE);
+        if (gen_info_currency_converter.equalsIgnoreCase("1")) {
+            abtcurency_tv.setVisibility(View.VISIBLE);
+            general_info_cur.setVisibility(View.VISIBLE);
+        }
 
+        if(gen_info_all_data.equalsIgnoreCase("0")){
+            if(gen_info_weather.equalsIgnoreCase("0")){
+                if(gen_info_currency_converter.equalsIgnoreCase("0")){
+                    setContentView(R.layout.activity_empty_view);
+                    ImageView imageView = findViewById(R.id.back);
+                    TextView text_empty = findViewById(R.id.text_empty);
+                    ImageView headerlogoIv=findViewById(R.id.headerlogoIv);
+                    Util.logomethod(this,headerlogoIv);
+                    text_empty.setText("General Info List will be Updated shortly");
+                    imageView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            finish();
+                        }
+                    });
                 }
             }
         }
+
 
         weather_tv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,7 +221,7 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
             public void onResponse(Call<GeneralInfoList> call, Response<GeneralInfoList> response) {
 
                 if (response.body().getStatus().equals("success")) {
-                   dismissProgress();
+                    dismissProgress();
                     Log.i("hit", "post submitted to API." + response.body().toString());
                     generalinfoLists = response.body().getInfoList();
 
@@ -276,13 +293,13 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
 
                 } else {
 
-                   // Toast.makeText(GeneralInfoActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(GeneralInfoActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Analytic> call, Throwable t) {
-               // Toast.makeText(GeneralInfoActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(GeneralInfoActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -297,6 +314,24 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
     public void dismissProgress() {
         if (progressBar.getVisibility() == View.VISIBLE) {
             progressBar.setVisibility(View.GONE);
+        }
+    }
+
+    private void Setting(List<EventSettingList> eventSettingLists) {
+
+        if (eventSettingLists.size() != 0) {
+            for (int i = 0; i < eventSettingLists.size(); i++) {
+                if (eventSettingLists.get(i).getFieldName().equals("gen_info_all_data")) {
+                    gen_info_all_data = eventSettingLists.get(i).getFieldValue();
+
+                } else if (eventSettingLists.get(i).getFieldName().equals("gen_info_weather")) {
+                    gen_info_weather = eventSettingLists.get(i).getFieldValue();
+
+                } else if (eventSettingLists.get(i).getFieldName().equals("gen_info_currency_converter")) {
+                    gen_info_currency_converter = eventSettingLists.get(i).getFieldValue();
+
+                }
+            }
         }
     }
 

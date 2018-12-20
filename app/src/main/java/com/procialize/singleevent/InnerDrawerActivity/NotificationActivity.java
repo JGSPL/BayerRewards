@@ -191,6 +191,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
                 setContentView(R.layout.activity_empty_view);
                 ImageView imageView = findViewById(R.id.back);
                 TextView text_empty = findViewById(R.id.text_empty);
+                ImageView headerlogoIv=findViewById(R.id.headerlogoIv);
                 Util.logomethod(this,headerlogoIv);
                 text_empty.setText("Notification not available");
                 imageView.setOnClickListener(new View.OnClickListener() {

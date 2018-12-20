@@ -76,7 +76,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
     String apikey;
     ImageView profileIV;
     ProgressBar progressBar, progressBarmain;
-    String attendee_company, attendee_location, attendee_mobile, attendee_design;
+    String attendee_company, attendee_location, attendee_mobile, attendee_design, attendee_savecontact, attendeemsg;
     List<EventSettingList> eventSettingLists;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid, colorActive, eventnamestr;
@@ -207,6 +207,21 @@ public class AttendeeDetailActivity extends AppCompatActivity {
             sendbtn.setVisibility(View.VISIBLE);
             linearsaveandsend.setVisibility(View.VISIBLE);
         }
+
+        if (attendeemsg.equalsIgnoreCase("1")) {
+            linMsg.setVisibility(View.VISIBLE);
+            posttextEt.setVisibility(View.VISIBLE);
+        } else {
+            linMsg.setVisibility(View.GONE);
+            posttextEt.setVisibility(View.GONE);
+        }
+
+        if (attendee_savecontact.equalsIgnoreCase("1")) {
+            linsave.setVisibility(View.VISIBLE);
+        } else {
+            linsave.setVisibility(View.GONE);
+        }
+
 
         if (name.equalsIgnoreCase("N A")) {
             tvname.setVisibility(View.GONE);
@@ -388,6 +403,10 @@ public class AttendeeDetailActivity extends AppCompatActivity {
                 attendee_design = eventSettingLists.get(i).getFieldValue();
             } else if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("attendee_designation")) {
                 attendee_design = eventSettingLists.get(i).getFieldValue();
+            } else if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("attendee_message")) {
+                attendeemsg = eventSettingLists.get(i).getFieldValue();
+            } else if (eventSettingLists.get(i).getFieldName().equalsIgnoreCase("attendee_save_contact")) {
+                attendee_savecontact = eventSettingLists.get(i).getFieldValue();
             }
         }
     }

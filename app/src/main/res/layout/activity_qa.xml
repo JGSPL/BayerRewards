@@ -65,7 +65,7 @@
     <com.procialize.singleevent.Fonts.RobotoTextview
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin"
+        android:layout_margin="5dp"
         android:text="Select Session"
         android:textColor="@color/black"
         android:textSize="@dimen/textsizesmall" />
@@ -74,9 +74,7 @@
         android:id="@+id/spinner"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginBottom="@dimen/margin"
-        android:layout_marginLeft="@dimen/margin"
-        android:layout_marginRight="@dimen/margin"
+        android:layout_margin="5dp"
         android:background="@drawable/spinner_back"
         android:spinnerMode="dropdown">
 
@@ -86,10 +84,7 @@
         android:id="@+id/postbtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin"
-        android:layout_marginLeft="@dimen/margin"
-        android:layout_marginRight="@dimen/margin"
-        android:background="@color/activetab"
+        android:layout_margin="5dp"
         android:gravity="center"
         android:padding="5dp"
         android:text="@string/postquestion"
@@ -131,7 +126,8 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/qaRv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="5dp">
 
         </android.support.v7.widget.RecyclerView>
     </android.support.v4.widget.SwipeRefreshLayout>

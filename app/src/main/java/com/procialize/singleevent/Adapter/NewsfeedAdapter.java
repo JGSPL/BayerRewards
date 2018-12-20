@@ -348,16 +348,16 @@ public class NewsfeedAdapter extends BaseAdapter {
             holder.nameTv.setText(feed.getFirstName() + " " + feed.getLastName());
         }
 
-        if(designatio.equalsIgnoreCase("0")){
+        if (designatio.equalsIgnoreCase("0")) {
             holder.designationTv.setVisibility(View.GONE);
-        }else {
+        } else {
             holder.designationTv.setText(feed.getDesignation());
             holder.designationTv.setVisibility(View.VISIBLE);
         }
 
-        if(company.equalsIgnoreCase("0")){
+        if (company.equalsIgnoreCase("0")) {
             holder.companyTv.setVisibility(View.GONE);
-        }else {
+        } else {
             holder.companyTv.setText(feed.getCompanyName());
             holder.companyTv.setVisibility(View.VISIBLE);
         }
@@ -423,7 +423,7 @@ public class NewsfeedAdapter extends BaseAdapter {
         }
 
         if (feed.getPostDate() != null) {
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat formatter = new SimpleDateFormat(ApiConstant.dateformat + " HH:mm:ss");
             try {
                 Date date1 = formatter.parse(feed.getPostDate());
 

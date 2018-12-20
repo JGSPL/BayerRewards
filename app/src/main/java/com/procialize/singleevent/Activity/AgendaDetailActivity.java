@@ -305,7 +305,7 @@ public class AgendaDetailActivity extends AppCompatActivity {
 
 
     public void PostRate(String eventid, String rating, String token, String speakerid) {
-        showProgress();
+//        showProgress();
 //        showProgress();
         mAPIService.RatingSessionPost(token, eventid, speakerid, rating, "","session").enqueue(new Callback<RatingSessionPost>() {
             @Override
@@ -313,12 +313,12 @@ public class AgendaDetailActivity extends AppCompatActivity {
 
                 if (response.isSuccessful()) {
                     Log.i("hit", "post submitted to API." + response.body().toString());
-                    dismissProgress();
+//                    dismissProgress();
                     ratingbar.setRating(0F);
 //                    dismissProgress();
                     DeletePostresponse(response);
                 } else {
-                    dismissProgress();
+//                    dismissProgress();
 //                    dismissProgress();
                     Toast.makeText(getApplicationContext(),response.message(),Toast.LENGTH_SHORT).show();
                 }
@@ -328,7 +328,7 @@ public class AgendaDetailActivity extends AppCompatActivity {
             public void onFailure(Call<RatingSessionPost> call, Throwable t) {
                 Log.e("hit", "Low network or no network");
                 Log.e("hit", t.getMessage());
-                dismissProgress();
+//                dismissProgress();
                 Toast.makeText(getApplicationContext(),"Please try again",Toast.LENGTH_SHORT).show();
 //                dismissProgress();
             }

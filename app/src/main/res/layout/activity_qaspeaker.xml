@@ -55,6 +55,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="4sp"
+        android:layout_marginTop="3dp"
         android:id="@+id/title"
         android:text="@string/qaspeaker"
         android:textColor="@color/activetab"
@@ -64,7 +65,7 @@
     <com.procialize.singleevent.Fonts.RobotoTextview
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin"
+        android:layout_margin="5dp"
         android:text="Select Speaker"
         android:textColor="@color/black"
         android:textSize="@dimen/textsizesmall" />
@@ -73,9 +74,9 @@
         android:id="@+id/spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin"
+        android:layout_margin="5dp"
         android:background="@drawable/spinner_back"
-        android:padding="15dp"
+        android:padding="5dp"
         android:spinnerMode="dropdown">
 
     </Spinner>
@@ -84,7 +85,7 @@
         android:id="@+id/postbtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin"
+        android:layout_margin="5dp"
         android:background="@drawable/speakerbtnbg"
         android:gravity="center"
         android:padding="5dp"
@@ -127,7 +128,7 @@
             android:id="@+id/qaRv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp">
+            android:padding="5dp">
 
         </android.support.v7.widget.RecyclerView>
     </android.support.v4.widget.SwipeRefreshLayout>

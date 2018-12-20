@@ -92,7 +92,7 @@ public class AgendaListAdapter extends BaseAdapter {
 //		Log.e("time",endTime);
 		// SimpleDateFormat df = new SimpleDateFormat("hh:mm a");
 
-		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		SimpleDateFormat f = new SimpleDateFormat("dd-mm-yyyy hh:mm:ss");
 
 //		try {
 //			d1 = f.parse(startTime);

@@ -27,6 +27,8 @@ import java.util.List;
 
 import cn.jzvd.JZVideoPlayer;
 
+import static com.procialize.singleevent.R.drawable.background;
+
 public class SwappingGalleryActivity extends AppCompatActivity implements SwipeImageAdapter.SwipeImageAdapterListner {
 
     String name;
@@ -106,6 +108,8 @@ public class SwappingGalleryActivity extends AppCompatActivity implements SwipeI
                     if (position <= firstLevelFilters.size()) {
                         pager.setCurrentItem(position);
                         recyclerView.scrollToPosition(position);
+
+
                     }
 
                 } catch (Exception e) {

@@ -238,8 +238,8 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
             String tag = eventDates.get(j);
 
 
-            DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
-            DateFormat inputFormat2 = new SimpleDateFormat("yyyy-MM-dd");
+            DateFormat inputFormat = new SimpleDateFormat("dd-mm-yyyy");
+            DateFormat inputFormat2 = new SimpleDateFormat("dd-mm-yyyy");
 
             DateFormat outputFormat = new SimpleDateFormat("dd");
             try {

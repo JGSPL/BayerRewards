@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/mainLL"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="150dp"
     android:layout_margin="8dp"
     android:background="@drawable/galleryitembg"
     android:gravity="bottom"
@@ -18,7 +18,7 @@
         <ImageView
             android:id="@+id/imageIv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
             android:scaleType="fitXY" />

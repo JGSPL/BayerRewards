@@ -290,7 +290,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
 
 
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("ApiConstant HH:mm:ss");
         try {
             Date date1 = formatter.parse(feed.getPostDate());
 

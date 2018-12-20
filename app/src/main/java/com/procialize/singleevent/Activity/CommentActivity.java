@@ -259,7 +259,6 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
         videoplayer = (MyJZVideoPlayerStandard) findViewById(R.id.videoplayer);
 
 
-
         nameTv.setText(fname + " " + lname);
         companyTv.setText(company);
         designationTv.setText(designation);
@@ -1244,7 +1243,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
 //                e.printStackTrace();
 //            }
 
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat formatter = new SimpleDateFormat(ApiConstant.dateformat + " HH:mm:ss");
             try {
                 Date date1 = formatter.parse(date);
 
@@ -1382,7 +1381,8 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
 //            }
 
     }
-//
+
+    //
     @Override
     public void onBackPressed() {
         super.onBackPressed();

@@ -19,7 +19,8 @@
         android:hint="@string/search_speaker_here"
         android:padding="10dp"
         android:textColor="@color/black"
-        android:textSize="@dimen/textsizesmall" />
+        android:textSize="@dimen/textsizesmall"
+        android:imeOptions="actionDone"/>
 
     <com.procialize.singleevent.Fonts.RobotoTextview
         android:id="@+id/pullrefresh"

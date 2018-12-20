@@ -121,7 +121,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
         holder.locationTv.setText(evnt.getLocation());
 //        holder.designationTv.setText(evnt.getEventStart() + "-" + evnt.getEvent_end());
         holder.eventnaem.setText(evnt.getName());
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat(ApiConstant.dateformat + " HH:mm:ss");
         try {
             Date date1 = formatter.parse(evnt.getEventStart());
             Date date2 = formatter.parse(evnt.getEvent_end());
@@ -130,10 +130,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 
             String date = originalFormat.format(date1);
             String date3 = originalFormat.format(date2);
-            if(date.equalsIgnoreCase(date3)){
+            if (date.equalsIgnoreCase(date3)) {
                 holder.designationTv.setText(date);
 
-            }else {
+            } else {
 
                 holder.designationTv.setText(date + " - " + date3);
             }

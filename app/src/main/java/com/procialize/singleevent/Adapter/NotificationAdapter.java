@@ -201,7 +201,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         }
 
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat(ApiConstant.dateformat+ " HH:mm:ss");
         try {
             Date date1 = formatter.parse(notificationList.getNotificationDate());
 

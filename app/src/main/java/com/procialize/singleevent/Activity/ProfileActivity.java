@@ -297,20 +297,20 @@ public class ProfileActivity extends AppCompatActivity {
             input_layout_city.setVisibility(View.GONE);
         }
 
-        if (country != null && edit_profile_location.equalsIgnoreCase("1")) {
-            Etcountry.setText(country);
-            Etcountry.setVisibility(View.VISIBLE);
-            input_layout_country.setVisibility(View.VISIBLE);
-        } else {
-            if (country != null) {
-                Etcountry.setText(country);
-                Etcountry.setVisibility(View.VISIBLE);
-                input_layout_country.setVisibility(View.VISIBLE);
-            }
-            Etcountry.setVisibility(View.GONE);
-            input_layout_country.setVisibility(View.GONE);
-
-        }
+//        if (country != null && edit_profile_location.equalsIgnoreCase("1")) {
+//            Etcountry.setText(country);
+//            Etcountry.setVisibility(View.VISIBLE);
+//            input_layout_country.setVisibility(View.VISIBLE);
+//        } else {
+//            if (country != null) {
+//                Etcountry.setText(country);
+//                Etcountry.setVisibility(View.VISIBLE);
+//                input_layout_country.setVisibility(View.VISIBLE);
+//            }
+//            Etcountry.setVisibility(View.GONE);
+//            input_layout_country.setVisibility(View.GONE);
+//
+//        }
 
         if (mobile != null && edit_profile_mobile.equalsIgnoreCase("1")) {
             Etmobile.setText(mobile);

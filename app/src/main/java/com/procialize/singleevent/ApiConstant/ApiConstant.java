@@ -32,6 +32,6 @@ public class ApiConstant {
     public static String selfievideo = imgURL+"uploads/video_contest/";
     public static String INDEPENDENT_AGENDA = imgURL+"uploads/AgendaVacationSeprateFetch";
     public static String GALLERY_IMAGE = imgURL+"uploads/session_vacation_media/";
-
+    public static String dateformat="yyyy-MM-dd";
     public static String FIREBASE_TOKEN = "";
 }

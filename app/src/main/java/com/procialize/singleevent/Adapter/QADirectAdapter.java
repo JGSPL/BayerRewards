@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.procialize.singleevent.ApiConstant.APIService;
+import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.GetterSetter.DirectQuestion;
 import com.procialize.singleevent.GetterSetter.EventSettingList;
@@ -115,7 +116,7 @@ public class QADirectAdapter extends RecyclerView.Adapter<QADirectAdapter.MyView
         }
 
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat(ApiConstant.dateformat+ " HH:mm:ss");
         try {
             Date date1 = formatter.parse(question.getCreated());
 

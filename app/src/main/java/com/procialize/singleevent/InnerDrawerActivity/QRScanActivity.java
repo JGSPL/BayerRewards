@@ -167,34 +167,34 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
 
         String parts[] = text.split("\\r?\\n");
         Log.e("text", parts[0]);
-        if (parts.length == 5) {
+        if (parts.length == 6) {
 
             name = parts[0].substring(0, (parts[0].length()));
-            //lname = parts[1].substring(0, (parts[1].length()));
-            designation = parts[1].substring(0, (parts[1].length()));
-            email = parts[2].substring(0, (parts[2].length()));
-            number = parts[3].substring(0, (parts[3].length()));
-            company = parts[4].substring(0, (parts[4].length()));
+            lname = parts[1].substring(0, (parts[1].length()));
+            designation = parts[2].substring(0, (parts[2].length()));
+            email = parts[3].substring(0, (parts[3].length()));
+            number = parts[4].substring(0, (parts[4].length()));
+            company = parts[5].substring(0, (parts[5].length()));
 //            city = parts[5].substring(0, (parts[5].length()));
 
-            String[] splitStr = name.split("\\s+");
-            fname = splitStr[0] = splitStr[0];
-
-           // lname = splitStr[1] = splitStr[1];
-            lname=name.substring(name.lastIndexOf(""),name.length());
-
-
-
-            if (fname == null) {
-                fname = "";
-            }
-
-            if (lname == null) {
-                lname = "";
-            }
+//            String[] splitStr = name.split("\\s+");
+//            fname = splitStr[0] = splitStr[0];
+//
+//           // lname = splitStr[1] = splitStr[1];
+//            lname=name.substring(name.lastIndexOf(""),name.length());
+//
+//
+//
+//            if (fname == null) {
+//                fname = "";
+//            }
+//
+//            if (lname == null) {
+//                lname = "";
+//            }
 
 //            edit_username_edit.setText(email);
-            edit_username_edit.setText(fname);
+            edit_username_edit.setText(name);
             edit_first_name_edit.setText(lname);
             edit_designation_edit.setText(designation);
             edit_company_name_edit.setText(company);
@@ -207,30 +207,30 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
             } else {
                 edit_mobile_edit.setEnabled(false);
             }
-        } else if (parts.length == 6) {
+        } else if (parts.length == 7) {
 
             name = parts[0].substring(0, (parts[0].length()));
-            //lname = parts[1].substring(0, (parts[1].length()));
-            designation = parts[1].substring(0, (parts[1].length()));
-            email = parts[2].substring(0, (parts[2].length()));
-            number = parts[3].substring(0, (parts[3].length()));
-            company = parts[4].substring(0, (parts[4].length()));
-            city = parts[5].substring(0, (parts[5].length()));
+            lname = parts[1].substring(0, (parts[1].length()));
+            designation = parts[2].substring(0, (parts[2].length()));
+            email = parts[3].substring(0, (parts[3].length()));
+            number = parts[4].substring(0, (parts[4].length()));
+            company = parts[5].substring(0, (parts[5].length()));
+            city = parts[6].substring(0, (parts[6].length()));
 
-            String[] splitStr = name.split("\\s+");
-            fname = splitStr[0] = splitStr[0];
+//            String[] splitStr = name.split("\\s+");
+//            fname = splitStr[0] = splitStr[0];
+//
+//            lname = splitStr[1] = splitStr[1];
+//
+//            if (fname == null) {
+//                fname = "";
+//            }
+//
+//            if (lname == null) {
+//                lname = "";
+//            }
 
-            lname = splitStr[1] = splitStr[1];
-
-            if (fname == null) {
-                fname = "";
-            }
-
-            if (lname == null) {
-                lname = "";
-            }
-
-            edit_username_edit.setText(fname);
+            edit_username_edit.setText(name);
             edit_first_name_edit.setText(lname);
 //            edit_first_name_edit.setText(fname + " " + lname);
             edit_designation_edit.setText(designation);
@@ -245,7 +245,7 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
                 edit_mobile_edit.setEnabled(false);
             }
 
-        } else if (parts.length == 7) {
+        } else if (parts.length ==8) {
 //Bharat1 Rawal1
 //IOS1
 //bharat@kotakconnect.in
@@ -255,27 +255,27 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
 //9028102910
 //9028
             name = parts[0].substring(0, (parts[0].length()));
-//            lname = parts[1].substring(0, (parts[1].length()));
-            designation = parts[1].substring(0, (parts[1].length()));
-            email = parts[2].substring(0, (parts[2].length()));
-            number = parts[3].substring(0, (parts[3].length()));
-            company = parts[4].substring(0, (parts[4].length()));
-            city = parts[5].substring(0, (parts[5].length()));
+            lname = parts[1].substring(0, (parts[1].length()));
+            designation = parts[2].substring(0, (parts[2].length()));
+            email = parts[3].substring(0, (parts[3].length()));
+            number = parts[4].substring(0, (parts[4].length()));
+            company = parts[5].substring(0, (parts[5].length()));
+            city = parts[6].substring(0, (parts[6].length()));
 
-            String[] splitStr = name.split("\\s+");
-            fname = splitStr[0] = splitStr[0];
+//            String[] splitStr = name.split("\\s+");
+//            fname = splitStr[0] = splitStr[0];
+//
+//            lname = splitStr[1] = splitStr[1];
+//
+//            if (fname == null) {
+//                fname = "";
+//            }
+//
+//            if (lname == null) {
+//                lname = "";
+//            }
 
-            lname = splitStr[1] = splitStr[1];
-
-            if (fname == null) {
-                fname = "";
-            }
-
-            if (lname == null) {
-                lname = "";
-            }
-
-            edit_username_edit.setText(fname);
+            edit_username_edit.setText(name);
             edit_first_name_edit.setText(lname);
             edit_designation_edit.setText(designation);
             edit_company_name_edit.setText(company);
@@ -297,29 +297,29 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
 //                    Pune1
 //            9028102910
 //            9028
-        } else if (parts.length == 8) {
+        } else if (parts.length == 9){
 
             name = parts[0].substring(0, (parts[0].length()));
-//            lname = parts[1].substring(0, (parts[1].length()));
-            designation = parts[1].substring(0, (parts[1].length()));
-            email = parts[2].substring(0, (parts[2].length()));
-            number = parts[3].substring(0, (parts[3].length()));
-            company = parts[4].substring(0, (parts[4].length()));
-            city = parts[5].substring(0, (parts[5].length()));
-            String[] splitStr = name.split("\\s+");
-            fname = splitStr[0] = splitStr[0];
+            lname = parts[1].substring(0, (parts[1].length()));
+            designation = parts[2].substring(0, (parts[2].length()));
+            email = parts[3].substring(0, (parts[3].length()));
+            number = parts[4].substring(0, (parts[4].length()));
+            company = parts[5].substring(0, (parts[5].length()));
+            city = parts[6].substring(0, (parts[6].length()));
+//            String[] splitStr = name.split("\\s+");
+//            fname = splitStr[0] = splitStr[0];
+//
+//            lname = splitStr[1] = splitStr[1];
+//
+//            if (fname == null) {
+//                fname = "";
+//            }
+//
+//            if (lname == null) {
+//                lname = "";
+//            }
 
-            lname = splitStr[1] = splitStr[1];
-
-            if (fname == null) {
-                fname = "";
-            }
-
-            if (lname == null) {
-                lname = "";
-            }
-
-            edit_username_edit.setText(fname);
+            edit_username_edit.setText(name);
             edit_first_name_edit.setText(lname);
             edit_designation_edit.setText(designation);
             edit_company_name_edit.setText(company);

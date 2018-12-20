@@ -95,7 +95,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyViewHo
         Picasso.with(context)
                 .load(galleryList.getFileName())
                 .transform(new RoundCornersTransformation(20, 0, false, true))
-                .placeholder(context.getDrawable(R.drawable.gallery_placeholder))
+                .placeholder(context.getDrawable(R.drawable.folder_back))
                 .into(holder.imageIv);
 
 

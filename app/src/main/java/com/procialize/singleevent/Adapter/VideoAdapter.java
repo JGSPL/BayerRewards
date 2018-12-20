@@ -21,10 +21,12 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
+import com.procialize.singleevent.CustomTools.RoundCornersTransformation;
 import com.procialize.singleevent.GetterSetter.FirstLevelFilter;
 import com.procialize.singleevent.GetterSetter.GalleryList;
 import com.procialize.singleevent.GetterSetter.VideoList;
 import com.procialize.singleevent.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -94,56 +96,42 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
                 Log.e("id", videoId);
                 String previewURL = "https://img.youtube.com/vi/" + videoId + "/0.jpg";
                 Log.e("id", previewURL);
-                Glide.with(context).load(previewURL)
-                        .apply(RequestOptions.skipMemoryCacheOf(true))
-                        .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE)).listener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        holder.progressBar.setVisibility(View.GONE);
-                        return true;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        holder.progressBar.setVisibility(View.GONE);
-                        return false;
-                    }
-                }).into(holder.imageIv).onLoadStarted(context.getDrawable(R.drawable.gallery_placeholder));
+//                Glide.with(context).load(previewURL)
+//                        .apply(RequestOptions.skipMemoryCacheOf(true))
+//                        .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE)).listener(new RequestListener<Drawable>() {
+//                    @Override
+//                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+//                        holder.progressBar.setVisibility(View.GONE);
+//                        return true;
+//                    }
+//
+//                    @Override
+//                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+//                        holder.progressBar.setVisibility(View.GONE);
+//                        return false;
+//                    }
+//                }).into(holder.imageIv).onLoadStarted(context.getDrawable(R.drawable.gallery_placeholder));
+                holder.progressBar.setVisibility(View.GONE);
+                Picasso.with(context)
+                        .load(previewURL)
+                        .transform(new RoundCornersTransformation(20, 0, false, true))
+                        .placeholder(context.getDrawable(R.drawable.folder_back))
+                        .into(holder.imageIv);
             } catch (Exception e) {
-                Glide.with(context).load(videoList.getFileName())
-                        .apply(RequestOptions.skipMemoryCacheOf(true))
-                        .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE)).listener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        holder.progressBar.setVisibility(View.GONE);
-                        return true;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        holder.progressBar.setVisibility(View.GONE);
-                        return false;
-                    }
-                }).into(holder.imageIv).onLoadStarted(context.getDrawable(R.drawable.gallery_placeholder));
-            }
-
-        } else {
+                holder.progressBar.setVisibility(View.GONE);
+                Picasso.with(context)
+                        .load(videoList.getFileName())
+                        .transform(new RoundCornersTransformation(20, 0, false, true))
+                        .placeholder(context.getDrawable(R.drawable.folder_back))
+                        .into(holder.imageIv);
+        }} else {
             holder.imageIv.setBackgroundResource(R.drawable.folder_back);
-            Glide.with(context).load(videoList.getFileName())
-                    .apply(RequestOptions.skipMemoryCacheOf(true))
-                    .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE)).listener(new RequestListener<Drawable>() {
-                @Override
-                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                    holder.progressBar.setVisibility(View.GONE);
-                    return true;
-                }
-
-                @Override
-                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                    holder.progressBar.setVisibility(View.GONE);
-                    return false;
-                }
-            }).into(holder.imageIv).onLoadStarted(context.getDrawable(R.drawable.gallery_placeholder));
+            holder.progressBar.setVisibility(View.GONE);
+            Picasso.with(context)
+                    .load(videoList.getFileName())
+                    .transform(new RoundCornersTransformation(20, 0, false, true))
+                    .placeholder(context.getDrawable(R.drawable.folder_back))
+                    .into(holder.imageIv);
         }
 
 

@@ -57,15 +57,14 @@
         android:padding="4sp"
         android:text="@string/qadirect"
         android:textColor="@color/black"
-        android:textSize="@dimen/textsizesmall" />
+        android:textSize="@dimen/textsizesmall"
+        android:id="@+id/nmtxt"/>
 
     <com.procialize.singleevent.Fonts.RobotoButton
         android:id="@+id/postbtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin"
-        android:layout_marginLeft="@dimen/margin"
-        android:layout_marginRight="@dimen/margin"
+        android:layout_margin="5dp"
         android:layout_marginTop="@dimen/margin"
         android:background="@drawable/speakerbtnbg"
         android:gravity="center"
@@ -74,6 +73,17 @@
         android:textColor="@color/colorwhite"
         android:textSize="@dimen/textsizesmall"
         android:textAllCaps="false"/>
+
+    <com.procialize.singleevent.Fonts.RobotoTextview
+        android:id="@+id/pullrefresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alpha="0.8"
+        android:gravity="center"
+        android:text="Pull Down to Refresh"
+        android:textColor="@color/inactivetab"
+        android:textSize="10sp"
+        android:visibility="visible" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -99,7 +109,8 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/qaRv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="5dp">
 
         </android.support.v7.widget.RecyclerView>
     </android.support.v4.widget.SwipeRefreshLayout>

@@ -205,7 +205,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
         } else {
             if (response.body().getStatus().equalsIgnoreCase("success")) {
                 String startTime = "", endTime = "";
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                SimpleDateFormat sdf = new SimpleDateFormat(ApiConstant.dateformat+ " HH:mm");
                 String currentDateandTime = sdf.format(new Date());
                 try {
                     if (response.body().getEventList().get(0).getEventStart().equals("null") && response.body().getEventList().get(0).getEventStart() != null && !response.body().getEventList().get(0).getEventStart().isEmpty()) {

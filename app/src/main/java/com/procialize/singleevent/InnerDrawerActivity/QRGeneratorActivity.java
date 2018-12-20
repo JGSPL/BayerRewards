@@ -26,7 +26,7 @@ import cn.jzvd.JZVideoPlayer;
 public class QRGeneratorActivity extends AppCompatActivity {
 
     TextView nameTv, companyTv, cityTv, emailTv, mobileTv,
-            scan_id_txtTv, designationTv, header,scantxt;
+            scan_id_txtTv, designationTv, header, scantxt;
     SessionManager sessionManager;
     String name, designation, company, email, mobile, city, lname;
     ImageView img_qr_code_image;
@@ -128,12 +128,13 @@ public class QRGeneratorActivity extends AppCompatActivity {
                         + company + "\n"
                         + city;*/
 
-                QRcode = name + " " + lname + "\n"
+                QRcode = name + "\n" + lname + "\n"
                         + designation + "\n"
                         + email + "\n"
                         + mobile + "\n"
                         + company + "\n"
                         + city;
+
 
 //
 //                QRcode = name + "\n" +
