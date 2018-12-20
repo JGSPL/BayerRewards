@@ -177,7 +177,7 @@ public class AgendaDetailActivity extends AppCompatActivity {
 
         if (date != null) {
             try {
-                SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.UK);
+                SimpleDateFormat originalFormat = new SimpleDateFormat("dd-mm-yyyy", Locale.UK);
                 SimpleDateFormat targetFormat = new SimpleDateFormat("dd MMMM");
 
                 Date ogdate = originalFormat.parse(date);
@@ -196,8 +196,8 @@ public class AgendaDetailActivity extends AppCompatActivity {
 
         if (starttime != null && endtime != null) {
             try {
-                SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.UK);
-                SimpleDateFormat targetFormat = new SimpleDateFormat("hh:mm aa");
+                SimpleDateFormat originalFormat = new SimpleDateFormat("dd-mm-yyyy HH:mm:ss", Locale.UK);
+                SimpleDateFormat targetFormat = new SimpleDateFormat("HH:mm aa");
 
                 Date startdate = originalFormat.parse(starttime);
                 Date enddate = originalFormat.parse(endtime);
