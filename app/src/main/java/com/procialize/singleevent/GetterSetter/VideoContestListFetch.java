@@ -21,6 +21,31 @@ public class VideoContestListFetch {
     @Expose
     private String msg;
 
+
+    @SerializedName("video_title")
+    @Expose
+    private String video_title;
+
+    @SerializedName("video_description")
+    @Expose
+    private String video_description;
+
+    public String getVideo_title() {
+        return video_title;
+    }
+
+    public void setVideo_title(String video_title) {
+        this.video_title = video_title;
+    }
+
+    public String getVideo_description() {
+        return video_description;
+    }
+
+    public void setVideo_description(String video_description) {
+        this.video_description = video_description;
+    }
+
     public List<VideoContest> getVideoContest() {
         return videoContest;
     }

@@ -66,6 +66,7 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
     String eventid;
     String user_id,colorActive;
     ImageView headerlogoIv;
+    TextView header,seldescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,8 +100,9 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
         uploadbtn = findViewById(R.id.uploadbtn);
         videofeedrefresh = findViewById(R.id.videofeedrefresh);
         videorecycler = findViewById(R.id.videorecycler);
-        TextView header = (TextView)findViewById(R.id.title);
+        header = (TextView)findViewById(R.id.title);
         header.setTextColor(Color.parseColor(colorActive));
+        seldescription= (TextView) findViewById(R.id.seldescription);
 
 
         int columns = 2;
@@ -173,7 +175,7 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
 
             @Override
             public void onFailure(Call<VideoContestListFetch> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
 
                 dismissProgress();
                 if (videofeedrefresh.isRefreshing()) {
@@ -188,11 +190,22 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
         // specify an adapter (see also next example)
         if (response.body().getStatus().equalsIgnoreCase("success")) {
 
+            if(!(response.body().getVideo_title().equalsIgnoreCase(null))){
+                header.setText(response.body().getVideo_title());
+            }
+            if(!(response.body().getVideo_description().equalsIgnoreCase(null))){
+                seldescription.setText(response.body().getVideo_description());
+                seldescription.setVisibility(View.VISIBLE);
 
+            }else{
+                seldescription.setVisibility(View.GONE);
+
+            }
             videoAdapter = new VideoContestAdapter(this, response.body().getVideoContest(), this);
             videoAdapter.notifyDataSetChanged();
             videorecycler.setAdapter(videoAdapter);
             videorecycler.scheduleLayoutAnimation();
+
 
         } else {
             Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();

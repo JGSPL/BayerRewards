@@ -21,6 +21,15 @@ public class SelfieListFetch {
     @Expose
     private String msg;
 
+
+
+    @SerializedName("selfie_title")
+    @Expose
+    private String selfie_title;
+    @SerializedName("selfie_description")
+    @Expose
+    private String selfie_description;
+
     public String getSelfie_title() {
         return selfie_title;
     }
@@ -36,13 +45,6 @@ public class SelfieListFetch {
     public void setSelfie_description(String selfie_description) {
         this.selfie_description = selfie_description;
     }
-
-    @SerializedName("selfie_title")
-    @Expose
-    private String selfie_title;
-    @SerializedName("selfie_description")
-    @Expose
-    private String selfie_description;
 
     public List<SelfieList> getSelfieList() {
         return selfieList;

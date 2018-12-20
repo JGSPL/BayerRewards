@@ -74,7 +74,7 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
     String eventid;
     String user_id, colorActive;
     ImageView headerlogoIv;
-
+    TextView header,seldescription;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,7 +109,8 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
         uploadbtn = findViewById(R.id.uploadbtn);
         selfiefeedrefresh = findViewById(R.id.selfiefeedrefresh);
         selfierecycler = findViewById(R.id.selfierecycler);
-        TextView header = (TextView) findViewById(R.id.title);
+        header = (TextView) findViewById(R.id.title);
+        seldescription= (TextView) findViewById(R.id.seldescription);
         header.setTextColor(Color.parseColor(colorActive));
         uploadbtn.setBackgroundColor(Color.parseColor(colorActive));
 
@@ -182,7 +183,7 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
 
             @Override
             public void onFailure(Call<SelfieListFetch> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
 
                 dismissProgress();
                 if (selfiefeedrefresh.isRefreshing()) {
@@ -203,6 +204,18 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
             selfieAdapter.notifyDataSetChanged();
             selfierecycler.setAdapter(selfieAdapter);
             selfierecycler.scheduleLayoutAnimation();
+
+            if(!(response.body().getSelfie_title().equalsIgnoreCase(null))){
+                header.setText(response.body().getSelfie_title());
+            }
+            if(!(response.body().getSelfie_description().equalsIgnoreCase(null))){
+                seldescription.setText(response.body().getSelfie_description());
+                seldescription.setVisibility(View.VISIBLE);
+
+            }else{
+                seldescription.setVisibility(View.GONE);
+
+            }
 
         } else {
             Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
