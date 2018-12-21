@@ -50,7 +50,6 @@
                 <com.procialize.singleevent.Fonts.RobotoButton
                     android:layout_width="0dp"
                     android:id="@+id/ratebtn"
-                    android:elevation="@dimen/elevation"
                     android:text="@string/ratebtn"
                     android:layout_margin="@dimen/margin"
                     android:textSize="@dimen/textsizesmall"
@@ -62,7 +61,6 @@
                 <com.procialize.singleevent.Fonts.RobotoButton
                     android:layout_width="0dp"
                     android:id="@+id/canclebtn"
-                    android:elevation="@dimen/elevation"
                     android:text="@string/cancel"
                     android:layout_margin="@dimen/margin"
                     android:textSize="@dimen/textsizesmall"

@@ -27,6 +27,7 @@ import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.GetterSetter.AttendeeList;
 import com.procialize.singleevent.GetterSetter.CommentDataList;
 import com.procialize.singleevent.R;
+import com.procialize.singleevent.Utility.Utility;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -98,13 +99,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
     }
 
 
-    public CommentAdapter(Context context, List<CommentDataList> commentLists, CommentAdapterListner listener,String flag) {
+    public CommentAdapter(Context context, List<CommentDataList> commentLists, CommentAdapterListner listener, String flag) {
         this.commentLists = commentLists;
         this.listener = listener;
         this.context = context;
         this.flag = flag;
         SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        colorActive = prefs.getString("colorActive","");
+        colorActive = prefs.getString("colorActive", "");
 
     }
 
@@ -121,9 +122,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
         CommentDataList comment = commentLists.get(position);
         holder.nameTv.setTextColor(Color.parseColor(colorActive));
 
-        if(flag.equalsIgnoreCase("Notification")){
+        if (flag.equalsIgnoreCase("Notification")) {
             holder.moreIv.setVisibility(View.GONE);
-        }else {
+        } else {
             holder.moreIv.setVisibility(View.VISIBLE);
         }
 
@@ -140,15 +141,24 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
 //            holder.dateTv.setText(date);
 
 
-            SimpleDateFormat formatter = new SimpleDateFormat(ApiConstant.dateformat+ " HH:mm:ss");
+            SimpleDateFormat formatter = null;
 
-                Date date1 = formatter.parse(comment.getCreated());
+            String formate1 = ApiConstant.dateformat;
+            String formate2 = ApiConstant.dateformat1;
 
-                DateFormat originalFormat = new SimpleDateFormat("dd MMM HH:mm", Locale.UK);
+            if (Utility.isValidFormat(formate1, comment.getCreated(), Locale.UK)) {
+                formatter = new SimpleDateFormat(ApiConstant.dateformat);
+            } else if (Utility.isValidFormat(formate2, comment.getCreated(), Locale.UK)) {
+                formatter = new SimpleDateFormat(ApiConstant.dateformat1);
+            }
 
-                String date = originalFormat.format(date1);
+            Date date1 = formatter.parse(comment.getCreated());
 
-                holder.dateTv.setText(date);
+            DateFormat originalFormat = new SimpleDateFormat("dd MMM HH:mm", Locale.UK);
+
+            String date = originalFormat.format(date1);
+
+            holder.dateTv.setText(date);
 
 
             Log.e("date", commentLists.size() + "");

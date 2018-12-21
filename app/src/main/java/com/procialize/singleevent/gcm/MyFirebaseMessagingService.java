@@ -48,7 +48,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setContentText(getEmojiFromString(remoteMessage.getData().get("message"))).setAutoCancel(true).setSound(defaultSoundUri);
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(notificationId *//* ID of notification *//*, notificationBuilder.build());*/
-
+        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, ADMIN_CHANNEL_ID)
                 .setSmallIcon(R.drawable.app_icon)
                 .setSmallIcon(getNotificationIcon())
@@ -57,6 +57,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setColorized(true)
                 //.setContentTitle(remoteMessage.getData().get("Fames bond"))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(getEmojiFromString(remoteMessage.getData().get("message"))))
+                .setSound(alarmSound)
                 .setContentText(getEmojiFromString(remoteMessage.getData().get("message")));
 
         notificationManager.notify(notificationId /* ID of notification */, notificationBuilder.build());

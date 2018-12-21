@@ -29,6 +29,7 @@ import com.bumptech.glide.request.target.Target;
 import com.procialize.singleevent.Activity.PdfViewerActivity;
 import com.procialize.singleevent.Adapter.DocumentsAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
+import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.EmptyViewActivity;
 import com.procialize.singleevent.GetterSetter.Analytic;
@@ -53,7 +54,7 @@ public class DocumentsActivity extends AppCompatActivity implements DocumentsAda
     RecyclerView docRv;
     ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
-    String eventid, logoImg,colorActive;
+    String eventid, logoImg, colorActive;
     ImageView headerlogoIv;
 
 
@@ -65,8 +66,8 @@ public class DocumentsActivity extends AppCompatActivity implements DocumentsAda
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
-        logoImg = prefs.getString("logoImg","");
-        colorActive = prefs.getString("colorActive","");
+        logoImg = prefs.getString("logoImg", "");
+        colorActive = prefs.getString("colorActive", "");
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -85,11 +86,11 @@ public class DocumentsActivity extends AppCompatActivity implements DocumentsAda
         });
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this,headerlogoIv);
+        Util.logomethod(this, headerlogoIv);
 
         docRv = findViewById(R.id.docRv);
 
-        TextView header = (TextView)findViewById(R.id.title);
+        TextView header = (TextView) findViewById(R.id.title);
         header.setTextColor(Color.parseColor(colorActive));
 
         docRvrefresh = findViewById(R.id.docRvrefresh);
@@ -112,7 +113,7 @@ public class DocumentsActivity extends AppCompatActivity implements DocumentsAda
 
         int resId = R.anim.layout_animation_slide_right;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
-     //   docRv.setLayoutAnimation(animation);
+        //   docRv.setLayoutAnimation(animation);
 
 
         fetchDocuments(token, eventid);
@@ -216,7 +217,7 @@ public class DocumentsActivity extends AppCompatActivity implements DocumentsAda
 
     @Override
     protected void onResume() {
-      //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         super.onResume();
     }
 
@@ -225,7 +226,7 @@ public class DocumentsActivity extends AppCompatActivity implements DocumentsAda
 
 
         Intent pdfview = new Intent(this, PdfViewerActivity.class);
-        pdfview.putExtra("url", "https://docs.google.com/gview?embedded=true&url=" + "https://www.procialize.info/uploads/documents/" + document.getFileName());
+        pdfview.putExtra("url", "https://docs.google.com/gview?embedded=true&url=" + ApiConstant.imgURL + "uploads/documents/" + document.getFileName());
         startActivity(pdfview);
     }
 

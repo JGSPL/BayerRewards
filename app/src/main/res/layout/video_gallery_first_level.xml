@@ -46,7 +46,7 @@
         android:layout_height="30dp"
         android:gravity="center"
         android:textColor="@color/colorwhite"
-        android:textSize="@dimen/textsizesmall" />
+        android:textSize="@dimen/textsizesmaller" />
 
 
 </LinearLayout>

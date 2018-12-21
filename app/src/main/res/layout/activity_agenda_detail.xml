@@ -13,8 +13,8 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="0dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="0dp">
 
 
         <android.support.v7.widget.Toolbar
@@ -42,10 +42,11 @@
                 android:src="@drawable/header_logo" />
 
         </android.support.v7.widget.Toolbar>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/linecolor"/>
+            android:background="@color/linecolor" />
 
 
     </android.support.design.widget.AppBarLayout>
@@ -53,12 +54,12 @@
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:visibility="gone"
-        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/appBarLayout"
-        android:background="@drawable/loader"/>
+        android:layout_gravity="center"
+        android:background="@drawable/loader"
+        android:visibility="gone" />
 
     <com.procialize.singleevent.Fonts.RobotoTextview
         android:id="@+id/tvname"
@@ -69,12 +70,11 @@
         android:background="@color/activetab"
         android:paddingBottom="10dp"
         android:paddingLeft="20dp"
-        android:paddingTop="10dp"
         android:paddingRight="10dp"
+        android:paddingTop="10dp"
         android:text=""
         android:textColor="@color/colorwhite"
         android:textSize="@dimen/textsizenormal" />
-
 
 
     <LinearLayout
@@ -170,11 +170,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="30dp"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textsizesmall"
-                android:scrollbars="vertical"
+                android:fadeScrollbars="false"
                 android:maxLines="6"
-                android:fadeScrollbars="false"/>
+                android:scrollbars="vertical"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textsizesmall" />
         </LinearLayout>
     </LinearLayout>
 
@@ -213,8 +213,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="2dp"
                     android:numStars="5"
-                    android:stepSize="0.5"
-                    android:theme="@style/RatingBar" />
+                    android:stepSize="0.5" />
             </LinearLayout>
 
             <com.procialize.singleevent.Fonts.RobotoButton
@@ -239,6 +238,6 @@
             android:layout_marginTop="5dp"
             android:text="*Rating can be done only when the session starts"
             android:textColor="@color/inactivetab"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </RelativeLayout>
 </RelativeLayout>

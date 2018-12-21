@@ -26,6 +26,7 @@ import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.GetterSetter.QASessionFetch;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
+import com.procialize.singleevent.Utility.Utility;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -151,7 +152,17 @@ public class QAAttendeeAdapter extends RecyclerView.Adapter<QAAttendeeAdapter.My
         }
 
 
-        SimpleDateFormat formatter = new SimpleDateFormat(ApiConstant.dateformat+ " HH:mm:ss");
+        SimpleDateFormat formatter = null;
+
+        String formate1= ApiConstant.dateformat;
+        String formate2=ApiConstant.dateformat1;
+
+        if(Utility.isValidFormat(formate1,question.getCreated(),Locale.UK)) {
+            formatter = new SimpleDateFormat(ApiConstant.dateformat);
+        }else if (Utility.isValidFormat(formate2,question.getCreated(),Locale.UK))
+        {
+            formatter = new SimpleDateFormat(ApiConstant.dateformat1);
+        }
         try {
             Date date1 = formatter.parse(question.getCreated());
 

@@ -57,6 +57,7 @@ import com.procialize.singleevent.GetterSetter.response;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.Util;
+import com.procialize.singleevent.Utility.Utility;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -1243,7 +1244,18 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
 //                e.printStackTrace();
 //            }
 
-            SimpleDateFormat formatter = new SimpleDateFormat(ApiConstant.dateformat + " HH:mm:ss");
+            SimpleDateFormat formatter = null;
+
+            String formate1=ApiConstant.dateformat;
+            String formate2=ApiConstant.dateformat1;
+
+            if(Utility.isValidFormat(formate1,date,Locale.UK)) {
+                formatter = new SimpleDateFormat(ApiConstant.dateformat);
+            }else if (Utility.isValidFormat(formate2,date,Locale.UK))
+            {
+                formatter = new SimpleDateFormat(ApiConstant.dateformat1);
+            }
+
             try {
                 Date date1 = formatter.parse(date);
 

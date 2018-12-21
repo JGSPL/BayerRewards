@@ -146,7 +146,7 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
                     Toast.makeText(QRScanActivity.this, "Enter City Name", Toast.LENGTH_SHORT).show();
                 } else {
                     try {
-                        QRScanPost(token, eventid, fname, lname, edit_mobile_edit.getText().toString(), email);
+                        QRScanPost(token, eventid, name, lname, edit_mobile_edit.getText().toString(), email);
                         addToContactList(QRScanActivity.this, edit_first_name_edit.getText().toString(), edit_mobile_edit.getText().toString(),edit_email_edit.getText().toString(),
                                 edit_designation_edit.getText().toString(),edit_company_name_edit.getText().toString(),
                                 edit_city_edit.getText().toString());

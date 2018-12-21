@@ -79,7 +79,7 @@ public class AgendaDateWiseAdapter extends RecyclerView.Adapter<AgendaDateWiseAd
 
         try {
 
-            SimpleDateFormat originalFormat = new SimpleDateFormat("dd-mm-yyyy HH:mm:ss", Locale.UK);
+            SimpleDateFormat originalFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.UK);
             SimpleDateFormat targetFormat = new SimpleDateFormat("HH:mm aa");
 
             Date startdate = originalFormat.parse(agenda.getSessionStartTime());

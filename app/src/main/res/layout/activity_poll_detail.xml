@@ -57,6 +57,7 @@
         android:layout_height="20dp"
         android:layout_below="@+id/appBarLayout"
         android:layout_gravity="center"
+        android:layout_centerInParent="true"
         android:background="@drawable/loader"
         android:visibility="gone" />
 

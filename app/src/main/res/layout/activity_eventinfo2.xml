@@ -45,7 +45,6 @@
                 android:contentInsetLeft="0dp"
                 android:contentInsetRight="0dp"
                 android:contentInsetStart="0dp"
-                android:elevation="@dimen/elevation"
                 android:minHeight="?attr/actionBarSize"
                 app:contentInsetEnd="0dp"
                 app:contentInsetLeft="0dp"
@@ -324,7 +323,6 @@
             android:layout_height="0dp"
             android:layout_margin="15dp"
             android:layout_weight="4"
-            android:elevation="@dimen/elevation"
             android:gravity="center"
 
             android:orientation="vertical"

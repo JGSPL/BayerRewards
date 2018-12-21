@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Procialize Event App</string>
+    <string name="app_name">Procialize Events App</string>
     <string name="hint_email">* Enter Email ID</string>
     <string name="hint_password">* Enter Password</string>
 

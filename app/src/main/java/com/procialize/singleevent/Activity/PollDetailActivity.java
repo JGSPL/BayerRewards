@@ -1,5 +1,6 @@
 package com.procialize.singleevent.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
@@ -165,20 +166,20 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
 
             addRadioButtons(optionLists.size() + 1);
 
-//            for (int i = 0; i < optionLists.size(); i++) {
-//
-//                if (optionLists
-//                        .get(0)
-//                        .getOption()
-//                        .equalsIgnoreCase(
-//                                optionLists.get(i).getOption())) {
-//
-//                    quiz_options_id = optionLists.get(i)
-//                            .getOptionId();
-//
-//                }
-//
-//            }
+            for (int i = 0; i < optionLists.size(); i++) {
+
+                if (optionLists
+                        .get(0)
+                        .getOption()
+                        .equalsIgnoreCase(
+                                optionLists.get(i).getOption())) {
+
+                    quiz_options_id = optionLists.get(i)
+                            .getOptionId();
+
+                }
+
+            }
         }
 
 
@@ -382,8 +383,8 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
 
                     } else {
 
-//                        if (i == 1)
-//                            rdbtn.setChecked(true);
+                        if (i == 1)
+                            rdbtn.setChecked(true);
                     }
 
                     radios.add(rdbtn);

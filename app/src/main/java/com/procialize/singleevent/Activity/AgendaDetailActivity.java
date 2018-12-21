@@ -177,7 +177,7 @@ public class AgendaDetailActivity extends AppCompatActivity {
 
         if (date != null) {
             try {
-                SimpleDateFormat originalFormat = new SimpleDateFormat("dd-mm-yyyy", Locale.UK);
+                SimpleDateFormat originalFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.UK);
                 SimpleDateFormat targetFormat = new SimpleDateFormat("dd MMMM");
 
                 Date ogdate = originalFormat.parse(date);

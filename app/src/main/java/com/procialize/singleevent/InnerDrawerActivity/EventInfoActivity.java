@@ -44,12 +44,14 @@ import com.procialize.singleevent.GetterSetter.FetchAgenda;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.Util;
+import com.procialize.singleevent.Utility.Utility;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import cn.jzvd.JZVideoPlayer;
 import retrofit2.Call;
@@ -227,10 +229,19 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
 
                 // SimpleDateFormat df = new SimpleDateFormat("hh:mm a");
 
-                SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat formatter = null;
 
+                String formate1= ApiConstant.dateformat;
+                String formate2=ApiConstant.dateformat1;
+
+                if(Utility.isValidFormat(formate1,startTime, Locale.UK)) {
+                    formatter = new SimpleDateFormat(ApiConstant.dateformat);
+                }else if (Utility.isValidFormat(formate2,startTime,Locale.UK))
+                {
+                    formatter = new SimpleDateFormat(ApiConstant.dateformat1);
+                }
                 try {
-                    d1 = f.parse(startTime);
+                    d1 = formatter.parse(startTime);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -238,17 +249,17 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
                 long millisecondsStart = d1.getTime();
 
                 try {
-                    d2 = f.parse(endTime);
+                    d2 = formatter.parse(endTime);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
 
                 long millisecondsEnd = d2.getTime();
 
-                SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+                SimpleDateFormat formatter1 = new SimpleDateFormat("dd MMM yyyy");
 
-                String finalStartTime = formatter.format(new Date(millisecondsStart));
-                String finalEndTime = formatter.format(new Date(millisecondsEnd));
+                String finalStartTime = formatter1.format(new Date(millisecondsStart));
+                String finalEndTime = formatter1.format(new Date(millisecondsEnd));
 
                 try {
                     nameTv.setText(response.body().getEventList().get(0).getEventName());
