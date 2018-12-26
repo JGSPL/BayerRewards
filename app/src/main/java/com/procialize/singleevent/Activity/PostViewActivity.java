@@ -23,7 +23,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
@@ -35,16 +34,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
@@ -58,6 +53,7 @@ import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.MyApplication;
 import com.procialize.singleevent.Utility.Util;
 import com.procialize.singleevent.Utility.Utility;
+import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -161,26 +157,31 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
         final TextView txtcount1 = findViewById(R.id.txtcount1);
        // postbtn.setBackgroundColor(Color.parseColor(colorActive));
 
+        MediaController mediaController = new MediaController(this);
+        mediaController.setAnchorView(displayRecordedVideo);
+        displayRecordedVideo.setMediaController(mediaController);
 
         // get user data from session
         HashMap<String, String> user = sessionManager.getUserDetails();
 
-        String profilepic = user.get(SessionManager.KEY_PIC);
+        final String profilepic = user.get(SessionManager.KEY_PIC);
 
 
         if (profilepic != null) {
-            Glide.with(this).load(ApiConstant.profilepic + profilepic).listener(new RequestListener<Drawable>() {
-                @Override
-                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                    profileIV.setImageResource(R.drawable.profilepic_placeholder);
-                    return true;
-                }
+//            Glide.with(this).load(ApiConstant.profilepic + profilepic).listener(new RequestListener<Drawable>() {
+//                @Override
+//                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+//                    return true;
+//                }
+//
+//                @Override
+//                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+//                    return false;
+//                }
+//            }).into(profileIV).onLoadStarted(getDrawable(R.drawable.profilepic_placeholder));
 
-                @Override
-                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                    return false;
-                }
-            }).into(profileIV).onLoadStarted(getDrawable(R.drawable.profilepic_placeholder));
+            Picasso.with(getBaseContext()).load(ApiConstant.profilepic + profilepic).placeholder(R.drawable.profilepic_placeholder).into(profileIV);
+
         } else {
             profileIV.setImageResource(R.drawable.profilepic_placeholder);
 
@@ -355,7 +356,6 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
             public void onCompletion(MediaPlayer mediaPlayer) {
                 imgPlay.setImageResource(R.drawable.ic_media_play);
                 imgPlay.setVisibility(View.VISIBLE);
-
             }
         });
 
@@ -365,6 +365,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
 
 
                 displayRecordedVideo.setVisibility(View.VISIBLE);
+                Uploadiv.setVisibility(View.GONE);
 
                 if (!displayRecordedVideo.isPlaying()) {
 

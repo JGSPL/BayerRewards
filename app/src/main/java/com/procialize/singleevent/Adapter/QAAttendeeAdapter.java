@@ -2,20 +2,15 @@ package com.procialize.singleevent.Adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
@@ -23,7 +18,6 @@ import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.GetterSetter.AgendaLisQA;
 import com.procialize.singleevent.GetterSetter.AgendaQuestion;
 import com.procialize.singleevent.GetterSetter.EventSettingList;
-import com.procialize.singleevent.GetterSetter.QASessionFetch;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.Utility;
@@ -38,12 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 import static android.content.Context.MODE_PRIVATE;
-import static com.procialize.singleevent.Utility.Util.setTextViewDrawableColor;
 
 /**
  * Created by Naushad on 10/31/2017.
@@ -145,7 +134,7 @@ public class QAAttendeeAdapter extends RecyclerView.Adapter<QAAttendeeAdapter.My
         token = user.get(SessionManager.KEY_TOKEN);
 
 
-        eventSettingLists = sessionManager.loadEventList();
+        eventSettingLists = SessionManager.loadEventList();
 
         if (eventSettingLists.size() != 0) {
             applysetting(eventSettingLists);

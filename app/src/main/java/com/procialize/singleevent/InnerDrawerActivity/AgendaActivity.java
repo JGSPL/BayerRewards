@@ -2,9 +2,9 @@ package com.procialize.singleevent.InnerDrawerActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import com.procialize.singleevent.Activity.AgendaDetailActivity;
 import com.procialize.singleevent.Adapter.AgendaAdapter;
-import com.procialize.singleevent.Adapter.AgendaDateWiseAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.GetterSetter.AgendaList;
@@ -29,12 +28,7 @@ import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.Util;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 
 import cn.jzvd.JZVideoPlayer;
 import retrofit2.Call;

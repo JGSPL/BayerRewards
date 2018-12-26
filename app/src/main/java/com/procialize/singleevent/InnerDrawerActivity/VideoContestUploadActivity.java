@@ -1,43 +1,35 @@
 package com.procialize.singleevent.InnerDrawerActivity;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.TextInputEditText;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.procialize.singleevent.Activity.HomeActivity;
-import com.procialize.singleevent.Activity.PostViewActivity;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.CustomTools.CircleDisplay;
-import com.procialize.singleevent.GetterSetter.PostSelfie;
 import com.procialize.singleevent.GetterSetter.PostVideoSelfie;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
@@ -49,7 +41,6 @@ import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -60,8 +51,6 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import tcking.github.com.giraffeplayer2.GiraffePlayer;
-import tcking.github.com.giraffeplayer2.VideoInfo;
 import tcking.github.com.giraffeplayer2.VideoView;
 
 public class VideoContestUploadActivity extends AppCompatActivity {
@@ -89,105 +78,34 @@ public class VideoContestUploadActivity extends AppCompatActivity {
     ImageView headerlogoIv;
     VideoView video_view;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_video_upload);
-        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        eventId = prefs.getString("eventid", "1");
-        colorActive = prefs.getString("colorActive","");
+    public static File createDirectoryAndSaveFile(Bitmap imageToSave) {
 
+        File direct = new File(Environment.getExternalStorageDirectory() + "/MyFolder/Images");
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        direct.mkdir();
 
+        if (!direct.exists()) {
+            File wallpaperDirectory = new File("/sdcard/MyFolder/Images/");
+            wallpaperDirectory.mkdirs();
+        }
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        File file = new File(direct, System.currentTimeMillis() + ".jpg");
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+//        if (file.exists()) {
+//            file.delete();
+//        }
 
-        headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this, headerlogoIv);
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            imageToSave.compress(Bitmap.CompressFormat.JPEG, 100, out);
 
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return file;
 
-
-
-
-        displayRecordedVideo = findViewById(R.id.videopreview);
-        btnSubmit = findViewById(R.id.btnSubmit);
-        video_view = findViewById(R.id.video_view);
-
-
-        btnSubmit.setBackgroundColor(Color.parseColor(colorActive));
-        editTitle = findViewById(R.id.editTitle);
-        imgPlay = (ImageView) findViewById(R.id.imgPlay);
-        progressbar = findViewById(R.id.progressbar);
-        sessionManager = new SessionManager(this);
-
-        TextView header = (TextView)findViewById(R.id.txtTitle);
-        header.setTextColor(Color.parseColor(colorActive));
-
-
-        mAPIService = ApiUtils.getAPIService();
-
-        llData = findViewById(R.id.llData);
-        HashMap<String, String> user = sessionManager.getUserDetails();
-
-        // apikey
-        apikey = user.get(SessionManager.KEY_TOKEN);
-
-
-        imgPlay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                imgPlay.setVisibility(View.GONE);
-                displayRecordedVideo.setVisibility(View.GONE);
-                video_view.setVisibility(View.VISIBLE);
-
-              video_view.getPlayer().start();
-
-            }
-        });
-
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String data = editTitle.getText().toString();
-                if (data.equals("")) {
-                    Toast.makeText(VideoContestUploadActivity.this, "Enter Caption", Toast.LENGTH_SHORT).show();
-
-                } else {
-                    showProgress();
-
-
-                    RequestBody token = RequestBody.create(MediaType.parse("text/plain"), apikey);
-                    RequestBody eventid = RequestBody.create(MediaType.parse("text/plain"), eventId);
-                    RequestBody status = RequestBody.create(MediaType.parse("text/plain"), StringEscapeUtils.escapeJava(data));
-                    MultipartBody.Part body = null;
-
-                    if (file != null) {
-
-                        RequestBody reqFile = RequestBody.create(MediaType.parse("video/*"), file);
-                        body = MultipartBody.Part.createFormData("video_file", file.getName(), reqFile);
-                    }
-
-
-                    PostVideoContest(token, eventid, status, body);
-                }
-            }
-        });
-
-
-
-        selectVideo();
     }
 
     private void selectVideo() {
@@ -479,35 +397,101 @@ public class VideoContestUploadActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_video_upload);
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        eventId = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive", "");
 
-    public static File createDirectoryAndSaveFile(Bitmap imageToSave) throws IOException {
 
-        File direct = new File(Environment.getExternalStorageDirectory() + "/MyFolder/Images");
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        direct.mkdir();
 
-        if (!direct.exists()) {
-            File wallpaperDirectory = new File("/sdcard/MyFolder/Images/");
-            wallpaperDirectory.mkdirs();
-        }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        File file = new File(direct, System.currentTimeMillis() + ".jpg");
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
-//        if (file.exists()) {
-//            file.delete();
-//        }
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this, headerlogoIv);
 
-        try {
-            FileOutputStream out = new FileOutputStream(file);
-            imageToSave.compress(Bitmap.CompressFormat.JPEG, 100, out);
 
-            out.flush();
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return file;
+        displayRecordedVideo = findViewById(R.id.videopreview);
+        btnSubmit = findViewById(R.id.btnSubmit);
+        video_view = findViewById(R.id.video_view);
 
+
+        btnSubmit.setBackgroundColor(Color.parseColor(colorActive));
+        editTitle = findViewById(R.id.editTitle);
+        imgPlay = findViewById(R.id.imgPlay);
+        progressbar = findViewById(R.id.progressbar);
+        sessionManager = new SessionManager(this);
+
+        TextView header = findViewById(R.id.txtTitle);
+        header.setTextColor(Color.parseColor(colorActive));
+
+
+        mAPIService = ApiUtils.getAPIService();
+
+        llData = findViewById(R.id.llData);
+        HashMap<String, String> user = sessionManager.getUserDetails();
+
+        // apikey
+        apikey = user.get(SessionManager.KEY_TOKEN);
+
+
+        imgPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                imgPlay.setVisibility(View.GONE);
+                displayRecordedVideo.setVisibility(View.GONE);
+                video_view.setVisibility(View.VISIBLE);
+
+                video_view.getPlayer().start();
+
+            }
+        });
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String data = editTitle.getText().toString();
+                if (data.equals("")) {
+                    Toast.makeText(VideoContestUploadActivity.this, "Enter Caption", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    showProgress();
+
+
+                    RequestBody token = RequestBody.create(MediaType.parse("text/plain"), apikey);
+                    RequestBody eventid = RequestBody.create(MediaType.parse("text/plain"), eventId);
+                    RequestBody status = RequestBody.create(MediaType.parse("text/plain"), StringEscapeUtils.escapeJava(data));
+                    MultipartBody.Part body = null;
+
+                    if (file != null) {
+
+                        RequestBody reqFile = RequestBody.create(MediaType.parse("video/*"), file);
+                        body = MultipartBody.Part.createFormData("video_file", file.getName(), reqFile);
+                    }
+
+
+                    PostVideoContest(token, eventid, status, body);
+                }
+            }
+        });
+
+
+        selectVideo();
     }
 
     @Override

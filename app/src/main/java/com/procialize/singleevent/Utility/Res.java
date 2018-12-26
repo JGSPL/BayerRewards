@@ -1,7 +1,6 @@
 package com.procialize.singleevent.Utility;
 
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Build;
 
 import com.procialize.singleevent.Activity.HomeActivity;

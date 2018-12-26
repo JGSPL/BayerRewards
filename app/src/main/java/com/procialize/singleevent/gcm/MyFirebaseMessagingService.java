@@ -20,7 +20,6 @@ import com.procialize.singleevent.InnerDrawerActivity.NotificationActivity;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 
-
 import java.util.Random;
 
 

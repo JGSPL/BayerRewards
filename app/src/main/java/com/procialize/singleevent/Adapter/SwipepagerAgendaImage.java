@@ -17,14 +17,13 @@ import com.bumptech.glide.Glide;
 import com.devbrackets.android.exomedia.listener.OnPreparedListener;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.CustomTools.PicassoTrustAll;
-import com.procialize.singleevent.GetterSetter.AgendaFolder;
 import com.procialize.singleevent.GetterSetter.AgendaMediaList;
 import com.procialize.singleevent.R;
-
 
 import java.util.List;
 
 import cn.jzvd.JZVideoPlayerStandard;
+
 
 /**
  * Created by Rahul on 13-06-2018.
@@ -69,21 +68,21 @@ public class SwipepagerAgendaImage extends PagerAdapter implements OnPreparedLis
 
         AgendaMediaList firstLevelFilter = images.get(position);
 
-        ImageView myImage = (ImageView) myImageLayout.findViewById(R.id.image1);
+        ImageView myImage = myImageLayout.findViewById(R.id.image1);
 
 
-        videoplayer = (JZVideoPlayerStandard) myImageLayout.findViewById(R.id.videoplayerAgenda);
+        videoplayer = myImageLayout.findViewById(R.id.videoplayerAgenda);
         //videoplayer = (EMVideoView)myImageLayout. findViewById(R.id.videoplayerAgenda);
-        WebView videoWebView = (WebView)myImageLayout.findViewById(R.id.videoWebView);
+        WebView videoWebView = myImageLayout.findViewById(R.id.videoWebView);
 
         //TextView name = (TextView) myImageLayout.findViewById(R.id.name);
         final ProgressBar progressBar = myImageLayout.findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);
 
 
-        image_url =  constant.GALLERY_IMAGE
+        image_url = ApiConstant.GALLERY_IMAGE
                 + firstLevelFilter.getMedia_name();
-        thumb_image_url= constant.GALLERY_IMAGE
+        thumb_image_url = ApiConstant.GALLERY_IMAGE
                 + firstLevelFilter.getMedia_thumbnail();
 
         String imageType = firstLevelFilter.getMedia_type();

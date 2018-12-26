@@ -1,12 +1,10 @@
 package com.procialize.singleevent.Activity;
 
-import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -22,7 +20,6 @@ import android.widget.Toast;
 
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
-import com.procialize.singleevent.GetterSetter.QuizList;
 import com.procialize.singleevent.GetterSetter.QuizOptionList;
 import com.procialize.singleevent.GetterSetter.QuizSubmitFetch;
 import com.procialize.singleevent.R;

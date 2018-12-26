@@ -40,7 +40,7 @@ public class ProgressRequestBodyVideo extends RequestBody {
     }
 
     @Override
-    public long contentLength() throws IOException {
+    public long contentLength() {
         return mFile.length();
     }
 

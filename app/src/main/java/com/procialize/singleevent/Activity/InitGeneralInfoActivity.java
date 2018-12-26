@@ -3,8 +3,8 @@ package com.procialize.singleevent.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
@@ -37,13 +37,13 @@ public class InitGeneralInfoActivity extends AppCompatActivity {
         if(name.equalsIgnoreCase("about location")){
             setContentView(R.layout.about_city);
 
-            TextView attendeetitle = (TextView)findViewById(R.id.attendeetitle);
+            TextView attendeetitle = findViewById(R.id.attendeetitle);
             attendeetitle.setTextColor(Color.parseColor(colorActive));
 
-            RelativeLayout layoutTop = (RelativeLayout)findViewById(R.id.layoutTop);
+            RelativeLayout layoutTop = findViewById(R.id.layoutTop);
             layoutTop.setBackgroundColor(Color.parseColor(colorActive));
 
-            TextView tvname = (TextView)findViewById(R.id.tvname);
+            TextView tvname = findViewById(R.id.tvname);
             tvname.setTextColor(Color.parseColor(colorActive));
 
 
@@ -52,13 +52,13 @@ public class InitGeneralInfoActivity extends AppCompatActivity {
         }else if(name.equalsIgnoreCase("about hotel")){
             setContentView(R.layout.about_hotel);
 
-            TextView attendeetitle = (TextView)findViewById(R.id.attendeetitle);
+            TextView attendeetitle = findViewById(R.id.attendeetitle);
             attendeetitle.setTextColor(Color.parseColor(colorActive));
 
-            RelativeLayout layoutTop = (RelativeLayout)findViewById(R.id.layoutTop);
+            RelativeLayout layoutTop = findViewById(R.id.layoutTop);
             layoutTop.setBackgroundColor(Color.parseColor(colorActive));
 
-            TextView tvname = (TextView)findViewById(R.id.tvname);
+            TextView tvname = findViewById(R.id.tvname);
             tvname.setTextColor(Color.parseColor(colorActive));
 
 
@@ -67,7 +67,7 @@ public class InitGeneralInfoActivity extends AppCompatActivity {
             setContentView(R.layout.activity_init_general_info);
 
 
-            TextView txt_title = (TextView)findViewById(R.id.txt_title);
+            TextView txt_title = findViewById(R.id.txt_title);
             txt_title.setTextColor(Color.parseColor(colorActive));
         }
 

@@ -18,7 +18,6 @@ import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -32,7 +31,6 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
-import com.procialize.singleevent.Activity.ImageViewActivity;
 import com.procialize.singleevent.CustomTools.PicassoTrustAll;
 import com.procialize.singleevent.DbHelper.ConnectionDetector;
 import com.procialize.singleevent.GetterSetter.FirstLevelFilter;
@@ -42,7 +40,6 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -66,7 +63,6 @@ public class SwipepagerAdapter extends PagerAdapter {
         inflater = LayoutInflater.from(context);
         SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         colorActive = prefs.getString("colorActive", "");
-
 
     }
 
@@ -92,12 +88,12 @@ public class SwipepagerAdapter extends PagerAdapter {
             e.printStackTrace();
         }
 
-        ImageView myImage = (ImageView) myImageLayout.findViewById(R.id.image);
-        TextView name = (TextView) myImageLayout.findViewById(R.id.name);
-        LinearLayout linMsg = (LinearLayout) myImageLayout.findViewById(R.id.linMsg);
-        LinearLayout linsave = (LinearLayout) myImageLayout.findViewById(R.id.linsave);
-        TextView savebtn = (TextView) myImageLayout.findViewById(R.id.savebtn);
-        TextView sharebtn = (TextView) myImageLayout.findViewById(R.id.sharebtn);
+        ImageView myImage = myImageLayout.findViewById(R.id.image);
+        TextView name = myImageLayout.findViewById(R.id.name);
+        LinearLayout linMsg = myImageLayout.findViewById(R.id.linMsg);
+        LinearLayout linsave = myImageLayout.findViewById(R.id.linsave);
+        TextView savebtn = myImageLayout.findViewById(R.id.savebtn);
+        TextView sharebtn = myImageLayout.findViewById(R.id.sharebtn);
         linsave.setBackgroundColor(Color.parseColor(colorActive));
         linMsg.setBackgroundColor(Color.parseColor(colorActive));
         savebtn.setBackgroundColor(Color.parseColor(colorActive));

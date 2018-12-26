@@ -99,6 +99,7 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
+                android:contentDescription="TODO"
                 android:src="@drawable/agendadate" />
 
             <com.procialize.singleevent.Fonts.RobotoTextview
@@ -131,6 +132,7 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
+                android:contentDescription="TODO"
                 android:src="@drawable/time" />
 
             <com.procialize.singleevent.Fonts.RobotoTextview
@@ -163,6 +165,7 @@
                 android:layout_height="20dp"
                 android:layout_gravity="top"
                 android:layout_marginLeft="20dp"
+                android:contentDescription="TODO"
                 android:src="@drawable/desc" />
 
             <TextView
@@ -230,7 +233,6 @@
         </LinearLayout>
 
         <com.procialize.singleevent.Fonts.RobotoTextview
-            android:id="@+id/txtrate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/linear_bottom"

@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,6 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
-import com.procialize.singleevent.GetterSetter.FirstLevelFilter;
 import com.procialize.singleevent.GetterSetter.SelfieList;
 import com.procialize.singleevent.R;
 
@@ -71,8 +69,8 @@ public class SwipepagerSelfieAdapter extends PagerAdapter {
         SelfieList firstLevelFilter = images.get(position);
 
 
-        ImageView myImage = (ImageView) myImageLayout.findViewById(R.id.image);
-        TextView name = (TextView) myImageLayout.findViewById(R.id.name);
+        ImageView myImage = myImageLayout.findViewById(R.id.image);
+        TextView name = myImageLayout.findViewById(R.id.name);
         final ProgressBar progressBar = myImageLayout.findViewById(R.id.progressbar);
 
         Glide.with(context).load(ApiConstant.selfieimage+firstLevelFilter.getFileName())

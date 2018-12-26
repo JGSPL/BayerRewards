@@ -18,6 +18,7 @@
             android:layout_centerInParent="true"
             android:layout_alignParentBottom="true"
             android:id="@+id/imageIv"
+            android:contentDescription="TODO"
             android:scaleType="centerCrop"
             android:layout_marginRight="3dp"
             android:layout_marginLeft="3dp"

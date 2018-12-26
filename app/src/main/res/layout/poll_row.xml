@@ -49,6 +49,7 @@
                     android:id="@+id/ic_rightarrow"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:contentDescription="TODO"
                     android:src="@drawable/right_arrow1" />
 
             </LinearLayout>

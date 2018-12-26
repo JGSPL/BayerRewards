@@ -60,6 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="#1F73BA"
+        android:baselineAligned="false"
         android:orientation="horizontal"
         android:weightSum="2">
 
@@ -155,6 +156,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:baselineAligned="false"
             android:orientation="horizontal"
             android:weightSum="2">
 
@@ -241,6 +243,7 @@
                         android:id="@+id/highiv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="TODO"
                         android:src="@drawable/high" />
 
                     <com.procialize.singleevent.Fonts.RobotoTextview
@@ -257,6 +260,7 @@
                         android:id="@+id/lowiv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="TODO"
                         android:src="@drawable/low" />
 
 
@@ -288,6 +292,7 @@
                     android:id="@+id/infoIv"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
+                    android:contentDescription="TODO"
                     android:src="@drawable/sunny" />
 
                 <com.procialize.singleevent.Fonts.RobotoTextview

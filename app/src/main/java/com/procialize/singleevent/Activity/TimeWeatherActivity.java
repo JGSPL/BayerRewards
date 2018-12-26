@@ -1,9 +1,8 @@
 package com.procialize.singleevent.Activity;
 
-import android.app.ProgressDialog;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -54,11 +53,11 @@ public class TimeWeatherActivity extends AppCompatActivity {
         headerlogoIv = findViewById(R.id.headerlogoIv);
         Util.logomethod(this,headerlogoIv);
 
-        txtCity = (TextView) findViewById(R.id.txtCity);
-        temp = (TextView) findViewById(R.id.temp);
-        max = (TextView) findViewById(R.id.max);
-        min = (TextView) findViewById(R.id.min);
-        txtdate = (TextView) findViewById(R.id.txtdate);
+        txtCity = findViewById(R.id.txtCity);
+        temp = findViewById(R.id.temp);
+        max = findViewById(R.id.max);
+        min = findViewById(R.id.min);
+        txtdate = findViewById(R.id.txtdate);
 
         SessionManager sessionManager = new SessionManager(TimeWeatherActivity.this);
         mAPIService = ApiUtils.getAPIService();

@@ -3,9 +3,9 @@ package com.procialize.singleevent.InnerDrawerActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -18,7 +18,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.procialize.singleevent.Activity.ImageViewActivity;
 import com.procialize.singleevent.Adapter.GalleryAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
@@ -86,7 +85,7 @@ public class GalleryActivity extends AppCompatActivity implements GalleryAdapter
         galleryRvrefresh = findViewById(R.id.galleryRvrefresh);
         progressBar = findViewById(R.id.progressBar);
 
-        TextView header = (TextView)findViewById(R.id.title);
+        TextView header = findViewById(R.id.title);
         header.setTextColor(Color.parseColor(colorActive));
 
 

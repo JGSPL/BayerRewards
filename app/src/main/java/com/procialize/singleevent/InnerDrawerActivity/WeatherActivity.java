@@ -4,9 +4,9 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -21,7 +21,6 @@ import android.widget.Toast;
 
 import com.procialize.singleevent.Adapter.WeatherAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
-import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.GetterSetter.Forecast;
 import com.procialize.singleevent.GetterSetter.Weather;
@@ -31,10 +30,8 @@ import com.procialize.singleevent.Utility.Util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -125,8 +122,8 @@ public class WeatherActivity extends AppCompatActivity implements WeatherAdapter
         infoTv.setTextColor(Color.parseColor(colorActive));
         maxTv.setTextColor(Color.parseColor(colorActive));
 
-        ImageView ic_rightarrow = (ImageView) findViewById(R.id.highiv);
-        ImageView ic_rightarrow1 = (ImageView) findViewById(R.id.lowiv);
+        ImageView ic_rightarrow = findViewById(R.id.highiv);
+        ImageView ic_rightarrow1 = findViewById(R.id.lowiv);
         int colorInt = Color.parseColor(colorActive);
 
         ColorStateList csl = ColorStateList.valueOf(colorInt);

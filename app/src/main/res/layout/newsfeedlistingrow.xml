@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -69,6 +68,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
+                    android:contentDescription="TODO"
                     android:padding="2dp"
                     android:layout_centerInParent="true"
                     android:src="@drawable/post_status" />
@@ -90,6 +90,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
+                    android:contentDescription="TODO"
                     android:padding="2dp"
                     android:layout_centerInParent="true"
                     android:src="@drawable/post_image" />
@@ -111,6 +112,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
+                    android:contentDescription="TODO"
                     android:padding="2dp"
 
                     android:layout_centerInParent="true"
@@ -138,6 +140,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="80sp"
+            android:baselineAligned="false"
             android:orientation="horizontal">
 
 
@@ -244,6 +247,7 @@
                         android:id="@+id/editIV"
                         android:layout_width="30dp"
                         android:layout_height="40dp"
+                        android:contentDescription="TODO"
                         android:padding="5dp"
                         android:src="@drawable/ic_blackedit"
                         android:visibility="gone"/>
@@ -253,6 +257,7 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:paddingTop="2dp"
+                        android:contentDescription="TODO"
                         android:paddingBottom="2dp"
                         android:src="@drawable/ic_more" />
 
@@ -303,6 +308,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:contentDescription="TODO"
                 android:src="@drawable/play"
                 android:transitionName="feedimage"
                 android:visibility="gone" />
@@ -338,6 +344,7 @@
 
             <LinearLayout
                 android:id="@+id/likeTv"
+                android:padding="3dp"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -361,7 +368,7 @@
                     android:id="@+id/img_like"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawablePadding="2dp"
+                    android:drawablePadding="5dp"
                     android:gravity="center" />
 
 
@@ -375,6 +382,7 @@
                 android:visibility="gone" />
 
             <LinearLayout
+                android:padding="3dp"
                 android:id="@+id/commentTv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -386,7 +394,7 @@
                     android:id="@+id/commenttext"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawablePadding="3dp"
+                    android:drawablePadding="5dp"
                     android:drawableRight="@drawable/ic_comment"
                     android:gravity="center"
                     android:text="0 Comments"
@@ -404,6 +412,7 @@
 
             <LinearLayout
                 android:id="@+id/shareTv"
+                android:padding="3dp"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -414,7 +423,7 @@
                     android:id="@+id/sharetext"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawablePadding="2dp"
+                    android:drawablePadding="5dp"
                     android:drawableRight="@drawable/ic_share"
                     android:gravity="center"
                     android:text="Share"

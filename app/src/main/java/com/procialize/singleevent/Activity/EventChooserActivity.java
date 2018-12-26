@@ -34,7 +34,6 @@ import com.procialize.singleevent.GetterSetter.Login;
 import com.procialize.singleevent.GetterSetter.UserEventList;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
-import com.procialize.singleevent.Utility.Util;
 import com.procialize.singleevent.gcm.GCMHelper;
 
 import retrofit2.Call;
@@ -290,8 +289,8 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
             String id = response.body().getUserData().getAttendeeId();
 
             sessionManager.createLoginSession(firstname, lastname, email, mobile, company, designation, token, desc, city, country, pic, id, emailid, password, "1");
-            sessionManager.saveSharedPreferencesEventList(response.body().getEventSettingList());
-            sessionManager.saveSharedPreferencesMenuEventList(response.body().getEventMenuSettingList());
+            SessionManager.saveSharedPreferencesEventList(response.body().getEventSettingList());
+            SessionManager.saveSharedPreferencesMenuEventList(response.body().getEventMenuSettingList());
 
 
             SharedPreferences prefs = getSharedPreferences(MY_PREFS_LOGIN, MODE_PRIVATE);

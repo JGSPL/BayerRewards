@@ -2,11 +2,8 @@ package com.procialize.singleevent.Adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +17,6 @@ import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.GetterSetter.DirectQuestion;
 import com.procialize.singleevent.GetterSetter.EventSettingList;
-import com.procialize.singleevent.GetterSetter.QuestionSpeakerList;
-import com.procialize.singleevent.GetterSetter.SpeakerQuestionList;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.Utility;
@@ -110,7 +105,7 @@ public class QADirectAdapter extends RecyclerView.Adapter<QADirectAdapter.MyView
         token = user.get(SessionManager.KEY_TOKEN);
 
 
-        eventSettingLists = sessionManager.loadEventList();
+        eventSettingLists = SessionManager.loadEventList();
 
         if (eventSettingLists.size() != 0) {
             applysetting(eventSettingLists);

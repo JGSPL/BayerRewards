@@ -41,6 +41,7 @@
                 android:layout_height="15dp"
                 android:layout_gravity="right|center"
                 android:layout_weight="1.5"
+                android:contentDescription="TODO"
                 android:src="@drawable/cancel_btn" />
         </LinearLayout>
 

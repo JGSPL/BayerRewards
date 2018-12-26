@@ -119,6 +119,7 @@
                             android:layout_centerInParent="true"
                             android:adjustViewBounds="true"
                             android:background="@drawable/image_border"
+                            android:contentDescription="TODO"
                             android:scaleType="fitXY"
                             android:src="@drawable/profilepic_placeholder" />
 
@@ -148,6 +149,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:focusableInTouchMode="true"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/agendabg"

@@ -7,20 +7,14 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.RecyclerView;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.procialize.singleevent.Fragments.GeneralInfo;
-
 import com.procialize.singleevent.GetterSetter.InfoList;
 import com.procialize.singleevent.R;
-
 
 import java.util.List;
 

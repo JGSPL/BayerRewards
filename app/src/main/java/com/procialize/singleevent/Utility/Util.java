@@ -1,9 +1,6 @@
 package com.procialize.singleevent.Utility;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -20,7 +17,6 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.procialize.singleevent.Activity.EventChooserActivity;
 import com.procialize.singleevent.Activity.HomeActivity;
 import com.procialize.singleevent.Activity.ProfileActivity;
 import com.procialize.singleevent.ApiConstant.ApiConstant;

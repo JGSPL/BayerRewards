@@ -52,7 +52,7 @@ public abstract class EndlessRecyclerOnScrollListener extends
 
             loading = true;
 
-            JZVideoPlayerStandard videoView = (JZVideoPlayerStandard) recyclerView.findViewById(R.id.videoplayer);
+            JZVideoPlayerStandard videoView = recyclerView.findViewById(R.id.videoplayer);
             try {
                 if (mScrollState == RecyclerView.SCROLL_STATE_SETTLING) {
                     if (videoView != null) {

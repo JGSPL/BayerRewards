@@ -4,9 +4,10 @@ package com.procialize.singleevent.GetterSetter;
  * Created by Naushad on 12/18/2017.
  */
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class QASessionFetch {
 

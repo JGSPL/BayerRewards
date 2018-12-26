@@ -1,19 +1,17 @@
 package com.procialize.singleevent.Activity;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.LayerDrawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -101,7 +99,7 @@ public class AgendaDetailActivity extends AppCompatActivity {
         // apikey
         apikey = user.get(SessionManager.KEY_TOKEN);
 
-        eventSettingLists = sessionManager.loadEventList();
+        eventSettingLists = SessionManager.loadEventList();
 
         if (eventSettingLists.size() != 0) {
             applysetting(eventSettingLists);
@@ -162,7 +160,7 @@ public class AgendaDetailActivity extends AppCompatActivity {
 
                     PostRate(eventid,rate , apikey, agendaid);
                 } else {
-                    Toast.makeText(AgendaDetailActivity.this, "Please Select Something", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AgendaDetailActivity.this, "Please rate on a scale of 1-5 stars", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -296,7 +294,7 @@ public class AgendaDetailActivity extends AppCompatActivity {
 
                     PostRate(eventid,rate , apikey, agendaid);
                 } else {
-                    Toast.makeText(AgendaDetailActivity.this, "Please Select Something", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AgendaDetailActivity.this, "Please rate on a scale of 1-5 stars", Toast.LENGTH_SHORT).show();
 
                 }
             }

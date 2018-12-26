@@ -1,9 +1,9 @@
 package com.procialize.singleevent.Activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;

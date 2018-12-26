@@ -1,7 +1,7 @@
 package com.procialize.singleevent.Activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.WebView;
@@ -37,7 +37,7 @@ public class PrivacyPolicy extends AppCompatActivity {
         Util.logomethod(this,headerlogoIv);
 
 
-        WebView mywebview = (WebView) findViewById(R.id.webView);
+        WebView mywebview = findViewById(R.id.webView);
 
         mywebview.loadUrl("https://www.procialize.info/privacypolicy.html");
 

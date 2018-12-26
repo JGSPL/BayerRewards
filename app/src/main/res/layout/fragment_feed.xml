@@ -1,5 +1,4 @@
 <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/newsfeedrefresh"
     android:layout_width="match_parent"
@@ -45,14 +44,15 @@
                 android:orientation="horizontal"
                 android:padding="10dp">
 
-                <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                <ImageView
                     android:id="@+id/profileIV"
                     android:layout_width="45dp"
                     android:layout_height="35dp"
                     android:layout_centerInParent="true"
                     android:src="@drawable/profilepic_placeholder"
                     android:adjustViewBounds="true"
-                    android:scaleType="centerCrop"/>
+                    android:contentDescription="TODO"
+                    android:scaleType="centerCrop" />
 
 
                 <com.procialize.singleevent.Fonts.RobotoTextview
@@ -86,6 +86,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
+                        android:contentDescription="TODO"
                         android:src="@drawable/post_status" />
 
                 </RelativeLayout>
@@ -106,6 +107,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
+                        android:contentDescription="TODO"
                         android:src="@drawable/post_image" />
 
                 </RelativeLayout>
@@ -126,6 +128,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
+                        android:contentDescription="TODO"
                         android:src="@drawable/post_video" />
 
                 </RelativeLayout>

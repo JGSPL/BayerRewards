@@ -92,16 +92,16 @@ public class CurrencyConverter extends AppCompatActivity {
         Util.logomethod(this, headerlogoIv);
         currencyDropDown = "https://www.procialize.info/API/event_api_call/GenInfoCurrencyDropdown";
 
-        secondans_list_spinner = (Spinner) findViewById(R.id.secondans_list_spinner);
-        firstans_list_spinner = (Spinner) findViewById(R.id.firstans_list_spinner);
-        RelativeLayout layoutTop = (RelativeLayout)findViewById(R.id.layoutTop) ;
+        secondans_list_spinner = findViewById(R.id.secondans_list_spinner);
+        firstans_list_spinner = findViewById(R.id.firstans_list_spinner);
+        RelativeLayout layoutTop = findViewById(R.id.layoutTop);
         layoutTop.setBackgroundColor(Color.parseColor(colorActive));
 
-        LinearLayout linUpper = (LinearLayout)findViewById(R.id.linUpper) ;
+        LinearLayout linUpper = findViewById(R.id.linUpper);
         linUpper.setBackgroundColor(Color.parseColor(colorActive));
 
 
-        ImageView imgArrow = (ImageView)findViewById(R.id.imgArrow) ;
+        ImageView imgArrow = findViewById(R.id.imgArrow);
         imgArrow.setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_ATOP);
 
 
@@ -115,10 +115,10 @@ public class CurrencyConverter extends AppCompatActivity {
         View v1 = firstans_list_spinner.getSelectedView();
         ((TextView)v1).setTextColor(getResources().getColor(R.color.activetab));*/
 
-        btnConverter = (Button) findViewById(R.id.btnConverter);
-        edtAmount = (EditText) findViewById(R.id.edtAmount);
-        txtValue = (EditText) findViewById(R.id.txtValue);
-        txtHeader = (TextView)findViewById(R.id.txtHeader);
+        btnConverter = findViewById(R.id.btnConverter);
+        edtAmount = findViewById(R.id.edtAmount);
+        txtValue = findViewById(R.id.txtValue);
+        txtHeader = findViewById(R.id.txtHeader);
         txtHeader.setTextColor(Color.parseColor(colorActive));
         btnConverter.setTextColor(Color.parseColor(colorActive));
         int colorInt = Color.parseColor(colorActive);

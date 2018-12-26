@@ -15,7 +15,6 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -493,7 +492,7 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
 
         public ViewHolder(View convertView) {
             super(convertView);
-            quiz_title_txt = (TextView) convertView
+            quiz_title_txt = convertView
                     .findViewById(R.id.quiz_question);
             //quiz_title_txt.setTag(position);
 
@@ -506,13 +505,13 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
 //            discript_layout = (LinearLayout) convertView
 //                    .findViewById(R.id.discript_layout);
 
-            raiolayout = (LinearLayout) convertView
+            raiolayout = convertView
                     .findViewById(R.id.raiolayout);
 
-            viewGroup = (RadioGroup) convertView
+            viewGroup = convertView
                     .findViewById(R.id.radiogroup);
 
-            textno1 = (TextView) convertView
+            textno1 = convertView
                     .findViewById(R.id.textno1);
 
 //            textno = (TextView) convertView

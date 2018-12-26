@@ -10,7 +10,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
@@ -32,7 +31,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -153,7 +151,7 @@ public class PostEditActivityOld extends AppCompatActivity implements ProgressRe
        // postbtn.setBackgroundColor(Color.parseColor(colorActive));
 
 
-        final TextView txtcount1 = (TextView) findViewById(R.id.txtcount1);
+        final TextView txtcount1 = findViewById(R.id.txtcount1);
 
         final TextWatcher txwatcher = new TextWatcher() {
 
@@ -824,10 +822,10 @@ public class PostEditActivityOld extends AppCompatActivity implements ProgressRe
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 //        Uri selectedMediaUri = data.getData();
-        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == this.RESULT_OK) {
+        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             setpic2();
 
-        } else if (requestCode == SELECT_FILE && resultCode == this.RESULT_OK) {
+        } else if (requestCode == SELECT_FILE && resultCode == RESULT_OK) {
             onSelectFromGalleryResult(data);
         } else
       /*  if (data != null) {
@@ -927,7 +925,7 @@ public class PostEditActivityOld extends AppCompatActivity implements ProgressRe
                 }
 
 
-            } else if (resultCode == this.RESULT_OK && requestCode == REQUEST_CAMERA)
+            } else if (resultCode == RESULT_OK && requestCode == REQUEST_CAMERA)
 
             {
 

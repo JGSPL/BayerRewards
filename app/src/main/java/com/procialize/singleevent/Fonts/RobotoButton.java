@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.Button;
-import android.widget.TextView;
 
 /**
  * Created by Naushad on 11/1/2017.

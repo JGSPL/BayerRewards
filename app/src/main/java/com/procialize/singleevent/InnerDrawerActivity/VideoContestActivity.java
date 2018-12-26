@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -35,7 +35,6 @@ import com.procialize.singleevent.GetterSetter.ReportVideoContestHide;
 import com.procialize.singleevent.GetterSetter.VideoContest;
 import com.procialize.singleevent.GetterSetter.VideoContestLikes;
 import com.procialize.singleevent.GetterSetter.VideoContestListFetch;
-
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.Util;
@@ -100,9 +99,9 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
         uploadbtn = findViewById(R.id.uploadbtn);
         videofeedrefresh = findViewById(R.id.videofeedrefresh);
         videorecycler = findViewById(R.id.videorecycler);
-        header = (TextView)findViewById(R.id.title);
+        header = findViewById(R.id.title);
         header.setTextColor(Color.parseColor(colorActive));
-        seldescription= (TextView) findViewById(R.id.seldescription);
+        seldescription = findViewById(R.id.seldescription);
 
 
         int columns = 2;

@@ -131,11 +131,11 @@ public class ImageCropActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_image_crop);
         mContentResolver = getContentResolver();
-        mImageView = (PhotoView) findViewById(R.id.iv_photo);
-        mCropOverlayView = (CropOverlayView) findViewById(R.id.crop_overlay);
-        btnSend = (Button) findViewById(R.id.sendBtn);
+        mImageView = findViewById(R.id.iv_photo);
+        mCropOverlayView = findViewById(R.id.crop_overlay);
+        btnSend = findViewById(R.id.sendBtn);
         btnSend.setOnClickListener(btnSendListener);
-        btnCancel = (Button) findViewById(R.id.cancelBtn);
+        btnCancel = findViewById(R.id.cancelBtn);
         btnCancel.setOnClickListener(btnCancelListener);
 
         mImageView.addListener(new PhotoViewAttacher.IGetImageBounds() {

@@ -1,11 +1,9 @@
 package com.procialize.singleevent.Adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.Display;
@@ -80,9 +78,9 @@ public class MyTravelAdapterList extends BaseAdapter {
             int totalwidth = dispDefault.getWidth();
 
 
-            holder.nameTv = (TextView) convertView.findViewById(R.id.nameTv);
-            holder.ic_rightarrow = (ImageView) convertView.findViewById(R.id.ic_rightarrow);
-            holder.linTicket = (LinearLayout) convertView.findViewById(R.id.linTicket);
+            holder.nameTv = convertView.findViewById(R.id.nameTv);
+            holder.ic_rightarrow = convertView.findViewById(R.id.ic_rightarrow);
+            holder.linTicket = convertView.findViewById(R.id.linTicket);
 
 
             convertView.setTag(holder);

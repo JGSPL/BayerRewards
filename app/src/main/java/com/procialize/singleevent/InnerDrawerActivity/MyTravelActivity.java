@@ -3,9 +3,9 @@ package com.procialize.singleevent.InnerDrawerActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -14,8 +14,6 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,11 +21,9 @@ import android.widget.Toast;
 
 import com.procialize.singleevent.Activity.ViewPDFActivity;
 import com.procialize.singleevent.Adapter.MyTravelAdapter;
-import com.procialize.singleevent.Adapter.MyTravelAdapterList;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
-import com.procialize.singleevent.CustomTools.RecyclerViewEmptySupport;
 import com.procialize.singleevent.GetterSetter.TravelList;
 import com.procialize.singleevent.GetterSetter.TravelListFetch;
 import com.procialize.singleevent.R;
@@ -161,7 +157,7 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelAdapt
     public void showResponse(Response<TravelListFetch> response) {
 
         // specify an adapter (see also next example)
-        RelativeLayout linUpper = (RelativeLayout) findViewById(R.id.linUpper);
+        RelativeLayout linUpper = findViewById(R.id.linUpper);
         if (response.body().getStatus().equalsIgnoreCase("success")) {
             List<TravelList> travelLists = response.body().getTravelList();
             if(travelLists.size()==0){
@@ -174,10 +170,10 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelAdapt
                 //travelRvrefresh.setAdapter(travelAdapter);
 
                 travelRv.scheduleLayoutAnimation();
-                TextView txtEmpty = (TextView)findViewById(R.id.txtEmpty);
+                TextView txtEmpty = findViewById(R.id.txtEmpty);
                 txtEmpty.setVisibility(View.VISIBLE);
             }else {
-                TextView txtEmpty = (TextView)findViewById(R.id.txtEmpty);
+                TextView txtEmpty = findViewById(R.id.txtEmpty);
                 txtEmpty.setVisibility(View.GONE);
                // linUpper.setBackground(getResources().getDrawable(R.drawable.travel_bg));
 

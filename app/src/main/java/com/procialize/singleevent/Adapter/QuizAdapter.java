@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.procialize.singleevent.GetterSetter.LivePollList;
-import com.procialize.singleevent.GetterSetter.LivePollOptionList;
 import com.procialize.singleevent.GetterSetter.QuizList;
 import com.procialize.singleevent.GetterSetter.QuizOptionList;
 import com.procialize.singleevent.R;

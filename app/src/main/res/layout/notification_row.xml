@@ -16,6 +16,7 @@
         <ImageView
             android:id="@+id/ivtype"
             android:layout_width="23dp"
+            android:contentDescription="TODO"
             android:layout_height="23dp" />
 
     </LinearLayout>
@@ -32,6 +33,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:baselineAligned="false"
             android:orientation="horizontal">
 
             <RelativeLayout
@@ -40,12 +42,13 @@
                 android:layout_weight="1.5"
                 android:gravity="top">
 
-                <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                <ImageView
                     android:id="@+id/profileIV"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_alignParentTop="true"
                     android:layout_centerInParent="true"
+                    android:contentDescription="TODO"
                     android:src="@drawable/profilepic_placeholder" />
 
                 <ProgressBar
@@ -132,12 +135,14 @@
                     android:id="@+id/arrowIv"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:contentDescription="TODO"
                     android:src="@drawable/ic_rightarrow" />
 
                 <ImageView
                     android:id="@+id/arrowIvmsg"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:contentDescription="TODO"
                     android:src="@drawable/ic_rightarrow" />
             </LinearLayout>
 
@@ -150,6 +155,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="@dimen/elevation"
+            android:contentDescription="TODO"
             android:paddingLeft="5dp" />
 
 

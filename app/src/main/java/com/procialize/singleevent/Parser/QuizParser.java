@@ -2,7 +2,6 @@ package com.procialize.singleevent.Parser;
 
 import android.util.Log;
 
-
 import com.procialize.singleevent.GetterSetter.Quiz;
 
 import org.json.JSONArray;

@@ -1,16 +1,13 @@
 package com.procialize.singleevent.Session;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.procialize.singleevent.Activity.HomeActivity;
 import com.procialize.singleevent.Activity.LoginActivity;
-import com.procialize.singleevent.Activity.MainActivity;
 import com.procialize.singleevent.GetterSetter.EventMenuSettingList;
 import com.procialize.singleevent.GetterSetter.EventSettingList;
 

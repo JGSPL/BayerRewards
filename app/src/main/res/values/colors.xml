@@ -6,9 +6,7 @@
     <color name="error">#F25A30</color>
     <color name="orange">#F25A30</color>
     <color name="colorgrey">#f1f1f1</color>
-    <color name="coloagenda">#30333A</color>
     <color name="trans">#80000000</color>
-    <color name="transp">#E6000000</color>
     <color name="colorunselectedtab">#7898a9</color>
     <color name="colorselectedtab">#f15a2b</color>
     <color name="colortoolbar">#ffffff</color>
@@ -17,17 +15,14 @@
     <color name="feedpostingbgcolor">#7898a9</color>
     <color name="feedpostingbgcolornew">#F1F1F1</color>
     <color name="black">#000000</color>
-    <color name="drawerbackground">#37474F</color>
     <color name="colorwhite">#ffffff</color>
     <color name="logintxt">#0E73BA</color>
     <color name="linecolor">#C5C6C6</color>
     <color name="edit_corner">#C5C6C6</color>
-    <color name="innerbg">#ffffff</color>
-    <color name="green">#32CD32</color>
-    <color name="red">#ff0000</color>
     <color name="inactivetab">#4D4D4D</color>
     <color name="activetab">#0E73BA</color>
     <color name="qnarow">#f1f1f1</color>
+    <color name="transperent">@android:color/transparent</color>
 
 
 </resources>

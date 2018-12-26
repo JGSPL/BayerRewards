@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -19,12 +18,10 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.procialize.singleevent.Adapter.SwipeAgendaImageAdapter;
 import com.procialize.singleevent.Adapter.SwipepagerAgendaImage;
@@ -36,16 +33,10 @@ import com.procialize.singleevent.DbHelper.ConnectionDetector;
 import com.procialize.singleevent.DbHelper.DBHelper;
 import com.procialize.singleevent.GetterSetter.Agenda;
 import com.procialize.singleevent.GetterSetter.AgendaFolder;
-
 import com.procialize.singleevent.GetterSetter.AgendaMediaList;
 import com.procialize.singleevent.GetterSetter.AgendaVacationList;
-import com.procialize.singleevent.GetterSetter.FetchAgenda;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
-
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.lang.reflect.Field;
 import java.text.DateFormat;
@@ -115,6 +106,21 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
     SharedPreferences prefs;
     static String colorActive;
 
+    private static View createTabView(final Context context, final String text, final String text1) {
+        View view = LayoutInflater.from(context).inflate(R.layout.agenda_tabs_bg, null);
+
+        LinearLayout linTab = view.findViewById(R.id.linTab);
+        linTab.setBackgroundColor(Color.parseColor(colorActive));
+        TextView tv = view.findViewById(R.id.tabsText);
+        TextView tv1 = view.findViewById(R.id.tabsecondText);
+        tab_text = view.findViewById(R.id.tab_text);
+        tv.setText(text);
+        tv1.setText(text1);
+
+
+        return view;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -153,11 +159,11 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
 
         // Create FragmentTabHost
         //agendaTabHost = new FragmentTabHost(getActivity());
-        agendaTabHost = (FragmentTabHost) rootView.findViewById(android.R.id.tabhost);
-        tabWidget = (TabWidget) rootView.findViewById(android.R.id.tabs);
+        agendaTabHost = rootView.findViewById(android.R.id.tabhost);
+        tabWidget = rootView.findViewById(android.R.id.tabs);
         agendaTabHost.setup(getActivity(), getChildFragmentManager(), android.R.id.tabcontent);
-        txtname = (TextView) rootView.findViewById(R.id.txtname);
-        webView = (WebView) rootView.findViewById(R.id.webView);
+        txtname = rootView.findViewById(R.id.txtname);
+        webView = rootView.findViewById(R.id.webView);
 
         // // Locate fragment1.xml to create FragmentTabHost
         //agendaTabHost.setup(getActivity(), getChildFragmentManager(), R.id.tabcontent);
@@ -166,7 +172,7 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
         if (cd.isConnectingToInternet()) {
 
             // Initialize Update Agenda URL
-            updateAgendaUrl = constant.INDEPENDENT_AGENDA;
+            updateAgendaUrl = ApiConstant.INDEPENDENT_AGENDA;
 
             fetchAgenda(token, eventid);
         }
@@ -182,8 +188,8 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewPager = (AutoScrollViewPager) getActivity().findViewById(R.id.pagerimage);
-        sliderDotspanel = (LinearLayout) getActivity().findViewById(R.id.SliderDots);
+        mViewPager = getActivity().findViewById(R.id.pagerimage);
+        sliderDotspanel = getActivity().findViewById(R.id.SliderDots);
 
 		/*mViewPager.startAutoScroll();
 		mViewPager.setInterval(5000);
@@ -192,7 +198,49 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
 
     }
 
-    private void initview(final Response<Agenda> response) throws ParseException {
+	/*@Override
+	public void onResume() {
+		super.onResume();
+		if (cd.isConnectingToInternet()) {
+
+			// Initialize Update Agenda URL
+			updateAgendaUrl = constant.WEBSERVICE_URL + constant.WEBSERVICE_FOLDER
+					+ constant.INDEPENDENT_AGENDA;
+
+			new GetUpdateAgenda().execute();
+		}
+	}*/
+
+    // private void setupTab(final View view, final String tag) {
+    // View tabview = createTabView(agendaTabHost.getContext(), tag);
+    // TabSpec setContent = agendaTabHost.newTabSpec(tag).setIndicator(tabview)
+    // .setContent(new TabContentFactory() {
+    // public View createTabContent(String tag) {
+    // return view;
+    // }
+    // });
+    // agendaTabHost.addTab(setContent);
+    // }
+
+    // Detach FragmentTabHost
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        try {
+
+            Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
+            childFragmentManager.setAccessible(true);
+            childFragmentManager.set(this, null);
+
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void initview(final Response<Agenda> response) {
 
 
         String tempDate = "";
@@ -501,63 +549,6 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
         });
     }
 
-	/*@Override
-	public void onResume() {
-		super.onResume();
-		if (cd.isConnectingToInternet()) {
-
-			// Initialize Update Agenda URL
-			updateAgendaUrl = constant.WEBSERVICE_URL + constant.WEBSERVICE_FOLDER
-					+ constant.INDEPENDENT_AGENDA;
-
-			new GetUpdateAgenda().execute();
-		}
-	}*/
-
-    // private void setupTab(final View view, final String tag) {
-    // View tabview = createTabView(agendaTabHost.getContext(), tag);
-    // TabSpec setContent = agendaTabHost.newTabSpec(tag).setIndicator(tabview)
-    // .setContent(new TabContentFactory() {
-    // public View createTabContent(String tag) {
-    // return view;
-    // }
-    // });
-    // agendaTabHost.addTab(setContent);
-    // }
-
-    // Detach FragmentTabHost
-    @Override
-    public void onDetach() {
-        super.onDetach();
-
-        try {
-
-            Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
-            childFragmentManager.setAccessible(true);
-            childFragmentManager.set(this, null);
-
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static View createTabView(final Context context, final String text, final String text1) {
-        View view = LayoutInflater.from(context).inflate(R.layout.agenda_tabs_bg, null);
-
-        LinearLayout linTab = (LinearLayout)view.findViewById(R.id.linTab);
-        linTab.setBackgroundColor(Color.parseColor(colorActive));
-        TextView tv = (TextView) view.findViewById(R.id.tabsText);
-        TextView tv1 = (TextView) view.findViewById(R.id.tabsecondText);
-        tab_text = (LinearLayout) view.findViewById(R.id.tab_text);
-        tv.setText(text);
-        tv1.setText(text1);
-
-
-        return view;
-    }
-
     // Remove FragmentTabHost
     @Override
     public void onDestroyView() {
@@ -732,11 +723,7 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
         agendaDBList = dbHelper.getAgendaFolderList();
         agendaFolderDBList = dbHelper.getAgendaMediaList();
 
-        try {
-            initview(response);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        initview(response);
 
     }
 

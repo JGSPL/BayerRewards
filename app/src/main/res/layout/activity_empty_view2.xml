@@ -245,7 +245,7 @@
                     android:layout_marginTop="10dp"
                     android:drawableLeft="@drawable/eula"
                     android:gravity="left|center"
-                    android:text="  @string/eula"
+                    android:text="@string/eula"
                     android:textColor="@color/colorwhite"
                     android:textSize="@dimen/textsizesmall"
                     android:drawablePadding="10dp"/>

@@ -3,12 +3,10 @@ package com.procialize.singleevent.DbHelper;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
 
 import com.procialize.singleevent.GetterSetter.AgendaList;
 import com.procialize.singleevent.GetterSetter.AgendaMediaList;
@@ -907,7 +905,6 @@ public class DBHelper extends SQLiteOpenHelper {
 */
 
         String selectQuery = "select * from " + ATTENDEES_TABLE_NAME + " where " + ATTENDEE_ID + " LIKE \'%" + att_id + "%\'";
-        ;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -1074,7 +1071,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public List<NewsFeedList> getNewsFeedLikeandComment(String feedid) {
         String selectQuery = "select * from " + NEWSFEED_TABLE_NAME + " where " + NEWSFEED_ID + " LIKE \'%" + feedid + "%\'";
-        ;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);

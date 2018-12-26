@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:background="@drawable/agendabg"
+        android:baselineAligned="false"
         android:gravity="center"
         android:orientation="horizontal"
         android:padding="5dp"
@@ -73,6 +74,7 @@
                 android:id="@+id/ic_rightarrow"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:contentDescription="TODO"
                 android:src="@drawable/ic_rightarrow" />
 
         </LinearLayout>

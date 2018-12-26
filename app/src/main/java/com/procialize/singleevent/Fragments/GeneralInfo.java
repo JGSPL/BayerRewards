@@ -1,17 +1,11 @@
 package com.procialize.singleevent.Fragments;
 
-import android.app.ActionBar.LayoutParams;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,22 +17,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.procialize.singleevent.Activity.CurrencyConverter;
 import com.procialize.singleevent.Activity.InitGeneralInfoActivity;
 import com.procialize.singleevent.Activity.LoginActivity;
-import com.procialize.singleevent.Activity.TimeWeatherActivity;
 import com.procialize.singleevent.Adapter.GeneralInfoListAdapter;
-import com.procialize.singleevent.Adapter.MyAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.GetterSetter.Analytic;
 import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.GetterSetter.GeneralInfoList;
 import com.procialize.singleevent.GetterSetter.InfoList;
-import com.procialize.singleevent.InnerDrawerActivity.GeneralInfoActivity;
-
 import com.procialize.singleevent.InnerDrawerActivity.WeatherActivity;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
@@ -84,29 +73,29 @@ public class GeneralInfo extends Fragment implements GeneralInfoListAdapter.Gene
 
         final View view = inflater.inflate(R.layout.general_info, container, false);
         SessionManager sessionManager = new SessionManager(getActivity());
-        eventSettingLists = sessionManager.loadEventList();
+        eventSettingLists = SessionManager.loadEventList();
         SharedPreferences prefs1 = getActivity().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         colorActive = prefs1.getString("colorActive","");
 
         sessionManager = new SessionManager(getContext());
 
-        weather_tv = (TextView) view.findViewById(R.id.weather_tv);
-        abtcurency_tv = (TextView) view.findViewById(R.id.abtcurency_tv);
-        header = (TextView) view.findViewById(R.id.header);
+        weather_tv = view.findViewById(R.id.weather_tv);
+        abtcurency_tv = view.findViewById(R.id.abtcurency_tv);
+        header = view.findViewById(R.id.header);
 
 //        about_hotel = (TextView) view.findViewById(R.id.about_hotel);
-        linearlayout = (LinearLayout) view.findViewById(R.id.linearlayout);
+        linearlayout = view.findViewById(R.id.linearlayout);
 
         weather_tv.setTextColor(Color.parseColor(colorActive));
         abtcurency_tv.setTextColor(Color.parseColor(colorActive));
         header.setTextColor(Color.parseColor(colorActive));
 
 
-        general_info_wea = (LinearLayout) view.findViewById(R.id.general_info_wea);
-        general_info_cur = (LinearLayout) view.findViewById(R.id.general_info_cur);
+        general_info_wea = view.findViewById(R.id.general_info_wea);
+        general_info_cur = view.findViewById(R.id.general_info_cur);
 
-        ImageView ic_rightarrow = (ImageView) view.findViewById(R.id.ic_rightarrow);
-        ImageView ic_rightarrow1 = (ImageView) view.findViewById(R.id.ic_rightarrow1);
+        ImageView ic_rightarrow = view.findViewById(R.id.ic_rightarrow);
+        ImageView ic_rightarrow1 = view.findViewById(R.id.ic_rightarrow1);
 //        int colorInt = Color.parseColor(colorActive);
 //
 //        ColorStateList csl = ColorStateList.valueOf(colorInt);
@@ -123,7 +112,7 @@ public class GeneralInfo extends Fragment implements GeneralInfoListAdapter.Gene
         ic_rightarrow.setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_ATOP);
         ic_rightarrow1.setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_ATOP);
 
-        pullrefresh = (TextView) view.findViewById(R.id.pullrefresh);
+        pullrefresh = view.findViewById(R.id.pullrefresh);
         generalInforefresh = view.findViewById(R.id.generalInforefresh);
 
         general_item_list = view.findViewById(R.id.general_item_list);

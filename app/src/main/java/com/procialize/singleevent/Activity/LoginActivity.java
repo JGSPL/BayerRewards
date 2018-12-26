@@ -1,27 +1,19 @@
 package com.procialize.singleevent.Activity;
 
-import android.Manifest;
 import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Paint;
 import android.net.Uri;
-import android.provider.Settings;
+import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,18 +22,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.procialize.singleevent.Adapter.EventAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.CustomTools.Connectivity;
 import com.procialize.singleevent.GetterSetter.EventListing;
 import com.procialize.singleevent.GetterSetter.Forgot;
-import com.procialize.singleevent.GetterSetter.Login;
 import com.procialize.singleevent.R;
-import com.procialize.singleevent.Session.SessionManager;
-import com.procialize.singleevent.Utility.Util;
-
-import java.io.Serializable;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -143,13 +129,9 @@ public class LoginActivity extends AppCompatActivity {
         Etemail.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
 
-                if (s.toString().matches(emailPattern) && s.length() > 0) {
-//                    inputLayoutemail.setError(null);
-                    emailbool = true;
-                } else {
+                //                    inputLayoutemail.setError(null);
 //                    inputLayoutemail.setError("Please Enter Valid Email Id");
-                    emailbool = false;
-                }
+                emailbool = s.toString().matches(emailPattern) && s.length() > 0;
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -165,13 +147,9 @@ public class LoginActivity extends AppCompatActivity {
         Etpassword.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
 
-                if (s.length() > 0) {
-//                    inputLayoutpassword.setError(null);
-                    passwordbool = true;
-                } else {
+                //                    inputLayoutpassword.setError(null);
 //                    inputLayoutpassword.setError("Please Enter Password");
-                    passwordbool = false;
-                }
+                passwordbool = s.length() > 0;
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

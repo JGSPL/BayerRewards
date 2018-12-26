@@ -19,8 +19,6 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.GetterSetter.AttendeeList;
-import com.procialize.singleevent.GetterSetter.LivePollList;
-import com.procialize.singleevent.GetterSetter.LivePollOptionList;
 import com.procialize.singleevent.R;
 
 import java.util.List;

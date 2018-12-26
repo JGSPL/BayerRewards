@@ -38,6 +38,7 @@
                 android:layout_height="20dp"
                 android:layout_gravity="right|center"
                 android:layout_weight="1.5"
+                android:contentDescription="TODO"
                 android:src="@drawable/forgotpass" />
         </LinearLayout>
 
@@ -57,6 +58,7 @@
                 android:background="@drawable/sendmessage"
                 android:gravity="center"
                 android:hint="Enter Your Email Id"
+                android:inputType=""
                 android:textColor="#000"
                 android:textSize="14sp"/>
 

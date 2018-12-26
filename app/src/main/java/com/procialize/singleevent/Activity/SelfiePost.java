@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,8 +14,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -35,7 +32,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +39,6 @@ import com.bumptech.glide.Glide;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.CustomTools.CircleDisplay;
 import com.procialize.singleevent.DbHelper.ConnectionDetector;
-import com.procialize.singleevent.InnerDrawerActivity.SelfieContestActivity;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.Util;
@@ -122,11 +117,11 @@ public class SelfiePost extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.selfie_post);
-        llPost = (LinearLayout) findViewById(R.id.llData);
-        post_thumbnail = (ImageView) findViewById(R.id.imgpreview);
-        editName = (EditText) findViewById(R.id.editTitle);
-        btnSubmit = (Button) findViewById(R.id.btnSubmit);
-        txtTitle = (TextView) findViewById(R.id.txtTitle);
+        llPost = findViewById(R.id.llData);
+        post_thumbnail = findViewById(R.id.imgpreview);
+        editName = findViewById(R.id.editTitle);
+        btnSubmit = findViewById(R.id.btnSubmit);
+        txtTitle = findViewById(R.id.txtTitle);
         progressbar =  findViewById(R.id.progressbar);
 
 
@@ -139,7 +134,7 @@ public class SelfiePost extends Activity {
 
         constant = new ApiConstant();
 
-        postUrl = constant.baseUrl + "PostSelfie";
+        postUrl = ApiConstant.baseUrl + "PostSelfie";
         session = new SessionManager(getApplicationContext());
 
         HashMap<String, String> user = session.getUserDetails();
@@ -156,7 +151,7 @@ public class SelfiePost extends Activity {
         colorActive = prefs.getString("colorActive","");
 
         btnSubmit.setBackgroundColor(Color.parseColor(colorActive));
-        TextView header = (TextView)findViewById(R.id.txtTitle);
+        TextView header = findViewById(R.id.txtTitle);
         header.setTextColor(Color.parseColor(colorActive));
 
 

@@ -11,12 +11,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-
 import com.procialize.singleevent.GetterSetter.LivePollList;
 import com.procialize.singleevent.GetterSetter.LivePollOptionList;
 import com.procialize.singleevent.R;
-
-import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.util.List;
 

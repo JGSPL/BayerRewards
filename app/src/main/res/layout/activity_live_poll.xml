@@ -89,6 +89,7 @@
             android:layout_below="@id/layoutTop"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
+            android:contentDescription="TODO"
             android:src="@drawable/live_poll_header"
             android:background="@color/colorgrey">
 
@@ -108,6 +109,7 @@
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_centerInParent="true"
+                android:contentDescription="TODO"
                 android:src="@drawable/live_poll_logo" />
 
 
@@ -168,7 +170,6 @@
         android:visibility="gone" />
 
     <LinearLayout
-        android:id="@+id/pollrefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">

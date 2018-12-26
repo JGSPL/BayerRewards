@@ -1,15 +1,12 @@
 package com.procialize.singleevent.InnerDrawerActivity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.Nullable;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -18,24 +15,19 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.procialize.singleevent.Activity.AttendeeDetailActivity;
 import com.procialize.singleevent.Activity.CommentActivity;
-import com.procialize.singleevent.Activity.HomeActivity;
+import com.procialize.singleevent.Activity.LikeDetailActivity;
 import com.procialize.singleevent.Adapter.NotificationAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.DbHelper.DBHelper;
 import com.procialize.singleevent.GetterSetter.AttendeeList;
+import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.GetterSetter.NewsFeedList;
 import com.procialize.singleevent.GetterSetter.NotificationList;
 import com.procialize.singleevent.GetterSetter.NotificationListFetch;
@@ -43,6 +35,7 @@ import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.Util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -67,7 +60,10 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
     private List<AttendeeList> attendeeDBList;
 
     ImageView headerlogoIv;
-
+    List<EventSettingList> eventSettingLists;
+    String news_feed_share,
+            news_feed_comment,
+            news_feed_like;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,6 +115,11 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
         // token
         final String token = user.get(SessionManager.KEY_TOKEN);
 
+        eventSettingLists = new ArrayList<>();
+        eventSettingLists = SessionManager.loadEventList();
+        applysetting(eventSettingLists);
+
+
 
         // use a linear layout manager
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
@@ -139,6 +140,25 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
             }
         });
 
+    }
+
+    private void applysetting(List<EventSettingList> eventSettingLists) {
+
+        for (int i = 0; i < eventSettingLists.size(); i++) {
+
+            if (eventSettingLists.get(i).getFieldName().equals("news_feed_like")) {
+                news_feed_like = eventSettingLists.get(i).getFieldValue();
+            }
+
+            if (eventSettingLists.get(i).getFieldName().equals("news_feed_comment")) {
+                news_feed_comment = eventSettingLists.get(i).getFieldValue();
+            }
+
+            if (eventSettingLists.get(i).getFieldName().equals("news_feed_share")) {
+                news_feed_share = eventSettingLists.get(i).getFieldValue();
+            }
+
+        }
     }
 
 
@@ -262,45 +282,49 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
             db = procializeDB.getReadableDatabase();
 
             newsfeedsDBList = dbHelper.getNewsFeedLikeandComment(notification.getNotificationPostId());
-            if (notification.getNotificationType().equalsIgnoreCase("Cmnt") || notification.getNotificationType().equalsIgnoreCase("Like")) {
-                Intent comment = new Intent(this, CommentActivity.class);
-                comment.putExtra("feedid", notification.getNotificationPostId());
-                comment.putExtra("type", notification.getNotificationType());
+            if (notification.getNotificationType().equalsIgnoreCase("Cmnt") && news_feed_comment != null) {
 
-                comment.putExtra("noti_type", "Notification");
-                try {
-                    float width = Float.parseFloat(newsfeedsDBList.get(0).getWidth());
-                    float height = Float.parseFloat(newsfeedsDBList.get(0).getHeight());
+                if (!news_feed_comment.equalsIgnoreCase("0")) {
+                    Intent comment = new Intent(this, CommentActivity.class);
+                    comment.putExtra("feedid", notification.getNotificationPostId());
+                    comment.putExtra("type", notification.getNotificationType());
 
-                    float p1 = (float) (height / width);
-                    comment.putExtra("heading", newsfeedsDBList.get(0).getPostStatus());
-                    comment.putExtra("company", newsfeedsDBList.get(0).getCompanyName());
-                    comment.putExtra("fname", newsfeedsDBList.get(0).getFirstName());
-                    comment.putExtra("lname", newsfeedsDBList.get(0).getLastName());
-                    comment.putExtra("profilepic", newsfeedsDBList.get(0).getProfilePic());
-                    comment.putExtra("Likes", newsfeedsDBList.get(0).getTotalLikes());
-                    comment.putExtra("Comments", newsfeedsDBList.get(0).getTotalComments());
-                    comment.putExtra("designation", newsfeedsDBList.get(0).getDesignation());
-                    comment.putExtra("Likeflag", newsfeedsDBList.get(0).getLikeFlag());
-                    comment.putExtra("date", newsfeedsDBList.get(0).getPostDate());
+                    comment.putExtra("noti_type", "Notification");
+                    try {
+                        float width = Float.parseFloat(newsfeedsDBList.get(0).getWidth());
+                        float height = Float.parseFloat(newsfeedsDBList.get(0).getHeight());
 
-                    comment.putExtra("AspectRatio", p1);
-                    if (newsfeedsDBList.get(0).getType().equalsIgnoreCase("Image")) {
-                        comment.putExtra("url", ApiConstant.newsfeedwall + newsfeedsDBList.get(0).getMediaFile());
-                    } else if (newsfeedsDBList.get(0).getType().equalsIgnoreCase("Video")) {
-                        comment.putExtra("videourl", ApiConstant.newsfeedwall + newsfeedsDBList.get(0).getMediaFile());
-                        comment.putExtra("thumbImg", ApiConstant.newsfeedwall + newsfeedsDBList.get(0).getThumbImage());
+                        float p1 = height / width;
+                        comment.putExtra("heading", newsfeedsDBList.get(0).getPostStatus());
+                        comment.putExtra("company", newsfeedsDBList.get(0).getCompanyName());
+                        comment.putExtra("fname", newsfeedsDBList.get(0).getFirstName());
+                        comment.putExtra("lname", newsfeedsDBList.get(0).getLastName());
+                        comment.putExtra("profilepic", newsfeedsDBList.get(0).getProfilePic());
+                        comment.putExtra("Likes", newsfeedsDBList.get(0).getTotalLikes());
+                        comment.putExtra("Comments", newsfeedsDBList.get(0).getTotalComments());
+                        comment.putExtra("designation", newsfeedsDBList.get(0).getDesignation());
+                        comment.putExtra("Likeflag", newsfeedsDBList.get(0).getLikeFlag());
+                        comment.putExtra("date", newsfeedsDBList.get(0).getPostDate());
+
+                        comment.putExtra("AspectRatio", p1);
+                        if (newsfeedsDBList.get(0).getType().equalsIgnoreCase("Image")) {
+                            comment.putExtra("url", ApiConstant.newsfeedwall + newsfeedsDBList.get(0).getMediaFile());
+                        } else if (newsfeedsDBList.get(0).getType().equalsIgnoreCase("Video")) {
+                            comment.putExtra("videourl", ApiConstant.newsfeedwall + newsfeedsDBList.get(0).getMediaFile());
+                            comment.putExtra("thumbImg", ApiConstant.newsfeedwall + newsfeedsDBList.get(0).getThumbImage());
+                        }
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
 
 
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    startActivity(comment);
+
                 }
 
-
-                startActivity(comment);
-            }else if(notification.getNotificationType().equalsIgnoreCase("Msg"))
-            {
+            }else if(notification.getNotificationType().equalsIgnoreCase("Msg")) {
 
                 attendeeDBList = dbHelper.getAttendeeDetailsId(notification.getAttendeeId());
                 if(attendeeDBList.size()>0) {
@@ -335,6 +359,12 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
                 }
 
 
+            } else if (notification.getNotificationType().equalsIgnoreCase("Like") && news_feed_like != null) {
+                if (!news_feed_like.equalsIgnoreCase("0")) {
+                    Intent likedetail = new Intent(this, LikeDetailActivity.class);
+                    likedetail.putExtra("noificationid", notification.getNotificationPostId());
+                    startActivity(likedetail);
+                }
             }
         }
 

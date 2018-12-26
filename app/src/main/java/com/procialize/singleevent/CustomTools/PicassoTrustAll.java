@@ -3,8 +3,8 @@ package com.procialize.singleevent.CustomTools;
 import android.content.Context;
 import android.net.Uri;
 
-
-
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
 import javax.net.ssl.HostnameVerifier;
@@ -12,10 +12,6 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
-
-
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.picasso.OkHttpDownloader;
 
 /**
  * Created by HP-PC on 28-03-2016.
@@ -35,13 +31,13 @@ public class PicassoTrustAll {
             @Override
             public void checkClientTrusted(
                     java.security.cert.X509Certificate[] x509Certificates,
-                    String s) throws java.security.cert.CertificateException {
+                    String s) {
             }
 
             @Override
             public void checkServerTrusted(
                     java.security.cert.X509Certificate[] x509Certificates,
-                    String s) throws java.security.cert.CertificateException {
+                    String s) {
             }
 
             @Override

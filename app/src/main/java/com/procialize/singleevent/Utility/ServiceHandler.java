@@ -6,7 +6,6 @@ import android.annotation.SuppressLint;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-//import org.apache.http.client.ClientProtocolException;
 import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.message.BasicHttpResponse;
 import org.apache.http.util.EntityUtils;
@@ -36,6 +35,8 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 import static org.apache.http.HttpVersion.HTTP_1_1;
+
+//import org.apache.http.client.ClientProtocolException;
 
 public class ServiceHandler {
 
@@ -121,7 +122,6 @@ public class ServiceHandler {
 
 
             httpEntity = transformResponse(httpResponse).getEntity();
-            ;
             response = EntityUtils.toString(httpEntity);
 
         } catch (UnsupportedEncodingException e) {
@@ -199,7 +199,7 @@ public class ServiceHandler {
         return httpResponse;
     }
 
-    private MultipartBody.Builder geBuilder(List<NameValuePair> params) throws UnsupportedEncodingException {
+    private MultipartBody.Builder geBuilder(List<NameValuePair> params) {
         StringBuilder result = new StringBuilder();
         boolean first = true;
 

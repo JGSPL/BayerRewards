@@ -77,7 +77,7 @@ public class WebViewActivity extends AppCompatActivity {
         Util.logomethod(this,headerlogoIv);
 
 
-        mywebview = (WebView) findViewById(R.id.webView);
+        mywebview = findViewById(R.id.webView);
         mywebview.clearCache(true);
 
        // mywebview.loadUrl("https://www.procialize.info/contact_us.html");

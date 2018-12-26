@@ -296,7 +296,6 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                         imm.hideSoftInputFromWindow(tabLayout.getWindowToken(), 0);
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this, color); //tabselected color
                         tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
-
 //                        if (tab.getText().equals("Agenda")) {
 //                            if (cd.isConnectingToInternet()) {
 //                                fetchAgenda(token, eventid);
@@ -324,8 +323,6 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 //               tabLayout.getTabAt(0).setIcon(tabIcons[0]);
 //               tabLayout.getTabAt(1).setIcon(tabIcons[1]);
 //               tabLayout.getTabAt(2).setIcon(tabIcons[2]);
-
-
                 tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_IN);
                 tabLayout.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#4D4D4D"), PorterDuff.Mode.SRC_IN);
                 tabLayout.getTabAt(2).getIcon().setColorFilter(Color.parseColor("#4D4D4D"), PorterDuff.Mode.SRC_IN);
@@ -338,7 +335,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                         int color = Color.parseColor(string);
                         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-// int tabIconColor = ContextCompat.getColor(HomeActivity.this, color); //tabselected color
+                        // int tabIconColor = ContextCompat.getColor(HomeActivity.this, color); //tabselected color
                         tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
 
 //                        if (tab.getText().equals("Agenda")) {
@@ -355,7 +352,6 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                         String string1 = "#4D4D4D";
                         int color1 = Color.parseColor(string1);
                         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
 // int tabIconColor = ContextCompat.getColor(HomeActivity.this,color1);//tabunselected color
                         tab.getIcon().setColorFilter(color1, PorterDuff.Mode.SRC_IN);
                     }
@@ -494,7 +490,6 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                 session.logoutUser();
                 SharedPreferences.Editor pref = getSharedPreferences("PROFILE_PICTURE", MODE_PRIVATE).edit();
                 pref.clear();
-
 //                SharedPreferences settings = getSharedPreferences(MY_PREFS_LOGIN, 0);
 //                if (settings.contains("loginfirst")) {
 //                    SharedPreferences.Editor editor = settings.edit();

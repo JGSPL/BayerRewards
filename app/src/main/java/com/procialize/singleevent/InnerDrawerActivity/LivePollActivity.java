@@ -1,16 +1,11 @@
 package com.procialize.singleevent.InnerDrawerActivity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -24,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.procialize.singleevent.Activity.PollDetailActivity;
-import com.procialize.singleevent.Adapter.PollAdapter;
 import com.procialize.singleevent.Adapter.PollNewAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
@@ -91,10 +85,10 @@ public class LivePollActivity extends AppCompatActivity implements PollNewAdapte
 //        pollrefresh = findViewById(R.id.pollrefresh);
         progressBar = findViewById(R.id.progressBar);
 
-        TextView header = (TextView)findViewById(R.id.title);
+        TextView header = findViewById(R.id.title);
         header.setTextColor(Color.parseColor(colorActive));
 
-        RelativeLayout layoutTop = (RelativeLayout)findViewById(R.id.layoutTop);
+        RelativeLayout layoutTop = findViewById(R.id.layoutTop);
         layoutTop.setBackgroundColor(Color.parseColor(colorActive));
 
 

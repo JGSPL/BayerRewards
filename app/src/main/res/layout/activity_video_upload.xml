@@ -89,6 +89,7 @@
                 <ImageView
                     android:id="@+id/videopreview"
                     android:layout_width="fill_parent"
+                    android:contentDescription="TODO"
                     android:layout_height="250dp"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center"
@@ -100,6 +101,7 @@
                     android:layout_height="50dp"
                     android:layout_centerHorizontal="true"
                     android:layout_centerInParent="true"
+                    android:contentDescription="TODO"
                     android:src="@drawable/ic_media_play" />
             </RelativeLayout>
 

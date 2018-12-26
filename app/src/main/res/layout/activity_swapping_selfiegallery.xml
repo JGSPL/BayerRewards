@@ -40,6 +40,7 @@
 
             <ImageView
                 android:id="@+id/backIv"
+                android:contentDescription="TODO"
                 android:padding="@dimen/padding"
                 android:src="@drawable/ic_back"
                 android:layout_width="wrap_content"
@@ -73,6 +74,7 @@
 
     <ImageView
         android:id="@+id/left"
+        android:contentDescription="TODO"
         android:padding="10dp"
         android:layout_alignParentLeft="true"
         android:layout_centerInParent="true"
@@ -83,6 +85,7 @@
 
     <ImageView
         android:id="@+id/right"
+        android:contentDescription="TODO"
         android:padding="10dp"
         android:layout_alignParentRight="true"
         android:layout_centerInParent="true"

@@ -10,11 +10,8 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
 
-import com.procialize.singleevent.Adapter.SwipeImageAdapter;
 import com.procialize.singleevent.Adapter.SwipeImageSelfieAdapter;
-import com.procialize.singleevent.Adapter.SwipepagerAdapter;
 import com.procialize.singleevent.Adapter.SwipepagerSelfieAdapter;
-import com.procialize.singleevent.GetterSetter.FirstLevelFilter;
 import com.procialize.singleevent.GetterSetter.SelfieList;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Utility.Util;

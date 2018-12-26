@@ -38,7 +38,6 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -101,6 +100,8 @@ import static org.apache.http.HttpVersion.HTTP_1_1;
 //import android.support.text.emoji.widget.EmojiAppCompatEditText;
 
 public class PostActivity extends AppCompatActivity implements OnClickListener {
+    private static final int REQUEST_VIDEO_CAPTURE = 300;
+    private static final String SERVER_PATH = "";
     EditText postEt;
     TextView postbtn;
     APIService mAPIService;
@@ -113,33 +114,149 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
     String typepost;
     String userChoosenTask;
     File file;
-    private int REQUEST_CAMERA = 0, REQUEST_TAKE_GALLERY = 1, REQUEST_TAKE_PHOTO = 2, REQUEST_TAKE_GALLERY_VIDEO = 3;
-    private static final int REQUEST_VIDEO_CAPTURE = 300;
-    private static final int READ_REQUEST_CODE = 200;
-    private Uri uri;
-    private String pathToStoredVideo;
-    private String selectedImagePath;
-    private VideoView displayRecordedVideo;
-    private static final String SERVER_PATH = "";
     Uri capturedImageUri;
     String eventId;
     ImageView profileIV;
-    private String postMsg = "";
     String mCurrentPhotoPath;
-    private String picturePath = "";
     ImageView imgPlay;
-    private String actionFlag;
-    private ConnectionDetector cd;
     SessionManager session;
-    private String senderImageURL = "";
-    private String postUrl = "";
-    private ProgressDialog pDialog;
     File sourceFile;
     MyApplication appDelegate;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid, colorActive;
     ImageView headerlogoIv;
     TextView txtcount;
+    Uri imageUri;
+    private int REQUEST_TAKE_GALLERY = 1, REQUEST_TAKE_PHOTO = 2, REQUEST_TAKE_GALLERY_VIDEO = 3;
+    private Uri uri;
+    private String pathToStoredVideo;
+    private String selectedImagePath;
+    private VideoView displayRecordedVideo;
+    private String postMsg = "";
+    private String picturePath = "";
+    private String actionFlag;
+    private ConnectionDetector cd;
+    private String senderImageURL = "";
+    private String postUrl = "";
+    private ProgressDialog pDialog;
+
+    public static File createDirectoryAndSaveFile(Bitmap imageToSave) {
+
+        File direct = new File(Environment.getExternalStorageDirectory() + "/MyFolder/Images");
+
+        if (!direct.exists()) {
+            File wallpaperDirectory = new File("/sdcard/MyFolder/Images/");
+            wallpaperDirectory.mkdirs();
+        }
+
+        File file = new File(new File("/sdcard/MyFolder/Images/"), System.currentTimeMillis() + ".jpg");
+        if (file.exists()) {
+            file.delete();
+        }
+
+
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            imageToSave.compress(Bitmap.CompressFormat.JPEG, 50, out);
+
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return file;
+
+    }
+
+    private static HttpResponse transformResponse(Response response) {
+
+        BasicHttpResponse httpResponse = null;
+        try {
+            int code = 0;
+            if (response != null)
+                code = response.code();
+
+
+            try {
+                String message = response.message();
+                httpResponse = new BasicHttpResponse(HTTP_1_1, code, message);
+
+                ResponseBody body = response.body();
+                InputStreamEntity entity = new InputStreamEntity(body.byteStream(), body.contentLength());
+                httpResponse.setEntity(entity);
+
+                Headers headers = response.headers();
+                for (int i = 0, size = headers.size(); i < size; i++) {
+                    String name = headers.name(i);
+                    String value = headers.value(i);
+                    httpResponse.addHeader(name, value);
+                    if ("Content-Type".equalsIgnoreCase(name)) {
+                        entity.setContentType(value);
+                    } else if ("Content-Encoding".equalsIgnoreCase(name)) {
+                        entity.setContentEncoding(value);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return httpResponse;
+    }
+
+    private static OkHttpClient getUnsafeOkHttpClient() {
+
+        // Create a trust manager that does not validate certificate chains
+        final TrustManager[] trustAllCerts = new TrustManager[]{
+                new X509TrustManager() {
+                    @Override
+                    public void checkClientTrusted(X509Certificate[] chain, String authType) {
+                    }
+
+                    @Override
+                    public void checkServerTrusted(X509Certificate[] chain, String authType) {
+                    }
+
+                    @Override
+                    public X509Certificate[] getAcceptedIssuers() {
+                        return new X509Certificate[0];
+                    }
+                }
+        };
+
+        // Install the all-trusting trust manager
+        SSLContext sslContext = null;
+        try {
+            sslContext = SSLContext.getInstance("SSL");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        try {
+            sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
+        } catch (KeyManagementException e) {
+            e.printStackTrace();
+        }
+        // Create an ssl socket factory with our all-trusting manager
+        final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
+
+        OkHttpClient client = new OkHttpClient();
+
+        OkHttpClient.Builder builder = client.newBuilder();
+        builder.sslSocketFactory(sslSocketFactory);
+        builder.hostnameVerifier(new HostnameVerifier() {
+            @Override
+            public boolean verify(String hostname, SSLSession session) {
+                return true;
+
+
+            }
+        });
+
+        return builder.build();
+
+    }
 
     @TargetApi(23)
     @Override
@@ -237,6 +354,25 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
 
     }
 
+//    private File createImageFile() throws IOException {
+//        // Create an image file name
+//        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+//        String imageFileName = "JPEG_" + timeStamp + "_";
+//        File storageDir = Environment.getExternalStoragePublicDirectory(
+//                Environment.DIRECTORY_PICTURES);
+//
+//        File image = File.createTempFile(
+//                imageFileName,  /* prefix */
+//                ".jpg",         /* suffix */
+//                storageDir      /* directory */
+//        );
+//
+//        // Save a file: path for use with ACTION_VIEW intents
+//        mCurrentPhotoPath = image.getAbsolutePath();
+//        Log.e("Getpath", "Cool" + mCurrentPhotoPath);
+//        return image;
+//    }
+
     public void showAlert(int res) {
 
         new MaterialDialog.Builder(PostActivity.this)
@@ -329,28 +465,6 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
         }
     }
 
-//    private File createImageFile() throws IOException {
-//        // Create an image file name
-//        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-//        String imageFileName = "JPEG_" + timeStamp + "_";
-//        File storageDir = Environment.getExternalStoragePublicDirectory(
-//                Environment.DIRECTORY_PICTURES);
-//
-//        File image = File.createTempFile(
-//                imageFileName,  /* prefix */
-//                ".jpg",         /* suffix */
-//                storageDir      /* directory */
-//        );
-//
-//        // Save a file: path for use with ACTION_VIEW intents
-//        mCurrentPhotoPath = image.getAbsolutePath();
-//        Log.e("Getpath", "Cool" + mCurrentPhotoPath);
-//        return image;
-//    }
-
-
-    Uri imageUri;
-
     private void startCamera() {
 
 
@@ -376,14 +490,12 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
 
     }
 
-
     private void openGallery(int pos) {
 
         startStorage();
 
 
     }
-
 
     public void startStorage() {
 
@@ -395,7 +507,6 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
 
 
     }
-
 
     private void initializeGUI() {
 
@@ -581,7 +692,6 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
         }
 
     }
-
 
     public String escapeJavaString(String st) {
         int ss1 = 0, ss2;
@@ -887,9 +997,13 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
 
             }else  if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
                 setpic2();
+            } else {
+                finish();
             }
-            }else  if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+        } else if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             setpic2();
+        } else {
+            finish();
         }
 //        }
 
@@ -988,35 +1102,6 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
 
         Toast.makeText(PostActivity.this, "Image selected" + mCurrentPhotoPath,
                 Toast.LENGTH_SHORT).show();
-
-    }
-
-
-    public static File createDirectoryAndSaveFile(Bitmap imageToSave) {
-
-        File direct = new File(Environment.getExternalStorageDirectory() + "/MyFolder/Images");
-
-        if (!direct.exists()) {
-            File wallpaperDirectory = new File("/sdcard/MyFolder/Images/");
-            wallpaperDirectory.mkdirs();
-        }
-
-        File file = new File(new File("/sdcard/MyFolder/Images/"), System.currentTimeMillis() + ".jpg");
-        if (file.exists()) {
-            file.delete();
-        }
-
-
-        try {
-            FileOutputStream out = new FileOutputStream(file);
-            imageToSave.compress(Bitmap.CompressFormat.JPEG, 50, out);
-
-            out.flush();
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return file;
 
     }
 
@@ -1234,6 +1319,150 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        if (requestCode == 0) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+
+                showAlert(R.array.selectType);
+
+
+            } else {
+                Toast.makeText(this, "No permission to read external storage.",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+        } else if (requestCode == REQUEST_TAKE_PHOTO) {
+
+            int permGranted = PackageManager.PERMISSION_GRANTED;
+
+            Boolean permissionRequired = false;
+
+            for (int perm : grantResults) {
+
+                if (perm != permGranted) {
+                    permissionRequired = true;
+                }
+            }
+
+            //if permission is still required
+            if (permissionRequired) {
+                Toast.makeText(this, "No permission to capture storage.",
+                        Toast.LENGTH_SHORT).show();
+
+            } else {
+                //captureImage();
+
+                dispatchTakePictureIntent();
+            }
+/*if (requestCode == 1) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startCamera();
+
+            } else {
+                Toast.makeText(this, "No permission to capture photo.",
+                        Toast.LENGTH_SHORT).show();
+
+            }*/
+        }
+    }
+
+
+    @Override
+    public void onDestroy() {
+
+        dismissProgress();
+        super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        appDelegate.setPostImagePath("");
+
+    }
+
+    private void selectVideo() {
+        final CharSequence[] items = {"Take Video", "Choose from Library",
+                "Cancel"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Add Video!");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                boolean result = Utility.checkPermission(PostActivity.this);
+
+                if (items[item].equals("Choose from Library")) {
+                    userChoosenTask = "Choose from Library";
+                    if (result)
+                        videogalleryIntent();
+
+                } else if (items[item].equals("Take Video")) {
+                    userChoosenTask = "Take Video";
+                    if (result) {
+                        Intent videoCaptureIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                        videoCaptureIntent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 15);
+//                        videoCaptureIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1); //0 means low & 1 means high
+                        if (videoCaptureIntent.resolveActivity(getPackageManager()) != null) {
+                            startActivityForResult(videoCaptureIntent, REQUEST_VIDEO_CAPTURE);
+                        }
+                    }
+                } else if (items[item].equals("Cancel")) {
+                    dialog.dismiss();
+                    Intent intent = new Intent(PostActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
+        builder.setCancelable(false);
+        builder.show();
+    }
+
+    private void videogalleryIntent() {
+//        Intent intent = new Intent();
+//        intent.setType("*/*");
+//        intent.putExtra(Intent.EXTRA_MIME_TYPES, new String[]{"video/*"});
+//        intent.setAction(Intent.ACTION_GET_CONTENT);//
+//        startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
+
+        Intent intent = new Intent(
+                Intent.ACTION_PICK,
+                MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("video/*");
+        startActivityForResult(intent, REQUEST_TAKE_GALLERY_VIDEO);
+    }
+
+    public void showProgress() {
+        Resources res = getResources();
+        Drawable drawable = res.getDrawable(R.drawable.progrssdialogback);
+        postbtn.setEnabled(false);
+        postEt.setEnabled(false);
+        progressbar.setVisibility(View.VISIBLE);
+        progressbar.setAnimDuration(4000);
+        progressbar.setValueWidthPercent(25f);
+        progressbar.setFormatDigits(1);
+        progressbar.setDimAlpha(80);
+        progressbar.setTouchEnabled(true);
+        progressbar.setUnit("%");
+        progressbar.setStepSize(0.5f);
+        progressbar.setTextSize(15);
+        progressbar.setColor(Color.parseColor(colorActive));
+        progressbar.showValue(90f, 100f, true);
+
+    }
+
+    public void dismissProgress() {
+        postbtn.setEnabled(true);
+        postEt.setEnabled(true);
+        if (progressbar.getVisibility() == View.VISIBLE) {
+            progressbar.setVisibility(View.GONE);
+        }
+
+    }
 
     public class SubmitPostTask extends AsyncTask<String, String, JSONObject> {
 
@@ -1543,242 +1772,6 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
             // }
 
         }
-    }
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        if (requestCode == 0) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-
-                showAlert(R.array.selectType);
-
-
-            } else {
-                Toast.makeText(this, "No permission to read external storage.",
-                        Toast.LENGTH_SHORT).show();
-
-            }
-        } else if (requestCode == REQUEST_TAKE_PHOTO) {
-
-            int permGranted = PackageManager.PERMISSION_GRANTED;
-
-            Boolean permissionRequired = false;
-
-            for (int perm : grantResults) {
-
-                if (perm != permGranted) {
-                    permissionRequired = true;
-                }
-            }
-
-            //if permission is still required
-            if (permissionRequired) {
-                Toast.makeText(this, "No permission to capture storage.",
-                        Toast.LENGTH_SHORT).show();
-
-            } else {
-                //captureImage();
-
-                dispatchTakePictureIntent();
-            }
-/*if (requestCode == 1) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                startCamera();
-
-            } else {
-                Toast.makeText(this, "No permission to capture photo.",
-                        Toast.LENGTH_SHORT).show();
-
-            }*/
-        }
-    }
-
-
-    @Override
-    public void onDestroy() {
-
-        dismissProgress();
-        super.onDestroy();
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        appDelegate.setPostImagePath("");
-
-    }
-
-    private static HttpResponse transformResponse(Response response) {
-
-        BasicHttpResponse httpResponse = null;
-        try {
-            int code = 0;
-            if (response != null)
-                code = response.code();
-
-
-            try {
-                String message = response.message();
-                httpResponse = new BasicHttpResponse(HTTP_1_1, code, message);
-
-                ResponseBody body = response.body();
-                InputStreamEntity entity = new InputStreamEntity(body.byteStream(), body.contentLength());
-                httpResponse.setEntity(entity);
-
-                Headers headers = response.headers();
-                for (int i = 0, size = headers.size(); i < size; i++) {
-                    String name = headers.name(i);
-                    String value = headers.value(i);
-                    httpResponse.addHeader(name, value);
-                    if ("Content-Type".equalsIgnoreCase(name)) {
-                        entity.setContentType(value);
-                    } else if ("Content-Encoding".equalsIgnoreCase(name)) {
-                        entity.setContentEncoding(value);
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return httpResponse;
-    }
-
-    private static OkHttpClient getUnsafeOkHttpClient() {
-
-        // Create a trust manager that does not validate certificate chains
-        final TrustManager[] trustAllCerts = new TrustManager[]{
-                new X509TrustManager() {
-                    @Override
-                    public void checkClientTrusted(X509Certificate[] chain, String authType) {
-                    }
-
-                    @Override
-                    public void checkServerTrusted(X509Certificate[] chain, String authType) {
-                    }
-
-                    @Override
-                    public X509Certificate[] getAcceptedIssuers() {
-                        return new X509Certificate[0];
-                    }
-                }
-        };
-
-        // Install the all-trusting trust manager
-        SSLContext sslContext = null;
-        try {
-            sslContext = SSLContext.getInstance("SSL");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        try {
-            sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
-        } catch (KeyManagementException e) {
-            e.printStackTrace();
-        }
-        // Create an ssl socket factory with our all-trusting manager
-        final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
-
-        OkHttpClient client = new OkHttpClient();
-
-        OkHttpClient.Builder builder = client.newBuilder();
-        builder.sslSocketFactory(sslSocketFactory);
-        builder.hostnameVerifier(new HostnameVerifier() {
-            @Override
-            public boolean verify(String hostname, SSLSession session) {
-                return true;
-
-
-            }
-        });
-
-        return builder.build();
-
-    }
-
-    private void selectVideo() {
-        final CharSequence[] items = {"Take Video", "Choose from Library",
-                "Cancel"};
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Add Video!");
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int item) {
-                boolean result = Utility.checkPermission(PostActivity.this);
-
-                if (items[item].equals("Choose from Library")) {
-                    userChoosenTask = "Choose from Library";
-                    if (result)
-                        videogalleryIntent();
-
-                } else if (items[item].equals("Take Video")) {
-                    userChoosenTask = "Take Video";
-                    if (result) {
-                        Intent videoCaptureIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-                        videoCaptureIntent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 15);
-//                        videoCaptureIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1); //0 means low & 1 means high
-                        if (videoCaptureIntent.resolveActivity(getPackageManager()) != null) {
-                            startActivityForResult(videoCaptureIntent, REQUEST_VIDEO_CAPTURE);
-                        }
-                    }
-                } else if (items[item].equals("Cancel")) {
-                    dialog.dismiss();
-                    Intent intent = new Intent(PostActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-            }
-        });
-        builder.setCancelable(false);
-        builder.show();
-    }
-
-    private void videogalleryIntent() {
-//        Intent intent = new Intent();
-//        intent.setType("*/*");
-//        intent.putExtra(Intent.EXTRA_MIME_TYPES, new String[]{"video/*"});
-//        intent.setAction(Intent.ACTION_GET_CONTENT);//
-//        startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
-
-        Intent intent = new Intent(
-                Intent.ACTION_PICK,
-                MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
-        intent.setType("video/*");
-        startActivityForResult(intent, REQUEST_TAKE_GALLERY_VIDEO);
-    }
-
-    public void showProgress() {
-        Resources res = getResources();
-        Drawable drawable = res.getDrawable(R.drawable.progrssdialogback);
-        postbtn.setEnabled(false);
-        postEt.setEnabled(false);
-        progressbar.setVisibility(View.VISIBLE);
-        progressbar.setAnimDuration(4000);
-        progressbar.setValueWidthPercent(25f);
-        progressbar.setFormatDigits(1);
-        progressbar.setDimAlpha(80);
-        progressbar.setTouchEnabled(true);
-        progressbar.setUnit("%");
-        progressbar.setStepSize(0.5f);
-        progressbar.setTextSize(15);
-        progressbar.setColor(Color.parseColor(colorActive));
-        progressbar.showValue(90f, 100f, true);
-
-    }
-
-    public void dismissProgress() {
-        postbtn.setEnabled(true);
-        postEt.setEnabled(true);
-        if (progressbar.getVisibility() == View.VISIBLE) {
-            progressbar.setVisibility(View.GONE);
-        }
-
     }
 
 }

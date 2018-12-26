@@ -3,9 +3,8 @@ package com.procialize.singleevent.CustomTools;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
-public class ScaledImageView extends ImageView {
+public class ScaledImageView extends android.support.v7.widget.AppCompatImageView {
 	public ScaledImageView(final Context context, final AttributeSet attrs) {
 		super(context, attrs);
 	}

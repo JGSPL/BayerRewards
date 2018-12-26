@@ -1,21 +1,11 @@
 package com.procialize.singleevent.Activity;
 
 import android.app.ProgressDialog;
-import android.content.ActivityNotFoundException;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.PorterDuff;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -23,21 +13,11 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
 
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.DbHelper.ConnectionDetector;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Utility.Util;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class ViewPDFActivity extends AppCompatActivity {
 
@@ -72,7 +52,7 @@ public class ViewPDFActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        webview = (WebView) findViewById(R.id.webView);
+        webview = findViewById(R.id.webView);
         headerlogoIv = findViewById(R.id.headerlogoIv);
         Util.logomethod(this,headerlogoIv);
 

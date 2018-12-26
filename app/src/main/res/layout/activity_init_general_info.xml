@@ -62,7 +62,6 @@
         android:textStyle="bold" />
 
     <com.procialize.singleevent.Fonts.RobotoTextview
-        android:id="@+id/text_maininfo"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:layout_margin="20dp"

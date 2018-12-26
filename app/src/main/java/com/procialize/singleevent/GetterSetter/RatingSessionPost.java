@@ -3,8 +3,6 @@ package com.procialize.singleevent.GetterSetter;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 /**
  * Created by Naushad on 12/4/2017.
  */

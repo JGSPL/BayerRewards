@@ -105,7 +105,7 @@ public class ProfileActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
 
     String mCurrentPhotoPath = "";
-
+    UCrop.Options options;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -153,6 +153,19 @@ public class ProfileActivity extends AppCompatActivity {
         fetchProfileDetail(api_token, eventid);
 
         SubmitAnalytics(api_token, eventid, "", "", "EditProfile");
+
+
+        options = new UCrop.Options();
+
+        options.setToolbarColor(Color.parseColor(colorActive));
+        options.setCropFrameColor(Color.parseColor(colorActive));
+        options.setLogoColor(Color.parseColor(colorActive));
+        options.setActiveWidgetColor(Color.parseColor(colorActive));
+        options.setLogoColor(Color.parseColor(colorActive));
+        options.setToolbarTitle("Edit Profile");
+
+        options.setToolbarCancelDrawable(R.color.transperent);
+
 
         if (CheckingPermissionIsEnabledOrNot()) {
 //            Toast.makeText(MainActivity.this, "All Permissions Granted Successfully", Toast.LENGTH_LONG).show();
@@ -894,6 +907,26 @@ public class ProfileActivity extends AppCompatActivity {
             } else if (resultCode == UCrop.RESULT_ERROR) {
                 final Throwable cropError = UCrop.getError(data);
             }
+        } else {
+            if (profilepic != null) {
+                Glide.with(this).load(ApiConstant.profilepic + profilepic).listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        progressView.setVisibility(View.GONE);
+                        profileIV.setImageResource(R.drawable.profilepic_placeholder);
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        progressView.setVisibility(View.GONE);
+                        return false;
+                    }
+                }).into(profileIV);
+            }
+            file = null;
+            selectImage();
+
         }
     }
 
@@ -925,7 +958,7 @@ public class ProfileActivity extends AppCompatActivity {
                 tempUri = getImageUri(getApplicationContext(), thumbnail);
 
                 UCrop.of(tempUri, Uri.parse(destination.getAbsolutePath()))
-                        .withAspectRatio(2, 2)
+                        .withAspectRatio(2, 2).withOptions(options)
                         .withMaxResultSize(200, 200)
                         .start(this);
 
@@ -947,8 +980,9 @@ public class ProfileActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+
                 UCrop.of(tempUri, Uri.parse(destination.getAbsolutePath()))
-                        .withAspectRatio(2, 2)
+                        .withAspectRatio(2, 2).withOptions(options)
                         .withMaxResultSize(200, 200)
                         .start(this);
             }
@@ -1002,7 +1036,7 @@ public class ProfileActivity extends AppCompatActivity {
                 }
 
                 UCrop.of(tempUri, Uri.parse(destination.getAbsolutePath()))
-                        .withAspectRatio(2, 2)
+                        .withAspectRatio(2, 2).withOptions(options)
                         .withMaxResultSize(200, 200)
                         .start(this);
 

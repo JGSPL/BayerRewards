@@ -63,6 +63,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
+                android:contentDescription="TODO"
                 android:src="@drawable/sunny"
                 android:visibility="gone" />
 

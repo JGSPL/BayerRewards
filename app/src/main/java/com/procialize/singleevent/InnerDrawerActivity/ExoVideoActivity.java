@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,9 +14,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.devbrackets.android.exomedia.listener.OnCompletionListener;
-import com.devbrackets.android.exomedia.listener.OnPreparedListener;
-import com.devbrackets.android.exomedia.ui.widget.EMVideoView;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Utility.Util;
@@ -69,8 +64,8 @@ public class ExoVideoActivity extends AppCompatActivity {
             }
         });
 
-        TextView txtIcon = (TextView) findViewById(R.id.txtIcon);
-        btn_share = (Button) findViewById(R.id.btn_share);
+        TextView txtIcon = findViewById(R.id.txtIcon);
+        btn_share = findViewById(R.id.btn_share);
 //        llTop = (RelativeLayout) findViewById(R.id.rlData);
 //        headerlogoIv = findViewById(R.id.headerlogoIv);
 //        headerlogoIv.setText(title);
@@ -84,7 +79,7 @@ public class ExoVideoActivity extends AppCompatActivity {
             }
         });
 
-         txtTitle = (TextView)findViewById(R.id.txtTitle);
+        txtTitle = findViewById(R.id.txtTitle);
         if(!(title==null) || title != null || !(title.equalsIgnoreCase("null"))){
             txtTitle.setText(title);
             txtTitle.setTextColor(Color.parseColor(colorActive));
@@ -126,7 +121,7 @@ public class ExoVideoActivity extends AppCompatActivity {
 
     private void setupVideoView(final String videoUrl) {
 
-        emVideoView = (VideoView) findViewById(R.id.video_view);
+        emVideoView = findViewById(R.id.video_view);
         emVideoView.setVisibility(View.VISIBLE);
         emVideoView.setVideoPath(videoUrl).getPlayer().start();
 

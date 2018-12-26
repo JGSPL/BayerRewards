@@ -1,7 +1,6 @@
 package com.procialize.singleevent.Adapter;
 
 import android.content.Context;
-
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -43,9 +42,9 @@ public class FeedBackAdapter extends RecyclerView.Adapter<FeedBackAdapter.MyView
 
         public MyViewHolder(View view) {
             super(view);
-            nameTv = (TextView) view.findViewById(R.id.nameTv);
-            ic_rightarrow = (ImageView) view.findViewById(R.id.ic_rightarrow);
-            mainLL = (LinearLayout) view.findViewById(R.id.mainLL);
+            nameTv = view.findViewById(R.id.nameTv);
+            ic_rightarrow = view.findViewById(R.id.ic_rightarrow);
+            mainLL = view.findViewById(R.id.mainLL);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

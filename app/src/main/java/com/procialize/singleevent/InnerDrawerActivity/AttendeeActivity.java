@@ -3,9 +3,9 @@ package com.procialize.singleevent.InnerDrawerActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -85,7 +85,7 @@ public class AttendeeActivity extends AppCompatActivity implements AttendeeAdapt
         attendeefeedrefresh =  findViewById(R.id.attendeefeedrefresh);
         progressBar =  findViewById(R.id.progressBar);
 
-        TextView header = (TextView)findViewById(R.id.title);
+        TextView header = findViewById(R.id.title);
         header.setTextColor(Color.parseColor(colorActive));
 
         // use a linear layout manager

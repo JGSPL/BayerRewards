@@ -5,21 +5,16 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-
 
 import com.procialize.singleevent.Adapter.AgendaFolderListAdapter;
 import com.procialize.singleevent.DbHelper.DBHelper;
 import com.procialize.singleevent.GetterSetter.Agenda;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,7 +79,7 @@ public class AgendaFolderListFragment extends Fragment {
 		agendaDBList = new ArrayList<Agenda>();
 		agendaOneList = new ArrayList<Agenda>();
 
-		agendaList = (ListView) getActivity().findViewById(R.id.agenda_list);
+        agendaList = getActivity().findViewById(R.id.agenda_list);
 		agendaList.setScrollingCacheEnabled(false);
 		agendaList.setAnimationCacheEnabled(false);
 //		agendaDBList = dbHelper.getAgendaList();

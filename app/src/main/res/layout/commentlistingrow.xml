@@ -13,6 +13,7 @@
         <LinearLayout
             android:id="@+id/textcommentContainer"
             android:layout_margin="@dimen/margin"
+            android:baselineAligned="false"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -25,14 +26,14 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/profileIV"
                     android:src="@drawable/profilepic_placeholder"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:adjustViewBounds="true"
+                    android:layout_alignParentLeft="true"
                     android:scaleType="centerCrop"
-                    android:layout_alignParentLeft="true"/>
+                    android:contentDescription="TODO" />
 
                 <ProgressBar
                     android:visibility="visible"
@@ -53,6 +54,7 @@
 
                 <ImageView
                     android:id="@+id/moreIv"
+                    android:contentDescription="TODO"
                     android:src="@drawable/ic_more"
                     android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
@@ -64,7 +66,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Abheejit Saxena"
+                    android:text=""
                     android:textColor="@color/activetab"
                     android:layout_below="@+id/moreIv"
                     android:id="@+id/nameTv" />
@@ -77,7 +79,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/nameTv"
-                    android:text="Simens LTD"
+                    android:text=""
                     android:textColor="@color/black" />
                 <com.procialize.singleevent.Fonts.RobotoTextview
                     android:paddingLeft="5dp"
@@ -87,7 +89,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/commentTv"
                     android:layout_toEndOf="@+id/imageView"
-                    android:text="Delhi"
+                    android:text=""
                     android:textColor="@color/black"
                     android:id="@+id/dateTv" />
 
@@ -103,6 +105,7 @@
             android:id="@+id/gifIV"
             android:layout_gravity="center"
             android:layout_width="150dp"
+            android:contentDescription="TODO"
             android:layout_height="100dp" />
 
         <ProgressBar

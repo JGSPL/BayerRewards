@@ -6,10 +6,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.StrictMode;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -22,7 +21,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.procialize.singleevent.Activity.VideoViewActivity;
 import com.procialize.singleevent.Adapter.VideoAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
@@ -35,7 +33,6 @@ import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.Util;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -90,7 +87,7 @@ public class VideoActivity extends AppCompatActivity implements VideoAdapter.Vid
         videoRv = findViewById(R.id.videoRv);
         progressBar = findViewById(R.id.progressBar);
         videoRvrefresh = findViewById(R.id.videoRvrefresh);
-        TextView header = (TextView)findViewById(R.id.title);
+        TextView header = findViewById(R.id.title);
         header.setTextColor(Color.parseColor(colorActive));
 
 

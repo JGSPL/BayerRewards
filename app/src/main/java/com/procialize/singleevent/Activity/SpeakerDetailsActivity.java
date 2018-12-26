@@ -109,7 +109,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         apikey = user.get(SessionManager.KEY_TOKEN);
         attendeeid = user.get(SessionManager.KEY_ID);
 
-        eventSettingLists = sessionManager.loadEventList();
+        eventSettingLists = SessionManager.loadEventList();
 
         if (eventSettingLists.size() != 0) {
             applysetting(eventSettingLists);
@@ -288,7 +288,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
                 if (ratingval > 0) {
                     PostRate(eventid, String.valueOf(ratingval), apikey, speakerid, "");
                 } else {
-                    Toast.makeText(SpeakerDetailsActivity.this, "Please Select Something", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SpeakerDetailsActivity.this, "Please rate on a scale of 1-5 stars", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -346,7 +346,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
                 if (ratingval > 0) {
                     PostRate(eventid, String.valueOf(ratingval), apikey, speakerid, "");
                 } else {
-                    Toast.makeText(SpeakerDetailsActivity.this, "Please Select Something", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SpeakerDetailsActivity.this, "Please rate on a scale of 1-5 stars", Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -51,7 +51,6 @@
 
 
     <LinearLayout
-        android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/appBarLayout"
@@ -77,6 +76,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
+                        android:baselineAligned="false"
                         android:orientation="horizontal">
 
 
@@ -92,6 +92,7 @@
                                 android:layout_height="60dp"
                                 android:layout_centerInParent="true"
                                 android:adjustViewBounds="true"
+                                android:contentDescription="TODO"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/profilepic_placeholder" />
 
@@ -187,7 +188,6 @@
                         android:textSize="@dimen/textsizesmall" />
 
                     <FrameLayout
-                        android:id="@+id/frame_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -215,6 +215,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:layout_gravity="center"
+                            android:contentDescription="TODO"
                             android:src="@drawable/play"
                             android:transitionName="feedimage"
                             android:visibility="gone" />
@@ -352,6 +353,7 @@
                 android:id="@+id/gif"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:contentDescription="TODO"
                 android:src="@drawable/gif"
                 android:layout_gravity="center"/>
 
@@ -419,6 +421,7 @@
                     android:id="@+id/backIv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="TODO"
                     android:padding="5dp"
                     android:src="@drawable/ic_back" />
 

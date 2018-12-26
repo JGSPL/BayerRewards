@@ -1,12 +1,10 @@
 package com.procialize.singleevent;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
-import android.provider.ContactsContract;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,8 +15,6 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.procialize.singleevent.Activity.HomeActivity;
-import com.procialize.singleevent.Utility.Util;
 
 public class EmptyViewActivity extends AppCompatActivity {
 
@@ -50,7 +46,7 @@ public class EmptyViewActivity extends AppCompatActivity {
         logoImg = prefs.getString("logoImg", "");
 
 
-        ImageView back = (ImageView)findViewById(R.id.back);
+        ImageView back = findViewById(R.id.back);
         back.setVisibility(View.GONE);
         back.setOnClickListener(new View.OnClickListener() {
             @Override

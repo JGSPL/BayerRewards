@@ -1,21 +1,16 @@
 package com.procialize.singleevent.InnerDrawerActivity;
 
 import android.app.ActionBar;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.support.v4.graphics.drawable.DrawableCompat;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,15 +20,11 @@ import android.widget.Toast;
 
 import com.procialize.singleevent.Activity.CurrencyConverter;
 import com.procialize.singleevent.Activity.InitGeneralInfoActivity;
-import com.procialize.singleevent.Activity.ProfileActivity;
-import com.procialize.singleevent.Activity.TimeWeatherActivity;
 import com.procialize.singleevent.Adapter.GeneralInfoListAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
-import com.procialize.singleevent.Fragments.GeneralInfo;
 import com.procialize.singleevent.GetterSetter.Analytic;
 import com.procialize.singleevent.GetterSetter.EventSettingList;
-import com.procialize.singleevent.GetterSetter.FetchAgenda;
 import com.procialize.singleevent.GetterSetter.GeneralInfoList;
 import com.procialize.singleevent.GetterSetter.InfoList;
 import com.procialize.singleevent.R;
@@ -74,12 +65,12 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
         setContentView(R.layout.activity_general_info);
 
         SessionManager sessionManager = new SessionManager(GeneralInfoActivity.this);
-        eventSettingLists = sessionManager.loadEventList();
-        weather_tv = (TextView) findViewById(R.id.weather_tv);
-        abtcurency_tv = (TextView) findViewById(R.id.abtcurency_tv);
+        eventSettingLists = SessionManager.loadEventList();
+        weather_tv = findViewById(R.id.weather_tv);
+        abtcurency_tv = findViewById(R.id.abtcurency_tv);
 //        about_hotel = (TextView) findViewById(R.id.about_hotel);
-        linearlayout = (LinearLayout) findViewById(R.id.linearlayout);
-        pullrefresh = (TextView) findViewById(R.id.pullrefresh);
+        linearlayout = findViewById(R.id.linearlayout);
+        pullrefresh = findViewById(R.id.pullrefresh);
         generalInforefresh = findViewById(R.id.generalInforefresh);
         general_item_list = findViewById(R.id.general_item_list);
         genHeader = findViewById(R.id.header);
@@ -105,11 +96,11 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
         genHeader.setTextColor(Color.parseColor(colorActive));
 
 
-        general_info_wea = (LinearLayout) findViewById(R.id.general_info_wea);
-        general_info_cur = (LinearLayout) findViewById(R.id.general_info_cur);
+        general_info_wea = findViewById(R.id.general_info_wea);
+        general_info_cur = findViewById(R.id.general_info_cur);
 
-        ImageView ic_rightarrow = (ImageView) findViewById(R.id.ic_rightarrow);
-        ImageView ic_arrow_we = (ImageView) findViewById(R.id.ic_arrow_we);
+        ImageView ic_rightarrow = findViewById(R.id.ic_rightarrow);
+        ImageView ic_arrow_we = findViewById(R.id.ic_arrow_we);
 //        int colorInt = Color.parseColor(colorActive);
 //
 //        ColorStateList csl = ColorStateList.valueOf(colorInt);

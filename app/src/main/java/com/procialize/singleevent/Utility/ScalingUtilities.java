@@ -93,25 +93,7 @@ public class ScalingUtilities {
 	}
 
 	/**
-	 * ScalingLogic defines how scaling should be carried out if source and
-	 * destination image has different aspect ratio.
-	 *
-	 * CROP: Scales the image the minimum amount while making sure that at least
-	 * one of the two dimensions fit inside the requested destination area.
-	 * Parts of the source image will be cropped to realize this.
-	 *
-	 * FIT: Scales the image the minimum amount while making sure both
-	 * dimensions fit inside the requested destination area. The resulting
-	 * destination dimensions might be adjusted to a smaller size than
-	 * requested.
-	 */
-	public static enum ScalingLogic {
-		CROP, FIT
-	}
-
-	/**
-	 * Calculate optimal down-sampling factor given the dimensions of a source
-	 * image, the dimensions of a destination area and a scaling logic.
+     * Calculates source rectangle for scaling bitmap
 	 *
 	 * @param srcWidth
 	 *            Width of source image
@@ -123,33 +105,33 @@ public class ScalingUtilities {
 	 *            Height of destination area
 	 * @param scalingLogic
 	 *            Logic to use to avoid image stretching
-	 * @return Optimal down scaling sample size for decoding
+     * @return Optimal source rectangle
 	 */
-	public static int calculateSampleSize(int srcWidth, int srcHeight,
-										  int dstWidth, int dstHeight, ScalingLogic scalingLogic) {
-		if (scalingLogic == ScalingLogic.FIT) {
+    public static Rect calculateSrcRect(int srcWidth, int srcHeight,
+                                        int dstWidth, int dstHeight, ScalingLogic scalingLogic) {
+        if (scalingLogic == ScalingLogic.CROP) {
 			final float srcAspect = (float) srcWidth / (float) srcHeight;
 			final float dstAspect = (float) dstWidth / (float) dstHeight;
 
 			if (srcAspect > dstAspect) {
-				return srcWidth / dstWidth;
+                final int srcRectWidth = (int) (srcHeight * dstAspect);
+                final int srcRectLeft = (srcWidth - srcRectWidth) / 2;
+                return new Rect(srcRectLeft, 0, srcRectLeft + srcRectWidth,
+                        srcHeight);
 			} else {
-				return srcHeight / dstHeight;
+                final int srcRectHeight = (int) (srcWidth / dstAspect);
+                final int scrRectTop = (srcHeight - srcRectHeight) / 2;
+                return new Rect(0, scrRectTop, srcWidth, scrRectTop
+                        + srcRectHeight);
 			}
 		} else {
-			final float srcAspect = (float) srcWidth / (float) srcHeight;
-			final float dstAspect = (float) dstWidth / (float) dstHeight;
-
-			if (srcAspect > dstAspect) {
-				return srcHeight / dstHeight;
-			} else {
-				return srcWidth / dstWidth;
-			}
+            return new Rect(0, 0, srcWidth, srcHeight);
 		}
 	}
 
 	/**
-	 * Calculates source rectangle for scaling bitmap
+     * Calculate optimal down-sampling factor given the dimensions of a source
+     * image, the dimensions of a destination area and a scaling logic.
 	 *
 	 * @param srcWidth
 	 *            Width of source image
@@ -161,29 +143,47 @@ public class ScalingUtilities {
 	 *            Height of destination area
 	 * @param scalingLogic
 	 *            Logic to use to avoid image stretching
-	 * @return Optimal source rectangle
+     * @return Optimal down scaling sample size for decoding
 	 */
-	public static Rect calculateSrcRect(int srcWidth, int srcHeight,
-										int dstWidth, int dstHeight, ScalingLogic scalingLogic) {
-		if (scalingLogic == ScalingLogic.CROP) {
+    public static int calculateSampleSize(int srcWidth, int srcHeight,
+                                          int dstWidth, int dstHeight, ScalingLogic scalingLogic) {
+        if (scalingLogic == ScalingLogic.FIT) {
 			final float srcAspect = (float) srcWidth / (float) srcHeight;
 			final float dstAspect = (float) dstWidth / (float) dstHeight;
 
 			if (srcAspect > dstAspect) {
-				final int srcRectWidth = (int) (srcHeight * dstAspect);
-				final int srcRectLeft = (srcWidth - srcRectWidth) / 2;
-				return new Rect(srcRectLeft, 0, srcRectLeft + srcRectWidth,
-						srcHeight);
-			} else {
-				final int srcRectHeight = (int) (srcWidth / dstAspect);
-				final int scrRectTop = (int) (srcHeight - srcRectHeight) / 2;
-				return new Rect(0, scrRectTop, srcWidth, scrRectTop
-						+ srcRectHeight);
-			}
-		} else {
-			return new Rect(0, 0, srcWidth, srcHeight);
+                return srcWidth / dstWidth;
+            } else {
+                return srcHeight / dstHeight;
+            }
+        } else {
+            final float srcAspect = (float) srcWidth / (float) srcHeight;
+            final float dstAspect = (float) dstWidth / (float) dstHeight;
+
+            if (srcAspect > dstAspect) {
+                return srcHeight / dstHeight;
+            } else {
+                return srcWidth / dstWidth;
+            }
 		}
 	}
+
+    /**
+     * ScalingLogic defines how scaling should be carried out if source and
+     * destination image has different aspect ratio.
+     * <p>
+     * CROP: Scales the image the minimum amount while making sure that at least
+     * one of the two dimensions fit inside the requested destination area.
+     * Parts of the source image will be cropped to realize this.
+     * <p>
+     * FIT: Scales the image the minimum amount while making sure both
+     * dimensions fit inside the requested destination area. The resulting
+     * destination dimensions might be adjusted to a smaller size than
+     * requested.
+     */
+    public enum ScalingLogic {
+        CROP, FIT
+    }
 
 	/**
 	 * Calculates destination rectangle for scaling bitmap

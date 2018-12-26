@@ -1,20 +1,10 @@
 package com.procialize.singleevent.Adapter;
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.PointF;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,13 +26,9 @@ import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.CustomTools.MyJZVideoPlayerStandard;
 import com.procialize.singleevent.CustomTools.PixabayImageView;
 import com.procialize.singleevent.GetterSetter.EventSettingList;
-import com.procialize.singleevent.GetterSetter.LikePost;
 import com.procialize.singleevent.GetterSetter.NewsFeedList;
-import com.procialize.singleevent.GetterSetter.UserData;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
-
-import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -54,10 +40,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import cn.jzvd.JZMediaManager;
-import cn.jzvd.JZUtils;
-import cn.jzvd.JZVideoPlayer;
-import cn.jzvd.JZVideoPlayerManager;
 import cn.jzvd.JZVideoPlayerStandard;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -83,135 +65,6 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
     String colorActive;
     SharedPreferences prefs;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView nameTv, designationTv, companyTv, dateTv, headingTv, liketext, commenttext, sharetext, img_like;
-        private LinearLayout likeTv, commentTv, shareTv;
-        public ImageView profileIv, img_vol, img_playback;
-        public ProgressBar progressView, feedprogress;
-        public PixabayImageView feedimageIv;
-        public ImageView playicon, moreIV, editIV;
-        public View viewone, viewtwo;
-        private MyJZVideoPlayerStandard VideoView;
-
-
-        public MyViewHolder(View view) {
-            super(view);
-
-            prefs =context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-            colorActive = prefs.getString("colorActive","");
-
-
-            nameTv = view.findViewById(R.id.nameTv);
-            companyTv = view.findViewById(R.id.companyTv);
-            designationTv = view.findViewById(R.id.designationTv);
-            dateTv = view.findViewById(R.id.dateTv);
-            headingTv = view.findViewById(R.id.headingTv);
-
-            likeTv = view.findViewById(R.id.likeTv);
-            commentTv = view.findViewById(R.id.commentTv);
-            shareTv = view.findViewById(R.id.shareTv);
-            img_like = view.findViewById(R.id.img_like);
-
-            liketext = view.findViewById(R.id.liketext);
-            commenttext = view.findViewById(R.id.commenttext);
-
-            feedimageIv = view.findViewById(R.id.feedimageIv);
-            VideoView = view.findViewById(R.id.videoplayer);
-
-            profileIv = view.findViewById(R.id.profileIV);
-
-
-            progressView = view.findViewById(R.id.progressView);
-            feedprogress = view.findViewById(R.id.feedprogress);
-
-            playicon = view.findViewById(R.id.playicon);
-            moreIV = view.findViewById(R.id.moreIV);
-            editIV = view.findViewById(R.id.editIV);
-
-            viewone = view.findViewById(R.id.viewone);
-            viewtwo = view.findViewById(R.id.viewtwo);
-
-
-            mAPIService = ApiUtils.getAPIService();
-            sessionManager = new SessionManager(context);
-
-            eventSettingLists = sessionManager.loadEventList();
-            liketext.setFocusable(true);
-
-            if (eventSettingLists.size() != 0) {
-                applysetting(eventSettingLists);
-            }
-
-
-            feedimageIv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // send selected contact in callback
-                    listener.onContactSelected(feedLists.get(getAdapterPosition()), feedimageIv);
-                }
-            });
-
-
-            img_like.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.likeTvViewOnClick(v, feedLists.get(getAdapterPosition()), getAdapterPosition(), img_like, liketext);
-                }
-            });
-
-            commentTv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.commentTvViewOnClick(v, feedLists.get(getAdapterPosition()));
-                }
-            });
-
-
-            shareTv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.shareTvFollowOnClick(v, feedLists.get(getAdapterPosition()));
-                }
-            });
-
-            moreIV.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    listener.moreTvFollowOnClick(v, feedLists.get(getAdapterPosition()), getAdapterPosition());
-
-//                    feedLists.remove(getAdapterPosition());
-//                    notifyItemRemoved(getAdapterPosition());
-                }
-            });
-
-
-            liketext.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    listener.moreLikeListOnClick(v, feedLists.get(getAdapterPosition()), getAdapterPosition());
-
-//                    feedLists.remove(getAdapterPosition());
-//                    notifyItemRemoved(getAdapterPosition());
-                }
-            });
-
-
-            editIV.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    listener.FeedEditOnClick(v, feedLists.get(getAdapterPosition()), getAdapterPosition());
-
-                }
-            });
-
-
-        }
-    }
-
-
     public FeedAdapter(Context con, List<NewsFeedList> feedLists, FeedAdapterListner listener) {
         this.feedLists = feedLists;
         this.listener = listener;
@@ -220,20 +73,6 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
         SessionManager sessionManager = new SessionManager(con);
 
         user = sessionManager.getUserDetails();
-    }
-
-    @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.newsfeedlistingrow, parent, false);
-
-        return new MyViewHolder(itemView);
-    }
-
-    @Override
-    public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        final NewsFeedList feed = feedLists.get(position);
-        initialize(feed, holder, position);
     }
 
     private void initialize(final NewsFeedList feed, final MyViewHolder holder, final int position) {
@@ -280,7 +119,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
             float width = Float.parseFloat(feed.getWidth());
             float height = Float.parseFloat(feed.getHeight());
 
-            p1 = (float) (height / width);
+            p1 = height / width;
             holder.feedimageIv.setAspectRatio(p1);
 
         } catch (Exception e) {
@@ -436,6 +275,148 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
 //        });
 
 
+    }
+
+    @Override
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.newsfeedlistingrow, parent, false);
+
+        return new MyViewHolder(itemView);
+    }
+
+    @Override
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
+        final NewsFeedList feed = feedLists.get(position);
+        initialize(feed, holder, position);
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public TextView nameTv, designationTv, companyTv, dateTv, headingTv, liketext, commenttext, sharetext, img_like;
+        public ImageView profileIv, img_vol, img_playback;
+        public ProgressBar progressView, feedprogress;
+        public PixabayImageView feedimageIv;
+        public ImageView playicon, moreIV, editIV;
+        public View viewone, viewtwo;
+        private LinearLayout likeTv, commentTv, shareTv;
+        private MyJZVideoPlayerStandard VideoView;
+
+
+        public MyViewHolder(View view) {
+            super(view);
+
+            prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+            colorActive = prefs.getString("colorActive", "");
+
+
+            nameTv = view.findViewById(R.id.nameTv);
+            companyTv = view.findViewById(R.id.companyTv);
+            designationTv = view.findViewById(R.id.designationTv);
+            dateTv = view.findViewById(R.id.dateTv);
+            headingTv = view.findViewById(R.id.headingTv);
+
+            likeTv = view.findViewById(R.id.likeTv);
+            commentTv = view.findViewById(R.id.commentTv);
+            shareTv = view.findViewById(R.id.shareTv);
+            img_like = view.findViewById(R.id.img_like);
+
+            liketext = view.findViewById(R.id.liketext);
+            commenttext = view.findViewById(R.id.commenttext);
+
+            feedimageIv = view.findViewById(R.id.feedimageIv);
+            VideoView = view.findViewById(R.id.videoplayer);
+
+            profileIv = view.findViewById(R.id.profileIV);
+
+
+            progressView = view.findViewById(R.id.progressView);
+            feedprogress = view.findViewById(R.id.feedprogress);
+
+            playicon = view.findViewById(R.id.playicon);
+            moreIV = view.findViewById(R.id.moreIV);
+            editIV = view.findViewById(R.id.editIV);
+
+            viewone = view.findViewById(R.id.viewone);
+            viewtwo = view.findViewById(R.id.viewtwo);
+
+
+            mAPIService = ApiUtils.getAPIService();
+            sessionManager = new SessionManager(context);
+
+            eventSettingLists = SessionManager.loadEventList();
+            liketext.setFocusable(true);
+
+            if (eventSettingLists.size() != 0) {
+                applysetting(eventSettingLists);
+            }
+
+
+            feedimageIv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // send selected contact in callback
+                    listener.onContactSelected(feedLists.get(getAdapterPosition()), feedimageIv);
+                }
+            });
+
+
+            img_like.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.likeTvViewOnClick(v, feedLists.get(getAdapterPosition()), getAdapterPosition(), img_like, liketext);
+                }
+            });
+
+            commentTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.commentTvViewOnClick(v, feedLists.get(getAdapterPosition()));
+                }
+            });
+
+
+            shareTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.shareTvFollowOnClick(v, feedLists.get(getAdapterPosition()));
+                }
+            });
+
+            moreIV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    listener.moreTvFollowOnClick(v, feedLists.get(getAdapterPosition()), getAdapterPosition());
+
+//                    feedLists.remove(getAdapterPosition());
+//                    notifyItemRemoved(getAdapterPosition());
+                }
+            });
+
+
+            liketext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    listener.moreLikeListOnClick(v, feedLists.get(getAdapterPosition()), getAdapterPosition());
+
+//                    feedLists.remove(getAdapterPosition());
+//                    notifyItemRemoved(getAdapterPosition());
+                }
+            });
+
+
+            editIV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    listener.FeedEditOnClick(v, feedLists.get(getAdapterPosition()), getAdapterPosition());
+
+                }
+            });
+
+
+        }
     }
 
     private void weightapply(LinearLayout likeTv, LinearLayout commentTv, LinearLayout shareTv, View viewone, View viewtwo) {

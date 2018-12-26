@@ -1,8 +1,6 @@
 package com.procialize.singleevent.InnerDrawerActivity;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -19,8 +17,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -31,7 +27,6 @@ import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.DbHelper.ConnectionDetector;
 import com.procialize.singleevent.GetterSetter.Quiz;
 import com.procialize.singleevent.GetterSetter.QuizOptionList;
-
 import com.procialize.singleevent.Parser.QuizOptionParser;
 import com.procialize.singleevent.Parser.QuizParser;
 import com.procialize.singleevent.R;
@@ -42,7 +37,6 @@ import com.procialize.singleevent.Utility.Util;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -104,7 +98,7 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
 				onBackPressed();
 			}
 		});
-		quizQuestionUrl = constant.baseUrl + constant.quizsubmit;
+        quizQuestionUrl = ApiConstant.baseUrl + ApiConstant.quizsubmit;
 
 		headerlogoIv = findViewById(R.id.headerlogoIv);
 		Util.logomethod(this,headerlogoIv);
@@ -122,16 +116,16 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
 		cd = new ConnectionDetector(getApplicationContext());
 
 		// Initialize Get Quiz URL
-		getQuizUrl = constant.baseUrl + constant.quizlist;
+        getQuizUrl = ApiConstant.baseUrl + ApiConstant.quizlist;
 
-		questionTv = (TextView) findViewById(R.id.questionTv);
+        questionTv = findViewById(R.id.questionTv);
 		questionTv.setText(foldername);
-		submit = (Button) findViewById(R.id.submit);
+        submit = findViewById(R.id.submit);
 
 		submit.setOnClickListener(this);
 		submit.setBackgroundColor(Color.parseColor(colorActive));
 
-		quizNameList = (RecyclerView) findViewById(R.id.quiz_list);
+        quizNameList = findViewById(R.id.quiz_list);
 
 		recyclerLayoutManager = new LinearLayoutManager(this);
 		quizNameList.setLayoutManager(recyclerLayoutManager);

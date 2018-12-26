@@ -18,6 +18,7 @@
             android:id="@+id/img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:contentDescription="TODO"
             android:scaleType="fitXY"
             android:src="@drawable/foldertop" />
 
@@ -28,6 +29,7 @@
             android:layout_below="@+id/img"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
+            android:contentDescription="TODO"
             android:scaleType="fitXY" />
 
         <ProgressBar

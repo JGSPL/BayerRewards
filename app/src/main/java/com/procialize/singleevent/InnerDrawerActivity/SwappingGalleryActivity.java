@@ -4,13 +4,12 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
@@ -19,15 +18,12 @@ import android.widget.ImageView;
 import com.procialize.singleevent.Adapter.SwipeImageAdapter;
 import com.procialize.singleevent.Adapter.SwipepagerAdapter;
 import com.procialize.singleevent.GetterSetter.FirstLevelFilter;
-import com.procialize.singleevent.GetterSetter.GalleryList;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Utility.Util;
 
 import java.util.List;
 
 import cn.jzvd.JZVideoPlayer;
-
-import static com.procialize.singleevent.R.drawable.background;
 
 public class SwappingGalleryActivity extends AppCompatActivity implements SwipeImageAdapter.SwipeImageAdapterListner {
 
@@ -108,8 +104,6 @@ public class SwappingGalleryActivity extends AppCompatActivity implements SwipeI
                     if (position <= firstLevelFilters.size()) {
                         pager.setCurrentItem(position);
                         recyclerView.scrollToPosition(position);
-
-
                     }
 
                 } catch (Exception e) {
@@ -138,6 +132,26 @@ public class SwappingGalleryActivity extends AppCompatActivity implements SwipeI
 
             }
         });
+
+
+        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                recyclerView.scrollToPosition(position);
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
     }
 
     @Override

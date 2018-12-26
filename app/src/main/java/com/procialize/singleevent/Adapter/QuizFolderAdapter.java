@@ -12,7 +12,6 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.github.barteksc.pdfviewer.util.Constants;
 import com.procialize.singleevent.GetterSetter.QuizFolder;
 import com.procialize.singleevent.R;
 
@@ -76,13 +75,13 @@ public class QuizFolderAdapter extends BaseAdapter {
             // holder.video_preview_img = (ImageView) convertView
             // .findViewById(R.id.video_preview_img);
 
-            holder.quiz_title_txt = (TextView) convertView
+            holder.quiz_title_txt = convertView
                     .findViewById(R.id.video_title_txt);
-            holder.linQuiz =(LinearLayout)convertView.findViewById(R.id.linQuiz);
+            holder.linQuiz = convertView.findViewById(R.id.linQuiz);
             holder.linQuiz.setBackgroundColor(Color.parseColor(colorActive));
 
             Typeface typeFace = Typeface.createFromAsset(activity.getAssets(),
-                    "Roboto-Light.ttf");
+                    "DINPro-Regular.ttf");
             holder.quiz_title_txt.setTypeface(typeFace);
 
             convertView.setTag(holder);

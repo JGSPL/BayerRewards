@@ -2,22 +2,16 @@ package com.procialize.singleevent.Activity;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Environment;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.VideoView;
 
 import com.procialize.singleevent.R;
@@ -59,11 +53,11 @@ public class VideoViewActivity extends AppCompatActivity {
             url = intent.getStringExtra("url");
         }
 
-        final VideoView videoView = (VideoView) findViewById(R.id.videoView1);
+        final VideoView videoView = findViewById(R.id.videoView1);
 
         Button fullscreenBtn = findViewById(R.id.fullscreenBtn);
 
-        progressBar = (ProgressBar) findViewById(R.id.progressbar);
+        progressBar = findViewById(R.id.progressbar);
 
         //Creating MediaController
         MediaController mediaController = new MediaController(this);

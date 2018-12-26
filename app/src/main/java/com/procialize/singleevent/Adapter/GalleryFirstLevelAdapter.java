@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -23,6 +24,7 @@ import com.bumptech.glide.request.target.Target;
 import com.procialize.singleevent.GetterSetter.FirstLevelFilter;
 import com.procialize.singleevent.InnerDrawerActivity.GalleryFirstLevelActivity;
 import com.procialize.singleevent.R;
+
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -79,15 +81,12 @@ public class GalleryFirstLevelAdapter extends RecyclerView.Adapter<GalleryFirstL
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.gallery_first_level, parent, false);
-
         return new MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final FirstLevelFilter galleryList = filtergallerylists.get(position);
-
-
 //        if (galleryList.getTitle().contains("/"))
 //        {
 //            String[] parts = galleryList.getTitle().split("/");
@@ -133,4 +132,5 @@ public class GalleryFirstLevelAdapter extends RecyclerView.Adapter<GalleryFirstL
     public interface GalleryFirstLevelAdapterListener {
         void onContactSelected(FirstLevelFilter filtergallerylists,List<FirstLevelFilter> filtergallerylist);
     }
+
 }

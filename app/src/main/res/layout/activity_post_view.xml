@@ -76,6 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/appBarLayout"
         android:layout_marginTop="5dp"
+        android:baselineAligned="false"
         android:orientation="horizontal"
         android:weightSum="10">
 
@@ -94,6 +95,7 @@
                 android:layout_marginTop="7dp"
                 android:adjustViewBounds="true"
                 android:background="@drawable/border"
+                android:contentDescription="TODO"
                 android:scaleType="centerCrop"
                 android:src="@drawable/profilepic_placeholder" />
 
@@ -153,7 +155,6 @@
                     android:textSize="16sp" />
 
                 <LinearLayout
-                    android:id="@+id/lincounter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -199,7 +200,8 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:adjustViewBounds="true"
-            android:scaleType="centerInside"
+            android:contentDescription="TODO"
+            android:scaleType="fitXY"
             android:visibility="gone" />
 
         <ImageView
@@ -208,29 +210,29 @@
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:layout_centerInParent="true"
+            android:contentDescription="TODO"
             android:src="@drawable/ic_media_play"
             android:visibility="gone" />
 
         <RelativeLayout
+            android:layout_centerInParent="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
 
             <VideoView
                 android:id="@+id/Upvideov"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerInParent="true"
                 android:visibility="gone" />
-
 
         </RelativeLayout>
 
     </RelativeLayout>
 
     <com.procialize.singleevent.Fonts.RobotoButton
-        android:id="@+id/postbtn1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

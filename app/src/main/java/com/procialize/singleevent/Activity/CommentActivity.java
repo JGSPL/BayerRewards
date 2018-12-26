@@ -163,7 +163,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
         // apikey
         apikey = user.get(SessionManager.KEY_TOKEN);
 
-        eventSettingLists = sessionManager.loadEventList();
+        eventSettingLists = SessionManager.loadEventList();
         applysetting(eventSettingLists);
 
         try {
@@ -257,7 +257,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
 
         progressView = findViewById(R.id.progressView);
         feedprogress = findViewById(R.id.feedprogress);
-        videoplayer = (MyJZVideoPlayerStandard) findViewById(R.id.videoplayer);
+        videoplayer = findViewById(R.id.videoplayer);
 
 
         nameTv.setText(fname + " " + lname);
@@ -883,7 +883,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
             float width = Float.parseFloat(response.body().getNewsFeedList().get(0).getWidth());
             float height = Float.parseFloat(response.body().getNewsFeedList().get(0).getHeight());
 
-            p1 = (float) (height / width);
+            p1 = height / width;
 
 
             Log.e("p", p1 + "");

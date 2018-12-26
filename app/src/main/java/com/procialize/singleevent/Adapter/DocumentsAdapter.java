@@ -2,10 +2,7 @@ package com.procialize.singleevent.Adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,9 +39,9 @@ public class DocumentsAdapter extends RecyclerView.Adapter<DocumentsAdapter.MyVi
 
         public MyViewHolder(View view) {
             super(view);
-            nameTv = (TextView) view.findViewById(R.id.nameTv);
-            ic_rightarrow = (ImageView) view.findViewById(R.id.ic_rightarrow);
-            mainLL = (LinearLayout) view.findViewById(R.id.mainLL);
+            nameTv = view.findViewById(R.id.nameTv);
+            ic_rightarrow = view.findViewById(R.id.ic_rightarrow);
+            mainLL = view.findViewById(R.id.mainLL);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

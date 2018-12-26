@@ -1,7 +1,6 @@
 package com.procialize.singleevent.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -15,8 +14,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.procialize.singleevent.Activity.PdfViewerActivity;
-import com.procialize.singleevent.GetterSetter.DocumentList;
 import com.procialize.singleevent.GetterSetter.TravelList;
 import com.procialize.singleevent.R;
 
@@ -45,11 +42,11 @@ public class MyTravelAdapter extends RecyclerView.Adapter<MyTravelAdapter.MyView
 
         public MyViewHolder(View view) {
             super(view);
-            nameTv = (TextView) view.findViewById(R.id.nameTv);
-            ic_rightarrow = (ImageView) view.findViewById(R.id.ic_rightarrow);
-            linTicket = (LinearLayout) view.findViewById(R.id.linTicket);
+            nameTv = view.findViewById(R.id.nameTv);
+            ic_rightarrow = view.findViewById(R.id.ic_rightarrow);
+            linTicket = view.findViewById(R.id.linTicket);
 
-            imgTvel = (ImageView) view.findViewById(R.id.imgTvel);
+            imgTvel = view.findViewById(R.id.imgTvel);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

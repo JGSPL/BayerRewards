@@ -18,7 +18,6 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.media.MediaPlayer;
@@ -41,18 +40,15 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
-
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
@@ -69,7 +65,6 @@ import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.MyApplication;
 import com.procialize.singleevent.Utility.Util;
 import com.procialize.singleevent.Utility.Utility;
-import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.http.HttpEntity;
@@ -357,7 +352,8 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
 */
                 }else if (actionFlag.equalsIgnoreCase("Video"))
                 {
-                    selectVideo();
+//                    selectVideo();
+                    Toast.makeText(PostEditActivity.this, "Yo can only edit text in video", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -647,7 +643,7 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
 
         // Initialize Constant Class Reference
         constant = new ApiConstant();
-        final TextView txtcount1 = (TextView) findViewById(R.id.txtcount1);
+        final TextView txtcount1 = findViewById(R.id.txtcount1);
 
 
         // User Image URL

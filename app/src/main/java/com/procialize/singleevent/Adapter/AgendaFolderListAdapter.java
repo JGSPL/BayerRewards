@@ -3,8 +3,6 @@ package com.procialize.singleevent.Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
-import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +11,12 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.GetterSetter.Agenda;
 import com.procialize.singleevent.R;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class AgendaFolderListAdapter extends BaseAdapter {
 	Date d1, d2;
@@ -70,20 +64,20 @@ public class AgendaFolderListAdapter extends BaseAdapter {
 
 			holder = new ViewHolder();
 
-			holder.agenda_time_slot = (TextView) convertView
+            holder.agenda_time_slot = convertView
 					.findViewById(R.id.agenda_time_slot);
-			holder.agenda_title = (TextView) convertView
+            holder.agenda_title = convertView
 					.findViewById(R.id.agenda_title);
 
-			holder.agenda_desc = (TextView) convertView
+            holder.agenda_desc = convertView
 					.findViewById(R.id.agenda_desc);
 
 
-			holder.agenda_list_layout = (LinearLayout) convertView
+            holder.agenda_list_layout = convertView
 					.findViewById(R.id.agenda_list_layout);
 
 
-			holder.webviewAgenda = (WebView) convertView
+            holder.webviewAgenda = convertView
 					.findViewById(R.id.webviewAgenda);
 
 			Typeface typeFace = Typeface.createFromAsset(activity.getAssets(),

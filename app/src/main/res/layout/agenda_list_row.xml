@@ -6,6 +6,7 @@
     android:layout_margin="3dp"
     android:alpha="0.95"
     android:background="@color/colorwhite"
+    android:baselineAligned="false"
     android:orientation="horizontal"
     android:padding="3dp"
     android:weightSum="10" >
@@ -80,6 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
+            android:contentDescription="TODO"
             android:src="@drawable/right_arrow1" />
     </LinearLayout>
 

@@ -5,10 +5,10 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -30,15 +30,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.procialize.singleevent.Adapter.QAAttendeeAdapter;
 import com.procialize.singleevent.Adapter.QASpeakerAdapter;
-import com.procialize.singleevent.Adapter.SpeakerAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
-import com.procialize.singleevent.GetterSetter.AgendaLisQA;
 import com.procialize.singleevent.GetterSetter.QASpeakerFetch;
 import com.procialize.singleevent.GetterSetter.QuestionSpeakerList;
-import com.procialize.singleevent.GetterSetter.SpeakerList;
 import com.procialize.singleevent.GetterSetter.SpeakerQuestionList;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
@@ -116,7 +112,7 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
         linUpper = findViewById(R.id.linUpper);
         txtEmpty = findViewById(R.id.txtEmpty);
 
-        TextView header = (TextView)findViewById(R.id.title);
+        TextView header = findViewById(R.id.title);
         header.setTextColor(Color.parseColor(colorActive));
 
         list = new ArrayList<>();
@@ -226,7 +222,7 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
                 agendaLisQAS = response.body().getQuestionSpeakerList();
 
                 for (int i = 0; i < response.body().getQuestionSpeakerList().size(); i++) {
-                    list.add(response.body().getQuestionSpeakerList().get(i).getFirstName());
+                    list.add(response.body().getQuestionSpeakerList().get(i).getFirstName() + " " + response.body().getQuestionSpeakerList().get(i).getLastName());
                 }
 
                 // Creating adapter for spinner

@@ -3,19 +3,16 @@ package com.procialize.singleevent.Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.GetterSetter.Agenda;
 import com.procialize.singleevent.R;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -66,12 +63,12 @@ public class AgendaListAdapter extends BaseAdapter {
 
 			holder = new ViewHolder();
 
-			holder.agenda_time_slot = (TextView) convertView
+            holder.agenda_time_slot = convertView
 					.findViewById(R.id.agenda_time_slot);
-			holder.agenda_title = (TextView) convertView
+            holder.agenda_title = convertView
 					.findViewById(R.id.agenda_title);
 
-			holder.agenda_desc = (TextView) convertView
+            holder.agenda_desc = convertView
 					.findViewById(R.id.agenda_desc);
 
 			Typeface typeFace = Typeface.createFromAsset(activity.getAssets(),

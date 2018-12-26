@@ -52,9 +52,21 @@ public class TouchImageView extends AppCompatImageView {
     //
     private Matrix matrix, prevMatrix;
 
-    private static enum State {NONE, DRAG, ZOOM, FLING, ANIMATE_ZOOM}
+    @Override
+    public boolean canScrollHorizontally(int direction) {
+        matrix.getValues(m);
+        float x = m[Matrix.MTRANS_X];
 
-    ;
+        if (getImageWidth() < viewWidth) {
+            return false;
+
+        } else if (x >= -1 && direction < 0) {
+            return false;
+
+        } else return !(Math.abs(x) + viewWidth + 1 >= getImageWidth()) || direction <= 0;
+
+    }
+
     private State state;
 
     private float minScale;
@@ -728,23 +740,7 @@ public class TouchImageView extends AppCompatImageView {
         return canScrollHorizontally(direction);
     }
 
-    @Override
-    public boolean canScrollHorizontally(int direction) {
-        matrix.getValues(m);
-        float x = m[Matrix.MTRANS_X];
-
-        if (getImageWidth() < viewWidth) {
-            return false;
-
-        } else if (x >= -1 && direction < 0) {
-            return false;
-
-        } else if (Math.abs(x) + viewWidth + 1 >= getImageWidth() && direction > 0) {
-            return false;
-        }
-
-        return true;
-    }
+    private enum State {NONE, DRAG, ZOOM, FLING, ANIMATE_ZOOM}
 
     /**
      * Gesture Listener detects a single click or long click and passes that on
@@ -806,7 +802,7 @@ public class TouchImageView extends AppCompatImageView {
     }
 
     public interface OnTouchImageViewListener {
-        public void onMove();
+        void onMove();
     }
 
     /**
@@ -1139,7 +1135,7 @@ public class TouchImageView extends AppCompatImageView {
                 minY = maxY = startY;
             }
 
-            scroller.fling(startX, startY, (int) velocityX, (int) velocityY, minX,
+            scroller.fling(startX, startY, velocityX, velocityY, minX,
                     maxX, minY, maxY);
             currX = startX;
             currY = startY;

@@ -3,16 +3,14 @@ package com.procialize.singleevent.InnerDrawerActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.procialize.singleevent.Activity.HomeActivity;
-import com.procialize.singleevent.Activity.SelfiePost;
 import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
@@ -67,11 +65,11 @@ public class EngagementActivity extends AppCompatActivity {
         selfiecard_view = findViewById(R.id.selfiecard_view);
         videocard_view = findViewById(R.id.videocard_view);
 
-        TextView header = (TextView)findViewById(R.id.title);
+        TextView header = findViewById(R.id.title);
         header.setTextColor(Color.parseColor(colorActive));
-        TextView selfieTv = (TextView)findViewById(R.id.selfieTv);
+        TextView selfieTv = findViewById(R.id.selfieTv);
         selfieTv.setBackgroundColor(Color.parseColor(colorActive));
-        TextView videoTv = (TextView)findViewById(R.id.videoTv);
+        TextView videoTv = findViewById(R.id.videoTv);
         videoTv.setBackgroundColor(Color.parseColor(colorActive));
 
 
@@ -80,7 +78,7 @@ public class EngagementActivity extends AppCompatActivity {
         user = sessionManager.getUserDetails();
 
 
-        eventSettingLists = sessionManager.loadEventList();
+        eventSettingLists = SessionManager.loadEventList();
 
         if (eventSettingLists.size() != 0) {
             applysetting(eventSettingLists);

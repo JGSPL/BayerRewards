@@ -1,17 +1,15 @@
 package com.procialize.singleevent.Fonts;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
 /**
  * Created by Naushad on 11/1/2017.
  */
 
-@SuppressLint("AppCompatCustomView")
-public class RobotoTextview extends TextView {
+public class RobotoTextview extends AppCompatTextView {
 
     public RobotoTextview(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);

@@ -4,12 +4,14 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -35,13 +37,23 @@ public class SwipeImageAdapter extends RecyclerView.Adapter<SwipeImageAdapter.My
     private List<FirstLevelFilter> filtergallerylists;
     private Context context;
     private SwipeImageAdapterListner listener;
+    private SparseBooleanArray selectedItems;
 
+
+    public SwipeImageAdapter(Context context, List<FirstLevelFilter> filtergallerylists, SwipeImageAdapterListner listener) {
+
+        this.filtergallerylists = filtergallerylists;
+        this.listener = listener;
+        this.context = context;
+        selectedItems = new SparseBooleanArray(filtergallerylists.size());
+    }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTv;
         public LinearLayout mainLL;
         public ImageView imageIv;
         private ProgressBar progressBar;
+        public RelativeLayout myBackground;
 
         public MyViewHolder(View view) {
             super(view);
@@ -49,6 +61,7 @@ public class SwipeImageAdapter extends RecyclerView.Adapter<SwipeImageAdapter.My
             imageIv = view.findViewById(R.id.imageIv);
             mainLL = view.findViewById(R.id.mainLL);
             progressBar = view.findViewById(R.id.progressBar);
+            myBackground = view.findViewById(R.id.myBackground);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -58,14 +71,6 @@ public class SwipeImageAdapter extends RecyclerView.Adapter<SwipeImageAdapter.My
                 }
             });
         }
-    }
-
-
-    public SwipeImageAdapter(Context context, List<FirstLevelFilter> filtergallerylists, SwipeImageAdapterListner listener) {
-
-        this.filtergallerylists = filtergallerylists;
-        this.listener=listener;
-        this.context=context;
     }
 
     @Override
@@ -79,7 +84,6 @@ public class SwipeImageAdapter extends RecyclerView.Adapter<SwipeImageAdapter.My
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final FirstLevelFilter galleryList = filtergallerylists.get(position);
-
         holder.nameTv.setText(galleryList.getTitle());
         Glide.with(context).load(galleryList.getFileName())
                 .apply(RequestOptions.skipMemoryCacheOf(true))

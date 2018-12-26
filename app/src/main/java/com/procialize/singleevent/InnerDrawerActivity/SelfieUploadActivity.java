@@ -1,8 +1,6 @@
 package com.procialize.singleevent.InnerDrawerActivity;
 
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,10 +14,10 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.media.ExifInterface;
-import android.media.MediaPlayer;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
@@ -28,7 +26,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -40,11 +37,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.procialize.singleevent.Activity.PostViewActivity;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.GetterSetter.PostSelfie;
-import com.procialize.singleevent.GetterSetter.PostTextFeed;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Session.SessionManager;
 import com.procialize.singleevent.Utility.Util;
@@ -58,7 +53,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -124,7 +118,7 @@ public class SelfieUploadActivity extends AppCompatActivity {
         editTitle = findViewById(R.id.editTitle);
         progressBar = findViewById(R.id.progressBar);
 
-        TextView header = (TextView)findViewById(R.id.txtTitle);
+        TextView header = findViewById(R.id.txtTitle);
         header.setTextColor(Color.parseColor(colorActive));
 
         btnSubmit.setBackgroundColor(Color.parseColor(colorActive));
@@ -531,11 +525,11 @@ public class SelfieUploadActivity extends AppCompatActivity {
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             setpic2();
 
-        } else if (resultCode == this.RESULT_OK && requestCode == SELECT_FILE) {
+        } else if (resultCode == RESULT_OK && requestCode == SELECT_FILE) {
 
             onSelectFromGalleryResult(data);
 
-        } else if (resultCode == this.RESULT_OK && requestCode == REQUEST_TAKE_PHOTO) {
+        } else if (resultCode == RESULT_OK && requestCode == REQUEST_TAKE_PHOTO) {
 
             llData.setVisibility(View.VISIBLE);
             if (capturedImageUri != null) {

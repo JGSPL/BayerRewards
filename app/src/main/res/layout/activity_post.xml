@@ -74,6 +74,7 @@
         android:layout_below="@+id/appBarLayout"
         android:layout_marginTop="5dp"
         android:weightSum="10"
+        android:baselineAligned="false"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -92,6 +93,7 @@
                 android:layout_marginTop="7dp"
                 android:background="@drawable/border"
                 android:src="@drawable/profilepic_placeholder"
+                android:contentDescription="TODO"
                 android:scaleType="centerCrop"
                 />
 
@@ -150,7 +152,6 @@
                     android:scrollbars="vertical"
                     android:textSize="16sp" />
                 <LinearLayout
-                    android:id="@+id/lincounter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
@@ -191,12 +192,14 @@
 
 
         <ImageView
+            android:layout_centerInParent="true"
             android:id="@+id/Uploadiv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:adjustViewBounds="true"
-            android:scaleType="centerInside"
+            android:contentDescription="TODO"
+            android:scaleType="centerCrop"
             android:visibility="gone"
             />
         <ImageView
@@ -205,6 +208,7 @@
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:layout_centerInParent="true"
+            android:contentDescription="TODO"
             android:src="@drawable/ic_media_play"
             android:visibility="gone"/>
 
@@ -227,7 +231,6 @@
     </RelativeLayout>
 
     <com.procialize.singleevent.Fonts.RobotoButton
-        android:id="@+id/postbtn1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

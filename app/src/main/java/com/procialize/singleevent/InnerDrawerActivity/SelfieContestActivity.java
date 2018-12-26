@@ -5,13 +5,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -20,7 +18,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -28,11 +25,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.procialize.singleevent.Activity.ImageViewActivity;
 import com.procialize.singleevent.Activity.SelfiePost;
 import com.procialize.singleevent.Adapter.SelfieAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
-import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
 import com.procialize.singleevent.GetterSetter.DeleteSelfie;
 import com.procialize.singleevent.GetterSetter.ReportSelfie;
@@ -55,8 +50,6 @@ import cn.jzvd.JZVideoPlayer;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.procialize.singleevent.Utility.Util.setTextViewDrawableColor;
 
 public class SelfieContestActivity extends AppCompatActivity implements SelfieAdapter.SelfieAdapterListner {
 
@@ -109,8 +102,8 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
         uploadbtn = findViewById(R.id.uploadbtn);
         selfiefeedrefresh = findViewById(R.id.selfiefeedrefresh);
         selfierecycler = findViewById(R.id.selfierecycler);
-        header = (TextView) findViewById(R.id.title);
-        seldescription= (TextView) findViewById(R.id.seldescription);
+        header = findViewById(R.id.title);
+        seldescription = findViewById(R.id.seldescription);
         header.setTextColor(Color.parseColor(colorActive));
         uploadbtn.setBackgroundColor(Color.parseColor(colorActive));
 

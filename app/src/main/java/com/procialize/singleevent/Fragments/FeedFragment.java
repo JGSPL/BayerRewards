@@ -190,7 +190,7 @@ public class FeedFragment extends Fragment implements FeedAdapter.FeedAdapterLis
         final String profilepic = user.get(SessionManager.KEY_PIC);
 
 
-        eventSettingLists = sessionManager.loadEventList();
+        eventSettingLists = SessionManager.loadEventList();
 
         if (eventSettingLists.size() != 0) {
             applysetting(eventSettingLists);
@@ -550,7 +550,7 @@ public class FeedFragment extends Fragment implements FeedAdapter.FeedAdapterLis
             Intent imageview = new Intent(getContext(), ImageViewActivity.class);
             imageview.putExtra("url", ApiConstant.newsfeedwall + feed.getMediaFile());
             ActivityOptionsCompat options = ActivityOptionsCompat.
-                    makeSceneTransitionAnimation(getActivity(), (View) ivProfile, "profile");
+                    makeSceneTransitionAnimation(getActivity(), ivProfile, "profile");
             startActivity(imageview, options.toBundle());
         }
 //        else if (feed.getType().equals("Video")) {
@@ -622,7 +622,7 @@ public class FeedFragment extends Fragment implements FeedAdapter.FeedAdapterLis
         float width = Float.parseFloat(feed.getWidth());
         float height = Float.parseFloat(feed.getHeight());
 
-        float p1 = (float) (height / width);
+        float p1 = height / width;
 
         Intent comment = new Intent(getContext(), CommentActivity.class);
 

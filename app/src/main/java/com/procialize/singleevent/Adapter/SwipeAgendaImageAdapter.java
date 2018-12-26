@@ -81,7 +81,7 @@ public class SwipeAgendaImageAdapter extends RecyclerView.Adapter<SwipeAgendaIma
 
         constant = new ApiConstant();
 
-        image_url = constant.GALLERY_IMAGE
+        image_url = ApiConstant.GALLERY_IMAGE
                 + filtergallerylists.get(position).getFolder_image();
 
         //holder.nameTv.setText(galleryList.getName());

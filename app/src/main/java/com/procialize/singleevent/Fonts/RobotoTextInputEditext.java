@@ -4,9 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
 import android.util.AttributeSet;
-import android.widget.EditText;
 
 /**
  * Created by Naushad on 11/1/2017.
