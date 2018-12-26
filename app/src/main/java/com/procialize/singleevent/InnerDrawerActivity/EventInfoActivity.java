@@ -63,7 +63,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
 
 
     ImageView logoIv;
-    TextView nameTv, dateTv, cityTv, eventvenu, event_desc;
+    TextView nameTv, dateTv, cityTv,  event_desc;
     View view;
     private APIService mAPIService;
     private GoogleMap map;
@@ -123,7 +123,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
         nameTv = findViewById(R.id.nameTv);
         dateTv = findViewById(R.id.dateTv);
         cityTv = findViewById(R.id.cityTv);
-        eventvenu = findViewById(R.id.eventvenu);
+
         event_desc = findViewById(R.id.event_desc);
         view = findViewById(R.id.view);
         progressbar = findViewById(R.id.progressbar);
@@ -208,7 +208,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
         } else {
             if (response.body().getStatus().equalsIgnoreCase("success")) {
                 String startTime = "", endTime = "";
-                SimpleDateFormat sdf = new SimpleDateFormat(ApiConstant.dateformat+ " HH:mm");
+                SimpleDateFormat sdf = new SimpleDateFormat(ApiConstant.dateformat + " HH:mm");
                 String currentDateandTime = sdf.format(new Date());
                 try {
                     if (response.body().getEventList().get(0).getEventStart().equals("null") && response.body().getEventList().get(0).getEventStart() != null && !response.body().getEventList().get(0).getEventStart().isEmpty()) {
@@ -232,13 +232,12 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
 
                 SimpleDateFormat formatter = null;
 
-                String formate1= ApiConstant.dateformat;
-                String formate2=ApiConstant.dateformat1;
+                String formate1 = ApiConstant.dateformat;
+                String formate2 = ApiConstant.dateformat1;
 
-                if(Utility.isValidFormat(formate1,startTime, Locale.UK)) {
+                if (Utility.isValidFormat(formate1, startTime, Locale.UK)) {
                     formatter = new SimpleDateFormat(ApiConstant.dateformat);
-                }else if (Utility.isValidFormat(formate2,startTime,Locale.UK))
-                {
+                } else if (Utility.isValidFormat(formate2, startTime, Locale.UK)) {
                     formatter = new SimpleDateFormat(ApiConstant.dateformat1);
                 }
                 try {
@@ -280,16 +279,16 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
                     if (event_info_description.equalsIgnoreCase("1") && response.body().getEventList().get(0).getEventDescription() != null) {
 
                         event_desc.setVisibility(View.VISIBLE);
-                        eventvenu.setVisibility(View.VISIBLE);
+//                        eventvenu.setVisibility(View.VISIBLE);
                         view.setVisibility(View.VISIBLE);
 
                     } else {
                         event_desc.setVisibility(View.GONE);
-                        eventvenu.setVisibility(View.GONE);
+//                        eventvenu.setVisibility(View.GONE);
                         view.setVisibility(View.GONE);
                     }
-                    eventvenu.setText("Venue:- " + response.body().getEventList().get(0).getEventLocation());
-                    event_desc.setText(response.body().getEventList().get(0).getEventDescription());
+
+                    event_desc.setText("Venue:- " + response.body().getEventList().get(0).getEventLocation() + "\n\n" + response.body().getEventList().get(0).getEventDescription());
                     String image_final_url = ApiConstant.imgURL + "uploads/app_logo/" + response.body().getEventList().get(0).getLogo();
 
 //                Glide.with(getApplicationContext()).load(image_final_url).into(logoIv).onLoadStarted(getDrawable(R.drawable.logo));

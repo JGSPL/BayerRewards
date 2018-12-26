@@ -61,7 +61,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
     ProgressBar progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid, colorActive;
-    View viewthree, viewtwo, viewone, viewfive,viewfour;
+    View viewthree, viewtwo, viewone, viewfive, viewfour;
     RelativeLayout ratinglayout, layoutTop;
     RatingBar ratingbar;
     ImageView headerlogoIv;
@@ -166,11 +166,13 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         if (name != null) {
             if (name.equalsIgnoreCase("N A")) {
                 tvname.setVisibility(View.GONE);
+                viewone.setVisibility(View.GONE);
             } else {
                 tvname.setText(name);
             }
         } else {
             tvname.setVisibility(View.GONE);
+            viewone.setVisibility(View.GONE);
         }
 
         if (description != null) {
@@ -191,7 +193,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         if (company != null && speaker_company.equalsIgnoreCase("1")) {
             if (company.equalsIgnoreCase("")) {
                 tvcompany.setVisibility(View.GONE);
-                viewtwo.setVisibility(View.GONE);
+                viewthree.setVisibility(View.GONE);
             } else {
                 tvcompany.setText(company);
                 viewtwo.setVisibility(View.VISIBLE);
@@ -199,20 +201,22 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
 
         } else {
             tvcompany.setVisibility(View.GONE);
-            viewtwo.setVisibility(View.GONE);
+            viewthree.setVisibility(View.GONE);
         }
 
         if (designation != null && speaker_designation.equalsIgnoreCase("1")) {
             if (designation.equalsIgnoreCase("")) {
                 tvdesignation.setVisibility(View.GONE);
-                viewthree.setVisibility(View.GONE);
+                viewtwo.setVisibility(View.GONE);
+//                viewone.setVisibility(View.GONE);
             } else {
                 tvdesignation.setText(designation);
             }
 
         } else {
             tvdesignation.setVisibility(View.GONE);
-            viewthree.setVisibility(View.GONE);
+            viewtwo.setVisibility(View.GONE);
+//            viewone.setVisibility(View.GONE);
         }
 
         if (city != null && speaker_location.equalsIgnoreCase("1")) {
@@ -231,17 +235,17 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         if (mobile != null && speaker_mobile.equalsIgnoreCase("1")) {
             if (mobile.equalsIgnoreCase("")) {
                 tvmobile.setVisibility(View.GONE);
-                viewfour.setVisibility(View.GONE);
                 viewfive.setVisibility(View.GONE);
+
             } else {
                 tvmobile.setText(mobile);
-                viewfour.setVisibility(View.VISIBLE);
+
             }
 
         } else {
             tvmobile.setVisibility(View.GONE);
-            viewfour.setVisibility(View.GONE);
             viewfive.setVisibility(View.GONE);
+
         }
         if (profile != null) {
             Glide.with(this).load(ApiConstant.profilepic + profile).listener(new RequestListener<Drawable>() {
