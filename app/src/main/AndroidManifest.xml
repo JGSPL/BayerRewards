@@ -96,7 +96,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.AttendeeDetailActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"
             />
         <activity

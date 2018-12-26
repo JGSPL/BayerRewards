@@ -141,7 +141,7 @@ public class AttendeeFragment extends Fragment implements AttendeeAdapter.Attend
 
         int resId = R.anim.layout_animation_slide_right;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getContext(), resId);
-       // attendeerecycler.setLayoutAnimation(animation);
+        // attendeerecycler.setLayoutAnimation(animation);
 
         SharedPreferences prefs = getActivity().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
@@ -152,7 +152,6 @@ public class AttendeeFragment extends Fragment implements AttendeeAdapter.Attend
         SessionManager sessionManager = new SessionManager(getContext());
 
         HashMap<String, String> user = sessionManager.getUserDetails();
-
 
 
         // token
@@ -232,12 +231,12 @@ public class AttendeeFragment extends Fragment implements AttendeeAdapter.Attend
                     if (attendeefeedrefresh.isRefreshing()) {
                         attendeefeedrefresh.setRefreshing(false);
                     }
-                    if(response.body().getMsg().equalsIgnoreCase("Invalid Token!")){
+                    if (response.body().getMsg().equalsIgnoreCase("Invalid Token!")) {
                         sessionManager.logoutUser();
                         Intent main = new Intent(getContext(), LoginActivity.class);
                         startActivity(main);
                         getActivity().finish();
-                    }else {
+                    } else {
                         showResponse(response);
                     }
                 } else {
@@ -253,7 +252,7 @@ public class AttendeeFragment extends Fragment implements AttendeeAdapter.Attend
             @Override
             public void onFailure(Call<FetchAttendee> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
-              //  Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.GONE);
 
                 if (attendeefeedrefresh.isRefreshing()) {
@@ -297,11 +296,11 @@ public class AttendeeFragment extends Fragment implements AttendeeAdapter.Attend
         attendeetail.putExtra("designation", attendee.getDesignation());
         attendeetail.putExtra("description", attendee.getDescription());
         attendeetail.putExtra("profile", attendee.getProfilePic());
-        attendeetail.putExtra("mobile",attendee.getMobile());
+        attendeetail.putExtra("mobile", attendee.getMobile());
 //                speakeretail.putExtra("totalrate",attendee.getTotalRating());
         startActivity(attendeetail);
+//        getActivity().finish();
     }
-
 
 
 //    @Override

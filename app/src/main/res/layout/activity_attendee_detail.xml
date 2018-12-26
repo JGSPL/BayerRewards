@@ -13,8 +13,8 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="0dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="0dp">
 
 
         <android.support.v7.widget.Toolbar
@@ -47,166 +47,194 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/linecolor"/>
+            android:background="@color/linecolor" />
 
     </android.support.design.widget.AppBarLayout>
 
-    <com.procialize.singleevent.Fonts.RobotoTextview
-        android:id="@+id/attendeetitle"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/appBarLayout"
-        android:layout_margin="@dimen/margin"
-        android:gravity="center"
-        android:text="@string/attenddedetail"
-        android:textColor="@color/activetab"
-        android:textSize="@dimen/textsizesmall"
-        android:textStyle="bold" />
-
-
-    <ProgressBar
-        android:id="@+id/progressBarmain"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_gravity="center"
-        android:visibility="gone" />
-
-    <RelativeLayout
-        android:id="@+id/relative"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/attendeetitle">
-
-        <RelativeLayout
-            android:id="@+id/layoutTop"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="@color/activetab"></RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/layoutBottom"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_below="@id/layoutTop"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/agendabg">
-
-        </RelativeLayout>
-
+        android:fillViewport="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/layoutBottom"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="-40dp"
-            android:adjustViewBounds="true">
+            android:layout_height="wrap_content">
 
-            <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/profileIV"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                android:layout_centerInParent="true"
-                android:adjustViewBounds="true"
-                android:background="@drawable/image_border"
-                android:scaleType="centerCrop"
-                android:src="@drawable/profilepic_placeholder" />
+            <com.procialize.singleevent.Fonts.RobotoTextview
+                android:id="@+id/attendeetitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin"
+                android:gravity="center"
+                android:text="@string/attenddedetail"
+                android:textColor="@color/activetab"
+                android:textSize="@dimen/textsizesmall"
+                android:textStyle="bold" />
 
-            <ProgressBar xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/progressBar"
+
+            <ProgressBar
+                android:id="@+id/progressBarmain"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_centerInParent="true" />
+                android:layout_gravity="center"
+                android:visibility="gone" />
 
+            <RelativeLayout
+                android:id="@+id/relative"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/attendeetitle">
+
+                <RelativeLayout
+                    android:id="@+id/layoutTop"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="@color/activetab"></RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layoutBottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@id/layoutTop"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/agendabg">
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/layoutBottom"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="-40dp"
+                    android:adjustViewBounds="true">
+
+                    <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/profileIV"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_centerInParent="true"
+                        android:adjustViewBounds="true"
+                        android:background="@drawable/image_border"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/profilepic_placeholder" />
+
+                    <ProgressBar xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/progressBar"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerInParent="true" />
+
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relative"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/agendabg"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.procialize.singleevent.Fonts.RobotoTextview
+                    android:id="@+id/tvname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin"
+                    android:textColor="@color/activetab"
+                    android:textSize="@dimen/textsizesmall" />
+
+                <View
+                    android:id="@+id/viewone"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/linecolor" />
+
+
+                <com.procialize.singleevent.Fonts.RobotoTextview
+                    android:id="@+id/tvdesignation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textsizesmall" />
+
+                <View
+                    android:id="@+id/viewtwo"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/linecolor" />
+
+                <com.procialize.singleevent.Fonts.RobotoTextview
+                    android:id="@+id/tvcompany"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textsizesmall" />
+
+                <View
+                    android:id="@+id/viewthree"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/linecolor" />
+
+                <com.procialize.singleevent.Fonts.RobotoTextview
+                    android:id="@+id/tvcity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textsizesmall" />
+
+                <View
+                    android:id="@+id/viewtfour"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/linecolor" />
+
+                <com.procialize.singleevent.Fonts.RobotoTextview
+                    android:id="@+id/tvmob"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textsizesmall" />
+
+                <View
+                    android:id="@+id/viewtfive"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/linecolor" />
+
+                <com.procialize.singleevent.Fonts.RobotoTextview
+                    android:id="@+id/tv_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textsizesmall"
+                    android:scrollbars="vertical"
+                    android:maxLines="10"/>
+
+            </LinearLayout>
         </RelativeLayout>
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/relative"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/agendabg"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <com.procialize.singleevent.Fonts.RobotoTextview
-            android:id="@+id/tvname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin"
-            android:textColor="@color/activetab"
-            android:textSize="@dimen/textsizesmall" />
-
-        <View
-            android:id="@+id/viewone"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/linecolor" />
-
-
-        <com.procialize.singleevent.Fonts.RobotoTextview
-            android:id="@+id/tvdesignation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin"
-            android:textColor="@color/black"
-            android:textSize="@dimen/textsizesmall" />
-
-        <View
-            android:id="@+id/viewtwo"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/linecolor" />
-
-        <com.procialize.singleevent.Fonts.RobotoTextview
-            android:id="@+id/tvcompany"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin"
-            android:textColor="@color/black"
-            android:textSize="@dimen/textsizesmall" />
-
-        <View
-            android:id="@+id/viewthree"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/linecolor" />
-
-        <com.procialize.singleevent.Fonts.RobotoTextview
-            android:id="@+id/tvcity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin"
-            android:textColor="@color/black"
-            android:textSize="@dimen/textsizesmall" />
-
-        <View
-            android:id="@+id/viewtfour"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/linecolor" />
-
-        <com.procialize.singleevent.Fonts.RobotoTextview
-            android:id="@+id/tvmob"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin"
-            android:textColor="@color/black"
-            android:textSize="@dimen/textsizesmall" />
-
-    </LinearLayout>
-
+    </ScrollView>
 
     <LinearLayout
         android:id="@+id/linearsaveandsend"

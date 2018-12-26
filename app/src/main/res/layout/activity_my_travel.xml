@@ -62,16 +62,7 @@
         android:textColor="@color/activetab"
         android:textSize="@dimen/textsizesmall" />
 
-    <com.procialize.singleevent.Fonts.RobotoTextview
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="@dimen/padding"
-        android:alpha="0.8"
-        android:text="Pull Down to Refresh"
-        android:textColor="@color/inactivetab"
-        android:textSize="10sp"
-        android:visibility="visible"  />
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -101,7 +92,16 @@
             android:layout_gravity="center"
             android:visibility="gone" android:background="@drawable/loader"/>
 
-
+        <com.procialize.singleevent.Fonts.RobotoTextview
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:alpha="0.8"
+            android:text="Pull Down to Refresh"
+            android:textColor="@color/inactivetab"
+            android:textSize="10sp"
+            android:visibility="visible"
+            android:layout_marginTop="2dp"/>
 
 
         <RelativeLayout

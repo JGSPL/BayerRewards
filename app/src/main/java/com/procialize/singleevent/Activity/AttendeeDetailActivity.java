@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -68,7 +69,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
 
 
     String attendeeid, city, country, company, designation, description, totalrating, name, profile, mobile;
-    TextView tvname, tvcompany, tvdesignation, tvcity, tvmob, attendeetitle;
+    TextView tvname, tvcompany, tvdesignation, tvcity, tvmob, attendeetitle, tv_description;
     TextView sendbtn;
     Dialog myDialog;
     APIService mAPIService;
@@ -89,7 +90,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
     private DBHelper dbHelper;
     String getattendee;
     EditText posttextEt;
-    View viewtwo, viewthree, viewone, viewtfour;
+    View viewtwo, viewthree, viewone, viewtfour, viewtfive;
     ProgressDialog progressDialog;
     LinearLayout linearsaveandsend;
     ImageView headerlogoIv;
@@ -172,6 +173,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         attendeetitle = findViewById(R.id.attendeetitle);
         tvcompany = findViewById(R.id.tvcompany);
         tvdesignation = findViewById(R.id.tvdesignation);
+        tv_description = findViewById(R.id.tv_description);
         tvcity = findViewById(R.id.tvcity);
         profileIV = findViewById(R.id.profileIV);
         progressBar = findViewById(R.id.progressBar);
@@ -181,13 +183,14 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         viewthree = findViewById(R.id.viewthree);
         viewone = findViewById(R.id.viewone);
         viewtfour = findViewById(R.id.viewtfour);
+        viewtfive = findViewById(R.id.viewtfive);
         linearsaveandsend = findViewById(R.id.linearsaveandsend);
         saveContact = findViewById(R.id.saveContact);
         tvmob = findViewById(R.id.tvmob);
         layoutTop = findViewById(R.id.layoutTop);
         LinearLayout linMsg = findViewById(R.id.linMsg);
         LinearLayout linsave = findViewById(R.id.linsave);
-
+        tv_description.setMovementMethod(new ScrollingMovementMethod());
 
         attendeetitle.setTextColor(Color.parseColor(colorActive));
         tvname.setTextColor(Color.parseColor(colorActive));
@@ -342,6 +345,28 @@ public class AttendeeDetailActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        try {
+            if (!(description == null)) {
+                if (description.equalsIgnoreCase("")) {
+                    viewtfive.setVisibility(View.GONE);
+                    tv_description.setVisibility(View.GONE);
+                } else {
+                    tv_description.setText(description);
+                }
+            } else {
+                if (description.equalsIgnoreCase("")) {
+                    viewtfive.setVisibility(View.GONE);
+                    tv_description.setVisibility(View.GONE);
+                } else {
+                    tv_description.setText(description);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            viewtfive.setVisibility(View.GONE);
+            tv_description.setVisibility(View.GONE);
+        }
+
 
         if (profile != null) {
             Glide.with(this).load(ApiConstant.profilepic + profile).listener(new RequestListener<Drawable>() {
@@ -487,6 +512,9 @@ public class AttendeeDetailActivity extends AppCompatActivity {
 //                    dismissProgress();
                     posttextEt.setText("");
                     DeletePostresponse(response);
+                    Intent intent = new Intent(AttendeeDetailActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
                 } else {
                     dismissProgress();
 //                    dismissProgress();
@@ -546,9 +574,9 @@ public class AttendeeDetailActivity extends AppCompatActivity {
 
         insertContactPhoneNumber(addContactsUri, rowContactId, strNumber, strDisplayName);
 
-        Toast.makeText(getApplicationContext(), "New contact has been added, go back to previous page to see it in contacts list.", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Contact saved successfully", Toast.LENGTH_LONG).show();
 
-//        finish();
+        finish();
 
 
     }
