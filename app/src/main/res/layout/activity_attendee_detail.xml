@@ -279,9 +279,9 @@
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:layout_weight="5"
-                android:background="@drawable/loginbutton"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@color/inactivetab">
 
                 <com.procialize.singleevent.Fonts.RobotoTextview
                     android:id="@+id/sendMsg"
@@ -289,7 +289,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/margin"
-                    android:background="@color/activetab"
                     android:drawableLeft="@drawable/messega"
                     android:drawablePadding="10dp"
                     android:gravity="center"
@@ -297,7 +296,8 @@
                     android:text="@string/sendmsg"
                     android:textAllCaps="false"
                     android:textColor="@color/colorwhite"
-                    android:textSize="@dimen/textsizesmall" />
+                    android:textSize="@dimen/textsizesmall"
+                    android:background="@color/inactivetab"/>
             </LinearLayout>
 
             <LinearLayout

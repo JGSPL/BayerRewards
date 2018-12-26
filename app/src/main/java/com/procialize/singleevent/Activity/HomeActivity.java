@@ -749,9 +749,10 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                 @Override
                 public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                     progressView.setVisibility(View.GONE);
+                    profileIV.setImageResource(R.drawable.profilepic_placeholder);
                     return false;
                 }
-            }).into(profileIV).onLoadStarted(getDrawable(R.drawable.profilepic_placeholder));
+            }).into(profileIV);
         } else {
             profileIV.setImageResource(R.drawable.profilepic_placeholder);
             progressView.setVisibility(View.GONE);

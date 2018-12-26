@@ -40,6 +40,7 @@ import com.bumptech.glide.request.target.Target;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
+import com.procialize.singleevent.DbHelper.ConnectionDetector;
 import com.procialize.singleevent.GetterSetter.Analytic;
 import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.GetterSetter.ProfileSave;
@@ -103,9 +104,10 @@ public class ProfileActivity extends AppCompatActivity {
 
     RelativeLayout relative;
     ProgressDialog progressDialog;
-
+    private ConnectionDetector cd;
     String mCurrentPhotoPath = "";
     UCrop.Options options;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,7 +140,7 @@ public class ProfileActivity extends AppCompatActivity {
 //        Intent intent=getIntent();
 //        eventid=intent.getStringExtra("eventId");
 //        eventnamestr=intent.getStringExtra("eventnamestr");
-
+        cd = new ConnectionDetector(ProfileActivity.this);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,9 +152,15 @@ public class ProfileActivity extends AppCompatActivity {
 
         mAPIService = ApiUtils.getAPIService();
 
-        fetchProfileDetail(api_token, eventid);
+        if (cd.isConnectingToInternet()) {
+            fetchProfileDetail(api_token, eventid);
+            SubmitAnalytics(api_token, eventid, "", "", "EditProfile");
 
-        SubmitAnalytics(api_token, eventid, "", "", "EditProfile");
+        } else {
+            initializeView();
+            Toast.makeText(this,"Device not connected to internet",Toast.LENGTH_SHORT).show();
+        }
+
 
 
         options = new UCrop.Options();
@@ -511,13 +519,13 @@ public class ProfileActivity extends AppCompatActivity {
 
                 if (response.isSuccessful()) {
                     Log.i("hit", "post submitted to API." + response.body().toString());
-                    if(response.body().getMsg().equalsIgnoreCase("Invalid Token!")){
+                    if (response.body().getMsg().equalsIgnoreCase("Invalid Token!")) {
                         sessionManager.logoutUser();
                         Intent main = new Intent(ProfileActivity.this, LoginActivity.class);
                         startActivity(main);
                         finish();
 
-                    }else {
+                    } else {
 
                         showResponse(response);
                     }
@@ -573,7 +581,7 @@ public class ProfileActivity extends AppCompatActivity {
             } else {
 
             }
-            if(response.body().getMsg().equalsIgnoreCase("Invalid Token!")){
+            if (response.body().getMsg().equalsIgnoreCase("Invalid Token!")) {
                 sessionManager.logoutUser();
                 Intent main = new Intent(ProfileActivity.this, LoginActivity.class);
                 startActivity(main);
@@ -753,7 +761,7 @@ public class ProfileActivity extends AppCompatActivity {
                 public void onResponse(Call<ProfileSave> call, Response<ProfileSave> response) {
                     try {
                         Dismissprogress();
-                        if(response.body().getMsg().equalsIgnoreCase("Invalid Token!")){
+                        if (response.body().getMsg().equalsIgnoreCase("Invalid Token!")) {
                             sessionManager.logoutUser();
                             Intent main = new Intent(ProfileActivity.this, LoginActivity.class);
                             startActivity(main);

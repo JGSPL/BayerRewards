@@ -14,7 +14,7 @@
         android:orientation="vertical"
         android:translationZ="@dimen/elevation">
 
-        <com.procialize.vivo_app.Fonts.RobotoTextview
+        <com.procialize.singleevent.Fonts.RobotoTextview
             android:id="@+id/eventnaem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
                 android:orientation="vertical">
 
 
-                <com.procialize.vivo_app.Fonts.RobotoTextview
+                <com.procialize.singleevent.Fonts.RobotoTextview
                     android:id="@+id/nameTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
                     android:textSize="@dimen/textsizenormal"
                     android:visibility="gone" />
 
-                <com.procialize.vivo_app.Fonts.RobotoTextview
+                <com.procialize.singleevent.Fonts.RobotoTextview
                     android:id="@+id/designationTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
                     android:textSize="@dimen/textsizesmall" />
 
 
-                <com.procialize.vivo_app.Fonts.RobotoTextview
+                <com.procialize.singleevent.Fonts.RobotoTextview
                     android:id="@+id/locationTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -44,7 +44,7 @@ import retrofit2.Response;
 
 public class QRScanActivity extends AppCompatActivity implements QRCodeReaderView.OnQRCodeReadListener {
 
-    private ScrollView contactll;
+//    private ScrollView contactll;
     private static final int REQUEST_CODE_QR_SCAN = 101;
     private final String LOGTAG = "QRCScanner-MainActivity";
 
@@ -79,7 +79,7 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
         headerlogoIv = findViewById(R.id.headerlogoIv);
         Util.logomethod(this, headerlogoIv);
         mAPIService = ApiUtils.getAPIService();
-        contactll = findViewById(R.id.contactll);
+//        contactll = findViewById(R.id.contactll);
 
         edit_username_edit = findViewById(R.id.edit_username_edit);
         edit_first_name_edit = findViewById(R.id.edit_first_name_edit);
@@ -96,7 +96,7 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
         qrCodeReaderView.setOnQRCodeReadListener(this);
 
         qrCodeReaderView.setVisibility(View.VISIBLE);
-        contactll.setVisibility(View.GONE);
+//        contactll.setVisibility(View.GONE);
 
 
         // Use this function to enable/disable decoding
@@ -367,7 +367,7 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
 */
 
         qrCodeReaderView.setVisibility(View.GONE);
-        contactll.setVisibility(View.VISIBLE);
+//        contactll.setVisibility(View.VISIBLE);
     }
 
     @Override

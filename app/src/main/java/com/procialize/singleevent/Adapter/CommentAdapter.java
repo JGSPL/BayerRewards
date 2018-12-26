@@ -122,11 +122,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
         CommentDataList comment = commentLists.get(position);
         holder.nameTv.setTextColor(Color.parseColor(colorActive));
 
-        if (flag.equalsIgnoreCase("Notification")) {
-            holder.moreIv.setVisibility(View.GONE);
-        } else {
-            holder.moreIv.setVisibility(View.VISIBLE);
-        }
+//        if (flag.equalsIgnoreCase("Notification")) {
+//            holder.moreIv.setVisibility(View.GONE);
+//        } else {
+//            holder.moreIv.setVisibility(View.VISIBLE);
+//        }
 
 //        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
         holder.nameTv.setText(comment.getFirstName() + " " + comment.getLastName());

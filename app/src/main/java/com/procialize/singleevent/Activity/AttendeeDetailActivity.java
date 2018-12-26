@@ -188,7 +188,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         saveContact = findViewById(R.id.saveContact);
         tvmob = findViewById(R.id.tvmob);
         layoutTop = findViewById(R.id.layoutTop);
-        LinearLayout linMsg = findViewById(R.id.linMsg);
+        final LinearLayout linMsg = findViewById(R.id.linMsg);
         LinearLayout linsave = findViewById(R.id.linsave);
         tv_description.setMovementMethod(new ScrollingMovementMethod());
 
@@ -196,12 +196,43 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         tvname.setTextColor(Color.parseColor(colorActive));
         layoutTop.setBackgroundColor(Color.parseColor(colorActive));
         saveContact.setBackgroundColor(Color.parseColor(colorActive));
-        linMsg.setBackgroundColor(Color.parseColor(colorActive));
+        sendbtn = findViewById(R.id.sendMsg);
         linsave.setBackgroundColor(Color.parseColor(colorActive));
 
+//        sendMsg.set
+        linMsg.setEnabled(false);
+        sendbtn.setEnabled(false);
 
-        sendbtn = findViewById(R.id.sendMsg);
-        sendbtn.setBackgroundColor(Color.parseColor(colorActive));
+        posttextEt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (count >= 1) {
+                    linMsg.setEnabled(true);
+                    linMsg.setBackgroundColor(Color.parseColor(colorActive));
+                    sendbtn.setBackgroundColor(Color.parseColor(colorActive));
+                    sendbtn.setEnabled(true);
+                } else if (count <= 0) {
+                    linMsg.setEnabled(false);
+                    sendbtn.setEnabled(false);
+                    linMsg.setBackgroundColor(Color.parseColor("#4D4D4D"));
+                    sendbtn.setBackgroundColor(Color.parseColor("#4D4D4D"));
+
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
         sendbtn.setVisibility(View.GONE);
         if (attendeeid.equalsIgnoreCase(getattendee)) {
             sendbtn.setVisibility(View.GONE);

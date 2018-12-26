@@ -35,10 +35,12 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.procialize.singleevent.Activity.ProfileActivity;
 import com.procialize.singleevent.Adapter.AgendaAdapter;
 import com.procialize.singleevent.ApiConstant.APIService;
 import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.ApiConstant.ApiUtils;
+import com.procialize.singleevent.DbHelper.ConnectionDetector;
 import com.procialize.singleevent.GetterSetter.EventInfoFetch;
 import com.procialize.singleevent.GetterSetter.EventSettingList;
 import com.procialize.singleevent.GetterSetter.FetchAgenda;
@@ -82,6 +84,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid, colorActive;
     ImageView headerlogoIv;
+    private ConnectionDetector cd;
 
 
     @Override
@@ -113,7 +116,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
         if (eventSettingLists.size() != 0) {
             applysetting(eventSettingLists);
         }
-
+        cd = new ConnectionDetector(EventInfoActivity.this);
         mAPIService = ApiUtils.getAPIService();
 
         fm = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -390,7 +393,12 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
     public void onMapReady(GoogleMap googleMap) {
 
         map = googleMap;
-        fetchEventInfo(token, eventid);
+        if(cd.isConnectingToInternet()){
+            fetchEventInfo(token, eventid);
+        }else {
+
+        }
+
 
     }
 
