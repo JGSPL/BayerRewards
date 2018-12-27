@@ -2,6 +2,9 @@ package com.procialize.singleevent.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.view.Display;
@@ -31,6 +34,8 @@ import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class SelfieAdapterNew extends BaseAdapter {
 
     List<SelfieList> selfieList;
@@ -38,9 +43,11 @@ public class SelfieAdapterNew extends BaseAdapter {
     Activity activity;
 
     Constants constant = new Constants();
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String colorActive;
 
-    public SelfieAdapterNew(Activity c, List<SelfieList> selfieList) {
-        activity = c;
+    public SelfieAdapterNew(Activity context, List<SelfieList> selfieList) {
+        activity = context;
         this.selfieList = selfieList;
     }
 
@@ -105,6 +112,9 @@ public class SelfieAdapterNew extends BaseAdapter {
 
         convertView.setTag(holder);
 
+        SharedPreferences prefs = activity.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        colorActive = prefs.getString("colorActive", "");
+
 
         holder.dataTv.setText(StringEscapeUtils.unescapeJava(selfie.getTitle()));
         holder.countTv.setText(selfie.getTotalLikes());
@@ -125,14 +135,19 @@ public class SelfieAdapterNew extends BaseAdapter {
             }
         }).into(holder.imageIv).onLoadStarted(activity.getDrawable(R.drawable.gallery_placeholder));
 
+        holder.moreIV.setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_ATOP);
+
 
         if (selfie.getLikeFlag().equals("1")) {
 
 
             holder.likeIv.setImageResource(R.drawable.ic_afterlike);
+            holder.likeIv.setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_ATOP);
+
 
         } else {
             holder.likeIv.setImageResource(R.drawable.ic_like);
+            holder.likeIv.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP);
         }
 
 

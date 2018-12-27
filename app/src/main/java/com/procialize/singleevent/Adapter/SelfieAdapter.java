@@ -111,8 +111,6 @@ public class SelfieAdapter extends RecyclerView.Adapter<SelfieAdapter.MyViewHold
         SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         colorActive = prefs.getString("colorActive","");
 
-
-
         holder.dataTv.setText(StringEscapeUtils.unescapeJava(galleryList.getTitle()));
         holder.countTv.setText(galleryList.getTotalLikes());
         Glide.with(context).load(ApiConstant.selfieimage+galleryList.getFileName())
@@ -131,6 +129,7 @@ public class SelfieAdapter extends RecyclerView.Adapter<SelfieAdapter.MyViewHold
             }
         }).into(holder.imageIv).onLoadStarted(context.getDrawable(R.drawable.gallery_placeholder));
 
+        holder.moreIV.setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_ATOP);
 
         if (galleryList.getLikeFlag().equals("1")) {
 
@@ -139,6 +138,8 @@ public class SelfieAdapter extends RecyclerView.Adapter<SelfieAdapter.MyViewHold
             holder.likeIv.setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_ATOP);
         } else {
             holder.likeIv.setImageResource(R.drawable.ic_like);
+            holder.likeIv.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP);
+
         }
 
     }

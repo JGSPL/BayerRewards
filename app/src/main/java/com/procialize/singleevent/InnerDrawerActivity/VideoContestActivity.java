@@ -240,6 +240,7 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
 
         if (videoContest.getLikeFlag().equals("1")) {
             likeIv.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_like));
+            likeIv.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP);
             VideoContestLike(token, eventid, videoContest.getId());
 
             try {

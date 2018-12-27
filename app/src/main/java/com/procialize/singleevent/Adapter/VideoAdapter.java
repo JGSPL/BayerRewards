@@ -1,8 +1,9 @@
 package com.procialize.singleevent.Adapter;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.Nullable;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,23 +14,14 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.Target;
-import com.procialize.singleevent.ApiConstant.ApiConstant;
 import com.procialize.singleevent.CustomTools.RoundCornersTransformation;
 import com.procialize.singleevent.GetterSetter.FirstLevelFilter;
-import com.procialize.singleevent.GetterSetter.GalleryList;
-import com.procialize.singleevent.GetterSetter.VideoList;
 import com.procialize.singleevent.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder> {
@@ -37,45 +29,9 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
     private List<FirstLevelFilter> videoLists;
     private Context context;
     private VideoAdapterListner listener;
-
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView nameTv;
-        public ImageView imageIv;
-        public LinearLayout mainLL;
-        private ProgressBar progressBar;
-
-
-        public MyViewHolder(View view) {
-            super(view);
-            nameTv = view.findViewById(R.id.nameTv);
-            imageIv = view.findViewById(R.id.imageIv);
-            mainLL = view.findViewById(R.id.mainLL);
-            progressBar = view.findViewById(R.id.progressBar);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // send selected contact in callback
-                    listener.onContactSelected(videoLists.get(getAdapterPosition()));
-                }
-            });
-        }
-    }
-
-
-    public VideoAdapter(Context context, List<FirstLevelFilter> galleryLists, VideoAdapterListner listener) {
-        this.videoLists = galleryLists;
-        this.listener = listener;
-        this.context = context;
-    }
-
-    @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.video_row, parent, false);
-
-        return new MyViewHolder(itemView);
-    }
+    String MY_PREFS_NAME = "ProcializeInfo";
+    SharedPreferences prefs;
+    String colorActive;
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
@@ -83,6 +39,11 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
 
         holder.nameTv.setText(videoList.getTitle());
 
+        prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        colorActive = prefs.getString("colorActive", "");
+
+        int color = Color.parseColor(colorActive);
+        holder.img.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
 
 
         if (videoList.getFolderName() == null) {
@@ -135,6 +96,46 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
         }
 
 
+    }
+
+
+    public VideoAdapter(Context context, List<FirstLevelFilter> galleryLists, VideoAdapterListner listener) {
+        this.videoLists = galleryLists;
+        this.listener = listener;
+        this.context = context;
+    }
+
+    @Override
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.video_row, parent, false);
+
+        return new MyViewHolder(itemView);
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public TextView nameTv;
+        public ImageView imageIv, img;
+        public LinearLayout mainLL;
+        private ProgressBar progressBar;
+
+
+        public MyViewHolder(View view) {
+            super(view);
+            nameTv = view.findViewById(R.id.nameTv);
+            imageIv = view.findViewById(R.id.imageIv);
+            img = view.findViewById(R.id.img);
+            mainLL = view.findViewById(R.id.mainLL);
+            progressBar = view.findViewById(R.id.progressBar);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // send selected contact in callback
+                    listener.onContactSelected(videoLists.get(getAdapterPosition()));
+                }
+            });
+        }
     }
 
     @Override

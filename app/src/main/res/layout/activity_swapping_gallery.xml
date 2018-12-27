@@ -60,7 +60,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/listrecycler"
+        android:layout_above="@+id/btnlayout"
         android:layout_below="@+id/appBarLayout">
 
         <android.support.v4.view.ViewPager
@@ -89,10 +89,75 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/btnlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/listrecycler"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/linMsg"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_weight="5"
+            android:background="@drawable/loginbutton"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.procialize.singleevent.Fonts.RobotoTextview
+                android:id="@+id/savebtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin"
+                android:background="@color/activetab"
+                android:drawableLeft="@drawable/save_icon"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Save"
+                android:textAllCaps="false"
+                android:textColor="@color/colorwhite"
+                android:textSize="@dimen/textsizesmall" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linsave"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_weight="5"
+            android:background="@drawable/loginbutton"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.procialize.singleevent.Fonts.RobotoTextview
+                android:id="@+id/sharebtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin"
+                android:background="@color/activetab"
+                android:drawableLeft="@drawable/share_icon"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Share"
+                android:textAllCaps="false"
+                android:textColor="@color/colorwhite"
+                android:textSize="@dimen/textsizesmall" />
+        </LinearLayout>
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/listrecycler"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal" />
 

@@ -1,10 +1,19 @@
 package com.procialize.singleevent.InnerDrawerActivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -14,13 +23,22 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.procialize.singleevent.Adapter.SwipeImageAdapter;
 import com.procialize.singleevent.Adapter.SwipepagerAdapter;
+import com.procialize.singleevent.CustomTools.PicassoTrustAll;
+import com.procialize.singleevent.DbHelper.ConnectionDetector;
 import com.procialize.singleevent.GetterSetter.FirstLevelFilter;
 import com.procialize.singleevent.R;
 import com.procialize.singleevent.Utility.Util;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import cn.jzvd.JZVideoPlayer;
@@ -37,11 +55,70 @@ public class SwappingGalleryActivity extends AppCompatActivity implements SwipeI
     ImageView headerlogoIv;
     String colorActive;
     String MY_PREFS_NAME = "ProcializeInfo";
+    public int rvposition = 0;
+    String img = "";
+    private ConnectionDetector cd;
+
+    static public void shareImage(String url, final Context context) {
+        Picasso.with(context).load(url).into(new com.squareup.picasso.Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("image/*");
+                i.putExtra(Intent.EXTRA_STREAM, getLocalBitmapUri(bitmap, context));
+                context.startActivity(Intent.createChooser(i, "Share Image"));
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+            }
+        });
+    }
+
+    @Override
+    public void onContactSelected(FirstLevelFilter filtergallerylists) {
+
+        indexset(filtergallerylists.getFileName());
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    public void indexset(String name) {
+        for (int j = 0; j < firstLevelFilters.size(); j++) {
+            if (firstLevelFilters.get(j).getFileName().equalsIgnoreCase(name)) {
+                pager.setCurrentItem(j);
+            }
+        }
+    }
+
+    static public Uri getLocalBitmapUri(Bitmap bmp, Context context) {
+        Uri bmpUri = null;
+        try {
+            File file = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "share_image_" + System.currentTimeMillis() + ".png");
+            FileOutputStream out = new FileOutputStream(file);
+            bmp.compress(Bitmap.CompressFormat.PNG, 90, out);
+            out.close();
+//            bmpUri = Uri.fromFile(file);
+            bmpUri = FileProvider.getUriForFile(context, "com.procialize.singleevent.android.fileprovider", file);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bmpUri;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swapping_gallery);
+        cd = new ConnectionDetector(this);
 
         name = getIntent().getExtras().getString("url");
         firstLevelFilters = (List<FirstLevelFilter>) getIntent().getExtras().getSerializable("gallerylist");
@@ -81,6 +158,139 @@ public class SwappingGalleryActivity extends AppCompatActivity implements SwipeI
         pager.setAdapter(swipepagerAdapter);
         swipepagerAdapter.notifyDataSetChanged();
 
+
+        LinearLayout linMsg = findViewById(R.id.linMsg);
+        LinearLayout linsave = findViewById(R.id.linsave);
+        TextView savebtn = findViewById(R.id.savebtn);
+        TextView sharebtn = findViewById(R.id.sharebtn);
+
+        linsave.setBackgroundColor(Color.parseColor(colorActive));
+        linMsg.setBackgroundColor(Color.parseColor(colorActive));
+        savebtn.setBackgroundColor(Color.parseColor(colorActive));
+        sharebtn.setBackgroundColor(Color.parseColor(colorActive));
+
+
+        linMsg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (cd.isConnectingToInternet()) {
+
+                    try {
+                        img = firstLevelFilters.get(rvposition).getFileName().substring(58, 60);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+                        if (SwappingGalleryActivity.this.checkSelfPermission(
+                                "android.permission.WRITE_EXTERNAL_STORAGE") != PackageManager.PERMISSION_GRANTED) {
+                            final String[] permissions = new String[]{"android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE"};
+                            ActivityCompat.requestPermissions(SwappingGalleryActivity.this, permissions, 0);
+                        } else if (SwappingGalleryActivity.this.checkSelfPermission(
+                                "android.permission.READ_EXTERNAL_STORAGE") != PackageManager.PERMISSION_GRANTED) {
+                            final String[] permissions = new String[]{"android.permission.READ_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE"};
+                            ActivityCompat.requestPermissions(SwappingGalleryActivity.this, permissions, 0);
+                        } else {
+
+                            // new myAsyncTask().execute();
+                            PicassoTrustAll.getInstance(SwappingGalleryActivity.this)
+                                    .load(firstLevelFilters.get(rvposition).getFileName())
+                                    .into(new com.squareup.picasso.Target() {
+                                              @Override
+                                              public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                                                  try {
+                                                      String root = Environment.getExternalStorageDirectory().toString();
+                                                      File myDir = new File(root + "/Procialize");
+
+                                                      if (!myDir.exists()) {
+                                                          myDir.mkdirs();
+                                                      }
+                                                      Toast.makeText(SwappingGalleryActivity.this,
+                                                              "Download completed- check folder Procialize/Image",
+                                                              Toast.LENGTH_SHORT).show();
+                                                      String name = img + ".jpg";
+                                                      myDir = new File(myDir, name);
+                                                      FileOutputStream out = new FileOutputStream(myDir);
+                                                      bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+
+                                                      out.flush();
+                                                      out.close();
+                                                  } catch (Exception e) {
+                                                      // some action
+                                                  }
+                                              }
+
+                                              @Override
+                                              public void onBitmapFailed(Drawable errorDrawable) {
+                                              }
+
+                                              @Override
+                                              public void onPrepareLoad(Drawable placeHolderDrawable) {
+                                              }
+                                          }
+                                    );
+
+                        }
+
+
+                    } else {
+                        //new myAsyncTask().execute();
+                        PicassoTrustAll.getInstance(SwappingGalleryActivity.this)
+                                .load(firstLevelFilters.get(rvposition).getFileName())
+                                .into(new com.squareup.picasso.Target() {
+                                          @Override
+                                          public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                                              try {
+                                                  String root = Environment.getExternalStorageDirectory().toString();
+                                                  File myDir = new File(root + "/Procialize");
+
+                                                  if (!myDir.exists()) {
+                                                      myDir.mkdirs();
+                                                  }
+                                                  Toast.makeText(SwappingGalleryActivity.this,
+                                                          "Download completed- check folder Procialize/Image",
+                                                          Toast.LENGTH_SHORT).show();
+                                                  String name = img + ".jpg";
+                                                  myDir = new File(myDir, name);
+
+                                                  FileOutputStream out = new FileOutputStream(myDir);
+                                                  bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+
+                                                  out.flush();
+                                                  out.close();
+                                              } catch (Exception e) {
+                                                  // some action
+                                              }
+                                          }
+
+                                          @Override
+                                          public void onBitmapFailed(Drawable errorDrawable) {
+                                          }
+
+                                          @Override
+                                          public void onPrepareLoad(Drawable placeHolderDrawable) {
+                                          }
+                                      }
+                                );
+
+                    }
+
+
+                } else {
+                    Toast.makeText(SwappingGalleryActivity.this, "No Internet Connection",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        linsave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareImage(firstLevelFilters.get(rvposition).getFileName(), SwappingGalleryActivity.this);
+            }
+        });
 
         indexset(name);
         int colorInt = Color.parseColor(colorActive);
@@ -138,6 +348,7 @@ public class SwappingGalleryActivity extends AppCompatActivity implements SwipeI
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 recyclerView.scrollToPosition(position);
+                rvposition = position;
 
             }
 
@@ -152,25 +363,6 @@ public class SwappingGalleryActivity extends AppCompatActivity implements SwipeI
             }
         });
 
-    }
-
-    @Override
-    public void onContactSelected(FirstLevelFilter filtergallerylists) {
-
-        indexset(filtergallerylists.getFileName());
-    }
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }
-
-    public void indexset(String name) {
-        for (int j = 0; j < firstLevelFilters.size(); j++) {
-            if (firstLevelFilters.get(j).getFileName().equalsIgnoreCase(name)) {
-                pager.setCurrentItem(j);
-            }
-        }
     }
 
     @Override
