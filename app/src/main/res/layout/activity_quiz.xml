@@ -1,6 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
@@ -63,7 +62,8 @@
             android:layout_weight="9"
             android:gravity="top"
             android:orientation="vertical">
-            <com.procialize.singleevent.Fonts.RobotoTextview
+
+            <com.procialize.eventsapp.Fonts.RobotoTextview
                 android:id="@+id/questionTv"
                 android:textColor="@color/black"
                 android:background="@color/qnarow"
@@ -87,7 +87,7 @@
                 android:dividerHeight="5dp"
                 android:smoothScrollbar="true" />
 
-            <com.procialize.singleevent.Fonts.RobotoTextview
+            <com.procialize.eventsapp.Fonts.RobotoTextview
                 android:id="@android:id/empty"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -100,7 +100,7 @@
     </LinearLayout>
 
 
-    <com.procialize.singleevent.Fonts.RobotoButton
+    <com.procialize.eventsapp.Fonts.RobotoButton
         android:id="@+id/submit"
         android:layout_width="match_parent"
         android:layout_height="50dp"

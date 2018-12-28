@@ -82,7 +82,7 @@
         android:visibility="gone" android:background="@drawable/loader"/>
 
 
-    <com.procialize.singleevent.Fonts.RobotoEditext
+    <com.procialize.eventsapp.Fonts.RobotoEditext
         android:id="@+id/searchEt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
         android:textColor="@color/black"
         android:textSize="@dimen/textsizesmall" />
 
-    <com.procialize.singleevent.Fonts.RobotoTextview
+    <com.procialize.eventsapp.Fonts.RobotoTextview
         android:id="@+id/pullrefresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

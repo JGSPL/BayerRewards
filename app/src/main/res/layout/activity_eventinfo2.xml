@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context="com.procialize.singleevent.InnerDrawerActivity.EventInfoActivity">
+    tools:context="com.procialize.eventsapp.InnerDrawerActivity.EventInfoActivity">
 
     <ProgressBar
         android:id="@+id/progressbar"
@@ -83,7 +83,7 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <com.procialize.singleevent.Fonts.RobotoTextview
+            <com.procialize.eventsapp.Fonts.RobotoTextview
                 android:id="@+id/event_info_heading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -198,7 +198,7 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <com.procialize.singleevent.Fonts.RobotoTextview
+                    <com.procialize.eventsapp.Fonts.RobotoTextview
                         android:id="@+id/nameTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -214,7 +214,7 @@
                         android:layout_marginRight="10dp"
                         android:background="@color/linecolor" />
 
-                    <com.procialize.singleevent.Fonts.RobotoTextview
+                    <com.procialize.eventsapp.Fonts.RobotoTextview
                         android:id="@+id/dateTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -230,7 +230,7 @@
                         android:layout_marginRight="10dp"
                         android:background="@color/linecolor" />
 
-                    <com.procialize.singleevent.Fonts.RobotoTextview
+                    <com.procialize.eventsapp.Fonts.RobotoTextview
                         android:id="@+id/cityTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -249,8 +249,7 @@
                         android:background="@color/linecolor" />
 
 
-
-                        <com.procialize.singleevent.Fonts.RobotoTextview
+                    <com.procialize.eventsapp.Fonts.RobotoTextview
                             android:id="@+id/event_desc"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -280,7 +279,7 @@
 
             android:visibility="gone">
 
-            <com.procialize.singleevent.Fonts.RobotoTextview
+            <com.procialize.eventsapp.Fonts.RobotoTextview
                 android:id="@+id/createaccbtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context="com.procialize.singleevent.Activity.PostViewActivity">
+    tools:context="com.procialize.eventsapp.Activity.PostViewActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -42,7 +42,7 @@
                 android:src="@drawable/header_logo"
                 android:visibility="gone" />
 
-            <com.procialize.singleevent.Fonts.RobotoTextview
+            <com.procialize.eventsapp.Fonts.RobotoTextview
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -50,7 +50,7 @@
                 android:text="Post To Wall"
                 android:textColor="@color/black" />
 
-            <com.procialize.singleevent.Fonts.RobotoTextview
+            <com.procialize.eventsapp.Fonts.RobotoTextview
                 android:id="@+id/postbtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -108,7 +108,7 @@
             android:layout_weight="8">
 
             <!--
-                        <com.procialize.singleevent.Fonts.RobotoEditext
+                        <eventss.RobotoEditext
                             android:id="@+id/posttextEt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -131,7 +131,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.procialize.singleevent.Fonts.RobotoEditext
+                <com.procialize.eventsapp.Fonts.RobotoEditext
                     android:id="@+id/posttextEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -232,7 +232,7 @@
 
     </RelativeLayout>
 
-    <com.procialize.singleevent.Fonts.RobotoButton
+    <com.procialize.eventsapp.Fonts.RobotoButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -252,7 +252,7 @@
     <!--android:layout_height="50dp" />-->
 
 
-    <com.procialize.singleevent.CustomTools.CircleDisplay
+    <com.procialize.eventsapp.CustomTools.CircleDisplay
         android:id="@+id/progressbar"
         android:layout_width="100dp"
         android:layout_height="100dp"

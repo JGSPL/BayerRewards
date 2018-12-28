@@ -43,7 +43,7 @@
                 android:gravity="center">
 
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/nameTv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

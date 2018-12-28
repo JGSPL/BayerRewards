@@ -53,7 +53,7 @@
         android:gravity="top"
         android:orientation="vertical">
 
-        <com.procialize.singleevent.Fonts.RobotoTextview
+        <com.procialize.eventsapp.Fonts.RobotoTextview
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -118,7 +118,7 @@
             android:divider="@android:color/transparent"
             android:smoothScrollbar="true" />
 
-        <com.procialize.singleevent.Fonts.RobotoTextview
+        <com.procialize.eventsapp.Fonts.RobotoTextview
             android:id="@android:id/empty"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

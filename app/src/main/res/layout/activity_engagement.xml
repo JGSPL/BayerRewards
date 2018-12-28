@@ -6,7 +6,7 @@
     android:background="@drawable/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.procialize.singleevent.InnerDrawerActivity.EngagementActivity">
+    tools:context="com.procialize.eventsapp.InnerDrawerActivity.EngagementActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -50,7 +50,7 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <com.procialize.singleevent.Fonts.RobotoTextview
+    <com.procialize.eventsapp.Fonts.RobotoTextview
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:textColor="@color/activetab"
@@ -83,7 +83,7 @@
                 android:layout_height="150dp"
                 android:orientation="horizontal">
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/selfieTv"
                     android:background="@color/colorPrimary"
                     android:gravity="center"
@@ -114,7 +114,7 @@
                 android:orientation="horizontal"
                 >
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/videoTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

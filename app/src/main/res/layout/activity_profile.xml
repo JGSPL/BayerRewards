@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context="com.procialize.singleevent.Activity.ProfileActivity">
+    tools:context="com.procialize.eventsapp.Activity.ProfileActivity">
 
 
     <LinearLayout
@@ -63,7 +63,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -134,7 +134,7 @@
                     </RelativeLayout>
                 </RelativeLayout>
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/txt_upload"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -167,7 +167,7 @@
                         android:backgroundTint="@color/linecolor"
                         android:visibility="gone">
 
-                        <com.procialize.singleevent.Fonts.RobotoTextInputEditext
+                        <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
                             android:id="@+id/Etfirstname"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -189,7 +189,7 @@
                         android:backgroundTint="@color/linecolor"
                         android:visibility="gone">
 
-                        <com.procialize.singleevent.Fonts.RobotoTextInputEditext
+                        <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
                             android:id="@+id/Etlastname"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -211,7 +211,7 @@
                         android:textColorHint="@color/trans"
                         android:visibility="gone">
 
-                        <com.procialize.singleevent.Fonts.RobotoTextInputEditext
+                        <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
                             android:id="@+id/Etdesignation"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -233,7 +233,7 @@
                         android:textColorHint="@color/trans"
                         android:visibility="gone">
 
-                        <com.procialize.singleevent.Fonts.RobotoTextInputEditext
+                        <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
                             android:id="@+id/Etcompany"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -254,7 +254,7 @@
                         android:textColorHint="@color/trans"
                         android:visibility="gone">
 
-                        <com.procialize.singleevent.Fonts.RobotoTextInputEditext
+                        <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
                             android:id="@+id/Etmobile"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -277,7 +277,7 @@
                         android:visibility="gone"
                         >
 
-                        <com.procialize.singleevent.Fonts.RobotoTextInputEditext
+                        <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
                             android:id="@+id/Etdescription"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -299,7 +299,7 @@
                         android:textColorHint="@color/trans"
                         android:visibility="gone">
 
-                        <com.procialize.singleevent.Fonts.RobotoTextInputEditext
+                        <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
                             android:id="@+id/Etcity"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -320,7 +320,7 @@
                         android:textColorHint="@color/trans"
                         android:visibility="gone">
 
-                        <com.procialize.singleevent.Fonts.RobotoTextInputEditext
+                        <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
                             android:id="@+id/Etemail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -341,7 +341,7 @@
                         android:textColorHint="@color/trans"
                         android:visibility="gone">
 
-                        <com.procialize.singleevent.Fonts.RobotoTextInputEditext
+                        <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
                             android:id="@+id/Etcountry"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -352,7 +352,7 @@
                     </android.support.design.widget.TextInputLayout>
 
 
-                    <com.procialize.singleevent.Fonts.RobotoButton
+                    <com.procialize.eventsapp.Fonts.RobotoButton
                         android:id="@+id/savebtn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

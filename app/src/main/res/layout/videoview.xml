@@ -88,7 +88,7 @@
 
     </RelativeLayout>
 
-    <com.procialize.singleevent.Fonts.RobotoButton
+    <com.procialize.eventsapp.Fonts.RobotoButton
         android:id="@+id/btn_share"
         android:layout_width="100dp"
         android:layout_height="35dp"

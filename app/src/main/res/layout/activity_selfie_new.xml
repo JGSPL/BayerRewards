@@ -80,7 +80,7 @@
             android:orientation="vertical">
 
 
-            <com.procialize.singleevent.Fonts.RobotoTextview
+            <com.procialize.eventsapp.Fonts.RobotoTextview
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -90,7 +90,7 @@
                 android:textSize="@dimen/textsizesmall" />
 
 
-            <com.procialize.singleevent.Fonts.RobotoButton
+            <com.procialize.eventsapp.Fonts.RobotoButton
                 android:id="@+id/uploadbtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -133,7 +133,7 @@
 
         </GridView>
 
-        <com.procialize.singleevent.Fonts.RobotoTextview
+        <com.procialize.eventsapp.Fonts.RobotoTextview
             android:id="@android:id/empty"
             android:layout_width="match_parent"
             android:layout_height="0dp"

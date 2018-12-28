@@ -4,11 +4,11 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context="com.procialize.singleevent.Fragments.SpeakerFragment">
+    tools:context="com.procialize.eventsapp.Fragments.SpeakerFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <com.procialize.singleevent.Fonts.RobotoTextInputEditext
+    <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
         android:id="@+id/searchEt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
         android:textSize="@dimen/textsizesmall"
         android:imeOptions="actionDone"/>
 
-    <com.procialize.singleevent.Fonts.RobotoTextview
+    <com.procialize.eventsapp.Fonts.RobotoTextview
         android:id="@+id/pullrefresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

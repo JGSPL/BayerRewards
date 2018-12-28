@@ -47,7 +47,7 @@
                 android:orientation="horizontal"
                 android:layout_weight="8">
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/countTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
                     android:contentDescription="TODO"
                     android:gravity="center" />
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/dataTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

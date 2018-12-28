@@ -26,7 +26,7 @@
 
             <!-- Video Title -->
 
-            <com.procialize.singleevent.Fonts.RobotoTextview
+            <com.procialize.eventsapp.Fonts.RobotoTextview
                 android:id="@+id/video_title_txt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

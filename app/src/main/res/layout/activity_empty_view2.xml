@@ -56,7 +56,7 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <com.procialize.singleevent.CustomTools.CustomViewPager
+        <com.procialize.eventsapp.CustomTools.CustomViewPager
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -144,7 +144,7 @@
 
             </android.support.design.widget.AppBarLayout>
 
-            <com.procialize.singleevent.CustomTools.CustomViewPager
+            <eventsomTools.CustomViewPager
                 android:id="@+id/viewpager"
                 style="@style/Widget.Design.TabLayout"
                 android:layout_width="match_parent"
@@ -181,7 +181,7 @@
                     android:id="@+id/my"
                     layout="@layout/header" />
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/home"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -204,7 +204,7 @@
                     android:scrollbars="vertical" />
 
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/contactus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -220,7 +220,7 @@
                     android:textSize="@dimen/textsizesmall"
                     android:drawablePadding="10dp"/>
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/privacy_policy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -235,7 +235,7 @@
                     android:textColor="@color/colorwhite"
                     android:textSize="@dimen/textsizesmall" />
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/eula"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -250,7 +250,7 @@
                     android:textSize="@dimen/textsizesmall"
                     android:drawablePadding="10dp"/>
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/switchbt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -266,7 +266,7 @@
                     android:textSize="@dimen/textsizesmall" />
 
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/logout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -281,7 +281,7 @@
                     android:textColor="@color/colorwhite"
                     android:textSize="@dimen/textsizesmall" />
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/logout"

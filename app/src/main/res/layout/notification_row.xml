@@ -71,7 +71,7 @@
                 android:orientation="vertical">
 
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/nameTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/textsizesmall" />
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/txt_msg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/textsizesmall" />
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/messageTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/textsizesmall" />
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/dataTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
                     android:textSize="@dimen/textsizesmall" />
 
 
-                <com.procialize.singleevent.Fonts.RobotoButton
+                <com.procialize.eventsapp.Fonts.RobotoButton
                     android:id="@+id/replyBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"

@@ -1,5 +1,4 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/background">
@@ -10,7 +9,7 @@
         android:orientation="vertical">
 
 
-        <com.procialize.singleevent.Fonts.RobotoTextview
+        <com.procialize.eventsapp.Fonts.RobotoTextview
             android:id="@+id/pullrefresh"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -46,7 +45,7 @@
 
     </LinearLayout>
 
-    <com.procialize.singleevent.CustomTools.CircleDisplay
+    <com.procialize.eventsapp.CustomTools.CircleDisplay
         android:id="@+id/progressbar"
         android:layout_width="100dp"
         android:layout_height="100dp"

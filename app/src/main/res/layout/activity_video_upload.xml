@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context="com.procialize.singleevent.InnerDrawerActivity.SelfieUploadActivity">
+    tools:context="com.procialize.eventsapp.InnerDrawerActivity.SelfieUploadActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -63,7 +63,7 @@
             android:visibility="gone">
 
 
-            <com.procialize.singleevent.Fonts.RobotoTextview
+            <com.procialize.eventsapp.Fonts.RobotoTextview
                 android:id="@+id/txtTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -106,7 +106,7 @@
             </RelativeLayout>
 
 
-            <com.procialize.singleevent.Fonts.RobotoTextInputEditext
+            <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
                 android:id="@+id/editTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -126,7 +126,7 @@
                 android:textSize="@dimen/textsizenormal"
                 android:visibility="visible" />
 
-            <com.procialize.singleevent.Fonts.RobotoButton
+            <com.procialize.eventsapp.Fonts.RobotoButton
                 android:id="@+id/btnSubmit"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
@@ -146,7 +146,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <com.procialize.singleevent.CustomTools.CircleDisplay
+    <com.procialize.eventsapp.CustomTools.CircleDisplay
         android:id="@+id/progressbar"
         android:layout_width="100dp"
         android:layout_height="100dp"

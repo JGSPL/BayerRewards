@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@drawable/background"
-    tools:context="com.procialize.singleevent.Fragments.AgendaFragment">
+    tools:context="com.procialize.eventsapp.Fragments.AgendaFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -50,7 +50,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <com.procialize.singleevent.Fonts.RobotoTextview
+    <com.procialize.eventsapp.Fonts.RobotoTextview
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
@@ -61,7 +61,7 @@
         />
 
 
-    <com.procialize.singleevent.Fonts.RobotoTextview
+    <com.procialize.eventsapp.Fonts.RobotoTextview
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/activetab"

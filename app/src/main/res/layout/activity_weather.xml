@@ -45,7 +45,7 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <com.procialize.singleevent.Fonts.RobotoTextview
+    <com.procialize.eventsapp.Fonts.RobotoTextview
         android:id="@+id/twTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
             android:orientation="vertical">
 
 
-            <com.procialize.singleevent.Fonts.RobotoTextview
+            <com.procialize.eventsapp.Fonts.RobotoTextview
                 android:id="@+id/cityTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
                 android:textSize="26dp" />
 
 
-            <com.procialize.singleevent.Fonts.RobotoTextview
+            <com.procialize.eventsapp.Fonts.RobotoTextview
                 android:id="@+id/countryTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
             android:gravity="center|right"
             android:orientation="vertical">
 
-            <com.procialize.singleevent.Fonts.RobotoTextview
+            <com.procialize.eventsapp.Fonts.RobotoTextview
                 android:id="@+id/dateTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -117,7 +117,7 @@
                 android:textSize="@dimen/textsizesmall" />
 
 
-            <com.procialize.singleevent.Fonts.RobotoTextview
+            <com.procialize.eventsapp.Fonts.RobotoTextview
                 android:id="@+id/timeTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -167,7 +167,7 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/dayTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -184,7 +184,7 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <com.procialize.singleevent.Fonts.RobotoTextview
+                    <com.procialize.eventsapp.Fonts.RobotoTextview
                         android:id="@+id/tempTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -207,7 +207,7 @@
 
                         </LinearLayout>
 
-                        <com.procialize.singleevent.Fonts.RobotoTextview
+                        <com.procialize.eventsapp.Fonts.RobotoTextview
                             android:id="@+id/cTv"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
@@ -217,7 +217,7 @@
                             android:textSize="@dimen/textsizesmall"
                             android:textStyle="bold" />
 
-                        <com.procialize.singleevent.Fonts.RobotoTextview
+                        <com.procialize.eventsapp.Fonts.RobotoTextview
                             android:id="@+id/fTv"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
@@ -246,7 +246,7 @@
                         android:contentDescription="TODO"
                         android:src="@drawable/high" />
 
-                    <com.procialize.singleevent.Fonts.RobotoTextview
+                    <com.procialize.eventsapp.Fonts.RobotoTextview
                         android:id="@+id/maxTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -264,7 +264,7 @@
                         android:src="@drawable/low" />
 
 
-                    <com.procialize.singleevent.Fonts.RobotoTextview
+                    <com.procialize.eventsapp.Fonts.RobotoTextview
                         android:id="@+id/minTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -295,7 +295,7 @@
                     android:contentDescription="TODO"
                     android:src="@drawable/sunny" />
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/infoTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -330,7 +330,7 @@
                 android:layout_height="wrap_content"
                 android:weightSum="2">
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="0dp"
@@ -343,7 +343,7 @@
                     android:textSize="@dimen/textsizesmall" />
 
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/indexTv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -367,7 +367,7 @@
                 android:layout_height="wrap_content"
                 android:weightSum="2">
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="0dp"
@@ -380,7 +380,7 @@
                     android:textSize="@dimen/textsizesmall" />
 
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/humidityTv"
                     android:layout_width="0dp"
                     android:layout_marginRight="15dp"
@@ -405,7 +405,7 @@
                 android:layout_height="wrap_content"
                 android:weightSum="2">
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="0dp"
@@ -419,7 +419,7 @@
                     android:textSize="@dimen/textsizesmall" />
 
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/visibilityTv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -444,7 +444,7 @@
                 android:layout_height="wrap_content"
                 android:weightSum="2">
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="0dp"
@@ -458,7 +458,7 @@
                     android:textSize="@dimen/textsizesmall" />
 
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/feelTv"
                     android:layout_width="0dp"
                     android:layout_marginRight="15dp"

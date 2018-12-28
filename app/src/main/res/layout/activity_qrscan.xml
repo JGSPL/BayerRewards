@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context="com.procialize.singleevent.InnerDrawerActivity.QRScanActivity">
+    tools:context="com.procialize.eventsapp.InnerDrawerActivity.QRScanActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -69,7 +69,7 @@
                 android:layout_weight="1"
                 android:gravity="center">
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin"
@@ -110,7 +110,7 @@
                             android:textColor="@color/black"
                             android:textSize="@dimen/textsizesmall">
 
-                            <com.procialize.singleevent.Fonts.RobotoTextInputEditext
+                            <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
                                 android:id="@+id/edit_username_edit"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -128,7 +128,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/lastname">
 
-                            <com.procialize.singleevent.Fonts.RobotoTextInputEditext
+                            <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
                                 android:id="@+id/edit_first_name_edit"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -147,7 +147,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/designation">
 
-                            <com.procialize.singleevent.Fonts.RobotoTextInputEditext
+                            <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
                                 android:id="@+id/edit_designation_edit"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -166,7 +166,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/company">
 
-                            <com.procialize.singleevent.Fonts.RobotoTextInputEditext
+                            <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
                                 android:id="@+id/edit_company_name_edit"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -185,7 +185,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/city">
 
-                            <com.procialize.singleevent.Fonts.RobotoTextInputEditext
+                            <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
                                 android:id="@+id/edit_city_edit"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -205,7 +205,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/hint_email">
 
-                            <com.procialize.singleevent.Fonts.RobotoTextInputEditext
+                            <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
                                 android:id="@+id/edit_email_edit"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -226,7 +226,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/mobile">
 
-                            <com.procialize.singleevent.Fonts.RobotoTextInputEditext
+                            <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
                                 android:id="@+id/edit_mobile_edit"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -255,7 +255,7 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <com.procialize.singleevent.Fonts.RobotoButton
+                <com.procialize.eventsapp.Fonts.RobotoButton
                     android:id="@+id/save_btn_qr"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -267,7 +267,7 @@
                     android:textColor="@color/colorwhite"
                     android:textSize="@dimen/textsizesmall" />
 
-                <com.procialize.singleevent.Fonts.RobotoButton
+                <com.procialize.eventsapp.Fonts.RobotoButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cancel"

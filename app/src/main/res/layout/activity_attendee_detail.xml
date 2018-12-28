@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context="com.procialize.singleevent.Activity.SpeakerDetailsActivity">
+    tools:context="com.procialize.eventsapp.Activity.SpeakerDetailsActivity">
 
 
     <android.support.design.widget.AppBarLayout
@@ -61,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.procialize.singleevent.Fonts.RobotoTextview
+            <com.procialize.eventsapp.Fonts.RobotoTextview
                 android:id="@+id/attendeetitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -141,7 +141,7 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/tvname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -158,7 +158,7 @@
                     android:background="@color/linecolor" />
 
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/tvdesignation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -174,7 +174,7 @@
                     android:layout_marginRight="10dp"
                     android:background="@color/linecolor" />
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/tvcompany"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -190,7 +190,7 @@
                     android:layout_marginRight="10dp"
                     android:background="@color/linecolor" />
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/tvcity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -206,7 +206,7 @@
                     android:layout_marginRight="10dp"
                     android:background="@color/linecolor" />
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/tvmob"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -222,7 +222,7 @@
                     android:layout_marginRight="10dp"
                     android:background="@color/linecolor" />
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/tv_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -247,7 +247,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.procialize.singleevent.Fonts.RobotoEditext
+            <com.procialize.eventsapp.Fonts.RobotoEditext
                 android:id="@+id/posttextEt"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
@@ -283,7 +283,7 @@
                 android:orientation="horizontal"
                 android:background="@color/inactivetab">
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/sendMsg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -311,7 +311,7 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <com.procialize.singleevent.Fonts.RobotoTextview
+                <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/saveContact"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

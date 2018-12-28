@@ -26,7 +26,7 @@
                 android:contentDescription="TODO"
                 android:layout_height="50dp" />
 
-            <com.procialize.singleevent.Fonts.RobotoTextview
+            <com.procialize.eventsapp.Fonts.RobotoTextview
                 android:id="@+id/nameTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

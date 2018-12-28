@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context="com.procialize.singleevent.InnerDrawerActivity.FeedBackActivity">
+    tools:context="com.procialize.eventsapp.InnerDrawerActivity.FeedBackActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -50,7 +50,7 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <com.procialize.singleevent.Fonts.RobotoTextview
+    <com.procialize.eventsapp.Fonts.RobotoTextview
         android:id="@+id/tvname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

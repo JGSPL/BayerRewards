@@ -22,7 +22,7 @@
             android:contentDescription="TODO"
             app:srcCompat="@drawable/splashlogo" />
 
-        <com.procialize.singleevent.Fonts.RobotoTextview
+        <com.procialize.eventsapp.Fonts.RobotoTextview
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -48,7 +48,7 @@
                 android:textColor="@color/black"
                 android:textColorHint="@color/black">-->
 
-            <com.procialize.singleevent.Fonts.RobotoTextInputEditext
+            <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
                 android:id="@+id/input_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
                 android:textColorHint="@color/black"
                 app:passwordToggleEnabled="true">-->
 
-            <com.procialize.singleevent.Fonts.RobotoTextInputEditext
+            <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
                 android:id="@+id/input_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
                 android:textSize="@dimen/textsizesmall" />
             <!--</android.support.design.widget.TextInputLayout>-->
 
-            <com.procialize.singleevent.Fonts.RobotoTextview
+            <com.procialize.eventsapp.Fonts.RobotoTextview
                 android:id="@+id/text_forgotPswd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -119,7 +119,7 @@
         android:orientation="vertical">
 
 
-        <com.procialize.singleevent.Fonts.RobotoButton
+        <com.procialize.eventsapp.Fonts.RobotoButton
             android:id="@+id/loginbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -131,7 +131,7 @@
             android:textColor="@color/logintxt"
             android:textSize="@dimen/textsizenormal" />
 
-        <com.procialize.singleevent.Fonts.RobotoTextview
+        <com.procialize.eventsapp.Fonts.RobotoTextview
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="OR"
@@ -139,7 +139,7 @@
             android:textColor="@color/colorwhite"
             android:textSize="15sp" />
 
-        <com.procialize.singleevent.Fonts.RobotoButton
+        <com.procialize.eventsapp.Fonts.RobotoButton
             android:id="@+id/createaccbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -152,7 +152,7 @@
             android:textColor="@color/logintxt"
             android:textSize="@dimen/textsizenormal" />
 
-        <com.procialize.singleevent.Fonts.RobotoTextview
+        <com.procialize.eventsapp.Fonts.RobotoTextview
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
