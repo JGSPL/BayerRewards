@@ -1,65 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    android:orientation="vertical"
+    android:fillViewport="true"
     tools:context="com.procialize.eventsapp.Activity.SpeakerDetailsActivity">
 
-
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appBarLayout"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:elevation="0dp">
+        android:layout_height="match_parent">
 
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colortoolbar"
-            android:contentInsetEnd="0dp"
-            android:contentInsetLeft="0dp"
-            android:contentInsetRight="0dp"
-            android:contentInsetStart="0dp"
-            android:elevation="@dimen/elevation"
-            android:minHeight="?attr/actionBarSize"
-            app:contentInsetEnd="0dp"
-            app:contentInsetLeft="0dp"
-            app:contentInsetRight="0dp"
-            app:contentInsetStart="0dp">
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:elevation="0dp">
 
-            <ImageView
-                android:id="@+id/headerlogoIv"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="-10dp"
-                android:contentDescription=" "
-                android:src="@drawable/header_logo" />
 
-        </android.support.v7.widget.Toolbar>
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colortoolbar"
+                android:contentInsetEnd="0dp"
+                android:contentInsetLeft="0dp"
+                android:contentInsetRight="0dp"
+                android:contentInsetStart="0dp"
+                android:elevation="@dimen/elevation"
+                android:minHeight="?attr/actionBarSize"
+                app:contentInsetEnd="0dp"
+                app:contentInsetLeft="0dp"
+                app:contentInsetRight="0dp"
+                app:contentInsetStart="0dp">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/linecolor" />
+                <ImageView
+                    android:id="@+id/headerlogoIv"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="-10dp"
+                    android:contentDescription=" "
+                    android:src="@drawable/header_logo" />
 
-    </android.support.design.widget.AppBarLayout>
+            </android.support.v7.widget.Toolbar>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/appBarLayout"
-        android:fillViewport="true">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/linecolor" />
+
+        </android.support.design.widget.AppBarLayout>
+
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/appBarLayout">
 
             <com.procialize.eventsapp.Fonts.RobotoTextview
                 android:id="@+id/attendeetitle"
@@ -227,110 +226,108 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textsizesmall"
+                    android:maxLines="10"
                     android:scrollbars="vertical"
-                    android:maxLines="10"/>
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textsizesmall" />
 
             </LinearLayout>
         </RelativeLayout>
-    </ScrollView>
 
-    <LinearLayout
-        android:id="@+id/linearsaveandsend"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.procialize.eventsapp.Fonts.RobotoEditext
-                android:id="@+id/posttextEt"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_centerInParent="true"
-                android:layout_margin="@dimen/margin"
-                android:background="@drawable/edittextborder"
-                android:gravity="top|left"
-                android:hint="Type your message..."
-                android:imeOptions="actionDone"
-                android:inputType="textShortMessage|textAutoCorrect|textCapSentences|textMultiLine"
-                android:maxLength="500"
-                android:maxLines="5"
-                android:minLines="2"
-                android:padding="2dp"
-                android:scrollbars="vertical"
-                android:textSize="15dp" />
-
-        </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/linearsaveandsend"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.procialize.eventsapp.CustomTools.ActionEditText
+                    android:id="@+id/posttextEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/edittextborder"
+                    android:hint="Type your message..."
+                    android:gravity="left|top"
+                    android:imeOptions="actionDone"
+                    android:inputType="textAutoCorrect|textCapSentences|textMultiLine"
+                    android:scrollHorizontally="false"
+                    android:maxLength="500"
+                    android:maxLines="5"
+                    android:padding="2dp"
+                    android:textSize="@dimen/textsizesmall" />
+
+            </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/linMsg"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:layout_weight="5"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:background="@color/inactivetab">
-
-                <com.procialize.eventsapp.Fonts.RobotoTextview
-                    android:id="@+id/sendMsg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="@dimen/margin"
-                    android:drawableLeft="@drawable/messega"
-                    android:drawablePadding="10dp"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:text="@string/sendmsg"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorwhite"
-                    android:textSize="@dimen/textsizesmall"
-                    android:background="@color/inactivetab"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linsave"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:layout_weight="5"
-                android:background="@drawable/loginbutton"
-                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
-                    android:id="@+id/saveContact"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <LinearLayout
+                    android:id="@+id/linMsg"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
-                    android:layout_margin="@dimen/margin"
-                    android:background="@color/activetab"
-                    android:drawableLeft="@drawable/save"
-                    android:drawablePadding="10dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="5"
+                    android:background="@color/inactivetab"
                     android:gravity="center"
-                    android:padding="5dp"
-                    android:text="Save Contact"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorwhite"
-                    android:textSize="@dimen/textsizesmall" />
+                    android:orientation="horizontal">
+
+                    <com.procialize.eventsapp.Fonts.RobotoTextview
+                        android:id="@+id/sendMsg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/margin"
+                        android:background="@color/inactivetab"
+                        android:drawableLeft="@drawable/messega"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="@string/sendmsg"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorwhite"
+                        android:textSize="@dimen/textsizesmall" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linsave"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:layout_weight="5"
+                    android:background="@drawable/loginbutton"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <com.procialize.eventsapp.Fonts.RobotoTextview
+                        android:id="@+id/saveContact"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/margin"
+                        android:background="@color/activetab"
+                        android:drawableLeft="@drawable/save"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="Save Contact"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorwhite"
+                        android:textSize="@dimen/textsizesmall" />
+                </LinearLayout>
             </LinearLayout>
+
+
         </LinearLayout>
 
-
-    </LinearLayout>
-
-
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

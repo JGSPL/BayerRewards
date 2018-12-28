@@ -20,6 +20,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
@@ -127,8 +128,8 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         db = dbHelper.getReadableDatabase();
 
         userData = dbHelper.getUserDetails();
-//        getWindow().setSoftInputMode(
-//                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         // token
 
@@ -194,7 +195,21 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         saveContact.setBackgroundColor(Color.parseColor(colorActive));
         sendbtn = findViewById(R.id.sendMsg);
         linsave.setBackgroundColor(Color.parseColor(colorActive));
-        posttextEt.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        posttextEt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    if (posttextEt.getText().toString().length() > 0) {
+
+                        String msg = StringEscapeUtils.escapeJava(posttextEt.getText().toString());
+                        PostMesssage(eventid, msg, apikey, attendeeid);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Enter Message", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                return false;
+            }
+        });
 //        sendMsg.set
         linMsg.setEnabled(false);
         sendbtn.setEnabled(false);
@@ -423,7 +438,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
                     String msg = StringEscapeUtils.escapeJava(posttextEt.getText().toString());
                     PostMesssage(eventid, msg, apikey, attendeeid);
                 } else {
-                    Toast.makeText(getApplicationContext(), "Enter Something", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Enter Message", Toast.LENGTH_SHORT).show();
                 }
             }
         });
