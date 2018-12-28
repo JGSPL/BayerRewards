@@ -4,9 +4,11 @@ import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PointF;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.design.widget.TextInputEditText;
@@ -25,6 +27,7 @@ import com.procialize.eventsapp.GetterSetter.QRPost;
 import com.procialize.eventsapp.R;
 import com.procialize.eventsapp.Session.SessionManager;
 import com.procialize.eventsapp.Utility.Util;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,9 +50,9 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
     String name, number, designation, company, city, email, lname, fname;
     QRCodeReaderView qrCodeReaderView;
     ImageView headerlogoIv;
+    private APIService mAPIService;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid, colorActive;
-    private APIService mAPIService;
 
     @Override
     public void onCreate(Bundle state) {
@@ -87,7 +90,7 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
         save_btn_qr = findViewById(R.id.save_btn_qr);
 
 
-        qrCodeReaderView = findViewById(R.id.qrdecoderview);
+        qrCodeReaderView = (QRCodeReaderView) findViewById(R.id.qrdecoderview);
         qrCodeReaderView.setOnQRCodeReadListener(this);
 
         qrCodeReaderView.setVisibility(View.VISIBLE);
@@ -142,9 +145,20 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
                 } else {
                     try {
                         QRScanPost(token, eventid, name, lname, edit_mobile_edit.getText().toString(), email);
-                        addToContactList(QRScanActivity.this, edit_first_name_edit.getText().toString(), edit_mobile_edit.getText().toString(), edit_email_edit.getText().toString(),
-                                edit_designation_edit.getText().toString(), edit_company_name_edit.getText().toString(),
-                                edit_city_edit.getText().toString());
+//                        addToContactList(QRScanActivity.this, edit_first_name_edit.getText().toString(), edit_mobile_edit.getText().toString(),edit_email_edit.getText().toString(),
+//                                edit_designation_edit.getText().toString(),edit_company_name_edit.getText().toString(),
+//                                edit_city_edit.getText().toString());
+                        Intent intent = new Intent(
+                                ContactsContract.Intents.SHOW_OR_CREATE_CONTACT,
+                                Uri.parse("tel:" + edit_mobile_edit.getText().toString()));
+                        intent.putExtra(ContactsContract.Intents.Insert.NAME, name + " " + lname);
+                        intent.putExtra(ContactsContract.Intents.Insert.COMPANY, edit_company_name_edit.getText().toString());
+                        intent.putExtra(ContactsContract.Intents.Insert.PHONE, edit_mobile_edit.getText().toString());
+                        intent.putExtra(ContactsContract.Intents.Insert.EMAIL, edit_email_edit.getText().toString());
+                        intent.putExtra(ContactsContract.Intents.Insert.JOB_TITLE, edit_designation_edit.getText().toString());
+
+                        intent.putExtra(ContactsContract.Intents.EXTRA_FORCE_CREATE, true);
+                        startActivity(intent);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -164,12 +178,12 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
         Log.e("text", parts[0]);
         if (parts.length == 6) {
 
-            name = parts[0];
-            lname = parts[1];
-            designation = parts[2];
-            email = parts[3];
-            number = parts[4];
-            company = parts[5];
+            name = parts[0].substring(0, (parts[0].length()));
+            lname = parts[1].substring(0, (parts[1].length()));
+            designation = parts[2].substring(0, (parts[2].length()));
+            email = parts[3].substring(0, (parts[3].length()));
+            number = parts[4].substring(0, (parts[4].length()));
+            company = parts[5].substring(0, (parts[5].length()));
 //            city = parts[5].substring(0, (parts[5].length()));
 
 //            String[] splitStr = name.split("\\s+");
@@ -204,13 +218,13 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
             }
         } else if (parts.length == 7) {
 
-            name = parts[0];
-            lname = parts[1];
-            designation = parts[2];
-            email = parts[3];
-            number = parts[4];
-            company = parts[5];
-            city = parts[6];
+            name = parts[0].substring(0, (parts[0].length()));
+            lname = parts[1].substring(0, (parts[1].length()));
+            designation = parts[2].substring(0, (parts[2].length()));
+            email = parts[3].substring(0, (parts[3].length()));
+            number = parts[4].substring(0, (parts[4].length()));
+            company = parts[5].substring(0, (parts[5].length()));
+            city = parts[6].substring(0, (parts[6].length()));
 
 //            String[] splitStr = name.split("\\s+");
 //            fname = splitStr[0] = splitStr[0];
@@ -249,13 +263,13 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
 //Pune1
 //9028102910
 //9028
-            name = parts[0];
-            lname = parts[1];
-            designation = parts[2];
-            email = parts[3];
-            number = parts[4];
-            company = parts[5];
-            city = parts[6];
+            name = parts[0].substring(0, (parts[0].length()));
+            lname = parts[1].substring(0, (parts[1].length()));
+            designation = parts[2].substring(0, (parts[2].length()));
+            email = parts[3].substring(0, (parts[3].length()));
+            number = parts[4].substring(0, (parts[4].length()));
+            company = parts[5].substring(0, (parts[5].length()));
+            city = parts[6].substring(0, (parts[6].length()));
 
 //            String[] splitStr = name.split("\\s+");
 //            fname = splitStr[0] = splitStr[0];
@@ -294,13 +308,13 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
 //            9028
         } else if (parts.length == 9) {
 
-            name = parts[0];
-            lname = parts[1];
-            designation = parts[2];
-            email = parts[3];
-            number = parts[4];
-            company = parts[5];
-            city = parts[6];
+            name = parts[0].substring(0, (parts[0].length()));
+            lname = parts[1].substring(0, (parts[1].length()));
+            designation = parts[2].substring(0, (parts[2].length()));
+            email = parts[3].substring(0, (parts[3].length()));
+            number = parts[4].substring(0, (parts[4].length()));
+            company = parts[5].substring(0, (parts[5].length()));
+            city = parts[6].substring(0, (parts[6].length()));
 //            String[] splitStr = name.split("\\s+");
 //            fname = splitStr[0] = splitStr[0];
 //
@@ -526,9 +540,9 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
                 .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null).build());
 
         //Display name will be inserted in ContactsContract.Data table
-        cntProOper.add(ContentProviderOperation.newInsert(android.provider.ContactsContract.Data.CONTENT_URI)//Step2
-                .withValueBackReference(android.provider.ContactsContract.Data.RAW_CONTACT_ID, contactIndex)
-                .withValue(android.provider.ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+        cntProOper.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)//Step2
+                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, contactIndex)
+                .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
                 .withValue(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, strDisplayName) // Name of the contact
                 .build());
 
@@ -541,33 +555,33 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
 //                    .withValue(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE).build()); //Type like HOME, MOBILE etc
 //        }
 
-        cntProOper.add(ContentProviderOperation.newInsert(android.provider.ContactsContract.Data.CONTENT_URI)//Step 3
+        cntProOper.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)//Step 3
                 .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, contactIndex)
-                .withValue(android.provider.ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
+                .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
                 .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, strNumber) // Number to be added
                 .withValue(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE).build());
 
-        cntProOper.add(ContentProviderOperation.newInsert(android.provider.ContactsContract.Data.CONTENT_URI)//Step 3
+        cntProOper.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)//Step 3
                 .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, contactIndex)
-                .withValue(android.provider.ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
+                .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
                 .withValue(ContactsContract.CommonDataKinds.Organization.TITLE, des) // Number to be added
                 .withValue(ContactsContract.CommonDataKinds.Organization.TYPE, ContactsContract.CommonDataKinds.Organization.TYPE_WORK).build());
 
-        cntProOper.add(ContentProviderOperation.newInsert(android.provider.ContactsContract.Data.CONTENT_URI)//Step 3
+        cntProOper.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)//Step 3
                 .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, contactIndex)
-                .withValue(android.provider.ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
+                .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
                 .withValue(ContactsContract.CommonDataKinds.Organization.COMPANY, company) // Number to be added
                 .withValue(ContactsContract.CommonDataKinds.Organization.TYPE, ContactsContract.CommonDataKinds.Organization.TYPE_WORK).build());
 
-        cntProOper.add(ContentProviderOperation.newInsert(android.provider.ContactsContract.Data.CONTENT_URI)//Step 3
+        cntProOper.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)//Step 3
                 .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, contactIndex)
-                .withValue(android.provider.ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.SipAddress.CONTENT_ITEM_TYPE)
+                .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.SipAddress.CONTENT_ITEM_TYPE)
                 .withValue(ContactsContract.CommonDataKinds.SipAddress.DATA, city) // Number to be added
                 .withValue(ContactsContract.CommonDataKinds.SipAddress.TYPE, ContactsContract.CommonDataKinds.SipAddress.SIP_ADDRESS).build());
 
-        cntProOper.add(ContentProviderOperation.newInsert(android.provider.ContactsContract.Data.CONTENT_URI)//Step 3
+        cntProOper.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)//Step 3
                 .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, contactIndex)
-                .withValue(android.provider.ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
+                .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
                 .withValue(ContactsContract.CommonDataKinds.Email.DATA, email) // Number to be added
                 .withValue(ContactsContract.CommonDataKinds.Email.TYPE, ContactsContract.CommonDataKinds.Email.TYPE_WORK).build());
 

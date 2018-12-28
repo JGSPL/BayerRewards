@@ -22,6 +22,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -49,6 +50,7 @@ import com.procialize.eventsapp.R;
 import com.procialize.eventsapp.Session.SessionManager;
 import com.procialize.eventsapp.Utility.Util;
 
+
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.util.HashMap;
@@ -75,6 +77,12 @@ public class AttendeeDetailActivity extends AppCompatActivity {
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid, colorActive, eventnamestr;
     UserData userData;
+    private DBHelper procializeDB;
+    private SQLiteDatabase db;
+    private ConnectionDetector cd;
+    private List<AttendeeList> attendeeList;
+    private List<AttendeeList> attendeesDBList;
+    private DBHelper dbHelper;
     String getattendee;
     EditText posttextEt;
     View viewtwo, viewthree, viewone, viewtfour, viewtfive;
@@ -82,12 +90,6 @@ public class AttendeeDetailActivity extends AppCompatActivity {
     LinearLayout linearsaveandsend;
     ImageView headerlogoIv;
     TextView saveContact;
-    private DBHelper procializeDB;
-    private SQLiteDatabase db;
-    private ConnectionDetector cd;
-    private List<AttendeeList> attendeeList;
-    private List<AttendeeList> attendeesDBList;
-    private DBHelper dbHelper;
     private RelativeLayout layoutTop;
 
     @Override
@@ -125,7 +127,8 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         db = dbHelper.getReadableDatabase();
 
         userData = dbHelper.getUserDetails();
-
+//        getWindow().setSoftInputMode(
+//                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         // token
 
@@ -140,7 +143,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         getattendee = user.get(SessionManager.KEY_ID);
 
 
-        eventSettingLists = SessionManager.loadEventList();
+        eventSettingLists = sessionManager.loadEventList();
 
         if (eventSettingLists.size() != 0) {
             applysetting(eventSettingLists);
@@ -191,7 +194,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         saveContact.setBackgroundColor(Color.parseColor(colorActive));
         sendbtn = findViewById(R.id.sendMsg);
         linsave.setBackgroundColor(Color.parseColor(colorActive));
-
+        posttextEt.setImeOptions(EditorInfo.IME_ACTION_DONE);
 //        sendMsg.set
         linMsg.setEnabled(false);
         sendbtn.setEnabled(false);
@@ -430,7 +433,18 @@ public class AttendeeDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 try {
-                    addToContactList(AttendeeDetailActivity.this, name, mobile);
+                    Intent intent = new Intent(
+                            ContactsContract.Intents.SHOW_OR_CREATE_CONTACT,
+                            Uri.parse("tel:" + mobile));
+                    intent.putExtra(ContactsContract.Intents.Insert.NAME, name);
+                    intent.putExtra(ContactsContract.Intents.Insert.COMPANY, company);
+                    intent.putExtra(ContactsContract.Intents.Insert.PHONE, mobile);
+                    intent.putExtra(ContactsContract.Intents.Insert.JOB_TITLE, designation);
+
+                    intent.putExtra(ContactsContract.Intents.EXTRA_FORCE_CREATE, true);
+
+                    startActivity(intent);
+//                    addToContactList(AttendeeDetailActivity.this, name, mobile);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -581,7 +595,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    public void addToContactList(Context context, String strDisplayName, String strNumber) {
+    public void addToContactList(Context context, String strDisplayName, String strNumber) throws Exception {
 
         // Get android phone contact content provider uri.
         //Uri addContactsUri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;

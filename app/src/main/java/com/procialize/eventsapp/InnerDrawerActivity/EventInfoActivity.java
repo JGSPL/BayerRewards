@@ -44,6 +44,7 @@ import com.procialize.eventsapp.Session.SessionManager;
 import com.procialize.eventsapp.Utility.Util;
 import com.procialize.eventsapp.Utility.Utility;
 
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -62,8 +63,11 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
     ImageView logoIv;
     TextView nameTv, dateTv, cityTv, event_desc;
     View view;
+    private APIService mAPIService;
+    private GoogleMap map;
     LatLng position;
     MarkerOptions options;
+    private Date d2, d1;
     SessionManager sessionManager;
     String token;
     ProgressBar progressbar;
@@ -72,12 +76,10 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
     SupportMapFragment fm;
     ImageView back;
     LinearLayout linMap;
+
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid, colorActive;
     ImageView headerlogoIv;
-    private APIService mAPIService;
-    private GoogleMap map;
-    private Date d2, d1;
     private ConnectionDetector cd;
 
 
@@ -105,7 +107,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
 
         token = user.get(SessionManager.KEY_TOKEN);
 
-        eventSettingLists = SessionManager.loadEventList();
+        eventSettingLists = sessionManager.loadEventList();
 
         if (eventSettingLists.size() != 0) {
             applysetting(eventSettingLists);
@@ -127,12 +129,12 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
         back = findViewById(R.id.back);
         linMap = findViewById(R.id.linMap);
         event_desc.setMovementMethod(new ScrollingMovementMethod());
-        TextView header = findViewById(R.id.event_info_heading);
+        TextView header = (TextView) findViewById(R.id.event_info_heading);
         header.setTextColor(Color.parseColor(colorActive));
         nameTv.setTextColor(Color.parseColor(colorActive));
 
 
-        RelativeLayout layoutTop = findViewById(R.id.layoutTop);
+        RelativeLayout layoutTop = (RelativeLayout) findViewById(R.id.layoutTop);
         layoutTop.setBackgroundColor(Color.parseColor(colorActive));
 
 
@@ -323,7 +325,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
                     startActivity(intent);*/
                         String label = response.body().getEventList().get(0).getEventName();
                         String strUri = "http://maps.google.com/maps?q=loc:" + response.body().getEventList().get(0).getEventLatitude() + "," + response.body().getEventList().get(0).getEventLongitude() + " (" + label + ")";
-                        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(strUri));
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(strUri));
 
                         intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
 
@@ -390,7 +392,18 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
         if (cd.isConnectingToInternet()) {
             fetchEventInfo(token, eventid);
         } else {
-
+            setContentView(R.layout.activity_empty_view);
+            ImageView imageView = findViewById(R.id.back);
+            TextView text_empty = findViewById(R.id.text_empty);
+            ImageView headerlogoIv = findViewById(R.id.headerlogoIv);
+            Util.logomethod(this, headerlogoIv);
+            text_empty.setText("No Data found");
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
         }
 
 

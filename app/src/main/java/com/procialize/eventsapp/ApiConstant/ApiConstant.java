@@ -7,16 +7,16 @@ package com.procialize.eventsapp.ApiConstant;
 public class ApiConstant {
 
     //Production URL
-    public static String baseUrl = "https://www.procialize.info/API/event_api_call/";
+//    public static String baseUrl = "https://www.procialize.info/API/event_api_call/";
 
     //UAT URL
-//    public static String baseUrl = "https://www.procialize.live/procialize/API/event_api_call/";
+    public static String baseUrl = "https://www.procialize.live/procialize/API/event_api_call/";
 
     //imag&Video prod
-    public static String imgURL = "https://www.procialize.info/";
+//    public static String imgURL = "https://www.procialize.info/";
 //
     //imag&Video prod
-//    public static String imgURL="https://www.procialize.live/procialize/";
+    public static String imgURL="https://www.procialize.live/procialize/";
 
     public static String tenorUrl = "https://api.tenor.com/v1/";
     public static String quizlist = "QuizFetch";
