@@ -55,7 +55,7 @@
                 android:padding="5dp"
                 android:text="Abheejit Saxena"
                 android:textColor="#4d4d4d"
-                android:textSize="@dimen/textsizesmall"
+                android:textSize="@dimen/textsizesmaller"
                 android:textAlignment="textEnd"
                 />
 

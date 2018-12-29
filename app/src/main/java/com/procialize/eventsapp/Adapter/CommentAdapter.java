@@ -152,6 +152,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
 //            holder.commentTv.setVisibility(View.GONE);
             holder.progressViewgif.setVisibility(View.VISIBLE);
             holder.commentTv.setText("GIF");
+            holder.commentTv.setVisibility(View.GONE);
             Glide.with(context)
                     .load(commentLists.get(position).getComment())
                     .listener(new RequestListener<Drawable>() {

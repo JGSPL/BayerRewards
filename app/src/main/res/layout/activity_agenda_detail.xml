@@ -175,7 +175,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="30dp"
                 android:fadeScrollbars="false"
-                android:maxLines="15"
+                android:maxLines="18"
                 android:scrollbars="vertical"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textsizesmall" />
@@ -186,7 +186,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+       >
 
         <LinearLayout
             android:id="@+id/linear_bottom"
