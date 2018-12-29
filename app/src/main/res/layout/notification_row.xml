@@ -90,17 +90,6 @@
                     android:text="Sent you message"
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/textsizesmall" />
-
-                <com.procialize.eventsapp.Fonts.RobotoTextview
-                    android:id="@+id/messageTV"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/elevation"
-                    android:paddingLeft="5dp"
-                    android:text=""
-                    android:textColor="@color/colorAccent"
-                    android:textSize="@dimen/textsizesmall" />
-
                 <com.procialize.eventsapp.Fonts.RobotoTextview
                     android:id="@+id/dataTv"
                     android:layout_width="match_parent"
@@ -109,6 +98,16 @@
                     android:text=""
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/textsizesmall" />
+                <com.procialize.eventsapp.Fonts.RobotoTextview
+                    android:id="@+id/messageTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:text=""
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/textsizesmall" />
+
+
 
 
                 <com.procialize.eventsapp.Fonts.RobotoButton

@@ -430,7 +430,7 @@ public class ProfileActivity extends AppCompatActivity {
                 }).into(profileIV);
             } else {
                 profileIV.setImageResource(R.drawable.profilepic_placeholder);
-
+                progressView.setVisibility(View.GONE);
             }
         } else {
             if (profilepic != null) {

@@ -287,20 +287,20 @@ public class SelfiePost extends Activity {
                     // Toast.makeText(SelfiePost.this, "Enter title",
                     //         Toast.LENGTH_SHORT).show();
                     //}
-                    if (TextUtils.isEmpty(image_Path))
-
-                    {
-                        Toast.makeText(SelfiePost.this, "Upload Selfie",
-                                Toast.LENGTH_SHORT).show();
-                    } else {
-                        //name = editName.getText().toString();
-                        name = StringEscapeUtils.escapeJava(editName.getText().toString());
-
-
-                        new SubmitPostTask().execute();
+//                    if (TextUtils.isEmpty(image_Path))
+//
+//                    {
+//                        Toast.makeText(SelfiePost.this, "Upload Selfie",
+//                                Toast.LENGTH_SHORT).show();
+//                    } else {
+                    //name = editName.getText().toString();
+                    name = StringEscapeUtils.escapeJava(editName.getText().toString());
 
 
-                    }
+                    new SubmitPostTask().execute();
+
+
+//                    }
                 } else {
                     Toast.makeText(getBaseContext(), "No Internet Connection",
                             Toast.LENGTH_SHORT).show();

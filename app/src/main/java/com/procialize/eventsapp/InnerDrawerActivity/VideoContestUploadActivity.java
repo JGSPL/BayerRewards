@@ -462,10 +462,10 @@ public class VideoContestUploadActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String data = editTitle.getText().toString();
-                if (data.equals("")) {
-                    Toast.makeText(VideoContestUploadActivity.this, "Enter Caption", Toast.LENGTH_SHORT).show();
-
-                } else {
+//                if (data.equals("")) {
+//                    Toast.makeText(VideoContestUploadActivity.this, "Enter Caption", Toast.LENGTH_SHORT).show();
+//
+//                } else {
                     showProgress();
 
 
@@ -482,7 +482,7 @@ public class VideoContestUploadActivity extends AppCompatActivity {
 
 
                     PostVideoContest(token, eventid, status, body);
-                }
+//                }
             }
         });
 

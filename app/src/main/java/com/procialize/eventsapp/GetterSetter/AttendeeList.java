@@ -48,6 +48,18 @@ public class AttendeeList implements Serializable {
     @Expose
     private String attendeeType;
 
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+    @SerializedName("created")
+    @Expose
+    private String created;
+
     public String getAttendeeId() {
         return attendeeId;
     }

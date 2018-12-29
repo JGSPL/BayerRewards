@@ -21,7 +21,12 @@ import com.procialize.eventsapp.ApiConstant.ApiConstant;
 import com.procialize.eventsapp.GetterSetter.AttendeeList;
 import com.procialize.eventsapp.R;
 
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -31,12 +36,27 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class LikeAdapter extends RecyclerView.Adapter<LikeAdapter.MyViewHolder> {
 
+    private List<AttendeeList> attendeeListList;
+    private Context context;
     //    private LikeAdapterListner listener;
     String MY_PREFS_NAME = "ProcializeInfo";
     String MY_PREFS_LOGIN = "ProcializeLogin";
     String colorActive;
-    private List<AttendeeList> attendeeListList;
-    private Context context;
+
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public TextView nameTv, dateTv;
+        public ImageView imageIv;
+
+        public MyViewHolder(View view) {
+            super(view);
+            nameTv = view.findViewById(R.id.nameTv);
+            imageIv = view.findViewById(R.id.imageIv);
+            dateTv = view.findViewById(R.id.dateTv);
+
+
+        }
+    }
 
 
     public LikeAdapter(Context context, List<AttendeeList> attendeeListList) {
@@ -81,24 +101,21 @@ public class LikeAdapter extends RecyclerView.Adapter<LikeAdapter.MyViewHolder> 
 
         holder.nameTv.setText(attendeeList.getFirstName() + " " + attendeeList.getLastName());
 
+        SimpleDateFormat originalFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.UK);
+        SimpleDateFormat targetFormat = new SimpleDateFormat("dd MMM HH:mm");
+        try {
+            Date startdate = originalFormat.parse(attendeeList.getCreated());
+            String startdatestr = targetFormat.format(startdate);
+            holder.dateTv.setText(startdatestr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
     public int getItemCount() {
         return attendeeListList.size();
-    }
-
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView nameTv;
-        public ImageView imageIv;
-
-        public MyViewHolder(View view) {
-            super(view);
-            nameTv = view.findViewById(R.id.nameTv);
-            imageIv = view.findViewById(R.id.imageIv);
-
-
-        }
     }
 
 

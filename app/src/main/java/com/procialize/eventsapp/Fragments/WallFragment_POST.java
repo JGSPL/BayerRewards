@@ -761,7 +761,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
     @Override
     public void moreLikeListOnClick(View v, NewsFeedList feed, int position) {
-        PostLikeList(eventid, feed.getType(), feed.getNewsFeedId(), token);
+        PostLikeList(eventid, feed.getType(), feed, token);
 //        dialog = new BottomSheetDialog(getActivity());
 //
 //        dialog.setContentView(R.layout.botomlikelistdialouge);
@@ -1241,12 +1241,40 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
         }
     }
 
-    public void PostLikeList(String eventid, String usertype, String noificationid, String token) {
+    public void PostLikeList(String eventid, String usertype, NewsFeedList feed, String token) {
+        float width = Float.parseFloat(feed.getWidth());
+        float height = Float.parseFloat(feed.getHeight());
 
-
+        float p1 = height / width;
         Intent intent = new Intent(getActivity(), LikeDetailActivity.class);
-        intent.putExtra("noificationid", noificationid);
+        intent.putExtra("fname", feed.getFirstName());
+        intent.putExtra("lname", feed.getLastName());
+        intent.putExtra("company", feed.getCompanyName());
+        intent.putExtra("designation", feed.getDesignation());
+
+        intent.putExtra("heading", feed.getPostStatus());
+        intent.putExtra("date", feed.getPostDate());
+        intent.putExtra("Likes", feed.getTotalLikes());
+        intent.putExtra("Likeflag", feed.getLikeFlag());
+        intent.putExtra("Comments", feed.getTotalComments());
+        intent.putExtra("profilepic", ApiConstant.profilepic + feed.getProfilePic());
+        intent.putExtra("type", feed.getType());
+        intent.putExtra("feedid", feed.getNewsFeedId());
+        intent.putExtra("AspectRatio", p1);
+        intent.putExtra("noti_type", "Wall_Post");
+
+        if (feed.getType().equalsIgnoreCase("Image")) {
+            intent.putExtra("url", ApiConstant.newsfeedwall + feed.getMediaFile());
+        } else if (feed.getType().equalsIgnoreCase("Video")) {
+            intent.putExtra("videourl", ApiConstant.newsfeedwall + feed.getMediaFile());
+            intent.putExtra("thumbImg", ApiConstant.newsfeedwall + feed.getThumbImage());
+        }
+        intent.putExtra("flag", "noti");
         startActivity(intent);
+
+//        Intent intent = new Intent(getActivity(), LikeDetailActivity.class);
+//        intent.putExtra("noificationid", noificationid);
+//        startActivity(intent);
 //        showProgress();
 //        mAPIService.postLikeUserList(token, noificationid, eventid).enqueue(new Callback<LikeListing>() {
 //            @Override
