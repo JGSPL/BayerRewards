@@ -7,9 +7,11 @@ import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
@@ -17,6 +19,7 @@ import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,6 +37,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,7 +53,6 @@ import com.procialize.eventsapp.Adapter.NewsfeedAdapter;
 import com.procialize.eventsapp.ApiConstant.APIService;
 import com.procialize.eventsapp.ApiConstant.ApiConstant;
 import com.procialize.eventsapp.ApiConstant.ApiUtils;
-import com.procialize.eventsapp.CustomTools.CircleDisplay;
 import com.procialize.eventsapp.DbHelper.ConnectionDetector;
 import com.procialize.eventsapp.DbHelper.DBHelper;
 import com.procialize.eventsapp.GetterSetter.Analytic;
@@ -98,7 +101,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
     private static Bundle mBundleRecyclerViewState;
     private final String KEY_RECYCLER_STATE = "recycler_state";
     public Parcelable state;
-    CircleDisplay progressbar;
+    ProgressBar progressbar;
     ListView feedrecycler;
     SwipeRefreshLayout newsfeedrefresh;
     LinearLayout mainLLpost, mindTv;
@@ -317,6 +320,10 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
                         feedAdapter.notifyDataSetChanged();
                         feedrecycler.setAdapter(feedAdapter);
                         feedrecycler.scheduleLayoutAnimation();
+                    }
+
+                    if (newsfeedrefresh.isRefreshing()) {
+                        newsfeedrefresh.setRefreshing(true);
                     }
 
                 }
@@ -1492,16 +1499,15 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
     public void showProgress() {
         progressbar.setVisibility(View.VISIBLE);
-        progressbar.setAnimDuration(4000);
-        progressbar.setValueWidthPercent(25f);
-        progressbar.setFormatDigits(1);
-        progressbar.setDimAlpha(80);
-        progressbar.setTouchEnabled(true);
-        progressbar.setUnit("%");
-        progressbar.setStepSize(0.5f);
-        progressbar.setTextSize(15);
-        progressbar.setColor(Color.parseColor(colorActive));
-        progressbar.showValue(90f, 100f, true);
+        progressbar.setIndeterminate(true);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+
+            Drawable wrapDrawable = DrawableCompat.wrap(progressbar.getIndeterminateDrawable());
+            DrawableCompat.setTint(wrapDrawable, Color.parseColor(colorActive));
+            progressbar.setIndeterminateDrawable(DrawableCompat.unwrap(wrapDrawable));
+        } else {
+            progressbar.getIndeterminateDrawable().setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_IN);
+        }
 
     }
 
@@ -1510,7 +1516,6 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
         if (progressbar.getVisibility() == View.VISIBLE) {
             progressbar.setVisibility(View.GONE);
         }
-
     }
 
     /**

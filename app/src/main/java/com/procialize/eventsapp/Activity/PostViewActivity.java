@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,7 +13,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.media.MediaPlayer;
 import android.media.ThumbnailUtils;
@@ -1207,22 +1205,16 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
 
 
     public void showProgress() {
-        Resources res = getResources();
-        Drawable drawable = res.getDrawable(R.drawable.progrssdialogback);
         postbtn.setEnabled(false);
         postEt.setEnabled(false);
         progressbar.setVisibility(View.VISIBLE);
-        progressbar.setAnimDuration(4000);
-        progressbar.setValueWidthPercent(25f);
-        progressbar.setFormatDigits(1);
-        progressbar.setDimAlpha(80);
-        progressbar.setTouchEnabled(true);
-        progressbar.setUnit("%");
-        progressbar.setStepSize(0.5f);
-        progressbar.setTextSize(15);
-        progressbar.setColor(Color.parseColor(colorActive));
-        progressbar.showValue(90f, 100f, true);
-
+        progressbar.setProgress(0);
+        progressbar.setMaxValue(100);
+        progressbar.setProgressColor(Color.parseColor(colorActive));
+        progressbar.setText(String.valueOf(0));
+        progressbar.setTextColor(Color.parseColor(colorActive));
+        progressbar.setSuffix("%");
+        progressbar.setPrefix("");
     }
 
     public void dismissProgress() {
@@ -1244,19 +1236,18 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
     public void onProgressUpdate(int percentage) {
         Log.e("per", String.valueOf(percentage));
 //        progressbar.showValue(99f, 100f, true);
-
+        progressbar.setProgress(percentage);
+        progressbar.setText(String.valueOf(percentage));
     }
 
     @Override
     public void onError() {
-        progressbar.showValue(100f, 100f, true);
-
         dismissProgress();
     }
 
     @Override
     public void onFinish() {
-        progressbar.showValue(100f, 100f, true);
+
     }
 
 

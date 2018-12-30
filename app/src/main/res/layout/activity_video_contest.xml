@@ -82,12 +82,11 @@
             android:id="@+id/uploadbtn"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_gravity="right"
+            android:layout_gravity="center"
             android:layout_margin="3dp"
-            android:background="@drawable/loginbutton"
+            android:background="@drawable/selfiebutton"
             android:padding="2dp"
             android:text="@string/upload"
-
             android:textAllCaps="false"
             android:textColor="@color/colorwhite"
             android:textSize="@dimen/textsizesmall"/>

@@ -14,6 +14,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -24,6 +26,7 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
@@ -32,12 +35,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.procialize.eventsapp.ApiConstant.ApiConstant;
-import com.procialize.eventsapp.CustomTools.CircleDisplay;
 import com.procialize.eventsapp.DbHelper.ConnectionDetector;
 import com.procialize.eventsapp.R;
 import com.procialize.eventsapp.Session.SessionManager;
@@ -102,7 +105,7 @@ public class SelfiePost extends Activity {
     String MY_PREFS_NAME = "ProcializeInfo";
     String name = "";
     String eventId, colorActive;
-    CircleDisplay progressbar;
+    ProgressBar progressbar;
     ImageView headerlogoIv;
     Uri imageUri;
     File file;
@@ -954,20 +957,19 @@ public class SelfiePost extends Activity {
     }
 
     public void showProgress() {
-
         progressbar.setVisibility(View.VISIBLE);
-        progressbar.setAnimDuration(4000);
-        progressbar.setValueWidthPercent(25f);
-        progressbar.setFormatDigits(1);
-        progressbar.setDimAlpha(80);
-        progressbar.setTouchEnabled(true);
-        progressbar.setUnit("%");
-        progressbar.setStepSize(0.5f);
-        progressbar.setTextSize(15);
-        progressbar.setColor(Color.parseColor(colorActive));
-        progressbar.showValue(90f, 100f, true);
+        progressbar.setIndeterminate(true);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+
+            Drawable wrapDrawable = DrawableCompat.wrap(progressbar.getIndeterminateDrawable());
+            DrawableCompat.setTint(wrapDrawable, Color.parseColor(colorActive));
+            progressbar.setIndeterminateDrawable(DrawableCompat.unwrap(wrapDrawable));
+        } else {
+            progressbar.getIndeterminateDrawable().setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_IN);
+        }
 
     }
+
 
     public void dismissProgress() {
 

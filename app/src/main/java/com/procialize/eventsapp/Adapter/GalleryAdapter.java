@@ -13,10 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.procialize.eventsapp.CustomTools.PicassoTrustAll;
 import com.procialize.eventsapp.CustomTools.RoundCornersTransformation;
 import com.procialize.eventsapp.GetterSetter.FirstLevelFilter;
 import com.procialize.eventsapp.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -73,10 +73,11 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyViewHo
 
 
         holder.progressBar.setVisibility(View.GONE);
-        Picasso.with(context)
+
+        PicassoTrustAll.getInstance(context)
                 .load(galleryList.getFileName())
                 .transform(new RoundCornersTransformation(20, 0, false, true))
-                .placeholder(context.getDrawable(R.drawable.folder_back))
+                .placeholder(R.drawable.folder_back)
                 .into(holder.imageIv);
 
 

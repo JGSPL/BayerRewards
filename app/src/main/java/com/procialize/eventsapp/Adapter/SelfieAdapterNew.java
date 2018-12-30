@@ -144,8 +144,8 @@ public class SelfieAdapterNew extends BaseAdapter {
         holder.dataTv.setText(StringEscapeUtils.unescapeJava(selfie.getTitle()));
         holder.countTv.setText(selfie.getTotalLikes());
         Glide.with(activity).load(ApiConstant.selfieimage + selfie.getFileName())
-                .apply(RequestOptions.skipMemoryCacheOf(true))
-                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE)).listener(new RequestListener<Drawable>() {
+                .apply(RequestOptions.skipMemoryCacheOf(false))
+                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).listener(new RequestListener<Drawable>() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                 holder.progressBar.setVisibility(View.GONE);

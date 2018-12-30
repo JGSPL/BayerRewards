@@ -4,8 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.procialize.eventsapp.ApiConstant.ApiConstant;
 import com.procialize.eventsapp.GetterSetter.VideoContest;
 import com.procialize.eventsapp.R;
@@ -66,17 +73,32 @@ public class VideoContestAdapter extends RecyclerView.Adapter<VideoContestAdapte
         colorActive = prefs.getString("colorActive", "");
 
         holder.dataTv.setText(StringEscapeUtils.unescapeJava(galleryList.getTitle()));
+//        holder.dataTv.setTextColor(Color.parseColor(colorActive));
         holder.countTv.setText(galleryList.getTotalLikes());
-
+//        holder.countTv.setTextColor(Color.parseColor(colorActive));
 //        holder.videoPlayerStandard.setUp(ApiConstant.selfievideo+galleryList.getFileName()
 //                , JZVideoPlayerStandard.SCREEN_WINDOW_LIST, "");
 
         String url = ApiConstant.selfievideo + galleryList.getThumbName();
-        Log.e("url", url);
 
-        Glide.with(holder.videoPlayerStandard.getContext()).load(ApiConstant.selfievideo + galleryList.getThumbName()).into(holder.videoPlayerStandard);
+        Glide.with(context).load(url)
+                .apply(RequestOptions.skipMemoryCacheOf(false))
+                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).listener(new RequestListener<Drawable>() {
+            @Override
+            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                holder.progressBar.setVisibility(View.GONE);
+                return true;
+            }
 
-        holder.moreIV.setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_ATOP);
+            @Override
+            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource
+                    dataSource, boolean isFirstResource) {
+                holder.progressBar.setVisibility(View.GONE);
+                return false;
+            }
+        }).into(holder.imageIv).onLoadStarted(context.getDrawable(R.drawable.gallery_placeholder));
+
+
 
         holder.moreIV.setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_ATOP);
         if (galleryList.getLikeFlag().equals("1")) {
@@ -104,18 +126,18 @@ public class VideoContestAdapter extends RecyclerView.Adapter<VideoContestAdapte
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView dataTv, countTv;
         public LinearLayout mainLL;
-        public ImageView likeIv, moreIV, shareIV;
-        public ImageView videoPlayerStandard;
+        public ImageView likeIv, moreIV;
+        public ImageView imageIv;
         private ProgressBar progressBar;
 
         public MyViewHolder(View view) {
             super(view);
             dataTv = view.findViewById(R.id.dataTv);
             countTv = view.findViewById(R.id.countTv);
-            videoPlayerStandard = view.findViewById(R.id.videoPlayerStandard);
+            imageIv = view.findViewById(R.id.imageIv);
             likeIv = view.findViewById(R.id.likeIv);
             moreIV = view.findViewById(R.id.moreIV);
-            shareIV = view.findViewById(R.id.shareIV);
+//            shareIV = view.findViewById(R.id.shareTv);
             mainLL = view.findViewById(R.id.mainLL);
 
             progressBar = view.findViewById(R.id.progressBar);
@@ -143,13 +165,13 @@ public class VideoContestAdapter extends RecyclerView.Adapter<VideoContestAdapte
                 }
             });
 
-            shareIV.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onShareListner(v, videoContestList.get(getAdapterPosition()), getAdapterPosition());
-
-                }
-            });
+//            shareIV.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    listener.onShareListner(v, videoContestList.get(getAdapterPosition()), getAdapterPosition());
+//
+//                }
+//            });
         }
     }
 }

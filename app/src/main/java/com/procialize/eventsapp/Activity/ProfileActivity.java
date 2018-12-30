@@ -939,36 +939,59 @@ public class ProfileActivity extends AppCompatActivity {
         try {
             Uri tempUri;
             if (data != null) {
-                Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+                if (data.getData() != null) {
+                    Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
 
-                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                    thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
 
-                File destination = new File(Environment.getExternalStorageDirectory(),
-                        System.currentTimeMillis() + ".jpg");
-                FileOutputStream fo;
-                try {
-                    destination.createNewFile();
-                    fo = new FileOutputStream(destination);
-                    fo.write(bytes.toByteArray());
-                    fo.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    File destination = new File(Environment.getExternalStorageDirectory(),
+                            System.currentTimeMillis() + ".jpg");
+                    FileOutputStream fo;
+                    try {
+                        destination.createNewFile();
+                        fo = new FileOutputStream(destination);
+                        fo.write(bytes.toByteArray());
+                        fo.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+
+                    // CALL THIS METHOD TO GET THE URI FROM THE BITMAP
+                    tempUri = getImageUri(getApplicationContext(), thumbnail);
+
+                    UCrop.of(tempUri, Uri.parse(destination.getAbsolutePath()))
+                            .withAspectRatio(2, 2).withOptions(options)
+                            .withMaxResultSize(200, 200)
+                            .start(this);
+
+                    // CALL THIS METHOD TO GET THE ACTUAL PATH
+                    file = new File(getRealPathFromURI(tempUri));
+                } else {
+                    file = new File(mCurrentPhotoPath);
+
+                    tempUri = Uri.fromFile(file);
+
+                    File destination = new File(Environment.getExternalStorageDirectory(),
+                            System.currentTimeMillis() + ".jpg");
+                    FileOutputStream fo;
+                    try {
+                        destination.createNewFile();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+
+                    UCrop.of(tempUri, Uri.parse(destination.getAbsolutePath()))
+                            .withAspectRatio(2, 2).withOptions(options)
+                            .withMaxResultSize(200, 200)
+                            .start(this);
                 }
-
-
-                // CALL THIS METHOD TO GET THE URI FROM THE BITMAP
-                tempUri = getImageUri(getApplicationContext(), thumbnail);
-
-                UCrop.of(tempUri, Uri.parse(destination.getAbsolutePath()))
-                        .withAspectRatio(2, 2).withOptions(options)
-                        .withMaxResultSize(200, 200)
-                        .start(this);
-
-                // CALL THIS METHOD TO GET THE ACTUAL PATH
-                file = new File(getRealPathFromURI(tempUri));
             } else {
                 file = new File(mCurrentPhotoPath);
 

@@ -140,7 +140,23 @@ public class SpeakerActivity extends AppCompatActivity implements SpeakerAdapter
         speakerfeedrefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                fetchSpeaker(token, eventid);
+                if (cd.isConnectingToInternet()) {
+                    fetchSpeaker(token, eventid);
+                } else {
+                    db = procializeDB.getReadableDatabase();
+
+                    speakersDBList = dbHelper.getSpeakerDetails();
+
+                    speakerAdapter = new SpeakerAdapter(SpeakerActivity.this, speakersDBList, SpeakerActivity.this);
+                    speakerAdapter.notifyDataSetChanged();
+                    speakerrecycler.setAdapter(speakerAdapter);
+                    speakerrecycler.scheduleLayoutAnimation();
+
+
+                    if (speakerfeedrefresh.isRefreshing()) {
+                        speakerfeedrefresh.setRefreshing(true);
+                    }
+                }
             }
         });
 
@@ -212,6 +228,12 @@ public class SpeakerActivity extends AppCompatActivity implements SpeakerAdapter
 
         // specify an adapter (see also next example)
         if (!(response.body().getSpeakerList().isEmpty())) {
+
+            dbHelper.clearSpeakersTable();
+            dbHelper.insertSpeakersInfo(response.body().getSpeakerList(), db);
+
+
+
             speakerAdapter = new SpeakerAdapter(SpeakerActivity.this, response.body().getSpeakerList(), this);
             speakerAdapter.notifyDataSetChanged();
             speakerrecycler.setAdapter(speakerAdapter);

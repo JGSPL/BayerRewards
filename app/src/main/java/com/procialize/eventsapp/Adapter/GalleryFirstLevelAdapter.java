@@ -72,9 +72,11 @@ public class GalleryFirstLevelAdapter extends RecyclerView.Adapter<GalleryFirstL
 //        }
 
 //        holder.nameTv.setBackgroundColor(Color.parseColor(colorActive));
+
+
         Glide.with(context).load(galleryList.getFileName())
-                .apply(RequestOptions.skipMemoryCacheOf(true))
-                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE)).listener(new RequestListener<Drawable>() {
+                .apply(RequestOptions.skipMemoryCacheOf(false))
+                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).listener(new RequestListener<Drawable>() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                 holder.progressBar.setVisibility(View.GONE);

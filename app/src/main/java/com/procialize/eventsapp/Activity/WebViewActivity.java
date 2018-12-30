@@ -1,11 +1,13 @@
 package com.procialize.eventsapp.Activity;
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -75,7 +77,19 @@ public class WebViewActivity extends AppCompatActivity {
 
 
         mywebview = findViewById(R.id.webView);
-        mywebview.clearCache(true);
+        mywebview.setBackgroundColor(Color.TRANSPARENT);
+
+        WebSettings settings = mywebview.getSettings();
+        settings.setJavaScriptEnabled(true);
+        settings.setLoadWithOverviewMode(true);
+        settings.setUseWideViewPort(true);
+        settings.setSupportZoom(true);
+        settings.setBuiltInZoomControls(false);
+        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        settings.setDomStorageEnabled(true);
+        settings.setDatabaseEnabled(true);
+        settings.setAppCacheEnabled(true);
+        settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 
         // mywebview.loadUrl("https://www.procialize.info/contact_us.html");
 

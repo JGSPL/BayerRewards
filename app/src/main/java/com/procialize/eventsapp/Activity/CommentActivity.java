@@ -436,6 +436,39 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
             }
         });
 
+        linearlike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(CommentActivity.this, LikeDetailActivity.class);
+                intent.putExtra("fname", fname);
+                intent.putExtra("lname", lname);
+                intent.putExtra("company", company);
+                intent.putExtra("designation", designation);
+
+                intent.putExtra("heading", heading);
+                intent.putExtra("date", date);
+                intent.putExtra("Likes", Likes);
+                intent.putExtra("Likeflag", Likeflag);
+                intent.putExtra("Comments", Comments);
+                intent.putExtra("profilepic", ApiConstant.profilepic + profileurl);
+                intent.putExtra("type", type);
+                intent.putExtra("feedid", feedid);
+                intent.putExtra("AspectRatio", p1);
+                intent.putExtra("noti_type", "Wall_Post");
+
+                if (type.equalsIgnoreCase("Image")) {
+                    intent.putExtra("url", feedurl);
+                } else if (type.equalsIgnoreCase("Video")) {
+                    intent.putExtra("videourl", videourl);
+                    intent.putExtra("thumbImg", thumbImg);
+                }
+                intent.putExtra("flag", "noti");
+                startActivity(intent);
+
+            }
+        });
+
         sharetext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -865,6 +898,8 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
 
         // specify an adapter (see also next example)
         if (response.body().getNewsFeedList().size() != 0) {
+            fname = response.body().getNewsFeedList().get(0).getFirstName();
+            lname = response.body().getNewsFeedList().get(0).getLastName();
             name = response.body().getNewsFeedList().get(0).getFirstName() + " " + response.body().getNewsFeedList().get(0).getLastName();
             company = response.body().getNewsFeedList().get(0).getCompanyName();
             designation = response.body().getNewsFeedList().get(0).getDesignation();
@@ -898,6 +933,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
             } else {
 
             }
+
 
             initiate();
         }

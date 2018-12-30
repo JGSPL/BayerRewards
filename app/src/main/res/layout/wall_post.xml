@@ -45,7 +45,7 @@
 
     </LinearLayout>
 
-    <com.procialize.eventsapp.CustomTools.CircleDisplay
+    <ProgressBar
         android:id="@+id/progressbar"
         android:layout_width="100dp"
         android:layout_height="100dp"

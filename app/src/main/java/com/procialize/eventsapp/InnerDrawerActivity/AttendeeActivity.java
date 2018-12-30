@@ -2,6 +2,7 @@ package com.procialize.eventsapp.InnerDrawerActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -26,13 +27,17 @@ import com.procialize.eventsapp.Activity.AttendeeDetailActivity;
 import com.procialize.eventsapp.Adapter.AttendeeAdapter;
 import com.procialize.eventsapp.ApiConstant.APIService;
 import com.procialize.eventsapp.ApiConstant.ApiUtils;
+import com.procialize.eventsapp.DbHelper.ConnectionDetector;
+import com.procialize.eventsapp.DbHelper.DBHelper;
 import com.procialize.eventsapp.GetterSetter.AttendeeList;
 import com.procialize.eventsapp.GetterSetter.FetchAttendee;
 import com.procialize.eventsapp.R;
 import com.procialize.eventsapp.Session.SessionManager;
 import com.procialize.eventsapp.Utility.Util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import cn.jzvd.JZVideoPlayer;
 import retrofit2.Call;
@@ -50,7 +55,11 @@ public class AttendeeActivity extends AppCompatActivity implements AttendeeAdapt
     ImageView headerlogoIv;
     private APIService mAPIService;
     private ProgressBar progressBar;
-
+    private ConnectionDetector cd;
+    private DBHelper dbHelper;
+    private DBHelper procializeDB;
+    private SQLiteDatabase db;
+    private List<AttendeeList> attendeeDBList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +87,13 @@ public class AttendeeActivity extends AppCompatActivity implements AttendeeAdapt
             }
         });
 
+        cd = new ConnectionDetector(AttendeeActivity.this);
+        dbHelper = new DBHelper(AttendeeActivity.this);
+
+        procializeDB = new DBHelper(AttendeeActivity.this);
+        db = procializeDB.getWritableDatabase();
+
+        attendeeDBList = new ArrayList<>();
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
         Util.logomethod(this, headerlogoIv);
@@ -108,13 +124,39 @@ public class AttendeeActivity extends AppCompatActivity implements AttendeeAdapt
         final String token = user.get(SessionManager.KEY_TOKEN);
 
 
-        fetchFeed(token, eventid);
+        if (cd.isConnectingToInternet()) {
+            fetchFeed(token, eventid);
+        } else {
+            db = procializeDB.getReadableDatabase();
+
+            attendeeDBList = dbHelper.getAttendeeDetails();
+
+            attendeeAdapter = new AttendeeAdapter(AttendeeActivity.this, attendeeDBList, this);
+            attendeeAdapter.notifyDataSetChanged();
+            attendeerecycler.setAdapter(attendeeAdapter);
+            attendeerecycler.scheduleLayoutAnimation();
+        }
 
         attendeefeedrefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
 
-                fetchFeed(token, eventid);
+                if (cd.isConnectingToInternet()) {
+                    fetchFeed(token, eventid);
+                } else {
+                    db = procializeDB.getReadableDatabase();
+
+                    attendeeDBList = dbHelper.getAttendeeDetails();
+
+                    attendeeAdapter = new AttendeeAdapter(AttendeeActivity.this, attendeeDBList, AttendeeActivity.this);
+                    attendeeAdapter.notifyDataSetChanged();
+                    attendeerecycler.setAdapter(attendeeAdapter);
+                    attendeerecycler.scheduleLayoutAnimation();
+
+                    if (attendeefeedrefresh.isRefreshing()) {
+                        attendeefeedrefresh.setRefreshing(true);
+                    }
+                }
             }
         });
 
@@ -180,6 +222,11 @@ public class AttendeeActivity extends AppCompatActivity implements AttendeeAdapt
 
         // specify an adapter (see also next example)
         if (!(response.body().getAttendeeList().isEmpty())) {
+
+            dbHelper.clearAttendeesTable();
+            dbHelper.insertAttendeesInfo(response.body().getAttendeeList(), db);
+
+
             attendeeAdapter = new AttendeeAdapter(AttendeeActivity.this, response.body().getAttendeeList(), this);
             attendeeAdapter.notifyDataSetChanged();
             attendeerecycler.setAdapter(attendeeAdapter);

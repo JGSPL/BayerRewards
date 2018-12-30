@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.media.ThumbnailUtils;
@@ -16,6 +18,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -24,12 +27,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.procialize.eventsapp.ApiConstant.APIService;
 import com.procialize.eventsapp.ApiConstant.ApiUtils;
-import com.procialize.eventsapp.CustomTools.CircleDisplay;
 import com.procialize.eventsapp.GetterSetter.PostVideoSelfie;
 import com.procialize.eventsapp.R;
 import com.procialize.eventsapp.Session.SessionManager;
@@ -67,7 +70,7 @@ public class VideoContestUploadActivity extends AppCompatActivity {
     String apikey;
     TextInputEditText editTitle;
     APIService mAPIService;
-    CircleDisplay progressbar;
+    ProgressBar progressbar;
     String userChoosenTask;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventId, colorActive;
@@ -163,10 +166,6 @@ public class VideoContestUploadActivity extends AppCompatActivity {
 
             if (data.getData() != null) {
                 llData.setVisibility(View.VISIBLE);
-//            Uri selectedMediaUri = (Uri) data.getExtras().get("data");
-                Uri selectedMediaUri = data.getData();
-//            if (selectedMediaUri.toString().contains("video")) {
-
 
                 displayRecordedVideo.setVisibility(View.VISIBLE);
 
@@ -194,15 +193,11 @@ public class VideoContestUploadActivity extends AppCompatActivity {
                         displayRecordedVideo.setImageBitmap(b);
                         video_view.setVideoPath(pathToStoredVideo);
 
-
                     }
                 } else if (resultCode == Activity.RESULT_OK && requestCode == SELECT_FILE) {
                     uri = data.getData();
-
-
 //                displayRecordedVideo.setVideoURI(uri);
 //                displayRecordedVideo.start();
-
                     imgPlay.setVisibility(View.VISIBLE);
                     ArrayList<String> supportedMedia = new ArrayList<String>();
 
@@ -214,6 +209,7 @@ public class VideoContestUploadActivity extends AppCompatActivity {
                     videoUrl = ScalingUtilities.getPath(VideoContestUploadActivity.this, data.getData());
 //                    pathToStoredVideo = getRealPathFromURIPathVideo(uri, VideoContestUploadActivity.this);
                     videoFile = new File(videoUrl);
+                    file = new File(videoUrl);
 
                     String fileExtnesion = videoUrl.substring(videoUrl.lastIndexOf("."));
 
@@ -248,7 +244,6 @@ public class VideoContestUploadActivity extends AppCompatActivity {
                             long totalFileDuration = mplayer.getDuration();
                             Log.i("android", "data is " + totalFileDuration);
 
-
                             int sec = (int) ((totalFileDuration / (1000)));
 
                             Log.i("android", "data is " + sec);
@@ -256,13 +251,14 @@ public class VideoContestUploadActivity extends AppCompatActivity {
                             Bitmap b = ThumbnailUtils.createVideoThumbnail(videoUrl, MediaStore.Video.Thumbnails.MINI_KIND);
                             displayRecordedVideo.setImageBitmap(b);
                             video_view.setVideoPath(pathToStoredVideo);
+
+                            file = videoFile;
+
                             if (sec > 15) {
                                 Toast.makeText(VideoContestUploadActivity.this, "Select an video not more than 15 seconds",
                                         Toast.LENGTH_SHORT).show();
                                 finish();
-
                             } else {
-
 
                                 llData.setVisibility(View.VISIBLE);
                                 MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
@@ -270,13 +266,12 @@ public class VideoContestUploadActivity extends AppCompatActivity {
 
                                 Uri video = Uri.parse(videoUrl);
 
-
+                                pathToStoredVideo = getRealPathFromURIPathVideo(video, VideoContestUploadActivity.this);
+                                Log.d("video", "Recorded Video Path " + pathToStoredVideo);
+                                //Store the video to your server
                                 // videoview.setMediaController(mediacontrolle);
 
-
                                 Bitmap bitmap = mediaMetadataRetriever.getFrameAtTime(1000000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
-                                file = createDirectoryAndSaveFile(bitmap);
-
 
                                 displayRecordedVideo.setImageBitmap(bitmap);
                                 imgPlay.setVisibility(View.VISIBLE);
@@ -360,28 +355,25 @@ public class VideoContestUploadActivity extends AppCompatActivity {
 
         if (response.body().getStatus().equals("success")) {
             Toast.makeText(this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(VideoContestUploadActivity.this, VideoContestActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(VideoContestUploadActivity.this, VideoContestActivity.class);
+//            startActivity(intent);
             finish();
-
         } else {
             Toast.makeText(this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
         }
     }
 
     public void showProgress() {
-
         progressbar.setVisibility(View.VISIBLE);
-        progressbar.setAnimDuration(4000);
-        progressbar.setValueWidthPercent(25f);
-        progressbar.setFormatDigits(1);
-        progressbar.setDimAlpha(80);
-        progressbar.setTouchEnabled(true);
-        progressbar.setUnit("%");
-        progressbar.setStepSize(0.5f);
-        progressbar.setTextSize(15);
-        progressbar.setColor(Color.parseColor(colorActive));
-        progressbar.showValue(90f, 100f, true);
+        progressbar.setIndeterminate(true);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+
+            Drawable wrapDrawable = DrawableCompat.wrap(progressbar.getIndeterminateDrawable());
+            DrawableCompat.setTint(wrapDrawable, Color.parseColor(colorActive));
+            progressbar.setIndeterminateDrawable(DrawableCompat.unwrap(wrapDrawable));
+        } else {
+            progressbar.getIndeterminateDrawable().setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_IN);
+        }
 
     }
 
@@ -480,7 +472,6 @@ public class VideoContestUploadActivity extends AppCompatActivity {
                         body = MultipartBody.Part.createFormData("video_file", file.getName(), reqFile);
                     }
 
-
                     PostVideoContest(token, eventid, status, body);
 //                }
             }
@@ -501,8 +492,8 @@ public class VideoContestUploadActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(VideoContestUploadActivity.this, VideoContestActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(VideoContestUploadActivity.this, VideoContestActivity.class);
+//        startActivity(intent);
         finish();
     }
 }

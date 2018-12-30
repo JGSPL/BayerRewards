@@ -100,13 +100,7 @@ public class SelfieContestNew extends AppCompatActivity implements SelfieAdapter
         // token
         token = user.get(SessionManager.KEY_TOKEN);
 
-        uploadbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent selfie = new Intent(SelfieContestNew.this, SelfieUploadActivity.class);
-                startActivity(selfie);
-            }
-        });
+
 
         selfiefeedrefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -121,6 +115,14 @@ public class SelfieContestNew extends AppCompatActivity implements SelfieAdapter
         gridview = findViewById(R.id.gridview);
         selfieLists = new ArrayList<SelfieList>();
         SelfieListFetch(token, eventid);
+
+        uploadbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent selfie = new Intent(SelfieContestNew.this, SelfieUploadActivity.class);
+                startActivity(selfie);
+            }
+        });
 
 
     }

@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -31,6 +30,7 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -43,6 +43,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -54,7 +55,6 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.procialize.eventsapp.ApiConstant.ApiConstant;
-import com.procialize.eventsapp.CustomTools.CircleDisplay;
 import com.procialize.eventsapp.CustomTools.ImagePath_MarshMallow;
 import com.procialize.eventsapp.CustomTools.PicassoTrustAll;
 import com.procialize.eventsapp.CustomTools.ScaledImageView;
@@ -114,7 +114,7 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
     File sourceFile, file;
     String profilepic, pathToStoredVideo, selectedImagePath;
     ImageView imgPlay;
-    CircleDisplay progressbar;
+    ProgressBar progressbar;
     EditText postEt;
     TextView postbtn;
     MyApplication appDelegate;
@@ -272,11 +272,10 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post);
+        setContentView(R.layout.activity_postedit);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -1316,23 +1315,19 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
     }
 
     public void showProgress() {
-        Resources res = getResources();
-        Drawable drawable = res.getDrawable(R.drawable.progrssdialogback);
-        postbtn.setEnabled(false);
-        postEt.setEnabled(false);
         progressbar.setVisibility(View.VISIBLE);
-        progressbar.setAnimDuration(4000);
-        progressbar.setValueWidthPercent(25f);
-        progressbar.setFormatDigits(1);
-        progressbar.setDimAlpha(80);
-        progressbar.setTouchEnabled(true);
-        progressbar.setUnit("%");
-        progressbar.setStepSize(0.5f);
-        progressbar.setTextSize(15);
-        progressbar.setColor(Color.parseColor(colorActive));
-        progressbar.showValue(90f, 100f, true);
+        progressbar.setIndeterminate(true);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+
+            Drawable wrapDrawable = DrawableCompat.wrap(progressbar.getIndeterminateDrawable());
+            DrawableCompat.setTint(wrapDrawable, Color.parseColor(colorActive));
+            progressbar.setIndeterminateDrawable(DrawableCompat.unwrap(wrapDrawable));
+        } else {
+            progressbar.getIndeterminateDrawable().setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_IN);
+        }
 
     }
+
 
     public void dismissProgress() {
         postbtn.setEnabled(true);
@@ -1991,7 +1986,6 @@ public class PostEditActivity extends AppCompatActivity implements OnClickListen
 
         }
     }
-
 
 }
 

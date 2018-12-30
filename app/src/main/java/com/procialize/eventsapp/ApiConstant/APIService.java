@@ -531,6 +531,16 @@ public interface APIService {
                             @Field("target_attendee_type") String target_attendee_type,
                             @Field("analytic_type") String analytic_type);
 
+
+    @POST("AnalyticsSubmit")
+    @FormUrlEncoded
+    Call<Analytic> Analytic(@Field("api_access_token") String api_access_token,
+                            @Field("event_id") String event_id,
+                            @Field("target_attendee_id") String target_attendee_id,
+                            @Field("target_attendee_type") String target_attendee_type,
+                            @Field("analytic_type") String analytic_type,
+                            @Field("video_details") String video_details);
+
     @POST("GenInfoWeather")
     @FormUrlEncoded
     Call<Weather> WeatherListFetch(@Field("api_access_token") String api_access_token,

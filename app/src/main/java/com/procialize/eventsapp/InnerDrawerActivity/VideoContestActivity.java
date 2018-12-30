@@ -30,6 +30,7 @@ import com.procialize.eventsapp.Adapter.VideoContestAdapter;
 import com.procialize.eventsapp.ApiConstant.APIService;
 import com.procialize.eventsapp.ApiConstant.ApiConstant;
 import com.procialize.eventsapp.ApiConstant.ApiUtils;
+import com.procialize.eventsapp.GetterSetter.Analytic;
 import com.procialize.eventsapp.GetterSetter.ReportVideoContest;
 import com.procialize.eventsapp.GetterSetter.ReportVideoContestHide;
 import com.procialize.eventsapp.GetterSetter.VideoContest;
@@ -80,7 +81,6 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -226,11 +226,38 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
     @Override
     public void onContactSelected(VideoContest videoContest) {
 
+        SubmitAnalytics(token, eventid, "", "", "videocontest", videoContest.getTitle());
+
         Intent intent = new Intent(VideoContestActivity.this, ExoVideoActivity.class);
         intent.putExtra("videoUrl", videoContest.getFileName());
         intent.putExtra("title", videoContest.getTitle());
         intent.putExtra("page", "contest");
         startActivity(intent);
+    }
+
+
+    public void SubmitAnalytics(String token, String eventid, String target_attendee_id, String target_attendee_type, String analytic_type, String id) {
+
+        mAPIService.Analytic(token, eventid, target_attendee_id, target_attendee_type, analytic_type, id).enqueue(new Callback<Analytic>() {
+            @Override
+            public void onResponse(Call<Analytic> call, Response<Analytic> response) {
+
+                if (response.isSuccessful()) {
+                    Log.i("hit", "Analytics Sumbitted" + response.body().toString());
+
+
+                } else {
+
+                    // Toast.makeText(GeneralInfoActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Analytic> call, Throwable t) {
+                // Toast.makeText(GeneralInfoActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
     @Override

@@ -69,10 +69,13 @@ public class SelfieAdapter extends RecyclerView.Adapter<SelfieAdapter.MyViewHold
         colorActive = prefs.getString("colorActive", "");
 
         holder.dataTv.setText(StringEscapeUtils.unescapeJava(galleryList.getTitle()));
+//        holder.dataTv.setTextColor(Color.parseColor(colorActive));
         holder.countTv.setText(galleryList.getTotalLikes());
+//        holder.countTv.setTextColor(Color.parseColor(colorActive));
+
         Glide.with(context).load(ApiConstant.selfieimage + galleryList.getFileName())
-                .apply(RequestOptions.skipMemoryCacheOf(true))
-                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE)).listener(new RequestListener<Drawable>() {
+                .apply(RequestOptions.skipMemoryCacheOf(false))
+                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).listener(new RequestListener<Drawable>() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                 holder.progressBar.setVisibility(View.GONE);

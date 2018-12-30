@@ -3,6 +3,7 @@ package com.procialize.eventsapp.CustomTools;
 import android.content.Context;
 import android.net.Uri;
 
+import com.squareup.okhttp.Cache;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
@@ -21,6 +22,7 @@ public class PicassoTrustAll {
 
     private PicassoTrustAll(Context context) {
         OkHttpClient client = new OkHttpClient();
+        client.setCache(new Cache(context.getCacheDir(), Integer.MAX_VALUE));
         client.setHostnameVerifier(new HostnameVerifier() {
             @Override
             public boolean verify(String s, SSLSession sslSession) {

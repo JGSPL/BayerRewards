@@ -1438,17 +1438,13 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
         Drawable drawable = res.getDrawable(R.drawable.progrssdialogback);
         postbtn.setEnabled(false);
         postEt.setEnabled(false);
-        progressbar.setVisibility(View.VISIBLE);
-        progressbar.setAnimDuration(4000);
-        progressbar.setValueWidthPercent(25f);
-        progressbar.setFormatDigits(1);
-        progressbar.setDimAlpha(80);
-        progressbar.setTouchEnabled(true);
-        progressbar.setUnit("%");
-        progressbar.setStepSize(0.5f);
-        progressbar.setTextSize(15);
-        progressbar.setColor(Color.parseColor(colorActive));
-        progressbar.showValue(90f, 100f, true);
+        progressbar.setProgress(0);
+        progressbar.setMaxValue(100);
+        progressbar.setProgressColor(Color.parseColor(colorActive));
+        progressbar.setText(String.valueOf(0));
+        progressbar.setTextColor(Color.parseColor(colorActive));
+        progressbar.setSuffix("%");
+        progressbar.setPrefix("");
 
     }
 

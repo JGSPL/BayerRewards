@@ -52,12 +52,12 @@
 
             <com.procialize.eventsapp.Fonts.RobotoTextview
                 android:id="@+id/postbtn"
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:text="Post"
+                android:layout_height="match_parent"
                 android:layout_gravity="right"
-                android:layout_marginRight="10dp"
                 android:textColor="@color/black"
-                android:layout_height="wrap_content"/>
+                android:gravity="center" />
 
         </android.support.v7.widget.Toolbar>
         <View
