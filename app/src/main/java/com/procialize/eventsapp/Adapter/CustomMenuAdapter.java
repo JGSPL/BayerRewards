@@ -165,6 +165,12 @@ public class CustomMenuAdapter extends RecyclerView.Adapter<CustomMenuAdapter.My
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_leaderboard")) {
             holder.nameTv.setText("LeaderBoard");
             holder.profileIv.setImageResource(R.drawable.leaderboard);
+        }else {
+            holder.nameTv.setVisibility(View.GONE);
+            holder.profileIv.setVisibility(View.GONE);
+            holder.mainLL.setVisibility(View.GONE);
+            holder.topll.setVisibility(View.GONE);
+            holder.relative.setVisibility(View.GONE);
         }
 
 
