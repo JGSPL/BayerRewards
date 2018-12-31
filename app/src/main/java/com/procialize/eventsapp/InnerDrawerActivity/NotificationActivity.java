@@ -361,7 +361,40 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
             } else if (notification.getNotificationType().equalsIgnoreCase("Like") && news_feed_like != null) {
                 if (!news_feed_like.equalsIgnoreCase("0")) {
                     Intent likedetail = new Intent(this, LikeDetailActivity.class);
-                    likedetail.putExtra("noificationid", notification.getNotificationPostId());
+                    likedetail.putExtra("feedid", notification.getNotificationPostId());
+                    likedetail.putExtra("type", notification.getNotificationType());
+
+                    likedetail.putExtra("noti_type", "Notification");
+                    try {
+                        float width = Float.parseFloat(newsfeedsDBList.get(0).getWidth());
+                        float height = Float.parseFloat(newsfeedsDBList.get(0).getHeight());
+
+                        float p1 = height / width;
+                        likedetail.putExtra("heading", newsfeedsDBList.get(0).getPostStatus());
+                        likedetail.putExtra("company", newsfeedsDBList.get(0).getCompanyName());
+                        likedetail.putExtra("fname", newsfeedsDBList.get(0).getFirstName());
+                        likedetail.putExtra("lname", newsfeedsDBList.get(0).getLastName());
+                        likedetail.putExtra("profilepic", newsfeedsDBList.get(0).getProfilePic());
+                        likedetail.putExtra("Likes", newsfeedsDBList.get(0).getTotalLikes());
+                        likedetail.putExtra("Comments", newsfeedsDBList.get(0).getTotalComments());
+                        likedetail.putExtra("designation", newsfeedsDBList.get(0).getDesignation());
+                        likedetail.putExtra("Likeflag", newsfeedsDBList.get(0).getLikeFlag());
+                        likedetail.putExtra("date", newsfeedsDBList.get(0).getPostDate());
+
+                        likedetail.putExtra("AspectRatio", p1);
+                        if (newsfeedsDBList.get(0).getType().equalsIgnoreCase("Image")) {
+                            likedetail.putExtra("url", ApiConstant.newsfeedwall + newsfeedsDBList.get(0).getMediaFile());
+                        } else if (newsfeedsDBList.get(0).getType().equalsIgnoreCase("Video")) {
+                            likedetail.putExtra("videourl", ApiConstant.newsfeedwall + newsfeedsDBList.get(0).getMediaFile());
+                            likedetail.putExtra("thumbImg", ApiConstant.newsfeedwall + newsfeedsDBList.get(0).getThumbImage());
+                        }
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
                     startActivity(likedetail);
                 }
             }
