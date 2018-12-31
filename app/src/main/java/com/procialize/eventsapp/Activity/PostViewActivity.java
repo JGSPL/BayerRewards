@@ -131,7 +131,6 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
             public void onClick(View v) {
 
                 appDelegate.setPostImagePath("");
-
                 onBackPressed();
             }
         });
@@ -245,6 +244,9 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
         postbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                displayRecordedVideo.pause();
+                displayRecordedVideo.setEnabled(false);
 
                 String data = postEt.getText().toString();
 //                if (data.equals("")) {

@@ -344,24 +344,24 @@ public class AgendaFragment extends Fragment implements AgendaAdapter.AgendaAdap
     public void onResume() {
         super.onResume();
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        if (cd.isConnectingToInternet()) {
-
-            fetchAgenda(token, eventid);
-        } else {
-            db = procializeDB.getReadableDatabase();
-
-            agendaDBList = dbHelper.getAgendaDetails();
-            // specify an adapter (see also next example)
-            AgendaAdapter agendaAdapter = new AgendaAdapter(getActivity(), agendaDBList, AgendaFragment.this);
-            agendaAdapter.notifyDataSetChanged();
-            agendarecycler.setAdapter(agendaAdapter);
-            agendarecycler.scheduleLayoutAnimation();
-            progressBar.setVisibility(View.GONE);
-
-            if (agendafeedrefresh.isRefreshing()) {
-                agendafeedrefresh.setRefreshing(false);
-            }
-        }
+//        if (cd.isConnectingToInternet()) {
+//
+//            fetchAgenda(token, eventid);
+//        } else {
+//            db = procializeDB.getReadableDatabase();
+//
+//            agendaDBList = dbHelper.getAgendaDetails();
+//            // specify an adapter (see also next example)
+//            AgendaAdapter agendaAdapter = new AgendaAdapter(getActivity(), agendaDBList, AgendaFragment.this);
+//            agendaAdapter.notifyDataSetChanged();
+//            agendarecycler.setAdapter(agendaAdapter);
+//            agendarecycler.scheduleLayoutAnimation();
+//            progressBar.setVisibility(View.GONE);
+//
+//            if (agendafeedrefresh.isRefreshing()) {
+//                agendafeedrefresh.setRefreshing(false);
+//            }
+//        }
     }
 
     @Override

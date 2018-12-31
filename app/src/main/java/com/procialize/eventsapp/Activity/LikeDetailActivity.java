@@ -2,6 +2,7 @@ package com.procialize.eventsapp.Activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -33,7 +34,6 @@ import com.procialize.eventsapp.R;
 import com.procialize.eventsapp.Session.SessionManager;
 import com.procialize.eventsapp.Utility.Util;
 
-
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.util.ArrayList;
@@ -64,7 +64,7 @@ public class LikeDetailActivity extends AppCompatActivity {
     MyJZVideoPlayerStandard videoplayer;
     String fname, lname, name, company, designation, heading, date, Likes, Likeflag, Comments, profileurl, noti_profileurl, feedurl, flag, type, feedid, apikey, thumbImg, videourl, noti_type;
     float p1 = 0;
-
+    String colorActive;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +87,11 @@ public class LikeDetailActivity extends AppCompatActivity {
             }
         });
 
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        eventid = prefs.getString("eventid", "1");
+        colorActive = prefs.getString("colorActive", "");
+
+
         headerlogoIv = findViewById(R.id.headerlogoIv);
         profileIV = findViewById(R.id.profileIV);
         feedimageIv = findViewById(R.id.feedimageIv);
@@ -97,6 +102,7 @@ public class LikeDetailActivity extends AppCompatActivity {
         feedprogress = findViewById(R.id.feedprogress);
         videoplayer = findViewById(R.id.videoplayer);
         nameTv = findViewById(R.id.nameTv);
+        nameTv.setTextColor(Color.parseColor(colorActive));
         companyTv = findViewById(R.id.companyTv);
         dateTv = findViewById(R.id.dateTv);
         designationTv = findViewById(R.id.designationTv);
@@ -267,8 +273,6 @@ public class LikeDetailActivity extends AppCompatActivity {
 
         mAPIService = ApiUtils.getAPIService();
 
-        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        eventid = prefs.getString("eventid", "1");
 
         SessionManager sessionManager = new SessionManager(LikeDetailActivity.this);
 

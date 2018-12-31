@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -66,6 +67,7 @@ public class FolderQuizActivity extends AppCompatActivity {
     private ArrayList<QuizFolder> quizFolders = new ArrayList<QuizFolder>();
     private QuizOptionParser quizOptionParser;
     private ArrayList<QuizOptionList> quizOptionList = new ArrayList<QuizOptionList>();
+    SwipeRefreshLayout quizrefresher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +83,7 @@ public class FolderQuizActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
+        quizrefresher = findViewById(R.id.quizrefresher);
         Util.logomethod(this, headerlogoIv);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -122,6 +125,21 @@ public class FolderQuizActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
 
         }
+
+
+        quizrefresher.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (cd.isConnectingToInternet()) {
+                    new getQuizList().execute();
+                } else {
+
+                    Toast.makeText(FolderQuizActivity.this, "No internet connection",
+                            Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
 
 
         quizNameList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -281,6 +299,9 @@ public class FolderQuizActivity extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
 
+            if (quizrefresher.isRefreshing()) {
+                quizrefresher.setRefreshing(false);
+            }
             // Dismiss the progress dialog
             if (pDialog != null) {
                 pDialog.dismiss();

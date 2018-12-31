@@ -174,15 +174,34 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ListView
-            android:id="@+id/pollRv"
+        <com.procialize.eventsapp.Fonts.RobotoTextview
+            android:id="@+id/pullrefresh"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:divider="@color/black"
-            android:dividerHeight="0px"
-            android:smoothScrollbar="true">
+            android:layout_marginTop="5dp"
+            android:alpha="0.8"
+            android:gravity="center"
+            android:text="Pull Down to Refresh"
+            android:textColor="@color/inactivetab"
+            android:textSize="10sp"
+            android:visibility="visible" />
 
-        </ListView>
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/pollrefresh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ListView
+                android:id="@+id/pollRv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@color/black"
+                android:dividerHeight="0px"
+                android:smoothScrollbar="true">
+
+            </ListView>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
 
         <com.procialize.eventsapp.Fonts.RobotoTextview
             android:id="@android:id/empty"

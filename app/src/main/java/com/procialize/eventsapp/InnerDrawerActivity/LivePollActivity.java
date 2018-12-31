@@ -22,6 +22,7 @@ import com.procialize.eventsapp.Activity.PollDetailActivity;
 import com.procialize.eventsapp.Adapter.PollNewAdapter;
 import com.procialize.eventsapp.ApiConstant.APIService;
 import com.procialize.eventsapp.ApiConstant.ApiUtils;
+import com.procialize.eventsapp.DbHelper.ConnectionDetector;
 import com.procialize.eventsapp.GetterSetter.LivePollFetch;
 import com.procialize.eventsapp.GetterSetter.LivePollList;
 import com.procialize.eventsapp.GetterSetter.LivePollOptionList;
@@ -50,6 +51,7 @@ public class LivePollActivity extends AppCompatActivity implements PollNewAdapte
     ImageView headerlogoIv;
     TextView emptyView;
     private APIService mAPIService;
+    private ConnectionDetector cd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,11 +80,14 @@ public class LivePollActivity extends AppCompatActivity implements PollNewAdapte
             }
         });
 
+        cd = new ConnectionDetector(getApplicationContext());
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
+
+
         Util.logomethod(this, headerlogoIv);
         pollRv = findViewById(R.id.pollRv);
-//        pollrefresh = findViewById(R.id.pollrefresh);
+        pollrefresh = findViewById(R.id.pollrefresh);
         progressBar = findViewById(R.id.progressBar);
 
         TextView header = findViewById(R.id.title);
@@ -113,15 +118,31 @@ public class LivePollActivity extends AppCompatActivity implements PollNewAdapte
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
         //  pollRv.setLayoutAnimation(animation);
 
+        if (cd.isConnectingToInternet()) {
+            fetchPoll(token, eventid);
+        } else {
 
-        fetchPoll(token, eventid);
+            Toast.makeText(LivePollActivity.this, "No internet connection",
+                    Toast.LENGTH_SHORT).show();
 
-//        pollrefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                fetchPoll(token, eventid);
-//            }
-//        });
+        }
+
+
+        pollrefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (cd.isConnectingToInternet()) {
+                    fetchPoll(token, eventid);
+                } else {
+                    if (pollrefresh.isRefreshing()) {
+                        pollrefresh.setRefreshing(false);
+                    }
+                    Toast.makeText(LivePollActivity.this, "No internet connection",
+                            Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
     }
 
     public void fetchPoll(String token, String eventid) {
@@ -133,15 +154,15 @@ public class LivePollActivity extends AppCompatActivity implements PollNewAdapte
                 if (response.isSuccessful()) {
                     Log.i("hit", "post submitted to API." + response.body().toString());
 
-//                    if (pollrefresh.isRefreshing()) {
-//                        pollrefresh.setRefreshing(false);
-//                    }
+                    if (pollrefresh.isRefreshing()) {
+                        pollrefresh.setRefreshing(false);
+                    }
                     dismissProgress();
                     showResponse(response);
                 } else {
-//                    if (pollrefresh.isRefreshing()) {
-//                        pollrefresh.setRefreshing(false);
-//                    }
+                    if (pollrefresh.isRefreshing()) {
+                        pollrefresh.setRefreshing(false);
+                    }
                     dismissProgress();
                     Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
                 }
@@ -152,9 +173,9 @@ public class LivePollActivity extends AppCompatActivity implements PollNewAdapte
                 Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
 
                 dismissProgress();
-//                if (pollrefresh.isRefreshing()) {
-//                    pollrefresh.setRefreshing(false);
-//                }
+                if (pollrefresh.isRefreshing()) {
+                    pollrefresh.setRefreshing(false);
+                }
             }
         });
     }

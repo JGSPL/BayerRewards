@@ -245,7 +245,6 @@ public class VideoContestActivity extends AppCompatActivity implements VideoCont
                 if (response.isSuccessful()) {
                     Log.i("hit", "Analytics Sumbitted" + response.body().toString());
 
-
                 } else {
 
                     // Toast.makeText(GeneralInfoActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();

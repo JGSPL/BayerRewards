@@ -40,10 +40,12 @@
     <com.procialize.eventsapp.Fonts.RobotoTextview
         android:id="@+id/nameTv"
         android:text=""
+        android:alpha="0.5"
+        android:padding="5dp"
         android:maxLines="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textColor="@color/black"
+        android:textColor="@color/colorwhite"
         android:textSize="@dimen/textsizesmaller" />
 </LinearLayout>
