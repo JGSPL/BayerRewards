@@ -486,12 +486,10 @@ public class SelfiePost extends Activity {
                 // Error occurred while creating the File
 
             }
-
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 Uri photoURI = FileProvider.getUriForFile(this,
-                        "com.procialize.eventsapp.android.fileprovider",
-                        photoFile);
+                        "com.procialize.eventsapp.android.fileprovider", photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
@@ -527,7 +525,7 @@ public class SelfiePost extends Activity {
             if (photoFile != null) {
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
                         Uri.fromFile(photoFile));
-                startActivityForResult(takePictureIntent, 100);
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
 
         }
@@ -1141,6 +1139,5 @@ public class SelfiePost extends Activity {
         }
 
     }
-
 
 }
