@@ -200,7 +200,6 @@
             android:layout_margin="10dp"
             android:adjustViewBounds="true"
             android:contentDescription="TODO"
-            android:scaleType="centerCrop"
             android:visibility="gone"
             />
         <ImageView
