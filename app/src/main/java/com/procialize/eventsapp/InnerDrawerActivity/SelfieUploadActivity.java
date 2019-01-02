@@ -31,14 +31,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.procialize.eventsapp.ApiConstant.APIService;
 import com.procialize.eventsapp.ApiConstant.ApiUtils;
+import com.procialize.eventsapp.CustomTools.CircleDisplay;
+import com.procialize.eventsapp.CustomTools.ProgressRequestBodyImage;
+import com.procialize.eventsapp.CustomTools.ProgressRequestBodyVideo;
 import com.procialize.eventsapp.GetterSetter.PostSelfie;
 import com.procialize.eventsapp.R;
 import com.procialize.eventsapp.Session.SessionManager;
@@ -65,19 +67,19 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class SelfieUploadActivity extends AppCompatActivity {
+public class SelfieUploadActivity extends AppCompatActivity implements ProgressRequestBodyImage.UploadCallbacks, ProgressRequestBodyVideo.UploadCallbacks {
 
     ImageView imgpreview;
     String userChoosenTask;
     Button btnSubmit;
     Uri capturedImageUri;
     File file = null;
-    LinearLayout llData;
+    RelativeLayout llData;
     SessionManager sessionManager;
     String apikey;
     TextInputEditText editTitle;
     APIService mAPIService;
-    ProgressBar progressBar;
+    CircleDisplay progressBar;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventId, colorActive;
     String mCurrentPhotoPath;
@@ -156,7 +158,7 @@ public class SelfieUploadActivity extends AppCompatActivity {
 
                 if (file != null) {
 
-                    RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
+                    ProgressRequestBodyImage reqFile = new ProgressRequestBodyImage(file, SelfieUploadActivity.this);
                     body = MultipartBody.Part.createFormData("selfie_image", file.getName(), reqFile);
                 }
 
@@ -634,6 +636,13 @@ public class SelfieUploadActivity extends AppCompatActivity {
     public void showProgress() {
         if (progressBar.getVisibility() == View.GONE) {
             progressBar.setVisibility(View.VISIBLE);
+            progressBar.setProgress(0);
+            progressBar.setMaxValue(100);
+            progressBar.setProgressColor(Color.parseColor(colorActive));
+            progressBar.setText(String.valueOf(0));
+            progressBar.setTextColor(Color.parseColor(colorActive));
+            progressBar.setSuffix("%");
+            progressBar.setPrefix("");
         }
     }
 
@@ -650,5 +659,23 @@ public class SelfieUploadActivity extends AppCompatActivity {
 
         JZVideoPlayer.releaseAllVideos();
 
+    }
+
+    @Override
+    public void onProgressUpdate(int percentage) {
+
+        progressBar.setProgress(percentage);
+        progressBar.setText(String.valueOf(percentage));
+    }
+
+    @Override
+    public void onError() {
+        dismissProgress();
+
+    }
+
+    @Override
+    public void onFinish() {
+        dismissProgress();
     }
 }

@@ -3,6 +3,7 @@ package com.procialize.eventsapp.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.procialize.eventsapp.ApiConstant.APIService;
 import com.procialize.eventsapp.ApiConstant.ApiUtils;
+import com.procialize.eventsapp.DbHelper.ConnectionDetector;
 import com.procialize.eventsapp.GetterSetter.Contact;
 import com.procialize.eventsapp.GetterSetter.ContactListFetch;
 import com.procialize.eventsapp.R;
@@ -36,7 +38,8 @@ public class WebViewActivity extends AppCompatActivity {
     List<Contact> contactList;
     WebView mywebview;
     private APIService mAPIService;
-
+    SwipeRefreshLayout webrefresher;
+    ConnectionDetector cd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +62,7 @@ public class WebViewActivity extends AppCompatActivity {
         });
 
 
+        cd = new ConnectionDetector(this);
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
 
@@ -77,24 +81,39 @@ public class WebViewActivity extends AppCompatActivity {
 
 
         mywebview = findViewById(R.id.webView);
+        webrefresher = findViewById(R.id.webrefresher);
         mywebview.setBackgroundColor(Color.TRANSPARENT);
 
         WebSettings settings = mywebview.getSettings();
         settings.setJavaScriptEnabled(true);
-        settings.setLoadWithOverviewMode(true);
-        settings.setUseWideViewPort(true);
+        settings.setUseWideViewPort(false);
         settings.setSupportZoom(true);
-        settings.setBuiltInZoomControls(false);
-        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        settings.setDomStorageEnabled(true);
-        settings.setDatabaseEnabled(true);
-        settings.setAppCacheEnabled(true);
+        settings.setBuiltInZoomControls(true);
+        settings.setDisplayZoomControls(false);
         settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 
         // mywebview.loadUrl("https://www.procialize.info/contact_us.html");
 
-        fetchContact(eventid, token);
+        if (cd.isConnectingToInternet()) {
+            fetchContact(eventid, token);
+        } else {
+            Toast.makeText(this, "Device not connected to internet", Toast.LENGTH_SHORT).show();
+        }
 
+        webrefresher.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                if (cd.isConnectingToInternet()) {
+                    fetchContact(eventid, token);
+                } else {
+                    if (webrefresher.isRefreshing()) {
+                        webrefresher.setRefreshing(false);
+                    }
+                    Toast.makeText(WebViewActivity.this, "Device not connected to internet", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
     }
 
@@ -108,11 +127,15 @@ public class WebViewActivity extends AppCompatActivity {
                     Log.i("hit", "post submitted to API." + response.body().toString());
 
                     dismissProgress();
-
+                    if (webrefresher.isRefreshing()) {
+                        webrefresher.setRefreshing(false);
+                    }
                     showResponse(response);
                 } else {
 
-
+                    if (webrefresher.isRefreshing()) {
+                        webrefresher.setRefreshing(false);
+                    }
                     dismissProgress();
                     Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
                 }
@@ -121,7 +144,9 @@ public class WebViewActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ContactListFetch> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
-
+                if (webrefresher.isRefreshing()) {
+                    webrefresher.setRefreshing(false);
+                }
                 dismissProgress();
 
             }

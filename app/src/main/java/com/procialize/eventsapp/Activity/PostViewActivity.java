@@ -15,6 +15,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.media.ExifInterface;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
@@ -105,7 +106,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
     private String selectedImagePath;
     private VideoView displayRecordedVideo;
     private String picturePath = "";
-
+    String angle = "0";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -327,15 +328,28 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
                         RequestBody type = RequestBody.create(MediaType.parse("text/plain"), typepost);
                         RequestBody token = RequestBody.create(MediaType.parse("text/plain"), apikey);
                         RequestBody eventid = RequestBody.create(MediaType.parse("text/plain"), eventId);
+
                         RequestBody status = RequestBody.create(MediaType.parse("text/plain"), StringEscapeUtils.escapeJava(data));
                         MultipartBody.Part body = null;
 
-
                         if (file != null) {
+
+                            MediaMetadataRetriever m = new MediaMetadataRetriever();
+
+                            m.setDataSource(file.getAbsolutePath());
+
+                            if (Build.VERSION.SDK_INT >= 17) {
+                                angle = m.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION);
+
+                                //  Log.e("Rotation", s);
+                            }
+
+                            RequestBody anglerq = RequestBody.create(MediaType.parse("text/plain"), angle);
+                            
                             showProgress();
                             ProgressRequestBodyVideo reqFile = new ProgressRequestBodyVideo(file, PostViewActivity.this);
                             body = MultipartBody.Part.createFormData("media_file", file.getName(), reqFile);
-                            postFeed(type, token, eventid, status, body);
+                            postFeedVideo(type, token, eventid, status, body, anglerq);
                         } else {
                             Toast.makeText(PostViewActivity.this, "Please Select any Video", Toast.LENGTH_SHORT).show();
 
@@ -421,6 +435,32 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
             }
         });
     }
+
+    public void postFeedVideo(RequestBody type, RequestBody api_access_token, RequestBody eventid, RequestBody status, MultipartBody.Part fbody, RequestBody angle) {
+        mAPIService.PostNewsFeed(type, api_access_token, eventid, status, angle, fbody).enqueue(new Callback<PostTextFeed>() {
+            @Override
+            public void onResponse(Call<PostTextFeed> call, Response<PostTextFeed> response) {
+                Log.i("hit", "post submitted to API." + response.body().toString());
+                if (response.isSuccessful()) {
+                    Log.i("hit", "post submitted to API." + response.body().toString());
+                    dismissProgress();
+                    showResponse(response);
+                } else {
+                    dismissProgress();
+                    Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PostTextFeed> call, Throwable t) {
+                Log.e("hit", "Unable to submit post to API.");
+                Log.e("hit", t.getMessage());
+                Toast.makeText(getApplicationContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                dismissProgress();
+            }
+        });
+    }
+
 
     public void showResponse(Response<PostTextFeed> response) {
 
@@ -852,6 +892,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
 
 
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+
             setpic2();
 
         } else if (resultCode == RESULT_OK && requestCode == SELECT_FILE && data.getData() != null) {
@@ -863,6 +904,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
 
             displayRecordedVideo.setVideoURI(uri);
             displayRecordedVideo.start();
+
 
             if (Build.VERSION.SDK_INT > 22)
                 pathToStoredVideo = ImagePath_MarshMallow.getPath(PostViewActivity.this, uri);
@@ -886,6 +928,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
             try {
                 if (uri != null) {
 
+
                     MediaPlayer mp = MediaPlayer.create(this, uri);
                     int duration = mp.getDuration();
                     mp.release();
@@ -896,6 +939,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
                         Intent intent = new Intent(PostViewActivity.this, HomeActivity.class);
                         startActivity(intent);
                         finish();
+
                     } else {
                         //Store the video to your server
 
@@ -935,6 +979,8 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
                 displayRecordedVideo.setVideoURI(selectedImageUri);
                 displayRecordedVideo.start();
                 uri = selectedImageUri;
+
+
                 try {
                     if (uri != null) {
 
@@ -1002,6 +1048,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
                         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_TAKE_GALLERY_VIDEO) {
                             Uri selectedImageUri = data.getData();
 
+
                             // OI FILE Manager
                             selectedImagePath = selectedImageUri.getPath();
 
@@ -1057,6 +1104,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
 
 //                        displayRecordedVideo.setVideoURI(uri);
 //                        displayRecordedVideo.start();
+
 
                             if (Build.VERSION.SDK_INT > 22)
                                 pathToStoredVideo = ImagePath_MarshMallow.getPath(PostViewActivity.this, uri);

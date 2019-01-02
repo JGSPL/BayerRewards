@@ -612,7 +612,8 @@ public class SelfiePost extends Activity {
             }
 
 
-        }/*if (requestCode == 1) {
+        }
+        /*if (requestCode == 1) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 startCamera();
 
