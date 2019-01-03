@@ -1,9 +1,12 @@
 package com.procialize.eventsapp.Activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -51,7 +54,27 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+//                onBackPressed();
+                AlertDialog.Builder builder = new AlertDialog.Builder(ForgotPasswordActivity.this);
+                builder.setTitle("Exit");
+                builder.setMessage("Are you sure you want to exit?");
+                builder.setNegativeButton("NO",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                builder.setPositiveButton("YES",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+
+                                ActivityCompat.finishAffinity(ForgotPasswordActivity.this);
+
+                            }
+                        });
+                builder.show();
             }
         });
         mAPIService = ApiUtils.getAPIService();
@@ -102,4 +125,31 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(ForgotPasswordActivity.this);
+        builder.setTitle("Exit");
+        builder.setMessage("Are you sure you want to exit?");
+        builder.setNegativeButton("NO",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        dialog.dismiss();
+                    }
+                });
+        builder.setPositiveButton("YES",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+
+                        ActivityCompat.finishAffinity(ForgotPasswordActivity.this);
+
+                    }
+                });
+        builder.show();
+    }
+
 }
