@@ -189,6 +189,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         initializeView();
     }
 
+
     private void initializeView() {
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);

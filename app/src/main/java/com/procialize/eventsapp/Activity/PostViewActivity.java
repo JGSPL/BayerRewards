@@ -106,7 +106,6 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
     private String selectedImagePath;
     private VideoView displayRecordedVideo;
     private String picturePath = "";
-    String angle = "0";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -277,7 +276,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
                                 postFeed(type, token, eventid, status, body);
                             } else if (typepost.equals("video")) {
                                 ProgressRequestBodyVideo reqFile = new ProgressRequestBodyVideo(file, PostViewActivity.this);
-                                body = MultipartBody.Part.createFormData("media_file", file.getName(), reqFile);
+                                body = MultipartBody.Part.createFormData("media_file_thumb", file.getName(), reqFile);
                                 postFeed(type, token, eventid, status, body);
                             }
                         }/* else {
@@ -331,6 +330,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
 
                         RequestBody status = RequestBody.create(MediaType.parse("text/plain"), StringEscapeUtils.escapeJava(data));
                         MultipartBody.Part body = null;
+                        MultipartBody.Part body1 = null;
 
                         if (file != null) {
 
@@ -338,18 +338,33 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
 
                             m.setDataSource(file.getAbsolutePath());
 
-                            if (Build.VERSION.SDK_INT >= 17) {
-                                angle = m.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION);
+                            Bitmap bit = m.getFrameAtTime();
+                            String filename = String.valueOf(System.currentTimeMillis()) + ".png";
+                            File sd = Environment.getExternalStorageDirectory();
+                            File dest = new File(sd, filename);
 
-                                //  Log.e("Rotation", s);
+
+                            try {
+                                FileOutputStream out = new FileOutputStream(dest);
+                                bit.compress(Bitmap.CompressFormat.PNG, 90, out);
+                                out.flush();
+                                out.close();
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
 
-                            RequestBody anglerq = RequestBody.create(MediaType.parse("text/plain"), angle);
-                            
+                            File file1 = new File(dest.getAbsolutePath());
+
                             showProgress();
+
                             ProgressRequestBodyVideo reqFile = new ProgressRequestBodyVideo(file, PostViewActivity.this);
                             body = MultipartBody.Part.createFormData("media_file", file.getName(), reqFile);
-                            postFeedVideo(type, token, eventid, status, body, anglerq);
+
+                            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file1);
+                            body1 = MultipartBody.Part.createFormData("media_file_thumb", file1.getName(), requestFile);
+
+
+                            postFeedVideo(type, token, eventid, status, body, body1);
                         } else {
                             Toast.makeText(PostViewActivity.this, "Please Select any Video", Toast.LENGTH_SHORT).show();
 
@@ -436,8 +451,8 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
         });
     }
 
-    public void postFeedVideo(RequestBody type, RequestBody api_access_token, RequestBody eventid, RequestBody status, MultipartBody.Part fbody, RequestBody angle) {
-        mAPIService.PostNewsFeed(type, api_access_token, eventid, status, angle, fbody).enqueue(new Callback<PostTextFeed>() {
+    public void postFeedVideo(RequestBody type, RequestBody api_access_token, RequestBody eventid, RequestBody status, MultipartBody.Part fbody, MultipartBody.Part thumb) {
+        mAPIService.PostNewsFeed(type, api_access_token, eventid, status, fbody, thumb).enqueue(new Callback<PostTextFeed>() {
             @Override
             public void onResponse(Call<PostTextFeed> call, Response<PostTextFeed> response) {
                 Log.i("hit", "post submitted to API." + response.body().toString());
@@ -1327,9 +1342,5 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
             }
         }
     }
-
-
-    // on activity result to get file from intent data
-
 
 }

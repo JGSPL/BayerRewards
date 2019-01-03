@@ -47,10 +47,6 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
         this.context = context;
         this.listener = listener;
 //        this.tempagendaList = tempagendaList;
-
-        SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        colorActive = prefs.getString("colorActive", "");
-
     }
 
     @Override
@@ -80,7 +76,11 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
 //        holder.nameTv.setText(agenda.getSessionName());
 //        holder.descriptionTv.setText(agenda.getSessionDescription());
 
+        SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        colorActive = prefs.getString("colorActive", "");
+
         holder.tvheading.setBackgroundColor(Color.parseColor(colorActive));
+
 
         if (!(tempagendaList.isEmpty())) {
             tempagendaList.clear();

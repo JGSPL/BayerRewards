@@ -11,7 +11,6 @@ import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -74,7 +73,6 @@ public class VideoContestUploadActivity extends AppCompatActivity implements Pro
     String userChoosenTask;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventId, colorActive;
-    String angle = "0";
     ImageView headerlogoIv;
     VideoView video_view;
     String videoUrl;
@@ -174,17 +172,6 @@ public class VideoContestUploadActivity extends AppCompatActivity implements Pro
                     int duration = mp.getDuration();
                     mp.release();
 
-                    MediaMetadataRetriever m = new MediaMetadataRetriever();
-
-                    m.setDataSource(uri.getPath());
-                    Bitmap thumbnail = m.getFrameAtTime();
-
-                    if (Build.VERSION.SDK_INT >= 17) {
-                        angle = m.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION);
-
-                        //  Log.e("Rotation", s);
-                    }
-
                     if ((duration / 1000) > 15) {
                         // Show Your Messages
                         Toast.makeText(VideoContestUploadActivity.this, "Please select video length less than 15 sec", Toast.LENGTH_SHORT).show();
@@ -223,15 +210,6 @@ public class VideoContestUploadActivity extends AppCompatActivity implements Pro
 
                     String fileExtnesion = videoUrl.substring(videoUrl.lastIndexOf("."));
 
-                    MediaMetadataRetriever m = new MediaMetadataRetriever();
-
-                    m.setDataSource(videoFile.getAbsolutePath());
-
-                    if (Build.VERSION.SDK_INT >= 17) {
-                        angle = m.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION);
-
-                        //  Log.e("Rotation", s);
-                    }
                     if (supportedMedia.contains(fileExtnesion)) {
 
 
@@ -335,8 +313,8 @@ public class VideoContestUploadActivity extends AppCompatActivity implements Pro
     }
 
 
-    public void PostVideoContest(RequestBody api_access_token, RequestBody eventid, RequestBody status, MultipartBody.Part fbody, RequestBody angle) {
-        mAPIService.PostVideoContest(api_access_token, eventid, status, angle, fbody).enqueue(new Callback<PostVideoSelfie>() {
+    public void PostVideoContest(RequestBody api_access_token, RequestBody eventid, RequestBody status, MultipartBody.Part fbody, MultipartBody.Part thumb) {
+        mAPIService.PostVideoContest(api_access_token, eventid, status, thumb, fbody).enqueue(new Callback<PostVideoSelfie>() {
             @Override
             public void onResponse(Call<PostVideoSelfie> call, Response<PostVideoSelfie> response) {
 
@@ -346,6 +324,7 @@ public class VideoContestUploadActivity extends AppCompatActivity implements Pro
                     showResponse(response);
                 } else {
                     dismissProgress();
+                    editTitle.setEnabled(true);
                     Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -354,6 +333,7 @@ public class VideoContestUploadActivity extends AppCompatActivity implements Pro
             public void onFailure(Call<PostVideoSelfie> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
                 Log.e("hit", t.getMessage());
+                editTitle.setEnabled(true);
                 Toast.makeText(getApplicationContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
                 dismissProgress();
             }
@@ -470,30 +450,45 @@ public class VideoContestUploadActivity extends AppCompatActivity implements Pro
             @Override
             public void onClick(View v) {
                 String data = editTitle.getText().toString();
-//                if (data.equals("")) {
-//                    Toast.makeText(VideoContestUploadActivity.this, "Enter Caption", Toast.LENGTH_SHORT).show();
-//
-//                } else {
-                    showProgress();
+                editTitle.setEnabled(false);
+                showProgress();
+
+                MediaMetadataRetriever m = new MediaMetadataRetriever();
+                m.setDataSource(file.getAbsolutePath());
+                Bitmap bit = m.getFrameAtTime();
+
 
                 video_view.pause();
 
                     RequestBody token = RequestBody.create(MediaType.parse("text/plain"), apikey);
                     RequestBody eventid = RequestBody.create(MediaType.parse("text/plain"), eventId);
-                RequestBody anglerq = RequestBody.create(MediaType.parse("text/plain"), angle);
+
                     RequestBody status = RequestBody.create(MediaType.parse("text/plain"), StringEscapeUtils.escapeJava(data));
                     MultipartBody.Part body = null;
+                MultipartBody.Part body1 = null;
 
-                    if (file != null) {
+                String filename = String.valueOf(System.currentTimeMillis()) + ".png";
+                File sd = Environment.getExternalStorageDirectory();
+                File dest = new File(sd, filename);
 
-                        ProgressRequestBodyVideo reqFile = new ProgressRequestBodyVideo(file, VideoContestUploadActivity.this);
-                        body = MultipartBody.Part.createFormData("video_file", file.getName(), reqFile);
-//                        RequestBody reqFile = RequestBody.create(MediaType.parse("video/*"), file);
-//
-//                        body = MultipartBody.Part.createFormData("video_file", file.getName(), reqFile);
-                    }
+                try {
+                    FileOutputStream out = new FileOutputStream(dest);
+                    bit.compress(Bitmap.CompressFormat.PNG, 90, out);
+                    out.flush();
+                    out.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-                PostVideoContest(token, eventid, status, body, anglerq);
+                File file1 = new File(dest.getAbsolutePath());
+
+                ProgressRequestBodyVideo reqFile = new ProgressRequestBodyVideo(file, VideoContestUploadActivity.this);
+                body = MultipartBody.Part.createFormData("video_file", file.getName(), reqFile);
+
+                RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file1);
+                body1 = MultipartBody.Part.createFormData("thumb_name", file1.getName(), requestFile);
+
+                PostVideoContest(token, eventid, status, body, body1);
 //                }
             }
         });

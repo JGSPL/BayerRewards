@@ -2,6 +2,7 @@ package com.procialize.eventsapp.Activity;
 
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -90,6 +91,9 @@ public class WebViewActivity extends AppCompatActivity {
         settings.setSupportZoom(true);
         settings.setBuiltInZoomControls(true);
         settings.setDisplayZoomControls(false);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
         settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 
         // mywebview.loadUrl("https://www.procialize.info/contact_us.html");
@@ -160,9 +164,15 @@ public class WebViewActivity extends AppCompatActivity {
             if (!(response.body().getContactList().isEmpty())) {
                 contactList = response.body().getContactList();
                 String contactstr = contactList.get(0).getContent();
-                mywebview.loadData(contactstr, "text/html", "UTF-8");
+                String cssEditor = response.body().getCssEditor();
 
-            }/* else {
+
+                mywebview.clearCache(true);
+                mywebview.loadData(cssEditor + contactstr, "text/html", "UTF-8");
+
+
+            }
+            /* else {
 
                 setContentView(R.layout.activity_empty_view);
                 ImageView imageView = findViewById(R.id.back);
@@ -177,6 +187,7 @@ public class WebViewActivity extends AppCompatActivity {
 
 
             }*/
+
         } else {
             Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
         }

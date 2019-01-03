@@ -13,6 +13,8 @@ import cn.jzvd.JZVideoPlayerStandard;
  * Created by Nathen on 2017/7/2.
  */
 public class MyJZVideoPlayerStandard extends JZVideoPlayerStandard {
+
+
     public MyJZVideoPlayerStandard(Context context) {
         super(context);
     }

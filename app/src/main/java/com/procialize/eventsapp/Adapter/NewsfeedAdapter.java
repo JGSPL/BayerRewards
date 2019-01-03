@@ -158,8 +158,6 @@ public class NewsfeedAdapter extends BaseAdapter {
             holder.profilestatus = convertView.findViewById(R.id.profilestatus);
 
             if (profilepic != null) {
-
-
 //                Glide.with(context).load(ApiConstant.profilepic + profilepic).listener(new RequestListener<Drawable>() {
 //                    @Override
 //                    public boolean onLoadFailed(@Nullable GlideException e, Object model, com.bumptech.glide.request.target.Target<Drawable> target, boolean isFirstResource) {
@@ -524,6 +522,7 @@ public class NewsfeedAdapter extends BaseAdapter {
 
             holder.VideoView.setUp(ApiConstant.newsfeedwall + feed.getMediaFile()
                     , JZVideoPlayerStandard.SCREEN_WINDOW_LIST, "");
+
 
             Glide.with(holder.VideoView.getContext()).load(ApiConstant.newsfeedwall + feed.getThumbImage()).into(holder.VideoView.thumbImageView);
 

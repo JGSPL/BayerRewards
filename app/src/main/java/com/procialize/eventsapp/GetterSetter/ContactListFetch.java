@@ -10,6 +10,10 @@ import java.util.List;
  */
 
 public class ContactListFetch {
+
+    @SerializedName("css_editor")
+    @Expose
+    private String cssEditor;
     @SerializedName("contact_list")
     @Expose
     private List<Contact> contactList = null;
@@ -19,6 +23,15 @@ public class ContactListFetch {
     @SerializedName("msg")
     @Expose
     private String msg;
+
+
+    public String getCssEditor() {
+        return cssEditor;
+    }
+
+    public void setCssEditor(String cssEditor) {
+        this.cssEditor = cssEditor;
+    }
 
     public List<Contact> getContactList() {
         return contactList;

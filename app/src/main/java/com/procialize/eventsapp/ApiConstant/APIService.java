@@ -139,8 +139,9 @@ public interface APIService {
                                     @Part("api_access_token") RequestBody api_access_token,
                                     @Part("event_id") RequestBody event_id,
                                     @Part("status") RequestBody status,
-                                    @Part("angle") RequestBody angle,
-                                    @Part MultipartBody.Part filename);
+                                    @Part MultipartBody.Part filename,
+                                    @Part MultipartBody.Part thumbimage);
+
 
 
     @POST("EditNewsFeed")
@@ -437,7 +438,7 @@ public interface APIService {
     Call<PostVideoSelfie> PostVideoContest(@Part("api_access_token") RequestBody api_access_token,
                                            @Part("event_id") RequestBody event_id,
                                            @Part("title") RequestBody title,
-                                           @Part("angle") RequestBody angle,
+                                           @Part MultipartBody.Part thumb,
                                            @Part MultipartBody.Part filename);
 
 
