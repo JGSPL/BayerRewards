@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
@@ -53,6 +54,7 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
     private APIService mAPIService;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid, colorActive;
+    TextView txt_heading;
 
     @Override
     public void onCreate(Bundle state) {
@@ -86,6 +88,7 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
         edit_city_edit = findViewById(R.id.edit_city_edit);
         edit_mobile_edit = findViewById(R.id.edit_mobile_edit);
         edit_email_edit = findViewById(R.id.edit_email_edit);
+        txt_heading = findViewById(R.id.txt_heading);
 
         save_btn_qr = findViewById(R.id.save_btn_qr);
 
@@ -119,6 +122,7 @@ public class QRScanActivity extends AppCompatActivity implements QRCodeReaderVie
         colorActive = prefs.getString("colorActive", "");
         int colorInt = Color.parseColor(colorActive);
         save_btn_qr.setBackgroundColor(colorInt);
+        txt_heading.setTextColor(colorInt);
         save_btn_qr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

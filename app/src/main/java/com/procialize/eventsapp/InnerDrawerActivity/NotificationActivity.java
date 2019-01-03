@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -94,7 +95,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
                 onBackPressed();
             }
         });
-
+        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
         Util.logomethod(this, headerlogoIv);

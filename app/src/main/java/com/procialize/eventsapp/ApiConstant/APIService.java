@@ -54,6 +54,7 @@ import com.procialize.eventsapp.GetterSetter.ReportUser;
 import com.procialize.eventsapp.GetterSetter.ReportUserHide;
 import com.procialize.eventsapp.GetterSetter.ReportVideoContest;
 import com.procialize.eventsapp.GetterSetter.ReportVideoContestHide;
+import com.procialize.eventsapp.GetterSetter.ResetPassword;
 import com.procialize.eventsapp.GetterSetter.SelfieLike;
 import com.procialize.eventsapp.GetterSetter.SelfieListFetch;
 import com.procialize.eventsapp.GetterSetter.SendMessagePost;
@@ -95,6 +96,11 @@ public interface APIService {
     @POST("ForgetPassword")
     @FormUrlEncoded
     Call<Forgot> ForgotPassword(@Field("email") String email);
+
+    @POST("ResetPassword")
+    @FormUrlEncoded
+    Call<ResetPassword> ResetPassword(@Field("temp_password") String email,
+                                      @Field("new_password") String new_password);
 
 
     @POST("CommentFetch")

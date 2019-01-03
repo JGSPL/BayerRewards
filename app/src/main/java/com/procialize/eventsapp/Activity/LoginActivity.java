@@ -386,4 +386,10 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

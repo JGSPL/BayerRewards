@@ -120,10 +120,10 @@ public class CustomMenuAdapter extends RecyclerView.Adapter<CustomMenuAdapter.My
             holder.nameTv.setText("Feedback");
             holder.profileIv.setImageResource(R.drawable.ic_feedback);
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_gallery_video")) {
-            holder.nameTv.setText("Video");
+            holder.nameTv.setText("Video Gallery");
             holder.profileIv.setImageResource(R.drawable.gallery_videos);
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_image_gallery")) {
-            holder.nameTv.setText("Gallery");
+            holder.nameTv.setText("Image Gallery");
             holder.profileIv.setImageResource(R.drawable.gallery_icon);
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_document")) {
             holder.nameTv.setText("Documents");
@@ -165,7 +165,7 @@ public class CustomMenuAdapter extends RecyclerView.Adapter<CustomMenuAdapter.My
         } else if (menuSettingList.getFieldName().equalsIgnoreCase("side_menu_leaderboard")) {
             holder.nameTv.setText("LeaderBoard");
             holder.profileIv.setImageResource(R.drawable.leaderboard);
-        }else {
+        } else {
             holder.nameTv.setVisibility(View.GONE);
             holder.profileIv.setVisibility(View.GONE);
             holder.mainLL.setVisibility(View.GONE);

@@ -1,6 +1,7 @@
 package com.procialize.eventsapp.InnerDrawerActivity;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -16,8 +17,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -105,7 +108,8 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
 
         qaRv = findViewById(R.id.qaRv);
         postbtn = findViewById(R.id.postbtn);
-        postbtn.setBackgroundColor(Color.parseColor(colorActive));
+        int colorInt = Color.parseColor(colorActive);
+        postbtn.setBackgroundColor(colorInt);
         qaRvrefresh = findViewById(R.id.qaRvrefresh);
         spinner = findViewById(R.id.spinner);
         progressBar = findViewById(R.id.progressBar);
@@ -405,6 +409,9 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
             public void onResponse(Call<QASpeakerFetch> call, Response<QASpeakerFetch> response) {
 
                 if (response.isSuccessful()) {
+                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+//                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+//                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
                     Log.i("hit", "post submitted to API." + response.body().toString());
                     Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
 
@@ -416,7 +423,7 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
                     QAFetch(token, eventid);
 
                 } else {
-
+                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                     Toast.makeText(QASpeakerActivity.this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }

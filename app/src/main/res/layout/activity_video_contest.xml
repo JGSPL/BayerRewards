@@ -13,8 +13,8 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="0dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="0dp">
 
 
         <android.support.v7.widget.Toolbar
@@ -43,10 +43,11 @@
                 android:src="@drawable/header_logo" />
 
         </android.support.v7.widget.Toolbar>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/linecolor"/>
+            android:background="@color/linecolor" />
 
 
     </android.support.design.widget.AppBarLayout>
@@ -57,37 +58,27 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <com.procialize.eventsapp.Fonts.RobotoTextview
-            android:id="@+id/pullrefresh"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:alpha="0.8"
-            android:gravity="center"
-            android:text="Pull Down to Refresh"
-            android:textColor="@color/inactivetab"
-            android:textSize="10sp"
-            android:visibility="visible" />
-
 
         <com.procialize.eventsapp.Fonts.RobotoTextview
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center"
             android:layout_margin="5dp"
+            android:gravity="center"
             android:text=""
-            android:id="@+id/title"
             android:textColor="@color/activetab"
             android:textSize="@dimen/textsizesmall" />
+
+
 
         <com.procialize.eventsapp.Fonts.RobotoTextview
             android:id="@+id/seldescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center"
             android:layout_margin="2dp"
+            android:gravity="center"
             android:text=""
             android:textColor="@color/black"
             android:textSize="@dimen/textsizesmall" />
@@ -104,8 +95,18 @@
             android:text="@string/upload"
             android:textAllCaps="false"
             android:textColor="@color/colorwhite"
-            android:textSize="@dimen/textsizesmall"/>
-
+            android:textSize="@dimen/textsizesmall" />
+        <com.procialize.eventsapp.Fonts.RobotoTextview
+            android:id="@+id/pullrefresh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:alpha="0.8"
+            android:gravity="center"
+            android:text="Pull Down to Refresh"
+            android:textColor="@color/inactivetab"
+            android:textSize="10sp"
+            android:visibility="visible" />
 
         <ProgressBar
             android:id="@+id/progressBar"

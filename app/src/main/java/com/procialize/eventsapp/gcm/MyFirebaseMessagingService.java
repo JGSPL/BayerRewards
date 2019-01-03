@@ -74,16 +74,22 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(notificationId *//* ID of notification *//*, notificationBuilder.build());*/
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, ADMIN_CHANNEL_ID)
-                .setSmallIcon(R.drawable.app_icon)
-                .setSmallIcon(getNotificationIcon())
-                .setContentTitle("Procialize Events App")
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, ADMIN_CHANNEL_ID);
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            //transperent icon
+            notificationBuilder.setSmallIcon(R.drawable.procialize_icon);
+            notificationBuilder.setColor(getResources().getColor(R.color.activetab));
+        } else {
+            notificationBuilder.setSmallIcon(R.drawable.app_icon);
+        }
+//        notificationBuilder.setSmallIcon(getNotificationIcon());
+        notificationBuilder.setContentTitle("Procialize Events App");
                 // .setColor(Color.parseColor("#ffff00"))
-                .setColorized(true)
+        notificationBuilder.setColorized(true);
                 //.setContentTitle(remoteMessage.getData().get("Fames bond"))
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(getEmojiFromString(remoteMessage.getData().get("message"))))
-                .setSound(alarmSound)
-                .setContentText(getEmojiFromString(remoteMessage.getData().get("message")));
+        notificationBuilder .setStyle(new NotificationCompat.BigTextStyle().bigText(getEmojiFromString(remoteMessage.getData().get("message"))));
+        notificationBuilder.setSound(alarmSound);
+        notificationBuilder.setContentText(getEmojiFromString(remoteMessage.getData().get("message")));
 
         notificationManager.notify(notificationId /* ID of notification */, notificationBuilder.build());
 
@@ -171,15 +177,20 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setColorized(true)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(getEmojiFromString(msg)))
                 .setContentText(getEmojiFromString(msg)).setSound(alarmSound);*/
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, ADMIN_CHANNEL_ID)
-                .setSmallIcon(R.drawable.app_icon)
-                .setSmallIcon(getNotificationIcon())
-                .setContentTitle("Procialize Events App")
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, ADMIN_CHANNEL_ID);
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            //transperent icon
+            mBuilder.setSmallIcon(R.drawable.procialize_icon);
+            mBuilder.setColor(getResources().getColor(R.color.activetab));
+        } else {
+            mBuilder.setSmallIcon(R.drawable.app_icon);
+        }
+        mBuilder.setContentTitle("Procialize Events App");
                 // .setColor(Color.parseColor("#ffff00"))
-                .setColorized(true)
+        mBuilder.setColorized(true);
                 //.setContentTitle(remoteMessage.getData().get("Fames bond"))
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(getEmojiFromString(msg)))
-                .setContentText(getEmojiFromString(msg));
+        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(getEmojiFromString(msg)));
+        mBuilder.setContentText(getEmojiFromString(msg));
 
         mBuilder.setContentIntent(contentIntent);
         mBuilder.setAutoCancel(true);
@@ -252,9 +263,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             mBuilder = new NotificationCompat.Builder(
                     this)
 
-                    .setSmallIcon(R.drawable.app_icon)
+                    .setSmallIcon(R.drawable.procialize_icon)
                     .setContentTitle("Procialize Events App")
-                    .setColor(getResources().getColor(R.color.colorPrimary))
+                    .setColor(getResources().getColor(R.color.activetab))
 
                     .setStyle(
                             new NotificationCompat.BigTextStyle().bigText(finalMsg))
