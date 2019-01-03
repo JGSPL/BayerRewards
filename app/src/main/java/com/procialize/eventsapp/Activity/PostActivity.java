@@ -50,6 +50,8 @@ import com.procialize.eventsapp.ApiConstant.ApiConstant;
 import com.procialize.eventsapp.CustomTools.CircleDisplay;
 import com.procialize.eventsapp.CustomTools.ImagePath_MarshMallow;
 import com.procialize.eventsapp.CustomTools.PicassoTrustAll;
+import com.procialize.eventsapp.CustomTools.ProgressRequestBodyImage;
+import com.procialize.eventsapp.CustomTools.ProgressRequestBodyVideo;
 import com.procialize.eventsapp.DbHelper.ConnectionDetector;
 import com.procialize.eventsapp.R;
 import com.procialize.eventsapp.Session.SessionManager;
@@ -100,7 +102,7 @@ import static org.apache.http.HttpVersion.HTTP_1_1;
 
 //import android.support.text.emoji.widget.EmojiAppCompatEditText;
 
-public class PostActivity extends AppCompatActivity implements OnClickListener {
+public class PostActivity extends AppCompatActivity implements OnClickListener, ProgressRequestBodyImage.UploadCallbacks, ProgressRequestBodyVideo.UploadCallbacks {
     private static final int REQUEST_VIDEO_CAPTURE = 300;
     private static final String SERVER_PATH = "";
     EditText postEt;
@@ -1439,6 +1441,7 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
         Drawable drawable = res.getDrawable(R.drawable.progrssdialogback);
         postbtn.setEnabled(false);
         postEt.setEnabled(false);
+        progressbar.setVisibility(View.VISIBLE);
         progressbar.setProgress(0);
         progressbar.setMaxValue(100);
         progressbar.setProgressColor(Color.parseColor(colorActive));
@@ -1457,6 +1460,25 @@ public class PostActivity extends AppCompatActivity implements OnClickListener {
         }
 
     }
+
+    @Override
+    public void onProgressUpdate(int percentage) {
+        Log.e("per", String.valueOf(percentage));
+//        progressbar.showValue(99f, 100f, true);
+        progressbar.setProgress(percentage);
+        progressbar.setText(String.valueOf(percentage));
+    }
+
+    @Override
+    public void onError() {
+        dismissProgress();
+    }
+
+    @Override
+    public void onFinish() {
+
+    }
+
 
     public class SubmitPostTask extends AsyncTask<String, String, JSONObject> {
 
