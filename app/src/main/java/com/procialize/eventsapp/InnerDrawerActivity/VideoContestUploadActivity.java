@@ -7,8 +7,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.media.ThumbnailUtils;
@@ -18,7 +16,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.TextInputEditText;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -27,12 +24,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.procialize.eventsapp.ApiConstant.APIService;
 import com.procialize.eventsapp.ApiConstant.ApiUtils;
+import com.procialize.eventsapp.CustomTools.CircleDisplay;
+import com.procialize.eventsapp.CustomTools.ProgressRequestBodyImage;
+import com.procialize.eventsapp.CustomTools.ProgressRequestBodyVideo;
 import com.procialize.eventsapp.GetterSetter.PostVideoSelfie;
 import com.procialize.eventsapp.R;
 import com.procialize.eventsapp.Session.SessionManager;
@@ -54,9 +55,8 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import tcking.github.com.giraffeplayer2.VideoView;
 
-public class VideoContestUploadActivity extends AppCompatActivity {
+public class VideoContestUploadActivity extends AppCompatActivity implements ProgressRequestBodyImage.UploadCallbacks, ProgressRequestBodyVideo.UploadCallbacks {
 
     private static final String SERVER_PATH = "";
     private static final int REQUEST_VIDEO_CAPTURE = 300;
@@ -70,7 +70,7 @@ public class VideoContestUploadActivity extends AppCompatActivity {
     String apikey;
     TextInputEditText editTitle;
     APIService mAPIService;
-    ProgressBar progressbar;
+    CircleDisplay progressbar;
     String userChoosenTask;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventId, colorActive;
@@ -114,8 +114,7 @@ public class VideoContestUploadActivity extends AppCompatActivity {
     }
 
     private void selectVideo() {
-        final CharSequence[] items = {"Take Video", "Choose from Library",
-                "Cancel"};
+        final CharSequence[] items = {"Take Video", "Choose from Library", "Cancel"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Add Video!");
@@ -175,6 +174,17 @@ public class VideoContestUploadActivity extends AppCompatActivity {
                     int duration = mp.getDuration();
                     mp.release();
 
+                    MediaMetadataRetriever m = new MediaMetadataRetriever();
+
+                    m.setDataSource(uri.getPath());
+                    Bitmap thumbnail = m.getFrameAtTime();
+
+                    if (Build.VERSION.SDK_INT >= 17) {
+                        angle = m.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION);
+
+                        //  Log.e("Rotation", s);
+                    }
+
                     if ((duration / 1000) > 15) {
                         // Show Your Messages
                         Toast.makeText(VideoContestUploadActivity.this, "Please select video length less than 15 sec", Toast.LENGTH_SHORT).show();
@@ -216,7 +226,6 @@ public class VideoContestUploadActivity extends AppCompatActivity {
                     MediaMetadataRetriever m = new MediaMetadataRetriever();
 
                     m.setDataSource(videoFile.getAbsolutePath());
-                    Bitmap thumbnail = m.getFrameAtTime();
 
                     if (Build.VERSION.SDK_INT >= 17) {
                         angle = m.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION);
@@ -326,8 +335,8 @@ public class VideoContestUploadActivity extends AppCompatActivity {
     }
 
 
-    public void PostVideoContest(RequestBody api_access_token, RequestBody eventid, RequestBody status, MultipartBody.Part fbody) {
-        mAPIService.PostVideoContest(api_access_token, eventid, status, fbody).enqueue(new Callback<PostVideoSelfie>() {
+    public void PostVideoContest(RequestBody api_access_token, RequestBody eventid, RequestBody status, MultipartBody.Part fbody, RequestBody angle) {
+        mAPIService.PostVideoContest(api_access_token, eventid, status, angle, fbody).enqueue(new Callback<PostVideoSelfie>() {
             @Override
             public void onResponse(Call<PostVideoSelfie> call, Response<PostVideoSelfie> response) {
 
@@ -365,15 +374,13 @@ public class VideoContestUploadActivity extends AppCompatActivity {
 
     public void showProgress() {
         progressbar.setVisibility(View.VISIBLE);
-        progressbar.setIndeterminate(true);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-
-            Drawable wrapDrawable = DrawableCompat.wrap(progressbar.getIndeterminateDrawable());
-            DrawableCompat.setTint(wrapDrawable, Color.parseColor(colorActive));
-            progressbar.setIndeterminateDrawable(DrawableCompat.unwrap(wrapDrawable));
-        } else {
-            progressbar.getIndeterminateDrawable().setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_IN);
-        }
+        progressbar.setProgress(0);
+        progressbar.setMaxValue(100);
+        progressbar.setProgressColor(Color.parseColor(colorActive));
+        progressbar.setText(String.valueOf(0));
+        progressbar.setTextColor(Color.parseColor(colorActive));
+        progressbar.setSuffix("%");
+        progressbar.setPrefix("");
 
     }
 
@@ -417,6 +424,13 @@ public class VideoContestUploadActivity extends AppCompatActivity {
         btnSubmit = findViewById(R.id.btnSubmit);
         video_view = findViewById(R.id.video_view);
 
+        displayRecordedVideo.setVisibility(View.VISIBLE);
+        video_view.setVisibility(View.GONE);
+
+        MediaController mediaController = new MediaController(this);
+        mediaController.setAnchorView(video_view);
+        video_view.setMediaController(mediaController);
+
 
         btnSubmit.setBackgroundColor(Color.parseColor(colorActive));
         editTitle = findViewById(R.id.editTitle);
@@ -445,7 +459,9 @@ public class VideoContestUploadActivity extends AppCompatActivity {
                 displayRecordedVideo.setVisibility(View.GONE);
                 video_view.setVisibility(View.VISIBLE);
 
-                video_view.getPlayer().start();
+                video_view.setVideoPath(file.getAbsolutePath());
+                video_view.start();
+
 
             }
         });
@@ -460,19 +476,24 @@ public class VideoContestUploadActivity extends AppCompatActivity {
 //                } else {
                     showProgress();
 
+                video_view.pause();
 
                     RequestBody token = RequestBody.create(MediaType.parse("text/plain"), apikey);
                     RequestBody eventid = RequestBody.create(MediaType.parse("text/plain"), eventId);
+                RequestBody anglerq = RequestBody.create(MediaType.parse("text/plain"), angle);
                     RequestBody status = RequestBody.create(MediaType.parse("text/plain"), StringEscapeUtils.escapeJava(data));
                     MultipartBody.Part body = null;
 
                     if (file != null) {
 
-                        RequestBody reqFile = RequestBody.create(MediaType.parse("video/*"), file);
+                        ProgressRequestBodyVideo reqFile = new ProgressRequestBodyVideo(file, VideoContestUploadActivity.this);
                         body = MultipartBody.Part.createFormData("video_file", file.getName(), reqFile);
+//                        RequestBody reqFile = RequestBody.create(MediaType.parse("video/*"), file);
+//
+//                        body = MultipartBody.Part.createFormData("video_file", file.getName(), reqFile);
                     }
 
-                    PostVideoContest(token, eventid, status, body);
+                PostVideoContest(token, eventid, status, body, anglerq);
 //                }
             }
         });
@@ -495,5 +516,23 @@ public class VideoContestUploadActivity extends AppCompatActivity {
 //        Intent intent = new Intent(VideoContestUploadActivity.this, VideoContestActivity.class);
 //        startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void onProgressUpdate(int percentage) {
+
+        progressbar.setProgress(percentage);
+        progressbar.setText(String.valueOf(percentage));
+    }
+
+    @Override
+    public void onError() {
+        dismissProgress();
+
+    }
+
+    @Override
+    public void onFinish() {
+        dismissProgress();
     }
 }

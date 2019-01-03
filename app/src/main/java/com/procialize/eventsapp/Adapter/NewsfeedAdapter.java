@@ -525,7 +525,7 @@ public class NewsfeedAdapter extends BaseAdapter {
             holder.VideoView.setUp(ApiConstant.newsfeedwall + feed.getMediaFile()
                     , JZVideoPlayerStandard.SCREEN_WINDOW_LIST, "");
 
-            Glide.with(holder.VideoView.getContext()).load(ApiConstant.newsfeedwall + feed.getMediaFile()).into(holder.VideoView.thumbImageView);
+            Glide.with(holder.VideoView.getContext()).load(ApiConstant.newsfeedwall + feed.getThumbImage()).into(holder.VideoView.thumbImageView);
 
 
 //            JZVideoPlayer.setJzUserAction(new MyUserActionStandard());

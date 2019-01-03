@@ -139,6 +139,15 @@ public interface APIService {
                                     @Part("status") RequestBody status,
                                     @Part MultipartBody.Part filename);
 
+    @POST("PostNewsFeed")
+    @Multipart
+    Call<PostTextFeed> PostNewsFeed(@Part("type") RequestBody type,
+                                    @Part("api_access_token") RequestBody api_access_token,
+                                    @Part("event_id") RequestBody event_id,
+                                    @Part("status") RequestBody status,
+                                    @Part("angle") RequestBody angle,
+                                    @Part MultipartBody.Part filename);
+
 
     @POST("EditNewsFeed")
     @Multipart
@@ -434,6 +443,7 @@ public interface APIService {
     Call<PostVideoSelfie> PostVideoContest(@Part("api_access_token") RequestBody api_access_token,
                                            @Part("event_id") RequestBody event_id,
                                            @Part("title") RequestBody title,
+                                           @Part("angle") RequestBody angle,
                                            @Part MultipartBody.Part filename);
 
 
@@ -513,13 +523,13 @@ public interface APIService {
     @FormUrlEncoded
     Call<ReportVideoContestHide> ReportVideoContestHide(@Field("api_access_token") String api_access_token,
                                                         @Field("event_id") String event_id,
-                                                        @Field("selfie_id") String selfie_id);
+                                                        @Field("video_contest_id") String video_contest_id);
 
     @POST("DeleteVideoContest")
     @FormUrlEncoded
     Call<ReportVideoContestHide> DeleteVideoContest(@Field("api_access_token") String api_access_token,
                                                     @Field("event_id") String event_id,
-                                                    @Field("selfie_id") String selfie_id);
+                                                    @Field("video_contest_id") String video_contest_id);
 
 
     @POST("ReportVideoContest")

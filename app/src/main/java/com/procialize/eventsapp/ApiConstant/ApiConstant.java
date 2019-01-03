@@ -14,8 +14,7 @@ public class ApiConstant {
 
     //imag&Video prod
 //    public static String imgURL = "https://www.procialize.info/";
-//
-    //imag&Video prod
+// imag&Video prod
     public static String imgURL="https://www.procialize.live/procialize/";
 
     public static String tenorUrl = "https://api.tenor.com/v1/";

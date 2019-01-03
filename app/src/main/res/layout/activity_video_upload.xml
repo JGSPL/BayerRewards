@@ -79,12 +79,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp">
 
-                <tcking.github.com.giraffeplayer2.VideoView
+                <VideoView
                     android:id="@+id/video_view"
                     android:layout_width="300dp"
                     android:layout_height="300dp"
                     android:layout_centerInParent="true"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
 
                 <ImageView
                     android:id="@+id/videopreview"
@@ -146,7 +146,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <ProgressBar
+    <com.procialize.eventsapp.CustomTools.CircleDisplay
         android:id="@+id/progressbar"
         android:layout_width="100dp"
         android:layout_height="100dp"
