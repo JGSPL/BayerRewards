@@ -77,7 +77,8 @@
                     android:text="@string/createcontact"
                     android:textColor="@color/black"
                     android:textSize="@dimen/textsizesmall"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:id="@+id/txt_heading"/>
             </LinearLayout>
 
             <LinearLayout

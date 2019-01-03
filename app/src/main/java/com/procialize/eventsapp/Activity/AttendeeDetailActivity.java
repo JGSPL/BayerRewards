@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -106,7 +107,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
+        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -195,21 +196,21 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         saveContact.setBackgroundColor(Color.parseColor(colorActive));
         sendbtn = findViewById(R.id.sendMsg);
         linsave.setBackgroundColor(Color.parseColor(colorActive));
-        posttextEt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    if (posttextEt.getText().toString().length() > 0) {
-
-                        String msg = StringEscapeUtils.escapeJava(posttextEt.getText().toString());
-                        PostMesssage(eventid, msg, apikey, attendeeid);
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Enter Message", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                return false;
-            }
-        });
+//        posttextEt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//                if (actionId == EditorInfo.IME_ACTION_DONE) {
+//                    if (posttextEt.getText().toString().length() > 0) {
+//
+//                        String msg = StringEscapeUtils.escapeJava(posttextEt.getText().toString());
+//                        PostMesssage(eventid, msg, apikey, attendeeid);
+//                    } else {
+//                        Toast.makeText(getApplicationContext(), "Enter Message", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//                return false;
+//            }
+//        });
 //        sendMsg.set
         linMsg.setEnabled(false);
         sendbtn.setEnabled(false);
@@ -565,9 +566,9 @@ public class AttendeeDetailActivity extends AppCompatActivity {
 //                    dismissProgress();
                     posttextEt.setText("");
                     DeletePostresponse(response);
-                    Intent intent = new Intent(AttendeeDetailActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                    finish();
+//                    Intent intent = new Intent(AttendeeDetailActivity.this, HomeActivity.class);
+//                    startActivity(intent);
+//                    finish();
                 } else {
                     dismissProgress();
 //                    dismissProgress();
