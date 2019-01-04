@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -48,6 +49,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+
+import static com.procialize.eventsapp.Utility.Utility.setgradientDrawable;
 
 public class ImageViewActivity extends AppCompatActivity {
 
@@ -141,8 +144,11 @@ public class ImageViewActivity extends AppCompatActivity {
         savebtn = findViewById(R.id.savebtn);
         sharebtn = findViewById(R.id.sharebtn);
         progressBar = findViewById(R.id.progressBar);
-        savebtn.setBackgroundColor(Color.parseColor(colorActive));
-        sharebtn.setBackgroundColor(Color.parseColor(colorActive));
+
+        GradientDrawable shape = setgradientDrawable(5, colorActive);
+
+        savebtn.setBackground(shape);
+        sharebtn.setBackground(shape);
 
         Glide.with(this).load(url)
                 .apply(RequestOptions.skipMemoryCacheOf(true))

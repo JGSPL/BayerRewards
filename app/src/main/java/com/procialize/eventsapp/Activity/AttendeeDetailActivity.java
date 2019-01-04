@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -21,10 +22,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -52,7 +51,6 @@ import com.procialize.eventsapp.R;
 import com.procialize.eventsapp.Session.SessionManager;
 import com.procialize.eventsapp.Utility.Util;
 
-
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.util.HashMap;
@@ -61,6 +59,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.procialize.eventsapp.Utility.Utility.setgradientDrawable;
 
 public class AttendeeDetailActivity extends AppCompatActivity {
 
@@ -145,7 +145,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         getattendee = user.get(SessionManager.KEY_ID);
 
 
-        eventSettingLists = sessionManager.loadEventList();
+        eventSettingLists = SessionManager.loadEventList();
 
         if (eventSettingLists.size() != 0) {
             applysetting(eventSettingLists);
@@ -187,7 +187,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         tvmob = findViewById(R.id.tvmob);
         layoutTop = findViewById(R.id.layoutTop);
         final LinearLayout linMsg = findViewById(R.id.linMsg);
-        LinearLayout linsave = findViewById(R.id.linsave);
+        final LinearLayout linsave = findViewById(R.id.linsave);
         tv_description.setMovementMethod(new ScrollingMovementMethod());
 
         attendeetitle.setTextColor(Color.parseColor(colorActive));
@@ -195,7 +195,13 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         layoutTop.setBackgroundColor(Color.parseColor(colorActive));
         saveContact.setBackgroundColor(Color.parseColor(colorActive));
         sendbtn = findViewById(R.id.sendMsg);
-        linsave.setBackgroundColor(Color.parseColor(colorActive));
+
+
+        final GradientDrawable shape = setgradientDrawable(5, colorActive);
+        final GradientDrawable shapeunactive = setgradientDrawable(5, "#4D4D4D");
+
+        linsave.setBackground(shape);
+        linMsg.setBackground(shape);
 //        posttextEt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 //            @Override
 //            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -213,7 +219,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
 //        });
 //        sendMsg.set
         linMsg.setEnabled(false);
-        sendbtn.setEnabled(false);
+        linsave.setEnabled(false);
 
         posttextEt.addTextChangedListener(new TextWatcher() {
             @Override
@@ -225,14 +231,14 @@ public class AttendeeDetailActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (count >= 1) {
                     linMsg.setEnabled(true);
-                    linMsg.setBackgroundColor(Color.parseColor(colorActive));
-                    sendbtn.setBackgroundColor(Color.parseColor(colorActive));
-                    sendbtn.setEnabled(true);
+                    linMsg.setBackground(shape);
+                    linsave.setBackground(shape);
+                    linsave.setEnabled(true);
                 } else if (count <= 0) {
                     linMsg.setEnabled(false);
-                    sendbtn.setEnabled(false);
-                    linMsg.setBackgroundColor(Color.parseColor("#4D4D4D"));
-                    sendbtn.setBackgroundColor(Color.parseColor("#4D4D4D"));
+                    linsave.setEnabled(false);
+                    linMsg.setBackground(shapeunactive);
+                    linsave.setBackground(shapeunactive);
 
                 }
 
@@ -245,12 +251,12 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         });
 
 
-        sendbtn.setVisibility(View.GONE);
+        linMsg.setVisibility(View.GONE);
         if (attendeeid.equalsIgnoreCase(getattendee)) {
-            sendbtn.setVisibility(View.GONE);
+            linMsg.setVisibility(View.GONE);
             linearsaveandsend.setVisibility(View.GONE);
         } else {
-            sendbtn.setVisibility(View.VISIBLE);
+            linMsg.setVisibility(View.VISIBLE);
             linearsaveandsend.setVisibility(View.VISIBLE);
         }
 
@@ -611,7 +617,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    public void addToContactList(Context context, String strDisplayName, String strNumber) throws Exception {
+    public void addToContactList(Context context, String strDisplayName, String strNumber) {
 
         // Get android phone contact content provider uri.
         //Uri addContactsUri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;

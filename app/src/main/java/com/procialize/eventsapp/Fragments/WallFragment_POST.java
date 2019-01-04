@@ -83,7 +83,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import cn.jzvd.JZVideoPlayer;
-import cn.jzvd.JZVideoPlayerStandard;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -342,21 +341,25 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
             @Override
             public void onMovedToScrapHeap(View view) {
                 // Safety net
-                JZVideoPlayerStandard videoView = view.findViewById(R.id.videoplayer);
-                try {
 
-                    if (videoView != null) {
-                        if (videoView.isCurrentPlay()) {
-                            videoView.onStatePause();
-                        }
-                        videoView.release();
-
-                    }
-                    // videoView.release();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+//                JZVideoPlayerStandard videoView = view.findViewById(R.id.videoplayer);
+//
+//                if (videoView.currentScreen!=SCREEN_WINDOW_FULLSCREEN) {
+//                    try {
+//
+//                        if (videoView != null) {
+//                            if (videoView.isCurrentPlay()) {
+//                                videoView.onStatePause();
+//                            }
+//                            videoView.release();
+//
+//                        }
+//                        // videoView.release();
+//
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
 
 
             }
@@ -1469,7 +1472,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
             if (!(response.body().getUserData().equals(null))) {
 
                 try {
-                    SessionManager sessionManager = new SessionManager(getActivity());
+                    SessionManager sessionManager = new SessionManager(getContext());
 
                     String name = response.body().getUserData().getFirstName();
                     String company = response.body().getUserData().getCompanyName();
@@ -1484,7 +1487,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
                     sessionManager.createProfileSession(name, company, designation, pic, lastname, city, description, country, email, mobno);
 
-                    feedAdapter.notifyDataSetChanged();
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

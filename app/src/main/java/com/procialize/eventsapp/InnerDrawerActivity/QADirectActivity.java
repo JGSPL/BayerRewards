@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
@@ -44,6 +45,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.procialize.eventsapp.Utility.Utility.setgradientDrawable;
+
 public class QADirectActivity extends AppCompatActivity implements QADirectAdapter.QADirectAdapterListner {
 
     public Button postbtn;
@@ -80,8 +83,8 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
         txtEmpty = findViewById(R.id.txtEmpty);
         nmtxt = findViewById(R.id.nmtxt);
 
-
-        postbtn.setBackgroundColor(Color.parseColor(colorActive));
+        GradientDrawable shape = setgradientDrawable(5, colorActive);
+        postbtn.setBackground(shape);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

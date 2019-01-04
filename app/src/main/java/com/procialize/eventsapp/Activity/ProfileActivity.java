@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -73,6 +74,7 @@ import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.VIBRATE;
 import static android.Manifest.permission.WRITE_CONTACTS;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static com.procialize.eventsapp.Utility.Utility.setgradientDrawable;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -264,7 +266,10 @@ public class ProfileActivity extends AppCompatActivity {
         RelativeLayout layoutTop = findViewById(R.id.layoutTop);
         layoutTop.setBackgroundColor(Color.parseColor(colorActive));
 
-        savebtn.setBackgroundColor(Color.parseColor(colorActive));
+        GradientDrawable shape = setgradientDrawable(5, colorActive);
+
+        savebtn.setBackground(shape);
+
         txt_upload.setTextColor(Color.parseColor(colorActive));
 
 

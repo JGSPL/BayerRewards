@@ -2,8 +2,8 @@ package com.procialize.eventsapp.InnerDrawerActivity;
 
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -42,6 +42,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.procialize.eventsapp.Utility.Utility.setgradientDrawable;
 
 public class QuizActivity extends AppCompatActivity implements OnClickListener {
 
@@ -115,7 +117,9 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
         submit = findViewById(R.id.submit);
 
         submit.setOnClickListener(this);
-        submit.setBackgroundColor(Color.parseColor(colorActive));
+
+        GradientDrawable shape = setgradientDrawable(5, colorActive);
+        submit.setBackground(shape);
 
         quizNameList = findViewById(R.id.quiz_list);
 

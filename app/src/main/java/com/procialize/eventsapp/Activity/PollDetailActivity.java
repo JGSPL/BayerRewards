@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -46,6 +47,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.procialize.eventsapp.Utility.Utility.setgradientDrawable;
 
 public class PollDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -115,7 +118,9 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
         subBtn = findViewById(R.id.subBtn);
         subBtn.setOnClickListener(this);
 
-        subBtn.setBackgroundColor(Color.parseColor(colorActive));
+        GradientDrawable shape = setgradientDrawable(5, colorActive);
+
+        subBtn.setBackground(shape);
         //questionTv.setTextColor(Color.parseColor(colorActive));
         progressBar = findViewById(R.id.progressBar);
 

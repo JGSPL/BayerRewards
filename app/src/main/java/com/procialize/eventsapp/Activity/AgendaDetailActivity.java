@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +39,8 @@ import java.util.Locale;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.procialize.eventsapp.Utility.Utility.setgradientDrawable;
 
 public class AgendaDetailActivity extends AppCompatActivity {
 
@@ -135,7 +138,11 @@ public class AgendaDetailActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
 
         tvname.setBackgroundColor(Color.parseColor(colorActive));
-        ratebtn.setBackgroundColor(Color.parseColor(colorActive));
+
+
+        GradientDrawable shape = setgradientDrawable(5, colorActive);
+        ratebtn.setBackground(shape);
+
         tvdscription.setTypeface(typeFace);
         tvdscription.setMovementMethod(new ScrollingMovementMethod());
 

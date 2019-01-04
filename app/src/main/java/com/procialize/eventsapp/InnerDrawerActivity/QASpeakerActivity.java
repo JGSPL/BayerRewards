@@ -1,11 +1,11 @@
 package com.procialize.eventsapp.InnerDrawerActivity;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
@@ -20,7 +20,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -53,6 +52,8 @@ import cn.jzvd.JZVideoPlayer;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.procialize.eventsapp.Utility.Utility.setgradientDrawable;
 
 public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAdapter.QASpeakerAdapterListner {
 
@@ -108,8 +109,10 @@ public class QASpeakerActivity extends AppCompatActivity implements QASpeakerAda
 
         qaRv = findViewById(R.id.qaRv);
         postbtn = findViewById(R.id.postbtn);
-        int colorInt = Color.parseColor(colorActive);
-        postbtn.setBackgroundColor(colorInt);
+
+        GradientDrawable shape = setgradientDrawable(5, colorActive);
+        postbtn.setBackground(shape);
+
         qaRvrefresh = findViewById(R.id.qaRvrefresh);
         spinner = findViewById(R.id.spinner);
         progressBar = findViewById(R.id.progressBar);

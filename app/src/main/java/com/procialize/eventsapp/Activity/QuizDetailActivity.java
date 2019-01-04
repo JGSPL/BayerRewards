@@ -3,6 +3,7 @@ package com.procialize.eventsapp.Activity;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatRadioButton;
@@ -33,6 +34,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.procialize.eventsapp.Utility.Utility.setgradientDrawable;
 
 public class QuizDetailActivity extends AppCompatActivity {
 
@@ -86,7 +89,10 @@ public class QuizDetailActivity extends AppCompatActivity {
 
         questionTv = findViewById(R.id.questionTv);
         subBtn = findViewById(R.id.subBtn);
-        subBtn.setBackgroundColor(Color.parseColor(colorActive));
+
+        GradientDrawable shape = setgradientDrawable(5, colorActive);
+
+        subBtn.setBackground(shape);
 
         SessionManager sessionManager = new SessionManager(this);
 

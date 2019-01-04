@@ -71,13 +71,16 @@ public class SessionManager {
 
     // Constructor
     public SessionManager(Context context) {
-        this._context = context;
-        pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
-        editor = pref.edit();
+        try {
+            this._context = context;
+            pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
+            editor = pref.edit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void saveSharedPreferencesEventList(List<EventSettingList> callLog) {
-
         Gson gson = new Gson();
         String json = gson.toJson(callLog);
         editor.putString("eventlist", json);

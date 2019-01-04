@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -44,6 +45,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.procialize.eventsapp.Utility.Utility.setgradientDrawable;
 
 public class SpeakerDetailsActivity extends AppCompatActivity {
 
@@ -156,7 +159,11 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
 
         tvname.setTextColor(Color.parseColor(colorActive));
         speakertitle.setTextColor(Color.parseColor(colorActive));
-        ratebtn.setBackgroundColor(Color.parseColor(colorActive));
+
+        GradientDrawable shape = setgradientDrawable(5, colorActive);
+
+        ratebtn.setBackground(shape);
+
         layoutTop.setBackgroundColor(Color.parseColor(colorActive));
         LayerDrawable stars = (LayerDrawable) ratingbar.getProgressDrawable();
         stars.getDrawable(2).setColorFilter(Color.parseColor(colorActive),
