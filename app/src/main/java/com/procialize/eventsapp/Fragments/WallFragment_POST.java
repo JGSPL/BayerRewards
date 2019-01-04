@@ -241,12 +241,8 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 
         feedrecycler = view.findViewById(R.id.feedrecycler);
         progressbar = view.findViewById(R.id.progressbar);
-
-
 //        feedrecycler.setHasFixedSize(true);
 //        feedrecycler.setNestedScrollingEnabled(false);
-
-
         int resId = R.anim.layout_animation_slide_right;
         animation = AnimationUtils.loadLayoutAnimation(getContext(), resId);
         // feedrecycler.setLayoutAnimation(animation);
@@ -259,7 +255,6 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 //        feedrecycler.setLayoutManager(mLayoutManager);
         cd = new ConnectionDetector(getActivity());
         dbHelper = new DBHelper(getActivity());
-
 //        feedrecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
 //            @Override
 //            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -331,7 +326,6 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
             }
         });
 
-
         // specify an adapter (see also next example)
 //        FeedAdapter feedAdapter = new FeedAdapter(getActivity(),HomeActivity.NewsFeedarryList);
 //        feedrecycler.setAdapter(feedAdapter);
@@ -340,9 +334,9 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
         feedrecycler.setRecyclerListener(new AbsListView.RecyclerListener() {
             @Override
             public void onMovedToScrapHeap(View view) {
-                // Safety net
+//                 Safety net
 
-//                JZVideoPlayerStandard videoView = view.findViewById(R.id.videoplayer);
+//                MyJZVideoPlayerStandard videoView = view.findViewById(R.id.videoplayer);
 //
 //                if (videoView.currentScreen!=SCREEN_WINDOW_FULLSCREEN) {
 //                    try {
@@ -360,8 +354,6 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
 //                        e.printStackTrace();
 //                    }
 //                }
-
-
             }
         });
 
@@ -1472,8 +1464,6 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
             if (!(response.body().getUserData().equals(null))) {
 
                 try {
-                    SessionManager sessionManager = new SessionManager(getContext());
-
                     String name = response.body().getUserData().getFirstName();
                     String company = response.body().getUserData().getCompanyName();
                     String designation = response.body().getUserData().getDesignation();
@@ -1485,9 +1475,13 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
                     String country = response.body().getUserData().getCountry();
                     String description = response.body().getUserData().getDescription();
 
-                    sessionManager.createProfileSession(name, company, designation, pic, lastname, city, description, country, email, mobno);
-
-
+                    Context context = getContext();
+                    if (context != null) {
+                        SessionManager sessionManager = new SessionManager(context);
+                        if (sessionManager != null) {
+                            sessionManager.createProfileSession(name, company, designation, pic, lastname, city, description, country, email, mobno);
+                        }
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -1506,7 +1500,6 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
         progressbar.setVisibility(View.VISIBLE);
         progressbar.setIndeterminate(true);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-
             Drawable wrapDrawable = DrawableCompat.wrap(progressbar.getIndeterminateDrawable());
             DrawableCompat.setTint(wrapDrawable, Color.parseColor(colorActive));
             progressbar.setIndeterminateDrawable(DrawableCompat.unwrap(wrapDrawable));

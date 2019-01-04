@@ -150,6 +150,9 @@ dependencies {
     //Video
     api 'com.github.tcking:giraffeplayer2:0.1.25-full'
 
+   // multidex
+    implementation 'com.android.support:multidex:1.0.3'
+
 
 }
 apply plugin: 'com.google.gms.google-services'

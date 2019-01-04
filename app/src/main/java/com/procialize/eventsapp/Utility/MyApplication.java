@@ -118,7 +118,6 @@ public class MyApplication extends Application {
 //        }
 //        EmojiCompat.init(config);
 
-
     }
 
     @Override

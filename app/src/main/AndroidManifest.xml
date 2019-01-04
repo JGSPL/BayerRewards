@@ -27,10 +27,11 @@
         android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:screenOrientation="portrait"
+        android:configChanges="orientation"
         android:theme="@style/AppTheme">
-        <meta-data
-            android:name="asset_statements"
-            android:resource="@string/asset_statements" />
+        <!--<meta-data-->
+        <!--android:name="asset_statements"-->
+        <!--android:resource="@string/asset_statements" />-->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -45,6 +46,7 @@
         <activity
             android:name="com.procialize.eventsapp.Activity.HomeActivity"
             android:screenOrientation="portrait"
+            android:configChanges="orientation"
             android:windowSoftInputMode="stateHidden|adjustNothing" />
         <activity
             android:name="com.procialize.eventsapp.Activity.ProfileActivity"

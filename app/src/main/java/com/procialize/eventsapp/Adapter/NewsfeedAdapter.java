@@ -20,7 +20,6 @@ import com.procialize.eventsapp.Activity.PostViewActivity;
 import com.procialize.eventsapp.ApiConstant.APIService;
 import com.procialize.eventsapp.ApiConstant.ApiConstant;
 import com.procialize.eventsapp.ApiConstant.ApiUtils;
-import com.procialize.eventsapp.CustomTools.MyJZVideoPlayerStandard;
 import com.procialize.eventsapp.CustomTools.PicassoTrustAll;
 import com.procialize.eventsapp.CustomTools.ScaledImageView;
 import com.procialize.eventsapp.GetterSetter.EventSettingList;
@@ -46,7 +45,7 @@ import static com.procialize.eventsapp.Utility.Util.setTextViewDrawableColor;
 
 public class NewsfeedAdapter extends BaseAdapter {
 
-    final String profilepic;
+    String profilepic = "";
     public List<NewsFeedList> feedLists;
     APIService mAPIService;
     SessionManager sessionManager;
@@ -71,14 +70,14 @@ public class NewsfeedAdapter extends BaseAdapter {
         this.listener = listener;
         this.context = con;
         this.value = value;
-        SessionManager sessionManager = new SessionManager(con);
-        user = sessionManager.getUserDetails();
-        profilepic = user.get(SessionManager.KEY_PIC);
-        topMgmtFlag = sessionManager.getSkipFlag();
-        SharedPreferences prefs = con.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        colorActive = prefs.getString("colorActive", "");
-
-
+        if (con != null) {
+            SessionManager sessionManager = new SessionManager(con);
+            user = sessionManager.getUserDetails();
+            profilepic = user.get(SessionManager.KEY_PIC);
+            topMgmtFlag = sessionManager.getSkipFlag();
+            SharedPreferences prefs = con.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+            colorActive = prefs.getString("colorActive", "");
+        }
     }
 
 
@@ -371,8 +370,6 @@ public class NewsfeedAdapter extends BaseAdapter {
 //            reportuserTv.setVisibility(View.VISIBLE);
 //            blockuserTv.setVisibility(View.VISIBLE);
         }
-
-
 //        weightapply(holder.likeTv, holder.commentTv, holder.shareTv, holder.viewone, holder.viewtwo);
 
 //        try {
@@ -522,7 +519,6 @@ public class NewsfeedAdapter extends BaseAdapter {
 
             holder.VideoView.setUp(ApiConstant.newsfeedwall + feed.getMediaFile()
                     , JZVideoPlayerStandard.SCREEN_WINDOW_LIST, "");
-
 
             Glide.with(holder.VideoView.getContext()).load(ApiConstant.newsfeedwall + feed.getThumbImage()).into(holder.VideoView.thumbImageView);
 
@@ -856,7 +852,7 @@ public class NewsfeedAdapter extends BaseAdapter {
         public View viewone, viewtwo, viewteo, view;
         RelativeLayout txtfeedRv, imagefeedRv, videofeedRv;
         private LinearLayout likeTv, commentTv, shareTv, mindTv, mainLLpost, post_layout, feedll;
-        private MyJZVideoPlayerStandard VideoView;
+        private JZVideoPlayerStandard VideoView;
 
     }
 

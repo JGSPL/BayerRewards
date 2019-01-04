@@ -3,6 +3,7 @@ package com.procialize.eventsapp.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
@@ -175,6 +176,8 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         if (CheckingPermissionIsEnabledOrNot()) {
 //            Toast.makeText(MainActivity.this, "All Permissions Granted Successfully", Toast.LENGTH_LONG).show();

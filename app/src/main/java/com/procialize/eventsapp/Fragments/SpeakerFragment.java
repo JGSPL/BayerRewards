@@ -207,10 +207,13 @@ public class SpeakerFragment extends Fragment implements SpeakerAdapter.SpeakerA
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-                try {
-                    speakerAdapter.getFilter().filter(s.toString());
-                } catch (Exception e) {
-                    e.printStackTrace();
+
+                if (speakerAdapter != null) {
+                    try {
+                        speakerAdapter.getFilter().filter(s.toString());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
 
             }

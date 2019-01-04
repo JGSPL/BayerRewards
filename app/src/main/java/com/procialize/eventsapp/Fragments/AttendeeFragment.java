@@ -199,10 +199,13 @@ public class AttendeeFragment extends Fragment implements AttendeeAdapter.Attend
                 @Override
                 public void onTextChanged(CharSequence s, int start,
                                           int before, int count) {
-                    try {
-                        attendeeAdapter.getFilter().filter(s.toString());
-                    } catch (Exception e) {
-                        e.printStackTrace();
+
+                    if (attendeeAdapter != null) {
+                        try {
+                            attendeeAdapter.getFilter().filter(s.toString());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
 
                 }
