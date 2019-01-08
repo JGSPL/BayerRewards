@@ -56,229 +56,230 @@
         android:layout_height="match_parent" />
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center">
 
+            <com.procialize.eventsapp.Fonts.RobotoTextview
+                android:id="@+id/txt_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin"
+                android:layout_marginTop="@dimen/margin"
+                android:text="@string/createcontact"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textsizesmall"
+                android:textStyle="bold" />
+        </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="6"
+            android:background="@color/qnarow"
+            android:baselineAligned="false"
+            android:gravity="center"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
-                    android:layout_width="wrap_content"
+            <ScrollView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="9"
+                android:fadeScrollbars="false">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin"
-                    android:layout_marginTop="@dimen/margin"
-                    android:text="@string/createcontact"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textsizesmall"
-                    android:textStyle="bold"
-                    android:id="@+id/txt_heading"/>
-            </LinearLayout>
+                    android:focusableInTouchMode="true"
+                    android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_margin="5dp"
-                android:layout_weight="6"
-                android:background="@color/qnarow"
-                android:baselineAligned="false"
-                android:gravity="center"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp">
-
-                <ScrollView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="9"
-                    android:fadeScrollbars="false">
-
-                    <LinearLayout
+                    <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:focusableInTouchMode="true"
-                        android:orientation="vertical">
+                        android:hint="@string/firstname"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textsizesmall">
 
-                        <android.support.design.widget.TextInputLayout
+                        <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
+                            android:id="@+id/edit_username_edit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/firstname"
+                            android:layout_centerHorizontal="true"
+                            android:layout_margin="@dimen/margin"
+                            android:imeOptions="actionDone"
+                            android:inputType="textPersonName"
+                            android:paddingLeft="10dp"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/textsizesmall">
+                            android:textSize="@dimen/textsizesmall" />
+                    </android.support.design.widget.TextInputLayout>
 
-                            <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
-                                android:id="@+id/edit_username_edit"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerHorizontal="true"
-                                android:layout_margin="@dimen/margin"
-                                android:imeOptions="actionDone"
-                                android:inputType="textPersonName"
-                                android:paddingLeft="10dp"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/textsizesmall" />
-                        </android.support.design.widget.TextInputLayout>
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/lastname">
 
-                        <android.support.design.widget.TextInputLayout
+                        <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
+                            android:id="@+id/edit_first_name_edit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/lastname">
+                            android:layout_below="@+id/edit_username_edit"
+                            android:layout_centerHorizontal="true"
+                            android:layout_margin="@dimen/margin"
+                            android:imeOptions="actionDone"
+                            android:inputType="textPersonName"
+                            android:paddingLeft="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/textsizesmall" />
+                    </android.support.design.widget.TextInputLayout>
 
-                            <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
-                                android:id="@+id/edit_first_name_edit"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/edit_username_edit"
-                                android:layout_centerHorizontal="true"
-                                android:layout_margin="@dimen/margin"
-                                android:imeOptions="actionDone"
-                                android:inputType="textPersonName"
-                                android:paddingLeft="10dp"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/textsizesmall" />
-                        </android.support.design.widget.TextInputLayout>
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/designation">
 
-                        <android.support.design.widget.TextInputLayout
+                        <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
+                            android:id="@+id/edit_designation_edit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/designation">
+                            android:layout_below="@+id/edit_company_name_edit"
+                            android:layout_centerHorizontal="true"
+                            android:layout_margin="@dimen/margin"
+                            android:imeOptions="actionDone"
+                            android:inputType="textPersonName"
+                            android:paddingLeft="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/textsizesmall" />
+                    </android.support.design.widget.TextInputLayout>
 
-                            <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
-                                android:id="@+id/edit_designation_edit"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/edit_company_name_edit"
-                                android:layout_centerHorizontal="true"
-                                android:layout_margin="@dimen/margin"
-                                android:imeOptions="actionDone"
-                                android:inputType="textPersonName"
-                                android:paddingLeft="10dp"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/textsizesmall" />
-                        </android.support.design.widget.TextInputLayout>
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/company">
 
-                        <android.support.design.widget.TextInputLayout
+                        <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
+                            android:id="@+id/edit_company_name_edit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/company">
+                            android:layout_below="@+id/edit_city_edit"
+                            android:layout_centerHorizontal="true"
+                            android:layout_margin="@dimen/margin"
+                            android:imeOptions="actionDone"
+                            android:inputType="textPersonName"
+                            android:paddingLeft="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/textsizesmall" />
+                    </android.support.design.widget.TextInputLayout>
 
-                            <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
-                                android:id="@+id/edit_company_name_edit"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/edit_city_edit"
-                                android:layout_centerHorizontal="true"
-                                android:layout_margin="@dimen/margin"
-                                android:imeOptions="actionDone"
-                                android:inputType="textPersonName"
-                                android:paddingLeft="10dp"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/textsizesmall" />
-                        </android.support.design.widget.TextInputLayout>
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/city">
 
-                        <android.support.design.widget.TextInputLayout
+                        <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
+                            android:id="@+id/edit_city_edit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/city">
+                            android:layout_below="@+id/edit_email_edit"
+                            android:layout_centerHorizontal="true"
+                            android:layout_margin="@dimen/margin"
+                            android:imeOptions="actionDone"
+                            android:inputType="textPersonName"
+                            android:paddingLeft="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/textsizesmall"
+                            android:visibility="visible" />
+                    </android.support.design.widget.TextInputLayout>
 
-                            <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
-                                android:id="@+id/edit_city_edit"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/edit_email_edit"
-                                android:layout_centerHorizontal="true"
-                                android:layout_margin="@dimen/margin"
-                                android:imeOptions="actionDone"
-                                android:inputType="textPersonName"
-                                android:paddingLeft="10dp"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/textsizesmall"
-                                android:visibility="visible" />
-                        </android.support.design.widget.TextInputLayout>
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_email">
 
-                        <android.support.design.widget.TextInputLayout
+                        <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
+                            android:id="@+id/edit_email_edit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/hint_email">
+                            android:layout_below="@+id/edit_mobile_edit"
+                            android:layout_centerHorizontal="true"
+                            android:layout_margin="@dimen/margin"
+                            android:imeOptions="actionDone"
+                            android:inputType="textEmailAddress"
+                            android:minEms="20"
+                            android:paddingLeft="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/textsizesmall"
+                            android:visibility="visible" />
+                    </android.support.design.widget.TextInputLayout>
 
-                            <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
-                                android:id="@+id/edit_email_edit"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/edit_mobile_edit"
-                                android:layout_centerHorizontal="true"
-                                android:layout_margin="@dimen/margin"
-                                android:imeOptions="actionDone"
-                                android:inputType="textEmailAddress"
-                                android:minEms="20"
-                                android:paddingLeft="10dp"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/textsizesmall"
-                                android:visibility="visible" />
-                        </android.support.design.widget.TextInputLayout>
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/mobile">
 
-                        <android.support.design.widget.TextInputLayout
+                        <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
+                            android:id="@+id/edit_mobile_edit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/mobile">
-
-                            <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
-                                android:id="@+id/edit_mobile_edit"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/edit_first_name_edit"
-                                android:layout_centerHorizontal="true"
-                                android:layout_margin="@dimen/margin"
-                                android:editable="false"
-                                android:imeOptions="actionDone"
-                                android:inputType="phone"
-                                android:minEms="20"
-                                android:paddingLeft="10dp"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/textsizesmall"
-                                android:visibility="visible" />
-                        </android.support.design.widget.TextInputLayout>
+                            android:layout_below="@+id/edit_first_name_edit"
+                            android:layout_centerHorizontal="true"
+                            android:layout_margin="@dimen/margin"
+                            android:editable="false"
+                            android:imeOptions="actionDone"
+                            android:inputType="phone"
+                            android:minEms="20"
+                            android:paddingLeft="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/textsizesmall"
+                            android:visibility="visible" />
+                    </android.support.design.widget.TextInputLayout>
 
 
-                    </LinearLayout>
-                </ScrollView>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <com.procialize.eventsapp.Fonts.RobotoButton
-                    android:id="@+id/save_btn_qr"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:gravity="center"
-                    android:text="@string/save"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorwhite"
-                    android:textSize="@dimen/textsizesmall" />
-
-                <com.procialize.eventsapp.Fonts.RobotoButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/cancel"
-                    android:textColor="@color/colorwhite"
-                    android:textSize="@dimen/textsizesmall"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
-            </LinearLayout>
-
+                </LinearLayout>
+            </ScrollView>
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.procialize.eventsapp.Fonts.RobotoButton
+                android:id="@+id/save_btn_qr"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:gravity="center"
+                android:text="@string/save"
+                android:textAllCaps="false"
+                android:textColor="@color/colorwhite"
+                android:textSize="@dimen/textsizesmall" />
+
+            <com.procialize.eventsapp.Fonts.RobotoButton
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel"
+                android:textColor="@color/colorwhite"
+                android:textSize="@dimen/textsizesmall"
+                android:textStyle="bold"
+                android:visibility="gone" />
+        </LinearLayout>
+
+    </LinearLayout>
 
 
 </LinearLayout>

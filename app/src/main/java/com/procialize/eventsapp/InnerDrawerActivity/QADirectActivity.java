@@ -17,6 +17,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
@@ -340,6 +341,7 @@ public class QADirectActivity extends AppCompatActivity implements QADirectAdapt
             public void onResponse(Call<QADirectFetch> call, Response<QADirectFetch> response) {
 
                 if (response.isSuccessful()) {
+                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                     Log.i("hit", "post submitted to API." + response.body().toString());
                     Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
 

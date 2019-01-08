@@ -87,14 +87,14 @@
     <com.procialize.eventsapp.Fonts.RobotoButton
         android:id="@+id/postbtn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:text="@string/postquestion"
         android:textAllCaps="false"
         android:textColor="@color/colorwhite"
         android:textSize="@dimen/textsizesmall"
-        android:background="@color/black"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"/>
+        android:layout_marginRight="5dp"
+        style="?android:attr/borderlessButtonStyle"/>
 
     <ProgressBar
         android:id="@+id/progressBar"

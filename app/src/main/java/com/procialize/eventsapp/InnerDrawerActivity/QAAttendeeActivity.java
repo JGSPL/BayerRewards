@@ -16,6 +16,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.AdapterView;
@@ -454,6 +455,7 @@ public class QAAttendeeActivity extends AppCompatActivity implements QAAttendeeA
             public void onResponse(Call<QASessionFetch> call, Response<QASessionFetch> response) {
 
                 if (response.isSuccessful()) {
+                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                     Log.i("hit", "post submitted to API." + response.body().toString());
                     Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
 

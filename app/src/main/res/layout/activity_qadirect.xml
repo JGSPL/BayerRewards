@@ -66,13 +66,13 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:layout_marginTop="@dimen/margin"
-        android:background="@drawable/speakerbtnbg"
         android:gravity="center"
         android:padding="5dp"
         android:text="@string/postquestion"
         android:textColor="@color/colorwhite"
         android:textSize="@dimen/textsizesmall"
-        android:textAllCaps="false"/>
+        android:textAllCaps="false"
+        style="?android:attr/borderlessButtonStyle"/>
 
     <com.procialize.eventsapp.Fonts.RobotoTextview
         android:id="@+id/pullrefresh"
