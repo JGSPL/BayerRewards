@@ -95,6 +95,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import cn.jzvd.JZVideoPlayerStandard;
+import io.intercom.android.sdk.Intercom;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -136,7 +137,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
     String eventid, token;
     String email, password;
     CustomMenuAdapter customMenuAdapter;
-    TextView logout, home, contactus, eventname, switchbt, eula, privacy_policy, eventInfo, notification;
+    TextView logout, home, contactus, eventname, switchbt, chatbt, eula, privacy_policy, eventInfo, notification;
     String eventnamestr;
     private Toolbar toolbar;
     private TabLayout tabLayout;
@@ -463,6 +464,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         home = navigationView.findViewById(R.id.home);
         contactus = navigationView.findViewById(R.id.contactus);
         switchbt = navigationView.findViewById(R.id.switchbt);
+        chatbt = navigationView.findViewById(R.id.chatbt);
         privacy_policy = navigationView.findViewById(R.id.privacy_policy);
         eventInfo = navigationView.findViewById(R.id.eventInfo);
         notification = navigationView.findViewById(R.id.notification);
@@ -565,6 +567,13 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                 Intent main = new Intent(getApplicationContext(), PrivacyPolicy.class);
                 startActivity(main);
 
+            }
+        });
+
+        chatbt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intercom.client().displayMessenger();
             }
         });
 

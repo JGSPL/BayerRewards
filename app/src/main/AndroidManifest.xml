@@ -27,7 +27,6 @@
         android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:screenOrientation="portrait"
-        android:configChanges="orientation"
         android:theme="@style/AppTheme">
         <!--<meta-data-->
         <!--android:name="asset_statements"-->
@@ -45,7 +44,7 @@
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name="com.procialize.eventsapp.Activity.HomeActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="unspecified"
             android:configChanges="orientation"
             android:windowSoftInputMode="stateHidden|adjustNothing" />
         <activity

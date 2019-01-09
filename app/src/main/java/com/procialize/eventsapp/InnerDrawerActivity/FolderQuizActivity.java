@@ -68,6 +68,7 @@ public class FolderQuizActivity extends AppCompatActivity {
     private QuizOptionParser quizOptionParser;
     private ArrayList<QuizOptionList> quizOptionList = new ArrayList<QuizOptionList>();
     SwipeRefreshLayout quizrefresher;
+    TextView empty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +109,7 @@ public class FolderQuizActivity extends AppCompatActivity {
         getQuizUrl = ApiConstant.baseUrl + ApiConstant.quizlist;
 
         TextView header = findViewById(R.id.header);
+        empty = findViewById(R.id.empty);
         header.setTextColor(Color.parseColor(colorActive));
 
         RelativeLayout layoutTop = findViewById(R.id.layoutTop);
@@ -308,9 +310,13 @@ public class FolderQuizActivity extends AppCompatActivity {
                 pDialog = null;
             }
 
-            adapter = new QuizFolderAdapter(FolderQuizActivity.this, quizFolders);
-            quizNameList.setAdapter(adapter);
-            quizNameList.setEmptyView(findViewById(android.R.id.empty));
+            if (quizFolders.size() != 0) {
+                empty.setVisibility(View.GONE);
+                adapter = new QuizFolderAdapter(FolderQuizActivity.this, quizFolders);
+                quizNameList.setAdapter(adapter);
+            } else {
+                empty.setVisibility(View.VISIBLE);
+            }
 
         }
     }

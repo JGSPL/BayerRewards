@@ -84,4 +84,5 @@
         <item>/ue900</item>
     </string-array>
     <string name="asset_statements" translatable="false">[{ \"include\": \"https://procialize.live/.well-known/assetlinks.json\" }]</string>
+    <string name="expert">Help Desk</string>
 </resources>

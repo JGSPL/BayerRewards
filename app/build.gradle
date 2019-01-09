@@ -153,6 +153,11 @@ dependencies {
    // multidex
     implementation 'com.android.support:multidex:1.0.3'
 
+    //intercome
+
+    implementation 'io.intercom.android:intercom-sdk:5.0.0'
+
+
 
 }
 apply plugin: 'com.google.gms.google-services'

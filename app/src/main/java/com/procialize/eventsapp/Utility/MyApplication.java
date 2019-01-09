@@ -13,6 +13,8 @@ import com.procialize.eventsapp.GetterSetter.QuizOptionList;
 
 import java.util.ArrayList;
 
+import io.intercom.android.sdk.Intercom;
+
 //import android.support.text.emoji.EmojiCompat;
 //import android.support.text.emoji.FontRequestEmojiCompatConfig;
 //import android.support.text.emoji.bundled.BundledEmojiCompatConfig;
@@ -75,6 +77,9 @@ public class MyApplication extends Application {
 
         super.onCreate();
         setmContext(this);
+
+        Intercom.initialize(this, "android_sdk-fdc30b4ec446bfd61b996a485f02ae47a5ae9a26", "tlnk2xgd");
+
 
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());

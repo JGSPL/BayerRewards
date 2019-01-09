@@ -52,6 +52,7 @@ public class LivePollActivity extends AppCompatActivity implements PollNewAdapte
     TextView emptyView;
     private APIService mAPIService;
     private ConnectionDetector cd;
+    TextView empty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +90,8 @@ public class LivePollActivity extends AppCompatActivity implements PollNewAdapte
         pollRv = findViewById(R.id.pollRv);
         pollrefresh = findViewById(R.id.pollrefresh);
         progressBar = findViewById(R.id.progressBar);
+
+        empty = findViewById(R.id.empty);
 
         TextView header = findViewById(R.id.title);
         header.setTextColor(Color.parseColor(colorActive));
@@ -184,13 +187,19 @@ public class LivePollActivity extends AppCompatActivity implements PollNewAdapte
 
         // specify an adapter (see also next example)
 
-
-        PollNewAdapter pollAdapter = new PollNewAdapter(this, response.body().getLivePollList(), response.body().getLivePollOptionList(), this);
-        pollAdapter.notifyDataSetChanged();
-        pollRv.setAdapter(pollAdapter);
-        pollRv.setEmptyView(findViewById(android.R.id.empty));
-
         optionLists = response.body().getLivePollOptionList();
+        if (response.body().getLivePollOptionList().size() != 0) {
+
+            empty.setVisibility(View.GONE);
+            PollNewAdapter pollAdapter = new PollNewAdapter(this, response.body().getLivePollList(), response.body().getLivePollOptionList(), this);
+            pollAdapter.notifyDataSetChanged();
+            pollRv.setAdapter(pollAdapter);
+        } else {
+            empty.setVisibility(View.VISIBLE);
+        }
+
+
+
 
     }
 

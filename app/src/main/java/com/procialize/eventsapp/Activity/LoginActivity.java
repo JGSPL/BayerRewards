@@ -338,7 +338,9 @@ public class LoginActivity extends AppCompatActivity {
                 if (edit_emailid.getText().toString().isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Please Enter Email Id", Toast.LENGTH_SHORT).show();
                 } else {
-                    forgotPassword(edit_emailid.getText().toString());
+
+                    String email = edit_emailid.getText().toString().trim();
+                    forgotPassword(email);
                 }
             }
         });

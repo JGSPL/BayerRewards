@@ -36,6 +36,9 @@ import com.procialize.eventsapp.R;
 import com.procialize.eventsapp.Session.SessionManager;
 import com.procialize.eventsapp.gcm.GCMHelper;
 
+import io.intercom.android.sdk.Intercom;
+import io.intercom.android.sdk.UserAttributes;
+import io.intercom.android.sdk.identity.Registration;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -305,6 +308,19 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
                 editor.putString("colorActive", colorActive).commit();
 
 
+//              Company company1 = new Company.Builder().withName(company).build();
+
+                UserAttributes userAttributes = new UserAttributes.Builder()
+                        .withName(firstname + " " + lastname)
+                        .withEmail(email)
+                        .withPhone(mobile)
+//                      .withCompany(company1)
+                        .withUserId(id)
+                        .build();
+
+                Registration registration = Registration.create().withUserAttributes(userAttributes);
+                Intercom.client().registerIdentifiedUser(registration);
+
 //                editor.putString("loginfirst","1");
                 editor.apply();
                 Intent home = new Intent(getApplicationContext(), ProfileActivity.class);
@@ -319,13 +335,12 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
                 editor.putString("logoImg", logoImg).commit();
                 editor.putString("colorActive", colorActive).commit();
 
-
-//                editor.putString("loginfirst","1");
+//              editor.putString("loginfirst","1");
                 editor.apply();
 
                 Intent home = new Intent(getApplicationContext(), ProfileActivity.class);
-//                home.putExtra("eventId", eventid);
-//                home.putExtra("eventnamestr", eventnamestr);
+//              home.putExtra("eventId", eventid);
+//              home.putExtra("eventnamestr", eventnamestr);
                 startActivity(home);
                 finish();
             }
