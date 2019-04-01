@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@color/colorgrey"
     android:orientation="vertical"
     tools:context="com.procialize.eventsapp.Fragments.AgendaFragment">
 
@@ -71,7 +71,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin"
-                    android:background="@drawable/newsfeedrowbg"
+                    android:background="@color/colorwhite"
                     android:orientation="vertical">
 
                     <LinearLayout

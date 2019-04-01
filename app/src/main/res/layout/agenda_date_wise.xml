@@ -3,15 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:orientation="vertical"
-    android:layout_marginBottom="5dp">
+    android:layout_marginBottom="5dp"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/mainLL"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:background="@drawable/agendabg"
+        android:background="@color/colorwhite"
         android:baselineAligned="false"
         android:gravity="center"
         android:orientation="horizontal"
@@ -26,32 +26,32 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <com.procialize.eventsapp.Fonts.RobotoTextview
+            <TextView
                 android:id="@+id/nameTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/designationTv"
                 android:layout_alignTop="@+id/imageView"
+                android:maxLines="1"
                 android:paddingLeft="5dp"
-                android:text="Abheejit Saxena"
+                android:text=""
                 android:textAlignment="textStart"
                 android:textColor="@color/activetab"
                 android:textSize="15dp"
-                android:textStyle="bold"
-                android:maxLines="1"/>
+                />
 
-            <com.procialize.eventsapp.Fonts.RobotoTextview
+            <TextView
                 android:id="@+id/dateTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/nameTv"
                 android:layout_toEndOf="@+id/imageView"
                 android:paddingLeft="5dp"
-                android:text="Simens LTD"
+                android:text=""
                 android:textColor="@color/colorAccent"
                 android:textSize="@dimen/textsizesmall" />
 
-            <com.procialize.eventsapp.Fonts.RobotoTextview
+            <TextView
                 android:id="@+id/descriptionTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
                 android:layout_toEndOf="@+id/imageView"
                 android:maxLines="1"
                 android:paddingLeft="5dp"
-                android:text="Delhi"
+                android:text=""
                 android:textColor="@color/colorAccent"
                 android:textSize="@dimen/textsizesmall" />
         </LinearLayout>

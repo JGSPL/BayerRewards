@@ -16,6 +16,8 @@ import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -38,6 +40,7 @@ import com.procialize.eventsapp.GetterSetter.RatingSpeakerPost;
 import com.procialize.eventsapp.R;
 import com.procialize.eventsapp.Session.SessionManager;
 import com.procialize.eventsapp.Utility.Util;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.List;
@@ -273,6 +276,12 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
             progressBar.setVisibility(View.GONE);
         }
 
+        profileIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imagealert();
+            }
+        });
         if (speakerid.equalsIgnoreCase(attendeeid)) {
             ratebtn.setVisibility(View.GONE);
             ratinglayout.setVisibility(View.GONE);
@@ -437,5 +446,20 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void imagealert() {
+        final Dialog dialog = new Dialog(SpeakerDetailsActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow()
+                .setSoftInputMode(
+                        WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
+                                | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        dialog.setContentView(R.layout.imagepopulayout);
+        ImageView image = (ImageView) dialog.findViewById(R.id.image);
+//        String imgae = dbManager.GetimageUrl(datamodel.get(position).getProdcutid());
+        String imageUrl = ApiConstant.profilepic + profile;
+        Picasso.with(SpeakerDetailsActivity.this).load(imageUrl).into(image);
+        dialog.show();
     }
 }

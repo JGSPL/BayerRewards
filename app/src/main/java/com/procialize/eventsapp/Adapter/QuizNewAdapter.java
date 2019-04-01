@@ -160,7 +160,7 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
                     rdbtn.setText(StringEscapeUtils.unescapeJava(quizSpecificOptionListnew.get(i - 1).getOption()));
                     rdbtn.setTextColor(Color.BLACK);
                     rdbtn.setTextSize(14);
-                    rdbtn.setBackgroundResource(R.drawable.agenda_bg);
+                    rdbtn.setBackgroundResource(R.drawable.border);
 
 //                    rdbtn.setButtonDrawable(R.drawable.radio_buttontoggle_first);
 
@@ -325,7 +325,7 @@ public class QuizNewAdapter extends RecyclerView.Adapter<QuizNewAdapter.ViewHold
                     rdbtn.setText(StringEscapeUtils.unescapeJava(quizSpecificOptionListnew.get(i - 1).getOption()));
                     rdbtn.setTextColor(Color.BLACK);
                     rdbtn.setTextSize(9);
-                    rdbtn.setBackgroundResource(R.drawable.agenda_bg);
+                    rdbtn.setBackgroundResource(R.drawable.border);
 
 //                    rdbtn.setButtonDrawable(R.drawable.radio_buttontoggle_first);
                     if (Build.VERSION.SDK_INT >= 21) {

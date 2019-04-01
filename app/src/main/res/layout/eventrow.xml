@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_marginTop="5dp">
+    android:layout_marginTop="5dp"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
             android:id="@+id/mainLL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorgrey"
+            android:background="@color/colorwhite"
             android:baselineAligned="false"
             android:orientation="horizontal">
 
@@ -71,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:paddingLeft="5dp"
-                    android:text="Abheejit Saxena"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/textsizenormal"
                     android:visibility="gone" />
@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="5dp"
-                    android:text="Simens LTD"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/textsizesmall" />
 
@@ -93,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="5dp"
-                    android:text="Delhi"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/textsizesmall" />
 
@@ -106,9 +106,9 @@
                 android:gravity="center">
 
                 <ImageView
+                    android:id="@+id/imgArrow"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:id="@+id/imgArrow"
                     android:contentDescription="TODO"
                     android:src="@drawable/ic_rightarrow" />
 

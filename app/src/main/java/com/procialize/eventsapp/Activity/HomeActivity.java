@@ -20,6 +20,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -95,7 +96,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import cn.jzvd.JZVideoPlayerStandard;
-import io.intercom.android.sdk.Intercom;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -277,8 +278,54 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         try {
 
             int i = tabLayout.getTabCount();
+            if (i == 5) {
+//               tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+//               tabLayout.getTabAt(1).setIcon(tabIcons[1]);
+//               tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+//               tabLayout.getTabAt(3).setIcon(tabIcons[3]);
 
-            if (i == 4) {
+
+                tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor(colorActive), PorterDuff.Mode.SRC_IN);
+                tabLayout.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#4D4D4D"), PorterDuff.Mode.SRC_IN);
+                tabLayout.getTabAt(2).getIcon().setColorFilter(Color.parseColor("#4D4D4D"), PorterDuff.Mode.SRC_IN);
+                tabLayout.getTabAt(3).getIcon().setColorFilter(Color.parseColor("#4D4D4D"), PorterDuff.Mode.SRC_IN);
+                tabLayout.getTabAt(4).getIcon().setColorFilter(Color.parseColor("#4D4D4D"), PorterDuff.Mode.SRC_IN);
+
+
+                tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        JZVideoPlayerStandard.releaseAllVideos();
+                        String string = colorActive;
+                        int color = Color.parseColor(string);
+                        InputMethodManager imm = (InputMethodManager) HomeActivity.this.getSystemService(INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(tabLayout.getWindowToken(), 0);
+// int tabIconColor = ContextCompat.getColor(HomeActivity.this, color); //tabselected color
+                        tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+//                        if (tab.getText().equals("Agenda")) {
+//                            if (cd.isConnectingToInternet()) {
+//                                fetchAgenda(token, eventid);
+//                            }
+//                        }
+                    }
+
+                    @Override
+                    public void onTabUnselected(TabLayout.Tab tab) {
+
+                        String string1 = "#4D4D4D";
+                        int color1 = Color.parseColor(string1);
+                        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+// int tabIconColor = ContextCompat.getColor(HomeActivity.this,color1);//tabunselected color
+                        tab.getIcon().setColorFilter(color1, PorterDuff.Mode.SRC_IN);
+                    }
+
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {
+
+                    }
+                });
+            } else if (i == 4) {
 //               tabLayout.getTabAt(0).setIcon(tabIcons[0]);
 //               tabLayout.getTabAt(1).setIcon(tabIcons[1]);
 //               tabLayout.getTabAt(2).setIcon(tabIcons[2]);
@@ -570,12 +617,12 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
             }
         });
 
-        chatbt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intercom.client().displayMessenger();
-            }
-        });
+//        chatbt.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intercom.client().displayMessenger();
+//            }
+//        });
 
         switchbt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -646,7 +693,20 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                 super.onDrawerOpened(drawerView);
             }
         };
-
+//        actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
+//        actionBarDrawerToggle.setHomeAsUpIndicator(R.drawable.menuicon);
+//
+//        actionBarDrawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer);
+//                if (drawer.isDrawerOpen(GravityCompat.START)) {
+//                    drawer.closeDrawer(GravityCompat.START);
+//                } else {
+//                    drawer.openDrawer(GravityCompat.START);
+//                }
+//            }
+//        });
         //Setting the actionbarToggle to drawer layout
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
 
@@ -832,6 +892,19 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                 tabLayout.getTabAt(3).setIcon(tabIcons[3]);
             } else if (tabLayout.getTabAt(3).getText().equals("General Info")) {
                 tabLayout.getTabAt(3).setIcon(tabIcons[4]);
+            }
+        }
+        if (tabLayout.getTabAt(4) != null) {
+            if (tabLayout.getTabAt(4).getText().equals("News Feed")) {
+                tabLayout.getTabAt(4).setIcon(tabIcons[0]);
+            } else if (tabLayout.getTabAt(4).getText().equals("Agenda")) {
+                tabLayout.getTabAt(4).setIcon(tabIcons[1]);
+            } else if (tabLayout.getTabAt(4).getText().equals("Attendees")) {
+                tabLayout.getTabAt(4).setIcon(tabIcons[2]);
+            } else if (tabLayout.getTabAt(4).getText().equals("Speakers")) {
+                tabLayout.getTabAt(4).setIcon(tabIcons[3]);
+            } else if (tabLayout.getTabAt(4).getText().equals("General Info")) {
+                tabLayout.getTabAt(4).setIcon(tabIcons[4]);
             }
         }
 

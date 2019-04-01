@@ -71,7 +71,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
         final UserEventList evnt = eventListfilter.get(position);
 
 
-        holder.eventnaem.setBackgroundColor(Color.parseColor(evnt.getPrimary_color_code()));
+        try {
+            holder.eventnaem.setBackgroundColor(Color.parseColor(evnt.getPrimary_color_code()));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         /*int colorInt = Color.parseColor(evnt.getPrimary_color_code());
 
         //ColorStateList csl = ColorStateList.valueOf(colorInt);

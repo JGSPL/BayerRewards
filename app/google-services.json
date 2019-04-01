@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "454925365675",
-    "firebase_url": "https://procialize-events-app.firebaseio.com",
-    "project_id": "procialize-events-app",
-    "storage_bucket": "procialize-events-app.appspot.com"
+    "project_number": "321746269511",
+    "firebase_url": "https://procializeevents.firebaseio.com",
+    "project_id": "procializeevents",
+    "storage_bucket": "procializeevents.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:454925365675:android:7e750de8a9982857",
+        "mobilesdk_app_id": "1:321746269511:android:7e750de8a9982857",
         "android_client_info": {
           "package_name": "com.procialize.eventsapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "454925365675-h46c3ifa3efptgkgm2oj601qg709pek9.apps.googleusercontent.com",
+          "client_id": "321746269511-g4aetlcaro5krmse1grp35s4qp2r2u4p.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCI09sQtB-ObopHwNe58O32aS9M99Ivz-8"
+          "current_key": "AIzaSyALeU4GcoDm3ubuVfqLua3Cx8OHIvyYxmE"
         }
       ],
       "services": {

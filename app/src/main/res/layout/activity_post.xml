@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@color/colorgrey"
     android:orientation="vertical"
     tools:context="com.procialize.eventsapp.Activity.PostViewActivity">
 
@@ -12,8 +12,8 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="0dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="0dp">
 
 
         <android.support.v7.widget.Toolbar
@@ -39,31 +39,32 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="-10dp"
                 android:contentDescription=" "
-                android:visibility="gone"
-                android:src="@drawable/header_logo" />
+                android:src="@drawable/header_logo"
+                android:visibility="gone" />
 
             <com.procialize.eventsapp.Fonts.RobotoTextview
                 android:layout_width="wrap_content"
-                android:text="Post To Wall"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
 
-                android:textColor="@color/black"
-                android:layout_height="wrap_content"/>
+                android:text="Post To Wall"
+                android:textColor="@color/black" />
 
             <com.procialize.eventsapp.Fonts.RobotoTextview
                 android:id="@+id/postbtn"
                 android:layout_width="60dp"
-                android:text="Post"
                 android:layout_height="match_parent"
                 android:layout_gravity="right"
-                android:textColor="@color/black"
-                android:gravity="center" />
+                android:gravity="center"
+                android:text="Post"
+                android:textColor="@color/black" />
 
         </android.support.v7.widget.Toolbar>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/linecolor"/>
+            android:background="@color/linecolor" />
 
 
     </android.support.design.widget.AppBarLayout>
@@ -74,9 +75,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/appBarLayout"
         android:layout_marginTop="5dp"
-        android:weightSum="10"
         android:baselineAligned="false"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="10">
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -90,13 +91,12 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_centerHorizontal="true"
-                android:adjustViewBounds="true"
                 android:layout_marginTop="7dp"
+                android:adjustViewBounds="true"
                 android:background="@drawable/border"
-                android:src="@drawable/profilepic_placeholder"
                 android:contentDescription="TODO"
                 android:scaleType="centerCrop"
-                />
+                android:src="@drawable/profilepic_placeholder" />
 
 
         </RelativeLayout>
@@ -130,33 +130,45 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <include layout="@layout/users_list" />
+
+
                 <com.procialize.eventsapp.Fonts.RobotoEditext
                     android:id="@+id/posttextEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="80dp"
                     android:layout_centerInParent="true"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="12dp"
                     android:background="@drawable/border"
                     android:gravity="top|left"
                     android:hint="@string/whatsmind"
-                    android:textColorHint="@color/black"
                     android:imeOptions="actionSend|flagNoEnterAction"
                     android:inputType="textShortMessage|textAutoCorrect|textCapSentences|textMultiLine"
                     android:maxLength="500"
                     android:maxLines="5"
+                    android:minHeight="80dp"
                     android:minLines="2"
                     android:padding="10dp"
                     android:scrollbars="vertical"
+                    android:textColorHint="@color/black"
                     android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/textData"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="500"
+                    android:textSize="10sp"
+                    android:visibility="gone" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
                     android:layout_marginLeft="10dp"
+                    android:gravity="right"
                     android:orientation="horizontal">
 
                     <TextView
@@ -185,23 +197,23 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/ll"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
 
         <ImageView
-            android:layout_centerInParent="true"
             android:id="@+id/Uploadiv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_centerInParent="true"
             android:layout_margin="10dp"
             android:adjustViewBounds="true"
             android:contentDescription="TODO"
-            android:visibility="gone"
-            />
+            android:visibility="gone" />
+
         <ImageView
             android:id="@+id/imgPlay"
             android:layout_width="50dp"
@@ -210,20 +222,22 @@
             android:layout_centerInParent="true"
             android:contentDescription="TODO"
             android:src="@drawable/ic_media_play"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_gravity="center">
 
             <VideoView
                 android:id="@+id/Upvideov"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:layout_centerHorizontal="true"
-                android:layout_centerInParent="true"/>
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:visibility="gone" />
 
 
         </RelativeLayout>
@@ -237,9 +251,9 @@
         android:layout_margin="10dp"
         android:background="@drawable/loginbutton"
         android:text="@string/post"
-        android:visibility="gone"
         android:textColor="@color/colorwhite"
-        android:textSize="@dimen/textsizesmall" />
+        android:textSize="@dimen/textsizesmall"
+        android:visibility="gone" />
 
     <!--<ProgressBar-->
     <!--android:id="@+id/progressbar"-->
@@ -256,6 +270,6 @@
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 </RelativeLayout>

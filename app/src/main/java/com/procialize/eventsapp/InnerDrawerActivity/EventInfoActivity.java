@@ -287,7 +287,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
                         view.setVisibility(View.GONE);
                     }
 
-                    event_desc.setText("Venue:- " + response.body().getEventList().get(0).getEventLocation() + "\n\n" + response.body().getEventList().get(0).getEventDescription());
+                    event_desc.setText(response.body().getEventList().get(0).getEventLocation() + "\n\n" + response.body().getEventList().get(0).getEventDescription());
                     String image_final_url = ApiConstant.imgURL + "uploads/app_logo/" + response.body().getEventList().get(0).getLogo();
 
 //                Glide.with(getApplicationContext()).load(image_final_url).into(logoIv).onLoadStarted(getDrawable(R.drawable.logo));
@@ -353,10 +353,10 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
                         options.position(position);
 
                         // Setting title for the MarkerOptions
-                        options.title("Venue");
+
 
                         // Setting snippet for the MarkerOptions
-                        options.snippet("Venue:- " + response.body().getEventList().get(0).getEventLocation());
+                        options.snippet( response.body().getEventList().get(0).getEventLocation());
 
 
                         // Adding Marker on the Google Map

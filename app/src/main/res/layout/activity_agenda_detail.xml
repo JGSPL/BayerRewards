@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@color/colorgrey"
     android:orientation="vertical"
     tools:context="com.procialize.eventsapp.Activity.AgendaDetailActivity">
 
@@ -46,7 +46,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/linecolor" />
+            android:background="@color/linecolor"
+            android:visibility="gone"/>
 
 
     </android.support.design.widget.AppBarLayout>
@@ -61,7 +62,7 @@
         android:background="@drawable/loader"
         android:visibility="gone" />
 
-    <com.procialize.eventsapp.Fonts.RobotoTextview
+    <TextView
         android:id="@+id/tvname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -84,7 +85,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
-        android:background="@color/feedpostingbgcolornew"
+        android:background="@color/colorwhite"
         android:orientation="vertical">
 
         <LinearLayout
@@ -102,7 +103,7 @@
                 android:contentDescription="TODO"
                 android:src="@drawable/agendadate" />
 
-            <com.procialize.eventsapp.Fonts.RobotoTextview
+            <TextView
                 android:id="@+id/tvdate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -135,7 +136,7 @@
                 android:contentDescription="TODO"
                 android:src="@drawable/time" />
 
-            <com.procialize.eventsapp.Fonts.RobotoTextview
+            <TextView
                 android:id="@+id/tvtime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -194,7 +195,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
-            android:background="@color/feedpostingbgcolornew"
+            android:background="@color/colorwhite"
             android:orientation="vertical">
 
             <LinearLayout
@@ -203,7 +204,7 @@
                 android:layout_gravity="center"
                 android:orientation="vertical">
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -221,7 +222,7 @@
                     android:stepSize="0.5" />
             </LinearLayout>
 
-            <com.procialize.eventsapp.Fonts.RobotoButton
+            <Button
                 android:id="@+id/ratebtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -233,7 +234,7 @@
 
         </LinearLayout>
 
-        <com.procialize.eventsapp.Fonts.RobotoTextview
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/linear_bottom"
@@ -242,6 +243,7 @@
             android:layout_marginTop="5dp"
             android:text="*Rating can be done only when the session starts"
             android:textColor="@color/inactivetab"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:id="@+id/msg"/>
     </RelativeLayout>
 </RelativeLayout>

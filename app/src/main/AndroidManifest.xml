@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.GET_TASKS"/>
 
     <uses-permission
         android:name="android.permission.CAPTURE_VIDEO_OUTPUT"
@@ -20,7 +21,8 @@
 
     <application
         android:name="com.procialize.eventsapp.Utility.MyApplication"
-        android:allowBackup="true"
+        android:allowBackup="false"
+        tools:replace="allowBackup"
         android:icon="@drawable/app_icon"
         android:label="@string/app_name"
         android:largeHeap="true"
@@ -353,6 +355,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden">
 
+            <tools:validation testUrl="http://procialize.info/resetPassword.html" />
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
 
@@ -361,14 +364,20 @@
 
                 <data
                     android:scheme="http"
-                    android:host="www.procialize.live"
-                    android:pathPrefix="/procialize/" />
+                    android:host="procialize.info" />
             </intent-filter>
         </activity>
         <activity
             android:name="com.procialize.eventsapp.Activity.EmptyView2"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <receiver android:name=".Session.UninstallIntentReceiver">
+            <intent-filter android:priority="0">
+                <action android:name="android.intent.action.QUERY_PACKAGE_RESTART" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

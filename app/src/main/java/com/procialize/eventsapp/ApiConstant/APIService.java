@@ -31,6 +31,7 @@ import com.procialize.eventsapp.GetterSetter.LivePollFetch;
 import com.procialize.eventsapp.GetterSetter.LivePollSubmitFetch;
 import com.procialize.eventsapp.GetterSetter.Login;
 import com.procialize.eventsapp.GetterSetter.NotificationListFetch;
+import com.procialize.eventsapp.GetterSetter.NotificationSend;
 import com.procialize.eventsapp.GetterSetter.PostComment;
 import com.procialize.eventsapp.GetterSetter.PostSelfie;
 import com.procialize.eventsapp.GetterSetter.PostTextFeed;
@@ -116,7 +117,12 @@ public interface APIService {
                                   @Field("comment_data") String comment_data,
                                   @Field("api_access_token") String api_access_token);
 
-
+    @POST("SendNotification")
+    @FormUrlEncoded
+    Call<NotificationSend> SendNotification(@Field("api_access_token") String api_access_token,
+                                            @Field("event_id") String event_id,
+                                            @Field("message") String message,
+                                            @Field("display_time") String display_time);
     @POST("NewsFeedLike")
     @FormUrlEncoded
     Call<LikePost> postLike(@Field("event_id") String eventId,
@@ -558,7 +564,7 @@ public interface APIService {
                             @Field("analytic_type") String analytic_type,
                             @Field("video_details") String video_details);
 
-    @POST("GenInfoWeather")
+    @POST("GenInfoWeatherYahooWeather")
     @FormUrlEncoded
     Call<Weather> WeatherListFetch(@Field("api_access_token") String api_access_token,
                                    @Field("event_id") String event_id);

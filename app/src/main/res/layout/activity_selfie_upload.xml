@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@color/colorgrey"
     tools:context="com.procialize.eventsapp.InnerDrawerActivity.SelfieUploadActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -51,7 +51,8 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/appBarLayout">
 
         <RelativeLayout
             android:id="@+id/llData"

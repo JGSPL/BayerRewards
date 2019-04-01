@@ -2,14 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@color/colorgrey"
     android:orientation="vertical"
     tools:context="com.procialize.eventsapp.Fragments.AttendeeFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
 
-    <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
+    <EditText
         android:id="@+id/searchEt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
         android:textColor="@color/black"
         android:textSize="@dimen/textsizesmall" />
 
-    <com.procialize.eventsapp.Fonts.RobotoTextview
+    <TextView
         android:id="@+id/pullrefresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

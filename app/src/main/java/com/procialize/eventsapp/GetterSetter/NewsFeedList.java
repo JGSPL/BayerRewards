@@ -63,6 +63,18 @@ public class NewsFeedList implements Serializable {
     @Expose
     private String totalComments;
 
+    public String getAttendee_type() {
+        return attendee_type;
+    }
+
+    public void setAttendee_type(String attendee_type) {
+        this.attendee_type = attendee_type;
+    }
+
+    @SerializedName("attendee_type")
+    @Expose
+    private String attendee_type;
+
     public String getNewsFeedId() {
         return newsFeedId;
     }

@@ -101,7 +101,9 @@
                         android:layout_margin="15dp"
                         android:textColor="@color/black"
                         android:textSize="@dimen/textsizenormal"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        android:gravity="center"/>
 
                     <WebView
                         android:id="@+id/webView"

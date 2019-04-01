@@ -36,9 +36,7 @@ import com.procialize.eventsapp.R;
 import com.procialize.eventsapp.Session.SessionManager;
 import com.procialize.eventsapp.gcm.GCMHelper;
 
-import io.intercom.android.sdk.Intercom;
-import io.intercom.android.sdk.UserAttributes;
-import io.intercom.android.sdk.identity.Registration;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -290,8 +288,9 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
             String country = response.body().getUserData().getCountry();
             String pic = response.body().getUserData().getProfilePic();
             String id = response.body().getUserData().getAttendeeId();
+            String attendee_status = response.body().getUserData().getAttendee_status();
 
-            sessionManager.createLoginSession(firstname, lastname, email, mobile, company, designation, token, desc, city, country, pic, id, emailid, password, "1");
+            sessionManager.createLoginSession(firstname, lastname, email, mobile, company, designation, token, desc, city, country, pic, id, emailid, password, "1",attendee_status);
             SessionManager.saveSharedPreferencesEventList(response.body().getEventSettingList());
             SessionManager.saveSharedPreferencesMenuEventList(response.body().getEventMenuSettingList());
 
@@ -310,20 +309,20 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
 
 //              Company company1 = new Company.Builder().withName(company).build();
 
-                UserAttributes userAttributes = new UserAttributes.Builder()
-                        .withName(firstname + " " + lastname)
-                        .withEmail(email)
-                        .withPhone(mobile)
-//                      .withCompany(company1)
-                        .withUserId(id)
-                        .build();
-
-                Registration registration = Registration.create().withUserAttributes(userAttributes);
-                Intercom.client().registerIdentifiedUser(registration);
+//                UserAttributes userAttributes = new UserAttributes.Builder()
+//                        .withName(firstname + " " + lastname)
+//                        .withEmail(email)
+//                        .withPhone(mobile)
+////                      .withCompany(company1)
+//                        .withUserId(id)
+//                        .build();
+//
+//                Registration registration = Registration.create().withUserAttributes(userAttributes);
+//                Intercom.client().registerIdentifiedUser(registration);
 
 //                editor.putString("loginfirst","1");
                 editor.apply();
-                Intent home = new Intent(getApplicationContext(), ProfileActivity.class);
+                Intent home = new Intent(getApplicationContext(), HomeActivity.class);
 //                home.putExtra("eventId", eventid);
 //                home.putExtra("eventnamestr", eventnamestr);
                 startActivity(home);

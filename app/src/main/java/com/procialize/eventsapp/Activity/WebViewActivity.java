@@ -1,7 +1,9 @@
 package com.procialize.eventsapp.Activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -11,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -169,7 +172,7 @@ public class WebViewActivity extends AppCompatActivity {
 
                 mywebview.clearCache(true);
                 mywebview.loadData(cssEditor + contactstr, "text/html", "UTF-8");
-
+                mywebview.setWebViewClient(new CustomWebViewClient());
 
             }
             /* else {
@@ -192,7 +195,34 @@ public class WebViewActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
         }
     }
+    private class CustomWebViewClient extends WebViewClient {
 
+        public void onPageFinished(WebView view, String url) {
+
+        }
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
+            if (url.startsWith("tel:")) {
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse(url));
+                startActivity(intent);
+                view.clearCache(true);
+                view.reload();
+                return true;
+            }else if (url.startsWith("mailto:")) {
+                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"));
+                startActivity(intent);
+                view.clearCache(true);
+                view.reload();
+                return true;
+            }
+
+            view.clearCache(true);
+            view.loadUrl(url);
+            return true;
+        }
+    }
 
     public void showProgress() {
        /* if (progressBar.getVisibility() == View.GONE) {

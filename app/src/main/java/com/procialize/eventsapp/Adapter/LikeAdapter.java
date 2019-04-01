@@ -101,7 +101,7 @@ public class LikeAdapter extends RecyclerView.Adapter<LikeAdapter.MyViewHolder> 
 
         holder.nameTv.setText(attendeeList.getFirstName() + " " + attendeeList.getLastName());
 
-        SimpleDateFormat originalFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.UK);
+        SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.UK);
         SimpleDateFormat targetFormat = new SimpleDateFormat("dd MMM HH:mm");
         try {
             Date startdate = originalFormat.parse(attendeeList.getCreated());

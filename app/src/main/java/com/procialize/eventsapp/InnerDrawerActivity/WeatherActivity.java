@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.procialize.eventsapp.Adapter.WeatherAdapter;
 import com.procialize.eventsapp.ApiConstant.APIService;
 import com.procialize.eventsapp.ApiConstant.ApiUtils;
@@ -53,7 +54,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherAdapter
         setContentView(R.layout.activity_weather);
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        eventid = prefs.getString("eventid", "1");
+        eventid = prefs.getString("eventid", "95");
         colorActive = prefs.getString("colorActive", "");
 
 
@@ -75,7 +76,8 @@ public class WeatherActivity extends AppCompatActivity implements WeatherAdapter
         });
         mAPIService = ApiUtils.getAPIService();
 
-
+        headerlogoIv = findViewById(R.id.headerlogoIv);
+        Util.logomethod(this, headerlogoIv);
         SessionManager sessionManager = new SessionManager(this);
 
         HashMap<String, String> user = sessionManager.getUserDetails();
@@ -84,7 +86,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherAdapter
         final String token = user.get(SessionManager.KEY_TOKEN);
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
-        Util.logomethod(this, headerlogoIv);
+//        Util.logomethod(this, headerlogoIv);
 
 
         cityTv = findViewById(R.id.cityTv);
@@ -234,7 +236,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherAdapter
             WeatherAdapter docAdapter = new WeatherAdapter(WeatherActivity.this, response.body().getForecast(), this);
             docAdapter.notifyDataSetChanged();
             weatherRV.setAdapter(docAdapter);
-            weatherRV.scheduleLayoutAnimation();
+//            weatherRV.scheduleLayoutAnimation();
 
 
             maxTv.setText(String.valueOf(response.body().getMax()) + tmp);

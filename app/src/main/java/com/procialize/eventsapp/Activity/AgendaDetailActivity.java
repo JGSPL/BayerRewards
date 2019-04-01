@@ -31,6 +31,7 @@ import com.procialize.eventsapp.Session.SessionManager;
 import com.procialize.eventsapp.Utility.Util;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -54,7 +55,7 @@ public class AgendaDetailActivity extends AppCompatActivity {
     Dialog myDialog;
     String agenda_save_to_calendar, agenda_text_description;
     List<EventSettingList> eventSettingLists;
-
+    TextView msg;
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid, colorActive;
     LinearLayout linear1, linear2, linear3;
@@ -62,6 +63,10 @@ public class AgendaDetailActivity extends AppCompatActivity {
     RatingBar ratingbar;
     ProgressBar progressBar;
     ImageView headerlogoIv;
+    String spitdate;
+    String startdatestr;
+    String enddatestr;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,6 +141,7 @@ public class AgendaDetailActivity extends AppCompatActivity {
         ratebtn = findViewById(R.id.ratebtn);
         ratingbar = findViewById(R.id.ratingbar);
         progressBar = findViewById(R.id.progressBar);
+        msg = findViewById(R.id.msg);
 
         tvname.setBackgroundColor(Color.parseColor(colorActive));
 
@@ -201,15 +207,18 @@ public class AgendaDetailActivity extends AppCompatActivity {
 
         if (starttime != null && endtime != null) {
             try {
-                SimpleDateFormat originalFormat = new SimpleDateFormat("dd-mm-yyyy HH:mm:ss", Locale.UK);
+                SimpleDateFormat originalFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.UK);
                 SimpleDateFormat targetFormat = new SimpleDateFormat("HH:mm aa");
+                SimpleDateFormat datesplit = new SimpleDateFormat("dd-MM-yyyy");
 
                 Date startdate = originalFormat.parse(starttime);
                 Date enddate = originalFormat.parse(endtime);
 
-                String startdatestr = targetFormat.format(startdate);
-                String enddatestr = targetFormat.format(enddate);
-
+//                String startdatestr = targetFormat.format(startdate);
+//                String enddatestr = targetFormat.format(enddate);
+                startdatestr = targetFormat.format(startdate);
+                enddatestr = targetFormat.format(enddate);
+                spitdate = datesplit.format(startdate);
                 tvtime.setText(startdatestr + " - " + enddatestr);
 
             } catch (Exception e) {
@@ -241,7 +250,31 @@ public class AgendaDetailActivity extends AppCompatActivity {
             viewtwo.setVisibility(View.GONE);
         }
 
+        Calendar now = Calendar.getInstance();
+        now.add(Calendar.MINUTE, 15);
+        Date teenMinutesFromsave = now.getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        String formattedDate = df.format(teenMinutesFromsave);
+        SimpleDateFormat targetFormat = new SimpleDateFormat("HH:mm aa");
+        SimpleDateFormat datesplit = new SimpleDateFormat("dd-MM-yyyy");
 
+        String currenttime = targetFormat.format(teenMinutesFromsave);
+        String currentdate = datesplit.format(teenMinutesFromsave);
+
+
+//        if ((spitdate.equalsIgnoreCase(currentdate))) {
+//            if (startdatestr.equalsIgnoreCase(currenttime)) {
+//                ratingbar.setEnabled(true);
+//                msg.setVisibility(View.GONE);
+//            } else {
+//                ratingbar.setEnabled(false);
+//                msg.setVisibility(View.VISIBLE);
+//            }
+//
+//        }else {
+//            ratingbar.setEnabled(false);
+//            msg.setVisibility(View.VISIBLE);
+//        }
 //        ratebtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

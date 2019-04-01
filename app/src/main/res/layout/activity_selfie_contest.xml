@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@color/colorgrey"
     android:orientation="vertical"
     tools:context="com.procialize.eventsapp.InnerDrawerActivity.SelfieContestActivity">
 
@@ -92,7 +92,8 @@
             android:textAllCaps="false"
             android:textColor="@color/colorwhite"
             android:textSize="@dimen/textsizesmall"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:drawableLeft="@drawable/upload"/>
         <com.procialize.eventsapp.Fonts.RobotoTextview
             android:id="@+id/pullrefresh"
             android:layout_width="match_parent"

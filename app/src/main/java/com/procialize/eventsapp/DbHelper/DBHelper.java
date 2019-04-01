@@ -44,6 +44,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String ATTENDEE_TOTAL_RATING = "ATTENDEE_TOTAL_RATING";
     public static final String ATTENDEE_AVG_RATING = "ATTENDEE_AVG_RATING";
     public static final String ATTENDEE_STAR = "ATTENDEE_STAR";
+    public static final String ATTENDEE_STATUS = "ATTENDEE_STATUS";
     //Agenda Table
     public static final String AGENDA_TABLE_NAME = "AGENDA_TABLE_NAME";
     public static final String SESSION_ID = "SESSION_ID";
@@ -88,6 +89,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String NEWSFEED_LIKE_FLAG = "NEWSFEED_LIKE_FLAG";
     public static final String NEWSFEED_TOTAL_LIKES = "NEWSFEED_TOTAL_LIKES";
     public static final String NEWSFEED_TOTAL_COMMENTS = "NEWSFEED_TOTAL_COMMENTS";
+    public static final String NEWSFEED_ATTENDEE_TYPE = "NEWSFEED_ATTENDEE_TYPE";
     // Database Version
     private static final int DATABASE_VERSION = 1;
     private static DBHelper sInstance;
@@ -132,7 +134,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 + " text, " + ATTENDEE_DESIGNATION + " text, "
                 + ATTENDEE_DESCRIPTION + " text, " + ATTENDEE_CITY
                 + " text, " + ATTENDEE_COUNTRY + " text, "
-                + ATTENDEE_PROFILE_PIC + " text, " + ATTENDEE_MOBILE + " text)");
+                + ATTENDEE_PROFILE_PIC + " text, " + ATTENDEE_MOBILE + " text," + ATTENDEE_STATUS + "text)");
 
         // Creating Agenda table
         db.execSQL("create table " + AGENDA_TABLE_NAME + "(" + SESSION_ID
@@ -182,7 +184,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 + NEWSFEED_HEIGHT + " text, "
                 + NEWSFEED_LIKE_FLAG + " text, "
                 + NEWSFEED_TOTAL_LIKES + " text, "
-                + NEWSFEED_TOTAL_COMMENTS + " text)");
+                + NEWSFEED_TOTAL_COMMENTS + " text,"
+                + NEWSFEED_ATTENDEE_TYPE + " text)");
 
     }
 
@@ -280,6 +283,14 @@ public class DBHelper extends SQLiteOpenHelper {
                         && attendee_designation.length() > 0) {
                     contentValues.put(ATTENDEE_MOBILE,
                             attendee_designation);
+                }
+
+                String attendee_status = UsersList.get(i)
+                        .getAttendee_status();
+                if (attendee_status != null
+                        && attendee_status.length() > 0) {
+                    contentValues.put(ATTENDEE_STATUS,
+                            attendee_status);
                 }
                 db.insert(USER_TABLE_NAME, null, contentValues);
 
@@ -612,6 +623,10 @@ public class DBHelper extends SQLiteOpenHelper {
                 if (totalComments != null && totalComments.length() > 0) {
                     contentValues.put(NEWSFEED_TOTAL_COMMENTS, totalComments);
                 }
+                String attendee_type = newsfeedsList.get(i).getAttendee_type();
+                if (attendee_type != null && attendee_type.length() > 0) {
+                    contentValues.put(NEWSFEED_ATTENDEE_TYPE, attendee_type);
+                }
 
                 db.insert(NEWSFEED_TABLE_NAME, null, contentValues);
             }
@@ -938,6 +953,7 @@ public class DBHelper extends SQLiteOpenHelper {
             userdatasList.setCountry(cursor.getString(9));
             userdatasList.setProfilePic(cursor.getString(10));
             userdatasList.setMobile(cursor.getString(11));
+            userdatasList.setAttendee_status(cursor.getString(12));
         }
 
         db.close();
@@ -1042,6 +1058,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 newsfeedsList.setLikeFlag(cursor.getString(15));
                 newsfeedsList.setTotalLikes(cursor.getString(16));
                 newsfeedsList.setTotalComments(cursor.getString(17));
+                newsfeedsList.setAttendee_type(cursor.getString(18));
 
                 newsFeedList.add(newsfeedsList);
             } while (cursor.moveToNext());
@@ -1078,6 +1095,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 newsfeedsList.setLikeFlag(cursor.getString(15));
                 newsfeedsList.setTotalLikes(cursor.getString(16));
                 newsfeedsList.setTotalComments(cursor.getString(17));
+                newsfeedsList.setAttendee_type(cursor.getString(18));
 
                 newsFeedList.add(newsfeedsList);
             } while (cursor.moveToNext());

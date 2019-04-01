@@ -293,7 +293,7 @@ public class VideoFirstLevelActivity extends AppCompatActivity implements VideoF
 
 
     public void fetchVideo(String token, String eventid) {
-        showProgress();
+//        showProgress();
         mAPIService.VideoFetchListFetch(token, eventid).enqueue(new Callback<VideoFetchListFetch>() {
             @Override
             public void onResponse(Call<VideoFetchListFetch> call, Response<VideoFetchListFetch> response) {
@@ -320,7 +320,7 @@ public class VideoFirstLevelActivity extends AppCompatActivity implements VideoF
 
     public void showResponse(Response<VideoFetchListFetch> response) {
 
-        dismissProgress();
+//        dismissProgress();
         // specify an adapter (see also next example)
         if (response.body().getVideoList().size() != 0) {
 
@@ -448,8 +448,8 @@ public class VideoFirstLevelActivity extends AppCompatActivity implements VideoF
 
             filtergallerylists = filtergallerylistsdemp;
             setrv(filtergallerylistsdemp);
-            dismissProgress();
             super.onPostExecute(filtergallerylists);
+            dismissProgress();
         }
     }
 

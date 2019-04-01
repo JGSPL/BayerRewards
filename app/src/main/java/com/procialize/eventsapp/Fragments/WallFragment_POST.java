@@ -59,6 +59,7 @@ import com.procialize.eventsapp.GetterSetter.Analytic;
 import com.procialize.eventsapp.GetterSetter.AttendeeList;
 import com.procialize.eventsapp.GetterSetter.DeletePost;
 import com.procialize.eventsapp.GetterSetter.EventSettingList;
+import com.procialize.eventsapp.GetterSetter.FetchAttendee;
 import com.procialize.eventsapp.GetterSetter.FetchFeed;
 import com.procialize.eventsapp.GetterSetter.LikeListing;
 import com.procialize.eventsapp.GetterSetter.LikePost;
@@ -135,6 +136,7 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
     private DBHelper dbHelper;
     private int mScrollState = AbsListView.OnScrollListener.SCROLL_STATE_IDLE;
     private LinearLayoutManager mLayoutManager;
+    private List<AttendeeList> attendeeList;
 
     public WallFragment_POST() {
         // Required empty public constructor
@@ -326,6 +328,35 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
             }
         });
 
+        mAPIService.AttendeeFetchPost(token, eventid).enqueue(new Callback<FetchAttendee>() {
+            @Override
+            public void onResponse(Call<FetchAttendee> call, Response<FetchAttendee> response) {
+
+                if (response.isSuccessful()) {
+                    Log.i("hit", "post submitted to API." + response.body().toString());
+
+                    if (response.body().getMsg().equalsIgnoreCase("Invalid Token!")) {
+                        sessionManager.logoutUser();
+                        Intent main = new Intent(getContext(), LoginActivity.class);
+                        startActivity(main);
+                        getActivity().finish();
+                    } else {
+                        showResponseAttendee(response);
+                    }
+                } else {
+
+                    //Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FetchAttendee> call, Throwable t) {
+                Log.e("hit", "Unable to submit post to API.");
+                //  Toast.makeText(getContext(), "Unable to process", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
         // specify an adapter (see also next example)
 //        FeedAdapter feedAdapter = new FeedAdapter(getActivity(),HomeActivity.NewsFeedarryList);
 //        feedrecycler.setAdapter(feedAdapter);
@@ -360,6 +391,21 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
         return view;
 
     }
+
+
+    public void showResponseAttendee(Response<FetchAttendee> response) {
+
+        // specify an adapter (see also next example)
+        attendeeList = response.body().getAttendeeList();
+        procializeDB.clearAttendeesTable();
+        procializeDB.insertAttendeesInfo(attendeeList, db);
+        //attendeesDBList = dbHelper.getAttendeeDetails();
+
+
+
+
+    }
+
 
     private void weightapply(RelativeLayout txtfeedRv, RelativeLayout imagefeedRv, RelativeLayout videofeedRv, View viewone, View viewteo) {
 
@@ -534,7 +580,11 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
             feed.setLikeFlag("0");
             likeimage.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_like, 0);
 //            likeimage.setBackgroundResource(R.drawable.ic_like);
-            PostLike(eventid, feed.getNewsFeedId(), token);
+            if (cd.isConnectingToInternet()) {
+                PostLike(eventid, feed.getNewsFeedId(), token);
+            } else {
+                Toast.makeText(getActivity(), "No Internet Connection", Toast.LENGTH_SHORT).show();
+            }
             try {
 
                 if (count > 0) {
@@ -560,7 +610,11 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
             setTextViewDrawableColor(likeimage, colorActive);
 
 //            likeimage.setBackgroundResource(R.drawable.ic_afterlike);
-            PostLike(eventid, feed.getNewsFeedId(), token);
+            if (cd.isConnectingToInternet()) {
+                PostLike(eventid, feed.getNewsFeedId(), token);
+            } else {
+                Toast.makeText(getActivity(), "No Internet Connection", Toast.LENGTH_SHORT).show();
+            }
 
             try {
 
@@ -651,32 +705,59 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
         TextView editIV = dialog.findViewById(R.id.editIV);
 
 
-        if (user.get(SessionManager.KEY_ID).equalsIgnoreCase(feed.getAttendeeId())) {
-            deleteTv.setVisibility(View.VISIBLE);
-            //editIV.setVisibility(View.VISIBLE);
-            hideTv.setVisibility(View.GONE);
-            reportTv.setVisibility(View.GONE);
-            reportuserTv.setVisibility(View.GONE);
-            blockuserTv.setVisibility(View.GONE);
+        if (user.get(SessionManager.ATTENDEE_STATUS).equalsIgnoreCase("1")) {
+            if (user.get(SessionManager.KEY_ID).equalsIgnoreCase(feed.getAttendeeId())) {
+                deleteTv.setVisibility(View.VISIBLE);
+                //editIV.setVisibility(View.VISIBLE);
+                hideTv.setVisibility(View.GONE);
+                reportTv.setVisibility(View.GONE);
+                reportuserTv.setVisibility(View.GONE);
+                blockuserTv.setVisibility(View.GONE);
 
-            if (feed.getType().equalsIgnoreCase("Video")) {
-                editIV.setVisibility(View.VISIBLE);
+                if (feed.getType().equalsIgnoreCase("Video")) {
+                    editIV.setVisibility(View.VISIBLE);
 
+                } else {
+                    editIV.setVisibility(View.VISIBLE);
+
+                }
             } else {
-                editIV.setVisibility(View.VISIBLE);
-
+                deleteTv.setVisibility(View.VISIBLE);
+                //editIV.setVisibility(View.VISIBLE);
+                hideTv.setVisibility(View.GONE);
+                reportTv.setVisibility(View.GONE);
+                reportuserTv.setVisibility(View.GONE);
+                blockuserTv.setVisibility(View.GONE);
+                editIV.setVisibility(View.GONE);
             }
 
         } else {
-            deleteTv.setVisibility(View.GONE);
-            editIV.setVisibility(View.GONE);
-            hideTv.setVisibility(View.VISIBLE);
-            reportTv.setVisibility(View.VISIBLE);
-            reportuserTv.setVisibility(View.VISIBLE);
-            blockuserTv.setVisibility(View.VISIBLE);
+            if (user.get(SessionManager.KEY_ID).equalsIgnoreCase(feed.getAttendeeId())) {
+                deleteTv.setVisibility(View.VISIBLE);
+                //editIV.setVisibility(View.VISIBLE);
+                hideTv.setVisibility(View.GONE);
+                reportTv.setVisibility(View.GONE);
+                reportuserTv.setVisibility(View.GONE);
+                blockuserTv.setVisibility(View.GONE);
+
+                if (feed.getType().equalsIgnoreCase("Video")) {
+                    editIV.setVisibility(View.VISIBLE);
+
+                } else {
+                    editIV.setVisibility(View.VISIBLE);
+
+                }
+
+            } else {
+                deleteTv.setVisibility(View.GONE);
+                editIV.setVisibility(View.GONE);
+                hideTv.setVisibility(View.VISIBLE);
+                reportTv.setVisibility(View.VISIBLE);
+                reportuserTv.setVisibility(View.VISIBLE);
+                blockuserTv.setVisibility(View.VISIBLE);
+            }
+
         }
-
-
         deleteTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -969,10 +1050,20 @@ public class WallFragment_POST extends Fragment implements NewsfeedAdapter.FeedA
                 feedrecycler.scheduleLayoutAnimation();
             }
 
-//            feedrecycler.getLayoutManager().smoothScrollToPosition(feedrecycler, null, feedAdapter.getItemCount() - 1);
+            feedrecycler.setOnScrollListener(new AbsListView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(AbsListView view, int scrollState) {
+                    // JZVideoPlayer.releaseAllVideos();
+                    JZVideoPlayer.goOnPlayOnPause();
 
-//            feedAdapter.setHasStableIds(true);
-//            feedAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+
+                }
+            });
             feedrecycler.setAdapter(feedAdapter);
 //            feedrecycler.scheduleLayoutAnimation();
             SubmitAnalytics(token, eventid, "", "", "newsfeed");

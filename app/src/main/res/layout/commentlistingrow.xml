@@ -60,7 +60,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
+                <TextView
                     android:paddingLeft="5dp"
                     android:textSize="@dimen/textsizesmall"
                     android:layout_alignParentTop="true"
@@ -71,7 +71,7 @@
                     android:layout_below="@+id/moreIv"
                     android:id="@+id/nameTv" />
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
+                <TextView
                     android:paddingLeft="5dp"
                     android:layout_marginTop="2dp"
                     android:textSize="@dimen/textsizesmall"
@@ -82,7 +82,19 @@
                     android:text=""
                     android:textColor="@color/black" />
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
+                <TextView
+                    android:paddingLeft="5dp"
+                    android:layout_marginTop="2dp"
+                    android:textSize="@dimen/textsizesmall"
+                    android:id="@+id/testdata"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/nameTv"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:visibility="gone"/>
+
+                <TextView
                     android:paddingLeft="5dp"
                     android:textSize="@dimen/textsizesmall"
                     android:layout_marginTop="2dp"

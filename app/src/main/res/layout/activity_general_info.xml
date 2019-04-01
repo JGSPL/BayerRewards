@@ -4,7 +4,7 @@
     android:id="@+id/generalInforefresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@color/colorgrey"
     android:orientation="vertical"
     tools:context="com.procialize.eventsapp.Fragments.FeedFragment">
 
@@ -137,7 +137,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_margin="5dp"
-                        android:background="@drawable/agendabg"
+                        android:background="@color/colorwhite"
                         android:baselineAligned="false"
                         android:gravity="center"
                         android:orientation="horizontal"
@@ -172,7 +172,6 @@
                                 android:id="@+id/ic_rightarrow"
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:background="@drawable/agendabg"
                                 android:contentDescription="TODO"
                                 android:src="@drawable/ic_rightarrow" />
 
@@ -203,7 +202,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_margin="5dp"
-                        android:background="@drawable/agendabg"
+                        android:background="@color/colorwhite"
                         android:baselineAligned="false"
                         android:gravity="center"
                         android:orientation="horizontal"
@@ -225,7 +224,6 @@
                                 android:padding="5dp"
                                 android:text="Time &amp; Weather"
                                 android:textAllCaps="false"
-                                android:textColor="@color/activetab"
                                 android:textSize="@dimen/textsizesmall"/>
                         </LinearLayout>
 
@@ -237,7 +235,6 @@
                             <ImageView
                                 android:id="@+id/ic_arrow_we"
                                 android:layout_width="20dp"
-
                                 android:layout_height="20dp"
                                 android:contentDescription="TODO"
                                 android:src="@drawable/ic_rightarrow" />

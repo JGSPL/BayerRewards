@@ -1,32 +1,50 @@
 package com.procialize.eventsapp.Adapter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.procialize.eventsapp.Activity.AttendeeDetailActivity;
 import com.procialize.eventsapp.Activity.PostActivity;
 import com.procialize.eventsapp.Activity.PostViewActivity;
+import com.procialize.eventsapp.Activity.SpeakerDetailsActivity;
 import com.procialize.eventsapp.ApiConstant.APIService;
 import com.procialize.eventsapp.ApiConstant.ApiConstant;
 import com.procialize.eventsapp.ApiConstant.ApiUtils;
 import com.procialize.eventsapp.CustomTools.PicassoTrustAll;
 import com.procialize.eventsapp.CustomTools.ScaledImageView;
+import com.procialize.eventsapp.DbHelper.ConnectionDetector;
+import com.procialize.eventsapp.DbHelper.DBHelper;
+import com.procialize.eventsapp.GetterSetter.AttendeeList;
 import com.procialize.eventsapp.GetterSetter.EventSettingList;
 import com.procialize.eventsapp.GetterSetter.NewsFeedList;
+import com.procialize.eventsapp.InnerDrawerActivity.NotificationActivity;
 import com.procialize.eventsapp.R;
 import com.procialize.eventsapp.Session.SessionManager;
 import com.procialize.eventsapp.Utility.Utility;
+import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -46,6 +64,7 @@ import static com.procialize.eventsapp.Utility.Util.setTextViewDrawableColor;
 public class NewsfeedAdapter extends BaseAdapter {
 
     String profilepic = "";
+    String attendee_status = "";
     public List<NewsFeedList> feedLists;
     APIService mAPIService;
     SessionManager sessionManager;
@@ -62,7 +81,12 @@ public class NewsfeedAdapter extends BaseAdapter {
     private Context context;
     private FeedAdapterListner listener;
     private LayoutInflater inflater;
-
+    ConnectionDetector cd;
+    private List<AttendeeList> attendeeDBList;
+    private DBHelper procializeDB;
+    private SQLiteDatabase db;
+    private DBHelper dbHelper;
+    String substring;
 
     public NewsfeedAdapter(Context con, List<NewsFeedList> feedLists, FeedAdapterListner listener, Boolean value) {
 
@@ -74,10 +98,16 @@ public class NewsfeedAdapter extends BaseAdapter {
             SessionManager sessionManager = new SessionManager(con);
             user = sessionManager.getUserDetails();
             profilepic = user.get(SessionManager.KEY_PIC);
+            attendee_status = user.get(SessionManager.ATTENDEE_STATUS);
             topMgmtFlag = sessionManager.getSkipFlag();
             SharedPreferences prefs = con.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
             colorActive = prefs.getString("colorActive", "");
+            cd = new ConnectionDetector(context);
         }
+
+        procializeDB = new DBHelper(context);
+        db = procializeDB.getWritableDatabase();
+        dbHelper = new DBHelper(context);
     }
 
 
@@ -115,6 +145,7 @@ public class NewsfeedAdapter extends BaseAdapter {
             holder.designationTv = convertView.findViewById(R.id.designationTv);
             holder.dateTv = convertView.findViewById(R.id.dateTv);
             holder.headingTv = convertView.findViewById(R.id.headingTv);
+            holder.testdata = convertView.findViewById(R.id.testdata);
 
             holder.likeTv = convertView.findViewById(R.id.likeTv);
             holder.commentTv = convertView.findViewById(R.id.commentTv);
@@ -345,7 +376,141 @@ public class NewsfeedAdapter extends BaseAdapter {
             holder.companyTv.setVisibility(View.VISIBLE);
         }
 
-        holder.headingTv.setText(StringEscapeUtils.unescapeJava(feed.getPostStatus()));
+        holder.testdata.setText(StringEscapeUtils.unescapeJava(feed.getPostStatus()));
+
+        final SpannableStringBuilder stringBuilder = new SpannableStringBuilder(holder.testdata.getText());
+        if (feed.getPostStatus() != null) {
+
+            holder.headingTv.setVisibility(View.VISIBLE);
+//                    holder.wallNotificationText.setText(getEmojiFromString(notificationImageStatus));
+            int flag = 0;
+            for (int i = 0; i < stringBuilder.length(); i++) {
+                String sample = stringBuilder.toString();
+                if ((stringBuilder.charAt(i) == '<')) {
+                    try {
+                        String text = "<";
+                        String text1 = ">";
+
+                        if (flag == 0) {
+                            int start = sample.indexOf(text, i);
+                            int end = sample.indexOf(text1, i);
+
+                            Log.v("Indexes of", "Start : " + start + "," + end);
+                            try {
+                                substring = sample.substring(start, end + 1);
+                                Log.v("String names: ", substring);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+                            if (substring.contains("<")) {
+                                if (sample.contains(substring)) {
+                                    substring = substring.replace("<", "");
+                                    substring = substring.replace(">", "");
+                                    int index = substring.indexOf("^");
+//                                    substring = substring.replace("^", "");
+                                    final String attendeeid = substring.substring(0, index);
+                                    substring = substring.substring(index+1, substring.length());
+
+
+                                    stringBuilder.setSpan(stringBuilder, start, end + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                    stringBuilder.setSpan(new ForegroundColorSpan(Color.RED), start, end + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+
+                                    stringBuilder.setSpan(new ClickableSpan() {
+                                        @Override
+                                        public void onClick(View widget) {
+                                            attendeeDBList = dbHelper.getAttendeeDetailsId(attendeeid);
+                                            Intent intent = new Intent(context, AttendeeDetailActivity.class);
+                                            intent.putExtra("id", attendeeDBList.get(0).getAttendeeId());
+                                            intent.putExtra("name", attendeeDBList.get(0).getFirstName() + " " + attendeeDBList.get(0).getLastName());
+                                            intent.putExtra("city", attendeeDBList.get(0).getCity());
+                                            intent.putExtra("country", attendeeDBList.get(0).getCountry());
+                                            intent.putExtra("company", attendeeDBList.get(0).getCompanyName());
+                                            intent.putExtra("designation", attendeeDBList.get(0).getDesignation());
+                                            intent.putExtra("description", attendeeDBList.get(0).getDescription());
+                                            intent.putExtra("profile", attendeeDBList.get(0).getProfilePic());
+                                            context.startActivity(intent);
+                                        }
+                                    }, start, end + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                    stringBuilder.replace(start, end + 1, substring);
+                                    holder.testdata.setText(stringBuilder, TextView.BufferType.SPANNABLE);
+                                    holder.headingTv.setMovementMethod(LinkMovementMethod.getInstance());
+                                    holder.headingTv.setText(stringBuilder);
+                                    flag = 1;
+//                        holder.attendee_comments.setText(attendees.getComment().indexOf(substring, start));
+//                        holder.attendee_comments.setText(attendees.getComment().indexOf(substring, start));
+//                        attendees.setComment(substring);
+                                }
+                            }
+                        } else {
+
+                            int start = sample.indexOf(text, i);
+                            int end = sample.indexOf(text1, i);
+
+                            Log.v("Indexes of", "Start : " + start + "," + end);
+                            try {
+                                substring = sample.substring(start, end + 1);
+                                Log.v("String names: ", substring);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            if (substring.contains("<")) {
+                                if (sample.contains(substring)) {
+                                    substring = substring.replace("<", "");
+                                    substring = substring.replace(">", "");
+                                    int index = substring.indexOf("^");
+//                                    substring = substring.replace("^", "");
+                                    final String attendeeid = substring.substring(0, index);
+                                    substring = substring.substring(index+1, substring.length());
+
+
+                                    stringBuilder.setSpan(stringBuilder, start, end + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                    stringBuilder.setSpan(new ForegroundColorSpan(Color.RED), start, end + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                                    stringBuilder.setSpan(new ClickableSpan() {
+                                        @Override
+                                        public void onClick(View widget) {
+                                            attendeeDBList = dbHelper.getAttendeeDetailsId(attendeeid);
+                                            Intent intent = new Intent(context, AttendeeDetailActivity.class);
+                                            intent.putExtra("id", attendeeDBList.get(0).getAttendeeId());
+                                            intent.putExtra("name", attendeeDBList.get(0).getFirstName() + " " + attendeeDBList.get(0).getLastName());
+                                            intent.putExtra("city", attendeeDBList.get(0).getCity());
+                                            intent.putExtra("country", attendeeDBList.get(0).getCountry());
+                                            intent.putExtra("company", attendeeDBList.get(0).getCompanyName());
+                                            intent.putExtra("designation", attendeeDBList.get(0).getDesignation());
+                                            intent.putExtra("description", attendeeDBList.get(0).getDescription());
+                                            intent.putExtra("profile", attendeeDBList.get(0).getProfilePic());
+                                            context.startActivity(intent);
+                                        }
+                                    }, start, end + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                                    stringBuilder.replace(start, end + 1, substring);
+                                    holder.testdata.setText(stringBuilder, TextView.BufferType.SPANNABLE);
+                                    holder.headingTv.setMovementMethod(LinkMovementMethod.getInstance());
+
+                                    holder.headingTv.setText(stringBuilder);
+
+
+//                        holder.attendee_comments.setText(attendees.getComment().indexOf(substring, start));
+//                        holder.attendee_comments.setText(attendees.getComment().indexOf(substring, start));
+//                        attendees.setComment(substring);
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+
+            holder.headingTv.setText(stringBuilder);
+        } else {
+            holder.headingTv.setVisibility(View.GONE);
+        }
+
         holder.liketext.setText(feed.getTotalLikes() + " Likes ");
         holder.commenttext.setText(feed.getTotalComments() + " Comments ");
 
@@ -355,20 +520,30 @@ public class NewsfeedAdapter extends BaseAdapter {
         eventSettingLists = SessionManager.loadEventList();
         holder.liketext.setFocusable(true);
 
-        if (user.get(SessionManager.KEY_ID).equalsIgnoreCase(feedLists.get(position).getAttendeeId())) {
-            holder.editIV.setVisibility(View.GONE);
-            holder.moreIV.setVisibility(View.VISIBLE);
+        if (attendee_status.equalsIgnoreCase("1")) {
+            if (user.get(SessionManager.KEY_ID).equalsIgnoreCase(feedLists.get(position).getAttendeeId())) {
+                holder.editIV.setVisibility(View.GONE);
+                holder.moreIV.setVisibility(View.VISIBLE);
+            } else {
+                holder.editIV.setVisibility(View.GONE);
+                holder.moreIV.setVisibility(View.VISIBLE);
+            }
+        } else {
+            if (user.get(SessionManager.KEY_ID).equalsIgnoreCase(feedLists.get(position).getAttendeeId())) {
+                holder.editIV.setVisibility(View.GONE);
+                holder.moreIV.setVisibility(View.VISIBLE);
 //            reportTv.setVisibility(View.GONE);
 //            reportuserTv.setVisibility(View.GONE);
 //            blockuserTv.setVisibility(View.GONE);
-        } else {
-            holder.editIV.setVisibility(View.GONE);
-            holder.moreIV.setVisibility(View.GONE);
+            } else {
+                holder.editIV.setVisibility(View.GONE);
+                holder.moreIV.setVisibility(View.GONE);
 //            deleteTv.setVisibility(View.GONE);
 //            hideTv.setVisibility(View.VISIBLE);
 //            reportTv.setVisibility(View.VISIBLE);
 //            reportuserTv.setVisibility(View.VISIBLE);
 //            blockuserTv.setVisibility(View.VISIBLE);
+            }
         }
 //        weightapply(holder.likeTv, holder.commentTv, holder.shareTv, holder.viewone, holder.viewtwo);
 
@@ -518,7 +693,7 @@ public class NewsfeedAdapter extends BaseAdapter {
 //            }
 
             holder.VideoView.setUp(ApiConstant.newsfeedwall + feed.getMediaFile()
-                    , JZVideoPlayerStandard.SCREEN_WINDOW_LIST, "");
+                    , JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL, "");
 
             Glide.with(holder.VideoView.getContext()).load(ApiConstant.newsfeedwall + feed.getThumbImage()).into(holder.VideoView.thumbImageView);
 
@@ -613,7 +788,11 @@ public class NewsfeedAdapter extends BaseAdapter {
         holder.likeTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.likeTvViewOnClick(v, feedLists.get(position), position, holder.img_like, holder.liketext);
+                if (cd.isConnectingToInternet()) {
+                    listener.likeTvViewOnClick(v, feedLists.get(position), position, holder.img_like, holder.liketext);
+                } else {
+                    Toast.makeText(context, "No Internet Connection", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -665,6 +844,32 @@ public class NewsfeedAdapter extends BaseAdapter {
             }
         });
 
+        holder.profileIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = ApiConstant.profilepic + feedLists.get(position).getProfilePic();
+                imagealert(url);
+            }
+        });
+
+        holder.nameTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (feedLists.get(position).getAttendee_type().equalsIgnoreCase("A")) {
+                    attendeeDBList = dbHelper.getAttendeeDetailsId(feedLists.get(position).getAttendeeId());
+                    Intent intent = new Intent(context, AttendeeDetailActivity.class);
+                    intent.putExtra("id", feedLists.get(position).getAttendeeId());
+                    intent.putExtra("name", feedLists.get(position).getFirstName() + " " + feedLists.get(position).getLastName());
+                    intent.putExtra("city", attendeeDBList.get(0).getCity());
+                    intent.putExtra("country", attendeeDBList.get(0).getCountry());
+                    intent.putExtra("company", feedLists.get(position).getCompanyName());
+                    intent.putExtra("designation", feedLists.get(position).getDesignation());
+                    intent.putExtra("description", attendeeDBList.get(0).getDescription());
+                    intent.putExtra("profile", feedLists.get(position).getProfilePic());
+                    context.startActivity(intent);
+                }
+            }
+        });
 
         if (news_feed_like.equalsIgnoreCase("0")) {
             holder.likeTv.setVisibility(View.GONE);
@@ -844,7 +1049,7 @@ public class NewsfeedAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
-        public TextView nameTv, designationTv, companyTv, dateTv, headingTv, liketext, commenttext, sharetext, img_like;
+        public TextView nameTv, designationTv, companyTv, dateTv, headingTv, liketext, commenttext, sharetext, img_like, testdata;
         public ImageView img_vol, img_playback;
         public ProgressBar progressView, feedprogress;
         public ScaledImageView feedimageIv, profileIv, profilestatus;
@@ -854,6 +1059,21 @@ public class NewsfeedAdapter extends BaseAdapter {
         private LinearLayout likeTv, commentTv, shareTv, mindTv, mainLLpost, post_layout, feedll;
         private JZVideoPlayerStandard VideoView;
 
+    }
+
+    public void imagealert(String URL) {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow()
+                .setSoftInputMode(
+                        WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
+                                | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        dialog.setContentView(R.layout.imagepopulayout);
+        ImageView image = (ImageView) dialog.findViewById(R.id.image);
+//        String imgae = dbManager.GetimageUrl(datamodel.get(position).getProdcutid());
+//        String imageUrl = ApiConstant.profilepic + feed.getProfilePic();
+        Picasso.with(context).load(URL).into(image);
+        dialog.show();
     }
 
 

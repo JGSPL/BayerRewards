@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@color/colorgrey"
     android:orientation="vertical"
     tools:context="com.procialize.eventsapp.Activity.PostViewActivity">
 
@@ -54,8 +54,8 @@
                 android:id="@+id/postbtn"
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
                 android:layout_gravity="right"
+                android:gravity="center"
                 android:text="Post"
                 android:textColor="@color/black" />
 
@@ -130,6 +130,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <include layout="@layout/users_list" />
+
                 <com.procialize.eventsapp.Fonts.RobotoEditext
                     android:id="@+id/posttextEt"
                     android:layout_width="match_parent"
@@ -152,6 +154,14 @@
                     android:scrollbars="vertical"
                     android:textColorHint="@color/black"
                     android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/textData"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="500"
+                    android:textSize="10sp"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -213,17 +223,19 @@
             android:visibility="gone" />
 
         <RelativeLayout
-            android:layout_centerInParent="true"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
             android:layout_gravity="center">
 
             <VideoView
                 android:id="@+id/Upvideov"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerInParent="true"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
                 android:visibility="gone" />
 
         </RelativeLayout>
@@ -256,6 +268,6 @@
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 </RelativeLayout>

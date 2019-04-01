@@ -1,22 +1,35 @@
 package com.procialize.eventsapp.InnerDrawerActivity;
 
+import android.annotation.TargetApi;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.procialize.eventsapp.Activity.AttendeeDetailActivity;
@@ -32,11 +45,16 @@ import com.procialize.eventsapp.GetterSetter.EventSettingList;
 import com.procialize.eventsapp.GetterSetter.NewsFeedList;
 import com.procialize.eventsapp.GetterSetter.NotificationList;
 import com.procialize.eventsapp.GetterSetter.NotificationListFetch;
+import com.procialize.eventsapp.GetterSetter.NotificationSend;
 import com.procialize.eventsapp.R;
 import com.procialize.eventsapp.Session.SessionManager;
 import com.procialize.eventsapp.Utility.Util;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -64,6 +82,12 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
     private DBHelper dbHelper;
     private List<NewsFeedList> newsfeedsDBList;
     private List<AttendeeList> attendeeDBList;
+    Dialog myDialog;
+    int currentApiVersion = android.os.Build.VERSION.SDK_INT;
+    String formatdate;
+    final long[] time = new long[1];
+    String token, attendee_status;
+    ImageView add_icon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +128,13 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
         TextView notyHeader = findViewById(R.id.notyHeader);
         notyHeader.setTextColor(Color.parseColor(colorActive));
         notificationRv = findViewById(R.id.notificationRv);
+        add_icon = findViewById(R.id.add_icon);
+        int colorInt = Color.parseColor(colorActive);
+
+        ColorStateList csl = ColorStateList.valueOf(colorInt);
+        Drawable drawable = DrawableCompat.wrap(add_icon.getDrawable());
+        DrawableCompat.setTintList(drawable, csl);
+        add_icon.setImageDrawable(drawable);
 //        progressBar = findViewById(R.id.progressBar);
         notificationRvrefresh = findViewById(R.id.notificationRvrefresh);
 
@@ -114,7 +145,8 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
         HashMap<String, String> user = sessionManager.getUserDetails();
 
         // token
-        final String token = user.get(SessionManager.KEY_TOKEN);
+        token = user.get(SessionManager.KEY_TOKEN);
+        attendee_status = user.get(SessionManager.ATTENDEE_STATUS);
 
         eventSettingLists = new ArrayList<>();
         eventSettingLists = SessionManager.loadEventList();
@@ -137,6 +169,19 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
             @Override
             public void onRefresh() {
                 fetchNotification(token, eventid);
+            }
+        });
+
+        if (attendee_status.equalsIgnoreCase("1")) {
+            add_icon.setVisibility(View.VISIBLE);
+        } else {
+            add_icon.setVisibility(View.GONE);
+        }
+
+        add_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showratedialouge();
             }
         });
 
@@ -486,4 +531,181 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
         JZVideoPlayer.releaseAllVideos();
 
     }
+
+    private void showratedialouge() {
+
+        myDialog = new Dialog(NotificationActivity.this);
+        myDialog.setContentView(R.layout.add_notification);
+        myDialog.setCancelable(false);
+//        myDialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme; //style id
+
+
+        LinearLayout diatitle = myDialog.findViewById(R.id.diatitle);
+        ImageView imgCancel = myDialog.findViewById(R.id.imgCancel);
+        ImageView id_date = myDialog.findViewById(R.id.id_date);
+        Button canclebtn = myDialog.findViewById(R.id.canclebtn);
+        Button send_notification = myDialog.findViewById(R.id.send_notification);
+        final EditText etmsg = myDialog.findViewById(R.id.etmsg);
+        final TextView counttv = myDialog.findViewById(R.id.counttv);
+        final TextView nametv = myDialog.findViewById(R.id.nametv);
+        long date = System.currentTimeMillis();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
+        String dateString = sdf.format(date);
+        nametv.setText(dateString);
+
+        nametv.setTextColor(Color.parseColor(colorActive));
+        diatitle.setBackgroundColor(Color.parseColor(colorActive));
+        send_notification.setBackgroundColor(Color.parseColor(colorActive));
+        canclebtn.setBackgroundColor(Color.parseColor(colorActive));
+
+        id_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final View dialogView = View.inflate(NotificationActivity.this, R.layout.activity_date_picker, null);
+                final android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(NotificationActivity.this).create();
+
+                dialogView.findViewById(R.id.date_time_set).setOnClickListener(new View.OnClickListener() {
+                    @TargetApi(Build.VERSION_CODES.M)
+                    @Override
+                    public void onClick(View view) {
+
+                        DatePicker datePicker = (DatePicker) dialogView.findViewById(R.id.date_picker);
+                        TimePicker timePicker = (TimePicker) dialogView.findViewById(R.id.time_picker);
+
+                        Calendar calendar = new GregorianCalendar(datePicker.getYear(),
+                                datePicker.getMonth(),
+                                datePicker.getDayOfMonth(),
+                                timePicker.getCurrentHour(),
+                                timePicker.getCurrentMinute());
+
+                        int selectyear = datePicker.getYear();
+                        int selectmonth = datePicker.getMonth();
+                        int selectday = datePicker.getDayOfMonth();
+                        int selecttime = 0;
+                        int selecthour = 0;
+                        if (currentApiVersion > android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
+                            selecttime = timePicker.getMinute();
+                            selecthour = timePicker.getHour();
+                        } else {
+                            selecttime = timePicker.getCurrentMinute();
+                            selecthour = timePicker.getCurrentHour();
+
+                        }
+                        int seconds = calendar.get(Calendar.SECOND);
+
+
+                        Date mDate = new GregorianCalendar(selectyear, selectmonth, selectday, selecthour, selecttime).getTime();
+                        formatdate = (String) android.text.format.DateFormat.format("yyyy-MM-dd kk:mm:ss", mDate);
+                        String date = (String) android.text.format.DateFormat.format("dd MMMM HH:mm", mDate);
+                        nametv.setText(date);
+                        time[0] = calendar.getTimeInMillis();
+                        alertDialog.dismiss();
+                    }
+                });
+                alertDialog.setView(dialogView);
+                alertDialog.show();
+            }
+        });
+
+
+        send_notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (nametv.getText().toString().isEmpty()) {
+                    Toast.makeText(NotificationActivity.this, "Select Date", Toast.LENGTH_SHORT).show();
+                } else if (etmsg.getText().toString().isEmpty()) {
+                    Toast.makeText(NotificationActivity.this, "Enter your message", Toast.LENGTH_SHORT).show();
+                } else {
+                    sendNotification(token, eventid, etmsg.getText().toString(), formatdate);
+                }
+            }
+        });
+
+        imgCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
+
+        canclebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
+
+        etmsg.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                count = 250 - s.length();
+                counttv.setText(count + "");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        myDialog.show();
+
+    }
+
+    public void sendNotification(String token, String eventid, String message, String display_time) {
+//        showProgress();
+        mAPIService.SendNotification(token, eventid, message, display_time).enqueue(new Callback<NotificationSend>() {
+            @Override
+            public void onResponse(Call<NotificationSend> call, Response<NotificationSend> response) {
+
+                if (response.isSuccessful()) {
+                    Log.i("hit", "post submitted to API." + response.body().toString());
+
+                    if (notificationRvrefresh.isRefreshing()) {
+                        notificationRvrefresh.setRefreshing(false);
+                    }
+//                    dismissProgress();
+                    showResponseSendNotification(response);
+                } else {
+
+                    if (notificationRvrefresh.isRefreshing()) {
+                        notificationRvrefresh.setRefreshing(false);
+                    }
+//                    dismissProgress();
+                    Toast.makeText(NotificationActivity.this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NotificationSend> call, Throwable t) {
+                Toast.makeText(NotificationActivity.this, "Low network or no network", Toast.LENGTH_SHORT).show();
+
+//                dismissProgress();
+                if (notificationRvrefresh.isRefreshing()) {
+                    notificationRvrefresh.setRefreshing(false);
+                }
+            }
+        });
+    }
+
+    public void showResponseSendNotification(Response<NotificationSend> response) {
+
+        // specify an adapter (see also next example)
+        if (response.body().getStatus().equalsIgnoreCase("success")) {
+            myDialog.dismiss();
+            Toast.makeText(NotificationActivity.this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(NotificationActivity.this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
 }

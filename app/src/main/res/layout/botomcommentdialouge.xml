@@ -13,7 +13,7 @@
         android:layout_height="match_parent">
 
 
-        <com.procialize.eventsapp.Fonts.RobotoTextview
+        <TextView
             android:id="@+id/deleteTv"
             android:gravity="center"
             android:padding="@dimen/padding"
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
 
-        <com.procialize.eventsapp.Fonts.RobotoTextview
+        <TextView
             android:id="@+id/reportTv"
             android:gravity="center"
             android:padding="@dimen/padding"
@@ -44,7 +44,7 @@
             android:layout_height="1dp"/>
 
 
-        <com.procialize.eventsapp.Fonts.RobotoTextview
+        <TextView
             android:id="@+id/hideTv"
             android:gravity="center"
             android:padding="@dimen/padding"
@@ -59,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
 
-        <com.procialize.eventsapp.Fonts.RobotoTextview
+        <TextView
             android:id="@+id/reportuserTv"
             android:gravity="center"
             android:padding="@dimen/padding"
@@ -74,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
 
-        <com.procialize.eventsapp.Fonts.RobotoTextview
+        <TextView
             android:id="@+id/cancelTv"
             android:gravity="center"
             android:padding="@dimen/padding"

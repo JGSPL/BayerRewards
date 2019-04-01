@@ -58,8 +58,8 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.MyViewHo
         char tmp = 0x00B0;
 
 
-        int min_temp = (Integer.parseInt(forecast.getLow()) - 32) * 5 / 9;
-        int max_temp = (Integer.parseInt(forecast.getHigh()) - 32) * 5 / 9;
+        int min_temp = (forecast.getLow() - 32) * 5 / 9;
+        int max_temp = (forecast.getHigh() - 32) * 5 / 9;
 
 
         holder.maxTv.setText(String.valueOf(max_temp) + tmp + "");
@@ -98,7 +98,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.MyViewHo
         String month = mymonthFormat.format(date);
 
         holder.dateTv.setText(datestr);
-        holder.nameTv.setText(month);
+        holder.nameTv.setText(forecast.getDay());
     }
 
     @Override

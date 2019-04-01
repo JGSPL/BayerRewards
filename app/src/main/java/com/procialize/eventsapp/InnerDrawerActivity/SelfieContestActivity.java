@@ -303,6 +303,7 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
         TextView reportTv = dialog.findViewById(R.id.reportTv);
         TextView hideTv = dialog.findViewById(R.id.hideTv);
         TextView deleteTv = dialog.findViewById(R.id.deleteTv);
+        TextView cancelTv = dialog.findViewById(R.id.cancelTv);
 
         reportTv.setText("Report Selfie");
         deleteTv.setText("Delete this Selfie");
@@ -337,6 +338,14 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
             @Override
             public void onClick(View v) {
                 showratedialouge(selfieList.getId());
+                dialog.dismiss();
+            }
+        });
+
+        cancelTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
             }
         });
 
@@ -540,6 +549,7 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
         final TextView counttv = myDialog.findViewById(R.id.counttv);
         final TextView nametv = myDialog.findViewById(R.id.nametv);
         final TextView title = myDialog.findViewById(R.id.title);
+        final ImageView imgCancel = myDialog.findViewById(R.id.imgCancel);
         title.setText("Report USer");
 
         nametv.setText("To " + "Admin");
@@ -565,6 +575,12 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
 
 
         cancelbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
+        imgCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 myDialog.dismiss();

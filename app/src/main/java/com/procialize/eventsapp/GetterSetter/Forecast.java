@@ -5,9 +5,33 @@ import com.google.gson.annotations.SerializedName;
 
 public class Forecast {
 
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public int getHigh() {
+        return high;
+    }
+
+    public void setHigh(int high) {
+        this.high = high;
+    }
+
+    public int getLow() {
+        return low;
+    }
+
+    public void setLow(int low) {
+        this.low = low;
+    }
+
     @SerializedName("code")
     @Expose
-    private String code;
+    private int code;
     @SerializedName("date")
     @Expose
     private String date;
@@ -16,21 +40,15 @@ public class Forecast {
     private String day;
     @SerializedName("high")
     @Expose
-    private String high;
+    private int high;
     @SerializedName("low")
     @Expose
-    private String low;
+    private int low;
     @SerializedName("text")
     @Expose
     private String text;
 
-    public String getCode() {
-        return code;
-    }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
 
     public String getDate() {
         return date;
@@ -48,21 +66,7 @@ public class Forecast {
         this.day = day;
     }
 
-    public String getHigh() {
-        return high;
-    }
 
-    public void setHigh(String high) {
-        this.high = high;
-    }
-
-    public String getLow() {
-        return low;
-    }
-
-    public void setLow(String low) {
-        this.low = low;
-    }
 
     public String getText() {
         return text;

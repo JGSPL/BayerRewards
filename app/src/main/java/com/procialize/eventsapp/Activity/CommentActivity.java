@@ -1,10 +1,12 @@
 package com.procialize.eventsapp.Activity;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -16,7 +18,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -34,14 +41,23 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.percolate.mentions.Mentionable;
+import com.percolate.mentions.Mentions;
+import com.percolate.mentions.QueryListener;
+import com.percolate.mentions.SuggestionsListener;
 import com.procialize.eventsapp.Adapter.CommentAdapter;
 import com.procialize.eventsapp.Adapter.GifEmojiAdapter;
+import com.procialize.eventsapp.Adapter.UsersAdapter;
 import com.procialize.eventsapp.ApiConstant.APIService;
 import com.procialize.eventsapp.ApiConstant.ApiConstant;
 import com.procialize.eventsapp.ApiConstant.ApiUtils;
 import com.procialize.eventsapp.ApiConstant.TenorApiService;
 import com.procialize.eventsapp.CustomTools.MyJZVideoPlayerStandard;
 import com.procialize.eventsapp.CustomTools.PixabayImageView;
+import com.procialize.eventsapp.CustomTools.RecyclerItemClickListener;
+import com.procialize.eventsapp.DbHelper.DBHelper;
+import com.procialize.eventsapp.GetterSetter.AttendeeList;
+import com.procialize.eventsapp.GetterSetter.Comment;
 import com.procialize.eventsapp.GetterSetter.CommentDataList;
 import com.procialize.eventsapp.GetterSetter.CommentList;
 import com.procialize.eventsapp.GetterSetter.DeleteNewsFeedComment;
@@ -49,6 +65,7 @@ import com.procialize.eventsapp.GetterSetter.EventSettingList;
 import com.procialize.eventsapp.GetterSetter.FetchFeed;
 import com.procialize.eventsapp.GetterSetter.GifId;
 import com.procialize.eventsapp.GetterSetter.LikePost;
+import com.procialize.eventsapp.GetterSetter.Mention;
 import com.procialize.eventsapp.GetterSetter.PostComment;
 import com.procialize.eventsapp.GetterSetter.ReportComment;
 import com.procialize.eventsapp.GetterSetter.ReportCommentHide;
@@ -61,10 +78,12 @@ import com.procialize.eventsapp.Utility.Util;
 import com.procialize.eventsapp.Utility.Utility;
 
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -78,7 +97,7 @@ import retrofit2.Response;
 
 import static com.procialize.eventsapp.Utility.Util.setTextViewDrawableColor;
 
-public class CommentActivity extends AppCompatActivity implements CommentAdapter.CommentAdapterListner, GifEmojiAdapter.GifEmojiAdapterListner {
+public class CommentActivity extends AppCompatActivity implements CommentAdapter.CommentAdapterListner, GifEmojiAdapter.GifEmojiAdapterListner, QueryListener, SuggestionsListener {
 
     private static final String API_KEY = "TVG20YJW1MXR";
     public TextView nameTv, designationTv, companyTv, dateTv, headingTv, likeTv, commentTv, sharetext;
@@ -118,6 +137,18 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
     private APIService mAPIService;
     private TenorApiService mAPItenorService;
     private String id;
+    private List<AttendeeList> userList;
+    private Mentions mentions;
+    TextView textData;
+    private DBHelper dbHelper;
+    private DBHelper procializeDB;
+    List<AttendeeList> customers = null;
+    private SQLiteDatabase db;
+    private UsersAdapter usersAdapter;
+    TextView testdata;
+    String substring;
+    private List<AttendeeList> attendeeDBList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -223,6 +254,52 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
         }
 
         initializeview();
+        procializeDB = new DBHelper(CommentActivity.this);
+        db = procializeDB.getReadableDatabase();
+        dbHelper = new DBHelper(CommentActivity.this);
+        customers = new ArrayList<AttendeeList>();
+        userList = procializeDB.getAttendeeDetails();
+        procializeDB.getReadableDatabase();
+        // attendeesList = (ListView)
+        // getActivity().findViewById(R.id.speakers_list);
+        customers = dbHelper.getAttendeeDetails();
+        mentions = new Mentions.Builder(this, commentEt)
+                .suggestionsListener(this)
+                .queryListener(this)
+                .build();
+
+        setupMentionsList();
+
+    }
+
+    private void setupMentionsList() {
+        final RecyclerView mentionsList = findViewById(R.id.mentions_list);
+        mentionsList.setLayoutManager(new LinearLayoutManager(this));
+        usersAdapter = new UsersAdapter(this);
+        mentionsList.setAdapter(usersAdapter);
+        InputMethodManager inputManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(commentEt.getWindowToken(), 0);
+        // set on item click listener
+        mentionsList.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(final View view, final int position) {
+                final AttendeeList user = usersAdapter.getItem(position);
+
+                /*
+                 * We are creating a mentions object which implements the
+                 * <code>Mentionable</code> interface this allows the library to set the offset
+                 * and length of the mention.
+                 */
+                if (user != null) {
+                    final Mention mention = new Mention();
+                    mention.setMentionName(user.getFirstName() + " " + user.getLastName() + " ");
+                    mention.setMentionid(user.getAttendeeId());
+                    mentions.insertMention(mention);
+
+
+                }
+            }
+        }));
     }
 
     private void initializeview() {
@@ -244,6 +321,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
         linearshare = findViewById(R.id.linearshare);
         linearcomment = findViewById(R.id.linearcomment);
         linearlike = findViewById(R.id.linearlike);
+        testdata = findViewById(R.id.testdata);
         commentbtn.setBackgroundColor(Color.parseColor(colorActive));
 
         feedimageIv = findViewById(R.id.feedimageIv);
@@ -257,12 +335,152 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
         progressView = findViewById(R.id.progressView);
         feedprogress = findViewById(R.id.feedprogress);
         videoplayer = findViewById(R.id.videoplayer);
+        textData = findViewById(R.id.textData);
 
 
         nameTv.setText(fname + " " + lname);
         companyTv.setText(company);
         designationTv.setText(designation);
-        headingTv.setText(StringEscapeUtils.unescapeJava(heading));
+
+
+//        headingTv.setText(StringEscapeUtils.unescapeJava(heading));
+        testdata.setText(StringEscapeUtils.unescapeJava(heading));
+
+        final SpannableStringBuilder stringBuilder = new SpannableStringBuilder(testdata.getText());
+        if (heading != null) {
+
+            headingTv.setVisibility(View.VISIBLE);
+//                    holder.wallNotificationText.setText(getEmojiFromString(notificationImageStatus));
+            int flag = 0;
+            for (int i = 0; i < stringBuilder.length(); i++) {
+                String sample = stringBuilder.toString();
+                if ((stringBuilder.charAt(i) == '<')) {
+                    try {
+                        String text = "<";
+                        String text1 = ">";
+
+                        if (flag == 0) {
+                            int start = sample.indexOf(text, i);
+                            int end = sample.indexOf(text1, i);
+
+                            Log.v("Indexes of", "Start : " + start + "," + end);
+                            try {
+                                substring = sample.substring(start, end + 1);
+                                Log.v("String names: ", substring);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+                            if (substring.contains("<")) {
+                                if (sample.contains(substring)) {
+                                    substring = substring.replace("<", "");
+                                    substring = substring.replace(">", "");
+                                    int index = substring.indexOf("^");
+//                                    substring = substring.replace("^", "");
+                                    final String attendeeid = substring.substring(0, index);
+                                    substring = substring.substring(index+1, substring.length());
+
+
+                                    stringBuilder.setSpan(stringBuilder, start, end + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                    stringBuilder.setSpan(new ForegroundColorSpan(Color.RED), start, end + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+
+                                    stringBuilder.setSpan(new ClickableSpan() {
+                                        @Override
+                                        public void onClick(View widget) {
+                                            attendeeDBList = dbHelper.getAttendeeDetailsId(attendeeid);
+                                            Intent intent = new Intent( CommentActivity.this,AttendeeDetailActivity.class);
+                                            intent.putExtra("id", attendeeDBList.get(0).getAttendeeId());
+                                            intent.putExtra("name", attendeeDBList.get(0).getFirstName() + " " + attendeeDBList.get(0).getLastName());
+                                            intent.putExtra("city", attendeeDBList.get(0).getCity());
+                                            intent.putExtra("country", attendeeDBList.get(0).getCountry());
+                                            intent.putExtra("company", attendeeDBList.get(0).getCompanyName());
+                                            intent.putExtra("designation", attendeeDBList.get(0).getDesignation());
+                                            intent.putExtra("description", attendeeDBList.get(0).getDescription());
+                                            intent.putExtra("profile", attendeeDBList.get(0).getProfilePic());
+                                            startActivity(intent);
+                                        }
+                                    }, start, end + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                    stringBuilder.replace(start, end + 1, substring);
+                                    testdata.setText(stringBuilder, TextView.BufferType.SPANNABLE);
+                                    headingTv.setMovementMethod(LinkMovementMethod.getInstance());
+                                    headingTv.setText(stringBuilder);
+                                    flag = 1;
+//                        holder.attendee_comments.setText(attendees.getComment().indexOf(substring, start));
+//                        holder.attendee_comments.setText(attendees.getComment().indexOf(substring, start));
+//                        attendees.setComment(substring);
+                                }
+                            }
+                        } else {
+
+                            int start = sample.indexOf(text, i);
+                            int end = sample.indexOf(text1, i);
+
+                            Log.v("Indexes of", "Start : " + start + "," + end);
+                            try {
+                                substring = sample.substring(start, end + 1);
+                                Log.v("String names: ", substring);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            if (substring.contains("<")) {
+                                if (sample.contains(substring)) {
+                                    substring = substring.replace("<", "");
+                                    substring = substring.replace(">", "");
+                                    int index = substring.indexOf("^");
+//                                    substring = substring.replace("^", "");
+                                    final String attendeeid = substring.substring(0, index);
+                                    substring = substring.substring(index+1, substring.length());
+
+
+                                    stringBuilder.setSpan(stringBuilder, start, end + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                    stringBuilder.setSpan(new ForegroundColorSpan(Color.RED), start, end + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                                    stringBuilder.setSpan(new ClickableSpan() {
+                                        @Override
+                                        public void onClick(View widget) {
+                                            attendeeDBList = dbHelper.getAttendeeDetailsId(attendeeid);
+                                            Intent intent = new Intent(CommentActivity.this, AttendeeDetailActivity.class);
+                                            intent.putExtra("id", attendeeDBList.get(0).getAttendeeId());
+                                            intent.putExtra("name", attendeeDBList.get(0).getFirstName() + " " + attendeeDBList.get(0).getLastName());
+                                            intent.putExtra("city", attendeeDBList.get(0).getCity());
+                                            intent.putExtra("country", attendeeDBList.get(0).getCountry());
+                                            intent.putExtra("company", attendeeDBList.get(0).getCompanyName());
+                                            intent.putExtra("designation", attendeeDBList.get(0).getDesignation());
+                                            intent.putExtra("description", attendeeDBList.get(0).getDescription());
+                                            intent.putExtra("profile", attendeeDBList.get(0).getProfilePic());
+                                            startActivity(intent);
+                                        }
+                                    }, start, end + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                                    stringBuilder.replace(start, end + 1, substring);
+                                    testdata.setText(stringBuilder, TextView.BufferType.SPANNABLE);
+                                    headingTv.setMovementMethod(LinkMovementMethod.getInstance());
+
+                                    headingTv.setText(stringBuilder);
+
+
+//                        holder.attendee_comments.setText(attendees.getComment().indexOf(substring, start));
+//                        holder.attendee_comments.setText(attendees.getComment().indexOf(substring, start));
+//                        attendees.setComment(substring);
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+
+            headingTv.setText(stringBuilder);
+        } else {
+            headingTv.setVisibility(View.GONE);
+        }
+
+
+
         likeTv.setText(Likes + " Likes ");
         commentTv.setText(Comments + " Comments ");
 
@@ -400,7 +618,18 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
             @Override
             public void onClick(View v) {
 
-                String comment = StringEscapeUtils.escapeJava(commentEt.getText().toString());
+               String postMsg = commentEt.getText().toString();
+//            postMsg = StringEscapeUtils.escapeJava(postEt.getText().toString().trim());
+                // post_status_post.setText("");
+                // post_status_post
+                // .setHint("What's on your mind (Not more than 500 characters)");
+
+                final Comment comment = new Comment();
+                comment.setComment(postMsg);
+                comment.setMentions(mentions.getInsertedMentions());
+                textData.setText(postMsg);
+
+                postMsg = highlightMentions(textData, comment.getMentions());
                 View view = CommentActivity.this.getCurrentFocus();
                 if (view != null) {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -410,7 +639,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
                     Toast.makeText(getApplicationContext(), "Please enter something", Toast.LENGTH_SHORT).show();
                 } else {
 
-                    PostComment(eventid, feedid, comment, apikey);
+                    PostComment(eventid, feedid, postMsg, apikey);
                 }
             }
         });
@@ -1257,7 +1486,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
         nameTv.setTextColor(Color.parseColor(colorActive));
         companyTv.setText(company);
         designationTv.setText(designation);
-        headingTv.setText(StringEscapeUtils.unescapeJava(heading));
+//        headingTv.setText(StringEscapeUtils.unescapeJava(heading));
         likeTv.setText(Likes + " Likes ");
         commentTv.setText(Comments + " Comments ");
 
@@ -1469,4 +1698,139 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
         startActivity(Intent.createChooser(share, "Share link!"));
     }
 
+    @Override
+    public void onQueryReceived(String s) {
+        final List<AttendeeList> users = searchUsers(s);
+        if (users != null && !users.isEmpty()) {
+            usersAdapter.clear();
+            usersAdapter.setCurrentQuery(s);
+            usersAdapter.addAll(users);
+            showMentionsList(true);
+        } else {
+            showMentionsList(false);
+        }
+    }
+
+    @Override
+    public void displaySuggestions(boolean b) {
+        if (b) {
+            com.percolate.caffeine.ViewUtils.showView(this, R.id.mentions_list_layout);
+        } else {
+            com.percolate.caffeine.ViewUtils.hideView(this, R.id.mentions_list_layout);
+        }
+    }
+
+    public List<AttendeeList> searchUsers(String query) {
+        final List<AttendeeList> searchResults = new ArrayList<>();
+        if (StringUtils.isNotBlank(query)) {
+            query = query.toLowerCase(Locale.US);
+            if (userList != null && !userList.isEmpty()) {
+                for (AttendeeList user : userList) {
+                    final String firstName = user.getFirstName().toLowerCase();
+                    final String lastName = user.getLastName().toLowerCase();
+                    if (firstName.startsWith(query) || lastName.startsWith(query)) {
+                        searchResults.add(user);
+                    }
+                }
+            }
+
+        }
+        return searchResults;
+    }
+
+    private void showMentionsList(boolean display) {
+        com.percolate.caffeine.ViewUtils.showView(this, R.id.mentions_list_layout);
+        if (display) {
+            com.percolate.caffeine.ViewUtils.showView(this, R.id.mentions_list);
+            com.percolate.caffeine.ViewUtils.hideView(this, R.id.mentions_empty_view);
+        } else {
+            com.percolate.caffeine.ViewUtils.hideView(this, R.id.mentions_list);
+            com.percolate.caffeine.ViewUtils.showView(this, R.id.mentions_empty_view);
+        }
+
+    }
+
+    private String highlightMentions(TextView commentTextView, final List<Mentionable> mentions) {
+        String sample = null;
+        int flag = 1;
+        int flag2 = 1;
+
+        if (commentTextView != null && mentions != null && !mentions.isEmpty()) {
+            final SpannableStringBuilder spannable = new SpannableStringBuilder(commentTextView.getText());
+            int start;
+            int end;
+
+            for (Mentionable mention : mentions) {
+                if (mention != null) {
+                    if (flag == 1) {
+                        start = mention.getMentionOffset();
+                        end = start + mention.getMentionLength();
+
+                        if (commentTextView.length() >= end) {
+
+
+//                        spannable.append(sample, start+1, end+1);
+
+                            sample = "<" + mention.getMentionid() + "^" + commentTextView.getText().toString().substring(start, end) + ">";
+
+//                        commentTextView = commentTextView.substring(start, end) + ">" + commentTextView.substring(end, commentTextView.length());
+                            spannable.setSpan(sample, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            spannable.replace(start, end, sample);
+                            commentTextView.setText(spannable, TextView.BufferType.SPANNABLE);
+                            flag = 2;
+                        }
+                    } else if (mentions.indexOf(mention) < 3) {
+
+                        /*<23553-Sneha Deshmukh><23371-Anis Ansari><23362-Atish k>Bharat Rawal */
+                        start = mention.getMentionOffset() + 6 * mentions.indexOf(mention);
+                        end = start + mention.getMentionLength() + 1;
+                        if (commentTextView.length() >= end) {
+                            sample = "<" + mention.getMentionid() + "^" + commentTextView.getText().toString().substring(start + 1, end) + ">";
+
+//                        commentTextView = commentTextView.substring(start, end) + ">" + commentTextView.substring(end, commentTextView.length());
+                            spannable.setSpan(sample, start + mentions.indexOf(mention), end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            spannable.replace(start + mentions.indexOf(mention), end
+                                    , sample);
+                            commentTextView.setText(spannable, TextView.BufferType.SPANNABLE);
+                        }
+                    } else if (mentions.indexOf(mention) >= 3) {
+                        if (flag2 == 1) {
+                            start = mention.getMentionOffset() + 6 * mentions.indexOf(mention);
+                            end = start + mention.getMentionLength() + 2;
+                            if (commentTextView.length() >= end) {
+                                /*<23553-Sneha Deshmukh><23553-Sneha Deshmukh><23553-Sneha Deshmukh>Sneha Deshmukh Sneha Deshmukh */
+                                sample = "<" + mention.getMentionid() + "^" + commentTextView.getText().toString().substring(start + mentions.indexOf(mention) - 1, end+1) + ">";
+
+//                        commentTextView = commentTextView.substring(start, end) + ">" + commentTextView.substring(end, commentTextView.length());
+                                spannable.setSpan(sample, start + mentions.indexOf(mention) - 1, end+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                spannable.replace(start + mentions.indexOf(mention) - 1, end+1
+                                        , sample);
+                                commentTextView.setText(spannable, TextView.BufferType.SPANNABLE);
+                                flag2 = 2;
+                            }
+                        } else {
+                            start = mention.getMentionOffset() + 6 * mentions.indexOf(mention);
+                            end = start + mention.getMentionLength() + 3;
+                            if (commentTextView.length() >= end) {
+                                /*<23553-Sneha Deshmukh><23553-Sneha Deshmukh><23553-Sneha Deshmukh>Sneha Deshmukh Sneha Deshmukh */
+                                sample = "<" + mention.getMentionid() + "^" + commentTextView.getText().toString().substring(start + mentions.indexOf(mention) - 1, end + 1) + ">";
+
+//                        commentTextView = commentTextView.substring(start, end) + ">" + commentTextView.substring(end, commentTextView.length());
+                                spannable.setSpan(sample, start + mentions.indexOf(mention), end + 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                spannable.replace(start + mentions.indexOf(mention), end + 2
+                                        , sample);
+                                commentTextView.setText(spannable, TextView.BufferType.SPANNABLE);
+                            }
+                        }
+                        Log.v("Final String", commentTextView.toString());
+
+
+                    }
+                }
+            }
+//            commentTextView.setText(spannable);
+        }
+
+        return commentTextView.getText().toString();
+    }
 }

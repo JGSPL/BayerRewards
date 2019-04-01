@@ -51,6 +51,7 @@ public class SessionManager {
     public static final String KEY_PIC = "profile_pic";
     public static final String KEY_ID = "id";
     public static final String KEY_SKIP_FLAG = "skip_flag";
+    public static final String ATTENDEE_STATUS = "attendee_status";
     // Sharedpref file name
     private static final String PREF_NAME = "Pref";
     // All Shared Preferences Keys
@@ -128,7 +129,7 @@ public class SessionManager {
      */
     public void createLoginSession(String fstname, String lstname, String email, String mobile, String company,
                                    String designation, String token, String desc, String city, String country, String pic, String id, String emailid,
-                                   String password, String skip_flag) {
+                                   String password, String skip_flag,String attendee_status) {
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
@@ -174,6 +175,7 @@ public class SessionManager {
 
         // Storing email in pref
         editor.putString(KEY_PASSWORD, password);
+        editor.putString(ATTENDEE_STATUS, attendee_status);
 
         // commit changes
         editor.commit();
@@ -268,6 +270,7 @@ public class SessionManager {
         user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
 
         user.put(KEY_PASSWORD, pref.getString(KEY_PASSWORD, null));
+        user.put(ATTENDEE_STATUS, pref.getString(ATTENDEE_STATUS, null));
 
 
         // return user

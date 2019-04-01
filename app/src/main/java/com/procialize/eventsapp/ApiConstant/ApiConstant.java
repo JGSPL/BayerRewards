@@ -7,15 +7,15 @@ package com.procialize.eventsapp.ApiConstant;
 public class ApiConstant {
 
     //Production URL
-//    public static String baseUrl = "https://www.procialize.info/API/event_api_call/";
+    public static String baseUrl = "https://www.procialize.info/API/event_api_call/";
 
     //UAT URL
-    public static String baseUrl = "https://www.procialize.live/procialize/API/event_api_call/";
+//    public static String baseUrl = "https://www.procialize.live/procialize/API/event_api_call/";
 
     //imag&Video prod
-//    public static String imgURL = "https://www.procialize.info/";
+    public static String imgURL = "https://www.procialize.info/";
 // imag&Video prod
-    public static String imgURL="https://www.procialize.live/procialize/";
+//    public static String imgURL="https://www.procialize.live/procialize/";
 
     public static String tenorUrl = "https://api.tenor.com/v1/";
     public static String quizlist = "QuizFetch";
@@ -34,5 +34,7 @@ public class ApiConstant {
     public static String dateformat = "dd-MM-yyyy HH:mm:ss";
     public static String dateformat1 = "yyyy-MM-dd HH:mm:ss";
     public static String dateformat3 = "dd-MM-yyyy";
+    public static String dateformat2 = "dd-MM-yyyy";
+    public static String dateformat4 = "yyyy-dd-MM";
     public static String FIREBASE_TOKEN = "";
 }

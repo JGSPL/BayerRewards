@@ -1,11 +1,18 @@
 package com.procialize.eventsapp.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +29,10 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.procialize.eventsapp.Activity.AttendeeDetailActivity;
 import com.procialize.eventsapp.ApiConstant.ApiConstant;
+import com.procialize.eventsapp.DbHelper.DBHelper;
+import com.procialize.eventsapp.GetterSetter.AttendeeList;
 import com.procialize.eventsapp.GetterSetter.CommentDataList;
 import com.procialize.eventsapp.R;
 import com.procialize.eventsapp.Utility.Utility;
@@ -52,7 +62,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
     String flag;
     private Context context;
     private CommentAdapterListner listener;
-
+    String substring;
+    private List<AttendeeList> attendeeDBList;
+    private DBHelper procializeDB;
+    private SQLiteDatabase db;
+    private DBHelper dbHelper;
 
     public CommentAdapter(Context context, List<CommentDataList> commentLists, CommentAdapterListner listener, String flag) {
         this.commentLists = commentLists;
@@ -61,6 +75,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
         this.flag = flag;
         SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         colorActive = prefs.getString("colorActive", "");
+
+        procializeDB = new DBHelper(context);
+        db = procializeDB.getWritableDatabase();
+        dbHelper = new DBHelper(context);
 
     }
 
@@ -174,7 +192,147 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
             holder.progressViewgif.setVisibility(View.GONE);
             holder.commentTv.setVisibility(View.VISIBLE);
             holder.gifIV.setVisibility(View.GONE);
-            holder.commentTv.setText(StringEscapeUtils.unescapeJava(comment.getComment()));
+
+
+//            holder.commentTv.setText(StringEscapeUtils.unescapeJava(comment.getComment()));
+
+
+            holder.testdata.setText(StringEscapeUtils.unescapeJava(comment.getComment()));
+
+            final SpannableStringBuilder stringBuilder = new SpannableStringBuilder(holder.testdata.getText());
+            if (comment.getComment() != null) {
+
+                holder.commentTv.setVisibility(View.VISIBLE);
+//                    holder.wallNotificationText.setText(getEmojiFromString(notificationImageStatus));
+                int flag = 0;
+                for (int i = 0; i < stringBuilder.length(); i++) {
+                    String sample = stringBuilder.toString();
+                    if ((stringBuilder.charAt(i) == '<')) {
+                        try {
+                            String text = "<";
+                            String text1 = ">";
+
+                            if (flag == 0) {
+                                int start = sample.indexOf(text, i);
+                                int end = sample.indexOf(text1, i);
+
+                                Log.v("Indexes of", "Start : " + start + "," + end);
+                                try {
+                                    substring = sample.substring(start, end + 1);
+                                    Log.v("String names: ", substring);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+
+                                if (substring.contains("<")) {
+                                    if (sample.contains(substring)) {
+                                        substring = substring.replace("<", "");
+                                        substring = substring.replace(">", "");
+                                        int index = substring.indexOf("^");
+//                                    substring = substring.replace("^", "");
+                                        final String attendeeid = substring.substring(0, index);
+                                        substring = substring.substring(index+1, substring.length());
+
+
+                                        stringBuilder.setSpan(stringBuilder, start, end + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                        stringBuilder.setSpan(new ForegroundColorSpan(Color.RED), start, end + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+
+                                        stringBuilder.setSpan(new ClickableSpan() {
+                                            @Override
+                                            public void onClick(View widget) {
+                                                attendeeDBList = dbHelper.getAttendeeDetailsId(attendeeid);
+                                                Intent intent = new Intent(context, AttendeeDetailActivity.class);
+                                                intent.putExtra("id", attendeeDBList.get(0).getAttendeeId());
+                                                intent.putExtra("name", attendeeDBList.get(0).getFirstName() + " " + attendeeDBList.get(0).getLastName());
+                                                intent.putExtra("city", attendeeDBList.get(0).getCity());
+                                                intent.putExtra("country", attendeeDBList.get(0).getCountry());
+                                                intent.putExtra("company", attendeeDBList.get(0).getCompanyName());
+                                                intent.putExtra("designation", attendeeDBList.get(0).getDesignation());
+                                                intent.putExtra("description", attendeeDBList.get(0).getDescription());
+                                                intent.putExtra("profile", attendeeDBList.get(0).getProfilePic());
+                                                context.startActivity(intent);
+                                            }
+                                        }, start, end + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                        stringBuilder.replace(start, end + 1, substring);
+                                        holder.testdata.setText(stringBuilder, TextView.BufferType.SPANNABLE);
+                                        holder.commentTv.setMovementMethod(LinkMovementMethod.getInstance());
+                                        holder.commentTv.setText(stringBuilder);
+                                        flag = 1;
+//                        holder.attendee_comments.setText(attendees.getComment().indexOf(substring, start));
+//                        holder.attendee_comments.setText(attendees.getComment().indexOf(substring, start));
+//                        attendees.setComment(substring);
+                                    }
+                                }
+                            } else {
+
+                                int start = sample.indexOf(text, i);
+                                int end = sample.indexOf(text1, i);
+
+                                Log.v("Indexes of", "Start : " + start + "," + end);
+                                try {
+                                    substring = sample.substring(start, end + 1);
+                                    Log.v("String names: ", substring);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                if (substring.contains("<")) {
+                                    if (sample.contains(substring)) {
+                                        substring = substring.replace("<", "");
+                                        substring = substring.replace(">", "");
+                                        int index = substring.indexOf("^");
+//                                    substring = substring.replace("^", "");
+                                        final String attendeeid = substring.substring(0, index);
+                                        substring = substring.substring(index+1, substring.length());
+
+
+                                        stringBuilder.setSpan(stringBuilder, start, end + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                        stringBuilder.setSpan(new ForegroundColorSpan(Color.RED), start, end + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                                        stringBuilder.setSpan(new ClickableSpan() {
+                                            @Override
+                                            public void onClick(View widget) {
+                                                attendeeDBList = dbHelper.getAttendeeDetailsId(attendeeid);
+                                                Intent intent = new Intent(context, AttendeeDetailActivity.class);
+                                                intent.putExtra("id", attendeeDBList.get(0).getAttendeeId());
+                                                intent.putExtra("name", attendeeDBList.get(0).getFirstName() + " " + attendeeDBList.get(0).getLastName());
+                                                intent.putExtra("city", attendeeDBList.get(0).getCity());
+                                                intent.putExtra("country", attendeeDBList.get(0).getCountry());
+                                                intent.putExtra("company", attendeeDBList.get(0).getCompanyName());
+                                                intent.putExtra("designation", attendeeDBList.get(0).getDesignation());
+                                                intent.putExtra("description", attendeeDBList.get(0).getDescription());
+                                                intent.putExtra("profile", attendeeDBList.get(0).getProfilePic());
+                                                context.startActivity(intent);
+                                            }
+                                        }, start, end + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                                        stringBuilder.replace(start, end + 1, substring);
+                                        holder.testdata.setText(stringBuilder, TextView.BufferType.SPANNABLE);
+                                        holder.commentTv.setMovementMethod(LinkMovementMethod.getInstance());
+
+                                        holder.commentTv.setText(stringBuilder);
+
+
+//                        holder.attendee_comments.setText(attendees.getComment().indexOf(substring, start));
+//                        holder.attendee_comments.setText(attendees.getComment().indexOf(substring, start));
+//                        attendees.setComment(substring);
+                                    }
+                                }
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+
+                holder.commentTv.setText(stringBuilder);
+            } else {
+                holder.commentTv.setVisibility(View.GONE);
+            }
+
+
 
         }
     }
@@ -192,7 +350,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView nameTv, commentTv, dateTv;
+        public TextView nameTv, commentTv, dateTv,testdata;
         public ImageView profileIv;
         public ProgressBar progressView, progressViewgif;
         public ImageView moreIv;
@@ -213,6 +371,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
             progressView = view.findViewById(R.id.progressView);
             progressViewgif = view.findViewById(R.id.progressViewgif);
             textcommentContainer = view.findViewById(R.id.textcommentContainer);
+            testdata = view.findViewById(R.id.testdata);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {

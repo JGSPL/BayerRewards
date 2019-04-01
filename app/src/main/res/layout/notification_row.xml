@@ -25,7 +25,7 @@
         android:id="@+id/mainLL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/qnarow"
+        android:background="@color/colorwhite"
         android:orientation="vertical"
         android:padding="5dp">
 
@@ -71,7 +71,7 @@
                 android:orientation="vertical">
 
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
+                <TextView
                     android:id="@+id/nameTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/textsizesmall" />
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
+                <TextView
                     android:id="@+id/txt_msg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -90,7 +90,7 @@
                     android:text="Sent you message"
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/textsizesmall" />
-                <com.procialize.eventsapp.Fonts.RobotoTextview
+                <TextView
                     android:id="@+id/dataTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -98,7 +98,7 @@
                     android:text=""
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/textsizesmall" />
-                <com.procialize.eventsapp.Fonts.RobotoTextview
+                <TextView
                     android:id="@+id/messageTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
 
 
 
-                <com.procialize.eventsapp.Fonts.RobotoButton
+                <Button
                     android:id="@+id/replyBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"

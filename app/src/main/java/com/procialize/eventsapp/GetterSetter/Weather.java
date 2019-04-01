@@ -18,10 +18,27 @@ public class Weather {
     private String countryname;
     @SerializedName("current_temp")
     @Expose
-    private Integer currentTemp;
+    private float currentTemp;
     @SerializedName("current_temp_text")
     @Expose
     private String currentTempText;
+
+    public String getMax() {
+        return max;
+    }
+
+    public void setMax(String max) {
+        this.max = max;
+    }
+
+    public String getMin() {
+        return min;
+    }
+
+    public void setMin(String min) {
+        this.min = min;
+    }
+
     @SerializedName("max")
     @Expose
     private String max;
@@ -46,6 +63,15 @@ public class Weather {
     @SerializedName("today_weather")
     @Expose
     private TodayWeather todayWeather;
+
+    public void setForecast(List<Forecast> forecast) {
+        this.forecast = forecast;
+    }
+
+    public List<Forecast> getForecast() {
+        return forecast;
+    }
+
     @SerializedName("forecast")
     @Expose
     private List<Forecast> forecast = null;
@@ -80,7 +106,7 @@ public class Weather {
         this.countryname = countryname;
     }
 
-    public Integer getCurrentTemp() {
+    public float getCurrentTemp() {
         return currentTemp;
     }
 
@@ -96,21 +122,7 @@ public class Weather {
         this.currentTempText = currentTempText;
     }
 
-    public String getMax() {
-        return max;
-    }
 
-    public void setMax(String max) {
-        this.max = max;
-    }
-
-    public String getMin() {
-        return min;
-    }
-
-    public void setMin(String min) {
-        this.min = min;
-    }
 
     public String getWeatherUrl() {
         return weatherUrl;
@@ -160,13 +172,7 @@ public class Weather {
         this.todayWeather = todayWeather;
     }
 
-    public List<Forecast> getForecast() {
-        return forecast;
-    }
 
-    public void setForecast(List<Forecast> forecast) {
-        this.forecast = forecast;
-    }
 
     public String getStatus() {
         return status;
@@ -183,5 +189,4 @@ public class Weather {
     public void setMsg(String msg) {
         this.msg = msg;
     }
-
 }

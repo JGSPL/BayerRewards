@@ -5,20 +5,25 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.VideoView;
+
 
 import com.procialize.eventsapp.ApiConstant.ApiConstant;
 import com.procialize.eventsapp.R;
 import com.procialize.eventsapp.Utility.Util;
 
-import tcking.github.com.giraffeplayer2.VideoView;
+import cn.jzvd.JZVideoPlayerStandard;
 
 
 /**
@@ -120,11 +125,26 @@ public class ExoVideoActivity extends AppCompatActivity {
 
     }
 
-    private void setupVideoView(final String videoUrl) {
+    private void setupVideoView(final String videoUrl1) {
 
+        MediaController mediaController = new MediaController(this);
+        Uri uri = Uri.parse(videoUrl1);
         emVideoView = findViewById(R.id.video_view);
         emVideoView.setVisibility(View.VISIBLE);
-        emVideoView.setVideoPath(videoUrl).getPlayer().start();
+        emVideoView.setVideoURI(uri);
+        emVideoView.setMediaController(mediaController);
+
+        emVideoView.requestFocus();
+        ViewGroup.LayoutParams params = emVideoView.getLayoutParams();
+        params.height = 600;
+        emVideoView.setLayoutParams(params);
+
+//        Display display = getWindowManager().getDefaultDisplay();
+//        Point size = new Point();
+//        display.getSize(size);
+//        emVideoView.getHolder().setFixedSize(size.x, size.y);
+        emVideoView.start();
+        //  Glide.with(emVideoView.getContext()).load(ApiConstant.folderimage+videoUrl).into(emVideoView.thumbImageView);
 
     }
 
@@ -185,6 +205,7 @@ public class ExoVideoActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
+        JZVideoPlayerStandard.releaseAllVideos();
         super.onPause();
     }
 }

@@ -16,9 +16,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/pullrefresh"
+            android:layout_marginBottom="@dimen/margin"
             android:layout_marginLeft="@dimen/margin"
             android:layout_marginRight="@dimen/margin"
-            android:layout_marginBottom="@dimen/margin"
             android:layout_marginTop="5dp"
             android:background="@drawable/edittexthmbg"
             android:gravity="center"
@@ -31,18 +31,18 @@
                 android:layout_centerInParent="true"
                 android:layout_margin="5dp"
                 android:adjustViewBounds="true"
-                android:src="@drawable/profilepic_placeholder"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/profilepic_placeholder" />
 
 
-            <com.procialize.eventsapp.Fonts.RobotoTextview
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"
                 android:hint="@string/whatsmind"
-                android:textSize="@dimen/textsizesmall"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:textSize="@dimen/textsizesmall" />
         </LinearLayout>
 
         <LinearLayout
@@ -68,9 +68,9 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
+                    android:layout_centerInParent="true"
                     android:contentDescription="TODO"
                     android:padding="2dp"
-                    android:layout_centerInParent="true"
                     android:src="@drawable/post_status" />
 
             </RelativeLayout>
@@ -90,9 +90,9 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
+                    android:layout_centerInParent="true"
                     android:contentDescription="TODO"
                     android:padding="2dp"
-                    android:layout_centerInParent="true"
                     android:src="@drawable/post_image" />
 
             </RelativeLayout>
@@ -112,10 +112,10 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:contentDescription="TODO"
-                    android:padding="2dp"
-
                     android:layout_centerInParent="true"
+                    android:contentDescription="TODO"
+
+                    android:padding="2dp"
                     android:src="@drawable/post_video" />
 
             </RelativeLayout>
@@ -130,10 +130,10 @@
         android:id="@+id/feedll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:layout_marginBottom="0dp"
-        android:layout_marginRight="12dp"
         android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/newsfeedrowbg"
         android:orientation="vertical">
 
@@ -177,7 +177,7 @@
                 android:layout_weight="5.75"
                 android:orientation="vertical">
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
+                <TextView
                     android:id="@+id/nameTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -186,10 +186,9 @@
                     android:paddingLeft="5dp"
                     android:text=""
                     android:textColor="@color/activetab"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
+                    android:textSize="15dp" />
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
+                <TextView
                     android:id="@+id/designationTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -197,12 +196,12 @@
                     android:layout_toEndOf="@+id/imageView"
                     android:paddingLeft="5dp"
                     android:text=""
-                    android:textColor="@color/black"
+                    android:textColor="@color/inactivetab"
                     android:textSize="@dimen/textsizesmall"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
+                <TextView
                     android:id="@+id/companyTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -210,30 +209,30 @@
                     android:layout_toEndOf="@+id/imageView"
                     android:paddingLeft="5dp"
                     android:text=""
-                    android:textColor="@color/black"
+                    android:textColor="@color/inactivetab"
                     android:textSize="@dimen/textsizesmall"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
                 android:layout_marginTop="10dp"
+                android:layout_weight="2.25"
 
-                android:layout_weight="2.25">
+                android:orientation="vertical">
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
+                <TextView
                     android:id="@+id/dateTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text=""
                     android:layout_marginRight="5dp"
-                    android:textColor="@color/black"
-                    android:textSize="10sp"
-                    android:gravity="right"/>
+                    android:gravity="right"
+                    android:text=""
+                    android:textColor="@color/inactivetab"
+                    android:textSize="10sp" />
 
 
                 <LinearLayout
@@ -251,34 +250,45 @@
                         android:contentDescription="TODO"
                         android:padding="5dp"
                         android:src="@drawable/ic_blackedit"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                     <ImageView
                         android:id="@+id/moreIV"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:paddingTop="2dp"
                         android:contentDescription="TODO"
                         android:paddingBottom="2dp"
+                        android:paddingTop="2dp"
                         android:src="@drawable/ic_more" />
 
                 </LinearLayout>
-
 
 
             </LinearLayout>
 
         </LinearLayout>
 
-        <com.procialize.eventsapp.Fonts.RobotoTextview
+        <TextView
             android:id="@+id/headingTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
             android:paddingLeft="15dp"
             android:text=""
-            android:textColor="@color/black"
+            android:textColor="@color/inactivetab"
             android:textSize="@dimen/textsizesmall" />
+
+        <TextView
+            android:id="@+id/testdata"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingLeft="15dp"
+            android:text=""
+            android:textColor="@color/inactivetab"
+            android:textSize="@dimen/textsizesmall"
+            android:visibility="gone" />
+
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -314,25 +324,25 @@
                 android:transitionName="feedimage"
                 android:visibility="gone" />
 
-            <com.procialize.eventsapp.CustomTools.MyJZVideoPlayerStandard
+            <cn.jzvd.JZVideoPlayerStandard
                 android:id="@+id/videoplayer"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:screenOrientation="portrait"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:screenOrientation="portrait"
                 android:visibility="gone" />
 
         </RelativeLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="@color/linecolor"
-            android:visibility="gone"/>
-
+            android:visibility="gone" />
 
 
         <LinearLayout
@@ -346,15 +356,15 @@
 
             <LinearLayout
                 android:id="@+id/likeTv"
-                android:padding="3dp"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="3dp">
 
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
+                <TextView
                     android:id="@+id/liketext"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -364,9 +374,9 @@
                     android:paddingTop="4dp"
                     android:text="0 Like"
                     android:textColor="@color/inactivetab"
-                    android:textSize="@dimen/textsizesmaller" />
+                    android:textSize="@dimen/textsizesmall" />
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
+                <TextView
                     android:id="@+id/img_like"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -384,15 +394,15 @@
                 android:visibility="gone" />
 
             <LinearLayout
-                android:padding="3dp"
                 android:id="@+id/commentTv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="3dp">
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
+                <TextView
                     android:id="@+id/commenttext"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -401,7 +411,7 @@
                     android:gravity="center"
                     android:text="0 Comments"
                     android:textColor="@color/inactivetab"
-                    android:textSize="@dimen/textsizesmaller" />
+                    android:textSize="@dimen/textsizesmall" />
 
             </LinearLayout>
 
@@ -414,14 +424,14 @@
 
             <LinearLayout
                 android:id="@+id/shareTv"
-                android:padding="3dp"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="3dp">
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
+                <TextView
                     android:id="@+id/sharetext"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -430,7 +440,7 @@
                     android:gravity="center"
                     android:text="Share"
                     android:textColor="@color/inactivetab"
-                    android:textSize="@dimen/textsizesmaller" />
+                    android:textSize="@dimen/textsizesmall" />
 
             </LinearLayout>
         </LinearLayout>

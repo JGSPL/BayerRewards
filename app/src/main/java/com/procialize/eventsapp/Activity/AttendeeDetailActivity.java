@@ -23,6 +23,7 @@ import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,6 +51,7 @@ import com.procialize.eventsapp.GetterSetter.UserData;
 import com.procialize.eventsapp.R;
 import com.procialize.eventsapp.Session.SessionManager;
 import com.procialize.eventsapp.Utility.Util;
+import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -111,7 +113,8 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+//                onBackPressed();
+                finish();
             }
         });
         headerlogoIv = findViewById(R.id.headerlogoIv);
@@ -193,15 +196,19 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         attendeetitle.setTextColor(Color.parseColor(colorActive));
         tvname.setTextColor(Color.parseColor(colorActive));
         layoutTop.setBackgroundColor(Color.parseColor(colorActive));
-        saveContact.setBackgroundColor(Color.parseColor(colorActive));
+//        saveContact.setBackgroundColor(Color.parseColor(colorActive));
         sendbtn = findViewById(R.id.sendMsg);
 
 
         final GradientDrawable shape = setgradientDrawable(5, colorActive);
+        final GradientDrawable shapelayout = setgradientDrawable(10, colorActive);
         final GradientDrawable shapeunactive = setgradientDrawable(5, "#4D4D4D");
-
-        linsave.setBackground(shape);
-        linMsg.setBackground(shape);
+        final GradientDrawable shapeunactivelayout = setgradientDrawable(10, "#4D4D4D");
+//
+        linsave.setBackground(shapelayout);
+//        linMsg.setBackground(shapelayout);
+//        sendbtn.setBackground(shape);
+        saveContact.setBackground(shape);
 //        posttextEt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 //            @Override
 //            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -231,15 +238,17 @@ public class AttendeeDetailActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (count >= 1) {
                     linMsg.setEnabled(true);
-                    linMsg.setBackground(shape);
-                    linsave.setBackground(shape);
-                    linsave.setEnabled(true);
+                    linMsg.setBackground(shapelayout);
+                    sendbtn.setBackground(shape);
+//                    linsave.setBackground(shapelayout);
+//                    sendbtn.setBackground(shape);
+//                    linsave.setEnabled(true);
                 } else if (count <= 0) {
                     linMsg.setEnabled(false);
-                    linsave.setEnabled(false);
-                    linMsg.setBackground(shapeunactive);
-                    linsave.setBackground(shapeunactive);
-
+//                    linsave.setEnabled(false);
+                    linMsg.setBackground(shapeunactivelayout);
+//                    linsave.setBackground(shapeunactivelayout);
+                    sendbtn.setBackground(shapeunactive);
                 }
 
             }
@@ -437,6 +446,12 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         }
 
 
+        profileIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imagealert();
+            }
+        });
         linMsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -446,6 +461,28 @@ public class AttendeeDetailActivity extends AppCompatActivity {
                     PostMesssage(eventid, msg, apikey, attendeeid);
                 } else {
                     Toast.makeText(getApplicationContext(), "Enter Message", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        saveContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Intent intent = new Intent(
+                            ContactsContract.Intents.SHOW_OR_CREATE_CONTACT,
+                            Uri.parse("tel:" + mobile));
+                    intent.putExtra(ContactsContract.Intents.Insert.NAME, name);
+                    intent.putExtra(ContactsContract.Intents.Insert.COMPANY, company);
+                    intent.putExtra(ContactsContract.Intents.Insert.PHONE, mobile);
+                    intent.putExtra(ContactsContract.Intents.Insert.JOB_TITLE, designation);
+
+                    intent.putExtra(ContactsContract.Intents.EXTRA_FORCE_CREATE, true);
+
+                    startActivity(intent);
+//                    addToContactList(AttendeeDetailActivity.this, name, mobile);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -473,6 +510,8 @@ public class AttendeeDetailActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
     private void applysetting(List<EventSettingList> eventSettingLists) {
 
@@ -733,4 +772,24 @@ public class AttendeeDetailActivity extends AppCompatActivity {
     }
 
 
+    public void imagealert() {
+        final Dialog dialog = new Dialog(AttendeeDetailActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow()
+                .setSoftInputMode(
+                        WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
+                                | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        dialog.setContentView(R.layout.imagepopulayout);
+        ImageView image = (ImageView) dialog.findViewById(R.id.image);
+//        String imgae = dbManager.GetimageUrl(datamodel.get(position).getProdcutid());
+        String imageUrl = ApiConstant.profilepic + profile;
+        Picasso.with(AttendeeDetailActivity.this).load(imageUrl).into(image);
+        dialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        finish();
+    }
 }

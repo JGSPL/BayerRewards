@@ -155,7 +155,7 @@ public class FeedBackActivity extends AppCompatActivity implements FeedBackAdapt
                 FeedBackAdapter feedbackAdapter = new FeedBackAdapter(this, response.body().getSurveyList(), this);
                 feedbackAdapter.notifyDataSetChanged();
                 feedbackRv.setAdapter(feedbackAdapter);
-                feedbackRv.scheduleLayoutAnimation();
+//                feedbackRv.scheduleLayoutAnimation();
             } else {
                 setContentView(R.layout.activity_empty_view);
                 ImageView imageView = findViewById(R.id.back);

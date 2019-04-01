@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@color/colorgrey"
     android:orientation="vertical"
     tools:context="com.procialize.eventsapp.InnerDrawerActivity.EventInfoActivity">
 
@@ -22,9 +22,10 @@
     </android.support.v4.widget.NestedScrollView>
 
     <LinearLayout
-        android:layout_above="@+id/mapLL"
+        android:id="@+id/linear_head"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/mapLL"
         android:orientation="vertical">
 
         <android.support.design.widget.AppBarLayout
@@ -55,9 +56,9 @@
                     android:id="@+id/back"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="13dp"
                     android:padding="5dp"
-                    android:src="@drawable/ic_back"
-                    android:layout_marginLeft="13dp"/>
+                    android:src="@drawable/ic_back" />
 
                 <ImageView
                     android:id="@+id/headerlogoIv"
@@ -73,7 +74,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/linecolor" />
+                android:background="@color/linecolor"
+                android:visibility="gone" />
 
         </android.support.design.widget.AppBarLayout>
 
@@ -83,7 +85,7 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <com.procialize.eventsapp.Fonts.RobotoTextview
+            <TextView
                 android:id="@+id/event_info_heading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -129,7 +131,7 @@
                         android:layout_below="@id/layoutTop"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:background="@drawable/agendabg">
+                        android:background="@color/colorwhite">
 
                     </RelativeLayout>
 
@@ -183,7 +185,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/agendabg">
+            android:background="@color/colorwhite">
 
 
             <LinearLayout
@@ -198,7 +200,7 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <com.procialize.eventsapp.Fonts.RobotoTextview
+                    <TextView
                         android:id="@+id/nameTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -214,7 +216,7 @@
                         android:layout_marginRight="10dp"
                         android:background="@color/linecolor" />
 
-                    <com.procialize.eventsapp.Fonts.RobotoTextview
+                    <TextView
                         android:id="@+id/dateTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -230,14 +232,15 @@
                         android:layout_marginRight="10dp"
                         android:background="@color/linecolor" />
 
-                    <com.procialize.eventsapp.Fonts.RobotoTextview
+                    <TextView
                         android:id="@+id/cityTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:gravity="center"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/textsizesmall" />
+                        android:textSize="@dimen/textsizesmall"
+                        android:visibility="gone" />
 
 
                     <View
@@ -246,21 +249,22 @@
                         android:layout_height="0.5dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:background="@color/linecolor" />
+                        android:background="@color/linecolor"
+                        android:visibility="gone" />
 
 
-                    <com.procialize.eventsapp.Fonts.RobotoTextview
-                            android:id="@+id/event_desc"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_margin="5dp"
-                            android:gravity="center"
-                            android:maxLines="10"
-                            android:scrollbars="vertical"
-                            android:text=""
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/textsizesmall"
-                            android:textStyle="normal" />
+                    <TextView
+                        android:id="@+id/event_desc"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:gravity="center"
+                        android:maxLines="10"
+                        android:scrollbars="vertical"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textsizesmall"
+                        android:textStyle="normal" />
 
 
                 </LinearLayout>
@@ -273,13 +277,13 @@
             android:id="@+id/linMap"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:background="@color/activetab"
+            android:background="@color/colorwhite"
             android:gravity="center"
             android:orientation="horizontal"
 
             android:visibility="gone">
 
-            <com.procialize.eventsapp.Fonts.RobotoTextview
+            <TextView
                 android:id="@+id/createaccbtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -308,6 +312,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:layout_marginBottom="20dp"
         android:orientation="vertical"
         android:visibility="visible">
 

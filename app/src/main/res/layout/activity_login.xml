@@ -16,8 +16,8 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="250dp"
-            android:layout_height="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
             android:layout_gravity="center"
             android:contentDescription="TODO"
             app:srcCompat="@drawable/splashlogo" />
@@ -29,7 +29,8 @@
             android:gravity="center"
             android:text="@string/logindummy"
             android:textColor="@color/colorwhite"
-            android:textSize="@dimen/textsizenormal" />
+            android:textSize="@dimen/textsizenormal"
+            android:visibility="gone"/>
 
 
         <LinearLayout
@@ -137,7 +138,8 @@
             android:text="OR"
             android:textAlignment="center"
             android:textColor="@color/colorwhite"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:visibility="invisible"/>
 
         <com.procialize.eventsapp.Fonts.RobotoButton
             android:id="@+id/createaccbtn"
@@ -150,7 +152,8 @@
             android:text="@string/create_evnt"
             android:textAllCaps="false"
             android:textColor="@color/logintxt"
-            android:textSize="@dimen/textsizenormal" />
+            android:textSize="@dimen/textsizenormal"
+            android:visibility="invisible"/>
 
         <com.procialize.eventsapp.Fonts.RobotoTextview
             android:id="@+id/textView"

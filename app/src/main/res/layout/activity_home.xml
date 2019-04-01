@@ -5,7 +5,7 @@
     android:id="@+id/drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@color/colorgrey"
     android:fitsSystemWindows="true"
     tools:context=".Activity.HomeActivity">
 
@@ -51,7 +51,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/linecolor" />
+                android:background="@color/linecolor"
+                android:visibility="gone" />
 
 
         </android.support.design.widget.AppBarLayout>
@@ -79,8 +80,7 @@
                 android:background="#ffff"
                 app:tabGravity="fill"
                 app:tabMode="fixed"
-                app:tabTextAppearance="@style/MyCustomTabText"
-               />
+                app:tabTextAppearance="@style/MyCustomTabText" />
 
         </android.support.design.widget.AppBarLayout>
 
@@ -169,6 +169,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
+            android:scrollbars="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <RelativeLayout
@@ -186,12 +187,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/my"
-                    android:paddingLeft="25dp"
-                    android:paddingTop="20dp"
-                    android:paddingBottom="10dp"
                     android:drawableLeft="@drawable/home"
                     android:drawablePadding="10dp"
                     android:gravity="left|center"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="25dp"
+                    android:paddingTop="20dp"
                     android:text="Home"
                     android:textColor="@color/colorwhite"
                     android:textSize="@dimen/textsizesmall" />
@@ -201,12 +202,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/home"
-                    android:paddingLeft="23dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
                     android:drawableLeft="@drawable/ic_info"
                     android:drawablePadding="10dp"
                     android:gravity="left|center"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="23dp"
+                    android:paddingTop="10dp"
                     android:text="Event Info"
                     android:textColor="@color/colorwhite"
                     android:textSize="@dimen/textsizesmall" />
@@ -216,12 +217,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/eventInfo"
-                    android:paddingLeft="23dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
                     android:drawableLeft="@drawable/notification_icon"
                     android:drawablePadding="10dp"
                     android:gravity="left|center"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="23dp"
+                    android:paddingTop="10dp"
                     android:text="Notifications"
                     android:textColor="@color/colorwhite"
                     android:textSize="@dimen/textsizesmall" />
@@ -232,7 +233,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/notification"
-                    android:scrollbars="vertical" />
+                    android:scrollbars="none" />
 
 
                 <com.procialize.eventsapp.Fonts.RobotoTextview
@@ -240,12 +241,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/menurecycler"
-                    android:paddingLeft="23dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
                     android:drawableLeft="@drawable/contact_us"
                     android:drawablePadding="10dp"
                     android:gravity="left|center"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="23dp"
+                    android:paddingTop="10dp"
                     android:text="@string/contactus"
                     android:textColor="@color/colorwhite"
                     android:textSize="@dimen/textsizesmall"
@@ -256,12 +257,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/contactus"
-                    android:paddingLeft="25dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
                     android:drawableLeft="@drawable/privacy_policy"
                     android:drawablePadding="10dp"
                     android:gravity="left|center"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="25dp"
+                    android:paddingTop="10dp"
                     android:text="@string/privacy_policy"
                     android:textColor="@color/colorwhite"
                     android:textSize="@dimen/textsizesmall" />
@@ -271,12 +272,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/privacy_policy"
-                    android:paddingLeft="25dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
                     android:drawableLeft="@drawable/eula"
                     android:drawablePadding="10dp"
                     android:gravity="left|center"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="25dp"
+                    android:paddingTop="10dp"
                     android:text="@string/eula"
                     android:textColor="@color/colorwhite"
                     android:textSize="@dimen/textsizesmall" />
@@ -286,12 +287,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/eula"
-                    android:paddingLeft="25dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
                     android:drawableLeft="@drawable/ic_switch"
                     android:drawablePadding="10dp"
                     android:gravity="left"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="25dp"
+                    android:paddingTop="10dp"
                     android:text="@string/swit"
                     android:textColor="@color/colorwhite"
                     android:textSize="@dimen/textsizesmall" />
@@ -305,12 +306,13 @@
                     android:drawableLeft="@drawable/ic_question"
                     android:drawablePadding="10dp"
                     android:gravity="left"
+                    android:paddingBottom="10dp"
                     android:paddingLeft="25dp"
                     android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
                     android:text="@string/expert"
                     android:textColor="@color/colorwhite"
-                    android:textSize="@dimen/textsizesmall" />
+                    android:textSize="@dimen/textsizesmall"
+                    android:visibility="gone" />
 
 
                 <com.procialize.eventsapp.Fonts.RobotoTextview
@@ -318,12 +320,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/chatbt"
-                    android:paddingLeft="25dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
                     android:drawableLeft="@drawable/log_out"
                     android:drawablePadding="10dp"
                     android:gravity="left"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="25dp"
+                    android:paddingTop="10dp"
                     android:text="Logout"
                     android:textColor="@color/colorwhite"
                     android:textSize="@dimen/textsizesmall" />
@@ -332,11 +334,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/logout"
-                    android:paddingLeft="25dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
                     android:drawablePadding="10dp"
                     android:gravity="center"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="25dp"
+                    android:paddingTop="10dp"
                     android:text="@string/version"
                     android:textColor="@color/colorwhite"
                     android:textSize="@dimen/textsizesmall" />

@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@color/colorgrey"
     android:orientation="vertical"
     android:layout_marginBottom="10dp">
 
@@ -66,7 +66,7 @@
             <com.procialize.eventsapp.Fonts.RobotoTextview
                 android:id="@+id/questionTv"
                 android:textColor="@color/black"
-                android:background="@color/qnarow"
+                android:background="@color/colorwhite"
                 android:textSize="15dp"
                 android:padding="10dp"
                 android:layout_marginTop="5dp"

@@ -7,7 +7,7 @@
     android:orientation="horizontal">
 
 
-    <com.procialize.eventsapp.Fonts.RobotoTextview
+    <TextView
         android:id="@+id/tvheading"
         android:layout_width="50dp"
         android:layout_height="match_parent"

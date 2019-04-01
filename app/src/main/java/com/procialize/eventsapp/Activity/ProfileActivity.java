@@ -487,6 +487,7 @@ public class ProfileActivity extends AppCompatActivity {
                 Etcountry = findViewById(R.id.Etcountry);
                 Etmobile = findViewById(R.id.Etmobile);
                 Etemail = findViewById(R.id.Etemail);
+
                 if (Etemail.getVisibility() == View.VISIBLE && Etemail.getText().toString().isEmpty()) {
                     Toast.makeText(ProfileActivity.this, "Enter Email Id", Toast.LENGTH_SHORT).show();
                 } else if (Etfirstname.getVisibility() == View.VISIBLE && Etfirstname.getText().toString().isEmpty()) {
@@ -502,9 +503,16 @@ public class ProfileActivity extends AppCompatActivity {
                 } else if (Etcity.getVisibility() == View.VISIBLE && Etcity.getText().toString().isEmpty()) {
                     Toast.makeText(ProfileActivity.this, "Enter City Name", Toast.LENGTH_SHORT).show();
                 } else {
-                    saveProfile();
+                    if (profilepic == null) {
+                        if (file == null) {
+                            Toast.makeText(ProfileActivity.this, "Please upload profile image", Toast.LENGTH_SHORT).show();
+                        } else {
+                            saveProfile();
+                        }
+                    } else {
+                        saveProfile();
+                    }
                 }
-
             }
         });
 
@@ -1193,7 +1201,8 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[],
+                                           int[] grantResults) {
         switch (requestCode) {
 
             case RequestPermissionCode:
@@ -1221,7 +1230,8 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    public void SubmitAnalytics(String token, String eventid, String target_attendee_id, String target_attendee_type, String analytic_type) {
+    public void SubmitAnalytics(String token, String eventid, String target_attendee_id, String
+            target_attendee_type, String analytic_type) {
 
         mAPIService.Analytic(token, eventid, target_attendee_id, target_attendee_type, analytic_type).enqueue(new Callback<Analytic>() {
             @Override

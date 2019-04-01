@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@color/colorgrey"
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
@@ -83,7 +83,6 @@
             android:id="@+id/linUpper"
             android:layout_marginRight="10dp"
             android:layout_weight="4"
-
             android:background="@color/activetab"
             android:orientation="vertical">
 
@@ -150,26 +149,25 @@
             android:id="@+id/relative"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="#f1f1f1"
+            android:background="@color/colorwhite"
             android:layout_weight="1"
-            android:layout_below="@+id/attendeetitle">
+            android:layout_below="@+id/attendeetitle"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
 
             <RelativeLayout
                 android:id="@+id/layoutTop"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/activetab"></RelativeLayout>
+
+                android:background="@color/colorwhite"></RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/layoutBottom"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_below="@id/layoutTop"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/agendabg">
+                android:background="@color/colorwhite">
 
             </RelativeLayout>
 
@@ -188,9 +186,8 @@
                     android:layout_width="100dp"
                     android:layout_height="40dp"
                     android:layout_marginRight="20dp"
-                    android:background="#ffffff"
+                    android:background="@color/colorgrey"
                     android:text="Convert"
-
                     android:textAllCaps="false"
                     android:textColor="@color/activetab" />
 
@@ -228,7 +225,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="4"
-            android:background="#f1f1f1"
+            android:background="@color/colorwhite"
             android:orientation="vertical">
 
             <LinearLayout

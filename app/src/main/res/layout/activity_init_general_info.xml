@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    android:orientation="vertical"
-    tools:context="com.procialize.eventsapp.InnerDrawerActivity.FeedBackActivity">
+    android:background="@color/colorgrey"
+    android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -50,24 +49,30 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <com.procialize.eventsapp.Fonts.RobotoTextview
+    <TextView
         android:id="@+id/txt_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:gravity="center"
         android:padding="4sp"
-        android:textColor="@color/activetab"
+        android:textColor="@color/colorwhite"
         android:textSize="@dimen/textsizenormal"
         android:textStyle="bold" />
 
-    <com.procialize.eventsapp.Fonts.RobotoTextview
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/progressBar"
+        android:layout_gravity="center"
+        android:layout_width="80dp"
+        android:layout_height="80dp" />
+    <WebView
+        android:id="@+id/webView"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="match_parent"
         android:layout_margin="20dp"
         android:padding="5dp"
-        android:scrollbars="vertical"
-        android:textColor="@color/black" />
+        android:scrollbars="vertical" />
 
 
 </LinearLayout>

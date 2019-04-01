@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -22,17 +23,24 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.MediaController;
@@ -41,6 +49,11 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
+import com.percolate.mentions.Mentionable;
+import com.percolate.mentions.Mentions;
+import com.percolate.mentions.QueryListener;
+import com.percolate.mentions.SuggestionsListener;
+import com.procialize.eventsapp.Adapter.UsersAdapter;
 import com.procialize.eventsapp.ApiConstant.APIService;
 import com.procialize.eventsapp.ApiConstant.ApiConstant;
 import com.procialize.eventsapp.ApiConstant.ApiUtils;
@@ -48,15 +61,22 @@ import com.procialize.eventsapp.CustomTools.CircleDisplay;
 import com.procialize.eventsapp.CustomTools.ImagePath_MarshMallow;
 import com.procialize.eventsapp.CustomTools.ProgressRequestBodyImage;
 import com.procialize.eventsapp.CustomTools.ProgressRequestBodyVideo;
+import com.procialize.eventsapp.CustomTools.RecyclerItemClickListener;
+import com.procialize.eventsapp.DbHelper.DBHelper;
+import com.procialize.eventsapp.GetterSetter.AttendeeList;
+import com.procialize.eventsapp.GetterSetter.Comment;
+import com.procialize.eventsapp.GetterSetter.Mention;
 import com.procialize.eventsapp.GetterSetter.PostTextFeed;
 import com.procialize.eventsapp.R;
 import com.procialize.eventsapp.Session.SessionManager;
 import com.procialize.eventsapp.Utility.MyApplication;
+import com.procialize.eventsapp.Utility.ScalingUtilities;
 import com.procialize.eventsapp.Utility.Util;
 import com.procialize.eventsapp.Utility.Utility;
 import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -64,8 +84,11 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -74,7 +97,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PostViewActivity extends AppCompatActivity implements ProgressRequestBodyImage.UploadCallbacks, ProgressRequestBodyVideo.UploadCallbacks {
+public class PostViewActivity extends AppCompatActivity implements ProgressRequestBodyImage.UploadCallbacks, ProgressRequestBodyVideo.UploadCallbacks, QueryListener, SuggestionsListener {
 
     private static final int REQUEST_VIDEO_CAPTURE = 300;
     private static final int READ_REQUEST_CODE = 200;
@@ -104,9 +127,23 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1, REQUEST_TAKE_PHOTO = 2, REQUEST_TAKE_GALLERY_VIDEO = 3;
     private Uri uri;
     private String pathToStoredVideo;
+    String videoUrl;
     private String selectedImagePath;
     private VideoView displayRecordedVideo;
     private String picturePath = "";
+    public static File imgeFile;
+    String angle = "0";
+    File mediaFile;
+    private List<AttendeeList> userList;
+    private Mentions mentions;
+    TextView textData;
+    private DBHelper dbHelper;
+    private DBHelper procializeDB;
+    List<AttendeeList> customers = null;
+    private SQLiteDatabase db;
+    private UsersAdapter usersAdapter;
+    String data;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,6 +185,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
         displayRecordedVideo = findViewById(R.id.Upvideov);
         imgPlay = findViewById(R.id.imgPlay);
         progressbar = findViewById(R.id.progressbar);
+        textData = findViewById(R.id.textData);
         mAPIService = ApiUtils.getAPIService();
         sessionManager = new SessionManager(getApplicationContext());
         final TextView txtcount1 = findViewById(R.id.txtcount1);
@@ -241,6 +279,21 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
 
         postEt.addTextChangedListener(txwatcher);
 
+        procializeDB = new DBHelper(PostViewActivity.this);
+        db = procializeDB.getReadableDatabase();
+        dbHelper = new DBHelper(PostViewActivity.this);
+        customers = new ArrayList<AttendeeList>();
+        userList = procializeDB.getAttendeeDetails();
+        procializeDB.getReadableDatabase();
+        // attendeesList = (ListView)
+        // getActivity().findViewById(R.id.speakers_list);
+        customers = dbHelper.getAttendeeDetails();
+        mentions = new Mentions.Builder(this, postEt)
+                .suggestionsListener(this)
+                .queryListener(this)
+                .build();
+
+        setupMentionsList();
 
         postbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -249,7 +302,18 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
                 displayRecordedVideo.pause();
                 displayRecordedVideo.setEnabled(false);
 
-                String data = postEt.getText().toString();
+                data = postEt.getText().toString();
+//            postMsg = StringEscapeUtils.escapeJava(postEt.getText().toString().trim());
+                // post_status_post.setText("");
+                // post_status_post
+                // .setHint("What's on your mind (Not more than 500 characters)");
+
+                final Comment comment = new Comment();
+                comment.setComment(data);
+                comment.setMentions(mentions.getInsertedMentions());
+                textData.setText(data);
+
+                data = highlightMentions(textData, comment.getMentions());
 //                if (data.equals("")) {
 //
 //                } else {
@@ -261,6 +325,8 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
                         Toast.makeText(PostViewActivity.this, "Please Enter your Post", Toast.LENGTH_SHORT).show();
                     } else {
                         showProgress();
+
+
                         RequestBody type = RequestBody.create(MediaType.parse("text/plain"), typepost);
                         RequestBody token = RequestBody.create(MediaType.parse("text/plain"), apikey);
                         RequestBody eventid = RequestBody.create(MediaType.parse("text/plain"), eventId);
@@ -663,6 +729,8 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
             public void onClick(DialogInterface dialog, int item) {
                 boolean result = Utility.checkPermission(PostViewActivity.this);
 
+//                recorderTask(1);
+
                 if (items[item].equals("Choose from Library")) {
                     userChoosenTask = "Choose from Library";
                     if (result)
@@ -690,6 +758,88 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
         builder.show();
     }
 
+    public void recorderTask(int imgPos) {
+
+
+        Log.i("android", "startStorage");
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+
+            // Android M Permission check
+            if (this.checkSelfPermission(android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                final String[] permissions = new String[]{android.Manifest.permission.CAMERA};
+                ActivityCompat.requestPermissions(PostViewActivity.this,
+                        permissions, 2);
+            } else {
+
+
+                Toast.makeText(PostViewActivity.this, "Record a video not more than 15 seconds",
+                        Toast.LENGTH_SHORT).show();
+
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            mediaFile =
+                                    new File(Environment.getExternalStorageDirectory().getAbsolutePath()
+                                            + "/" + System.currentTimeMillis() + ".mp4");
+
+
+                            Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                            intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 15);
+                            intent.putExtra("EXTRA_VIDEO_QUALITY", 0);
+                            uri = Uri.fromFile(mediaFile);
+
+
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                            startActivityForResult(intent, REQUEST_VIDEO_CAPTURE);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, 2000);
+
+
+            }
+
+        } else {
+            Toast.makeText(PostViewActivity.this, "Record a video not more than 15 seconds",
+                    Toast.LENGTH_SHORT).show();
+
+
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        mediaFile =
+                                new File(Environment.getExternalStorageDirectory().getAbsolutePath()
+                                        + "/" + System.currentTimeMillis() + ".mp4");
+
+
+                        Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                        intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 15);
+                        intent.putExtra("EXTRA_VIDEO_QUALITY", 0);
+                        uri = Uri.fromFile(mediaFile);
+
+
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                        startActivityForResult(intent, REQUEST_VIDEO_CAPTURE);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, 2000);
+
+
+        }
+
+
+    }
 
     private void imagegalleryIntent() {
         Intent intent = new Intent();
@@ -918,68 +1068,115 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
         } else if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_VIDEO_CAPTURE && data.getData() != null) {
             uri = data.getData();
 
-            displayRecordedVideo.setVideoURI(uri);
-            displayRecordedVideo.start();
+            ArrayList<String> supportedMedia = new ArrayList<String>();
+
+            supportedMedia.add(".mp4");
+            supportedMedia.add(".mov");
+            supportedMedia.add(".3gp");
 
 
-            if (Build.VERSION.SDK_INT > 22)
-                pathToStoredVideo = ImagePath_MarshMallow.getPath(PostViewActivity.this, uri);
-            else
-                //else we will get path directly
-                pathToStoredVideo = uri.getPath();
-            Log.d("video", "Recorded Video Path " + pathToStoredVideo);
-            //Store the video to your server
-            file = new File(pathToStoredVideo);
+            videoUrl = ScalingUtilities.getPath(PostViewActivity.this, data.getData());
+            file = new File(videoUrl);
 
-            Bitmap b = ThumbnailUtils.createVideoThumbnail(pathToStoredVideo, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
-
-            Uploadiv.setVisibility(View.VISIBLE);
-            Uploadiv.setImageBitmap(b);
-            imgPlay.setVisibility(View.VISIBLE);
-            displayRecordedVideo.setVisibility(View.GONE);
-
-            uri = data.getData();
-//            displayRecordedVideo.setVideoURI(uri);
-//            displayRecordedVideo.start();
-            try {
-                if (uri != null) {
+            String fileExtnesion = videoUrl.substring(videoUrl.lastIndexOf("."));
 
 
-                    MediaPlayer mp = MediaPlayer.create(this, uri);
-                    int duration = mp.getDuration();
-                    mp.release();
+            if (supportedMedia.contains(fileExtnesion)) {
 
-                    if ((duration / 1000) > 15) {
-                        // Show Your Messages
-                        Toast.makeText(PostViewActivity.this, "Please select video length less than 15 sec", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(PostViewActivity.this, HomeActivity.class);
-                        startActivity(intent);
-                        finish();
+
+                long file_size = Integer.parseInt(String.valueOf(file.length()));
+                long fileMb = bytesToMeg(file_size);
+
+
+                //if (fileMb >= 16)
+                // Toast.makeText(VideoPost.this, "Upload a video not more than 15 MB in size",
+                //        Toast.LENGTH_SHORT).show();
+
+                //  else {
+                try {
+                    MediaPlayer mplayer = new MediaPlayer();
+                    mplayer.reset();
+                    mplayer.setDataSource(videoUrl);
+                    mplayer.prepare();
+
+                    long totalFileDuration = mplayer.getDuration();
+                    Log.i("android", "data is " + totalFileDuration);
+
+
+                    int sec = (int) ((totalFileDuration / (1000)));
+
+                    Log.i("android", "data is " + sec);
+
+
+                    if (sec > 15) {
+                        Toast.makeText(PostViewActivity.this, "Select an video not more than 15 seconds",
+                                Toast.LENGTH_SHORT).show();
 
                     } else {
-                        //Store the video to your server
 
 
-//                                    pathToStoredVideo = getRealPathFromURIPathVideo(data.getData(),PostViewActivity.this);
+                        //llPost.setVisibility(View.VISIBLE);
+                        MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
+                        mediaMetadataRetriever.setDataSource(videoUrl);
+
+                        Uri video = Uri.parse(videoUrl);
 
 
-                        if (Build.VERSION.SDK_INT > 22) {
-                            pathToStoredVideo = ImagePath_MarshMallow.getPath(PostViewActivity.this, uri);
-                            Log.d("video", "Recorded Video Path " + pathToStoredVideo);
-                        } else {
-                            //else we will get path directly
-                            pathToStoredVideo = uri.getPath();
+                        // videoview.setMediaController(mediacontrolle);
+                        DisplayMetrics metrics = new DisplayMetrics();
+                        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+                        android.widget.LinearLayout.LayoutParams params = (android.widget.LinearLayout.LayoutParams) displayRecordedVideo.getLayoutParams();
+                        params.width = (int)(300*metrics.density);
+                        params.height = (int)(250*metrics.density);
 
-                            Log.d("video", "Recorded Video Path " + pathToStoredVideo);
+                        displayRecordedVideo.setLayoutParams(params);
+                        displayRecordedVideo.setVideoURI(uri);
+//                    displayRecordedVideo.setMediaController(new MediaController(this));
+//                    ViewGroup.LayoutParams params = displayRecordedVideo.getLayoutParams();
+//
+//                    params.height = 600;
+                        displayRecordedVideo.setLayoutParams(params);
+                        displayRecordedVideo.start();
+
+
+                        Bitmap bitmap = mediaMetadataRetriever.getFrameAtTime(1000000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
+                        imgeFile = createDirectoryAndSaveFile(bitmap);
+
+                        Bitmap thumbnail = mediaMetadataRetriever.getFrameAtTime();
+
+                        Uploadiv.setImageBitmap(thumbnail);
+                        imgPlay.setVisibility(View.VISIBLE);
+                        Uploadiv.setVisibility(View.VISIBLE);
+
+
+                        MediaMetadataRetriever m = new MediaMetadataRetriever();
+
+                        m.setDataSource(videoUrl);
+                        //  Bitmap thumbnail = m.getFrameAtTime();
+//
+                        if (Build.VERSION.SDK_INT >= 17) {
+                            angle = m.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION);
+
+                            //  Log.e("Rotation", s);
                         }
-                        file = new File(pathToStoredVideo);
 
+
+                        Toast.makeText(PostViewActivity.this, "Video selected",
+                                Toast.LENGTH_SHORT).show();
                     }
-                } else {
+                } catch (Exception e) {
+
+
+                    Log.i("android", "exception is " + e.getLocalizedMessage() + " " + e.getStackTrace());
 
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+
+
+            } else {
+
+
+                Toast.makeText(PostViewActivity.this, "Only .mp4,.mov,.3gp File formats allowed ", Toast.LENGTH_SHORT).show();
+
             }
 
         } else if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_TAKE_GALLERY_VIDEO && data.getData() != null) {
@@ -993,6 +1190,19 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
             if (selectedImagePath != null) {
 
                 displayRecordedVideo.setVideoURI(selectedImageUri);
+                DisplayMetrics metrics = new DisplayMetrics();
+                getWindowManager().getDefaultDisplay().getMetrics(metrics);
+                android.widget.LinearLayout.LayoutParams params = (android.widget.LinearLayout.LayoutParams) displayRecordedVideo.getLayoutParams();
+                params.width = (int)(300*metrics.density);
+                params.height = (int)(250*metrics.density);
+
+                displayRecordedVideo.setLayoutParams(params);
+                displayRecordedVideo.setVideoURI(uri);
+//                    displayRecordedVideo.setMediaController(new MediaController(this));
+//                    ViewGroup.LayoutParams params = displayRecordedVideo.getLayoutParams();
+//
+//                    params.height = 600;
+                displayRecordedVideo.setLayoutParams(params);
                 displayRecordedVideo.start();
                 uri = selectedImageUri;
 
@@ -1341,7 +1551,244 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
                         Toast.LENGTH_SHORT).show();
 
             }
+        } else if (requestCode == 2) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                Toast.makeText(PostViewActivity.this, "Record a video not more than 15 seconds",
+                        Toast.LENGTH_SHORT).show();
+
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            mediaFile =
+                                    new File(Environment.getExternalStorageDirectory().getAbsolutePath()
+                                            + "/" + System.currentTimeMillis() + ".mp4");
+
+
+                            Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                            intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 15);
+                            intent.putExtra("EXTRA_VIDEO_QUALITY", 0);
+                            uri = Uri.fromFile(mediaFile);
+
+
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                            startActivityForResult(intent, REQUEST_VIDEO_CAPTURE);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, 2000);
+
+
+            } else {
+                Toast.makeText(this, "Permission not granted",
+                        Toast.LENGTH_SHORT).show();
+
+            }
         }
+    }
+
+    private static final long MEGABYTE = 1024L * 1024L;
+
+    public static long bytesToMeg(long bytes) {
+        return bytes / MEGABYTE;
+    }
+
+    public static File createDirectoryAndSaveFile(Bitmap imageToSave) {
+
+        File direct = new File(Environment.getExternalStorageDirectory() + "/MyFolder/Images");
+
+        if (!direct.exists()) {
+            File wallpaperDirectory = new File("/sdcard/MyFolder/Images/");
+            wallpaperDirectory.mkdirs();
+        }
+
+        File file = new File(new File("/sdcard/MyFolder/Images/"), System.currentTimeMillis() + ".jpg");
+        if (file.exists()) {
+            file.delete();
+        }
+
+
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            imageToSave.compress(Bitmap.CompressFormat.JPEG, 100, out);
+
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return file;
+
+    }
+
+    @Override
+    public void onQueryReceived(String s) {
+        final List<AttendeeList> users = searchUsers(s);
+        if (users != null && !users.isEmpty()) {
+            usersAdapter.clear();
+            usersAdapter.setCurrentQuery(s);
+            usersAdapter.addAll(users);
+            showMentionsList(true);
+        } else {
+            showMentionsList(false);
+        }
+    }
+
+    @Override
+    public void displaySuggestions(boolean b) {
+        if (b) {
+            com.percolate.caffeine.ViewUtils.showView(this, R.id.mentions_list_layout);
+        } else {
+            com.percolate.caffeine.ViewUtils.hideView(this, R.id.mentions_list_layout);
+        }
+    }
+
+    private void showMentionsList(boolean display) {
+        com.percolate.caffeine.ViewUtils.showView(this, R.id.mentions_list_layout);
+        if (display) {
+            com.percolate.caffeine.ViewUtils.showView(this, R.id.mentions_list);
+            com.percolate.caffeine.ViewUtils.hideView(this, R.id.mentions_empty_view);
+        } else {
+            com.percolate.caffeine.ViewUtils.hideView(this, R.id.mentions_list);
+            com.percolate.caffeine.ViewUtils.showView(this, R.id.mentions_empty_view);
+        }
+
+    }
+
+    private void setupMentionsList() {
+        final RecyclerView mentionsList = findViewById(R.id.mentions_list);
+        mentionsList.setLayoutManager(new LinearLayoutManager(this));
+        usersAdapter = new UsersAdapter(this);
+        mentionsList.setAdapter(usersAdapter);
+        InputMethodManager inputManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(postEt.getWindowToken(), 0);
+        // set on item click listener
+        mentionsList.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(final View view, final int position) {
+                final AttendeeList user = usersAdapter.getItem(position);
+
+                /*
+                 * We are creating a mentions object which implements the
+                 * <code>Mentionable</code> interface this allows the library to set the offset
+                 * and length of the mention.
+                 */
+                if (user != null) {
+                    final Mention mention = new Mention();
+                    mention.setMentionName(user.getFirstName() + " " + user.getLastName() + " ");
+                    mention.setMentionid(user.getAttendeeId());
+                    mentions.insertMention(mention);
+
+
+                }
+            }
+        }));
+    }
+
+    public List<AttendeeList> searchUsers(String query) {
+        final List<AttendeeList> searchResults = new ArrayList<>();
+        if (StringUtils.isNotBlank(query)) {
+            query = query.toLowerCase(Locale.US);
+            if (userList != null && !userList.isEmpty()) {
+                for (AttendeeList user : userList) {
+                    final String firstName = user.getFirstName().toLowerCase();
+                    final String lastName = user.getLastName().toLowerCase();
+                    if (firstName.startsWith(query) || lastName.startsWith(query)) {
+                        searchResults.add(user);
+                    }
+                }
+            }
+
+        }
+        return searchResults;
+    }
+
+    private String highlightMentions(TextView commentTextView, final List<Mentionable> mentions) {
+        String sample = null;
+        int flag = 1;
+        int flag2 = 1;
+
+        if (commentTextView != null && mentions != null && !mentions.isEmpty()) {
+            final SpannableStringBuilder spannable = new SpannableStringBuilder(commentTextView.getText());
+            int start;
+            int end;
+
+            for (Mentionable mention : mentions) {
+                if (mention != null) {
+                    if (flag == 1) {
+                        start = mention.getMentionOffset();
+                        end = start + mention.getMentionLength();
+
+                        if (commentTextView.length() >= end) {
+
+
+//                        spannable.append(sample, start+1, end+1);
+
+                            sample = "<" + mention.getMentionid() + "^" + commentTextView.getText().toString().substring(start, end) + ">";
+
+//                        commentTextView = commentTextView.substring(start, end) + ">" + commentTextView.substring(end, commentTextView.length());
+                            spannable.setSpan(sample, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            spannable.replace(start, end, sample);
+                            commentTextView.setText(spannable, TextView.BufferType.SPANNABLE);
+                            flag = 2;
+                        }
+                    } else if (mentions.indexOf(mention) < 3) {
+
+                        /*<23553-Sneha Deshmukh><23371-Anis Ansari><23362-Atish k>Bharat Rawal */
+                        start = mention.getMentionOffset() + 6 * mentions.indexOf(mention);
+                        end = start + mention.getMentionLength() + 1;
+                        if (commentTextView.length() >= end) {
+                            sample = "<" + mention.getMentionid() + "^" + commentTextView.getText().toString().substring(start + 1, end) + ">";
+
+//                        commentTextView = commentTextView.substring(start, end) + ">" + commentTextView.substring(end, commentTextView.length());
+                            spannable.setSpan(sample, start + mentions.indexOf(mention), end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            spannable.replace(start + mentions.indexOf(mention), end
+                                    , sample);
+                            commentTextView.setText(spannable, TextView.BufferType.SPANNABLE);
+                        }
+                    } else if (mentions.indexOf(mention) >= 3) {
+                        if (flag2 == 1) {
+                            start = mention.getMentionOffset() + 6 * mentions.indexOf(mention);
+                            end = start + mention.getMentionLength() + 2;
+                            if (commentTextView.length() >= end) {
+                                /*<23553-Sneha Deshmukh><23553-Sneha Deshmukh><23553-Sneha Deshmukh>Sneha Deshmukh Sneha Deshmukh */
+                                sample = "<" + mention.getMentionid() + "^" + commentTextView.getText().toString().substring(start + mentions.indexOf(mention) - 1, end+1) + ">";
+
+//                        commentTextView = commentTextView.substring(start, end) + ">" + commentTextView.substring(end, commentTextView.length());
+                                spannable.setSpan(sample, start + mentions.indexOf(mention) - 1, end+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                spannable.replace(start + mentions.indexOf(mention) - 1, end+1
+                                        , sample);
+                                commentTextView.setText(spannable, TextView.BufferType.SPANNABLE);
+                                flag2 = 2;
+                            }
+                        } else {
+                            start = mention.getMentionOffset() + 6 * mentions.indexOf(mention);
+                            end = start + mention.getMentionLength() + 3;
+                            if (commentTextView.length() >= end) {
+                                /*<23553-Sneha Deshmukh><23553-Sneha Deshmukh><23553-Sneha Deshmukh>Sneha Deshmukh Sneha Deshmukh */
+                                sample = "<" + mention.getMentionid() + "^" + commentTextView.getText().toString().substring(start + mentions.indexOf(mention) - 1, end + 1) + ">";
+
+//                        commentTextView = commentTextView.substring(start, end) + ">" + commentTextView.substring(end, commentTextView.length());
+                                spannable.setSpan(sample, start + mentions.indexOf(mention), end + 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                spannable.replace(start + mentions.indexOf(mention), end + 2
+                                        , sample);
+                                commentTextView.setText(spannable, TextView.BufferType.SPANNABLE);
+                            }
+                        }
+                        Log.v("Final String", commentTextView.toString());
+
+
+                    }
+                }
+            }
+//            commentTextView.setText(spannable);
+        }
+
+        return commentTextView.getText().toString();
     }
 
 }

@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import com.procialize.eventsapp.Adapter.SwipeAgendaImageAdapter;
 import com.procialize.eventsapp.Adapter.SwipepagerAgendaImage;
@@ -37,6 +39,7 @@ import com.procialize.eventsapp.GetterSetter.AgendaMediaList;
 import com.procialize.eventsapp.GetterSetter.AgendaVacationList;
 import com.procialize.eventsapp.R;
 import com.procialize.eventsapp.Session.SessionManager;
+import com.procialize.eventsapp.Utility.Utility;
 
 import java.lang.reflect.Field;
 import java.text.DateFormat;
@@ -46,6 +49,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import cn.jzvd.JZVideoPlayer;
 import retrofit2.Call;
@@ -97,6 +101,7 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
     private TabWidget tabWidget;
     private int dotscount;
     private ImageView[] dots;
+    SwipeRefreshLayout swipe_refresh;
 
     private static View createTabView(final Context context, final String text, final String text1) {
         View view = LayoutInflater.from(context).inflate(R.layout.agenda_tabs_bg, null);
@@ -155,20 +160,35 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
         tabWidget = rootView.findViewById(android.R.id.tabs);
         agendaTabHost.setup(getActivity(), getChildFragmentManager(), android.R.id.tabcontent);
         txtname = rootView.findViewById(R.id.txtname);
-        webView = rootView.findViewById(R.id.webView);
+
+//        webView = rootView.findViewById(R.id.webView);
 
         // // Locate fragment1.xml to create FragmentTabHost
         //agendaTabHost.setup(getActivity(), getChildFragmentManager(), R.id.tabcontent);
+        updateAgendaUrl = ApiConstant.INDEPENDENT_AGENDA;
 
-
+//        dbHelper = new DBHelper(getActivity());
+//        agendaDBList = new ArrayList<AgendaVacationList>();
+//        agendaFolderDBList = new ArrayList<AgendaMediaList>();
+//        agendaDBList = dbHelper.getAgendaFolderList();
+//        agendaFolderDBList = dbHelper.getAgendaMediaList();
+//        initview();
         if (cd.isConnectingToInternet()) {
 
             // Initialize Update Agenda URL
-            updateAgendaUrl = ApiConstant.INDEPENDENT_AGENDA;
 
             fetchAgenda(token, eventid);
         }
 
+//        swipe_refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//
+//                agendaTabHost.clearAllTabs();
+//                fetchAgenda(token, eventid);
+//            }
+//        });
+//
 
 //		agendaTabHost.getTabWidget().setDividerDrawable(R.drawable.vertical_divider);
 
@@ -232,7 +252,7 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
         }
     }
 
-    private void initview(final Response<Agenda> response) {
+    private void initview() {
 
 
         String tempDate = "";
@@ -253,8 +273,13 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
             }
         }
 
-        txtname.setText(agendaDBList.get(0).getSession_name());
-        webView.loadData(agendaDBList.get(0).getSession_description(), "text/html", null);
+        try {
+            txtname.setText(agendaDBList.get(0).getSession_name());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+//        webView.loadData(agendaDBList.get(0).getSession_description(), "text/html", null);
 
 		/*int cnt= 0;
 		for(int i=0;i<eventtempDates.size();i++){
@@ -278,40 +303,66 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
             String tag = eventDates.get(j);
 
 
-            DateFormat inputFormat = new SimpleDateFormat("dd-mm-yyyy");
-            DateFormat inputFormat2 = new SimpleDateFormat("dd-mm-yyyy");
+            String formate1 = ApiConstant.dateformat;
+            String formate2 = ApiConstant.dateformat1;
+            String formate3 = ApiConstant.dateformat2;
+            String formate4 = ApiConstant.dateformat3;
+            String formate5 = ApiConstant.dateformat4;
 
             DateFormat outputFormat = new SimpleDateFormat("dd");
+            SimpleDateFormat formatter = null;
+
+            if (Utility.isValidFormat(formate1, eventDates.get(j), Locale.UK)) {
+                formatter = new SimpleDateFormat(ApiConstant.dateformat);
+            } else if (Utility.isValidFormat(formate2, eventDates.get(j), Locale.UK)) {
+                formatter = new SimpleDateFormat(ApiConstant.dateformat1);
+            } else if (Utility.isValidFormat(formate3, eventDates.get(j), Locale.UK)) {
+                formatter = new SimpleDateFormat(ApiConstant.dateformat2);
+            } else if (Utility.isValidFormat(formate4, eventDates.get(j), Locale.UK)) {
+                formatter = new SimpleDateFormat(ApiConstant.dateformat3);
+            }else if (Utility.isValidFormat(formate5, eventDates.get(j), Locale.UK)) {
+                formatter = new SimpleDateFormat(ApiConstant.dateformat4);
+            }
+
             try {
-                d = inputFormat.parse(eventDates.get(j));
+                d = formatter.parse(eventDates.get(j));
+
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            String outputDateStr = outputFormat.format(d);
 
-
-            SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-            Date date;
             try {
-                date = dateformat.parse(eventDates.get(j));
-                //DateFormat dayFormate=new SimpleDateFormat("EEE");
-                DateFormat dayFormate = new SimpleDateFormat("MMM");
+                String outputDateStr = outputFormat.format(d);
 
-                dayFromDate = dayFormate.format(date);
-                Log.d("asd", "----------:: " + dayFromDate);
 
-            } catch (ParseException e) {
-                // TODO Auto-generated catch block
+// SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+                Date date;
+                try {
+                    date = formatter.parse(eventDates.get(j));
+//DateFormat dayFormate=new SimpleDateFormat("EEE");
+                    DateFormat dayFormate = new SimpleDateFormat("MMM");
+
+                    dayFromDate = dayFormate.format(date);
+                    Log.d("asd", "----------:: " + dayFromDate);
+
+                } catch (ParseException e) {
+// TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+                // Create Session Tabs
+                try {
+                    agendaTabHost.addTab(
+                            agendaTabHost.newTabSpec(tag)
+                                    .setIndicator(createTabView(getActivity(), outputDateStr, dayFromDate)),
+                            AgendaWebFragment.class, sessionDate);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-
-
-            // Create Session Tabs
-            agendaTabHost.addTab(
-                    agendaTabHost.newTabSpec(tag)
-                            .setIndicator(createTabView(agendaTabHost.getContext(), outputDateStr, dayFromDate)),
-                    AgendaFolderListFragment.class, sessionDate);
-
 
             if (imgTemp.equalsIgnoreCase("0")) {
                 if (agendaFolderImageList.size() > 0) {
@@ -449,7 +500,8 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
                     String sessionId = agendaDBList.get(i).getSessionId();
                     if (imagedate.equalsIgnoreCase(tabId)) {
                         txtname.setText(agendaDBList.get(i).getSession_name());
-                        webView.loadData(agendaDBList.get(i).getSession_description(), "text/html", null);
+//                        webView.loadData(agendaDBList.get(i).getSession_description(), "text/html", null);
+//                        webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_INSET);
                         for (int j = 0; j < agendaFolderDBList.size(); j++) {
                             if (sessionId.equalsIgnoreCase(agendaFolderDBList.get(j).getSession_vacation_id()))
                                 agendaFolderImageList.add(agendaFolderDBList.get(j));
@@ -673,15 +725,15 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
                     Log.i("hit", "post submitted to API." + response.body().toString());
 //					progressBar.setVisibility(View.GONE);
 
-//					if (agendafeedrefresh.isRefreshing()) {
-//						agendafeedrefresh.setRefreshing(false);
-//					}
+//                    if (swipe_refresh.isRefreshing()) {
+//                        swipe_refresh.setRefreshing(false);
+//                    }
                     showResponse(response);
                 } else {
 //					progressBar.setVisibility(View.GONE);
-//					if (agendafeedrefresh.isRefreshing()) {
-//						agendafeedrefresh.setRefreshing(false);
-//					}
+//                    if (swipe_refresh.isRefreshing()) {
+//                        swipe_refresh.setRefreshing(false);
+//                    }
                     Toast.makeText(getContext(), response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -689,10 +741,14 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
             @Override
             public void onFailure(Call<Agenda> call, Throwable t) {
                 Log.e("hit", "Unable to submit post to API.");
+
+                txtname.setText("Coming Soon..");
+                txtname.setVisibility(View.VISIBLE);
+                mViewPager.setVisibility(View.GONE);
 //				progressBar.setVisibility(View.GONE);
-//				if (agendafeedrefresh.isRefreshing()) {
-//					agendafeedrefresh.setRefreshing(false);
-//				}
+//                if (swipe_refresh.isRefreshing()) {
+//                    swipe_refresh.setRefreshing(false);
+//                }
                 //  Toast.makeText(getContext(), "Low network or no network", Toast.LENGTH_SHORT).show();
 
             }
@@ -715,7 +771,8 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
         agendaDBList = dbHelper.getAgendaFolderList();
         agendaFolderDBList = dbHelper.getAgendaMediaList();
 
-        initview(response);
+
+        initview();
 
     }
 
@@ -724,4 +781,6 @@ public class AgendaFolderFragment extends Fragment implements SwipeAgendaImageAd
         super.onDestroy();
         getActivity().finish();
     }
+
+
 }

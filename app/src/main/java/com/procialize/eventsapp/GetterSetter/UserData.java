@@ -43,6 +43,18 @@ public class UserData {
     @Expose
     private String mobile;
 
+    public String getAttendee_status() {
+        return attendee_status;
+    }
+
+    public void setAttendee_status(String attendee_status) {
+        this.attendee_status = attendee_status;
+    }
+
+    @SerializedName("attendee_status")
+    @Expose
+    private String attendee_status;
+
     public String getAttendeeId() {
         return attendeeId;
     }

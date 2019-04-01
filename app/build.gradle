@@ -6,8 +6,8 @@ android {
         applicationId "com.procialize.eventsapp"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 1
-        versionName "1.0.0"
+        versionCode 6
+        versionName "1.0.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
@@ -82,50 +82,70 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.android.support:design:27.1.1'
+    implementation 'com.google.firebase:firebase-auth:11.8.0'
+    implementation 'com.google.firebase:firebase-crash:11.8.0'
     configurations.all {
         resolutionStrategy {
             force 'com.android.support:support-v4:27.1.1'
-        }}
+        }
+    }
     implementation 'com.android.support:cardview-v7:27.1.1'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.squareup.okhttp:okhttp:2.5.0'
     implementation 'com.squareup.okhttp:okhttp-urlconnection:2.0.+'
     implementation 'com.squareup.okio:okio:1.14.0'
+
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+
     // JSON Parsing
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+
     //image & video loader
     implementation 'com.squareup.picasso:picasso:2.5.0'
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
     implementation 'com.devbrackets.android:exomedia:3.1.1'
+
     //Emoji
     implementation 'org.apache.commons:commons-lang3:3.6'
+
     //play services
+
     //QR Scanner
     implementation 'com.dlazaro66.qrcodereaderview:qrcodereaderview:2.0.3'
+
     //  implementation 'com.googlecode.ez-vcard:ez-vcard:0.10.3'
+
     //Video Player
     implementation 'cn.jzvd:jiaozivideoplayer:6.2.3'
 
     //Zoom
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+
     //pdf viewr
     implementation 'com.github.barteksc:android-pdf-viewer:2.6.1'
+
     //connection
     implementation 'com.facebook.network.connectionclass:connectionclass:1.0.1'
+
     //progressbar
     implementation 'com.daimajia.numberprogressbar:library:1.4@aar'
+
     //    implementation 'com.github.eneim:Toro:develop-SNAPSHOT'
+
     //    compile project(':autoplay-video-library')
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-//    implementation project(':autoplay-video-library-release')
+    implementation 'com.google.firebase:firebase-dynamic-links:11.8.0'
+
+    //    implementation project(':autoplay-video-library-release')
     implementation 'com.google.android.exoplayer:exoplayer:r1.5.0'
     implementation 'com.google.firebase:firebase-messaging:11.8.0'
+
+    //    implementation 'com.google.firebase:firebase-core:11.8.0'
     implementation 'com.google.android.gms:play-services:11.8.0'
     implementation 'com.albinmathew:photo-crop-library:1.0.3'
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
@@ -135,29 +155,29 @@ dependencies {
     implementation 'com.squareup.okhttp:okhttp-urlconnection:2.0.+'
     implementation 'com.squareup.okio:okio:1.14.0'
     implementation 'info.guardianproject.netcipher:netcipher:1.2'
-//    implementation 'com.android.support:support-emoji:27.1.1'
-//    implementation 'com.android.support:support-emoji-bundled:27.1.1'
+
+    //    implementation 'com.android.support:support-emoji:27.1.1'
+
+    //    implementation 'com.android.support:support-emoji-bundled:27.1.1'
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
-    implementation "org.apache.httpcomponents:httpcore:4.4.5"
-    implementation "org.apache.httpcomponents:httpmime:4.5.2"
+    implementation 'org.apache.httpcomponents:httpcore:4.4.5'
+    implementation 'org.apache.httpcomponents:httpmime:4.5.2'
     implementation 'info.guardianproject.netcipher:netcipher:1.2'
     implementation 'com.afollestad.material-dialogs:core:0.8.5.9'
 
     //Cropping
-
     implementation 'com.github.yalantis:ucrop:2.2.2'
 
     //Video
     api 'com.github.tcking:giraffeplayer2:0.1.25-full'
 
-   // multidex
+    // multidex
     implementation 'com.android.support:multidex:1.0.3'
-
+    compile 'com.percolate:caffeine:0.3.3'
     //intercome
 
-    implementation 'io.intercom.android:intercom-sdk:5.0.0'
-
-
-
+    //    implementation 'io.intercom.android:intercom-sdk:5.0.0'
+    implementation project(':mentions-release')
+    implementation project(':tools-release')
 }
 apply plugin: 'com.google.gms.google-services'

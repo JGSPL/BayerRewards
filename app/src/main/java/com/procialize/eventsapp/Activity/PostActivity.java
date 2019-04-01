@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -30,21 +31,33 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
+import com.percolate.mentions.Mentionable;
+import com.percolate.mentions.Mentions;
+import com.percolate.mentions.QueryListener;
+import com.percolate.mentions.SuggestionsListener;
+import com.procialize.eventsapp.Adapter.UsersAdapter;
 import com.procialize.eventsapp.ApiConstant.APIService;
 import com.procialize.eventsapp.ApiConstant.ApiConstant;
 import com.procialize.eventsapp.CustomTools.CircleDisplay;
@@ -52,7 +65,12 @@ import com.procialize.eventsapp.CustomTools.ImagePath_MarshMallow;
 import com.procialize.eventsapp.CustomTools.PicassoTrustAll;
 import com.procialize.eventsapp.CustomTools.ProgressRequestBodyImage;
 import com.procialize.eventsapp.CustomTools.ProgressRequestBodyVideo;
+import com.procialize.eventsapp.CustomTools.RecyclerItemClickListener;
 import com.procialize.eventsapp.DbHelper.ConnectionDetector;
+import com.procialize.eventsapp.DbHelper.DBHelper;
+import com.procialize.eventsapp.GetterSetter.AttendeeList;
+import com.procialize.eventsapp.GetterSetter.Comment;
+import com.procialize.eventsapp.GetterSetter.Mention;
 import com.procialize.eventsapp.R;
 import com.procialize.eventsapp.Session.SessionManager;
 import com.procialize.eventsapp.Utility.MyApplication;
@@ -60,6 +78,7 @@ import com.procialize.eventsapp.Utility.Util;
 import com.procialize.eventsapp.Utility.Utility;
 
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.entity.InputStreamEntity;
@@ -78,8 +97,11 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -102,7 +124,7 @@ import static org.apache.http.HttpVersion.HTTP_1_1;
 
 //import android.support.text.emoji.widget.EmojiAppCompatEditText;
 
-public class PostActivity extends AppCompatActivity implements OnClickListener, ProgressRequestBodyImage.UploadCallbacks, ProgressRequestBodyVideo.UploadCallbacks {
+public class PostActivity extends AppCompatActivity implements OnClickListener, ProgressRequestBodyImage.UploadCallbacks, ProgressRequestBodyVideo.UploadCallbacks, QueryListener, SuggestionsListener {
     private static final int REQUEST_VIDEO_CAPTURE = 300;
     private static final String SERVER_PATH = "";
     EditText postEt;
@@ -110,6 +132,7 @@ public class PostActivity extends AppCompatActivity implements OnClickListener, 
     APIService mAPIService;
     CircleDisplay progressbar;
     SessionManager sessionManager;
+    private UsersAdapter usersAdapter;
     String apikey = "";
     RequestBody fbody = null;
     String to;
@@ -142,6 +165,13 @@ public class PostActivity extends AppCompatActivity implements OnClickListener, 
     private String senderImageURL = "";
     private String postUrl = "";
     private ProgressDialog pDialog;
+    private List<AttendeeList> userList;
+    private Mentions mentions;
+    TextView textData;
+    private DBHelper dbHelper;
+    private DBHelper procializeDB;
+    List<AttendeeList> customers = null;
+    private SQLiteDatabase db;
 
     public static File createDirectoryAndSaveFile(Bitmap imageToSave) {
 
@@ -545,7 +575,7 @@ public class PostActivity extends AppCompatActivity implements OnClickListener, 
         displayRecordedVideo = findViewById(R.id.Upvideov);
         imgPlay = findViewById(R.id.imgPlay);
         progressbar = findViewById(R.id.progressbar);
-
+        textData = (TextView) findViewById(R.id.textData);
         // postbtn.setBackgroundColor(Color.parseColor(colorActive));
 
         postbtn.setOnClickListener(this);
@@ -593,6 +623,21 @@ public class PostActivity extends AppCompatActivity implements OnClickListener, 
         PicassoTrustAll.getInstance(this).load(senderImageURL)
                 .placeholder(R.drawable.profilepic_placeholder)
                 .into(profileIV);
+        procializeDB = new DBHelper(PostActivity.this);
+        db = procializeDB.getReadableDatabase();
+        dbHelper = new DBHelper(PostActivity.this);
+        customers = new ArrayList<AttendeeList>();
+        userList = procializeDB.getAttendeeDetails();
+        procializeDB.getReadableDatabase();
+        // attendeesList = (ListView)
+        // getActivity().findViewById(R.id.speakers_list);
+        customers = dbHelper.getAttendeeDetails();
+        mentions = new Mentions.Builder(this, postEt)
+                .suggestionsListener(this)
+                .queryListener(this)
+                .build();
+
+        setupMentionsList();
 
         // sms_count = (TextView) findViewById(R.id.textView2);
 
@@ -637,11 +682,18 @@ public class PostActivity extends AppCompatActivity implements OnClickListener, 
                     .hideSoftInputFromWindow(postEt.getWindowToken(),
                             0);
 
-            // postMsg = post_status_post.getText().toString();
-            postMsg = StringEscapeUtils.escapeJava(postEt.getText().toString().trim());
+            postMsg = postEt.getText().toString();
+//            postMsg = StringEscapeUtils.escapeJava(postEt.getText().toString().trim());
             // post_status_post.setText("");
             // post_status_post
             // .setHint("What's on your mind (Not more than 500 characters)");
+
+            final Comment comment = new Comment();
+            comment.setComment(postMsg);
+            comment.setMentions(mentions.getInsertedMentions());
+            textData.setText(postMsg);
+
+            postMsg = highlightMentions(textData, comment.getMentions());
 
             picturePath = appDelegate.getPostImagePath();
             // Check for Internet Connection
@@ -784,8 +836,19 @@ public class PostActivity extends AppCompatActivity implements OnClickListener, 
                     // setPic();
                 } else if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_VIDEO_CAPTURE) {
                     uri = data.getData();
+                    DisplayMetrics metrics = new DisplayMetrics();
+                    getWindowManager().getDefaultDisplay().getMetrics(metrics);
+                    android.widget.LinearLayout.LayoutParams params = (android.widget.LinearLayout.LayoutParams) displayRecordedVideo.getLayoutParams();
+                    params.width = (int)(300*metrics.density);
+                    params.height = (int)(250*metrics.density);
 
+                    displayRecordedVideo.setLayoutParams(params);
                     displayRecordedVideo.setVideoURI(uri);
+//                    displayRecordedVideo.setMediaController(new MediaController(this));
+//                    ViewGroup.LayoutParams params = displayRecordedVideo.getLayoutParams();
+//
+//                    params.height = 600;
+                    displayRecordedVideo.setLayoutParams(params);
                     displayRecordedVideo.start();
 
                     if (Build.VERSION.SDK_INT > 22)
@@ -804,6 +867,19 @@ public class PostActivity extends AppCompatActivity implements OnClickListener, 
 
 
                     displayRecordedVideo.setVideoURI(uri);
+
+                    getWindowManager().getDefaultDisplay().getMetrics(metrics);
+                    android.widget.LinearLayout.LayoutParams params1 = (android.widget.LinearLayout.LayoutParams) displayRecordedVideo.getLayoutParams();
+                    params.width = (int)(300*metrics.density);
+                    params.height = (int)(250*metrics.density);
+
+                    displayRecordedVideo.setLayoutParams(params1);
+                    displayRecordedVideo.setVideoURI(uri);
+//                    displayRecordedVideo.setMediaController(new MediaController(this));
+//                    ViewGroup.LayoutParams params = displayRecordedVideo.getLayoutParams();
+//
+//                    params.height = 600;
+                    displayRecordedVideo.setLayoutParams(params1);
                     displayRecordedVideo.start();
                     try {
                         if (uri != null) {
@@ -863,6 +939,19 @@ public class PostActivity extends AppCompatActivity implements OnClickListener, 
                                 if (selectedImagePath != null) {
 
                                     displayRecordedVideo.setVideoURI(selectedImageUri);
+                                    DisplayMetrics metrics = new DisplayMetrics();
+                                    getWindowManager().getDefaultDisplay().getMetrics(metrics);
+                                    android.widget.LinearLayout.LayoutParams params = (android.widget.LinearLayout.LayoutParams) displayRecordedVideo.getLayoutParams();
+                                    params.width = (int)(300*metrics.density);
+                                    params.height = (int)(250*metrics.density);
+
+                                    displayRecordedVideo.setLayoutParams(params);
+                                    displayRecordedVideo.setVideoURI(uri);
+//                    displayRecordedVideo.setMediaController(new MediaController(this));
+//                    ViewGroup.LayoutParams params = displayRecordedVideo.getLayoutParams();
+//
+//                    params.height = 600;
+                                    displayRecordedVideo.setLayoutParams(params);
                                     displayRecordedVideo.start();
                                     try {
                                         if (uri != null) {
@@ -905,6 +994,19 @@ public class PostActivity extends AppCompatActivity implements OnClickListener, 
                                 uri = data.getData();
 
                                 displayRecordedVideo.setVideoURI(uri);
+                                DisplayMetrics metrics = new DisplayMetrics();
+                                getWindowManager().getDefaultDisplay().getMetrics(metrics);
+                                android.widget.LinearLayout.LayoutParams params = (android.widget.LinearLayout.LayoutParams) displayRecordedVideo.getLayoutParams();
+                                params.width = (int)(300*metrics.density);
+                                params.height = (int)(250*metrics.density);
+
+                                displayRecordedVideo.setLayoutParams(params);
+                                displayRecordedVideo.setVideoURI(uri);
+//                    displayRecordedVideo.setMediaController(new MediaController(this));
+//                    ViewGroup.LayoutParams params = displayRecordedVideo.getLayoutParams();
+//
+//                    params.height = 600;
+                                displayRecordedVideo.setLayoutParams(params);
                                 displayRecordedVideo.start();
 
                                 try {
@@ -951,6 +1053,19 @@ public class PostActivity extends AppCompatActivity implements OnClickListener, 
 
 
                                 displayRecordedVideo.setVideoURI(uri);
+                                DisplayMetrics metrics = new DisplayMetrics();
+                                getWindowManager().getDefaultDisplay().getMetrics(metrics);
+                                android.widget.LinearLayout.LayoutParams params = (android.widget.LinearLayout.LayoutParams) displayRecordedVideo.getLayoutParams();
+                                params.width = (int)(300*metrics.density);
+                                params.height = (int)(250*metrics.density);
+
+                                displayRecordedVideo.setLayoutParams(params);
+                                displayRecordedVideo.setVideoURI(uri);
+//                    displayRecordedVideo.setMediaController(new MediaController(this));
+//                    ViewGroup.LayoutParams params = displayRecordedVideo.getLayoutParams();
+//
+//                    params.height = 600;
+                                displayRecordedVideo.setLayoutParams(params);
                                 displayRecordedVideo.start();
 
 
@@ -1261,7 +1376,7 @@ public class PostActivity extends AppCompatActivity implements OnClickListener, 
 
             // write the compressed bitmap at the destination specified by
             // filename.
-            scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 80, out);
+            scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -1405,6 +1520,8 @@ public class PostActivity extends AppCompatActivity implements OnClickListener, 
                     if (result) {
                         Intent videoCaptureIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
                         videoCaptureIntent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 15);
+                        videoCaptureIntent.putExtra(MediaStore.EXTRA_FULL_SCREEN, true);
+                        videoCaptureIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
 //                        videoCaptureIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1); //0 means low & 1 means high
                         if (videoCaptureIntent.resolveActivity(getPackageManager()) != null) {
                             startActivityForResult(videoCaptureIntent, REQUEST_VIDEO_CAPTURE);
@@ -1479,6 +1596,58 @@ public class PostActivity extends AppCompatActivity implements OnClickListener, 
 
     }
 
+    @Override
+    public void onQueryReceived(String s) {
+        final List<AttendeeList> users = searchUsers(s);
+        if (users != null && !users.isEmpty()) {
+            usersAdapter.clear();
+            usersAdapter.setCurrentQuery(s);
+            usersAdapter.addAll(users);
+            showMentionsList(true);
+        } else {
+            showMentionsList(false);
+        }
+    }
+
+    @Override
+    public void displaySuggestions(boolean b) {
+        if (b) {
+            com.percolate.caffeine.ViewUtils.showView(this, R.id.mentions_list_layout);
+        } else {
+            com.percolate.caffeine.ViewUtils.hideView(this, R.id.mentions_list_layout);
+        }
+    }
+
+    public List<AttendeeList> searchUsers(String query) {
+        final List<AttendeeList> searchResults = new ArrayList<>();
+        if (StringUtils.isNotBlank(query)) {
+            query = query.toLowerCase(Locale.US);
+            if (userList != null && !userList.isEmpty()) {
+                for (AttendeeList user : userList) {
+                    final String firstName = user.getFirstName().toLowerCase();
+                    final String lastName = user.getLastName().toLowerCase();
+                    if (firstName.startsWith(query) || lastName.startsWith(query)) {
+                        searchResults.add(user);
+                    }
+                }
+            }
+
+        }
+        return searchResults;
+    }
+
+
+    private void showMentionsList(boolean display) {
+        com.percolate.caffeine.ViewUtils.showView(this, R.id.mentions_list_layout);
+        if (display) {
+            com.percolate.caffeine.ViewUtils.showView(this, R.id.mentions_list);
+            com.percolate.caffeine.ViewUtils.hideView(this, R.id.mentions_empty_view);
+        } else {
+            com.percolate.caffeine.ViewUtils.hideView(this, R.id.mentions_list);
+            com.percolate.caffeine.ViewUtils.showView(this, R.id.mentions_empty_view);
+        }
+
+    }
 
     public class SubmitPostTask extends AsyncTask<String, String, JSONObject> {
 
@@ -1788,6 +1957,120 @@ public class PostActivity extends AppCompatActivity implements OnClickListener, 
             // }
 
         }
+    }
+
+    private void setupMentionsList() {
+        final RecyclerView mentionsList = findViewById(R.id.mentions_list);
+        mentionsList.setLayoutManager(new LinearLayoutManager(this));
+        usersAdapter = new UsersAdapter(this);
+        mentionsList.setAdapter(usersAdapter);
+        InputMethodManager inputManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(postEt.getWindowToken(), 0);
+        // set on item click listener
+        mentionsList.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(final View view, final int position) {
+                final AttendeeList user = usersAdapter.getItem(position);
+
+                /*
+                 * We are creating a mentions object which implements the
+                 * <code>Mentionable</code> interface this allows the library to set the offset
+                 * and length of the mention.
+                 */
+                if (user != null) {
+                    final Mention mention = new Mention();
+                    mention.setMentionName(user.getFirstName() + " " + user.getLastName() + " ");
+                    mention.setMentionid(user.getAttendeeId());
+                    mentions.insertMention(mention);
+
+
+                }
+            }
+        }));
+    }
+
+    private String highlightMentions(TextView commentTextView, final List<Mentionable> mentions) {
+        String sample = null;
+        int flag = 1;
+        int flag2 = 1;
+
+        if (commentTextView != null && mentions != null && !mentions.isEmpty()) {
+            final SpannableStringBuilder spannable = new SpannableStringBuilder(commentTextView.getText());
+            int start;
+            int end;
+
+            for (Mentionable mention : mentions) {
+                if (mention != null) {
+                    if (flag == 1) {
+                        start = mention.getMentionOffset();
+                        end = start + mention.getMentionLength();
+
+                        if (commentTextView.length() >= end) {
+
+
+//                        spannable.append(sample, start+1, end+1);
+
+                            sample = "<" + mention.getMentionid() + "^" + commentTextView.getText().toString().substring(start, end) + ">";
+
+//                        commentTextView = commentTextView.substring(start, end) + ">" + commentTextView.substring(end, commentTextView.length());
+                            spannable.setSpan(sample, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            spannable.replace(start, end, sample);
+                            commentTextView.setText(spannable, TextView.BufferType.SPANNABLE);
+                            flag = 2;
+                        }
+                    } else if (mentions.indexOf(mention) < 3) {
+
+                        /*<23553-Sneha Deshmukh><23371-Anis Ansari><23362-Atish k>Bharat Rawal */
+                        start = mention.getMentionOffset() + 6 * mentions.indexOf(mention);
+                        end = start + mention.getMentionLength() + 1;
+                        if (commentTextView.length() >= end) {
+                            sample = "<" + mention.getMentionid() + "^" + commentTextView.getText().toString().substring(start + 1, end) + ">";
+
+//                        commentTextView = commentTextView.substring(start, end) + ">" + commentTextView.substring(end, commentTextView.length());
+                            spannable.setSpan(sample, start + mentions.indexOf(mention), end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            spannable.replace(start + mentions.indexOf(mention), end
+                                    , sample);
+                            commentTextView.setText(spannable, TextView.BufferType.SPANNABLE);
+                        }
+                    } else if (mentions.indexOf(mention) >= 3) {
+                        if (flag2 == 1) {
+                            start = mention.getMentionOffset() + 6 * mentions.indexOf(mention);
+                            end = start + mention.getMentionLength() + 2;
+                            if (commentTextView.length() >= end) {
+                                /*<23553-Sneha Deshmukh><23553-Sneha Deshmukh><23553-Sneha Deshmukh>Sneha Deshmukh Sneha Deshmukh */
+                                sample = "<" + mention.getMentionid() + "^" + commentTextView.getText().toString().substring(start + mentions.indexOf(mention) - 1, end + 1) + ">";
+
+//                        commentTextView = commentTextView.substring(start, end) + ">" + commentTextView.substring(end, commentTextView.length());
+                                spannable.setSpan(sample, start + mentions.indexOf(mention) - 1, end + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                spannable.replace(start + mentions.indexOf(mention) - 1, end + 1
+                                        , sample);
+                                commentTextView.setText(spannable, TextView.BufferType.SPANNABLE);
+                                flag2 = 2;
+                            }
+                        } else {
+                            start = mention.getMentionOffset() + 6 * mentions.indexOf(mention);
+                            end = start + mention.getMentionLength() + 3;
+                            if (commentTextView.length() >= end) {
+                                /*<23553-Sneha Deshmukh><23553-Sneha Deshmukh><23553-Sneha Deshmukh>Sneha Deshmukh Sneha Deshmukh */
+                                sample = "<" + mention.getMentionid() + "^" + commentTextView.getText().toString().substring(start + mentions.indexOf(mention) - 1, end + 1) + ">";
+
+//                        commentTextView = commentTextView.substring(start, end) + ">" + commentTextView.substring(end, commentTextView.length());
+                                spannable.setSpan(sample, start + mentions.indexOf(mention), end + 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                spannable.replace(start + mentions.indexOf(mention), end + 2
+                                        , sample);
+                                commentTextView.setText(spannable, TextView.BufferType.SPANNABLE);
+                            }
+                        }
+                        Log.v("Final String", commentTextView.toString());
+
+
+                    }
+                }
+            }
+//            commentTextView.setText(spannable);
+        }
+
+        return commentTextView.getText().toString();
     }
 
 }

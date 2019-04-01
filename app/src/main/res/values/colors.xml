@@ -23,6 +23,6 @@
     <color name="activetab">#0E73BA</color>
     <color name="qnarow">#f1f1f1</color>
     <color name="transperent">@android:color/transparent</color>
-
+    <color name="grey_light">#f3f3f3</color>
 
 </resources>

@@ -82,12 +82,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         } else {
             notificationBuilder.setSmallIcon(R.drawable.app_icon);
         }
+
+        notificationBuilder.setSmallIcon(R.drawable.app_icon);
 //        notificationBuilder.setSmallIcon(getNotificationIcon());
-        notificationBuilder.setContentTitle("Procialize Events App");
-                // .setColor(Color.parseColor("#ffff00"))
+        notificationBuilder.setContentTitle("The Event App");
+        // .setColor(Color.parseColor("#ffff00"))
         notificationBuilder.setColorized(true);
-                //.setContentTitle(remoteMessage.getData().get("Fames bond"))
-        notificationBuilder .setStyle(new NotificationCompat.BigTextStyle().bigText(getEmojiFromString(remoteMessage.getData().get("message"))));
+        //.setContentTitle(remoteMessage.getData().get("Fames bond"))
+        notificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(getEmojiFromString(remoteMessage.getData().get("message"))));
         notificationBuilder.setSound(alarmSound);
         notificationBuilder.setContentText(getEmojiFromString(remoteMessage.getData().get("message")));
 
@@ -185,10 +187,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         } else {
             mBuilder.setSmallIcon(R.drawable.app_icon);
         }
-        mBuilder.setContentTitle("Procialize Events App");
-                // .setColor(Color.parseColor("#ffff00"))
+        mBuilder.setContentTitle("The Event App");
+        // .setColor(Color.parseColor("#ffff00"))
         mBuilder.setColorized(true);
-                //.setContentTitle(remoteMessage.getData().get("Fames bond"))
+        //.setContentTitle(remoteMessage.getData().get("Fames bond"))
         mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(getEmojiFromString(msg)));
         mBuilder.setContentText(getEmojiFromString(msg));
 
@@ -251,7 +253,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     this)
 
                     .setSmallIcon(R.drawable.app_icon)
-                    .setContentTitle("Procialize Events App")
+                    .setContentTitle("The Event App")
                     .setStyle(
                             new NotificationCompat.BigTextStyle().bigText(finalMsg))
                     .setContentText(finalMsg).setSound(alarmSound);
@@ -264,7 +266,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     this)
 
                     .setSmallIcon(R.drawable.procialize_icon)
-                    .setContentTitle("Procialize Events App")
+                    .setContentTitle("The Event App")
                     .setColor(getResources().getColor(R.color.activetab))
 
                     .setStyle(
