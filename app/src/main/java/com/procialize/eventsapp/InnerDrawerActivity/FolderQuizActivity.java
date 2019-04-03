@@ -144,6 +144,7 @@ public class FolderQuizActivity extends AppCompatActivity {
         });
 
 
+/*
         quizNameList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -168,7 +169,9 @@ public class FolderQuizActivity extends AppCompatActivity {
                             quizList = quizParser.Quiz_Parser(Jsontr, quiz.getFolder_name());
 
 
-                            if (/*quizList != null ||*/ quizList.size() > 0) {
+                            if (*/
+/*quizList != null ||*//*
+ quizList.size() > 0) {
 
                                 if (quizList.get(0).getReplied().equals("1")) {
 
@@ -202,6 +205,71 @@ public class FolderQuizActivity extends AppCompatActivity {
 
             }
         });
+*/
+        quizNameList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                QuizFolder quiz = adapter.getQuestionIdFromList(position);
+
+
+                if (quiz != null) {
+                    if (quiz.getFolder_name() != null && !quiz.getFolder_name().equalsIgnoreCase("null")) {
+
+                        if (Jsontr != null) {
+
+                            QuizParser quizParser = new QuizParser();
+
+                            quizList = new ArrayList<>();
+
+                            Log.e("size", quizList.size() + "");
+                            Log.e("size", quiz.getFolder_name());
+
+                            quizList = quizParser.Quiz_Parser(Jsontr, quiz.getFolder_name());
+
+
+                            if (/*quizList != null ||*/ quizList.size() > 0) {
+
+                                if (quizList.get(0).getReplied().equals("1")) {
+
+                                    Toast.makeText(FolderQuizActivity.this, "You already submitted the quiz.", Toast.LENGTH_SHORT).show();
+                                    Intent quizOptionIntent = new Intent(FolderQuizActivity.this, QuizNewActivity.class);
+                                    quizOptionIntent.putExtra("folder", quiz.getFolder_name());
+                                    startActivity(quizOptionIntent);
+                                    finish();
+                                } else {
+                                    Intent quizOptionIntent = new Intent(FolderQuizActivity.this, QuizActivity.class);
+                                    quizOptionIntent.putExtra("folder", quiz.getFolder_name());
+                                    startActivity(quizOptionIntent);
+                                    finish();
+
+                                    //   overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                                }
+                            } else {
+
+                                Toast.makeText(FolderQuizActivity.this,
+                                        "Question not available.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    } else {
+
+                        Toast.makeText(FolderQuizActivity.this,
+                                "Question not available.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+
+                    Toast.makeText(FolderQuizActivity.this,
+                            "Question not available.",
+                            Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
 
     }
 

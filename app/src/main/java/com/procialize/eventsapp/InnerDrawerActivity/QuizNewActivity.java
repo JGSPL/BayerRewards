@@ -16,18 +16,15 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.procialize.eventsapp.Adapter.QuizNewAdapter;
-import com.procialize.eventsapp.Adapter.QuizPagerAdapter;
+import com.procialize.eventsapp.Adapter.QuizAdapter;
 import com.procialize.eventsapp.ApiConstant.ApiConstant;
 import com.procialize.eventsapp.DbHelper.ConnectionDetector;
 import com.procialize.eventsapp.DbHelper.DBHelper;
@@ -48,7 +45,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuizActivity extends AppCompatActivity implements OnClickListener {
+public class QuizNewActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ProgressDialog pDialog;
     // Session Manager Class
@@ -69,35 +66,36 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
     private ApiConstant constant = new ApiConstant();
 
     private RecyclerView quizNameList;
-    private QuizNewAdapter adapter;
+    private QuizAdapter adapter;
 
     private QuizParser quizParser;
     private ArrayList<Quiz> quizList = new ArrayList<Quiz>();
 
     private QuizOptionParser quizOptionParser;
     private ArrayList<QuizOptionList> quizOptionList = new ArrayList<QuizOptionList>();
-    String eventid, colorActive, eventnamestr;
 
     public static MyApplication appDelegate;
     String foldername = "null";
-    Button submit, btnNext;
+    Button submit;
     ImageView headerlogoIv;
-    TextView questionTv, txt_count;
-    ViewPager pager;
-    QuizPagerAdapter pagerAdapter;
-    LinearLayoutManager recyclerLayoutManager;
-    String MY_PREFS_NAME = "ProcializeInfo";
-    private static LinearLayout layoutHolder;
-    LinearLayoutManager llm;
-    int count = 1;
     private DBHelper procializeDB;
     private SQLiteDatabase db;
+    int count = 1;
+    private DBHelper dbHelper;
+    LinearLayoutManager llm;
+    LinearLayoutManager recyclerLayoutManager;
+    String MY_PREFS_NAME = "ProcializeInfo";
+    ViewPager pager;
+    TextView  txt_count;
+    public static TextView questionTv;
+    Button btnNext;
+    String eventid, colorActive, eventnamestr;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quiz);
+        setContentView(R.layout.activity_quiz_new);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -107,16 +105,15 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        toolbar.setNavigationOnClickListener(new OnClickListener() {
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //onBackPressed();
-                Intent quizOptionIntent = new Intent(QuizActivity.this, FolderQuizActivity.class);
+                Intent quizOptionIntent = new Intent(QuizNewActivity.this, FolderQuizActivity.class);
                 startActivity(quizOptionIntent);
                 finish();
             }
         });
-
         headerlogoIv = findViewById(R.id.headerlogoIv);
         Util.logomethod(this, headerlogoIv);
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
@@ -125,13 +122,16 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
 
         eventnamestr = prefs.getString("eventnamestr", "");
 
-
-        // toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.colorwhite), PorterDuff.Mode.SRC_ATOP);
+    //    toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.colorwhite), PorterDuff.Mode.SRC_ATOP);
         quizQuestionUrl = constant.baseUrl + constant.quizsubmit;
-        procializeDB = new DBHelper(QuizActivity.this);
+
+        dbHelper = new DBHelper(QuizNewActivity.this);
+
+        procializeDB = new DBHelper(QuizNewActivity.this);
         db = procializeDB.getWritableDatabase();
 
         db = procializeDB.getReadableDatabase();
+
 //		headerlogoIv = findViewById(R.id.headerlogoIv);
 //		Util.logomethod(this,headerlogoIv);
         appDelegate = (MyApplication) getApplicationContext();
@@ -141,7 +141,7 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
         // Session Manager
         session = new SessionManager(getApplicationContext());
         accessToken = session.getUserDetails().get(SessionManager.KEY_TOKEN);
-        prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+         prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         event_id = prefs.getString("eventid", "1");
 
         cd = new ConnectionDetector(getApplicationContext());
@@ -151,24 +151,29 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
 
 
         submit = (Button) findViewById(R.id.submit);
+        pager = (ViewPager) findViewById(R.id.pager);
+        questionTv = (TextView) findViewById(R.id.questionTv);
         btnNext = (Button) findViewById(R.id.btnNext);
         submit.setOnClickListener(this);
-
+        txt_count = (TextView) findViewById(R.id.txt_count);
+        quizNameList = (RecyclerView) findViewById(R.id.quiz_list);
         submit.setBackgroundColor(Color.parseColor(colorActive));
         btnNext.setBackgroundColor(Color.parseColor(colorActive));
 
-//        btnNext.setOnClickListener(this);
+        recyclerLayoutManager = new LinearLayoutManager(this);
+        quizNameList.setLayoutManager(recyclerLayoutManager);
 
-        quizNameList = (RecyclerView) findViewById(R.id.quiz_list);
-        questionTv = (TextView) findViewById(R.id.questionTv);
-        txt_count = (TextView) findViewById(R.id.txt_count);
+//		quizNameList.setItemViewCacheSize(0);
+        quizNameList.setAnimationCacheEnabled(true);
+        quizNameList.setDrawingCacheEnabled(true);
+        quizNameList.hasFixedSize();
         questionTv.setText(foldername);
         quizNameList.setLayoutFrozen(true);
 //        quizNameList.setNestedScrollingEnabled(false);
         quizNameList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         llm = (LinearLayoutManager) quizNameList.getLayoutManager();
 
-        btnNext.setOnClickListener(new OnClickListener() {
+        btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -177,49 +182,26 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
                 int i = adapter.getItemCount();
 //                adapter.getItemViewType(llm.findLastVisibleItemPosition());
                 if (i != count) {
-                    if (option != llm.findLastVisibleItemPosition()) {
-                        quizNameList.getLayoutManager().scrollToPosition(llm.findLastVisibleItemPosition() + 1);
-                        txt_count.setText(count + 1 + "/" + i);
-                        count = count + 1;
-                        if (quizList.size() == llm.findLastVisibleItemPosition() + 2) {
+//                    if (option != llm.findLastVisibleItemPosition()) {
+                    quizNameList.getLayoutManager().scrollToPosition(llm.findLastVisibleItemPosition() + 1);
+                    txt_count.setText(count + 1 + "/" + i);
+                    count = count + 1;
+                    if (quizList.size() == llm.findLastVisibleItemPosition() + 2) {
 
-                            btnNext.setVisibility(View.GONE);
-                            submit.setVisibility(View.VISIBLE);
-                        } else {
-                            btnNext.setVisibility(View.VISIBLE);
-                            submit.setVisibility(View.GONE);
-                        }
+                        btnNext.setVisibility(View.GONE);
+                        submit.setVisibility(View.VISIBLE);
                     } else {
-                        Toast.makeText(QuizActivity.this, "Please Select Option", Toast.LENGTH_SHORT).show();
+                        btnNext.setVisibility(View.VISIBLE);
+                        submit.setVisibility(View.GONE);
                     }
+//                    } else {
+//                        Toast.makeText(QuizNewActivity.this, "Please Select Option", Toast.LENGTH_SHORT).show();
+//                    }
                 }
 
 
             }
         });
-
-        quizNameList.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-//                recyclerView.setLayoutFrozen(true);
-//                if (viewModel.isItemSelected) {
-                if (llm.findLastVisibleItemPosition() >= 0) {
-                    recyclerView.stopScroll();
-                }
-//                }
-            }
-        });
-//        recyclerLayoutManager = new LinearLayoutManager(this);
-//        quizNameList.setLayoutManager(recyclerLayoutManager);
-
-        pager = findViewById(R.id.pager);
-
-//		quizNameList.setItemViewCacheSize(0);
-        quizNameList.setAnimationCacheEnabled(true);
-        quizNameList.setDrawingCacheEnabled(true);
-        quizNameList.hasFixedSize();
-
 //
 //
 //		quizNameList.setOnScrollChangeListener(new View.OnScrollChangeListener() {
@@ -233,7 +215,7 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
             new getQuizList().execute();
         } else {
 
-            Toast.makeText(QuizActivity.this, "No internet connection",
+            Toast.makeText(QuizNewActivity.this, "No internet connection",
                     Toast.LENGTH_SHORT).show();
 
             // videoDBList = dbHelper.getVideoList();
@@ -340,7 +322,7 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
             }
 
             // Showing progress dialog
-            pDialog = new ProgressDialog(QuizActivity.this,
+            pDialog = new ProgressDialog(QuizNewActivity.this,
                     R.style.Base_Theme_AppCompat_Dialog_Alert);
             pDialog.setMessage("Please wait...");
             pDialog.setCancelable(false);
@@ -393,8 +375,8 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
                 procializeDB.clearQuizTable();
                 procializeDB.insertQuizTable(quizList, db);
 
-                appDelegate.setQuizOptionList(quizOptionList);
 
+                appDelegate.setQuizOptionList(quizOptionList);
             }
             return null;
         }
@@ -408,12 +390,8 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
                 pDialog.dismiss();
                 pDialog = null;
             }
-
-//            pagerAdapter = new QuizPagerAdapter(QuizActivity.this, quizList);
-//            pager.setAdapter(pagerAdapter);
-//            pagerAdapter.notifyDataSetChanged();
-
-            adapter = new QuizNewAdapter(QuizActivity.this, quizList);
+//
+            adapter = new QuizAdapter(QuizNewActivity.this, quizList);
             quizNameList.setAdapter(adapter);
             int itemcount = adapter.getItemCount();
             txt_count.setText(1 + "/" + itemcount);
@@ -424,11 +402,14 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
                 btnNext.setVisibility(View.GONE);
                 submit.setVisibility(View.VISIBLE);
             }
-
-
 //			Parcelable state = quizNameList.onSaveInstanceState();
 //			quizNameList.onRestoreInstanceState(state);
 //			quizNameList.setEmptyView(findViewById(android.R.id.empty));
+
+//            Intent intent = new Intent(QuizNewActivity.this, AnswersActivity.class);
+//            intent.putExtra("folderName", foldername);
+//            startActivity(intent);
+
 
         }
     }
@@ -510,20 +491,21 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
                 Log.e("valid", question_id.toString());
                 Log.e("valid", valid.toString());
 
+                Intent intent = new Intent(QuizNewActivity.this, YourScoreActivity.class);
+                intent.putExtra("folderName", foldername);
+                intent.putExtra("Answers", adapter.getCorrectOption());
+                intent.putExtra("TotalQue", adapter.getselectedData().length);
+                startActivity(intent);
+                finish();
 
-                if (valid == true) {
-                    quiz_question_id = question_id[0];
-                    quiz_options_id = question_ans[0];
-                    int answers = adapter.getCorrectOption();
-                    new postQuizQuestion().execute();
-//                    Intent intent = new Intent(QuizActivity.this, YourScoreActivity.class);
-//                    intent.putExtra("folderName", foldername);
-//                    intent.putExtra("Answers", answers);
-//                    intent.putExtra("TotalQue", adapter.getselectedData().length);
-//                    startActivity(intent);
-                } else {
-                    Toast.makeText(getApplicationContext(), "Please answer all questions", Toast.LENGTH_SHORT).show();
-                }
+//                if (valid == true) {
+//                    quiz_question_id = question_id[0];
+//                    quiz_options_id = question_ans[0];
+//
+//                    new postQuizQuestion().execute();
+//                } else {
+//                    Toast.makeText(getApplicationContext(), "Please answer all questions", Toast.LENGTH_SHORT).show();
+//                }
 
 
             }
@@ -641,7 +623,6 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
 
         }
 
-
     }
 
 
@@ -649,25 +630,32 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
     protected void onResume() {
         super.onResume();
 
-        if (cd.isConnectingToInternet()) {
-            new getQuizList().execute();
-        }
+//        if (cd.isConnectingToInternet()) {
+//            new QuizNewActivity.getQuizList().execute();
+//        }
 
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent quizOptionIntent = new Intent(QuizNewActivity.this, FolderQuizActivity.class);
+        startActivity(quizOptionIntent);
+        finish();
+    }
+
+
 
 
     private class postQuizQuestion extends AsyncTask<Void, Void, Void> {
 
         String error = "";
         String message = "";
-        String total_correct_answer = "";
-        String total_questions = "";
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             // Showing progress dialog
-            pDialog = new ProgressDialog(QuizActivity.this,
+            pDialog = new ProgressDialog(QuizNewActivity.this,
                     R.style.Base_Theme_AppCompat_Dialog_Alert);
             pDialog.setMessage("Please wait...");
             pDialog.setCancelable(false);
@@ -683,8 +671,6 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
 
             nameValuePair.add(new BasicNameValuePair("api_access_token",
                     accessToken));
-            nameValuePair.add(new BasicNameValuePair("event_id",
-                    event_id));
             nameValuePair.add(new BasicNameValuePair("quiz_id", quiz_question_id));
             nameValuePair.add(new BasicNameValuePair("quiz_options_id",
                     quiz_options_id));
@@ -700,8 +686,6 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
                     JSONObject jsonResult = new JSONObject(jsonStr);
                     error = jsonResult.getString("status");
                     message = jsonResult.getString("msg");
-                    total_correct_answer = jsonResult.getString("total_correct_answer");
-                    total_questions = jsonResult.getString("total_questions");
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -720,27 +704,22 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
                 pDialog.dismiss();
                 pDialog = null;
             }
-            adapter = new QuizNewAdapter(QuizActivity.this, quizList);
-           // quizNameList.setAdapter(adapter);
+
             if (error.equalsIgnoreCase("success")) {
-                int answers = Integer.parseInt(total_correct_answer);
-                Intent intent = new Intent(QuizActivity.this, YourScoreActivity.class);
-                intent.putExtra("folderName", foldername);
-                //intent.putExtra("Answers", answers);
-                intent.putExtra("Answers", answers);
-                intent.putExtra("TotalQue", adapter.getselectedData().length);
-                startActivity(intent);
-               /* Toast.makeText(QuizActivity.this, message,
-                        Toast.LENGTH_SHORT).show();*/
+
+                Toast.makeText(QuizNewActivity.this, message, Toast.LENGTH_SHORT)
+                        .show();
+
                 finish();
+
             } else {
 
-                Toast.makeText(QuizActivity.this, message,
+                Toast.makeText(QuizNewActivity.this, message,
                         Toast.LENGTH_SHORT).show();
             }
 
         }
     }
 
-
 }
+

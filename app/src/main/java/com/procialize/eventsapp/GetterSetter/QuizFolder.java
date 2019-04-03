@@ -6,8 +6,6 @@ package com.procialize.eventsapp.GetterSetter;
 
 public class QuizFolder {
 
-    String folder_name;
-
     public String getFolder_name() {
         return folder_name;
     }
@@ -15,4 +13,6 @@ public class QuizFolder {
     public void setFolder_name(String folder_name) {
         this.folder_name = folder_name;
     }
+
+    String folder_name;
 }

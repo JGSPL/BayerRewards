@@ -15,19 +15,17 @@ import android.widget.TextView;
 import com.procialize.eventsapp.GetterSetter.QuizFolder;
 import com.procialize.eventsapp.R;
 
-import org.apache.commons.lang3.StringEscapeUtils;
-
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
 public class QuizFolderAdapter extends BaseAdapter {
-    String MY_PREFS_NAME = "ProcializeInfo";
-    String colorActive;
     private Activity activity;
     private LayoutInflater inflater;
     private List<QuizFolder> quizList;
-
+    String MY_PREFS_NAME = "ProcializeInfo";
+    String MY_PREFS_LOGIN = "ProcializeLogin";
+    String colorActive;
 
     public QuizFolderAdapter(Activity activity, List<QuizFolder> quizList) {
         this.activity = activity;
@@ -74,13 +72,14 @@ public class QuizFolderAdapter extends BaseAdapter {
             // holder.video_preview_img = (ImageView) convertView
             // .findViewById(R.id.video_preview_img);
 
-            holder.quiz_title_txt = convertView
+            holder.quiz_title_txt = (TextView) convertView
                     .findViewById(R.id.video_title_txt);
-            holder.linQuiz = convertView.findViewById(R.id.linQuiz);
+
+            holder.linQuiz = (LinearLayout)convertView.findViewById(R.id.linQuiz);
             holder.linQuiz.setBackgroundColor(Color.parseColor(colorActive));
 
             Typeface typeFace = Typeface.createFromAsset(activity.getAssets(),
-                    "DINPro-Regular.ttf");
+                    "DINPro-Light_13935.ttf");
             holder.quiz_title_txt.setTypeface(typeFace);
 
             convertView.setTag(holder);
@@ -89,7 +88,7 @@ public class QuizFolderAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.quiz_title_txt.setText(StringEscapeUtils.unescapeJava(quizList.get(position).getFolder_name()));
+        holder.quiz_title_txt.setText(quizList.get(position).getFolder_name());
         return convertView;
     }
 
