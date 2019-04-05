@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorgrey"
     android:orientation="vertical"
     tools:context="com.procialize.eventsapp.InnerDrawerActivity.QAAttendeeActivity">
 
@@ -13,8 +13,8 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="0dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="0dp">
 
 
         <android.support.v7.widget.Toolbar
@@ -42,26 +42,28 @@
                 android:src="@drawable/header_logo" />
 
         </android.support.v7.widget.Toolbar>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/linecolor"/>
+            android:background="@color/linecolor" />
 
 
     </android.support.design.widget.AppBarLayout>
 
     <com.procialize.eventsapp.Fonts.RobotoTextview
+        android:id="@+id/nmtxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="4sp"
         android:text="@string/qadirect"
         android:textColor="@color/black"
-        android:textSize="@dimen/textsizesmall"
-        android:id="@+id/nmtxt"/>
+        android:textSize="@dimen/textsizesmall" />
 
     <com.procialize.eventsapp.Fonts.RobotoButton
         android:id="@+id/postbtn"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
@@ -69,10 +71,9 @@
         android:gravity="center"
         android:padding="5dp"
         android:text="@string/postquestion"
-        android:textColor="@color/colorwhite"
-        android:textSize="@dimen/textsizesmall"
         android:textAllCaps="false"
-        style="?android:attr/borderlessButtonStyle"/>
+        android:textColor="@color/colorwhite"
+        android:textSize="@dimen/textsizesmall" />
 
     <com.procialize.eventsapp.Fonts.RobotoTextview
         android:id="@+id/pullrefresh"
@@ -90,41 +91,42 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:visibility="gone" android:background="@drawable/loader"/>
+        android:background="@drawable/loader"
+        android:visibility="gone" />
 
     <RelativeLayout
+        android:id="@+id/linUpper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="visible"
-        android:id="@+id/linUpper"
-        >
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/qaRvrefresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="visible"
-        android:layout_marginBottom="15dp">
+        android:visibility="visible">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/qaRv"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/qaRvrefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="5dp">
+            android:layout_marginBottom="15dp"
+            android:visibility="visible">
 
-        </android.support.v7.widget.RecyclerView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/qaRv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp">
+
+            </android.support.v7.widget.RecyclerView>
+        </android.support.v4.widget.SwipeRefreshLayout>
 
         <com.procialize.eventsapp.Fonts.RobotoTextview
             android:id="@+id/txtEmpty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:gravity="center"
             android:layout_centerInParent="true"
+            android:gravity="center"
             android:text="No Question Posted yet"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:visibility="gone" />
 
     </RelativeLayout>
 </LinearLayout>

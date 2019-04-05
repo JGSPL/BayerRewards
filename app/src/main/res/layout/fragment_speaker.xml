@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorgrey"
     android:orientation="vertical"
     tools:context="com.procialize.eventsapp.Fragments.SpeakerFragment">
 
@@ -17,22 +16,22 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/edittexthmbg"
         android:hint="@string/search_speaker_here"
+        android:imeOptions="actionDone"
         android:padding="10dp"
         android:textColor="@color/black"
-        android:textSize="@dimen/textsizesmall"
-        android:imeOptions="actionDone"/>
+        android:textSize="@dimen/textsizesmall" />
 
     <com.procialize.eventsapp.Fonts.RobotoTextview
         android:id="@+id/pullrefresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:alpha="0.8"
         android:gravity="center"
         android:text="Pull Down to Refresh"
         android:textColor="@color/inactivetab"
         android:textSize="10sp"
-        android:visibility="visible"
-        android:layout_margin="5dp"/>
+        android:visibility="visible" />
 
 
     <ProgressBar

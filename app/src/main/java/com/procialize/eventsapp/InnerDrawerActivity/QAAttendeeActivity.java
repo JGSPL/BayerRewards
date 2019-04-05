@@ -3,9 +3,14 @@ package com.procialize.eventsapp.InnerDrawerActivity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -43,6 +48,7 @@ import com.procialize.eventsapp.Utility.Util;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -72,6 +78,7 @@ public class QAAttendeeActivity extends AppCompatActivity implements QAAttendeeA
     TextView txtEmpty;
     RelativeLayout linUpper;
     private APIService mAPIService;
+    LinearLayout linear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +120,23 @@ public class QAAttendeeActivity extends AppCompatActivity implements QAAttendeeA
         postbtn.setBackgroundColor(Color.parseColor(colorActive));
         txtEmpty = findViewById(R.id.txtEmpty);
         linUpper = findViewById(R.id.linUpper);
+        linear = findViewById(R.id.linear);
+
+        try {
+//            ContextWrapper cw = new ContextWrapper(HomeActivity.this);
+            //path to /data/data/yourapp/app_data/dirName
+//            File directory = cw.getDir("/storage/emulated/0/Procialize/", Context.MODE_PRIVATE);
+            File mypath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "/Procialize/" + "background.jpg");
+            Resources res = getResources();
+            Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(mypath));
+            BitmapDrawable bd = new BitmapDrawable(res, bitmap);
+            linear.setBackgroundDrawable(bd);
+
+            Log.e("PATH", String.valueOf(mypath));
+        } catch (Exception e) {
+            e.printStackTrace();
+            linear.setBackgroundColor(Color.parseColor("#f1f1f1"));
+        }
 
         list = new ArrayList<>();
         agendaLisQAS = new ArrayList<>();

@@ -3,10 +3,15 @@ package com.procialize.eventsapp.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +46,7 @@ import com.procialize.eventsapp.Utility.Util;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -70,6 +77,7 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
     RecyclerView pollGraph;
     ImageView headerlogoIv;
     private APIService mAPIService;
+    RelativeLayout relative;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +110,7 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
         Util.logomethod(this, headerlogoIv);
 
         pollGraph = findViewById(R.id.pollGraph);
+        relative = findViewById(R.id.relative);
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         pollGraph.setLayoutManager(mLayoutManager);
@@ -109,7 +118,21 @@ public class PollDetailActivity extends AppCompatActivity implements View.OnClic
         int resId = R.anim.layout_animation_slide_right;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
         pollGraph.setLayoutAnimation(animation);
+        try {
+//            ContextWrapper cw = new ContextWrapper(HomeActivity.this);
+            //path to /data/data/yourapp/app_data/dirName
+//            File directory = cw.getDir("/storage/emulated/0/Procialize/", Context.MODE_PRIVATE);
+            File mypath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "/Procialize/" + "background.jpg");
+            Resources res = getResources();
+            Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(mypath));
+            BitmapDrawable bd = new BitmapDrawable(res, bitmap);
+            relative.setBackgroundDrawable(bd);
 
+            Log.e("PATH", String.valueOf(mypath));
+        } catch (Exception e) {
+            e.printStackTrace();
+            relative.setBackgroundColor(Color.parseColor("#f1f1f1"));
+        }
 
         optionLists = new ArrayList<>();
         mAPIService = ApiUtils.getAPIService();

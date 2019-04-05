@@ -2,13 +2,20 @@ package com.procialize.eventsapp.InnerDrawerActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.procialize.eventsapp.GetterSetter.EventSettingList;
@@ -16,6 +23,7 @@ import com.procialize.eventsapp.R;
 import com.procialize.eventsapp.Session.SessionManager;
 import com.procialize.eventsapp.Utility.Util;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,6 +38,7 @@ public class EngagementActivity extends AppCompatActivity {
     String eventid, colorActive;
     ImageView headerlogoIv;
     private List<EventSettingList> eventSettingLists;
+    LinearLayout linear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +73,7 @@ public class EngagementActivity extends AppCompatActivity {
 
         selfiecard_view = findViewById(R.id.selfiecard_view);
         videocard_view = findViewById(R.id.videocard_view);
+        linear = findViewById(R.id.linear);
 
         TextView header = findViewById(R.id.title);
         header.setTextColor(Color.parseColor(colorActive));
@@ -72,7 +82,21 @@ public class EngagementActivity extends AppCompatActivity {
         TextView videoTv = findViewById(R.id.videoTv);
         videoTv.setBackgroundColor(Color.parseColor(colorActive));
 
+        try {
+//            ContextWrapper cw = new ContextWrapper(HomeActivity.this);
+            //path to /data/data/yourapp/app_data/dirName
+//            File directory = cw.getDir("/storage/emulated/0/Procialize/", Context.MODE_PRIVATE);
+            File mypath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "/Procialize/" + "background.jpg");
+            Resources res = getResources();
+            Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(mypath));
+            BitmapDrawable bd = new BitmapDrawable(res, bitmap);
+            linear.setBackgroundDrawable(bd);
 
+            Log.e("PATH", String.valueOf(mypath));
+        } catch (Exception e) {
+            e.printStackTrace();
+            linear.setBackgroundColor(Color.parseColor("#f1f1f1"));
+        }
         SessionManager sessionManager = new SessionManager(this);
 
         user = sessionManager.getUserDetails();

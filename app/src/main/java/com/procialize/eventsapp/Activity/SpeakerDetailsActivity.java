@@ -3,13 +3,18 @@ package com.procialize.eventsapp.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +25,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
@@ -42,6 +48,7 @@ import com.procialize.eventsapp.Session.SessionManager;
 import com.procialize.eventsapp.Utility.Util;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
@@ -72,6 +79,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
     RatingBar ratingbar;
     ImageView headerlogoIv;
     Typeface typeface;
+    RelativeLayout linear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,10 +163,27 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         ratinglayout = findViewById(R.id.ratinglayout);
         ratingbar = findViewById(R.id.ratingbar);
         layoutTop = findViewById(R.id.layoutTop);
+        linear = findViewById(R.id.linear);
 
         progressBar = findViewById(R.id.progressBar);
 
         ratebtn = findViewById(R.id.ratebtn);
+
+        try {
+//            ContextWrapper cw = new ContextWrapper(HomeActivity.this);
+            //path to /data/data/yourapp/app_data/dirName
+//            File directory = cw.getDir("/storage/emulated/0/Procialize/", Context.MODE_PRIVATE);
+            File mypath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "/Procialize/" + "background.jpg");
+            Resources res = getResources();
+            Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(mypath));
+            BitmapDrawable bd = new BitmapDrawable(res, bitmap);
+            linear.setBackgroundDrawable(bd);
+
+            Log.e("PATH", String.valueOf(mypath));
+        } catch (Exception e) {
+            e.printStackTrace();
+            linear.setBackgroundColor(Color.parseColor("#f1f1f1"));
+        }
 
         tvname.setTextColor(Color.parseColor(colorActive));
         speakertitle.setTextColor(Color.parseColor(colorActive));

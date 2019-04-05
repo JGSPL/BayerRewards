@@ -3,7 +3,6 @@
     android:id="@+id/generalInforefresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorgrey"
     android:orientation="vertical"
     tools:context="com.procialize.eventsapp.Fragments.FeedFragment">
 

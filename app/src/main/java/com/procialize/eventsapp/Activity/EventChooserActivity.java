@@ -1,10 +1,20 @@
 package com.procialize.eventsapp.Activity;
 
+import android.app.Application;
+import android.app.ProgressDialog;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +28,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -27,15 +38,28 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.procialize.eventsapp.Adapter.EventAdapter;
 import com.procialize.eventsapp.ApiConstant.APIService;
+import com.procialize.eventsapp.ApiConstant.ApiConstant;
 import com.procialize.eventsapp.ApiConstant.ApiUtils;
 import com.procialize.eventsapp.BuildConfig;
+import com.procialize.eventsapp.CustomTools.PicassoTrustAll;
 import com.procialize.eventsapp.GetterSetter.EventListing;
 import com.procialize.eventsapp.GetterSetter.Login;
 import com.procialize.eventsapp.GetterSetter.UserEventList;
 import com.procialize.eventsapp.R;
 import com.procialize.eventsapp.Session.SessionManager;
 import com.procialize.eventsapp.gcm.GCMHelper;
+import com.squareup.picasso.Picasso;
 
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -64,7 +88,12 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
     ImageView headerlogoIv;
     private APIService mAPIService;
     private ProgressBar progressBar;
-    private String logoImg = "", colorActive = "";
+    private String logoImg = "", colorActive = "",background="";
+    private AssetManager assetManager;
+    private ProgressDialog mProgressDialog;
+    private AsyncTask mMyTask;
+    LinearLayout linear;
+    String imgname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +117,7 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
         progressBar = findViewById(R.id.progressBar);
         searchEt = findViewById(R.id.searchEt);
         img_logout = findViewById(R.id.img_logout);
+        linear = findViewById(R.id.linear);
 //        searchEt.setFocusable(false);
 
         img_logout.setOnClickListener(new View.OnClickListener() {
@@ -239,6 +269,56 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
         eventnamestr = eventList.getName();
         logoImg = eventList.getHeader_logo();
         colorActive = eventList.getPrimary_color_code();
+        background = eventList.getBackground_image();
+
+//        mProgressDialog = new ProgressDialog(EventChooserActivity.this);
+//        mProgressDialog.setIndeterminate(true);
+//        // Progress dialog horizontal style
+//        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//        // Progress dialog title
+//        mProgressDialog.setTitle("AsyncTask");
+//        // Progress dialog message
+//        mProgressDialog.setMessage("Please wait, we are downloading your image file...");
+
+        // Initialize a new click listener for positive button widget
+
+        String url = ApiConstant.eventpic + eventList.getBackground_image();
+        imgname = "background";//url.substring(58, 60);
+
+        PicassoTrustAll.getInstance(EventChooserActivity.this)
+                .load(ApiConstant.eventpic + eventList.getBackground_image())
+                .into(new com.squareup.picasso.Target() {
+                          @Override
+                          public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                              try {
+                                  String root = Environment.getExternalStorageDirectory().toString();
+                                  File myDir = new File(root + "/Procialize");
+
+                                  if (!myDir.exists()) {
+                                      myDir.mkdirs();
+                                  }
+
+                                  String name = imgname + ".jpg";
+                                  myDir = new File(myDir, name);
+                                  FileOutputStream out = new FileOutputStream(myDir);
+                                  bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+
+                                  out.flush();
+                                  out.close();
+                              } catch (Exception e) {
+                                  // some action
+                              }
+                          }
+
+                          @Override
+                          public void onBitmapFailed(Drawable errorDrawable) {
+                          }
+
+                          @Override
+                          public void onPrepareLoad(Drawable placeHolderDrawable) {
+                          }
+                      }
+                );
 
 
         sendLogin(emailid, password, eventid, gcmRegID, platform, device, os_version, app_version);
@@ -290,7 +370,7 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
             String id = response.body().getUserData().getAttendeeId();
             String attendee_status = response.body().getUserData().getAttendee_status();
 
-            sessionManager.createLoginSession(firstname, lastname, email, mobile, company, designation, token, desc, city, country, pic, id, emailid, password, "1",attendee_status);
+            sessionManager.createLoginSession(firstname, lastname, email, mobile, company, designation, token, desc, city, country, pic, id, emailid, password, "1", attendee_status);
             SessionManager.saveSharedPreferencesEventList(response.body().getEventSettingList());
             SessionManager.saveSharedPreferencesMenuEventList(response.body().getEventMenuSettingList());
 
@@ -305,6 +385,7 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
                 editor.putString("eventnamestr", eventnamestr).commit();
                 editor.putString("logoImg", logoImg).commit();
                 editor.putString("colorActive", colorActive).commit();
+                editor.putString("eventback", background).commit();
 
 
 //              Company company1 = new Company.Builder().withName(company).build();
@@ -407,4 +488,139 @@ public class EventChooserActivity extends AppCompatActivity implements EventAdap
 
         }
     }
+
+    private class DownloadTask extends AsyncTask<URL, Void, Bitmap> {
+        // Before the tasks execution
+        protected void onPreExecute() {
+            // Display the progress dialog on async task start
+            mProgressDialog.show();
+        }
+
+        // Do the task in background/non UI thread
+        protected Bitmap doInBackground(URL... urls) {
+            URL url = urls[0];
+            HttpURLConnection connection = null;
+
+            try {
+                // Initialize a new http url connection
+                connection = (HttpURLConnection) url.openConnection();
+
+                // Connect the http url connection
+                connection.connect();
+
+                // Get the input stream from http url connection
+                InputStream inputStream = connection.getInputStream();
+
+                /*
+                    BufferedInputStream
+                        A BufferedInputStream adds functionality to another input stream-namely,
+                        the ability to buffer the input and to support the mark and reset methods.
+                */
+                /*
+                    BufferedInputStream(InputStream in)
+                        Creates a BufferedInputStream and saves its argument,
+                        the input stream in, for later use.
+                */
+                // Initialize a new BufferedInputStream from InputStream
+                BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
+
+                /*
+                    decodeStream
+                        Bitmap decodeStream (InputStream is)
+                            Decode an input stream into a bitmap. If the input stream is null, or
+                            cannot be used to decode a bitmap, the function returns null. The stream's
+                            position will be where ever it was after the encoded data was read.
+
+                        Parameters
+                            is InputStream : The input stream that holds the raw data
+                                              to be decoded into a bitmap.
+                        Returns
+                            Bitmap : The decoded bitmap, or null if the image data could not be decoded.
+                */
+                // Convert BufferedInputStream to Bitmap object
+                Bitmap bmp = BitmapFactory.decodeStream(bufferedInputStream);
+
+                // Return the downloaded bitmap
+                return bmp;
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                // Disconnect the http url connection
+                connection.disconnect();
+            }
+            return null;
+        }
+
+        // When all async task done
+        protected void onPostExecute(Bitmap result) {
+            // Hide the progress dialog
+            mProgressDialog.dismiss();
+
+            if (result != null) {
+                // Display the downloaded image into ImageView
+//                mImageView.setImageBitmap(result);
+
+                // Save bitmap to internal storage
+                Uri imageInternalUri = saveImageToInternalStorage(result);
+                // Set the ImageView image from internal storage
+//                mImageViewInternal.setImageURI(imageInternalUri);
+            } else {
+                // Notify user that an error occurred while downloading image
+                Snackbar.make(linear, "Error", Snackbar.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    // Custom method to convert string to url
+    protected URL stringToURL(String urlString) {
+        try {
+            URL url = new URL(urlString);
+            return url;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    protected Uri saveImageToInternalStorage(Bitmap bitmap) {
+        // Initialize ContextWrapper
+        ContextWrapper wrapper = new ContextWrapper(getApplicationContext());
+
+        // Initializing a new file
+        // The bellow line return a directory in internal storage
+        File file = wrapper.getDir("Images", MODE_PRIVATE);
+
+        // Create a file to save the image
+        file = new File(file, "UniqueFileName" + ".jpg");
+
+        try {
+            // Initialize a new OutputStream
+            OutputStream stream = null;
+
+            // If the output file exists, it can be replaced or appended to it
+            stream = new FileOutputStream(file);
+
+            // Compress the bitmap
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+
+            // Flushes the stream
+            stream.flush();
+
+            // Closes the stream
+            stream.close();
+
+        } catch (IOException e) // Catch the exception
+        {
+            e.printStackTrace();
+        }
+
+        // Parse the gallery image url to uri
+        Uri savedImageURI = Uri.parse(file.getAbsolutePath());
+
+        // Return the saved image Uri
+        return savedImageURI;
+    }
 }
+
+

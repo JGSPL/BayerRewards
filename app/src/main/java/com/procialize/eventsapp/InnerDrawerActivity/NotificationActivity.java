@@ -5,12 +5,17 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -50,6 +55,7 @@ import com.procialize.eventsapp.R;
 import com.procialize.eventsapp.Session.SessionManager;
 import com.procialize.eventsapp.Utility.Util;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -88,6 +94,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
     final long[] time = new long[1];
     String token, attendee_status;
     ImageView add_icon;
+    LinearLayout linear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +135,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
         TextView notyHeader = findViewById(R.id.notyHeader);
         notyHeader.setTextColor(Color.parseColor(colorActive));
         notificationRv = findViewById(R.id.notificationRv);
+        linear = findViewById(R.id.linear);
         add_icon = findViewById(R.id.add_icon);
         int colorInt = Color.parseColor(colorActive);
 
@@ -137,6 +145,22 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
         add_icon.setImageDrawable(drawable);
 //        progressBar = findViewById(R.id.progressBar);
         notificationRvrefresh = findViewById(R.id.notificationRvrefresh);
+
+        try {
+//            ContextWrapper cw = new ContextWrapper(HomeActivity.this);
+            //path to /data/data/yourapp/app_data/dirName
+//            File directory = cw.getDir("/storage/emulated/0/Procialize/", Context.MODE_PRIVATE);
+            File mypath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "/Procialize/" + "background.jpg");
+            Resources res = getResources();
+            Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(mypath));
+            BitmapDrawable bd = new BitmapDrawable(res, bitmap);
+            linear.setBackgroundDrawable(bd);
+
+            Log.e("PATH", String.valueOf(mypath));
+        } catch (Exception e) {
+            e.printStackTrace();
+            linear.setBackgroundColor(Color.parseColor("#f1f1f1"));
+        }
 
         mAPIService = ApiUtils.getAPIService();
 

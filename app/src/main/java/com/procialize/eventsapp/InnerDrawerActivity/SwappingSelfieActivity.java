@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -17,11 +20,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +61,7 @@ public class SwappingSelfieActivity extends AppCompatActivity implements SwipeIm
     String img = "";
     RecyclerView recyclerView;
     private ConnectionDetector cd;
+    RelativeLayout relative;
 
     static public void shareImage(String url, final Context context) {
         Picasso.with(context).load(url).into(new com.squareup.picasso.Target() {
@@ -111,13 +117,28 @@ public class SwappingSelfieActivity extends AppCompatActivity implements SwipeIm
         right = findViewById(R.id.right);
         left = findViewById(R.id.left);
         backIv = findViewById(R.id.backIv);
+        relative = findViewById(R.id.relative);
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         colorActive = prefs.getString("colorActive", "");
 
+        try {
+//            ContextWrapper cw = new ContextWrapper(HomeActivity.this);
+            //path to /data/data/yourapp/app_data/dirName
+//            File directory = cw.getDir("/storage/emulated/0/Procialize/", Context.MODE_PRIVATE);
+            File mypath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "/Procialize/" + "background.jpg");
+            Resources res = getResources();
+            Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(mypath));
+            BitmapDrawable bd = new BitmapDrawable(res, bitmap);
+            relative.setBackgroundDrawable(bd);
 
+            Log.e("PATH", String.valueOf(mypath));
+        } catch (Exception e) {
+            e.printStackTrace();
+            relative.setBackgroundColor(Color.parseColor("#f1f1f1"));
+        }
         Util.logomethod(this, headerlogoIv);
 
         backIv.setOnClickListener(new View.OnClickListener() {

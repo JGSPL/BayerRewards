@@ -21,6 +21,18 @@ public class FirstLevelFilter implements Serializable {
     @Expose
     private String folderName;
 
+    public String getVideo_thumb() {
+        return video_thumb;
+    }
+
+    public void setVideo_thumb(String video_thumb) {
+        this.video_thumb = video_thumb;
+    }
+
+    @SerializedName("video_thumb")
+    @Expose
+    private String video_thumb;
+
     public String getTitle() {
         return title;
     }

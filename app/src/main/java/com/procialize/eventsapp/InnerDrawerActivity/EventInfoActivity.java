@@ -2,10 +2,15 @@ package com.procialize.eventsapp.InnerDrawerActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.Toolbar;
@@ -45,6 +50,7 @@ import com.procialize.eventsapp.Utility.Util;
 import com.procialize.eventsapp.Utility.Utility;
 
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -81,6 +87,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
     String eventid, colorActive;
     ImageView headerlogoIv;
     private ConnectionDetector cd;
+    RelativeLayout relative_head;
 
 
     @Override
@@ -98,13 +105,28 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
 
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
+        relative_head = findViewById(R.id.relative_head);
         Util.logomethod(this, headerlogoIv);
         sessionManager = new SessionManager(this);
 
         // get user data from session
         HashMap<String, String> user = sessionManager.getUserDetails();
 
+        try {
+//            ContextWrapper cw = new ContextWrapper(HomeActivity.this);
+            //path to /data/data/yourapp/app_data/dirName
+//            File directory = cw.getDir("/storage/emulated/0/Procialize/", Context.MODE_PRIVATE);
+            File mypath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "/Procialize/" + "background.jpg");
+            Resources res = getResources();
+            Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(mypath));
+            BitmapDrawable bd = new BitmapDrawable(res, bitmap);
+            relative_head.setBackgroundDrawable(bd);
 
+            Log.e("PATH", String.valueOf(mypath));
+        } catch (Exception e) {
+            e.printStackTrace();
+            relative_head.setBackgroundColor(Color.parseColor("#f1f1f1"));
+        }
         token = user.get(SessionManager.KEY_TOKEN);
 
         eventSettingLists = sessionManager.loadEventList();
@@ -356,7 +378,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
 
 
                         // Setting snippet for the MarkerOptions
-                        options.snippet( response.body().getEventList().get(0).getEventLocation());
+                        options.snippet(response.body().getEventList().get(0).getEventLocation());
 
 
                         // Adding Marker on the Google Map
@@ -394,6 +416,7 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
         } else {
             setContentView(R.layout.activity_empty_view);
             ImageView imageView = findViewById(R.id.back);
+            LinearLayout linear_head = findViewById(R.id.linear_head);
             TextView text_empty = findViewById(R.id.text_empty);
             ImageView headerlogoIv = findViewById(R.id.headerlogoIv);
             Util.logomethod(this, headerlogoIv);
@@ -404,6 +427,21 @@ public class EventInfoActivity extends FragmentActivity implements OnMapReadyCal
                     finish();
                 }
             });
+
+            try {
+//            ContextWrapper cw = new ContextWrapper(HomeActivity.this);
+                //path to /data/data/yourapp/app_data/dirName
+//            File directory = cw.getDir("/storage/emulated/0/Procialize/", Context.MODE_PRIVATE);
+                File mypath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "/Procialize/" + "background.jpg");
+                Resources res = getResources();
+                Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(mypath));
+                BitmapDrawable bd = new BitmapDrawable(res, bitmap);
+                linear_head.setBackgroundDrawable(bd);
+
+                Log.e("PATH", String.valueOf(mypath));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
 

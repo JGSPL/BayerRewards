@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorgrey"
-    tools:context="com.procialize.eventsapp.Activity.SpeakerDetailsActivity">
+    tools:context="com.procialize.eventsapp.Activity.SpeakerDetailsActivity"
+    android:id="@+id/linear">
 
 
     <android.support.design.widget.AppBarLayout

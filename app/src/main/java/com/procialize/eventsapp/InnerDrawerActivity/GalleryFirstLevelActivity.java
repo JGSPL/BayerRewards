@@ -2,16 +2,23 @@ package com.procialize.eventsapp.InnerDrawerActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +30,7 @@ import com.procialize.eventsapp.GetterSetter.GalleryList;
 import com.procialize.eventsapp.R;
 import com.procialize.eventsapp.Utility.Util;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +49,7 @@ public class GalleryFirstLevelActivity extends AppCompatActivity implements Gall
     String MY_PREFS_NAME = "ProcializeInfo";
     String eventid, colorActive;
     ImageView headerlogoIv;
+    LinearLayout linear;
 
 
     @Override
@@ -69,6 +78,7 @@ public class GalleryFirstLevelActivity extends AppCompatActivity implements Gall
             }
         });
         headerlogoIv = findViewById(R.id.headerlogoIv);
+        linear = findViewById(R.id.linear);
         Util.logomethod(this, headerlogoIv);
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         eventid = prefs.getString("eventid", "1");
@@ -79,6 +89,21 @@ public class GalleryFirstLevelActivity extends AppCompatActivity implements Gall
         galleryLists = (List<GalleryList>) getIntent().getExtras().getSerializable("gallerylist");
         folderLists = (List<FolderList>) getIntent().getExtras().getSerializable("folderlist");
 
+        try {
+//            ContextWrapper cw = new ContextWrapper(HomeActivity.this);
+            //path to /data/data/yourapp/app_data/dirName
+//            File directory = cw.getDir("/storage/emulated/0/Procialize/", Context.MODE_PRIVATE);
+            File mypath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "/Procialize/" + "background.jpg");
+            Resources res = getResources();
+            Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(mypath));
+            BitmapDrawable bd = new BitmapDrawable(res, bitmap);
+            linear.setBackgroundDrawable(bd);
+
+            Log.e("PATH", String.valueOf(mypath));
+        } catch (Exception e) {
+            e.printStackTrace();
+            linear.setBackgroundColor(Color.parseColor("#f1f1f1"));
+        }
 
         galleryRv = findViewById(R.id.galleryRv);
         tvname = findViewById(R.id.tvname);

@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="180dp"
     android:layout_margin="8dp"
-    android:background="@drawable/galleryitembg"
     android:layout_gravity="center"
     android:orientation="vertical">
 

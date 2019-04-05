@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="150dp"
     android:layout_margin="8dp"
-    android:background="@drawable/galleryitembg"
     android:gravity="bottom"
     android:orientation="vertical">
 
@@ -12,13 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/galleryitembg">
 
 
         <ImageView
             android:id="@+id/imageIv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
             android:contentDescription="TODO"

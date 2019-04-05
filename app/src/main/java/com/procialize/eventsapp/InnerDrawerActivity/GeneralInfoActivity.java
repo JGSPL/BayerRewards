@@ -3,9 +3,14 @@ package com.procialize.eventsapp.InnerDrawerActivity;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +20,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +37,7 @@ import com.procialize.eventsapp.R;
 import com.procialize.eventsapp.Session.SessionManager;
 import com.procialize.eventsapp.Utility.Util;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
@@ -58,6 +65,7 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
     ImageView headerlogoIv;
     String gen_info_all_data = "0", gen_info_currency_converter = "0", gen_info_weather = "0";
     private APIService mAPIService;
+    RelativeLayout linear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +82,7 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
         generalInforefresh = findViewById(R.id.generalInforefresh);
         general_item_list = findViewById(R.id.general_item_list);
         genHeader = findViewById(R.id.header);
+        linear = findViewById(R.id.relative);
 
         back = findViewById(R.id.back);
         progressBar = findViewById(R.id.progressBar);
@@ -85,7 +94,21 @@ public class GeneralInfoActivity extends AppCompatActivity implements GeneralInf
         eventid = prefs.getString("eventid", "1");
         colorActive = prefs.getString("colorActive", "");
 
+        try {
+//            ContextWrapper cw = new ContextWrapper(HomeActivity.this);
+            //path to /data/data/yourapp/app_data/dirName
+//            File directory = cw.getDir("/storage/emulated/0/Procialize/", Context.MODE_PRIVATE);
+            File mypath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "/Procialize/" + "background.jpg");
+            Resources res = getResources();
+            Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(mypath));
+            BitmapDrawable bd = new BitmapDrawable(res, bitmap);
+            linear.setBackgroundDrawable(bd);
 
+            Log.e("PATH", String.valueOf(mypath));
+        } catch (Exception e) {
+            e.printStackTrace();
+            linear.setBackgroundColor(Color.parseColor("#f1f1f1"));
+        }
         params = new LinearLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
 
         // Create TextView programmatically.

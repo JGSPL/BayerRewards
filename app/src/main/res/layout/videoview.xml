@@ -37,6 +37,17 @@
                 android:contentDescription=" "
                 android:src="@drawable/header_logo" />
 
+            <TextView
+                android:id="@+id/txtView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginLeft="-10dp"
+                android:contentDescription=" "
+                android:text="Sahre"
+                android:textColor="@color/black"
+                android:visibility="gone"/>
+
         </android.support.v7.widget.Toolbar>
 
 
@@ -44,7 +55,7 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/appBarLayout"
         android:layout_centerInParent="true"
         android:layout_marginTop="10dp"
@@ -63,15 +74,13 @@
             android:text=""
             android:textColor="@color/colorwhite"
             android:textSize="20sp"
-            android:visibility="visible" />
-
-        <VideoView
-            android:id="@+id/video_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:background="@android:color/transparent"
             android:visibility="gone" />
+
+        <cn.jzvd.JZVideoPlayerStandard
+            android:id="@+id/video_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
 
 
         <!--
@@ -113,7 +122,7 @@
         android:maxHeight="35dp"
         android:text="Share"
         android:textColor="@color/colorwhite"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
 
 </RelativeLayout>

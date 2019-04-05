@@ -2,11 +2,17 @@ package com.procialize.eventsapp.InnerDrawerActivity;
 
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,6 +26,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +47,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,6 +79,7 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
     private ArrayList<Quiz> quizList = new ArrayList<Quiz>();
     private QuizOptionParser quizOptionParser;
     private ArrayList<QuizOptionList> quizOptionList = new ArrayList<QuizOptionList>();
+    RelativeLayout linear;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -115,6 +124,24 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
         questionTv = findViewById(R.id.questionTv);
         questionTv.setText(foldername);
         submit = findViewById(R.id.submit);
+        linear = findViewById(R.id.linear);
+
+
+        try {
+//            ContextWrapper cw = new ContextWrapper(HomeActivity.this);
+            //path to /data/data/yourapp/app_data/dirName
+//            File directory = cw.getDir("/storage/emulated/0/Procialize/", Context.MODE_PRIVATE);
+            File mypath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "/Procialize/" + "background.jpg");
+            Resources res = getResources();
+            Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(mypath));
+            BitmapDrawable bd = new BitmapDrawable(res, bitmap);
+            linear.setBackgroundDrawable(bd);
+
+            Log.e("PATH", String.valueOf(mypath));
+        } catch (Exception e) {
+            e.printStackTrace();
+            linear.setBackgroundColor(Color.parseColor("#f1f1f1"));
+        }
 
         submit.setOnClickListener(this);
 

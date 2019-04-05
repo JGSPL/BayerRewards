@@ -92,20 +92,37 @@ public class VideoFirstLevelAdapter extends RecyclerView.Adapter<VideoFirstLevel
                     holder.progressBar.setVisibility(View.GONE);
                     return false;
                 }
-            }).into(holder.imageIv).onLoadStarted(context.getDrawable(R.drawable.gallery_placeholder));
+            }).into(holder.imageIv);
         } else {
 
-            Bitmap bitmap;
-            try {
-                bitmap = retriveVideoFrameFromVideo(ApiConstant.folderimage + videoList.getFileName());
-                if (bitmap != null) {
-                    bitmap = Bitmap.createScaledBitmap(bitmap, 240, 240, false);
-                    holder.imageIv.setImageBitmap(bitmap);
+
+            Glide.with(context).load(ApiConstant.folderimage + videoList.getVideo_thumb())
+                    .apply(RequestOptions.skipMemoryCacheOf(true))
+                    .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE)).listener(new RequestListener<Drawable>() {
+                @Override
+                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                     holder.progressBar.setVisibility(View.GONE);
+                    return true;
                 }
-            } catch (Throwable throwable) {
-                throwable.printStackTrace();
-            }
+
+                @Override
+                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                    holder.progressBar.setVisibility(View.GONE);
+                    return false;
+                }
+            }).into(holder.imageIv);
+
+//            Bitmap bitmap;
+//            try {
+//                bitmap = retriveVideoFrameFromVideo(ApiConstant.folderimage + videoList.getFileName());
+//                if (bitmap != null) {
+//                    bitmap = Bitmap.createScaledBitmap(bitmap, 240, 240, false);
+//                    holder.imageIv.setImageBitmap(bitmap);
+//                    holder.progressBar.setVisibility(View.GONE);
+//                }
+//            } catch (Throwable throwable) {
+//                throwable.printStackTrace();
+//            }
 
 
         }

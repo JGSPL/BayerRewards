@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +14,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.ExifInterface;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
@@ -31,6 +33,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -85,6 +88,7 @@ public class SelfieUploadActivity extends AppCompatActivity implements ProgressR
     String mCurrentPhotoPath;
     ImageView headerlogoIv;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1, REQUEST_TAKE_PHOTO = 2;
+    LinearLayout liner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +123,7 @@ public class SelfieUploadActivity extends AppCompatActivity implements ProgressR
         btnSubmit = findViewById(R.id.btnSubmit);
         editTitle = findViewById(R.id.editTitle);
         progressBar = findViewById(R.id.progressBar);
+        liner = findViewById(R.id.linear);
 
         TextView header = findViewById(R.id.txtTitle);
         header.setTextColor(Color.parseColor(colorActive));
@@ -135,7 +140,21 @@ public class SelfieUploadActivity extends AppCompatActivity implements ProgressR
         // apikey
         apikey = user.get(SessionManager.KEY_TOKEN);
 
+        try {
+//            ContextWrapper cw = new ContextWrapper(HomeActivity.this);
+            //path to /data/data/yourapp/app_data/dirName
+//            File directory = cw.getDir("/storage/emulated/0/Procialize/", Context.MODE_PRIVATE);
+            File mypath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "/Procialize/" + "background.jpg");
+            Resources res = getResources();
+            Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(mypath));
+            BitmapDrawable bd = new BitmapDrawable(res, bitmap);
+            liner.setBackgroundDrawable(bd);
 
+            Log.e("PATH", String.valueOf(mypath));
+        } catch (Exception e) {
+            e.printStackTrace();
+            liner.setBackgroundColor(Color.parseColor("#f1f1f1"));
+        }
         selectImage();
 
 

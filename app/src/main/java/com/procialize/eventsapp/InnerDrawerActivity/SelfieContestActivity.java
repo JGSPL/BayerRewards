@@ -3,9 +3,14 @@ package com.procialize.eventsapp.InnerDrawerActivity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +26,7 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +46,7 @@ import com.procialize.eventsapp.Utility.Util;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,6 +74,7 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
     ImageView headerlogoIv;
     TextView header, seldescription;
     private APIService mAPIService;
+    LinearLayout linear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +108,7 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
         headerlogoIv = findViewById(R.id.headerlogoIv);
         Util.logomethod(this, headerlogoIv);
         uploadbtn = findViewById(R.id.uploadbtn);
+        linear = findViewById(R.id.linear);
         selfiefeedrefresh = findViewById(R.id.selfiefeedrefresh);
         selfierecycler = findViewById(R.id.selfierecycler);
         header = findViewById(R.id.title);
@@ -107,7 +116,21 @@ public class SelfieContestActivity extends AppCompatActivity implements SelfieAd
         header.setTextColor(Color.parseColor(colorActive));
         uploadbtn.setBackgroundColor(Color.parseColor(colorActive));
 
+        try {
+//            ContextWrapper cw = new ContextWrapper(HomeActivity.this);
+            //path to /data/data/yourapp/app_data/dirName
+//            File directory = cw.getDir("/storage/emulated/0/Procialize/", Context.MODE_PRIVATE);
+            File mypath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "/Procialize/" + "background.jpg");
+            Resources res = getResources();
+            Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(mypath));
+            BitmapDrawable bd = new BitmapDrawable(res, bitmap);
+            linear.setBackgroundDrawable(bd);
 
+            Log.e("PATH", String.valueOf(mypath));
+        } catch (Exception e) {
+            e.printStackTrace();
+            linear.setBackgroundColor(Color.parseColor("#f1f1f1"));
+        }
         selfieLists = new ArrayList<>();
 
         int columns = 2;

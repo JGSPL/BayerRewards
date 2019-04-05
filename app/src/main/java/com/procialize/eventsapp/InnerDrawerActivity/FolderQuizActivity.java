@@ -3,9 +3,14 @@ package com.procialize.eventsapp.InnerDrawerActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -37,6 +43,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,6 +76,7 @@ public class FolderQuizActivity extends AppCompatActivity {
     private ArrayList<QuizOptionList> quizOptionList = new ArrayList<QuizOptionList>();
     SwipeRefreshLayout quizrefresher;
     TextView empty;
+    LinearLayout linear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +118,7 @@ public class FolderQuizActivity extends AppCompatActivity {
 
         TextView header = findViewById(R.id.header);
         empty = findViewById(R.id.empty);
+        linear = findViewById(R.id.linear);
         header.setTextColor(Color.parseColor(colorActive));
 
         RelativeLayout layoutTop = findViewById(R.id.layoutTop);
@@ -118,6 +127,22 @@ public class FolderQuizActivity extends AppCompatActivity {
         quizNameList = findViewById(R.id.quiz_list);
         quizNameList.setScrollingCacheEnabled(false);
         quizNameList.setAnimationCacheEnabled(false);
+
+        try {
+//            ContextWrapper cw = new ContextWrapper(HomeActivity.this);
+            //path to /data/data/yourapp/app_data/dirName
+//            File directory = cw.getDir("/storage/emulated/0/Procialize/", Context.MODE_PRIVATE);
+            File mypath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "/Procialize/" + "background.jpg");
+            Resources res = getResources();
+            Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(mypath));
+            BitmapDrawable bd = new BitmapDrawable(res, bitmap);
+            linear.setBackgroundDrawable(bd);
+
+            Log.e("PATH", String.valueOf(mypath));
+        } catch (Exception e) {
+            e.printStackTrace();
+            linear.setBackgroundColor(Color.parseColor("#f1f1f1"));
+        }
 
         if (cd.isConnectingToInternet()) {
             new getQuizList().execute();

@@ -1,5 +1,7 @@
 package com.procialize.eventsapp.Activity;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,11 +9,15 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.os.Environment;
+
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -91,9 +97,12 @@ import com.procialize.eventsapp.Session.SessionManager;
 import com.procialize.eventsapp.Utility.Res;
 import com.procialize.eventsapp.Utility.Util;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 import cn.jzvd.JZVideoPlayerStandard;
 
@@ -114,7 +123,7 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter.CustomMenuAdapterListner {
 
     public static final int RequestPermissionCode = 8;
-    public static String logoImg = "", colorActive = "";
+    public static String logoImg = "", colorActive = "", eventback = "";
     public static int activetab;
     RecyclerView menurecycler;
     SessionManager session;
@@ -152,6 +161,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
     private List<AgendaList> agendaDBList;
     private List<AgendaList> tempagendaList = new ArrayList<AgendaList>();
     private DBHelper procializeDB;
+    LinearLayout linear;
 
     private int[] tabIcons = {
             R.drawable.ic_newsfeed,
@@ -202,10 +212,11 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         eventnamestr = prefs.getString("eventnamestr", "");
         logoImg = prefs.getString("logoImg", "");
         colorActive = prefs.getString("colorActive", "");
+        eventback = prefs.getString("eventback", "");
         SessionManager sessionManager = new SessionManager(this);
 
         HashMap<String, String> user1 = sessionManager.getUserDetails();
-
+        linear = findViewById(R.id.linear);
         // token
         token = user1.get(SessionManager.KEY_TOKEN);
         activetab = getResources().getColor(R.color.activetab);
@@ -217,6 +228,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_LOGIN, MODE_PRIVATE).edit();
         editor.putString("loginfirst", "1");
         editor.apply();
+
 
 //        Intent intent = getIntent();
 //        eventid = intent.getStringExtra("eventId");
@@ -263,6 +275,7 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
+
         Util.logomethod(this, headerlogoIv);
 
         viewPager = findViewById(R.id.viewpager);
@@ -643,6 +656,13 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
                 // SharedPreferences.Editor pref = getSharedPreferences("PROFILE_PICTURE", MODE_PRIVATE).edit();
                 // pref.clear();
 
+                try {
+                    File mypath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "/Procialize/" + "background.jpg");
+                    mypath.delete();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
 
                 session.logoutUser();
 
@@ -678,6 +698,20 @@ public class HomeActivity extends AppCompatActivity implements CustomMenuAdapter
 
         // Initializing Drawer Layout and ActionBarToggle
         drawerLayout = findViewById(R.id.drawer);
+        try {
+
+            File mypath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "/Procialize/" + "background.jpg");
+            Resources res = getResources();
+            Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(mypath));
+            BitmapDrawable bd = new BitmapDrawable(res, bitmap);
+            drawerLayout.setBackgroundDrawable(bd);
+
+            Log.e("PATH", String.valueOf(mypath));
+        } catch (Exception e) {
+            e.printStackTrace();
+            drawerLayout.setBackgroundColor(Color.parseColor("#f1f1f1"));
+        }
+
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.openDrawer, R.string.closeDrawer) {
 
             @Override

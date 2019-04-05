@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:background="@color/colorgrey"
     android:orientation="vertical"
-    tools:context=".Activity.EventChooserActivity">
+    tools:context=".Activity.EventChooserActivity"
+    android:id="@+id/linear">
 
 
     <LinearLayout

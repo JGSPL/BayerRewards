@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.media.ThumbnailUtils;
@@ -24,6 +27,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -80,6 +84,7 @@ public class VideoContestUploadActivity extends AppCompatActivity implements Pro
     private String pathToStoredVideo;
     private ImageView displayRecordedVideo;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
+    RelativeLayout relative;
 
     public static File createDirectoryAndSaveFile(Bitmap imageToSave) {
 
@@ -416,11 +421,26 @@ public class VideoContestUploadActivity extends AppCompatActivity implements Pro
         editTitle = findViewById(R.id.editTitle);
         imgPlay = findViewById(R.id.imgPlay);
         progressbar = findViewById(R.id.progressbar);
+        relative = findViewById(R.id.relative);
         sessionManager = new SessionManager(this);
 
         TextView header = findViewById(R.id.txtTitle);
         header.setTextColor(Color.parseColor(colorActive));
+        try {
+//            ContextWrapper cw = new ContextWrapper(HomeActivity.this);
+            //path to /data/data/yourapp/app_data/dirName
+//            File directory = cw.getDir("/storage/emulated/0/Procialize/", Context.MODE_PRIVATE);
+            File mypath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "/Procialize/" + "background.jpg");
+            Resources res = getResources();
+            Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(mypath));
+            BitmapDrawable bd = new BitmapDrawable(res, bitmap);
+            relative.setBackgroundDrawable(bd);
 
+            Log.e("PATH", String.valueOf(mypath));
+        } catch (Exception e) {
+            e.printStackTrace();
+            relative.setBackgroundColor(Color.parseColor("#f1f1f1"));
+        }
 
         mAPIService = ApiUtils.getAPIService();
 
@@ -460,11 +480,11 @@ public class VideoContestUploadActivity extends AppCompatActivity implements Pro
 
                 video_view.pause();
 
-                    RequestBody token = RequestBody.create(MediaType.parse("text/plain"), apikey);
-                    RequestBody eventid = RequestBody.create(MediaType.parse("text/plain"), eventId);
+                RequestBody token = RequestBody.create(MediaType.parse("text/plain"), apikey);
+                RequestBody eventid = RequestBody.create(MediaType.parse("text/plain"), eventId);
 
-                    RequestBody status = RequestBody.create(MediaType.parse("text/plain"), StringEscapeUtils.escapeJava(data));
-                    MultipartBody.Part body = null;
+                RequestBody status = RequestBody.create(MediaType.parse("text/plain"), StringEscapeUtils.escapeJava(data));
+                MultipartBody.Part body = null;
                 MultipartBody.Part body1 = null;
 
                 String filename = String.valueOf(System.currentTimeMillis()) + ".png";

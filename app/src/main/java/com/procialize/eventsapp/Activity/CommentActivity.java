@@ -6,11 +6,16 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +38,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,6 +86,7 @@ import com.procialize.eventsapp.Utility.Utility;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -148,6 +155,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
     TextView testdata;
     String substring;
     private List<AttendeeList> attendeeDBList;
+    RelativeLayout relative;
 
 
     @Override
@@ -328,6 +336,7 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
 //        feedimageIv.setAspectRatio(p1);
 
         profileIv = findViewById(R.id.profileIV);
+        relative = findViewById(R.id.relative);
 
         progressBar = findViewById(R.id.progressBar);
         emojibar = findViewById(R.id.emojibar);
@@ -336,6 +345,22 @@ public class CommentActivity extends AppCompatActivity implements CommentAdapter
         feedprogress = findViewById(R.id.feedprogress);
         videoplayer = findViewById(R.id.videoplayer);
         textData = findViewById(R.id.textData);
+
+        try {
+//            ContextWrapper cw = new ContextWrapper(HomeActivity.this);
+            //path to /data/data/yourapp/app_data/dirName
+//            File directory = cw.getDir("/storage/emulated/0/Procialize/", Context.MODE_PRIVATE);
+            File mypath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "/Procialize/" + "background.jpg");
+            Resources res = getResources();
+            Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(mypath));
+            BitmapDrawable bd = new BitmapDrawable(res, bitmap);
+            relative.setBackgroundDrawable(bd);
+
+            Log.e("PATH", String.valueOf(mypath));
+        } catch (Exception e) {
+            e.printStackTrace();
+            relative.setBackgroundColor(Color.parseColor("#f1f1f1"));
+        }
 
 
         nameTv.setText(fname + " " + lname);

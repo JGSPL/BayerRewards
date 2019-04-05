@@ -7,13 +7,18 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -55,6 +60,7 @@ import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
@@ -94,6 +100,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
     ImageView headerlogoIv;
     TextView saveContact;
     private RelativeLayout layoutTop;
+    RelativeLayout linear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,6 +193,7 @@ public class AttendeeDetailActivity extends AppCompatActivity {
         viewtfive = findViewById(R.id.viewtfive);
         linearsaveandsend = findViewById(R.id.linearsaveandsend);
         saveContact = findViewById(R.id.saveContact);
+        linear = findViewById(R.id.linear);
         tvmob = findViewById(R.id.tvmob);
         layoutTop = findViewById(R.id.layoutTop);
         final LinearLayout linMsg = findViewById(R.id.linMsg);
@@ -198,7 +206,21 @@ public class AttendeeDetailActivity extends AppCompatActivity {
 //        saveContact.setBackgroundColor(Color.parseColor(colorActive));
         sendbtn = findViewById(R.id.sendMsg);
 
+        try {
+//            ContextWrapper cw = new ContextWrapper(HomeActivity.this);
+            //path to /data/data/yourapp/app_data/dirName
+//            File directory = cw.getDir("/storage/emulated/0/Procialize/", Context.MODE_PRIVATE);
+            File mypath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "/Procialize/" + "background.jpg");
+            Resources res = getResources();
+            Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(mypath));
+            BitmapDrawable bd = new BitmapDrawable(res, bitmap);
+            linear.setBackgroundDrawable(bd);
 
+            Log.e("PATH", String.valueOf(mypath));
+        } catch (Exception e) {
+            e.printStackTrace();
+            linear.setBackgroundColor(Color.parseColor("#f1f1f1"));
+        }
         final GradientDrawable shape = setgradientDrawable(5, colorActive);
         final GradientDrawable shapelayout = setgradientDrawable(10, colorActive);
         final GradientDrawable shapeunactive = setgradientDrawable(5, "#4D4D4D");
@@ -509,7 +531,6 @@ public class AttendeeDetailActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
     private void applysetting(List<EventSettingList> eventSettingLists) {

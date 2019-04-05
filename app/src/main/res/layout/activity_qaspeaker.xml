@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorgrey"
     android:orientation="vertical"
     tools:context="com.procialize.eventsapp.InnerDrawerActivity.QAAttendeeActivity">
 
@@ -74,10 +74,10 @@
         android:id="@+id/spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
         android:background="@drawable/spinner_back"
         android:padding="5dp"
         android:spinnerMode="dropdown">
@@ -86,15 +86,15 @@
 
     <com.procialize.eventsapp.Fonts.RobotoButton
         android:id="@+id/postbtn"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:text="@string/postquestion"
         android:textAllCaps="false"
         android:textColor="@color/colorwhite"
-        android:textSize="@dimen/textsizesmall"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        style="?android:attr/borderlessButtonStyle"/>
+        android:textSize="@dimen/textsizesmall" />
 
     <ProgressBar
         android:id="@+id/progressBar"

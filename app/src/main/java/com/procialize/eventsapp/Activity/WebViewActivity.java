@@ -2,10 +2,15 @@ package com.procialize.eventsapp.Activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,6 +20,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -27,6 +33,7 @@ import com.procialize.eventsapp.R;
 import com.procialize.eventsapp.Session.SessionManager;
 import com.procialize.eventsapp.Utility.Util;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
@@ -44,6 +51,8 @@ public class WebViewActivity extends AppCompatActivity {
     private APIService mAPIService;
     SwipeRefreshLayout webrefresher;
     ConnectionDetector cd;
+    LinearLayout linear;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +95,7 @@ public class WebViewActivity extends AppCompatActivity {
 
         mywebview = findViewById(R.id.webView);
         webrefresher = findViewById(R.id.webrefresher);
+        linear = findViewById(R.id.linear);
         mywebview.setBackgroundColor(Color.TRANSPARENT);
 
         WebSettings settings = mywebview.getSettings();
@@ -105,6 +115,22 @@ public class WebViewActivity extends AppCompatActivity {
             fetchContact(eventid, token);
         } else {
             Toast.makeText(this, "Device not connected to internet", Toast.LENGTH_SHORT).show();
+        }
+
+        try {
+//            ContextWrapper cw = new ContextWrapper(HomeActivity.this);
+            //path to /data/data/yourapp/app_data/dirName
+//            File directory = cw.getDir("/storage/emulated/0/Procialize/", Context.MODE_PRIVATE);
+            File mypath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "/Procialize/" + "background.jpg");
+            Resources res = getResources();
+            Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(mypath));
+            BitmapDrawable bd = new BitmapDrawable(res, bitmap);
+            linear.setBackgroundDrawable(bd);
+
+            Log.e("PATH", String.valueOf(mypath));
+        } catch (Exception e) {
+            e.printStackTrace();
+            linear.setBackgroundColor(Color.parseColor("#f1f1f1"));
         }
 
         webrefresher.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -195,6 +221,7 @@ public class WebViewActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
         }
     }
+
     private class CustomWebViewClient extends WebViewClient {
 
         public void onPageFinished(WebView view, String url) {
@@ -210,7 +237,7 @@ public class WebViewActivity extends AppCompatActivity {
                 view.clearCache(true);
                 view.reload();
                 return true;
-            }else if (url.startsWith("mailto:")) {
+            } else if (url.startsWith("mailto:")) {
                 Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"));
                 startActivity(intent);
                 view.clearCache(true);

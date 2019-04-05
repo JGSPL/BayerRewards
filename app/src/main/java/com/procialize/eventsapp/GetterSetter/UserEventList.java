@@ -30,6 +30,18 @@ public class UserEventList {
     @Expose
     private String primary_color_code;
 
+    public String getBackground_image() {
+        return background_image;
+    }
+
+    public void setBackground_image(String background_image) {
+        this.background_image = background_image;
+    }
+
+    @SerializedName("background_image")
+    @Expose
+    private String background_image;
+
     public String getEvent_end() {
         return event_end;
     }

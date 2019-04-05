@@ -1068,114 +1068,67 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
         } else if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_VIDEO_CAPTURE && data.getData() != null) {
             uri = data.getData();
 
-            ArrayList<String> supportedMedia = new ArrayList<String>();
-
-            supportedMedia.add(".mp4");
-            supportedMedia.add(".mov");
-            supportedMedia.add(".3gp");
+            displayRecordedVideo.setVideoURI(uri);
+            displayRecordedVideo.start();
 
 
-            videoUrl = ScalingUtilities.getPath(PostViewActivity.this, data.getData());
-            file = new File(videoUrl);
+            if (Build.VERSION.SDK_INT > 22)
+                pathToStoredVideo = ImagePath_MarshMallow.getPath(PostViewActivity.this, uri);
+            else
+                //else we will get path directly
+                pathToStoredVideo = uri.getPath();
+            Log.d("video", "Recorded Video Path " + pathToStoredVideo);
+            //Store the video to your server
+            file = new File(pathToStoredVideo);
 
-            String fileExtnesion = videoUrl.substring(videoUrl.lastIndexOf("."));
+            Bitmap b = ThumbnailUtils.createVideoThumbnail(pathToStoredVideo, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
 
+            Uploadiv.setVisibility(View.VISIBLE);
+            Uploadiv.setImageBitmap(b);
+            imgPlay.setVisibility(View.VISIBLE);
+            displayRecordedVideo.setVisibility(View.GONE);
 
-            if (supportedMedia.contains(fileExtnesion)) {
-
-
-                long file_size = Integer.parseInt(String.valueOf(file.length()));
-                long fileMb = bytesToMeg(file_size);
-
-
-                //if (fileMb >= 16)
-                // Toast.makeText(VideoPost.this, "Upload a video not more than 15 MB in size",
-                //        Toast.LENGTH_SHORT).show();
-
-                //  else {
-                try {
-                    MediaPlayer mplayer = new MediaPlayer();
-                    mplayer.reset();
-                    mplayer.setDataSource(videoUrl);
-                    mplayer.prepare();
-
-                    long totalFileDuration = mplayer.getDuration();
-                    Log.i("android", "data is " + totalFileDuration);
+            uri = data.getData();
+//            displayRecordedVideo.setVideoURI(uri);
+//            displayRecordedVideo.start();
+            try {
+                if (uri != null) {
 
 
-                    int sec = (int) ((totalFileDuration / (1000)));
+                    MediaPlayer mp = MediaPlayer.create(this, uri);
+                    int duration = mp.getDuration();
+                    mp.release();
 
-                    Log.i("android", "data is " + sec);
-
-
-                    if (sec > 15) {
-                        Toast.makeText(PostViewActivity.this, "Select an video not more than 15 seconds",
-                                Toast.LENGTH_SHORT).show();
+                    if ((duration / 1000) > 15) {
+                        // Show Your Messages
+                        Toast.makeText(PostViewActivity.this, "Please select video length less than 15 sec", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(PostViewActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                        finish();
 
                     } else {
+                        //Store the video to your server
 
 
-                        //llPost.setVisibility(View.VISIBLE);
-                        MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
-                        mediaMetadataRetriever.setDataSource(videoUrl);
-
-                        Uri video = Uri.parse(videoUrl);
+//                                    pathToStoredVideo = getRealPathFromURIPathVideo(data.getData(),PostViewActivity.this);
 
 
-                        // videoview.setMediaController(mediacontrolle);
-                        DisplayMetrics metrics = new DisplayMetrics();
-                        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-                        android.widget.LinearLayout.LayoutParams params = (android.widget.LinearLayout.LayoutParams) displayRecordedVideo.getLayoutParams();
-                        params.width = (int)(300*metrics.density);
-                        params.height = (int)(250*metrics.density);
+                        if (Build.VERSION.SDK_INT > 22) {
+                            pathToStoredVideo = ImagePath_MarshMallow.getPath(PostViewActivity.this, uri);
+                            Log.d("video", "Recorded Video Path " + pathToStoredVideo);
+                        } else {
+                            //else we will get path directly
+                            pathToStoredVideo = uri.getPath();
 
-                        displayRecordedVideo.setLayoutParams(params);
-                        displayRecordedVideo.setVideoURI(uri);
-//                    displayRecordedVideo.setMediaController(new MediaController(this));
-//                    ViewGroup.LayoutParams params = displayRecordedVideo.getLayoutParams();
-//
-//                    params.height = 600;
-                        displayRecordedVideo.setLayoutParams(params);
-                        displayRecordedVideo.start();
-
-
-                        Bitmap bitmap = mediaMetadataRetriever.getFrameAtTime(1000000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
-                        imgeFile = createDirectoryAndSaveFile(bitmap);
-
-                        Bitmap thumbnail = mediaMetadataRetriever.getFrameAtTime();
-
-                        Uploadiv.setImageBitmap(thumbnail);
-                        imgPlay.setVisibility(View.VISIBLE);
-                        Uploadiv.setVisibility(View.VISIBLE);
-
-
-                        MediaMetadataRetriever m = new MediaMetadataRetriever();
-
-                        m.setDataSource(videoUrl);
-                        //  Bitmap thumbnail = m.getFrameAtTime();
-//
-                        if (Build.VERSION.SDK_INT >= 17) {
-                            angle = m.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION);
-
-                            //  Log.e("Rotation", s);
+                            Log.d("video", "Recorded Video Path " + pathToStoredVideo);
                         }
+                        file = new File(pathToStoredVideo);
 
-
-                        Toast.makeText(PostViewActivity.this, "Video selected",
-                                Toast.LENGTH_SHORT).show();
                     }
-                } catch (Exception e) {
-
-
-                    Log.i("android", "exception is " + e.getLocalizedMessage() + " " + e.getStackTrace());
+                } else {
 
                 }
-
-
-            } else {
-
-
-                Toast.makeText(PostViewActivity.this, "Only .mp4,.mov,.3gp File formats allowed ", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
 
             }
 
@@ -1190,19 +1143,6 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
             if (selectedImagePath != null) {
 
                 displayRecordedVideo.setVideoURI(selectedImageUri);
-                DisplayMetrics metrics = new DisplayMetrics();
-                getWindowManager().getDefaultDisplay().getMetrics(metrics);
-                android.widget.LinearLayout.LayoutParams params = (android.widget.LinearLayout.LayoutParams) displayRecordedVideo.getLayoutParams();
-                params.width = (int)(300*metrics.density);
-                params.height = (int)(250*metrics.density);
-
-                displayRecordedVideo.setLayoutParams(params);
-                displayRecordedVideo.setVideoURI(uri);
-//                    displayRecordedVideo.setMediaController(new MediaController(this));
-//                    ViewGroup.LayoutParams params = displayRecordedVideo.getLayoutParams();
-//
-//                    params.height = 600;
-                displayRecordedVideo.setLayoutParams(params);
                 displayRecordedVideo.start();
                 uri = selectedImageUri;
 
@@ -1241,7 +1181,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
 
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+
                 }
             }
         } else {
@@ -1319,7 +1259,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
 
                                     }
                                 } catch (Exception e) {
-                                    e.printStackTrace();
+
                                 }
 
                                 Bitmap b = ThumbnailUtils.createVideoThumbnail(selectedImagePath, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
@@ -1383,7 +1323,7 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
 
                                 }
                             } catch (Exception e) {
-                                e.printStackTrace();
+
                             }
 
                         }
@@ -1398,8 +1338,8 @@ public class PostViewActivity extends AppCompatActivity implements ProgressReque
                 Uploadiv.setVisibility(View.VISIBLE);
                 displayRecordedVideo.setVisibility(View.GONE);
             }
-            file = new File(capturedImageUri.getPath());
-            Uploadiv.setImageURI(capturedImageUri);
+            file = new File(mCurrentPhotoPath);
+            Uploadiv.setImageURI(Uri.parse(mCurrentPhotoPath));
 
         } else {
 

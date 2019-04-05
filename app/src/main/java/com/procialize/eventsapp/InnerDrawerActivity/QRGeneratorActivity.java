@@ -1,13 +1,19 @@
 package com.procialize.eventsapp.InnerDrawerActivity;
 
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.zxing.BarcodeFormat;
@@ -18,6 +24,7 @@ import com.procialize.eventsapp.R;
 import com.procialize.eventsapp.Session.SessionManager;
 import com.procialize.eventsapp.Utility.Util;
 
+import java.io.File;
 import java.util.HashMap;
 
 import cn.jzvd.JZVideoPlayer;
@@ -34,6 +41,7 @@ public class QRGeneratorActivity extends AppCompatActivity {
     ImageView headerlogoIv;
     String MY_PREFS_NAME = "ProcializeInfo";
     String colorActive;
+    RelativeLayout relative;
 
 
     @Override
@@ -58,6 +66,7 @@ public class QRGeneratorActivity extends AppCompatActivity {
         });
 
         headerlogoIv = findViewById(R.id.headerlogoIv);
+        relative = findViewById(R.id.relative);
         Util.logomethod(this, headerlogoIv);
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
@@ -78,7 +87,21 @@ public class QRGeneratorActivity extends AppCompatActivity {
         city = userData.get(SessionManager.KEY_CITY);
 
         final String fullName = name + " " + lname;
+        try {
+//            ContextWrapper cw = new ContextWrapper(HomeActivity.this);
+            //path to /data/data/yourapp/app_data/dirName
+//            File directory = cw.getDir("/storage/emulated/0/Procialize/", Context.MODE_PRIVATE);
+            File mypath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "/Procialize/" + "background.jpg");
+            Resources res = getResources();
+            Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(mypath));
+            BitmapDrawable bd = new BitmapDrawable(res, bitmap);
+            relative.setBackgroundDrawable(bd);
 
+            Log.e("PATH", String.valueOf(mypath));
+        } catch (Exception e) {
+            e.printStackTrace();
+            relative.setBackgroundColor(Color.parseColor("#f1f1f1"));
+        }
 
 //        scan_id_txtTv = findViewById(R.id.scan_id_txt);
         scantxt = findViewById(R.id.scantxt);

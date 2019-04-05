@@ -2,18 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:background="@color/colorgrey"
+    android:id="@+id/linear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.procialize.eventsapp.InnerDrawerActivity.EngagementActivity">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/appBarLayout"
-        app:elevation="0dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="0dp">
 
 
         <android.support.v7.widget.Toolbar
@@ -21,110 +21,108 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colortoolbar"
-            android:contentInsetLeft="0dp"
-            android:contentInsetStart="0dp"
-            app:contentInsetLeft="0dp"
-            app:contentInsetStart="0dp"
-            android:contentInsetRight="0dp"
             android:contentInsetEnd="0dp"
-            app:contentInsetRight="0dp"
+            android:contentInsetLeft="0dp"
+            android:contentInsetRight="0dp"
+            android:contentInsetStart="0dp"
+            android:minHeight="?attr/actionBarSize"
             app:contentInsetEnd="0dp"
-            android:minHeight="?attr/actionBarSize">
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp">
 
             <ImageView
                 android:id="@+id/headerlogoIv"
-                android:layout_marginLeft="-10dp"
                 android:layout_width="150dp"
-                android:contentDescription=" "
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/header_logo"/>
+                android:layout_marginLeft="-10dp"
+                android:contentDescription=" "
+                android:src="@drawable/header_logo" />
 
         </android.support.v7.widget.Toolbar>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="@color/linecolor"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
 
     </android.support.design.widget.AppBarLayout>
 
 
     <TextView
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:textColor="@color/activetab"
-        android:textSize="@dimen/textsizesmall"
-        android:text="@string/engagement"
         android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/engagement"
+        android:textColor="@color/activetab"
+        android:textSize="@dimen/textsizesmall" />
 
 
     <LinearLayout
-        android:gravity="top"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:gravity="top"
+        android:orientation="vertical">
 
 
-        <android.support.v7.widget.CardView
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/selfiecard_view"
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             card_view:cardUseCompatPadding="true">
 
             <LinearLayout
-                android:gravity="center"
-                android:background="@drawable/selfie_contest"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
+                android:background="@drawable/selfie_contest"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/selfieTv"
-                    android:background="@color/colorPrimary"
-                    android:gravity="center"
-                    android:textColor="@color/colorwhite"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
                     android:text="Selfie Engagement"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textSize="@dimen/textsizenormal"/>
+                    android:textColor="@color/colorwhite"
+                    android:textSize="@dimen/textsizenormal" />
 
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.CardView
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/videocard_view"
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             card_view:cardBackgroundColor="@color/colorwhite"
             card_view:cardUseCompatPadding="true">
 
             <LinearLayout
-                android:gravity="center"
                 android:layout_width="match_parent"
-                android:background="@drawable/video_contest"
                 android:layout_height="150dp"
-                android:orientation="horizontal"
-                >
+                android:background="@drawable/video_contest"
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/videoTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:gravity="center"
-                    android:textColor="@color/colorwhite"
                     android:background="@color/colorPrimary"
+                    android:gravity="center"
                     android:text="Video Engagement"
                     android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorwhite"
 
                     />
 
