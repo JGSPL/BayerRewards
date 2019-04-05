@@ -21,6 +21,42 @@ public class QuizList {
     @Expose
     private String replied;
 
+    @SerializedName("folder_id")
+    @Expose
+    private String folder_id;
+
+    @SerializedName("folder_name")
+    @Expose
+    private String folder_name;
+
+    @SerializedName("selected_option")
+    @Expose
+    private String selected_option;
+
+    public String getFolder_id() {
+        return folder_id;
+    }
+
+    public void setFolder_id(String folder_id) {
+        this.folder_id = folder_id;
+    }
+
+    public String getFolder_name() {
+        return folder_name;
+    }
+
+    public void setFolder_name(String folder_name) {
+        this.folder_name = folder_name;
+    }
+
+    public String getSelected_option() {
+        return selected_option;
+    }
+
+    public void setSelected_option(String selected_option) {
+        this.selected_option = selected_option;
+    }
+
     public String getId() {
         return id;
     }

@@ -350,6 +350,12 @@
             android:name="com.procialize.eventsapp.Activity.ViewPDFActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <activity android:name=".InnerDrawerActivity.QuizNewActivity" />
+        <activity android:name=".Activity.AnswersActivity" />
+        <activity android:name=".InnerDrawerActivity.QuizFinalActivity" />
+        <activity android:name=".InnerDrawerActivity.YourScoreActivity" />
+
         <activity
             android:name="com.procialize.eventsapp.Activity.ForgotPasswordActivity"
             android:screenOrientation="portrait"

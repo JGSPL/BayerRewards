@@ -13,6 +13,7 @@ import com.procialize.eventsapp.GetterSetter.AgendaMediaList;
 import com.procialize.eventsapp.GetterSetter.AgendaVacationList;
 import com.procialize.eventsapp.GetterSetter.AttendeeList;
 import com.procialize.eventsapp.GetterSetter.NewsFeedList;
+import com.procialize.eventsapp.GetterSetter.Quiz;
 import com.procialize.eventsapp.GetterSetter.SpeakerList;
 import com.procialize.eventsapp.GetterSetter.UserData;
 
@@ -90,8 +91,20 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String NEWSFEED_TOTAL_LIKES = "NEWSFEED_TOTAL_LIKES";
     public static final String NEWSFEED_TOTAL_COMMENTS = "NEWSFEED_TOTAL_COMMENTS";
     public static final String NEWSFEED_ATTENDEE_TYPE = "NEWSFEED_ATTENDEE_TYPE";
+
+    public static final String QUIZ_TABLE = "QUIZ_TABLE";
+
+    public static final String QUIZ_ID = "QUIZ_ID";
+    public static final String QUESTION = "NEWSFEED_TYPE";
+    public static final String CORRECTANSWERID = "CORRECTANSWERID";
+    public static final String FOLDERID = "FOLDERID";
+    public static final String FOLDERNAME = "FOLDERNAME";
+    public static final String REPLIED = "REPLIED";
+    public static final String SELECTED_OPTION = "SELECTED_OPTION";
+
+
     // Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION =2;
     private static DBHelper sInstance;
 
     public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -187,6 +200,11 @@ public class DBHelper extends SQLiteOpenHelper {
                 + NEWSFEED_TOTAL_COMMENTS + " text,"
                 + NEWSFEED_ATTENDEE_TYPE + " text)");
 
+        db.execSQL("create table " + QUIZ_TABLE + "(" + QUIZ_ID
+                + " text, " + QUESTION + " text, " + CORRECTANSWERID + " text, " + FOLDERNAME + " text, " + REPLIED + " text, " + SELECTED_OPTION
+                + " text)");
+
+
     }
 
     @Override
@@ -198,6 +216,7 @@ public class DBHelper extends SQLiteOpenHelper {
             db.execSQL("DELETE FROM " + AGENDA_VACATION_TABLE_NAME);
             db.execSQL("DELETE FROM " + AGENDA_VACATION_MEDIA_TABLE);
             db.execSQL("DELETE FROM " + NEWSFEED_TABLE_NAME);
+            db.execSQL("DELETE FROM " + QUIZ_TABLE);
 
             onCreate(db);
         } catch (SQLException e) {
@@ -638,6 +657,59 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return;
     }
+
+    public void insertQuizTable(List<Quiz> agendasList,
+                                SQLiteDatabase db) {
+        db = this.getWritableDatabase();
+        ContentValues contentValues;
+        db.beginTransaction();
+        try {
+            for (int i = 0; i < agendasList.size(); i++) {
+                contentValues = new ContentValues();
+
+                String session_id = agendasList.get(i).getId();
+                if (session_id != null && session_id.length() > 0) {
+                    contentValues.put(QUIZ_ID, session_id);
+                }
+
+                String session_name = agendasList.get(i).getQuestion();
+                if (session_name != null && session_name.length() > 0) {
+                    contentValues.put(QUESTION, session_name);
+                }
+
+                String session_description = agendasList.get(i).getCorrect_answer();
+                if (session_description != null && session_description.length() > 0) {
+                    contentValues.put(CORRECTANSWERID, session_description);
+                }
+
+                String folder_name = agendasList.get(i).getFolder_name();
+                if (folder_name != null && folder_name.length() > 0) {
+                    contentValues.put(FOLDERNAME, folder_name);
+                }
+
+                String replied = agendasList.get(i).getReplied();
+                if (replied != null && replied.length() > 0) {
+                    contentValues.put(REPLIED, replied);
+                }
+
+                String selected_option = agendasList.get(i).getSelected_option();
+                if (selected_option != null && selected_option.length() > 0) {
+                    contentValues.put(SELECTED_OPTION, selected_option);
+                }
+
+
+                db.insert(QUIZ_TABLE, null, contentValues);
+            }
+
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            db.endTransaction();
+        }
+        return;
+    }
+
 
 
     // Insert Values in Agenda Table
@@ -1103,6 +1175,39 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
         return newsFeedList;
     }
+
+    public ArrayList<Quiz> getQuizList(String foldername) {
+        String selectQuery = "select * from " + QUIZ_TABLE + " where " + FOLDERNAME + " LIKE \'%" + foldername + "%\'";
+
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        ArrayList<Quiz> newsFeedList = new ArrayList<Quiz>();
+        if (cursor.moveToFirst()) {
+
+            do {
+                Quiz newsfeedsList = new Quiz();
+                newsfeedsList.setId(cursor.getString(0));
+                newsfeedsList.setQuestion(cursor.getString(1));
+                newsfeedsList.setCorrect_answer(cursor.getString(2));
+                newsfeedsList.setFolder_name(cursor.getString(3));
+                newsfeedsList.setReplied(cursor.getString(4));
+                newsfeedsList.setSelected_option(cursor.getString(5));
+
+
+                newsFeedList.add(newsfeedsList);
+            } while (cursor.moveToNext());
+        }
+        db.close();
+        return newsFeedList;
+    }
+
+
+    public void clearQuizTable() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL(" DELETE FROM " + QUIZ_TABLE);
+    }
+
 
     public void clearAttendeesTable() {
         SQLiteDatabase db = this.getReadableDatabase();

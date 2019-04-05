@@ -90,7 +90,8 @@ public class AttendeeDetailActivity extends AppCompatActivity {
     private DBHelper procializeDB;
     private SQLiteDatabase db;
     private ConnectionDetector cd;
-
+    private List<AttendeeList> attendeeList;
+    private List<AttendeeList> attendeesDBList;
     private DBHelper dbHelper;
     String getattendee;
     EditText posttextEt;

@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ProcializeSingle-android.iml" filepath="$PROJECT_DIR$/ProcializeSingle-android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ProcializeSingle-android_2019.iml" filepath="$PROJECT_DIR$/ProcializeSingle-android_2019.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mentions-release/mentions-release.iml" filepath="$PROJECT_DIR$/mentions-release/mentions-release.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tools-release/tools-release.iml" filepath="$PROJECT_DIR$/tools-release/tools-release.iml" />
     </modules>
   </component>
 </project>
