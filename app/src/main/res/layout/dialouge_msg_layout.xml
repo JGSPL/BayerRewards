@@ -3,10 +3,10 @@
     android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center|top"
+    android:layout_marginBottom="10dp"
     android:background="@android:color/transparent"
     android:gravity="top"
-    android:orientation="vertical"
-    android:layout_marginBottom="10dp">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,16 +24,16 @@
             android:orientation="horizontal"
             android:padding="5dp">
 
-            <com.procialize.eventsapp.Fonts.RobotoTextview
+            <com.bayer.bayerreward.Fonts.RobotoTextview
                 android:id="@+id/title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="8.5"
                 android:paddingLeft="10dp"
                 android:text="@string/sendmsg"
                 android:textColor="@color/colorwhite"
-                android:textSize="@dimen/textsizenormal"
-                android:layout_marginLeft="10dp"/>
+                android:textSize="@dimen/textsizenormal" />
 
             <ImageView
                 android:id="@+id/imgCancel"
@@ -52,7 +52,7 @@
             android:background="@color/colorwhite"
             android:orientation="vertical">
 
-            <com.procialize.eventsapp.Fonts.RobotoTextview
+            <com.bayer.bayerreward.Fonts.RobotoTextview
                 android:id="@+id/nametv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
                 android:textColor="@color/activetab" />
 
 
-            <com.procialize.eventsapp.Fonts.RobotoEditext
+            <com.bayer.bayerreward.Fonts.RobotoEditext
                 android:id="@+id/etmsg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
                 android:textColor="#000"
                 android:textSize="@dimen/textsizenormal" />
 
-            <com.procialize.eventsapp.Fonts.RobotoTextview
+            <com.bayer.bayerreward.Fonts.RobotoTextview
                 android:id="@+id/counttv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -94,6 +94,215 @@
                 android:text="250"
                 android:textColor="#000" />
 
+            <LinearLayout
+                android:id="@+id/linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text"
+                android:layout_centerHorizontal="true"
+                android:orientation="vertical">
+
+                <com.bayer.bayerreward.Fonts.RobotoButton
+                    android:id="@+id/browse_media"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/browsebtn"
+                    android:gravity="center"
+                    android:text="Browse Media"
+                    android:textAllCaps="false"
+                    android:visibility="gone"/>
+
+                <RelativeLayout
+                    android:id="@+id/relative_audio"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp">
+
+                    <LinearLayout
+                        android:id="@+id/header_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:orientation="horizontal">
+
+                        <com.bayer.bayerreward.Fonts.RobotoButton
+                            android:id="@+id/browse_audio"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:background="@drawable/browsebtn"
+                            android:gravity="center"
+                            android:text="Browse Media"
+                            android:textAllCaps="false" />
+
+                        <com.bayer.bayerreward.Fonts.RobotoTextview
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.5"
+                            android:gravity="center"
+                            android:text="OR" />
+
+                        <LinearLayout
+                            android:layout_width="120dp"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal">
+
+                            <com.bayer.bayerreward.Fonts.RobotoTextview
+                                android:id="@+id/txt_time"
+                                android:layout_width="90dp"
+                                android:layout_height="45dp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/record_txt"
+                                android:gravity="center"
+                                android:visibility="invisible" />
+
+                            <Button
+                                android:id="@+id/audio_record_button"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="right"
+                                android:layout_marginLeft="-30dp"
+                                android:background="@drawable/audio_recorder"
+                                android:gravity="center" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/image_upload"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
+                    android:visibility="gone" />
+
+                <RelativeLayout
+                    android:id="@+id/relative_video"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+
+                    <ImageView
+                        android:id="@+id/Uploadiv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="TODO"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/imgPlay"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerInParent="true"
+                        android:contentDescription="TODO"
+                        android:src="@drawable/ic_media_play"
+                        android:visibility="gone" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center">
+
+                        <VideoView
+                            android:id="@+id/Upvideov"
+                            android:layout_width="200dp"
+                            android:layout_height="200dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            android:visibility="gone" />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_audio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linear"
+                android:layout_margin="10dp"
+                android:background="@drawable/edittexthmbg"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/txt_timeplayed"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:text=""
+                    android:textColor="@color/black" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/img_play"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/play" />
+
+                    <ImageView
+                        android:id="@+id/img_pause"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/stop"
+                        android:visibility="gone" />
+
+
+                </LinearLayout>
+
+                <SeekBar
+                    android:id="@+id/seekBar_play"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="5"
+                    android:progressTint="@color/activetab"
+                    android:thumbTint="@color/activetab" />
+
+                <ImageView
+                    android:id="@+id/img_cancel"
+                    android:layout_width="0dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.3"
+                    android:src="@drawable/cross_blue" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -101,20 +310,20 @@
                 android:orientation="horizontal"
                 android:weightSum="1">
 
-                <com.procialize.eventsapp.Fonts.RobotoButton
+                <com.bayer.bayerreward.Fonts.RobotoButton
                     android:id="@+id/ratebtn"
                     android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="@drawable/speakerbtnbg"
+                    android:background="@drawable/loginbutton"
                     android:text="@string/sendmsg"
                     android:textAllCaps="false"
                     android:textColor="@color/colorwhite"
                     android:textSize="14sp" />
 
-                <com.procialize.eventsapp.Fonts.RobotoButton
+                <com.bayer.bayerreward.Fonts.RobotoButton
                     android:id="@+id/canclebtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -128,6 +337,13 @@
                     android:visibility="gone" />
 
             </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/progressBardia"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:visibility="gone"/>
 
         </LinearLayout>
 

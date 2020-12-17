@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context="com.procialize.eventsapp.InnerDrawerActivity.FeedBackActivity">
+    tools:context="com.bayer.bayerreward.InnerDrawerActivity.FeedBackActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -37,8 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="-10dp"
-                android:contentDescription=" "
-                android:src="@drawable/header_logo" />
+                android:contentDescription=" " />
 
         </android.support.v7.widget.Toolbar>
         <View
@@ -58,7 +57,7 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <com.procialize.eventsapp.Fonts.RobotoTextview
+        <com.bayer.bayerreward.Fonts.RobotoTextview
             android:id="@+id/txtHeader"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -93,7 +92,7 @@
             android:weightSum="10">
 
 
-            <com.procialize.eventsapp.Fonts.RobotoTextview
+            <com.bayer.bayerreward.Fonts.RobotoTextview
                 android:gravity="center"
                 android:text=""
                 android:id="@+id/txtCity"
@@ -111,7 +110,7 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <com.procialize.eventsapp.Fonts.RobotoTextview
+            <com.bayer.bayerreward.Fonts.RobotoTextview
                 android:id="@+id/temp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -128,7 +127,7 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <com.procialize.eventsapp.Fonts.RobotoTextview
+            <com.bayer.bayerreward.Fonts.RobotoTextview
                 android:id="@+id/txtdate"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -155,7 +154,7 @@
                 android:weightSum="2"
                 android:layout_height="match_parent">
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
+                <com.bayer.bayerreward.Fonts.RobotoTextview
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -165,7 +164,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
+                <com.bayer.bayerreward.Fonts.RobotoTextview
                     android:id="@+id/min"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
@@ -186,7 +185,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent">
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
+                <com.bayer.bayerreward.Fonts.RobotoTextview
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -196,7 +195,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
+                <com.bayer.bayerreward.Fonts.RobotoTextview
                     android:id="@+id/max"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"

@@ -5,8 +5,9 @@
     android:id="@+id/linear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context="com.procialize.eventsapp.InnerDrawerActivity.EngagementActivity">
+    tools:context="com.bayer.bayerreward.InnerDrawerActivity.EngagementActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -21,10 +22,10 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colortoolbar"
-            android:contentInsetEnd="0dp"
-            android:contentInsetLeft="0dp"
-            android:contentInsetRight="0dp"
             android:contentInsetStart="0dp"
+            android:contentInsetLeft="0dp"
+            android:contentInsetEnd="0dp"
+            android:contentInsetRight="0dp"
             android:minHeight="?attr/actionBarSize"
             app:contentInsetEnd="0dp"
             app:contentInsetLeft="0dp"
@@ -37,8 +38,16 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="-10dp"
+                android:contentDescription=" " />
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="right"
+                android:layout_margin="5dp"
                 android:contentDescription=" "
-                android:src="@drawable/header_logo" />
+                android:src="@drawable/bayer" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -60,76 +69,214 @@
         android:gravity="center"
         android:text="@string/engagement"
         android:textColor="@color/activetab"
-        android:textSize="@dimen/textsizesmall" />
+        android:textSize="17dp" />
 
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:gravity="top"
-        android:orientation="vertical">
+        android:scrollbars="vertical">
 
-
-        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/selfiecard_view"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            card_view:cardUseCompatPadding="true">
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:gravity="top"
+            android:orientation="vertical">
+
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/selfiecard_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="@drawable/selfie_contest"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/selfieTv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center"
+                        android:text="Selfie Engagement"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/colorwhite"
+                        android:textSize="@dimen/textsizenormal" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/videocard_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                card_view:cardBackgroundColor="@color/colorwhite"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="@drawable/video_contest"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/videoTv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center"
+                        android:text="Video Engagement"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/colorwhite"
+
+                        />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:background="@drawable/selfie_contest"
-                android:gravity="center"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/selfieTv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:background="@color/colorPrimary"
-                    android:gravity="center"
-                    android:text="Selfie Engagement"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/colorwhite"
-                    android:textSize="@dimen/textsizenormal" />
+                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/quiz_cart"
+                    android:layout_width="0dp"
+                    android:layout_height="250dp"
+                    android:layout_weight="5"
+                    card_view:cardUseCompatPadding="true">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:background="@drawable/quiz_engagement"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/quiz"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_gravity="bottom"
+                            android:background="@color/loginbutton"
+                            android:gravity="center"
+                            android:paddingLeft="5dp"
+                            android:text="Quiz"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/colorwhite"
+                            android:textSize="@dimen/textsizenormal" />
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/livepoll_cart"
+                    android:layout_width="0dp"
+                    android:layout_height="250dp"
+                    android:layout_weight="5"
+                    card_view:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:background="@drawable/live_poll_engagement"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/livepoll"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_gravity="bottom"
+                            android:background="@color/loginbutton"
+                            android:gravity="center"
+                            android:paddingLeft="5dp"
+                            android:text="Live Poll"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/colorwhite"
+                            android:textSize="@dimen/textsizenormal" />
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
             </LinearLayout>
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/videocard_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            card_view:cardBackgroundColor="@color/colorwhite"
-            card_view:cardUseCompatPadding="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:background="@drawable/video_contest"
-                android:gravity="center"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/videoTv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:background="@color/colorPrimary"
-                    android:gravity="center"
-                    android:text="Video Engagement"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/colorwhite"
+                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/report_cart"
+                    android:layout_width="0dp"
+                    android:layout_height="250dp"
+                    card_view:cardUseCompatPadding="true"
+                    android:layout_weight="5">
 
-                    />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:background="@drawable/reportactivity_engagement"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/report_txt"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_gravity="bottom"
+                            android:background="@color/loginbutton"
+                            android:gravity="center"
+                            android:paddingLeft="5dp"
+                            android:text="Report Activity"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/colorwhite"
+                            android:textSize="@dimen/textsizenormal" />
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/survey_cart"
+                    android:layout_width="0dp"
+                    android:layout_height="250dp"
+                    card_view:cardUseCompatPadding="true"
+                    android:layout_weight="5">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:background="@drawable/survey_enagement"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/survey_txt"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_gravity="bottom"
+                            android:background="@color/loginbutton"
+                            android:gravity="center"
+                            android:paddingLeft="5dp"
+                            android:paddingBottom="10dp"
+                            android:text="Survey"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/colorwhite"
+                            android:textSize="@dimen/textsizenormal" />
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
 
             </LinearLayout>
-        </android.support.v7.widget.CardView>
-
-
-    </LinearLayout>
-
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.procialize.eventsapp">
+    package="com.bayer.bayerreward">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -11,28 +11,33 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.GET_TASKS"/>
-
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission
         android:name="android.permission.CAPTURE_VIDEO_OUTPUT"
         tools:ignore="ProtectedPermissions" />
 
     <uses-feature android:name="android.hardware.camera" />
 
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+
     <application
-        android:name="com.procialize.eventsapp.Utility.MyApplication"
+        android:name=".Utility.MyApplication"
         android:allowBackup="false"
-        tools:replace="allowBackup"
         android:icon="@drawable/app_icon"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:roundIcon="@drawable/app_icon"
-        android:supportsRtl="true"
         android:screenOrientation="portrait"
-        android:theme="@style/AppTheme">
-        <!--<meta-data-->
-        <!--android:name="asset_statements"-->
-        <!--android:resource="@string/asset_statements" />-->
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:replace="allowBackup">
+
+        <!-- <meta-data -->
+        <!-- android:name="asset_statements" -->
+        <!-- android:resource="@string/asset_statements" /> -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -41,214 +46,212 @@
             android:value="AIzaSyBM7hXgoejSIXc7Y9KwXKsxbH0lc_gKNEo" />
 
         <activity
-            android:name="com.procialize.eventsapp.Activity.MainActivity"
+            android:name="com.bayer.bayerreward.Activity.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.Activity.HomeActivity"
-            android:screenOrientation="unspecified"
+            android:name="com.bayer.bayerreward.Activity.HomeActivity"
             android:configChanges="orientation"
+            android:screenOrientation="unspecified"
             android:windowSoftInputMode="stateHidden|adjustNothing" />
         <activity
-            android:name="com.procialize.eventsapp.Activity.ProfileActivity"
+            android:name="com.bayer.bayerreward.Activity.ProfileActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.Activity.SplashActivity"
+            android:name="com.bayer.bayerreward.Activity.SplashActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-
         <activity
-            android:name="com.procialize.eventsapp.Activity.LoginActivity"
+            android:name="com.bayer.bayerreward.Activity.LoginActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.procialize.eventsapp.Activity.MainActivity" />
+                android:value="com.bayer.bayerreward.Activity.MainActivity" />
         </activity>
         <activity
-            android:name="com.procialize.eventsapp.Activity.SignUpActivity"
+            android:name="com.bayer.bayerreward.Activity.SignUpActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.procialize.eventsapp.Activity.MainActivity" />
+                android:value="com.bayer.bayerreward.Activity.MainActivity" />
         </activity>
         <activity
-            android:name="com.procialize.eventsapp.Activity.CommentActivity"
+            android:name="com.bayer.bayerreward.Activity.CommentActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.Activity.PostViewActivity"
+            android:name="com.bayer.bayerreward.Activity.PostViewActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.Activity.VideoViewActivity"
+            android:name="com.bayer.bayerreward.Activity.VideoViewActivity"
             android:screenOrientation="sensor"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.Activity.ImageViewActivity"
+            android:name="com.bayer.bayerreward.Activity.ImageViewActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.Activity.SpeakerDetailsActivity"
+            android:name="com.bayer.bayerreward.Activity.SpeakerDetailsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.Activity.AttendeeDetailActivity"
+            android:name="com.bayer.bayerreward.Activity.AttendeeDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.Activity.AgendaDetailActivity"
+            android:name="com.bayer.bayerreward.Activity.AgendaDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.EventInfoActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.EventInfoActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.procialize.eventsapp.Activity.HomeActivity" />
+                android:value="com.bayer.bayerreward.Activity.HomeActivity" />
         </activity>
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.FeedBackActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.FeedBackActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.Activity.PdfViewerActivity"
+            android:name="com.bayer.bayerreward.Activity.PdfViewerActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.DocumentsActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.DocumentsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.MyTravelActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.MyTravelActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.QRGeneratorActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.QRGeneratorActivity"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.QRScanActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.QRScanActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.NotificationActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.NotificationActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.GalleryActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.GalleryActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.VideoActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.VideoActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.LivePollActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.LivePollActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.Activity.PollDetailActivity"
+            android:name="com.bayer.bayerreward.Activity.PollDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.QuizActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.QuizActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.Activity.QuizDetailActivity"
+            android:name="com.bayer.bayerreward.Activity.QuizDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.QAAttendeeActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.QAAttendeeActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.QASpeakerActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.QASpeakerActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.EngagementActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.EngagementActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.GalleryFirstLevelActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.GalleryFirstLevelActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.VideoFirstLevelActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.VideoFirstLevelActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.SelfieContestActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.SelfieContestActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.VideoContestActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.VideoContestActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.SelfieUploadActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.SelfieUploadActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.VideoContestUploadActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.VideoContestUploadActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.SwappingGalleryActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.SwappingGalleryActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.SwappingSelfieActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.SwappingSelfieActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.CustomTools.DocumentViewerActivity"
+            android:name="com.bayer.bayerreward.CustomTools.DocumentViewerActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.AgendaActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.AgendaActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.SpeakerActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.SpeakerActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.Activity.EventChooserActivity"
+            android:name="com.bayer.bayerreward.Activity.EventChooserActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.Activity.PostEditActivityOld"
+            android:name="com.bayer.bayerreward.Activity.PostEditActivityOld"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.Activity.WebViewActivity"
+            android:name="com.bayer.bayerreward.Activity.WebViewActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.AttendeeActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.AttendeeActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.procialize.eventsapp.android.fileprovider"
+            android:authorities="com.bayer.bayerreward.android.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -257,7 +260,7 @@
         </provider>
 
         <service
-            android:name="com.procialize.eventsapp.gcm.MyFirebaseMessagingService"
+            android:name="com.bayer.bayerreward.gcm.MyFirebaseMessagingService"
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -265,7 +268,7 @@
             </intent-filter>
         </service>
         <service
-            android:name="com.procialize.eventsapp.gcm.MyFirebaseInstanceIDService"
+            android:name="com.bayer.bayerreward.gcm.MyFirebaseInstanceIDService"
             android:permission="">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
@@ -273,95 +276,95 @@
         </service>
 
         <!-- Goolge API Key -->
-
+        <!--<meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="false" />-->
         <activity
-            android:name="com.procialize.eventsapp.Activity.TimeWeatherActivity"
+            android:name="com.bayer.bayerreward.Activity.TimeWeatherActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.Activity.CurrencyConverter"
+            android:name="com.bayer.bayerreward.Activity.CurrencyConverter"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.Activity.InitGeneralInfoActivity"
+            android:name="com.bayer.bayerreward.Activity.InitGeneralInfoActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.GeneralInfoActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.GeneralInfoActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.SelfieContentActivityNew"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.SelfieContentActivityNew"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.Activity.LikeDetailActivity"
+            android:name="com.bayer.bayerreward.Activity.LikeDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.ExoVideoActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.ExoVideoActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.Activity.EULAActivity"
+            android:name="com.bayer.bayerreward.Activity.EULAActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.Activity.PrivacyPolicy"
+            android:name="com.bayer.bayerreward.Activity.PrivacyPolicy"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.EmptyViewActivity"
+            android:name="com.bayer.bayerreward.EmptyViewActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.Utility.ImageCropActivity"
+            android:name="com.bayer.bayerreward.Utility.ImageCropActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.QADirectActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.QADirectActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.AgendaVacationActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.AgendaVacationActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.FolderQuizActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.FolderQuizActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.InnerDrawerActivity.WeatherActivity"
+            android:name="com.bayer.bayerreward.InnerDrawerActivity.WeatherActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.Activity.PostActivity"
+            android:name="com.bayer.bayerreward.Activity.PostActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.Activity.SelfiePost"
+            android:name="com.bayer.bayerreward.Activity.SelfiePost"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.Activity.PostEditActivity"
+            android:name="com.bayer.bayerreward.Activity.PostEditActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.procialize.eventsapp.Activity.ViewPDFActivity"
+            android:name="com.bayer.bayerreward.Activity.ViewPDFActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-
-        <activity android:name=".InnerDrawerActivity.QuizNewActivity" />
-        <activity android:name=".Activity.AnswersActivity" />
-        <activity android:name=".InnerDrawerActivity.QuizFinalActivity" />
-        <activity android:name=".InnerDrawerActivity.YourScoreActivity" />
-
+        <activity android:name="com.bayer.bayerreward.InnerDrawerActivity.QuizNewActivity" />
+        <activity android:name="com.bayer.bayerreward.Activity.AnswersActivity" />
+        <activity android:name="com.bayer.bayerreward.InnerDrawerActivity.YourScoreActivity" />
+        <activity android:name="com.bayer.bayerreward.Activity.PostActivityVideo" />
         <activity
-            android:name="com.procialize.eventsapp.Activity.ForgotPasswordActivity"
+            android:name="com.bayer.bayerreward.Activity.ForgotPasswordActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden">
-
             <tools:validation testUrl="http://procialize.info/resetPassword.html" />
+
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
 
@@ -369,21 +372,39 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:scheme="http"
-                    android:host="procialize.info" />
+                    android:host="procialize.info"
+                    android:scheme="http" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.procialize.eventsapp.Activity.EmptyView2"
+            android:name="com.bayer.bayerreward.Activity.EmptyView2"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
-        <receiver android:name=".Session.UninstallIntentReceiver">
+        <receiver android:name="com.bayer.bayerreward.Session.UninstallIntentReceiver">
             <intent-filter android:priority="0">
                 <action android:name="android.intent.action.QUERY_PACKAGE_RESTART" />
+
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
+
+        <activity android:name="com.bayer.bayerreward.Activity.SuveyDetailActivity" />
+        <activity android:name="com.bayer.bayerreward.Activity.SignupSignInActivity" />
+        <activity android:name="com.bayer.bayerreward.Activity.SignupBayerActivity" />
+        <activity android:name="com.bayer.bayerreward.Activity.ThankyouSignup" />
+        <activity android:name="com.bayer.bayerreward.Activity.SignInActivity" />
+        <activity android:name="com.bayer.bayerreward.Activity.AboutBayerActivity" />
+        <activity android:name="com.bayer.bayerreward.Activity.AccountHistoryActivity" />
+        <activity android:name="com.bayer.bayerreward.Activity.CatlogActivity" />
+        <activity android:name="com.bayer.bayerreward.Activity.SchemeOfferActivity" />
+        <activity android:name="com.bayer.bayerreward.Activity.MpointCalc" />
+        <activity android:name="com.bayer.bayerreward.Activity.SchemeDetailActivity" />
+        <activity android:name="com.bayer.bayerreward.Activity.ReportActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
+        <activity android:name="com.bayer.bayerreward.Activity.RecordingActivity" />
+        <activity android:name="com.bayer.bayerreward.InnerDrawerActivity.TermsandCondition" />
+        <activity android:name="com.bayer.bayerreward.Fragments.BuisnessUnitFragment"></activity>
     </application>
 
 </manifest>

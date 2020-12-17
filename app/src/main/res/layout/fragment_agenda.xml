@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.procialize.eventsapp.Fragments.AgendaFragment">
+    tools:context="com.bayer.bayerreward.Fragments.AgendaFragment"
+    android:id="@+id/linear">
 
     <!-- TODO: Update blank fragment layout -->
 

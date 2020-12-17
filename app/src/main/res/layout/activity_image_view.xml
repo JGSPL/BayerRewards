@@ -2,11 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorgrey"
+    android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context="com.procialize.eventsapp.Activity.VideoViewActivity">
+    tools:context="com.bayer.bayerreward.Activity.VideoViewActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -37,8 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="-10dp"
-                android:contentDescription=" "
-                android:src="@drawable/header_logo" />
+                android:contentDescription=" " />
 
         </android.support.v7.widget.Toolbar>
 
@@ -83,10 +83,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
-        android:orientation="horizontal"
-        android:layout_marginBottom="@dimen/margin">
+        android:layout_marginBottom="@dimen/margin"
+        android:orientation="horizontal">
 
-        <com.procialize.eventsapp.Fonts.RobotoButton
+        <com.bayer.bayerreward.Fonts.RobotoButton
             android:id="@+id/savebtn"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -98,7 +98,7 @@
             android:textColor="@color/colorwhite"
             android:textSize="@dimen/textsizesmall" />
 
-        <com.procialize.eventsapp.Fonts.RobotoButton
+        <com.bayer.bayerreward.Fonts.RobotoButton
             android:id="@+id/sharebtn"
             android:layout_width="match_parent"
             android:layout_height="50dp"

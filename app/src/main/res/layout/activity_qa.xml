@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.procialize.eventsapp.InnerDrawerActivity.QAAttendeeActivity"
+    tools:context="com.bayer.bayerreward.InnerDrawerActivity.QAAttendeeActivity"
     android:id="@+id/linear">
 
 
@@ -39,8 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="-10dp"
-                android:contentDescription=" "
-                android:src="@drawable/header_logo" />
+                android:contentDescription=" " />
 
         </android.support.v7.widget.Toolbar>
 
@@ -52,7 +51,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <com.procialize.eventsapp.Fonts.RobotoTextview
+    <com.bayer.bayerreward.Fonts.RobotoTextview
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,10 +59,10 @@
         android:padding="4sp"
         android:text="@string/qa"
         android:textColor="@color/activetab"
-        android:textSize="@dimen/textsizesmall" />
+        android:textSize="17dp" />
 
 
-    <com.procialize.eventsapp.Fonts.RobotoTextview
+    <com.bayer.bayerreward.Fonts.RobotoTextview
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
@@ -81,7 +80,7 @@
 
     </Spinner>
 
-    <com.procialize.eventsapp.Fonts.RobotoButton
+    <com.bayer.bayerreward.Fonts.RobotoButton
         android:id="@+id/postbtn"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
@@ -94,7 +93,7 @@
         android:textColor="@color/colorwhite"
         android:textSize="@dimen/textsizesmall" />
 
-    <com.procialize.eventsapp.Fonts.RobotoTextview
+    <com.bayer.bayerreward.Fonts.RobotoTextview
         android:id="@+id/pullrefresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -135,7 +134,7 @@
             </android.support.v7.widget.RecyclerView>
         </android.support.v4.widget.SwipeRefreshLayout>
 
-        <com.procialize.eventsapp.Fonts.RobotoTextview
+        <com.bayer.bayerreward.Fonts.RobotoTextview
             android:id="@+id/txtEmpty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -11,7 +11,7 @@
         android:id="@+id/linQuiz"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/activetab"
+        android:background="@color/colorwhite"
         android:baselineAligned="false"
         android:gravity="left|center"
         android:orientation="horizontal">
@@ -26,15 +26,15 @@
 
             <!-- Video Title -->
 
-            <com.procialize.eventsapp.Fonts.RobotoTextview
+            <com.bayer.bayerreward.Fonts.RobotoTextview
                 android:id="@+id/video_title_txt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="left|center"
                 android:paddingBottom="5dp"
                 android:paddingLeft="10dp"
-                android:textColor="@color/colorwhite"
-                android:textSize="@dimen/textsizesmall"  />
+                android:textColor="@color/activetab"
+                android:textSize="@dimen/textsizesmall" />
         </LinearLayout>
 
         <LinearLayout
@@ -46,7 +46,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@drawable/right_arrow1"
+                android:background="@drawable/bluearrow"
                 android:contentDescription="TODO"
                 android:visibility="visible" />
         </LinearLayout>

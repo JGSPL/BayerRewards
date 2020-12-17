@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
    android:id="@+id/linear"
     android:orientation="vertical"
-    tools:context="com.procialize.eventsapp.InnerDrawerActivity.SelfieContestActivity">
+    tools:context="com.bayer.bayerreward.InnerDrawerActivity.SelfieContestActivity">
 
 
     <android.support.design.widget.AppBarLayout
@@ -39,7 +39,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="-10dp"
                 android:contentDescription=" "
-                android:src="@drawable/header_logo" />
+                 />
 
         </android.support.v7.widget.Toolbar>
 
@@ -58,7 +58,7 @@
         android:orientation="vertical">
 
 
-        <com.procialize.eventsapp.Fonts.RobotoTextview
+        <com.bayer.bayerreward.Fonts.RobotoTextview
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
             android:textColor="@color/activetab"
             android:textSize="@dimen/textsizesmall" />
 
-        <com.procialize.eventsapp.Fonts.RobotoTextview
+        <com.bayer.bayerreward.Fonts.RobotoTextview
             android:id="@+id/seldescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
 
 
 
-        <com.procialize.eventsapp.Fonts.RobotoButton
+        <com.bayer.bayerreward.Fonts.RobotoButton
             android:id="@+id/uploadbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -94,7 +94,7 @@
             android:textSize="@dimen/textsizesmall"
             android:textStyle="bold"
             android:drawableLeft="@drawable/upload"/>
-        <com.procialize.eventsapp.Fonts.RobotoTextview
+        <com.bayer.bayerreward.Fonts.RobotoTextview
             android:id="@+id/pullrefresh"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

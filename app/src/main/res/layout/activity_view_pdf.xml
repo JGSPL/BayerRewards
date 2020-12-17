@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorgrey"
     android:orientation="vertical"
-    tools:context="com.procialize.eventsapp.Activity.PdfViewerActivity">
+    tools:context="com.bayer.bayerreward.Activity.PdfViewerActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -38,7 +38,7 @@
                 android:contentDescription=" "
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/header_logo"/>
+               />
 
             <ImageView
                 android:id="@+id/backIv"

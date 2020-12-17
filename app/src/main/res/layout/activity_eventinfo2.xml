@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.procialize.eventsapp.InnerDrawerActivity.EventInfoActivity"
+    tools:context="com.bayer.bayerreward.InnerDrawerActivity.EventInfoActivity"
     android:id="@+id/relative_head">
 
     <ProgressBar
@@ -58,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="13dp"
                     android:padding="5dp"
-                    android:src="@drawable/ic_back" />
+                    android:src="@drawable/ic_back"/>
 
                 <ImageView
                     android:id="@+id/headerlogoIv"
@@ -67,7 +67,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="-10dp"
                     android:contentDescription=" "
-                    android:src="@drawable/header_logo" />
+                     />
 
             </android.support.v7.widget.Toolbar>
 
@@ -93,7 +93,7 @@
                 android:gravity="center"
                 android:text="@string/eventInfo"
                 android:textColor="@color/activetab"
-                android:textSize="@dimen/textsizesmall"
+                android:textSize="17dp"
                 android:textStyle="bold"
                 android:visibility="visible" />
 
@@ -257,10 +257,10 @@
                         android:id="@+id/event_desc"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="5dp"
                         android:gravity="center"
-                        android:maxLines="10"
-                        android:scrollbars="vertical"
                         android:text=""
                         android:textColor="@color/black"
                         android:textSize="@dimen/textsizesmall"

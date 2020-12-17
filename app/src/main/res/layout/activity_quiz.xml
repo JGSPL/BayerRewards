@@ -3,8 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginBottom="10dp"
-    android:id="@+id/linear">
+    android:id="@+id/relative"
+    android:background="@drawable/background"
+    android:weightSum="10">
 
 
     <LinearLayout
@@ -17,7 +18,6 @@
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:elevation="0dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
 
@@ -30,6 +30,7 @@
                 android:contentInsetLeft="0dp"
                 android:contentInsetRight="0dp"
                 android:contentInsetStart="0dp"
+                android:elevation="@dimen/elevation"
                 android:minHeight="?attr/actionBarSize"
                 app:contentInsetEnd="0dp"
                 app:contentInsetLeft="0dp"
@@ -41,75 +42,117 @@
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="-10dp"
-                    android:contentDescription=" "
-                    android:src="@drawable/header_logo" />
+                    android:layout_marginLeft="-20dp"
+                    android:contentDescription=" " />
+
 
             </android.support.v7.widget.Toolbar>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/linecolor"/>
 
         </android.support.design.widget.AppBarLayout>
 
-
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="5dp"
-            android:layout_weight="9"
-            android:gravity="top"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <com.procialize.eventsapp.Fonts.RobotoTextview
-                android:id="@+id/questionTv"
-                android:textColor="@color/black"
-                android:background="@color/colorwhite"
-                android:textSize="15dp"
-                android:padding="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:text="General Knowledge"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="textStart"/>
+                android:layout_height="0dp"
+                android:layout_margin="5dp"
+                android:layout_weight="9"
+                android:gravity="top"
+                android:orientation="vertical">
+
+                <com.bayer.bayerreward.Fonts.RobotoTextview
+                    android:id="@+id/questionTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/colorwhite"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="General Knowledge"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/quiz_list"
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="5dp"
-                android:descendantFocusability="beforeDescendants"
-                android:divider="@android:color/transparent"
-                android:dividerHeight="5dp"
-                android:smoothScrollbar="true" />
+                    <TextView
+                        android:id="@+id/txt_count"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end" />
 
-            <com.procialize.eventsapp.Fonts.RobotoTextview
-                android:id="@android:id/empty"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center|center_horizontal"
-                android:text="No active quiz"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
-        </LinearLayout>
+                </LinearLayout>
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone" />
+
+
+                <com.bayer.bayerreward.CustomTools.NoScrollRecycler
+                    android:id="@+id/quiz_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="60dp"
+                    android:descendantFocusability="beforeDescendants"
+                    android:divider="@android:color/transparent"
+                    android:dividerHeight="5dp"
+                    android:isScrollContainer="false"
+                    android:orientation="horizontal"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+                <com.bayer.bayerreward.Fonts.RobotoTextview
+                    android:id="@android:id/empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|center_horizontal"
+                    android:text="No active quiz"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
 
     </LinearLayout>
 
-
-    <com.procialize.eventsapp.Fonts.RobotoButton
-        android:id="@+id/submit"
-        android:layout_width="match_parent"
+    <com.bayer.bayerreward.Fonts.RobotoButton
+        android:id="@+id/btnNext"
+        android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/speakerbtnbg"
-        android:text="Submit"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/loginbutton"
+        android:gravity="center"
+        android:text="Next"
+        android:textAllCaps="false"
         android:textColor="@color/colorwhite"
-        android:textAllCaps="false"/>
+        android:visibility="gone" />
+
+    <com.bayer.bayerreward.Fonts.RobotoButton
+        android:id="@+id/submit"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/loginbutton"
+        android:gravity="center"
+        android:text="Submit"
+        android:textAllCaps="false"
+        android:textColor="@color/colorwhite"
+        android:visibility="gone" />
 </RelativeLayout>

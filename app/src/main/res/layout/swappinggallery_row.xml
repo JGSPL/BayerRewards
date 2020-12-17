@@ -33,7 +33,7 @@
             android:layout_height="20dp"
             android:background="@drawable/loader" />
 
-        <com.procialize.eventsapp.Fonts.RobotoTextview
+        <com.bayer.bayerreward.Fonts.RobotoTextview
             android:id="@+id/nameTv"
             android:text=""
             android:gravity="center"

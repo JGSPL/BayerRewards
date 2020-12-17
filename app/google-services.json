@@ -1,39 +1,37 @@
 {
   "project_info": {
-    "project_number": "321746269511",
-    "firebase_url": "https://procializeevents.firebaseio.com",
-    "project_id": "procializeevents",
-    "storage_bucket": "procializeevents.appspot.com"
+    "project_number": "720217053983",
+    "firebase_url": "https://bayerreward.firebaseio.com",
+    "project_id": "bayerreward",
+    "storage_bucket": "bayerreward.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:321746269511:android:7e750de8a9982857",
+        "mobilesdk_app_id": "1:720217053983:android:4da57b132ad31af7",
         "android_client_info": {
-          "package_name": "com.procialize.eventsapp"
+          "package_name": "com.bayer.bayerreward"
         }
       },
       "oauth_client": [
         {
-          "client_id": "321746269511-g4aetlcaro5krmse1grp35s4qp2r2u4p.apps.googleusercontent.com",
+          "client_id": "720217053983-k6r0qkg3qqgss3pfhjq2ifpkfkv22d5a.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyALeU4GcoDm3ubuVfqLua3Cx8OHIvyYxmE"
+          "current_key": "AIzaSyB0qxx_zu8gUfOC_fmEe4Gm-jllwUqPXZA"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "720217053983-k6r0qkg3qqgss3pfhjq2ifpkfkv22d5a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

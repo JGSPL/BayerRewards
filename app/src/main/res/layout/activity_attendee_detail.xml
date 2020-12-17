@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
-    tools:context="com.procialize.eventsapp.Activity.SpeakerDetailsActivity">
+    android:layout_height="wrap_content"
+    tools:context="com.bayer.bayerreward.Activity.SpeakerDetailsActivity">
 
     <RelativeLayout
         android:id="@+id/linear"
@@ -43,7 +42,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="-10dp"
                     android:contentDescription=" "
-                    android:src="@drawable/header_logo" />
+                     />
 
             </android.support.v7.widget.Toolbar>
 
@@ -130,108 +129,114 @@
                 </RelativeLayout>
             </RelativeLayout>
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/relative"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/colorwhite"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:layout_below="@+id/relative">
 
-                <TextView
-                    android:id="@+id/tvname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin"
-                    android:textColor="@color/activetab"
-                    android:textSize="@dimen/textsizesmall" />
-
-                <View
-                    android:id="@+id/viewone"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:background="@color/linecolor" />
+                    android:background="@color/colorwhite"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
 
-                <TextView
-                    android:id="@+id/tvdesignation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textsizesmall" />
+                    <TextView
+                        android:id="@+id/tvname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin"
+                        android:textColor="@color/activetab"
+                        android:textSize="@dimen/textsizesmall" />
 
-                <View
-                    android:id="@+id/viewtwo"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@color/linecolor" />
+                    <View
+                        android:id="@+id/viewone"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/linecolor" />
 
-                <TextView
-                    android:id="@+id/tvcompany"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textsizesmall" />
 
-                <View
-                    android:id="@+id/viewthree"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@color/linecolor" />
+                    <TextView
+                        android:id="@+id/tvdesignation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textsizesmall" />
 
-                <TextView
-                    android:id="@+id/tvcity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textsizesmall" />
+                    <View
+                        android:id="@+id/viewtwo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/linecolor" />
 
-                <View
-                    android:id="@+id/viewtfour"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@color/linecolor" />
+                    <TextView
+                        android:id="@+id/tvcompany"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textsizesmall" />
 
-                <TextView
-                    android:id="@+id/tvmob"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textsizesmall" />
+                    <View
+                        android:id="@+id/viewthree"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/linecolor" />
 
-                <View
-                    android:id="@+id/viewtfive"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@color/linecolor" />
+                    <TextView
+                        android:id="@+id/tvcity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textsizesmall" />
 
-                <TextView
-                    android:id="@+id/tv_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin"
-                    android:maxLines="10"
-                    android:scrollbars="vertical"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textsizesmall" />
+                    <View
+                        android:id="@+id/viewtfour"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/linecolor" />
 
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/tvmob"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textsizesmall" />
+
+                    <View
+                        android:id="@+id/viewtfive"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/linecolor" />
+
+                    <TextView
+                        android:id="@+id/tv_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin"
+                        android:maxLines="10"
+                        android:scrollbars="vertical"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textsizesmall" />
+
+                </LinearLayout>
+            </ScrollView>
         </RelativeLayout>
 
 
@@ -328,4 +333,4 @@
         </LinearLayout>
 
     </RelativeLayout>
-</ScrollView>
+</RelativeLayout>

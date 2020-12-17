@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.procialize.eventsapp.CustomTools.TouchImageView
+    <com.bayer.bayerreward.CustomTools.TouchImageView
         android:id="@+id/image"
         android:layout_below="@+id/name"
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/loader" />
 
-    <com.procialize.eventsapp.Fonts.RobotoTextview
+    <com.bayer.bayerreward.Fonts.RobotoTextview
         android:id="@+id/name"
         android:visibility="visible"
         android:gravity="center"

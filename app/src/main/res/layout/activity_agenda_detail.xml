@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.procialize.eventsapp.Activity.AgendaDetailActivity"
-    android:id="@+id/relative">
+    tools:context="com.bayer.bayerreward.Activity.AgendaDetailActivity"
+    android:id="@+id/relative"
+    >
 
 
     <android.support.design.widget.AppBarLayout
@@ -39,7 +40,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="-10dp"
                 android:contentDescription=" "
-                android:src="@drawable/header_logo" />
+                />
 
         </android.support.v7.widget.Toolbar>
 

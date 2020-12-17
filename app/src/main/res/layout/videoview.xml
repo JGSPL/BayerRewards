@@ -110,7 +110,7 @@
 
     </RelativeLayout>
 
-    <com.procialize.eventsapp.Fonts.RobotoButton
+    <com.bayer.bayerreward.Fonts.RobotoButton
         android:id="@+id/btn_share"
         android:layout_width="100dp"
         android:layout_height="35dp"

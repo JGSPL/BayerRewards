@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.procialize.eventsapp.InnerDrawerActivity.FeedBackActivity"
+    tools:context="com.bayer.bayerreward.InnerDrawerActivity.FeedBackActivity"
     android:id="@+id/linear">
 
     <android.support.design.widget.AppBarLayout
@@ -38,7 +38,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="-10dp"
                 android:contentDescription=" "
-                android:src="@drawable/header_logo" />
+               />
 
         </android.support.v7.widget.Toolbar>
         <View
@@ -50,14 +50,14 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <com.procialize.eventsapp.Fonts.RobotoTextview
+    <com.bayer.bayerreward.Fonts.RobotoTextview
         android:id="@+id/tvname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Video"
         android:textColor="@color/activetab"
-        android:textSize="@dimen/textsizesmall"
+        android:textSize="17dp"
         android:layout_marginTop="5dp"/>
 
 

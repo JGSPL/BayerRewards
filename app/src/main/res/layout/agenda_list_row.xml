@@ -27,7 +27,7 @@
 
         <!-- Title -->
 
-        <com.procialize.eventsapp.Fonts.RobotoTextview
+        <com.bayer.bayerreward.Fonts.RobotoTextview
             android:id="@+id/agenda_title"
             android:layout_width="fill_parent"
             android:layout_height="20dp"
@@ -42,7 +42,7 @@
 
         <!-- Time -->
 
-        <com.procialize.eventsapp.Fonts.RobotoTextview
+        <com.bayer.bayerreward.Fonts.RobotoTextview
             android:id="@+id/agenda_time_slot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
 
         <!-- Description -->
 
-        <com.procialize.eventsapp.Fonts.RobotoTextview
+        <com.bayer.bayerreward.Fonts.RobotoTextview
             android:id="@+id/agenda_desc"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

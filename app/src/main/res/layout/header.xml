@@ -12,12 +12,13 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:background="@color/colorwhite"
+        android:background="@color/loginbutton"
         android:padding="3dp"
         android:gravity="center"
         android:text=""
         android:textColor="@color/activetab"
-        android:textSize="@dimen/textsizenormal" />
+        android:textSize="@dimen/textsizenormal"
+        android:visibility="gone"/>
 
 
     <TextView
@@ -44,7 +45,7 @@
         android:layout_alignStart="@+id/fceTv"
         android:layout_below="@+id/fceTv"
         android:layout_centerInParent="true"
-        android:background="@color/activetab"
+        android:background="@color/loginbutton"
         android:orientation="vertical">
 
 
@@ -151,7 +152,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:src="@drawable/edit_profile_icon" />
+                    android:src="@drawable/edit_prof" />
 
             </LinearLayout>
 

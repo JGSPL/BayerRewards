@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.procialize.eventsapp.InnerDrawerActivity.SwappingGalleryActivity"
+    tools:context="com.bayer.bayerreward.InnerDrawerActivity.SwappingGalleryActivity"
     android:id="@+id/linear">
 
     <android.support.design.widget.AppBarLayout
@@ -38,7 +38,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="-10dp"
                 android:contentDescription=" "
-                android:src="@drawable/header_logo" />
+                />
 
             <ImageView
                 android:id="@+id/backIv"
@@ -109,7 +109,7 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <com.procialize.eventsapp.Fonts.RobotoTextview
+            <com.bayer.bayerreward.Fonts.RobotoTextview
                 android:id="@+id/savebtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -137,7 +137,7 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <com.procialize.eventsapp.Fonts.RobotoTextview
+            <com.bayer.bayerreward.Fonts.RobotoTextview
                 android:id="@+id/sharebtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

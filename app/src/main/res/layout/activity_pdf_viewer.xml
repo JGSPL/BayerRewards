@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     android:background="@color/colorgrey"
     android:orientation="vertical"
-    tools:context="com.procialize.eventsapp.Activity.PdfViewerActivity">
+    tools:context="com.bayer.bayerreward.Activity.PdfViewerActivity">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/appBarLayout"
-        app:elevation="0dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="0dp">
 
 
         <android.support.v7.widget.Toolbar
@@ -21,60 +21,88 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colortoolbar"
-            android:contentInsetLeft="0dp"
-            android:contentInsetStart="0dp"
-            app:contentInsetLeft="0dp"
-            app:contentInsetStart="0dp"
-            android:contentInsetRight="0dp"
             android:contentInsetEnd="0dp"
-            app:contentInsetRight="0dp"
+            android:contentInsetLeft="0dp"
+            android:contentInsetRight="0dp"
+            android:contentInsetStart="0dp"
+            android:minHeight="?attr/actionBarSize"
             app:contentInsetEnd="0dp"
-            android:minHeight="?attr/actionBarSize">
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp">
 
             <ImageView
                 android:id="@+id/headerlogoIv"
-                android:layout_marginLeft="-10dp"
                 android:layout_width="150dp"
-                android:contentDescription=" "
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/header_logo"/>
+                android:layout_marginLeft="-10dp"
+                android:contentDescription=" " />
 
             <ImageView
                 android:id="@+id/backIv"
-                android:contentDescription="TODO"
-                android:padding="@dimen/padding"
-                android:src="@drawable/ic_back"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="13dp"/>
+                android:layout_marginLeft="13dp"
+                android:contentDescription="TODO"
+                android:padding="@dimen/padding"
+                android:src="@drawable/ic_back" />
 
         </android.support.v7.widget.Toolbar>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/linecolor"/>
+            android:background="@color/linecolor" />
 
 
     </android.support.design.widget.AppBarLayout>
 
 
     <WebView
-        android:layout_below="@+id/appBarLayout"
         android:id="@+id/webView"
-        android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/appBarLayout"
+        android:padding="10dp">
 
     </WebView>
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:visibility="gone"
-        android:indeterminate="true"
-        android:indeterminateTintMode="src_atop"
-        android:indeterminateTint="@color/colorPrimary"
-        android:layout_centerInParent="true"
         android:layout_width="20dp"
-        android:layout_height="20dp" />
+        android:layout_height="20dp"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/colorPrimary"
+        android:indeterminateTintMode="src_atop"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorwhite"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_share"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="5"
+            android:text="Share"
+            android:textAllCaps="false"
+            android:textColor="@color/colorwhite"/>
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="5"
+            android:text="Save"
+            android:textAllCaps="false"
+            android:textColor="@color/colorwhite"/>
+    </LinearLayout>
 </RelativeLayout>

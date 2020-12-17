@@ -37,7 +37,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="-10dp"
                 android:contentDescription=" "
-                android:src="@drawable/header_logo" />
+                 />
 
         </android.support.v7.widget.Toolbar>
 
@@ -57,7 +57,7 @@
         android:gravity="center"
         android:text="@string/qrbadge"
         android:textColor="@color/activetab"
-        android:textSize="@dimen/textsizesmall" />
+        android:textSize="17dp" />
 
     <ImageView
         android:id="@+id/img_qr_code_image"

@@ -14,7 +14,7 @@
         android:id="@+id/raiolayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/edit_background"
+        android:background="@drawable/livepollback"
         android:gravity="top"
         android:orientation="vertical">
 
@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/unchecked_radio" />
 
-            <com.procialize.eventsapp.Fonts.RobotoTextview
+            <com.bayer.bayerreward.Fonts.RobotoTextview
                 android:id="@+id/textno1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 
-            <com.procialize.eventsapp.Fonts.RobotoTextview
+            <com.bayer.bayerreward.Fonts.RobotoTextview
                 android:id="@+id/quiz_question"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

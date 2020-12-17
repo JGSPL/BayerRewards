@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="top"
@@ -19,11 +20,11 @@
             android:src="@drawable/logo"
             android:visibility="gone" />
 
-        <com.procialize.eventsapp.CustomTools.AutoScrollViewPager
+        <com.bayer.bayerreward.CustomTools.AutoScrollViewPager
             android:id="@+id/pagerimage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="0dp"></com.procialize.eventsapp.CustomTools.AutoScrollViewPager>
+            android:layout_margin="0dp"></com.bayer.bayerreward.CustomTools.AutoScrollViewPager>
     </LinearLayout>
 
     <LinearLayout
@@ -56,7 +57,8 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
+                <com.bayer.bayerreward.Fonts.RobotoTextview
+                    android:id="@+id/text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -76,15 +78,24 @@
                         android:id="@android:id/tabs"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        />
+                        android:gravity="center_horizontal" />
                 </HorizontalScrollView>
             </LinearLayout>
+
+            <com.bayer.bayerreward.Fonts.RobotoTextview
+                android:id="@+id/txtname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:gravity="left"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textsizenormal"
+                android:textStyle="bold" />
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -92,17 +103,6 @@
                     android:layout_margin="10dp"
                     android:orientation="vertical">
 
-
-                    <com.procialize.eventsapp.Fonts.RobotoTextview
-                        android:id="@+id/txtname"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="15dp"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/textsizenormal"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        android:gravity="center"/>
 
                     <WebView
                         android:id="@+id/webView"
@@ -113,8 +113,6 @@
 
 
                     </WebView>
-
-
                 </LinearLayout>
             </FrameLayout>
         </LinearLayout>

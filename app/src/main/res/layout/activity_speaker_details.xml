@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.procialize.eventsapp.Activity.SpeakerDetailsActivity"
-    android:id="@+id/linear">
+    tools:context="com.bayer.bayerreward.Activity.SpeakerDetailsActivity">
 
 
     <android.support.design.widget.AppBarLayout
@@ -37,8 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="-10dp"
-                android:contentDescription=" "
-                android:src="@drawable/header_logo" />
+                android:contentDescription=" " />
 
         </android.support.v7.widget.Toolbar>
 
@@ -248,7 +247,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="Rate this session"
+                    android:text="Rate this speaker"
                     android:textColor="@color/linecolor" />
 
                 <RatingBar

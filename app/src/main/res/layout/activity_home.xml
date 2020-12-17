@@ -5,6 +5,7 @@
     android:id="@+id/drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:fitsSystemWindows="true"
     tools:context=".Activity.HomeActivity">
 
@@ -19,7 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-
             app:elevation="0dp">
 
             <android.support.v7.widget.Toolbar
@@ -43,8 +43,16 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="-10dp"
+                    android:contentDescription=" " />
+
+                <ImageView
+                    android:id="@+id/logo"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="right"
+                    android:layout_margin="5dp"
                     android:contentDescription=" "
-                    android:src="@drawable/header_logo" />
+                    android:src="@drawable/bayer" />
 
             </android.support.v7.widget.Toolbar>
 
@@ -57,7 +65,7 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <com.procialize.eventsapp.CustomTools.CustomViewPager
+        <com.bayer.bayerreward.CustomTools.CustomViewPager
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -78,8 +86,10 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="0dp"
                 android:background="#ffff"
+                app:tabBackground="@drawable/selector_tab"
                 app:tabGravity="fill"
                 app:tabMode="fixed"
+                app:tabSelectedTextColor="@color/colorwhite"
                 app:tabTextAppearance="@style/MyCustomTabText" />
 
         </android.support.design.widget.AppBarLayout>
@@ -159,7 +169,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/trans"
+        android:background="@color/colorwhite"
         android:fitsSystemWindows="false">
 
         <!--app:itemIconTint="@color/colorwhite"-->
@@ -182,7 +192,7 @@
                     android:id="@+id/my"
                     layout="@layout/header" />
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
+                <com.bayer.bayerreward.Fonts.RobotoTextview
                     android:id="@+id/home"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -194,37 +204,129 @@
                     android:paddingLeft="25dp"
                     android:paddingTop="20dp"
                     android:text="Home"
-                    android:textColor="@color/colorwhite"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/textsizesmall" />
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
-                    android:id="@+id/eventInfo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/home"
-                    android:drawableLeft="@drawable/ic_info"
-                    android:drawablePadding="10dp"
-                    android:gravity="left|center"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="23dp"
-                    android:paddingTop="10dp"
-                    android:text="Event Info"
-                    android:textColor="@color/colorwhite"
-                    android:textSize="@dimen/textsizesmall" />
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
+                <com.bayer.bayerreward.Fonts.RobotoTextview
                     android:id="@+id/notification"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/eventInfo"
-                    android:drawableLeft="@drawable/notification_icon"
+                    android:layout_below="@+id/home"
+                    android:drawableLeft="@drawable/notification"
+                    android:drawablePadding="10dp"
+                    android:gravity="left|center"
+                    android:paddingLeft="23dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="Notifications"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textsizesmall" />
+
+                <com.bayer.bayerreward.Fonts.RobotoTextview
+                    android:id="@+id/eventInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/notification"
+                    android:drawableLeft="@drawable/about_bayer"
                     android:drawablePadding="10dp"
                     android:gravity="left|center"
                     android:paddingBottom="10dp"
                     android:paddingLeft="23dp"
                     android:paddingTop="10dp"
-                    android:text="Notifications"
-                    android:textColor="@color/colorwhite"
+                    android:text="About Bayer Rewards"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textsizesmall" />
+
+                <com.bayer.bayerreward.Fonts.RobotoTextview
+                    android:id="@+id/demo_plot_form"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/eventInfo"
+                    android:drawableLeft="@drawable/account_history"
+                    android:drawablePadding="10dp"
+                    android:gravity="left|center"
+                    android:paddingLeft="23dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="Account History"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textsizesmall" />
+
+
+                <com.bayer.bayerreward.Fonts.RobotoTextview
+                    android:id="@+id/nearbydemo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/demo_plot_form"
+                    android:drawableLeft="@drawable/catlog_redeem"
+                    android:drawablePadding="10dp"
+                    android:gravity="left|center"
+                    android:paddingLeft="23dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="Catalog / Redeem your points"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textsizesmall" />
+
+                <com.bayer.bayerreward.Fonts.RobotoTextview
+                    android:id="@+id/scheme_offer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/nearbydemo"
+                    android:drawableLeft="@drawable/schemeandoff"
+                    android:drawablePadding="10dp"
+                    android:gravity="left|center"
+                    android:paddingLeft="23dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="Scheme and Offers"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textsizesmall" />
+
+                <com.bayer.bayerreward.Fonts.RobotoTextview
+                    android:id="@+id/mpointcalc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/scheme_offer"
+                    android:drawableLeft="@drawable/mpointcalc"
+                    android:drawablePadding="10dp"
+                    android:gravity="left|center"
+                    android:paddingLeft="23dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="mPoints Calculator"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textsizesmall" />
+
+                <com.bayer.bayerreward.Fonts.RobotoTextview
+                    android:id="@+id/engangement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/mpointcalc"
+                    android:drawableLeft="@drawable/engagement"
+                    android:drawablePadding="10dp"
+                    android:gravity="left|center"
+                    android:paddingLeft="23dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="Engagement"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textsizesmall" />
+
+                <com.bayer.bayerreward.Fonts.RobotoTextview
+                    android:id="@+id/qna"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/engangement"
+                    android:drawableLeft="@drawable/qna"
+                    android:drawablePadding="10dp"
+                    android:gravity="left|center"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="23dp"
+                    android:paddingTop="10dp"
+                    android:text="Q &amp; A"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/textsizesmall" />
 
 
@@ -232,46 +334,48 @@
                     android:id="@+id/menurecycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/notification"
-                    android:scrollbars="none" />
+                    android:layout_below="@+id/eventInfo"
+                    android:scrollbars="none"
+                    android:visibility="gone" />
 
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
+                <com.bayer.bayerreward.Fonts.RobotoTextview
                     android:id="@+id/contactus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/menurecycler"
+                    android:layout_below="@+id/qna"
                     android:drawableLeft="@drawable/contact_us"
                     android:drawablePadding="10dp"
                     android:gravity="left|center"
                     android:paddingBottom="10dp"
                     android:paddingLeft="23dp"
                     android:paddingTop="10dp"
-                    android:text="@string/contactus"
-                    android:textColor="@color/colorwhite"
+                    android:text="Contact"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/textsizesmall"
                     android:visibility="visible" />
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
-                    android:id="@+id/privacy_policy"
+                <com.bayer.bayerreward.Fonts.RobotoTextview
+                    android:id="@+id/termsandcondition"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/contactus"
-                    android:drawableLeft="@drawable/privacy_policy"
+                    android:drawableLeft="@drawable/termsandorder"
                     android:drawablePadding="10dp"
                     android:gravity="left|center"
                     android:paddingBottom="10dp"
-                    android:paddingLeft="25dp"
+                    android:paddingLeft="23dp"
                     android:paddingTop="10dp"
-                    android:text="@string/privacy_policy"
-                    android:textColor="@color/colorwhite"
-                    android:textSize="@dimen/textsizesmall" />
+                    android:text="Terms &amp; Conditions"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textsizesmall"
+                    android:visibility="visible" />
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
+                <com.bayer.bayerreward.Fonts.RobotoTextview
                     android:id="@+id/eula"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/privacy_policy"
+                    android:layout_below="@+id/termsandcondition"
                     android:drawableLeft="@drawable/eula"
                     android:drawablePadding="10dp"
                     android:gravity="left|center"
@@ -279,14 +383,30 @@
                     android:paddingLeft="25dp"
                     android:paddingTop="10dp"
                     android:text="@string/eula"
-                    android:textColor="@color/colorwhite"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/textsizesmall" />
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
-                    android:id="@+id/switchbt"
+                <com.bayer.bayerreward.Fonts.RobotoTextview
+                    android:id="@+id/privacy_policy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/eula"
+                    android:drawableLeft="@drawable/privacy_policy"
+                    android:drawablePadding="10dp"
+                    android:gravity="left|center"
+                    android:paddingLeft="25dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/privacy_policy"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textsizesmall" />
+
+
+                <com.bayer.bayerreward.Fonts.RobotoTextview
+                    android:id="@+id/switchbt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/privacy_policy"
                     android:drawableLeft="@drawable/ic_switch"
                     android:drawablePadding="10dp"
                     android:gravity="left"
@@ -294,11 +414,12 @@
                     android:paddingLeft="25dp"
                     android:paddingTop="10dp"
                     android:text="@string/swit"
-                    android:textColor="@color/colorwhite"
-                    android:textSize="@dimen/textsizesmall" />
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textsizesmall"
+                    android:visibility="gone" />
 
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
+                <com.bayer.bayerreward.Fonts.RobotoTextview
                     android:id="@+id/chatbt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -310,27 +431,27 @@
                     android:paddingLeft="25dp"
                     android:paddingTop="10dp"
                     android:text="@string/expert"
-                    android:textColor="@color/colorwhite"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/textsizesmall"
                     android:visibility="gone" />
 
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
+                <com.bayer.bayerreward.Fonts.RobotoTextview
                     android:id="@+id/logout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/chatbt"
-                    android:drawableLeft="@drawable/log_out"
+                    android:drawableLeft="@drawable/logout"
                     android:drawablePadding="10dp"
                     android:gravity="left"
                     android:paddingBottom="10dp"
                     android:paddingLeft="25dp"
                     android:paddingTop="10dp"
                     android:text="Logout"
-                    android:textColor="@color/colorwhite"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/textsizesmall" />
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
+                <com.bayer.bayerreward.Fonts.RobotoTextview
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/logout"
@@ -339,8 +460,8 @@
                     android:paddingBottom="10dp"
                     android:paddingLeft="25dp"
                     android:paddingTop="10dp"
-                    android:text="@string/version"
-                    android:textColor="@color/colorwhite"
+                    android:id="@+id/txt_vrsion"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/textsizesmall" />
 
 

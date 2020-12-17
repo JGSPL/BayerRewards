@@ -2,11 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/background"
-    tools:context=".InnerDrawerActivity.YourScoreActivity">
+    tools:context=".InnerDrawerActivity.YourScoreActivity"
+    android:background="@drawable/background">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -37,8 +38,7 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="center"
-                android:src="@drawable/header_logo" />
+                android:gravity="center" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -52,7 +52,7 @@
 
         android:orientation="vertical">
 
-        <com.procialize.eventsapp.Fonts.RobotoTextview
+        <com.bayer.bayerreward.Fonts.RobotoTextview
             android:id="@+id/questionTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
             android:gravity="center"
             android:padding="10dp"
             android:text="General Knowledge"
-            android:textColor="@color/black"
+            android:textColor="@color/colorwhite"
             android:textSize="16dp" />
 
 
@@ -80,17 +80,17 @@
             android:textStyle="bold" />
 
 
-        <com.procialize.eventsapp.Fonts.RobotoTextview
+        <com.bayer.bayerreward.Fonts.RobotoTextview
+            android:id="@+id/txt_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
             android:gravity="center"
             android:text="Go to the next quiz"
-            android:textColor="@color/black"
             android:textSize="@dimen/textsizenormal" />
 
-        <com.procialize.eventsapp.Fonts.RobotoButton
+        <com.bayer.bayerreward.Fonts.RobotoButton
             android:id="@+id/btn_ok"
             android:layout_width="150dp"
             android:layout_height="40dp"

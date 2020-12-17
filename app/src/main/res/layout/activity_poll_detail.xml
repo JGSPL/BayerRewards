@@ -2,11 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relative"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorgrey"
-    tools:context="com.procialize.eventsapp.Activity.PollDetailActivity"
-    android:id="@+id/relative">
+    android:background="@drawable/background"
+    tools:context="com.bayer.bayerreward.Activity.PollDetailActivity">
 
 
     <android.support.design.widget.AppBarLayout
@@ -39,8 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="-10dp"
-                android:contentDescription=" "
-                android:src="@drawable/header_logo" />
+                android:contentDescription=" " />
 
         </android.support.v7.widget.Toolbar>
 
@@ -57,8 +56,8 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_below="@+id/appBarLayout"
-        android:layout_gravity="center"
         android:layout_centerInParent="true"
+        android:layout_gravity="center"
         android:background="@drawable/loader"
         android:visibility="gone" />
 
@@ -73,7 +72,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.procialize.eventsapp.Fonts.RobotoTextview
+            <com.bayer.bayerreward.Fonts.RobotoTextview
                 android:id="@+id/txtTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -84,16 +83,15 @@
                 android:textSize="@dimen/textsizenormal"
                 android:visibility="gone" />
 
-            <com.procialize.eventsapp.Fonts.RobotoTextview
+            <com.bayer.bayerreward.Fonts.RobotoTextview
                 android:id="@+id/questionTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtTitle"
                 android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/qnarow"
                 android:padding="10dp"
                 android:textColor="@color/black"
                 android:textSize="15dp" />
@@ -103,6 +101,12 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/questionTv"
                 android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/test"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
 
                 <RadioGroup
                     android:id="@+id/radiogroup"
@@ -120,9 +124,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingLeft="5dp"
-                    android:paddingRight="5dp">
+                    android:paddingRight="5dp"></android.support.v7.widget.RecyclerView>
 
-                </android.support.v7.widget.RecyclerView>
+
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
@@ -134,7 +138,7 @@
         android:layout_margin="10dp"
         android:gravity="center">
 
-        <com.procialize.eventsapp.Fonts.RobotoButton
+        <com.bayer.bayerreward.Fonts.RobotoButton
             android:id="@+id/subBtn"
             android:layout_width="match_parent"
             android:layout_height="50dp"

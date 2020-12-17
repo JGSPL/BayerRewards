@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ProcializeSingle-android_2019.iml" filepath="$PROJECT_DIR$/ProcializeSingle-android_2019.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/mentions-release/mentions-release.iml" filepath="$PROJECT_DIR$/mentions-release/mentions-release.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tools-release/tools-release.iml" filepath="$PROJECT_DIR$/tools-release/tools-release.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BayerRewards.iml" filepath="$PROJECT_DIR$/BayerRewards.iml" group="BayerRewards" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="BayerRewards/app" />
+      <module fileurl="file://$PROJECT_DIR$/audio-recorder-release/audio-recorder-release.iml" filepath="$PROJECT_DIR$/audio-recorder-release/audio-recorder-release.iml" group="BayerRewards/audio-recorder-release" />
+      <module fileurl="file://$PROJECT_DIR$/mentions-release/mentions-release.iml" filepath="$PROJECT_DIR$/mentions-release/mentions-release.iml" group="BayerRewards/mentions-release" />
+      <module fileurl="file://$PROJECT_DIR$/tools-release/tools-release.iml" filepath="$PROJECT_DIR$/tools-release/tools-release.iml" group="BayerRewards/tools-release" />
     </modules>
   </component>
 </project>

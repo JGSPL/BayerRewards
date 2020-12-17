@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.procialize.eventsapp.InnerDrawerActivity.QRScanActivity"
+    tools:context="com.bayer.bayerreward.InnerDrawerActivity.QRScanActivity"
     android:id="@+id/linear">
 
     <android.support.design.widget.AppBarLayout
@@ -38,7 +38,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="-10dp"
                 android:contentDescription=" "
-                android:src="@drawable/header_logo" />
+                />
 
         </android.support.v7.widget.Toolbar>
 
@@ -68,7 +68,7 @@
             android:layout_weight="1"
             android:gravity="center">
 
-            <com.procialize.eventsapp.Fonts.RobotoTextview
+            <com.bayer.bayerreward.Fonts.RobotoTextview
                 android:id="@+id/txt_heading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
                 android:layout_marginTop="@dimen/margin"
                 android:text="@string/createcontact"
                 android:textColor="@color/black"
-                android:textSize="@dimen/textsizesmall"
+                android:textSize="17dp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -110,7 +110,7 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/textsizesmall">
 
-                        <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
+                        <com.bayer.bayerreward.Fonts.RobotoTextInputEditext
                             android:id="@+id/edit_username_edit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -128,7 +128,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/lastname">
 
-                        <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
+                        <com.bayer.bayerreward.Fonts.RobotoTextInputEditext
                             android:id="@+id/edit_first_name_edit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -147,7 +147,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/designation">
 
-                        <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
+                        <com.bayer.bayerreward.Fonts.RobotoTextInputEditext
                             android:id="@+id/edit_designation_edit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -166,7 +166,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/company">
 
-                        <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
+                        <com.bayer.bayerreward.Fonts.RobotoTextInputEditext
                             android:id="@+id/edit_company_name_edit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -185,7 +185,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/city">
 
-                        <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
+                        <com.bayer.bayerreward.Fonts.RobotoTextInputEditext
                             android:id="@+id/edit_city_edit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -205,7 +205,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_email">
 
-                        <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
+                        <com.bayer.bayerreward.Fonts.RobotoTextInputEditext
                             android:id="@+id/edit_email_edit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -226,14 +226,13 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/mobile">
 
-                        <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
+                        <com.bayer.bayerreward.Fonts.RobotoTextInputEditext
                             android:id="@+id/edit_mobile_edit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/edit_first_name_edit"
                             android:layout_centerHorizontal="true"
                             android:layout_margin="@dimen/margin"
-                            android:editable="false"
                             android:imeOptions="actionDone"
                             android:inputType="phone"
                             android:minEms="20"
@@ -255,7 +254,7 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <com.procialize.eventsapp.Fonts.RobotoButton
+            <com.bayer.bayerreward.Fonts.RobotoButton
                 android:id="@+id/save_btn_qr"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
@@ -268,7 +267,7 @@
                 android:textColor="@color/colorwhite"
                 android:textSize="@dimen/textsizesmall" />
 
-            <com.procialize.eventsapp.Fonts.RobotoButton
+            <com.bayer.bayerreward.Fonts.RobotoButton
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

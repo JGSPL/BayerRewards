@@ -1,1 +1,1 @@
-include ':app', ':mentions-release', ':tools-release'
+include ':app', ':mentions-release', ':tools-release', ':audio-recorder-release'

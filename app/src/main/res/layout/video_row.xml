@@ -39,13 +39,13 @@
             android:layout_gravity="center" />
     </RelativeLayout>
 
-    <com.procialize.eventsapp.Fonts.RobotoTextview
+    <com.bayer.bayerreward.Fonts.RobotoTextview
         android:id="@+id/nameTv"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:gravity="center"
         android:textColor="@color/black"
-        android:textSize="@dimen/textsizesmaller" />
+        android:textSize="17dp" />
 
 
 </LinearLayout>

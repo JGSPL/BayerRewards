@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorgrey"
     android:orientation="vertical"
-    tools:context="com.procialize.eventsapp.Activity.VideoViewActivity">
+    tools:context="com.bayer.bayerreward.Activity.VideoViewActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -38,7 +38,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="-10dp"
                 android:contentDescription=" "
-                android:src="@drawable/header_logo" />
+                />
 
         </android.support.v7.widget.Toolbar>
         <View
@@ -64,7 +64,7 @@
         android:layout_gravity="center" />
 
 
-    <com.procialize.eventsapp.Fonts.RobotoButton
+    <com.bayer.bayerreward.Fonts.RobotoButton
         android:id="@+id/fullscreenBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

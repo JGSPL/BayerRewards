@@ -2,18 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.procialize.eventsapp.InnerDrawerActivity.FeedBackActivity"
-    android:id="@+id/linear">
+    tools:context="com.bayer.bayerreward.InnerDrawerActivity.FeedBackActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="0dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="0dp">
 
 
         <android.support.v7.widget.Toolbar
@@ -37,20 +37,19 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="-10dp"
-                android:contentDescription=" "
-                android:src="@drawable/header_logo" />
+                android:contentDescription=" " />
 
         </android.support.v7.widget.Toolbar>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/linecolor"/>
+            android:background="@color/linecolor" />
 
     </android.support.design.widget.AppBarLayout>
 
 
-    <com.procialize.eventsapp.Fonts.RobotoTextview
+    <com.bayer.bayerreward.Fonts.RobotoTextview
         android:id="@+id/travelHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,8 +58,7 @@
         android:padding="@dimen/padding"
         android:text="Travel Desk"
         android:textColor="@color/activetab"
-        android:textSize="@dimen/textsizesmall" />
-
+        android:textSize="17dp" />
 
 
     <LinearLayout
@@ -71,17 +69,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:orientation="vertical"
-            android:layout_weight="5">
+            android:layout_weight="5"
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:contentDescription="TODO"
                 android:layout_height="0dp"
-                android:layout_weight="5"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/travel_header" />
+                android:layout_weight="5"
+                android:background="@drawable/travel_header"
+                android:contentDescription="TODO" />
 
         </LinearLayout>
 
@@ -91,48 +89,50 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="gone" android:background="@drawable/loader"/>
-
-        <com.procialize.eventsapp.Fonts.RobotoTextview
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:alpha="0.8"
-            android:text="Pull Down to Refresh"
-            android:textColor="@color/inactivetab"
-            android:textSize="10sp"
-            android:visibility="visible"
-            android:layout_marginTop="2dp"/>
+            android:background="@drawable/loader"
+            android:visibility="gone" />
 
 
         <RelativeLayout
+            android:id="@+id/linUpper"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:orientation="vertical"
-            android:id="@+id/linUpper"
-            android:layout_weight="5"
-            android:background="@drawable/travel_bg"
+            android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginBottom="5dp">
+            android:layout_weight="5"
+            android:background="@drawable/travel_bg"
+            android:orientation="vertical">
 
-           <!-- <ListView
-                android:id="@+id/travelRv"
-                android:layout_width="fill_parent"
+            <com.bayer.bayerreward.Fonts.RobotoTextview
+                android:id="@+id/pullrefresh"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"></ListView>-->
+                android:layout_marginTop="2dp"
+                android:alpha="0.8"
+                android:gravity="center"
+                android:text="Pull Down to Refresh"
+                android:textColor="@color/inactivetab"
+                android:textSize="10sp"
+                android:visibility="visible" />
+            <!-- <ListView
+                 android:id="@+id/travelRv"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:padding="10dp"></ListView>-->
             <android.support.v4.widget.SwipeRefreshLayout
-                       android:id="@+id/travelRvrefresh"
-                       android:layout_width="fill_parent"
+                android:id="@+id/travelRvrefresh"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/pullrefresh">
 
-                       android:layout_height="match_parent">
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/travelRv"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:layout_marginBottom="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
 
 
                 </android.support.v7.widget.RecyclerView>
@@ -140,17 +140,16 @@
 
             </android.support.v4.widget.SwipeRefreshLayout>
 
-            <com.procialize.eventsapp.Fonts.RobotoTextview
+            <com.bayer.bayerreward.Fonts.RobotoTextview
                 android:id="@+id/txtEmpty"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="gone"
-                android:gravity="center"
                 android:layout_centerInParent="true"
+                android:gravity="center"
                 android:text="Tickets will be uploaded shortly"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
-
+                android:textSize="18sp"
+                android:visibility="gone" />
 
 
         </RelativeLayout>

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context="com.procialize.eventsapp.Fragments.FeedFragment">
+    tools:context="com.bayer.bayerreward.Fragments.FeedFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -22,7 +22,7 @@
             android:orientation="vertical">
 
 
-            <com.procialize.eventsapp.Fonts.RobotoTextview
+            <com.bayer.bayerreward.Fonts.RobotoTextview
                 android:id="@+id/pullrefresh"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
                     android:scaleType="centerCrop" />
 
 
-                <com.procialize.eventsapp.Fonts.RobotoTextview
+                <com.bayer.bayerreward.Fonts.RobotoTextview
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"

@@ -8,7 +8,8 @@
         android:id="@+id/post_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
 
         <LinearLayout
@@ -16,15 +17,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/pullrefresh"
-            android:layout_marginBottom="@dimen/margin"
             android:layout_marginLeft="@dimen/margin"
-            android:layout_marginRight="@dimen/margin"
             android:layout_marginTop="5dp"
+            android:layout_marginRight="@dimen/margin"
+            android:layout_marginBottom="@dimen/margin"
             android:background="@drawable/edittexthmbg"
             android:gravity="center"
             android:orientation="horizontal">
 
-            <com.procialize.eventsapp.CustomTools.ScaledImageView
+            <com.bayer.bayerreward.CustomTools.ScaledImageView
                 android:id="@+id/profilestatus"
                 android:layout_width="80px"
                 android:layout_height="80px"
@@ -56,8 +57,8 @@
             android:background="@drawable/linearlayoutbg"
             android:gravity="center"
             android:orientation="horizontal"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp">
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
 
             <RelativeLayout
                 android:id="@+id/txtfeedRv"
@@ -130,10 +131,10 @@
         android:id="@+id/feedll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="0dp"
         android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
         android:layout_marginTop="5dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="0dp"
         android:background="@drawable/newsfeedrowbg"
         android:orientation="vertical">
 
@@ -150,7 +151,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="2">
 
-                <com.procialize.eventsapp.CustomTools.ScaledImageView
+                <com.bayer.bayerreward.CustomTools.ScaledImageView
                     android:id="@+id/profileIV"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -172,8 +173,8 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="5.75"
                 android:orientation="vertical">
 
@@ -181,8 +182,7 @@
                     android:id="@+id/nameTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/designationTv"
-                    android:layout_alignTop="@+id/imageView"
+                    android:layout_gravity="center_vertical"
                     android:paddingLeft="5dp"
                     android:text=""
                     android:textColor="@color/activetab"
@@ -192,8 +192,6 @@
                     android:id="@+id/designationTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/nameTv"
-                    android:layout_toEndOf="@+id/imageView"
                     android:paddingLeft="5dp"
                     android:text=""
                     android:textColor="@color/inactivetab"
@@ -205,8 +203,6 @@
                     android:id="@+id/companyTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/designationTv"
-                    android:layout_toEndOf="@+id/imageView"
                     android:paddingLeft="5dp"
                     android:text=""
                     android:textColor="@color/inactivetab"
@@ -220,7 +216,6 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
                 android:layout_weight="2.25"
-
                 android:orientation="vertical">
 
                 <TextView
@@ -257,8 +252,8 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:contentDescription="TODO"
-                        android:paddingBottom="2dp"
                         android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
                         android:src="@drawable/ic_more" />
 
                 </LinearLayout>
@@ -272,18 +267,21 @@
             android:id="@+id/headingTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
+            android:autoLink="web"
+            android:linksClickable="true"
             android:paddingLeft="15dp"
+            android:paddingBottom="5dp"
             android:text=""
             android:textColor="@color/inactivetab"
+            android:textColorLink="@android:color/holo_blue_dark"
             android:textSize="@dimen/textsizesmall" />
 
         <TextView
             android:id="@+id/testdata"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
             android:paddingLeft="15dp"
+            android:paddingBottom="5dp"
             android:text=""
             android:textColor="@color/inactivetab"
             android:textSize="@dimen/textsizesmall"
@@ -295,7 +293,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center">
 
-            <com.procialize.eventsapp.CustomTools.ScaledImageView
+            <com.bayer.bayerreward.CustomTools.ScaledImageView
                 android:id="@+id/feedimageIv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -351,8 +349,7 @@
             android:layout_margin="5dp"
             android:gravity="center"
             android:orientation="horizontal"
-            android:padding="2dp"
-            android:weightSum="3">
+            android:padding="2dp">
 
             <LinearLayout
                 android:id="@+id/likeTv"
@@ -406,8 +403,8 @@
                     android:id="@+id/commenttext"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawablePadding="5dp"
                     android:drawableRight="@drawable/ic_comment"
+                    android:drawablePadding="5dp"
                     android:gravity="center"
                     android:text="0 Comments"
                     android:textColor="@color/inactivetab"
@@ -435,8 +432,8 @@
                     android:id="@+id/sharetext"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawablePadding="5dp"
                     android:drawableRight="@drawable/ic_share"
+                    android:drawablePadding="5dp"
                     android:gravity="center"
                     android:text="Share"
                     android:textColor="@color/inactivetab"

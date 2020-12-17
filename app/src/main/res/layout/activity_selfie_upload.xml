@@ -2,17 +2,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/linear"
-    tools:context="com.procialize.eventsapp.InnerDrawerActivity.SelfieUploadActivity">
+    tools:context="com.bayer.bayerreward.InnerDrawerActivity.SelfieUploadActivity">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/appBarLayout"
-        app:elevation="0dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="0dp">
 
 
         <android.support.v7.widget.Toolbar
@@ -20,31 +20,32 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colortoolbar"
-            android:elevation="@dimen/elevation"
-            android:contentInsetLeft="0dp"
-            android:contentInsetStart="0dp"
-            app:contentInsetLeft="0dp"
-            app:contentInsetStart="0dp"
-            android:contentInsetRight="0dp"
             android:contentInsetEnd="0dp"
-            app:contentInsetRight="0dp"
+            android:contentInsetLeft="0dp"
+            android:contentInsetRight="0dp"
+            android:contentInsetStart="0dp"
+            android:elevation="@dimen/elevation"
+            android:minHeight="?attr/actionBarSize"
             app:contentInsetEnd="0dp"
-            android:minHeight="?attr/actionBarSize">
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp">
 
             <ImageView
                 android:id="@+id/headerlogoIv"
-                android:layout_marginLeft="-10dp"
                 android:layout_width="150dp"
-                android:contentDescription=" "
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/header_logo"/>
+                android:layout_marginLeft="-10dp"
+                android:contentDescription=" "
+               />
 
         </android.support.v7.widget.Toolbar>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/linecolor"/>
+            android:background="@color/linecolor" />
 
 
     </android.support.design.widget.AppBarLayout>
@@ -58,26 +59,20 @@
             android:id="@+id/llData"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:visibility="gone"
-            android:orientation="vertical">
+            android:layout_gravity="top"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="40dp"
+            android:orientation="vertical"
+            android:visibility="gone">
 
-            <com.procialize.eventsapp.CustomTools.CircleDisplay
-                android:layout_width="100dp"
-                android:id="@+id/progressBar"
-                android:visibility="gone"
-                android:layout_gravity="center"
-                android:layout_height="100dp"
-                android:layout_centerInParent="true" />
 
-            <com.procialize.eventsapp.Fonts.RobotoTextview
+            <com.bayer.bayerreward.Fonts.RobotoTextview
                 android:id="@+id/txtTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_gravity="center"
-                android:layout_marginStart="-3dp"
                 android:layout_marginTop="38dp"
                 android:layout_toEndOf="@+id/btnSubmit"
                 android:text="@string/preview"
@@ -87,37 +82,37 @@
 
 
             <ImageView
-                android:layout_below="@+id/txtTitle"
-                android:layout_centerInParent="true"
                 android:id="@+id/imgpreview"
                 android:layout_width="250dp"
                 android:layout_height="250dp"
+                android:layout_below="@+id/txtTitle"
+                android:layout_centerInParent="true"
                 android:layout_marginTop="15dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="TODO"
                 android:scaleType="centerCrop" />
 
 
-            <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
+            <com.bayer.bayerreward.Fonts.RobotoTextInputEditext
                 android:id="@+id/editTitle"
-                android:layout_below="@+id/imgpreview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="true"
-                android:hint="@string/caption"
+                android:layout_below="@+id/imgpreview"
+                android:layout_marginTop="15dp"
                 android:background="@drawable/edittextfeedbg"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="left|center"
+                android:hint="@string/caption"
                 android:minEms="20"
                 android:padding="5dp"
                 android:singleLine="true"
-                android:focusableInTouchMode="true"
-                android:gravity="left|center"
                 android:textColor="@android:color/black"
                 android:textColorHint="@color/inactivetab"
                 android:textSize="@dimen/textsizenormal"
-                android:visibility="visible"
-                android:layout_marginTop="15dp" />
+                android:visibility="visible" />
 
-            <com.procialize.eventsapp.Fonts.RobotoButton
+            <com.bayer.bayerreward.Fonts.RobotoButton
                 android:id="@+id/btnSubmit"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
@@ -139,4 +134,11 @@
         </RelativeLayout>
     </ScrollView>
 
+    <com.bayer.bayerreward.CustomTools.CircleDisplay
+        android:id="@+id/progressBar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:visibility="gone" />
 </RelativeLayout>

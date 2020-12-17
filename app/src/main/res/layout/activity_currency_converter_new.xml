@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorgrey"
+    android:id="@+id/linear"
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
@@ -32,7 +32,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="-10dp"
                 android:contentDescription=" "
-                android:src="@drawable/header_logo" />
+                />
 
         </android.support.v7.widget.Toolbar>
         <View

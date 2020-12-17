@@ -1,11 +1,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relative"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/relative"
     android:orientation="vertical"
-    tools:context="com.procialize.eventsapp.Fragments.AgendaFragment">
+    tools:context="com.bayer.bayerreward.Fragments.AgendaFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -38,8 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="-10dp"
-                android:contentDescription=" "
-                android:src="@drawable/header_logo" />
+                android:contentDescription=" " />
 
         </android.support.v7.widget.Toolbar>
 
@@ -77,9 +76,9 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:baselineAligned="false"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="10dp">
+                        android:orientation="horizontal">
 
 
                         <RelativeLayout
@@ -116,7 +115,7 @@
                             android:gravity="center_vertical"
                             android:orientation="vertical">
 
-                            <com.procialize.eventsapp.Fonts.RobotoTextview
+                            <com.bayer.bayerreward.Fonts.RobotoTextview
                                 android:id="@+id/nameTv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -134,7 +133,7 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
 
-                                <com.procialize.eventsapp.Fonts.RobotoTextview
+                                <com.bayer.bayerreward.Fonts.RobotoTextview
                                     android:id="@+id/designationTv"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
@@ -147,7 +146,7 @@
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/textsizesmall" />
 
-                                <com.procialize.eventsapp.Fonts.RobotoTextview
+                                <com.bayer.bayerreward.Fonts.RobotoTextview
                                     android:id="@+id/dateTv"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
@@ -160,7 +159,7 @@
 
                             </LinearLayout>
 
-                            <com.procialize.eventsapp.Fonts.RobotoTextview
+                            <com.bayer.bayerreward.Fonts.RobotoTextview
                                 android:id="@+id/companyTv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -180,29 +179,31 @@
 
                     </LinearLayout>
 
-                    <com.procialize.eventsapp.Fonts.RobotoTextview
+                    <com.bayer.bayerreward.Fonts.RobotoTextview
                         android:id="@+id/headingTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
                         android:text=""
                         android:textColor="@color/black"
-                        android:textSize="@dimen/textsizesmall" />
+                        android:textSize="@dimen/textsizesmall"
+                        android:autoLink="web"
+                        android:textColorLink="@android:color/holo_blue_dark" />
 
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <com.procialize.eventsapp.CustomTools.PixabayImageView
+                        <com.bayer.bayerreward.CustomTools.PixabayImageView
                             android:id="@+id/feedimageIv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
+                            android:layout_marginBottom="-50dp"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
                             android:layout_marginTop="-50dp"
-                            android:layout_marginBottom="-50dp"
                             android:visibility="gone" />
 
                         <ProgressBar
@@ -224,14 +225,14 @@
                             android:transitionName="feedimage"
                             android:visibility="gone" />
 
-                        <com.procialize.eventsapp.CustomTools.MyJZVideoPlayerStandard
+                        <com.bayer.bayerreward.CustomTools.MyJZVideoPlayerStandard
                             android:id="@+id/videoplayer"
                             android:layout_width="match_parent"
                             android:layout_height="200dp"
                             android:layout_centerInParent="true"
+                            android:layout_marginBottom="10dp"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
-                            android:layout_marginBottom="10dp"
                             android:visibility="gone" />
 
                     </FrameLayout>

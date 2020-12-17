@@ -37,6 +37,21 @@
 
     </style>
 
+    <style name="MyTabText" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">Rotis-SansSerif-Std-Light_38712</item>
+    </style>
+
+    <style name="MyTableader" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">Rotis-SansSerif-Std-Light_38712</item>
+    </style>
+
+
     <style name="Base.Widget.Design.TabLayout" parent="android:Widget">
 
         <item name="tabIndicatorHeight">2dp</item>
@@ -54,6 +69,14 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:fontFamily">Rotis-SansSerif-Std-Light_38712</item>
     </style>
+
+    <style name="MyCustomTabTextLeader" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">Rotis-SansSerif-Std-Light_38712</item>
+    </style>
+
 
     <!--<item name="android:fontFamily">DINPro-Light_13935</item>-->
 

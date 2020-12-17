@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/relative"
-    tools:context="com.procialize.eventsapp.InnerDrawerActivity.SelfieUploadActivity">
+    tools:context="com.bayer.bayerreward.InnerDrawerActivity.SelfieUploadActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -37,7 +37,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="-10dp"
                 android:contentDescription=" "
-                android:src="@drawable/header_logo" />
+                 />
 
         </android.support.v7.widget.Toolbar>
 
@@ -51,7 +51,8 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/appBarLayout">
 
         <LinearLayout
             android:id="@+id/llData"
@@ -63,7 +64,7 @@
             android:visibility="gone">
 
 
-            <com.procialize.eventsapp.Fonts.RobotoTextview
+            <com.bayer.bayerreward.Fonts.RobotoTextview
                 android:id="@+id/txtTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -106,7 +107,7 @@
             </RelativeLayout>
 
 
-            <com.procialize.eventsapp.Fonts.RobotoTextInputEditext
+            <com.bayer.bayerreward.Fonts.RobotoTextInputEditext
                 android:id="@+id/editTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -126,7 +127,7 @@
                 android:textSize="@dimen/textsizenormal"
                 android:visibility="visible" />
 
-            <com.procialize.eventsapp.Fonts.RobotoButton
+            <com.bayer.bayerreward.Fonts.RobotoButton
                 android:id="@+id/btnSubmit"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
@@ -146,7 +147,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <com.procialize.eventsapp.CustomTools.CircleDisplay
+    <com.bayer.bayerreward.CustomTools.CircleDisplay
         android:id="@+id/progressbar"
         android:layout_width="100dp"
         android:layout_height="100dp"
