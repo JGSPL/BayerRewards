@@ -76,9 +76,18 @@ public class MpinScanner extends Fragment implements QRCodeReaderView.OnQRCodeRe
 //                Log.d("QR's", mpins);
 //                Log.d("Count", String.valueOf(count));
 //                qrCodeReaderView.stopCamera();
-                if (cd.isConnectingToInternet()) {
+                Log.e("pindata", mpins);
 
-                    MpinSubmit(apikey, eventid, mpins);
+                if (cd.isConnectingToInternet()) {
+                    if(mpins.equalsIgnoreCase("")){
+                        CustomToast("Please scan any valid QR code for continue");
+
+                    }else {
+
+                        MpinSubmit(apikey, eventid, mpins);
+                    }
+
+
                 } else {
                     CustomToast("Internet not available");
 //                    Toast.makeText(getActivity(), "No Internet Connection", Toast.LENGTH_SHORT).show();
@@ -287,7 +296,8 @@ public class MpinScanner extends Fragment implements QRCodeReaderView.OnQRCodeRe
             public void onResponse(Call<RedeemRequest> call, Response<RedeemRequest> response) {
 
                 if (response.isSuccessful()) {
-                    Log.i("hit", "post submitted to API." + response.body().toString());
+                   if( response.body().getStatus().equalsIgnoreCase("success")) {
+                        Log.i("hit", "post submitted to API." + response.body().toString());
 
 //                    myDialog.dismiss();
 //                    myDialog.cancel();
@@ -298,13 +308,24 @@ public class MpinScanner extends Fragment implements QRCodeReaderView.OnQRCodeRe
 //                    btn_scananother.setVisibility(View.GONE);
 //                    Toast.makeText(getActivity(), response.body().getMsg(), Toast.LENGTH_LONG).show();
 //                    CustomToast(response.body().getMsg());
-                    CustomToast("Scanned mPins successfully sent to Server");
-                    count = 0;
-                    mpins = "";
-                    progressBar.setVisibility(View.GONE);
-                    Intent intent = new Intent(getActivity(), HomeActivity.class);
-                    startActivity(intent);
-                    HomeActivity.flag = 1;
+                       // CustomToast("Scanned mPins successfully sent to Server");
+                       Toast.makeText(getActivity(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
+
+                       count = 0;
+                        mpins = "";
+                        progressBar.setVisibility(View.GONE);
+                        Intent intent = new Intent(getActivity(), HomeActivity.class);
+                        startActivity(intent);
+                        HomeActivity.flag = 1;
+                    }else{
+                       Toast.makeText(getActivity(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
+                       count = 0;
+                       mpins = "";
+                       progressBar.setVisibility(View.GONE);
+                       Intent intent = new Intent(getActivity(), HomeActivity.class);
+                       startActivity(intent);
+                       HomeActivity.flag = 1;
+                   }
                 } else {
 
 //                    myDialog.dismiss();
@@ -315,7 +336,7 @@ public class MpinScanner extends Fragment implements QRCodeReaderView.OnQRCodeRe
 //                    btn_start.setVisibility(View.VISIBLE);
 //                    btn_stop.setVisibility(View.GONE);
 //                    btn_scananother.setVisibility(View.GONE);
-                    Toast.makeText(getActivity(), response.message(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
                     count = 0;
                     progressBar.setVisibility(View.GONE);
                     Intent intent = new Intent(getActivity(), HomeActivity.class);

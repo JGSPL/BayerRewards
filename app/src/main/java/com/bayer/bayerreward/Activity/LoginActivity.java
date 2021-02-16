@@ -571,6 +571,8 @@ public class LoginActivity extends AppCompatActivity {
             access_token = response.body().getUserData().getApiAccessToken();
             passcodeDialog(LoginActivity.this);
 
+            Log.e("Password Key ==",passwordkey);
+
 //            SessionManager sessionManager = new SessionManager(this);
 //
 //            String firstname = response.body().getUserData().getFirstName();
